@@ -1,0 +1,46 @@
+{
+	"Groin":[
+	{
+		"Name": "Fur Loincloth",
+		"DR": "1*"
+	},
+	{
+		"Name": "Leather Pants",
+		"DR": "1*",
+	}
+	],
+	"Left Leg":[
+	{
+		"Name": "Leather Pants",
+		"DR": "1*",
+	}
+	],
+	"Right Leg":[
+	{
+		"Name": "Leather Pants",
+		"DR": "1*",
+	}
+	]
+},
+
+
+
+
+
+{
+   "Name": "Fur Loincloth",
+   "Class": "Armor",
+   "Locations":["groin"],
+   "DR": "1*",
+   "Weight": 0,
+   "Notes":[1]
+},
+
+{
+   "Name": "Leather Pants",
+   "Class": "Armor",
+   "Locations":["legs", "groin"],
+   "DR": "1*",
+   "Weight": 3,
+   "Notes":[1]
+}

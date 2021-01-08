@@ -1,0 +1,8 @@
+{
+   "Name": "Fur Tunic",
+   "Class": "Armor",
+   "Locations":["torso"],
+   "DR": "1*",
+   "Weight": 2,
+   "Notes":[1]
+}

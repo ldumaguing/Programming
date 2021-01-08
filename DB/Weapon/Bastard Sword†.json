@@ -1,0 +1,24 @@
+{
+   "Name":"Bastard Sword†",
+   "Class": "Weapon (Reach)",
+   "Weight":"5",
+   "Usage":["Swing", "Thrust"],
+   "Both Hands":{
+      "Skill":"Two-Handed Sword",
+      "Defaults":["DX-5", "Two-Handed Sword-4", "Broadsword-4"],
+      "Swing":{
+		 "ST":"10†",
+         "Damage":"2",
+         "Type":"cut",
+         "Reach":"1,2",
+         "Parry":"0"
+      },
+      "Thrust":{
+         "ST":"10†",
+         "Damage":"2",
+         "Type":"cr",
+         "Reach":"2",
+         "Parry":"0"
+      }
+   }
+}

@@ -1,0 +1,17 @@
+{
+   "Name":"Kick",
+   "Class": "Weapon (Reach)",
+   "Weight":"0",
+   "Usage":["Thrust"],
+   "One Hand":{
+      "Skill":"",
+      "Defaults":["Brawling-2", "Karate-2", "DX-2"],
+      "Thrust":{
+         "ST":"0",
+         "Damage":"-1",
+         "Type":"cr",
+         "Reach":"C",
+         "Parry":"0"
+      }
+   }
+}

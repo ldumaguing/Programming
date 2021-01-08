@@ -1,0 +1,8 @@
+{
+   "Name": "Leather Pants",
+   "Class": "Armor",
+   "Locations":["legs", "groin"],
+   "DR": "1*",
+   "Weight": 3,
+   "Notes":[1]
+}

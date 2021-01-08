@@ -1,0 +1,8 @@
+{
+   "Name": "Fur Loincloth",
+   "Class": "Armor",
+   "Locations":["groin"],
+   "DR": "1*",
+   "Weight": 0,
+   "Notes":[1]
+}

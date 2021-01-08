@@ -1,0 +1,8 @@
+{
+   "Name": "Bronze Breastplate",
+   "Class": "Armor",
+   "Locations":["torso"],
+   "DR": "4F",
+   "Weight": 20,
+   "Notes":[2]
+}
