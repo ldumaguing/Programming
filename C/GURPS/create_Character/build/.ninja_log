@@ -15,3 +15,10 @@
 171	200	1610162899	libmyne.a	7d24120f967c3375
 200	256	1610162899	create_Character	9688c3f1f854626f
 0	20	0	CMakeFiles/install.util	e58e7be6fd312cbd
+0	353	1610201927	CMakeFiles/myne.dir/Myne/Human.c.o	d00e884ae0915ae6
+1	366	1610201927	CMakeFiles/myne.dir/Myne/arguments.c.o	684649f308bea572
+7	367	1610201927	CMakeFiles/myne.dir/Myne/secondaries.c.o	b56b7c604a316a9f
+367	453	1610201927	libmyne.a	7d24120f967c3375
+353	460	1610201927	CMakeFiles/create_Character.dir/main.c.o	dd427fb04cad52dd
+460	578	1610201927	create_Character	9688c3f1f854626f
+1	37	0	CMakeFiles/install.util	e58e7be6fd312cbd
