@@ -1,0 +1,20 @@
+# ninja log v5
+0	281	1610158476	CMakeFiles/myne.dir/Myne/Attack.c.o	8f00df386ce05832
+3	281	1610158476	CMakeFiles/myne.dir/Myne/using_Both_Hands.c.o	dbfb24bd975ab94
+1	289	1610158476	CMakeFiles/myne.dir/Myne/get_Skills.c.o	b06efacb9f552e44
+1	291	1610158476	CMakeFiles/myne.dir/Myne/get_Weapon.c.o	5097362f39ed3df2
+0	292	1610158476	CMakeFiles/myne.dir/Myne/get_Unit.c.o	38a952e5ee3aa312
+2	302	1610158476	CMakeFiles/myne.dir/Myne/mod_Weapon_Usage.c.o	2ca714190510f034
+281	389	1610158476	CMakeFiles/myne.dir/Myne/using_One_Hand.c.o	ca6550366c01343e
+292	450	1610158476	CMakeFiles/myne.dir/Myne/PunchKick.c.o	9e4bc44f61256f8c
+291	459	1610158476	CMakeFiles/myne.dir/Myne/mod_ST.c.o	e7a7f873d61df844
+302	512	1610158476	CMakeFiles/myne.dir/Myne/do_Bash.c.o	13227695476c3d56
+289	526	1610158476	CMakeFiles/myne.dir/Myne/mod_Skill.c.o	6693f19ace432502
+389	531	1610158476	CMakeFiles/myne.dir/Myne/do_Shoot.c.o	b408fa5e47188c94
+526	631	1610158476	CMakeFiles/M_Attack_s0.dir/main.c.o	ec63412c1c1fdf69
+451	650	1610158476	CMakeFiles/myne.dir/Myne/do_Strike.c.o	bd5122849db17e3d
+459	664	1610158476	CMakeFiles/myne.dir/Myne/mod_Distance.c.o	79c1a1d3066212f0
+282	668	1610158476	CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o	3c76179b8033e28
+512	756	1610158476	CMakeFiles/myne.dir/Myne/hexagon.c.o	f9eebf262e312cf0
+756	812	1610158477	libmyne.a	3305eecb388a744c
+812	928	1610158477	M_Attack_s0	b232cbb8f9da8fd5
