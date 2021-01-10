@@ -1,7 +1,8 @@
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/install/strip.dir
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/install/local.dir
+/home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/edit_cache.dir
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/install.dir
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/list_install_components.dir
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/rebuild_cache.dir
-/home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/edit_cache.dir
+/home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/myne.dir
 /home/ayeka/Programming/C/GURPS/clothe_Character/build/CMakeFiles/clothe_Character.dir
