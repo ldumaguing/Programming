@@ -25,6 +25,3 @@ parserArgumentsOpenCL=-ferror-limit=100 -fspell-checking -Wdocumentation -Wunuse
 
 [CustomDefinesAndIncludes][ProjectPath0][Compiler]
 Name=GCC
-
-[Project]
-VersionControlSupport=

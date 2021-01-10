@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayeka/Programming/C/GURPS/create_Character/Myne/myne.h
+
+/home/ayeka/Programming/C/GURPS/create_Character/main.c
+stdio.h
+-
+stdlib.h
+-
+json-c/json.h
+-
+string.h
+-
+Myne/myne.h
+/home/ayeka/Programming/C/GURPS/create_Character/Myne/myne.h
+

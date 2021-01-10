@@ -1,3 +1,4 @@
 [Project]
-Name=create_Character
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=create_Character
