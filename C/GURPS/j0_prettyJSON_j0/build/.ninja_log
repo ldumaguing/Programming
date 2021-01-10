@@ -1,7 +1,0 @@
-# ninja log v5
-0	66	1610247596596009920	CMakeFiles/j0_prettyjson_j0.dir/main.c.o	de0e32bc3b88f951
-1	67	1610247800594740477	CMakeFiles/j0_prettyJSON_j0.dir/main.c.o	db8dbb0ee95fab60
-67	105	1610247800630740953	j0_prettyJSON_j0	524619a1851de7e0
-1	81	1610247835239197965	CMakeFiles/j0_prettyJSON_j0.dir/main.c.o	ceec55b024d86682
-82	122	1610247835279198492	j0_prettyJSON_j0	ebb01ecb4a27b161
-0	17	0	CMakeFiles/install.util	7a9ebbe31c206312

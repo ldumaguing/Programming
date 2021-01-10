@@ -1,3 +1,4 @@
 [Project]
-Name=j0_prettyJSON_j0
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=j0_prettyJSON_j0
