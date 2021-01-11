@@ -1,7 +1,0 @@
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/install/local.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/install.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/list_install_components.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/rebuild_cache.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/edit_cache.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/install/strip.dir
-/home/ayeka/Programming/C/GURPS/j0_prettyJSON_j0/build/CMakeFiles/j0_prettyJSON_j0.dir
