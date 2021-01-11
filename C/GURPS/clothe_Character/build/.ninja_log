@@ -17,3 +17,10 @@
 1	98	1610256425254197900	CMakeFiles/clothe_Character.dir/main.c.o	8a15981c9ff8ad22
 98	140	1610256425298198487	clothe_Character	4208a3fd7b161557
 1	20	0	CMakeFiles/install.util	42c88f4b64cc6d34
+0	30	1610381710	build.ninja	5bac425dbaf09be2
+0	78	1610381710	CMakeFiles/myne.dir/Myne/clothe.c.o	451b6b9ee928e854
+1	101	1610381710	CMakeFiles/clothe_Character.dir/main.c.o	8a15981c9ff8ad22
+0	101	1610381710	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+101	118	1610381710	libmyne.a	a148ce170a0f4d3e
+118	159	1610381711	clothe_Character	91ec068e26fde82c
+0	16	0	CMakeFiles/install.util	42c88f4b64cc6d34

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/create_Character.dir/main.c.o"
-  "create_Character"
   "create_Character.pdb"
+  "create_Character"
 )
 
 # Per-language clean rules from dependency scanning.

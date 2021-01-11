@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pretty_json.dir/main.c.o"
-  "pretty_json"
   "pretty_json.pdb"
+  "pretty_json"
 )
 
 # Per-language clean rules from dependency scanning.

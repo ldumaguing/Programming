@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/ayeka/Programming/C/GURPS/create_Character/Myne/arguments.c" "/home/ayeka/Programming/C/GURPS/create_Character/build/CMakeFiles/myne.dir/Myne/arguments.c.o"
   "/home/ayeka/Programming/C/GURPS/create_Character/Myne/secondaries.c" "/home/ayeka/Programming/C/GURPS/create_Character/build/CMakeFiles/myne.dir/Myne/secondaries.c.o"
   )
-set(CMAKE_C_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH

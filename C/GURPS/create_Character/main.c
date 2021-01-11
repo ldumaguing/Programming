@@ -64,18 +64,18 @@ int main(int argc, char *argv[]) {
          exit(0);
    }
 
-   puts(json_object_to_json_string_ext(Unit, 0));
+   // puts(json_object_to_json_string_ext(Unit, 0));
 
-   /*
-      // ********** Save Unit
-      char filename[100];
-      strcpy(filename, argv[1]);
-      strcat(filename, ".json");
-      FILE *fp;
-      fp = fopen(filename, "w");
-      fputs(json_object_to_json_string_ext(Unit, 0), fp);
-      fclose(fp);
-   */
+
+   // ********** Save Unit
+   char filename[100];
+   strcpy(filename, argv[1]);
+   strcat(filename, ".json");
+   FILE *fp;
+   fp = fopen(filename, "w");
+   fputs(json_object_to_json_string_ext(Unit, 0), fp);
+   fclose(fp);
+
 
    return 0;
 }
