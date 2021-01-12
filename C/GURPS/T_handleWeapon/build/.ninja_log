@@ -1,0 +1,7 @@
+# ninja log v5
+0	521	1610486180	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+1	530	1610486180	CMakeFiles/T_handleWeapon.dir/main.c.o	fffb2316ce67b3be
+0	559	1610486180	CMakeFiles/myne.dir/Myne/setWeapon.c.o	90b8e64bc2082296
+559	615	1610486180	libmyne.a	674f278a3cea3877
+615	653	1610486180	T_handleWeapon	e8f6c2d86fd49cf9
+1	39	0	CMakeFiles/install.util	23510128565a26ca
