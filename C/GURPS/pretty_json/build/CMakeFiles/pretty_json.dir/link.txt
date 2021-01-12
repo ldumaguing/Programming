@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/pretty_json.dir/main.c.o  -o pretty_json -ljson-c 

@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/ayeka/Programming/C/GURPS/pretty_json/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/pretty_json.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/pretty_json/main.c",
-  "file": "/home/ayeka/Programming/C/GURPS/pretty_json/main.c"
-}
-]

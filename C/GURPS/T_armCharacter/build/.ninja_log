@@ -1,0 +1,7 @@
+# ninja log v5
+0	251	1610483981	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+1	258	1610483981	CMakeFiles/T_armCharacter.dir/main.c.o	93729c72f7af180a
+0	270	1610483981	CMakeFiles/myne.dir/Myne/arm.c.o	9501646845608e10
+270	288	1610483981	libmyne.a	c71f6fae37c3ecc7
+288	314	1610483981	T_armCharacter	4d3d700395d599a7
+0	15	0	CMakeFiles/install.util	8835f7508cde34

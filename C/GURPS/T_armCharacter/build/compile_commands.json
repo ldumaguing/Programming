@@ -1,0 +1,19 @@
+[
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_armCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/arm.c.o   -c /home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/arm.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/arm.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_armCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o   -c /home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/RegExpStuffs.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/RegExpStuffs.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_armCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/T_armCharacter.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/T_armCharacter/main.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_armCharacter/main.c"
+}
+]

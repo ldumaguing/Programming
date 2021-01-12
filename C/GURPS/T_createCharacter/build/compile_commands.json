@@ -1,0 +1,25 @@
+[
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_createCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/Human.c.o   -c /home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/Human.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/Human.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_createCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/arguments.c.o   -c /home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/arguments.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/arguments.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_createCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/secondaries.c.o   -c /home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/secondaries.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_createCharacter/Myne/secondaries.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/T_createCharacter/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/T_createCharacter.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/T_createCharacter/main.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_createCharacter/main.c"
+}
+]

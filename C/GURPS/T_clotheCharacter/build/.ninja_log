@@ -1,0 +1,7 @@
+# ninja log v5
+0	68	1610483987	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+0	90	1610483987	CMakeFiles/myne.dir/Myne/clothe.c.o	451b6b9ee928e854
+0	91	1610483987	CMakeFiles/T_clotheCharacter.dir/main.c.o	f71652172364e5cd
+90	104	1610483987	libmyne.a	a148ce170a0f4d3e
+105	131	1610483987	T_clotheCharacter	e171196fb7be5ccb
+0	17	0	CMakeFiles/install.util	291ab3e0fff67841

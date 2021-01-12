@@ -1,0 +1,6 @@
+# ninja log v5
+0	50	1610484211	CMakeFiles/myne.dir/Myne/Dice.c.o	29bdfc6d3e922804
+50	65	1610484211	libmyne.a	509d48396a2f5042
+0	165	1610484211	CMakeFiles/crap.dir/main.c.o	e8968e0c1c4c7fd3
+165	195	1610484211	crap	9bd7ed1213b1c47d
+0	15	0	CMakeFiles/install.util	3aafb7156ab1ea84

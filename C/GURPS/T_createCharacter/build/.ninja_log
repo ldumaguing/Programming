@@ -1,0 +1,8 @@
+# ninja log v5
+0	87	1610484058	CMakeFiles/myne.dir/Myne/Human.c.o	d00e884ae0915ae6
+4	90	1610484058	CMakeFiles/T_createCharacter.dir/main.c.o	3fb75e3c4f25fecc
+0	101	1610484058	CMakeFiles/myne.dir/Myne/arguments.c.o	684649f308bea572
+0	146	1610484058	CMakeFiles/myne.dir/Myne/secondaries.c.o	b56b7c604a316a9f
+146	162	1610484058	libmyne.a	7d24120f967c3375
+162	190	1610484058	T_createCharacter	9f4d648239043c3e
+1	17	0	CMakeFiles/install.util	552d3e5de7cb7f2b
