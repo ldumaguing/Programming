@@ -27,7 +27,7 @@ void Attack(struct json_object *Player, struct json_object *Target, char *argv[]
 
    strcat(Damage, ";Target:");
    strcat(Damage, argv[2]);
-   printf("Effective Skill:%d;Damage:%s;Attacker:%s\n", EffectiveSkill, Damage, argv[1]);
+   printf("Effective Skill:%d;Damage:%s;Attacker:%s;\n", EffectiveSkill, Damage, argv[1]);
 }
 
 
