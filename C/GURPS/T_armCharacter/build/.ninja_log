@@ -22,3 +22,9 @@
 1	49	1610507293	CMakeFiles/T_armCharacter.dir/main.c.o	93729c72f7af180a
 49	75	1610507293	T_armCharacter	4d3d700395d599a7
 0	18	0	CMakeFiles/install.util	8835f7508cde34
+1	49	1610558735	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+1	68	1610558735	CMakeFiles/T_armCharacter.dir/main.c.o	93729c72f7af180a
+0	87	1610558735	CMakeFiles/myne.dir/Myne/armCharacter.c.o	3ed536eb93ff7339
+87	105	1610558735	libmyne.a	6dcf14e7cca8d624
+106	133	1610558735	T_armCharacter	4d3d700395d599a7
+1	40	0	CMakeFiles/install.util	8835f7508cde34

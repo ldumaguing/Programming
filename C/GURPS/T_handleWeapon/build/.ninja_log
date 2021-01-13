@@ -22,3 +22,9 @@
 1	52	1610508034	CMakeFiles/T_handleWeapon.dir/main.c.o	fffb2316ce67b3be
 52	78	1610508034	T_handleWeapon	e8f6c2d86fd49cf9
 1	19	0	CMakeFiles/install.util	23510128565a26ca
+1	60	1610558735	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+1	70	1610558735	CMakeFiles/T_handleWeapon.dir/main.c.o	fffb2316ce67b3be
+0	100	1610558735	CMakeFiles/myne.dir/Myne/handleWeapon.c.o	8b17850133e7f99c
+100	119	1610558735	libmyne.a	9913c55bb777e98a
+120	142	1610558735	T_handleWeapon	e8f6c2d86fd49cf9
+0	18	0	CMakeFiles/install.util	23510128565a26ca
