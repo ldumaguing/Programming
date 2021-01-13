@@ -7,7 +7,7 @@ add_executable(T_armCharacter main.c)
 add_library(
    myne
    Myne/myne.h
-   Myne/arm.c
+   Myne/armCharacter.c
    Myne/RegExpStuffs.c
 )
    

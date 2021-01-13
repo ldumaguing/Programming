@@ -19,19 +19,17 @@ int main(int argc, char **argv) {
    Unit = get_JSON(argv[1]);
    Weapon = get_JSON(argv[2]);
 
-   arm(Weapon, Unit);
+   armCharacter(Weapon, Unit);
 
-   puts(json_object_to_json_string_ext(Unit, 0));
+   // puts(json_object_to_json_string_ext(Unit, 0));
 
-   /*
-      char filename[100];
-      strcpy(filename, argv[1]);
-      strcat(filename, ".json");
-      FILE *fp;
-      fp = fopen(filename, "w");
-      fputs(json_object_to_json_string_ext(Unit, 0), fp);
-      fclose(fp);
-   */
+   char filename[100];
+   strcpy(filename, argv[1]);
+   strcat(filename, ".json");
+   FILE *fp;
+   fp = fopen(filename, "w");
+   fputs(json_object_to_json_string_ext(Unit, 0), fp);
+   fclose(fp);
 
    return 0;
 }
@@ -43,6 +41,7 @@ struct json_object *get_JSON(char *argv) {
    char buff_64K[65536];
 
    strcpy(filename, argv);
+   strcat(filename, ".json");
 
    // Open file
    fptr = fopen(filename, "r");
@@ -68,5 +67,7 @@ struct json_object *get_JSON(char *argv) {
 
 // *****************************************************************************
 void instructions() {
-   printf("arm_Character   NAME.json   WEAPON.json\n");
+   printf("T_armCharacter   NAME   WEAPON\n");
 }
+
+

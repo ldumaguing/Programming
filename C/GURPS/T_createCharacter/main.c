@@ -82,14 +82,14 @@ int main(int argc, char *argv[]) {
 
 // *****************************************************************************
 void instructions() {
-   printf("cat Human.json | j0_createCharacter_f0   NAME\n");
+   printf("T_createCharacter   NAME\n");
    printf("   or\n");
-   printf("cat Human.json | j0_createCharacter_f0   NAME   ST IQ DX HT\n");
+   printf("T_createCharacter   NAME   ST IQ DX HT\n");
    printf("   or\n");
-   printf("cat Human.json | j0_createCharacter_f0   NAME   ST IQ DX HT   Spd Mov\n");
+   printf("T_createCharacter   NAME   ST IQ DX HT   Spd Mov\n");
    printf("   or\n");
-   printf("cat Human.json | j0_createCharacter_f0   NAME   ST IQ DX HT   HP Per Will FP\n");
+   printf("T_createCharacter   NAME   ST IQ DX HT   HP Per Will FP\n");
    printf("   or\n");
-   printf("cat Human.json | j0_createCharacter_f0   NAME   ST IQ DX HT   HP Per Will FP   Spd Mov\n");
+   printf("T_createCharacter   NAME   ST IQ DX HT   HP Per Will FP   Spd Mov\n");
 }
 

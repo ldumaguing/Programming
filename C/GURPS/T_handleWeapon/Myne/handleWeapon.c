@@ -33,7 +33,7 @@ struct json_object *set2Thrust(struct json_object *, int, int, int,
                                struct json_object *);
 
 // ********************************************************************************
-struct json_object *setWeapon(struct json_object *Unit, char *setting) {
+struct json_object *handleWeapon(struct json_object *Unit, char *setting) {
    if (isEmptyHanded(Unit))
       printf("No weapon to set.\n");
 

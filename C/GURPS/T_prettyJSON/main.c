@@ -48,5 +48,5 @@ int main(int argc, char *argv[]) {
 
 // *****************************************************************************
 void instructions() {
-   printf("pretty_json jsonfile\n");
+   printf("T_prettyJSON jsonfile\n");
 }

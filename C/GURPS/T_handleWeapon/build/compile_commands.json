@@ -1,8 +1,8 @@
 [
 {
   "directory": "/home/ayeka/Programming/C/GURPS/T_handleWeapon/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/setWeapon.c.o   -c /home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/setWeapon.c",
-  "file": "/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/setWeapon.c"
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/handleWeapon.c.o   -c /home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/handleWeapon.c",
+  "file": "/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/handleWeapon.c"
 },
 
 {

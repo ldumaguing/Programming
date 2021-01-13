@@ -10,7 +10,7 @@ void arming_2nd(struct json_object *, struct json_object *);
 char *getHandiness(struct json_object *);
 
 // *****************************************************************************
-void arm(struct json_object *Weapon, struct json_object *Unit) {
+void armCharacter(struct json_object *Weapon, struct json_object *Unit) {
    if (!isWeapon(Weapon)) {
       printf("Not a weapon.\n");
       exit(0);

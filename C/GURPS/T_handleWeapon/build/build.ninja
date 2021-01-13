@@ -57,8 +57,8 @@ build install/local: phony CMakeFiles/install/local.util
 # Order-only phony target for myne
 
 build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
-build CMakeFiles/myne.dir/Myne/setWeapon.c.o: C_COMPILER__myne ../Myne/setWeapon.c || cmake_object_order_depends_target_myne
-  DEP_FILE = CMakeFiles/myne.dir/Myne/setWeapon.c.o.d
+build CMakeFiles/myne.dir/Myne/handleWeapon.c.o: C_COMPILER__myne ../Myne/handleWeapon.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/Myne/handleWeapon.c.o.d
   FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
@@ -75,7 +75,7 @@ build CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o: C_COMPILER__myne ../Myne/RegExp
 #############################################
 # Link the static library libmyne.a
 
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/Myne/setWeapon.c.o CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/Myne/handleWeapon.c.o CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o
   LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :

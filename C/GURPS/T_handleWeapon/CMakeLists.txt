@@ -7,7 +7,7 @@ add_executable(T_handleWeapon main.c)
 add_library(
    myne
    Myne/myne.h
-   Myne/setWeapon.c
+   Myne/handleWeapon.c
    Myne/RegExpStuffs.c
    )
    
