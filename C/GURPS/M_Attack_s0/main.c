@@ -44,16 +44,16 @@ int main(int argc, char *argv[]) {
 
 // *******************************************************************************
 void instructions() {
-   printf("M_Attack   PLAYER   TARGET\n");
-   printf("M_Attack   PLAYER   TARGET   offhand\n");
-   printf("M_Attack   PLAYER   TARGET   Punch\n");
-   printf("                             Kick\n");
-   printf("                             Swing\n");
-   printf("                             Swing1\n");
-   printf("                             Thrust\n");
-   printf("                             Swing    offhand\n");
-   printf("                             Swing1   offhand\n");
-   printf("                             Thrust   offhand\n");
+   printf("M_Attack_s0   PLAYER   TARGET\n");
+   printf("M_Attack_s0   PLAYER   TARGET   offhand\n");
+   printf("M_Attack_s0   PLAYER   TARGET   Punch\n");
+   printf("                                Kick\n");
+   printf("                                Swing\n");
+   printf("                                Swing1\n");
+   printf("                                Thrust\n");
+   printf("                                Swing    offhand\n");
+   printf("                                Swing1   offhand\n");
+   printf("                                Thrust   offhand\n");
 }
 
 
