@@ -1,0 +1,7 @@
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/install/strip.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/edit_cache.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/_3d6_.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/install.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/rebuild_cache.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/list_install_components.dir
+/home/ayeka/Programming/C/GURPS/_3d6_/build/CMakeFiles/install/local.dir

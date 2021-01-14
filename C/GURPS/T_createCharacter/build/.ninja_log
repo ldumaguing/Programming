@@ -23,3 +23,10 @@
 134	213	1610558734	libmyne.a	7d24120f967c3375
 213	242	1610558734	T_createCharacter	9f4d648239043c3e
 0	17	0	CMakeFiles/install.util	552d3e5de7cb7f2b
+0	75	1610603499	CMakeFiles/myne.dir/Myne/Human.c.o	d00e884ae0915ae6
+1	86	1610603499	CMakeFiles/T_createCharacter.dir/main.c.o	3fb75e3c4f25fecc
+0	99	1610603499	CMakeFiles/myne.dir/Myne/arguments.c.o	684649f308bea572
+0	120	1610603499	CMakeFiles/myne.dir/Myne/secondaries.c.o	b56b7c604a316a9f
+120	155	1610603499	libmyne.a	7d24120f967c3375
+155	193	1610603499	T_createCharacter	9f4d648239043c3e
+0	27	0	CMakeFiles/install.util	552d3e5de7cb7f2b

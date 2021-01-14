@@ -11,3 +11,9 @@
 68	83	1610558735	libmyne.a	a148ce170a0f4d3e
 83	111	1610558735	T_clotheCharacter	e171196fb7be5ccb
 1	18	0	CMakeFiles/install.util	291ab3e0fff67841
+1	82	1610603499	CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o	1a69caf2fb4405a9
+0	88	1610603499	CMakeFiles/myne.dir/Myne/clothe.c.o	451b6b9ee928e854
+1	103	1610603499	CMakeFiles/T_clotheCharacter.dir/main.c.o	f71652172364e5cd
+88	119	1610603499	libmyne.a	a148ce170a0f4d3e
+119	157	1610603499	T_clotheCharacter	e171196fb7be5ccb
+0	28	0	CMakeFiles/install.util	291ab3e0fff67841

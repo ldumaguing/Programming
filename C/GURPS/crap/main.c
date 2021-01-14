@@ -35,14 +35,14 @@ float CartesianDistance(int *A, int *B) {
    float Ay = 0;
    float By = 0;
 
-  // printf("> %d\n", A[0]);
+   // printf("> %d\n", A[0]);
 
    if ((A[0] % 2) != 0) {
-    //  puts("A is odd");
+      //  puts("A is odd");
       Ay = A[1] + 0.5;
    }
    if ((B[0] % 2) != 0) {
-   //   puts("B is odd");
+      //   puts("B is odd");
       By = B[1] + 0.5;
    }
 

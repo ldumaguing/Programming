@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/_3d6_/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/_3d6_.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/_3d6_/main.c",
+  "file": "/home/ayeka/Programming/C/GURPS/_3d6_/main.c"
+}
+]
