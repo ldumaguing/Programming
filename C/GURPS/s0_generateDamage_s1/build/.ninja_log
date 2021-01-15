@@ -1,0 +1,16 @@
+# ninja log v5
+1	29	1610685590	build.ninja	72ccf94aba02172c
+0	41	1610685590	CMakeFiles/myne.dir/Myne/Dice.c.o	15501b534b1d853e
+1	64	1610685590	CMakeFiles/s0_generateDamage_s1.dir/main.c.o	763743eafc24fb0b
+0	73	1610685590	CMakeFiles/myne.dir/Myne/generateDamage.c.o	b217c09ecb605d44
+0	76	1610685590	CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o	ea570c90f9637c9b
+76	94	1610685590	libmyne.a	f433b989c1ad53b2
+94	129	1610685590	s0_generateDamage_s1	5162a331af96014a
+0	30	1610685648	build.ninja	72ccf94aba02172c
+1	64	1610685648	CMakeFiles/myne.dir/Myne/Dice.c.o	29bdfc6d3e922804
+2	67	1610685648	CMakeFiles/s0_generateDamage_s1.dir/main.c.o	6fa68c312ae3c423
+1	88	1610685648	CMakeFiles/myne.dir/Myne/generateDamage.c.o	bbd79664c85c37db
+1	128	1610685648	CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o	3c76179b8033e28
+128	151	1610685648	libmyne.a	f433b989c1ad53b2
+151	196	1610685648	s0_generateDamage_s1	f19c2fac3087f9ac
+1	19	0	CMakeFiles/install.util	bbd97c6bd2f7f479
