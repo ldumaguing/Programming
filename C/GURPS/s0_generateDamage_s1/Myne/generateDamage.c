@@ -15,6 +15,50 @@ void def_Target(char *, char *);
 float get_DamageMultiplier(char *);
 
 // *******************************************************************************
+void generateDamage2(char *dmgString, int rolled) {
+#ifdef FUNC_NAME
+   puts("L_resolve_Damage");
+   printf("%s\n", dmgString);
+#endif
+
+   if (isMatch("---", dmgString)) {
+      puts("Out of range or reach.");
+      return;
+   }
+
+   printf("ES:%d;Rolled:%d;", ES(dmgString), rolled);
+
+   _Bool isNoDamage = 0;
+   switch (OpineRoll(ES(dmgString), rolled)) {
+      case 'h':
+         printf("Hit:%d;", ES(dmgString) - rolled);
+         break;
+      case 'm':
+         printf("Miss:%d\n", ES(dmgString) - rolled);
+         isNoDamage = 1;
+         break;
+      case 'c':
+         printf("Crit:%d;", ES(dmgString) - rolled);
+         break;
+      default:
+         printf("Fumble:%d\n", ES(dmgString) - rolled);
+         isNoDamage = 1;
+   }
+
+   if (isNoDamage) return;
+
+   char DamageData[80];
+   def_DamageRoll(DamageData, dmgString);
+   char Target[80];
+   def_Target(Target, dmgString);
+
+   int DamageRoll = Roll_For_Damage(DamageData);
+   float DamageMultiplier = get_DamageMultiplier(DamageData);
+   printf("Damage:%d;Multiplier:%1.1f;%s\n", DamageRoll, DamageMultiplier,
+          Target);
+}
+
+// *******************************************************************************
 void generateDamage(char *dmgString) {
 #ifdef FUNC_NAME
    puts("L_resolve_Damage");

@@ -15,7 +15,7 @@ add_library(
 )
 
 target_link_libraries(s0_generateDamage_s1
-   PRIVATE myne
+   myne
    json-c
    m
 )

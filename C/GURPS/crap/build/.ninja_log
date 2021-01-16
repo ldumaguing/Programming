@@ -19,3 +19,8 @@
 180	211	1610748333	crap	9bd7ed1213b1c47d
 1	16	0	CMakeFiles/install.util	3aafb7156ab1ea84
 0	17	0	CMakeFiles/install.util	3aafb7156ab1ea84
+0	30	1610762410	CMakeFiles/myne.dir/Myne/Dice.c.o	29bdfc6d3e922804
+30	51	1610762410	libmyne.a	509d48396a2f5042
+0	73	1610762410	CMakeFiles/crap.dir/main.c.o	e8968e0c1c4c7fd3
+73	101	1610762410	crap	9bd7ed1213b1c47d
+0	14	0	CMakeFiles/install.util	3aafb7156ab1ea84

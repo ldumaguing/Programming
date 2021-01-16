@@ -9,7 +9,12 @@ int main(int argc, char *argv[]) {
    char DamageString[200];
    define_DamageString(DamageString);
 
-   generateDamage(DamageString);
+   if (argc == 2) {
+      int X = atoi(argv[1]);
+      generateDamage2(DamageString, X);  // manual roll
+   }
+   else
+      generateDamage(DamageString);
 
    return 0;
 }

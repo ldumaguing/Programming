@@ -32,3 +32,17 @@
 66	84	1610749523	libmyne.a	f433b989c1ad53b2
 84	124	1610749523	s0_generateDamage_s1	f19c2fac3087f9ac
 0	16	0	CMakeFiles/install.util	bbd97c6bd2f7f479
+0	30	1610762317	build.ninja	72ccf94aba02172c
+2	150	1610762317	CMakeFiles/myne.dir/Myne/Dice.c.o	29bdfc6d3e922804
+2	166	1610762317	CMakeFiles/myne.dir/Myne/generateDamage.c.o	bbd79664c85c37db
+3	177	1610762317	CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o	3c76179b8033e28
+1	25	1610762348	libmyne.a	f433b989c1ad53b2
+1	48	1610762348	CMakeFiles/s0_generateDamage_s1.dir/main.c.o	6fa68c312ae3c423
+48	105	1610762349	s0_generateDamage_s1	f19c2fac3087f9ac
+0	74	1610762400	CMakeFiles/myne.dir/Myne/generateDamage.c.o	bbd79664c85c37db
+75	96	1610762400	libmyne.a	f433b989c1ad53b2
+96	131	1610762400	s0_generateDamage_s1	f19c2fac3087f9ac
+0	16	0	CMakeFiles/install.util	bbd97c6bd2f7f479
+0	41	1610762717	CMakeFiles/s0_generateDamage_s1.dir/main.c.o	6fa68c312ae3c423
+41	74	1610762717	s0_generateDamage_s1	f19c2fac3087f9ac
+0	16	0	CMakeFiles/install.util	bbd97c6bd2f7f479
