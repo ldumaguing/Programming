@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/myne.h
+
+/home/ayeka/Programming/C/GURPS/M_Attack_s0/main.c
+stdio.h
+-
+stdlib.h
+-
+json-c/json.h
+-
+string.h
+-
+malloc.h
+-
+Myne/myne.h
+/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/myne.h
+

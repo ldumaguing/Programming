@@ -4,97 +4,81 @@
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/Attack.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/Attack.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/Attack.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/get_Unit.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Unit.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Unit.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/get_Weapon.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Weapon.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Weapon.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/get_Skills.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Skills.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/get_Skills.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/mod_Weapon_Usage.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Weapon_Usage.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Weapon_Usage.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/using_Both_Hands.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_Both_Hands.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_Both_Hands.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/using_One_Hand.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_One_Hand.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_One_Hand.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/UtilityStuffs.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/UtilityStuffs.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/mod_Skill.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Skill.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Skill.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/mod_ST.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_ST.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_ST.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/PunchKick.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/PunchKick.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/PunchKick.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/do_Bash.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Bash.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Bash.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/do_Shoot.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Shoot.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Shoot.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/do_Strike.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Strike.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/do_Strike.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/mod_Distance.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Distance.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/mod_Distance.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/hexagon.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/hexagon.c",
   "file": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/hexagon.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/M_Attack_s0.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/M_Attack_s0/main.c",

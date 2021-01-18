@@ -4,7 +4,6 @@
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/Dice.c.o   -c /home/ayeka/Programming/C/GURPS/crap/Myne/Dice.c",
   "file": "/home/ayeka/Programming/C/GURPS/crap/Myne/Dice.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/crap/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/crap.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/crap/main.c",

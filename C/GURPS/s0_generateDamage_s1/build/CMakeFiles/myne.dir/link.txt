@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmyne.a  CMakeFiles/myne.dir/Myne/Dice.c.o CMakeFiles/myne.dir/Myne/generateDamage.c.o CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o
+/usr/bin/ranlib libmyne.a

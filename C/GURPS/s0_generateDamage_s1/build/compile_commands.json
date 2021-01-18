@@ -4,19 +4,16 @@
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/Dice.c.o   -c /home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/Dice.c",
   "file": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/Dice.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/generateDamage.c.o   -c /home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/generateDamage.c",
   "file": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/generateDamage.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/UtilityStuffs.c.o   -c /home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/UtilityStuffs.c",
   "file": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/Myne/UtilityStuffs.c"
 },
-
 {
   "directory": "/home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/build",
   "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/s0_generateDamage_s1.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/s0_generateDamage_s1/main.c",

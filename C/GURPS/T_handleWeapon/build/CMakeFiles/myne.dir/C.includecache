@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/RegExpStuffs.c
+regex.h
+-
+stdio.h
+-
+json-c/json.h
+-
+string.h
+-
+myne.h
+/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/myne.h
+
+/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/handleWeapon.c
+json-c/json.h
+-
+stdio.h
+-
+math.h
+-
+string.h
+-
+regex.h
+-
+myne.h
+/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/myne.h
+
+/home/ayeka/Programming/C/GURPS/T_handleWeapon/Myne/myne.h
+

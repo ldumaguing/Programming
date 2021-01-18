@@ -1,7 +1,0 @@
-# ninja log v5
-1	1287	1610138610	CMakeFiles/j0_create_j0.dir/main.c.o	c7b4cee94142002b
-0	1287	1610138610	CMakeFiles/myne.dir/Myne/arguments.c.o	684649f308bea572
-1	1289	1610138610	CMakeFiles/myne.dir/Myne/secondaries.c.o	b56b7c604a316a9f
-1289	1346	1610138610	libmyne.a	e8530001289787c7
-1346	1424	1610138610	j0_create_j0	192928e43146d17
-0	16	0	CMakeFiles/install.util	8a84e68288fa6038

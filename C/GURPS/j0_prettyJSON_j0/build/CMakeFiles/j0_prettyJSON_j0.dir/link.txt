@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/j0_prettyJSON_j0.dir/main.c.o  -o j0_prettyJSON_j0 -ljson-c 

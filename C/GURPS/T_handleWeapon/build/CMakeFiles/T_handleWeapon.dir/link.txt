@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/T_handleWeapon.dir/main.c.o  -o T_handleWeapon libmyne.a -ljson-c 

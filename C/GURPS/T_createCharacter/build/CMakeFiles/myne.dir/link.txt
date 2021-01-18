@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmyne.a  CMakeFiles/myne.dir/Myne/Human.c.o CMakeFiles/myne.dir/Myne/arguments.c.o CMakeFiles/myne.dir/Myne/secondaries.c.o
+/usr/bin/ranlib libmyne.a

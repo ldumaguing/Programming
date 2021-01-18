@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayeka/Programming/C/GURPS/crap/Myne/Dice.c
+myne.h
+/home/ayeka/Programming/C/GURPS/crap/Myne/myne.h
+
+/home/ayeka/Programming/C/GURPS/crap/Myne/myne.h
+
