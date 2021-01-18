@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
    int e[] = {-3, 0};
    int f[] = {-3, -1};
 
+// uhiuhlkjh kj k
    int L2[] = {3, 0};
    printf(".......%f\n", CartesianDistance(a, L2));
    printf(".......%f\n", CartesianDistance(L1a, L2));
