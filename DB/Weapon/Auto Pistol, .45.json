@@ -1,6 +1,7 @@
 {
    "Name":"Auto Pistol, .45",
    "Class": "Weapon (Range)",
+   "Tags":[],
    "Weight":"3/0.6",
    "Skill":"Guns (Pistol)",
    "Defaults":["DX-4", "Guns-2"],

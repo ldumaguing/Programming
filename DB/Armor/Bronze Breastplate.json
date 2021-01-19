@@ -1,6 +1,7 @@
 {
    "Name": "Bronze Breastplate",
    "Class": "Armor",
+   "Tags":[],
    "Locations":["torso"],
    "DR": "4F",
    "Weight": 20,

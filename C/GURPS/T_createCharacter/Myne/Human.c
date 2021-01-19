@@ -9,6 +9,7 @@ struct json_object *get_Human() {
    char *str = "{       \
 	\"Name\": \"John Smith\",             \
 	\"Class\": \"Human\",             \
+    \"Tags\": [],             \
 	\"SM\": 0,             \
 	\"Handiness\": \"Right\",             \
 	\"Location\": [0.0, 0.0, 0.0],             \
@@ -40,7 +41,6 @@ struct json_object *get_Human() {
 	\"Disadvantages\": [],             \
 	\"Skills\": [],             \
 	\"Health\":{             \
-	    \"Tags\": [],             \
 	    \"Reeling\": 0.0,             \
 	    \"Major Wounds\": 0.0,             \
 	    \"Very Tired\": 0.0,             \

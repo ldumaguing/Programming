@@ -1,6 +1,7 @@
 {
    "Name":"Halberd",
    "Class": "Weapon (Reach)",
+   "Tags":[],
    "Weight":"12",
    "Usage":["Swing", "Swing1", "Thrust"],
    "Both Hands":{

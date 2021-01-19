@@ -1,6 +1,7 @@
 {
    "Name": "Leather Pants",
    "Class": "Armor",
+   "Tags":[],
    "Locations":["legs", "groin"],
    "DR": "1*",
    "Weight": 3,

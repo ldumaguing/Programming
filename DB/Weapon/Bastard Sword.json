@@ -1,6 +1,7 @@
 {
    "Name":"Bastard Sword",
    "Class": "Weapon (Reach)",
+   "Tags":[],
    "Weight":"5",
    "Usage":["Swing", "Thrust"],
    "One Hand":{

@@ -1,6 +1,7 @@
 {
    "Name":"Kick",
    "Class": "Weapon (Reach)",
+   "Tags":[],
    "Weight":"0",
    "Usage":["Thrust"],
    "One Hand":{

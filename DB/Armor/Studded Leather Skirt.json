@@ -1,6 +1,7 @@
 {
    "Name": "Studded Leather Skirt",
    "Class": "Armor",
+   "Tags":[],
    "Locations":["legs", "groin"],
    "DR": "3/2*",
    "Weight": 4,

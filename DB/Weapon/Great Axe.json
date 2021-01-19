@@ -1,6 +1,7 @@
 {
    "Name":"Great Axe",
    "Class": "Weapon (Reach)",
+   "Tags":[],
    "Weight":"8",
    "Usage":["Swing"],
    "Both Hands":{

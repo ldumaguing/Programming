@@ -1,6 +1,7 @@
 {
    "Name":"Assault Rifle, 5.56mm",
    "Class": "Weapon (Range)",
+   "Tags":[],
    "Weight":"9/1",
    "Skill":"Guns (Rifle)",
    "Defaults":["DX-4", "Guns-2"],
