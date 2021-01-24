@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/RegExpStuffs.c
-regex.h
--
-stdio.h
--
-json-c/json.h
--
-string.h
--
-myne.h
-/home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/myne.h
-
 /home/ayeka/Programming/C/GURPS/T_armCharacter/Myne/armCharacter.c
 json-c/json.h
 -
