@@ -1,7 +1,7 @@
+#include <json-c/json.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include <json-c/json.h>
 
 void set_Addendum(struct json_object *jobj) {
    struct json_object *Secondary_Characteristics;

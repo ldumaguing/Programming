@@ -1,6 +1,6 @@
+#include <json-c/json.h>
 #include <stdio.h>
 #include <string.h>
-#include <json-c/json.h>
 
 void two(struct json_object *jobj, char *name) {
    struct json_object *jclass;
