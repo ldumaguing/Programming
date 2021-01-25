@@ -178,9 +178,6 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Path to a file.
-PATHS:PATH=PATHS-NOTFOUND
-
 //Value Computed by CMake
 T_createCharacter_BINARY_DIR:STATIC=/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build
 

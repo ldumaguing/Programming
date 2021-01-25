@@ -4,7 +4,6 @@ project(T_createCharacter LANGUAGES C)
 
 add_executable(T_createCharacter
    main.c
-   /usr/local/include/json-c
    )
 
 add_library(
