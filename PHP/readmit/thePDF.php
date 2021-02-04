@@ -14,8 +14,7 @@ while ($row = $stmt->fetch()) {
       if(preg_match("/1 of/", $line) | preg_match("/2 of/", $line) | preg_match("/3 of/", $line)) {
          $pdf->setMargins(20.6,31.2,0);
          $pdf->addPage();
-         $pdf->setFont("Courier", '', 8);
-         $pdf->cell(0, 3.49, $line);
+         mod_FirstLine($pdf, $line);
          $pdf->ln();
          $pdf->ln();
          $counter = $counter + 1;
@@ -30,5 +29,12 @@ while ($row = $stmt->fetch()) {
 
 $pdf->output();
 
+// ********************************************************************************
+function mod_FirstLine($pdf, $line) {
+	$X = "                                   OFFICIAL UNDERGRADUATE TRANSCRIPT";
+	$pdf->setFont("Courier", 'B', 8);
+	$pdf->cell(152, 3.49, $X);
+	$pdf->cell(0, 3.49, substr($line, 77));
+}
 
 ?>
