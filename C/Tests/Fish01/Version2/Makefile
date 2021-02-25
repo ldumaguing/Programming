@@ -7,11 +7,11 @@ OBJS = depend1.o depend2.o
 main1: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) Hello.c -o Hello
 
-depend1.o: Myne/depend1.c
-	$(CC) -c Myne/depend1.c
+depend1.o: depend1.c
+	$(CC) -c depend1.c
 
-depend2.o: Myne/depend2.c
-	$(CC) -c Myne/depend2.c
+depend2.o: depend2.c
+	$(CC) -c depend2.c
 
 clean:
 	$(RM) *.o Hello

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "Myne/depends.h"
+#include "depends.h"
 
 int main() {
    printf("yo\n");
