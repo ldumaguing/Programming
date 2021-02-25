@@ -1,1 +1,1 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/M_Attack_s0.dir/main.c.o  -o M_Attack_s0 libmyne.a -ljson-c -lm 
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/M_Attack_s0.dir/main.c.o -o M_Attack_s0  libmyne.a /usr/local/lib/libjson-c.a -lm 

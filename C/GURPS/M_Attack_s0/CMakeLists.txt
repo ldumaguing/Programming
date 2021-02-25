@@ -28,9 +28,11 @@ add_library(
    Myne/hexagon.c
    )
 
+include_directories(/usr/local/include)
+   
 target_link_libraries(M_Attack_s0
    PRIVATE myne
-   json-c
+   /usr/local/lib/libjson-c.a
    m
    )
 

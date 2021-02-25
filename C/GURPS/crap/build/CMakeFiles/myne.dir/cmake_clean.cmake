@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/myne.dir/Myne/Dice.c.o"
-  "libmyne.pdb"
   "libmyne.a"
+  "libmyne.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

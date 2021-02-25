@@ -1,0 +1,8 @@
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/install/local.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/install/strip.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/install.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/list_install_components.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/edit_cache.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/C/GURPS/T_createCharacter/build/CMakeFiles/T_createCharacter.dir

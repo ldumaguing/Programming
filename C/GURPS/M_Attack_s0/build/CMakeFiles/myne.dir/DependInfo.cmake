@@ -21,10 +21,11 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_Both_Hands.c" "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build/CMakeFiles/myne.dir/Myne/using_Both_Hands.c.o"
   "/home/ayeka/Programming/C/GURPS/M_Attack_s0/Myne/using_One_Hand.c" "/home/ayeka/Programming/C/GURPS/M_Attack_s0/build/CMakeFiles/myne.dir/Myne/using_One_Hand.c.o"
   )
-set(CMAKE_C_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/usr/local/include"
   )
 
 # Targets to which this target links.
