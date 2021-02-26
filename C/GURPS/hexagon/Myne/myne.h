@@ -1,3 +1,4 @@
 #pragma once
 
-void hexagon();
+void hdist ( int, char ** );
+void path ( int, char ** );

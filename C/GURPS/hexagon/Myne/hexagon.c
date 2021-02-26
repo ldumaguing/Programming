@@ -20,17 +20,61 @@ int HexDistance ( int *, int * );
 int getX ( char * );
 int getY ( char * );
 
-void hexagon ( int argc, char *argv[] ) {
+void path ( int argc, char *argv[] ) {
+   if ( argc != 4 ) return;
+
+   char from[] = "0000";
+   char to[] = "0000";
    int L1[2] = {0, 0};
    int L2[2] = {0, 0};
 
-   if ( argc == 4 ) {
-      L1[0] = getX ( argv[2] );
-      L1[1] = getY ( argv[2] );
-      L2[0] = getX ( argv[3] );
-      L2[1] = getY ( argv[3] );
-      printf ( "%d", HexDistance ( L1, L2 ) );
+   int len = strlen ( argv[2] );
+   int count = len;
+   for ( int i=0; i<len; i++ ) {
+      from[3 - i] = argv[2][--count];
    }
+   len = strlen ( argv[3] );
+   count = len;
+   for ( int i=0; i<len; i++ ) {
+      to[3 - i] = argv[3][--count];
+   }
+
+   L1[0] = getX ( from );
+   L1[1] = getY ( from );
+   L2[0] = getX ( to );
+   L2[1] = getY ( to );
+
+   while ( !move_closer ( L1, L2 ) ) {
+      printf ( "%.2d%.2d,", L1[0],L1[1] );
+   }
+   printf ( "%.2d%.2d", L2[0],L2[1] );
+}
+
+// *******************************************************************************
+void hdist ( int argc, char *argv[] ) {
+   if ( argc != 4 ) return;
+
+   char from[] = "0000";
+   char to[] = "0000";
+   int L1[2] = {0, 0};
+   int L2[2] = {0, 0};
+
+   int len = strlen ( argv[2] );
+   int count = len;
+   for ( int i=0; i<len; i++ ) {
+      from[3 - i] = argv[2][--count];
+   }
+   len = strlen ( argv[3] );
+   count = len;
+   for ( int i=0; i<len; i++ ) {
+      to[3 - i] = argv[3][--count];
+   }
+
+   L1[0] = getX ( from );
+   L1[1] = getY ( from );
+   L2[0] = getX ( to );
+   L2[1] = getY ( to );
+   printf ( "%d", HexDistance ( L1, L2 ) );
 }
 
 // ===============================================================================

@@ -11,20 +11,25 @@ int main ( int argc, char *argv[] ) {
       return 0;
    }
 
-   if (strcmp() == 0){
-       
-       
-}
-   
-   
-   
-   
-   hexagon ( argc, argv );
+   if ( strcmp ( argv[1], "hdist" ) == 0 ) {
+      hdist ( argc, argv );
+      return 0;
+   }
 
+   if ( strcmp ( argv[1], "path" ) == 0 ) {
+      path ( argc, argv );
+      return 0;
+   }
+
+   instructions();
    return 0;
 }
 
 // *******************************************************************************
 void instructions() {
-   puts ( "hexagon   hdist   <hex1>   <hex2>" );
+   puts ( "hexagon   hdist   FROM   TO" );
+   puts ( "hexagon   path    FROM   TO" );
+   puts ( "---" );
+   puts ( "FROM: 0 to 9999" );
+   puts ( "TO:   0 to 9999" );
 }
