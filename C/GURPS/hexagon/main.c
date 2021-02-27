@@ -28,7 +28,7 @@ int main ( int argc, char *argv[] ) {
 // *******************************************************************************
 void instructions() {
    puts ( "hexagon   hdist   FROM   TO" );
-   puts ( "hexagon   path    FROM   TO" );
+   puts ( "          path    FROM   TO" );
    puts ( "---" );
    puts ( "FROM: 0 to 9999" );
    puts ( "TO:   0 to 9999" );
