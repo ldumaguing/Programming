@@ -20,6 +20,35 @@ int HexDistance ( int *, int * );
 int getX ( char * );
 int getY ( char * );
 
+
+void cdist ( int argc, char *argv[] ) {
+   if ( argc != 4 ) return;
+
+   char from[] = "0000";
+   char to[] = "0000";
+   int L1[2] = {0, 0};
+   int L2[2] = {0, 0};
+
+   int len = strlen ( argv[2] );
+   int count = len;
+   for ( int i=0; i<len; i++ ) {
+      from[3 - i] = argv[2][--count];
+   }
+   len = strlen ( argv[3] );
+   count = len;
+   for ( int i=0; i<len; i++ ) {
+      to[3 - i] = argv[3][--count];
+   }
+
+   L1[0] = getX ( from );
+   L1[1] = getY ( from );
+   L2[0] = getX ( to );
+   L2[1] = getY ( to );
+
+   printf ( "%f",CartesianDistance ( L1, L2 ) );
+}
+
+// *******************************************************************************
 void path ( int argc, char *argv[] ) {
    if ( argc != 4 ) return;
 
@@ -74,6 +103,7 @@ void hdist ( int argc, char *argv[] ) {
    L1[1] = getY ( from );
    L2[0] = getX ( to );
    L2[1] = getY ( to );
+
    printf ( "%d", HexDistance ( L1, L2 ) );
 }
 
