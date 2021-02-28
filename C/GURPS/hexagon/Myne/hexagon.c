@@ -3,8 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-#define PI 3.14159265358979323846
-#define X_lenMod cos(PI * (1.0/6.0))
+#define X_lenMod cos(M_PI * (1.0/6.0))
 
 void moveA ( int * );
 void moveB ( int * );
@@ -19,59 +18,83 @@ _Bool isSameHexLoc ( int *, int * );
 int HexDistance ( int *, int * );
 int getX ( char * );
 int getY ( char * );
+void text2int ( int *, int *, char ** );
 
 
+void deg ( int argc, char *argv[] ) {
+   if ( argc != 4 ) return;
+
+   int A[2] = {0, 0};
+   int B[2] = {0, 0};
+
+   text2int ( A, B, argv );
+
+   if ( ( A[0] == B[0] ) & ( A[1] == B[1] ) ) {
+      printf ( "same location" );
+      return;
+   }
+
+   if ( A[0] == B[0] ) {
+      if ( A[1] < B[1] )
+         puts ( "270" );
+      else
+         puts ( "90" );
+
+      return;
+   }
+
+
+
+
+
+
+
+   float X = ( float ) ( ( B[0] - A[0] ) * X_lenMod );
+   printf ( "%.12lf\n", X );
+   float Y = 0.0;
+   float Ay = A[1] * 1.0;
+   float By = B[1] * 1.0;
+
+   if ( ( A[0] % 2 ) != 0 ) {
+      Ay = A[1] + 0.5;
+   }
+   if ( ( B[0] % 2 ) != 0 ) {
+      By = B[1] + 0.5;
+   }
+
+   Y = 0 - ( By - Ay );
+   printf ( "%.12lf\n", Y );
+
+
+   printf ( "%d,%d\n", A[0], A[1] );
+   printf ( "%d,%d\n", B[0], B[1] );
+   printf ( "%.12lf\n", atan ( Y / X ) * ( 180.0 / M_PI ) );
+
+}
+
+// ===============================================================================
+
+
+// *******************************************************************************
 void cdist ( int argc, char *argv[] ) {
    if ( argc != 4 ) return;
 
-   char from[] = "0000";
-   char to[] = "0000";
    int L1[2] = {0, 0};
    int L2[2] = {0, 0};
 
-   int len = strlen ( argv[2] );
-   int count = len;
-   for ( int i=0; i<len; i++ ) {
-      from[3 - i] = argv[2][--count];
-   }
-   len = strlen ( argv[3] );
-   count = len;
-   for ( int i=0; i<len; i++ ) {
-      to[3 - i] = argv[3][--count];
-   }
+   text2int ( L1, L2, argv );
 
-   L1[0] = getX ( from );
-   L1[1] = getY ( from );
-   L2[0] = getX ( to );
-   L2[1] = getY ( to );
-
-   printf ( "%f",CartesianDistance ( L1, L2 ) );
+   printf ( "%.12lf",CartesianDistance ( L1, L2 ) );
 }
 
 // *******************************************************************************
 void path ( int argc, char *argv[] ) {
    if ( argc != 4 ) return;
 
-   char from[] = "0000";
-   char to[] = "0000";
    int L1[2] = {0, 0};
    int L2[2] = {0, 0};
 
-   int len = strlen ( argv[2] );
-   int count = len;
-   for ( int i=0; i<len; i++ ) {
-      from[3 - i] = argv[2][--count];
-   }
-   len = strlen ( argv[3] );
-   count = len;
-   for ( int i=0; i<len; i++ ) {
-      to[3 - i] = argv[3][--count];
-   }
-
-   L1[0] = getX ( from );
-   L1[1] = getY ( from );
-   L2[0] = getX ( to );
-   L2[1] = getY ( to );
+   text2int ( L1, L2, argv );
 
    while ( !move_closer ( L1, L2 ) ) {
       printf ( "%.2d%.2d,", L1[0],L1[1] );
@@ -83,10 +106,18 @@ void path ( int argc, char *argv[] ) {
 void hdist ( int argc, char *argv[] ) {
    if ( argc != 4 ) return;
 
-   char from[] = "0000";
-   char to[] = "0000";
    int L1[2] = {0, 0};
    int L2[2] = {0, 0};
+
+   text2int ( L1, L2, argv );
+
+   printf ( "%d", HexDistance ( L1, L2 ) );
+}
+
+// ===============================================================================
+void text2int ( int *L1, int *L2, char *argv[] ) {
+   char from[] = "0000";
+   char to[] = "0000";
 
    int len = strlen ( argv[2] );
    int count = len;
@@ -103,8 +134,6 @@ void hdist ( int argc, char *argv[] ) {
    L1[1] = getY ( from );
    L2[0] = getX ( to );
    L2[1] = getY ( to );
-
-   printf ( "%d", HexDistance ( L1, L2 ) );
 }
 
 // ===============================================================================

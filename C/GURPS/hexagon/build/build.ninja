@@ -155,7 +155,7 @@ build CMakeFiles/hexagon.dir/main.c.o: C_COMPILER__hexagon_Release ../main.c || 
 
 build hexagon: C_EXECUTABLE_LINKER__hexagon_Release CMakeFiles/hexagon.dir/main.c.o | libmyne.a || libmyne.a
   FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = libmyne.a
+  LINK_LIBRARIES = libmyne.a  -lm
   OBJECT_DIR = CMakeFiles/hexagon.dir
   POST_BUILD = :
   PRE_LINK = :

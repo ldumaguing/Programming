@@ -12,6 +12,7 @@ add_library(
 
 target_link_libraries(hexagon
    myne
+   m
 )
 
 install(TARGETS hexagon RUNTIME DESTINATION bin)
