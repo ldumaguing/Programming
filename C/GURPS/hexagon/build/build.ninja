@@ -91,6 +91,12 @@ build CMakeFiles/myne.dir/Myne/hexagon.c.o: C_COMPILER__myne_Release ../Myne/hex
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
 
+build CMakeFiles/myne.dir/Myne/sides.c.o: C_COMPILER__myne_Release ../Myne/sides.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/Myne/sides.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target myne
@@ -99,7 +105,7 @@ build CMakeFiles/myne.dir/Myne/hexagon.c.o: C_COMPILER__myne_Release ../Myne/hex
 #############################################
 # Link the static library libmyne.a
 
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/Myne/hexagon.c.o
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/Myne/hexagon.c.o CMakeFiles/myne.dir/Myne/sides.c.o
   LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :

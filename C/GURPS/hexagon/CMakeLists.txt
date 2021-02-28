@@ -8,6 +8,7 @@ add_library(
    myne
    Myne/myne.h
    Myne/hexagon.c
+   Myne/sides.c
 )
 
 target_link_libraries(hexagon

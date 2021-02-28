@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "myne.h"
 
 #define X_lenMod cos(M_PI * (1.0/6.0))
 
@@ -16,11 +17,35 @@ _Bool move_closer ( int *, int * );
 void moveHex ( int *, int );
 _Bool isSameHexLoc ( int *, int * );
 int HexDistance ( int *, int * );
-int getX ( char * );
-int getY ( char * );
 void text2int ( int *, int *, char ** );
 
 
+void other ( int argc, char *argv[] ) {
+   if ( argc != 4 ) return;
+
+   char from[] = "0000";
+
+   int len = strlen ( argv[2] );
+   int count = len;
+   for ( int i=0; i<len; i++ ) {
+      from[3 - i] = argv[2][--count];
+   }
+
+   int L1[2] = {0, 0};
+   L1[0] = getX ( from );
+   L1[1] = getY ( from );
+
+   if ( strcmp ( argv[3], "A" ) == 0 ) moveHex ( L1, 0 );
+   if ( strcmp ( argv[3], "B" ) == 0 ) moveHex ( L1, 1 );
+   if ( strcmp ( argv[3], "C" ) == 0 ) moveHex ( L1, 2 );
+   if ( strcmp ( argv[3], "D" ) == 0 ) moveHex ( L1, 3 );
+   if ( strcmp ( argv[3], "E" ) == 0 ) moveHex ( L1, 4 );
+   if ( strcmp ( argv[3], "F" ) == 0 ) moveHex ( L1, 5 );
+
+   printf ( "%.2d%.2d", L1[0], L1[1] );
+}
+
+// *******************************************************************************
 void deg ( int argc, char *argv[] ) {
    if ( argc != 4 ) return;
 
@@ -36,21 +61,15 @@ void deg ( int argc, char *argv[] ) {
 
    if ( A[0] == B[0] ) {
       if ( A[1] < B[1] )
-         puts ( "270" );
+         printf ( "270.0" );
       else
-         puts ( "90" );
+         printf ( "90.0" );
 
       return;
    }
 
 
-
-
-
-
-
    float X = ( float ) ( ( B[0] - A[0] ) * X_lenMod );
-   printf ( "%.12lf\n", X );
    float Y = 0.0;
    float Ay = A[1] * 1.0;
    float By = B[1] * 1.0;
@@ -63,17 +82,30 @@ void deg ( int argc, char *argv[] ) {
    }
 
    Y = 0 - ( By - Ay );
-   printf ( "%.12lf\n", Y );
 
+   float d = atan ( Y / X ) * ( 180.0 / M_PI );
+   int D = round ( d );
 
-   printf ( "%d,%d\n", A[0], A[1] );
-   printf ( "%d,%d\n", B[0], B[1] );
-   printf ( "%.12lf\n", atan ( Y / X ) * ( 180.0 / M_PI ) );
-
+   if ( ( D - d ) < 0.000001 ) {
+      if ( ( X > 0 ) & ( Y > 0 ) )
+         printf ( "%d.0", D );
+      if ( ( X < 0 ) & ( Y > 0 ) )
+         printf ( "%d.0", D + 180 );
+      if ( ( X < 0 ) & ( Y < 0 ) )
+         printf ( "%d.0", D + 180 );
+      if ( ( X > 0 ) & ( Y < 0 ) )
+         printf ( "%d.0", D + 360 );
+   } else {
+      if ( ( X > 0 ) & ( Y > 0 ) )
+         printf ( "%.12lf", d );
+      if ( ( X < 0 ) & ( Y > 0 ) )
+         printf ( "%.12lf", d + 180.0 );
+      if ( ( X < 0 ) & ( Y < 0 ) )
+         printf ( "%.12lf", d + 180.0 );
+      if ( ( X > 0 ) & ( Y < 0 ) )
+         printf ( "%.12lf", d + 360.0 );
+   }
 }
-
-// ===============================================================================
-
 
 // *******************************************************************************
 void cdist ( int argc, char *argv[] ) {
@@ -310,5 +342,6 @@ void moveF ( int *L ) {
    if ( L[0] % 2 )
       L[1]--;
 }
+
 
 
