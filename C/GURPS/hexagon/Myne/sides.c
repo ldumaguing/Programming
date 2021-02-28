@@ -25,6 +25,43 @@ void edge ( int argc, char *argv[] ) {
          printf ( "%.2d%.2d%s", L1[0], L1[1], argv[3] );
       }
    } else {
-
+      if ( strcmp ( argv[3], "A" ) == 0 ) {
+         L1[0]--;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "D" );
+      }
+      if ( strcmp ( argv[3], "B" ) == 0 ) {
+         L1[0]++;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "E" );
+      }
+      if ( strcmp ( argv[3], "C" ) == 0 ) {
+         L1[0]++;
+         L1[1]++;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "F" );
+      }
+      if ( strcmp ( argv[3], "D" ) == 0 ) {
+         L1[0]--;
+         L1[1]++;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "D" );
+      }
+      if ( strcmp ( argv[3], "E" ) == 0 ) {
+         L1[0]--;
+         L1[1]++;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "B" );
+      }
+      if ( strcmp ( argv[3], "F" ) == 0 ) {
+         L1[0]--;
+         printf ( "%.2d%.2d%s", L1[0], L1[1], "C" );
+      }
    }
 }
+
+
+
+
+
+
+
+
+
+
+
