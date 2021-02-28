@@ -36,8 +36,8 @@ int main ( int argc, char *argv[] ) {
       return 0;
    }
 
-   if ( strcmp ( argv[1], "edge" ) == 0 ) {
-      edge ( argc, argv );
+   if ( strcmp ( argv[1], "edgeID" ) == 0 ) {
+      edgeID ( argc, argv );
       return 0;
    }
 
@@ -52,7 +52,7 @@ void instructions() {
    puts ( "          path    FROM   TO" );
    puts ( "          deg     FROM   TO" );
    puts ( "          other   FROM   Direction" );
-   puts ( "          edge    FROM   Direction" );
+   puts ( "          edgeID  FROM   Direction" );
    puts ( "-----------------------------------------------" );
    puts ( "FROM:       0 to 9999" );
    puts ( "TO:         0 to 9999" );

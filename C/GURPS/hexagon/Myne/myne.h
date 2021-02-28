@@ -10,4 +10,4 @@ int getX ( char * );
 int getY ( char * );
 
 // ***** sides.c
-void edge ( int, char ** );
+void edgeID ( int, char ** );
