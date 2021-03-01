@@ -1,22 +1,4 @@
 # ninja log v5
-0	25	1614501981968638000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-25	38	1614501981981418000	testpipe	6b51ec2075fb816f
-0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9
-0	24	1614502052437372000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-25	38	1614502052450100000	testpipe	6b51ec2075fb816f
-0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9
-0	24	1614502111108218000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-24	37	1614502111120874000	testpipe	6b51ec2075fb816f
-0	10	0	CMakeFiles/install.util	2ad091d6812bfcf9
-1	25	1614502151679989000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-25	38	1614502151692515000	testpipe	6b51ec2075fb816f
-0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9
-0	25	1614502184109745000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-25	38	1614502184122590000	testpipe	6b51ec2075fb816f
-0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9
-0	24	1614502260386484000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
-25	37	1614502260398901000	testpipe	6b51ec2075fb816f
-0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9
 0	24	1614502317405303000	CMakeFiles/testpipe.dir/main.c.o	f0fc3ee1bde5b7bd
 24	37	1614502317418141000	testpipe	6b51ec2075fb816f
 0	9	0	CMakeFiles/install.util	2ad091d6812bfcf9

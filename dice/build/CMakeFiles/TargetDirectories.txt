@@ -1,0 +1,8 @@
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/install/local.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/install/strip.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/install.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/edit_cache.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/list_install_components.dir
+/usr/home/ayeka/Programming/dice/build/CMakeFiles/dice.dir

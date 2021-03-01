@@ -42,7 +42,7 @@ void other ( int argc, char *argv[] ) {
    if ( strcmp ( argv[3], "E" ) == 0 ) moveHex ( L1, 4 );
    if ( strcmp ( argv[3], "F" ) == 0 ) moveHex ( L1, 5 );
 
-   printf ( "%.2d%.2d", L1[0], L1[1] );
+   printf ( "%.2d%.2d\n", L1[0], L1[1] );
 }
 
 // *******************************************************************************
@@ -55,15 +55,15 @@ void deg ( int argc, char *argv[] ) {
    text2int ( A, B, argv );
 
    if ( ( A[0] == B[0] ) & ( A[1] == B[1] ) ) {
-      printf ( "same location" );
+      printf ( "same location\n" );
       return;
    }
 
    if ( A[0] == B[0] ) {
       if ( A[1] < B[1] )
-         printf ( "270.0" );
+         printf ( "270.0\n" );
       else
-         printf ( "90.0" );
+         printf ( "90.0\n" );
 
       return;
    }
@@ -88,22 +88,22 @@ void deg ( int argc, char *argv[] ) {
 
    if ( ( D - d ) < 0.000001 ) {
       if ( ( X > 0 ) & ( Y > 0 ) )
-         printf ( "%d.0", D );
+         printf ( "%d.0\n", D );
       if ( ( X < 0 ) & ( Y > 0 ) )
-         printf ( "%d.0", D + 180 );
+         printf ( "%d.0\n", D + 180 );
       if ( ( X < 0 ) & ( Y < 0 ) )
-         printf ( "%d.0", D + 180 );
+         printf ( "%d.0\n", D + 180 );
       if ( ( X > 0 ) & ( Y < 0 ) )
-         printf ( "%d.0", D + 360 );
+         printf ( "%d.0\n", D + 360 );
    } else {
       if ( ( X > 0 ) & ( Y > 0 ) )
-         printf ( "%.12lf", d );
+         printf ( "%.12lf\n", d );
       if ( ( X < 0 ) & ( Y > 0 ) )
-         printf ( "%.12lf", d + 180.0 );
+         printf ( "%.12lf\n", d + 180.0 );
       if ( ( X < 0 ) & ( Y < 0 ) )
-         printf ( "%.12lf", d + 180.0 );
+         printf ( "%.12lf\n", d + 180.0 );
       if ( ( X > 0 ) & ( Y < 0 ) )
-         printf ( "%.12lf", d + 360.0 );
+         printf ( "%.12lf\n", d + 360.0 );
    }
 }
 
@@ -116,7 +116,7 @@ void cdist ( int argc, char *argv[] ) {
 
    text2int ( L1, L2, argv );
 
-   printf ( "%.12lf",CartesianDistance ( L1, L2 ) );
+   printf ( "%.12lf\n",CartesianDistance ( L1, L2 ) );
 }
 
 // *******************************************************************************
@@ -131,7 +131,7 @@ void path ( int argc, char *argv[] ) {
    while ( !move_closer ( L1, L2 ) ) {
       printf ( "%.2d%.2d,", L1[0],L1[1] );
    }
-   printf ( "%.2d%.2d", L2[0],L2[1] );
+   printf ( "%.2d%.2d\n", L2[0],L2[1] );
 }
 
 // *******************************************************************************
@@ -143,7 +143,7 @@ void hdist ( int argc, char *argv[] ) {
 
    text2int ( L1, L2, argv );
 
-   printf ( "%d", HexDistance ( L1, L2 ) );
+   printf ( "%d\n", HexDistance ( L1, L2 ) );
 }
 
 // ===============================================================================
