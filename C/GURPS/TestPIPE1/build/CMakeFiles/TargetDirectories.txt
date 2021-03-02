@@ -1,7 +1,0 @@
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/install/local.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/rebuild_cache.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/testpipe1.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/edit_cache.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/install/strip.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/install.dir
-/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build/CMakeFiles/list_install_components.dir

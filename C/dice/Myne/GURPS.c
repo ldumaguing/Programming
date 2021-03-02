@@ -16,7 +16,29 @@ void GURPS ( int argc, char *argv[] ) {
       esl = atoi ( buff );
    }
 
+   printf ( "rolled:%d;", rolled );
+   if ( rolled <= 4 ) {
+      printf ( "crit-success:%d\n", esl - rolled );
+      return;
+   }
 
-   printf ( "%d VS %d\n", esl, rolled );
+   if ( ( esl - rolled ) >= 10 ) {
+      printf ( "crit-success:%d\n", esl - rolled );
+      return;
+   }
 
+   if ( rolled == 18 ) {
+      printf ( "crit-fail:%d\n", esl - rolled );
+      return;
+   }
+
+   if ( ( rolled == 17 ) & ( esl <= 15 ) ) {
+      printf ( "crit-fail %d\n", esl - rolled );
+      return;
+   }
+
+   if ( rolled <= esl )
+      printf ( "success:%d\n", esl - rolled );
+   else
+      printf ( "fail:%d\n", esl - rolled );
 }

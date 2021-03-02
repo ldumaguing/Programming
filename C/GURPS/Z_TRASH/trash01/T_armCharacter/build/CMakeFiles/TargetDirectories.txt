@@ -1,8 +1,0 @@
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/install/strip.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/install/local.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/myne.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/install.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/T_armCharacter.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/rebuild_cache.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/edit_cache.dir
-/home/ayeka/Programming/C/GURPS/T_armCharacter/build/CMakeFiles/list_install_components.dir

@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/T_clotheCharacter.dir/main.c.o  -o T_clotheCharacter libmyne.a -ljson-c 

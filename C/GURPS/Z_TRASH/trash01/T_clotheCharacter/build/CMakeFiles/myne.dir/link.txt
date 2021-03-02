@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmyne.a  CMakeFiles/myne.dir/Myne/clothe.c.o CMakeFiles/myne.dir/Myne/RegExpStuffs.c.o
-/usr/bin/ranlib libmyne.a

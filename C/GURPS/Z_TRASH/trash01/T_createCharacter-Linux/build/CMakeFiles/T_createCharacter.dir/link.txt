@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/T_createCharacter.dir/main.c.o  -o T_createCharacter libmyne.a -ljson-c 

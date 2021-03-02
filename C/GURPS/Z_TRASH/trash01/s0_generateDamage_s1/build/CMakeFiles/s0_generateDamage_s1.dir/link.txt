@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/s0_generateDamage_s1.dir/main.c.o  -o s0_generateDamage_s1 libmyne.a -ljson-c -lm 

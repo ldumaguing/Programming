@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/T_armCharacter.dir/main.c.o  -o T_armCharacter libmyne.a -ljson-c 
