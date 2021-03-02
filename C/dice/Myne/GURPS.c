@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
-#include <time.h>
 #include "myne.h"
 
 void GURPS ( int argc, char *argv[] ) {
