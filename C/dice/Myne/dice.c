@@ -7,8 +7,12 @@
 
 void getGrep ( char *, char *, char * );
 
+void rollDice ( int argc, char *argv[] ) {
+   printf ( "%d\n", getRoll ( argc, argv ) );
+}
+
 // *******************************************************************************
-void dicestring ( int argc, char *argv[] ) {
+int getRoll ( int argc, char *argv[] ) {
    char pattern[40];
    char modif[10];
    char base[10];
@@ -39,6 +43,8 @@ void dicestring ( int argc, char *argv[] ) {
       total += ( rand() % baseVal ) + 1;
    }
 
+   int result = 0;
+
    // ***** modify dice result
    char anyX[10];
    strcpy ( pattern, "x" );
@@ -47,10 +53,13 @@ void dicestring ( int argc, char *argv[] ) {
       char aString[10];
       getGrep ( aString, "[0-9].*", modif );
       int multip = atoi ( aString );
-      printf ( "%d\n", total * multip );
+      result = total * multip;
    } else {
-      printf ( "%d\n", total += atoi ( modif ) );
+      total += atoi ( modif );
+      result = total;
    }
+
+   return result;
 }
 
 // *******************************************************************************

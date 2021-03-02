@@ -12,7 +12,7 @@ int main ( int argc, char *argv[] ) {
    }
 
    if ( strlen ( argv[1] ) > 0 ) {
-      dicestring ( argc, argv );
+      rollDice ( argc, argv );
       return 0;
    }
 

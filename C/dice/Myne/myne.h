@@ -1,3 +1,4 @@
 #pragma once
 
-void dicestring ( int, char ** );
+int getRoll ( int, char ** );
+void rollDice ( int, char ** );
