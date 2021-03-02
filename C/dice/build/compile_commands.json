@@ -6,6 +6,11 @@
 },
 {
   "directory": "/usr/home/ayeka/Programming/C/dice/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/myne.dir/Myne/GURPS.c.o -c /usr/home/ayeka/Programming/C/dice/Myne/GURPS.c",
+  "file": "/usr/home/ayeka/Programming/C/dice/Myne/GURPS.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/C/dice/build",
   "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/dice.dir/main.c.o -c /usr/home/ayeka/Programming/C/dice/main.c",
   "file": "/usr/home/ayeka/Programming/C/dice/main.c"
 }

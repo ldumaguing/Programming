@@ -108,6 +108,12 @@ build CMakeFiles/myne.dir/Myne/dice.c.o: C_COMPILER__myne_Release ../Myne/dice.c
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
 
+build CMakeFiles/myne.dir/Myne/GURPS.c.o: C_COMPILER__myne_Release ../Myne/GURPS.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/Myne/GURPS.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target myne
@@ -116,7 +122,7 @@ build CMakeFiles/myne.dir/Myne/dice.c.o: C_COMPILER__myne_Release ../Myne/dice.c
 #############################################
 # Link the static library libmyne.a
 
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/Myne/dice.c.o
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/Myne/dice.c.o CMakeFiles/myne.dir/Myne/GURPS.c.o
   LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :

@@ -8,6 +8,7 @@ add_library(
    myne
    Myne/myne.h
    Myne/dice.c
+   Myne/GURPS.c
 )
 
 target_link_libraries(dice

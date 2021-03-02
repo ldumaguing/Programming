@@ -11,9 +11,13 @@ int main ( int argc, char *argv[] ) {
       return 0;
    }
 
+   if ( strcmp ( argv[1], "GURPS" ) == 0 ) {
+      GURPS ( argc, argv );
+      return 0;
+   }
+
    if ( strlen ( argv[1] ) > 0 ) {
       rollDice ( argc, argv );
-      return 0;
    }
 
    return 0;
@@ -22,7 +26,8 @@ int main ( int argc, char *argv[] ) {
 // *******************************************************************************
 void instructions() {
    puts ( "dice   DiceString" );
+   puts ( "       GURPS   ESL" );
    puts ( "---------------------------------------------------" );
    puts ( "DiceString:   e.g. d6, d8+1, 3d6, 3d6x2, d100, etc." );
-
+   puts ( "ESL:          Effective Skill Level" );
 }

@@ -8,11 +8,13 @@
 void getGrep ( char *, char *, char * );
 
 void rollDice ( int argc, char *argv[] ) {
-   printf ( "%d\n", getRoll ( argc, argv ) );
+   char diceStr[40];
+   strcpy ( diceStr, argv[1] );
+   printf ( "%d\n", getRoll ( argc, diceStr ) );
 }
 
 // *******************************************************************************
-int getRoll ( int argc, char *argv[] ) {
+int getRoll ( int argc, char *diceStr ) {
    char pattern[40];
    char modif[10];
    char base[10];
@@ -20,18 +22,18 @@ int getRoll ( int argc, char *argv[] ) {
 
    // ***** modifier
    strcpy ( pattern, "[+x-][0-9].*" );
-   getGrep ( modif, pattern, argv[1] );
+   getGrep ( modif, pattern, diceStr );
    if ( strlen ( modif ) == 0 ) strcpy ( modif, "0" );
 
    // ***** base die
    strcpy ( pattern, "d[0-9]*" );
-   getGrep ( base, pattern, argv[1] );
+   getGrep ( base, pattern, diceStr );
    strcpy ( pattern, "[0-9].*" );
    getGrep ( base, pattern, base );
 
    // ***** number of dice
    strcpy ( pattern, "^[0-9]*" );
-   getGrep ( dicenum, pattern, argv[1] );
+   getGrep ( dicenum, pattern, diceStr );
    if ( strlen ( dicenum ) == 0 ) strcpy ( dicenum, "1" );
 
    // ***** roll the dice
@@ -48,7 +50,7 @@ int getRoll ( int argc, char *argv[] ) {
    // ***** modify dice result
    char anyX[10];
    strcpy ( pattern, "x" );
-   getGrep ( anyX, pattern, argv[1] );
+   getGrep ( anyX, pattern, diceStr );
    if ( strcmp ( anyX, "x" ) == 0 ) {
       char aString[10];
       getGrep ( aString, "[0-9].*", modif );
