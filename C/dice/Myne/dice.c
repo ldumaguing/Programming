@@ -38,18 +38,18 @@ void dicestring ( int argc, char *argv[] ) {
    for ( int i = 0; i < dicenumVal; i++ ) {
       total += ( rand() % baseVal ) + 1;
    }
-   
+
    // ***** modify dice result
    char anyX[10];
    strcpy ( pattern, "x" );
    getGrep ( anyX, pattern, argv[1] );
-   if ( strlen ( anyX ) == 0 ) {
-      printf ( "%d\n", total += atoi ( modif ) );
+   if ( strcmp ( anyX, "x" ) == 0 ) {
+      char aString[10];
+      getGrep ( aString, "[0-9].*", modif );
+      int multip = atoi ( aString );
+      printf ( "%d\n", total * multip );
    } else {
-       char aString[10];
-       getGrep(aString, "[0-9].*", modif);
-       int multip = atoi (aString);
-      printf("%d\n", total * multip);
+      printf ( "%d\n", total += atoi ( modif ) );
    }
 }
 
