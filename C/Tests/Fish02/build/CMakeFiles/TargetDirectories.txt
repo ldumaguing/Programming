@@ -1,0 +1,7 @@
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/install/strip.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/edit_cache.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/fish02.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/list_install_components.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/install/local.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/rebuild_cache.dir
+/home/ayeka/Programming/C/Tests/Fish02/build/CMakeFiles/install.dir

@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
-#include <time.h>
+// #include <time.h>
 #include "myne.h"
-
-void getGrep ( char *, char *, char * );
 
 void rollDice ( int argc, char *argv[] ) {
    char diceStr[40];
@@ -37,7 +35,7 @@ int getRoll ( int argc, char *diceStr ) {
    if ( strlen ( dicenum ) == 0 ) strcpy ( dicenum, "1" );
 
    // ***** roll the dice
-   srand ( ( unsigned ) time ( NULL ) );
+   // srand ( ( unsigned ) time ( NULL ) );
    int baseVal = atoi ( base );
    int dicenumVal = atoi ( dicenum );
    int total = 0;

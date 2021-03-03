@@ -4,7 +4,36 @@
 #include <regex.h>
 #include "myne.h"
 
+void roll3d6 ( int, char **, char * );
+void VS_scores ( int, char **, char * );
+
+// *******************************************************************************
 void GURPS ( int argc, char *argv[] ) {
+   char printString[80];
+
+   if ( argc == 4 ) {
+      VS_scores ( argc, argv, printString );
+      return;
+   }
+
+   roll3d6 ( argc, argv, printString );
+   printf ( "%s", printString );
+}
+
+// *******************************************************************************
+void VS_scores ( int argc, char *argv[], char *aString ) {
+   char printString[80];
+   char *my_argv[] = {"          3        ", "        e          ", "     34             "};
+
+puts(my_argv[1]);
+   sprintf ( my_argv[1], "%s", "33" );
+puts(my_argv[1]);
+   //roll3d6 ( 3, my_argv, printString );
+   //printf ( "%s", printString );
+}
+
+// *******************************************************************************
+void roll3d6 ( int argc, char *argv[], char *aString ) {
    char diceStr[] = "3d6";
    int rolled =  getRoll ( argc, diceStr );
    int esl = 10;
@@ -17,27 +46,27 @@ void GURPS ( int argc, char *argv[] ) {
 
    printf ( "rolled:%d;", rolled );
    if ( rolled <= 4 ) {
-      printf ( "crit-success:%d\n", esl - rolled );
+      sprintf ( aString, "crit-success:%d\n", esl - rolled );
       return;
    }
 
    if ( ( esl - rolled ) >= 10 ) {
-      printf ( "crit-success:%d\n", esl - rolled );
+      sprintf ( aString, "crit-success:%d\n", esl - rolled );
       return;
    }
 
    if ( rolled == 18 ) {
-      printf ( "crit-fail:%d\n", esl - rolled );
+      sprintf ( aString, "crit-fail:%d\n", esl - rolled );
       return;
    }
 
    if ( ( rolled == 17 ) & ( esl <= 15 ) ) {
-      printf ( "crit-fail %d\n", esl - rolled );
+      sprintf ( aString, "crit-fail:%d\n", esl - rolled );
       return;
    }
 
    if ( rolled <= esl )
-      printf ( "success:%d\n", esl - rolled );
+      sprintf ( aString, "success:%d\n", esl - rolled );
    else
-      printf ( "fail:%d\n", esl - rolled );
+      sprintf ( aString, "fail:%d\n", esl - rolled );
 }
