@@ -3,25 +3,24 @@
 #include <string.h>
 
 int main ( int argc, char *argv[] ) {
-   char *names[] = {"John", "Paul    ", "George", "Ringo"};
-   printf ( "%s\n",  names[1] );
+   char *names[3];
 
-   //char *X = names[1];
-   char X[] = "Paul    ";
-   printf ( "1 %s\n",  X );
-   printf ( "2:0 %c\n",  X[0] );
-   printf ( "2:1 %c\n",  X[1] );
+   names[0] = ( char * ) malloc ( strlen ( "John" )+1 );
+   strcpy ( names[0], "John" );
 
-   X[0] = 'g';
-   puts("...");
-   char fish[] = "Fish";
+   names[1] = ( char * ) malloc ( strlen ( "Paul" )+1 );
+   strcpy ( names[1], "Paul" );
 
-   printf ( "%d\n",  strlen ( fish ) );
-   // for ( int i=0; i<strlen ( fish ); i++ ) {
-   // X[0] = fish[0];
-//  X[0] = 75;
-   // }
-   printf ( "%s\n",  X );
+   names[2] = ( char * ) malloc ( strlen ( "George" )+1 );
+   strcpy ( names[2], "George" );
+
+   puts ( names[0] );
+   puts ( names[1] );
+   puts ( names[2] );
+
+   free ( names[0] );
+   free ( names[1] );
+   free ( names[2] );
 
    return 0;
 }
