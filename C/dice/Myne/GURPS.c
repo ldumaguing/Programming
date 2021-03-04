@@ -13,7 +13,7 @@ void GURPS ( int argc, char *argv[] ) {
 
    if ( argc == 4 ) {
       VS_scores ( argc, argv, printString );
-      printf ( "%s\n", printString );
+      //  printf ( "%s\n", printString );
 
       return;
    }
@@ -29,26 +29,71 @@ void VS_scores ( int argc, char *argv[], char *aString ) {
    char *my_argv[3];
    int p1, p2;
 
+   p1 = atoi ( argv[2] );
+   p2 = atoi ( argv[3] );
+
    my_argv[0] = ( char * ) malloc ( strlen ( "fake1" ) + 1 );
    strcpy ( my_argv[0], "fake1" );
 
    my_argv[1] = ( char * ) malloc ( strlen ( "fake2" ) + 1 );
    strcpy ( my_argv[1], "fake2" );
 
-   my_argv[2] = ( char * ) malloc ( strlen ( argv[2] ) + 1 );
-   strcpy ( my_argv[2], argv[2] );
-   roll3d6 ( 3, my_argv, player1 );
+   int diff;
+   if ( ( p1 <= 6 ) & ( p2 <= 6 ) ) {
+      if ( p1 < p2 ) {
+         diff = 10 - p1;
+         p1 += diff;
+         p2 += diff;
+      } else {
+         diff = 10 - p2;
+         p1 += diff;
+         p2 += diff;
+      }
+   }
 
-   strcpy ( my_argv[2], argv[3] );
-   roll3d6 ( 3, my_argv, player2 );
+   if ( ( p1 > 20 ) & ( p2 > 20 ) ) {
+      if ( p1 < p2 ) {
+         diff = p1;
+         p1 = 10;
+         p2 = p2 * 10 / diff;
+      } else {
+         diff = p2;
+         p2 = 10;
+         p1 = p1 * 10 / diff;
+      }
+   }
+
+   if ( ( ( p1 >= 14 ) & ( p2 >= 14 ) )
+         & ( ( p1 <= 20 ) & ( p2 <= 20 ) ) ) {
+      if ( p1 < p2 ) {
+         diff = p1 - 10;
+         p1 = 10;
+         p2 -= diff;
+      } else {
+         diff = p2 - 10;
+         p1 -= diff;
+         p2 = 10;
+      }
+   }
 
    char buff[80];
+
+   sprintf ( buff, "%d", p1 );
+   my_argv[2] = ( char * ) malloc ( strlen ( buff ) + 1 );
+   strcpy ( my_argv[2], buff );
+   roll3d6 ( 3, my_argv, player1 );
+
+   sprintf ( buff, "%d", p2 );
+   strcpy ( my_argv[2], buff );
+   roll3d6 ( 3, my_argv, player2 );
+
+
    getGrep ( buff, "[+-]?[0-9].*$", player1 );
    p1 = atoi ( buff );
-   printf ( "p1: %d\n", p1 );
+   printf ( "p1;%s\n", player1 );
    getGrep ( buff, "[+-]?[0-9].*$", player2 );
    p2 = atoi ( buff );
-   printf ( "p2: %d\n", p2 );
+   printf ( "p2;%s\n", player2 );
 }
 
 // *******************************************************************************
@@ -63,7 +108,7 @@ void roll3d6 ( int argc, char *argv[], char *aString ) {
       esl = atoi ( buff );
    }
 
-   //printf ( "rolled:%d;", rolled );
+   // printf ( "rolled:%d\n", rolled );
    if ( rolled <= 4 ) {
       sprintf ( aString, "crit-success:%d", esl - rolled );
       return;
@@ -75,7 +120,7 @@ void roll3d6 ( int argc, char *argv[], char *aString ) {
    }
 
    if ( rolled == 18 ) {
-      sprintf ( aString, "crit-fail:%d", rolled - esl );  // keep it negative for fails
+      sprintf ( aString, "crit-fail:%d", esl - rolled );
       return;
    }
 

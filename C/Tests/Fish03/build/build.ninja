@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: dice
+# Project: fish03
 # Configuration: Release
 # =============================================================================
 
@@ -34,110 +34,56 @@ include rules.ninja
 # Utility command for install/strip
 
 build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/Programming/C/dice/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  COMMAND = cd /home/ayeka/Programming/C/Tests/Fish03/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
   DESC = Installing the project stripped...
   pool = console
   restat = 1
 build install/strip: phony CMakeFiles/install/strip.util
 
 #############################################
-# Utility command for install/local
-
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/Programming/C/dice/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-build install/local: phony CMakeFiles/install/local.util
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target myne
-
-
-#############################################
-# Order-only phony target for myne
-
-build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
-build CMakeFiles/myne.dir/Myne/dice.c.o: C_COMPILER__myne ../Myne/dice.c || cmake_object_order_depends_target_myne
-  DEP_FILE = CMakeFiles/myne.dir/Myne/dice.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/myne.dir
-  OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
-build CMakeFiles/myne.dir/Myne/GURPS.c.o: C_COMPILER__myne ../Myne/GURPS.c || cmake_object_order_depends_target_myne
-  DEP_FILE = CMakeFiles/myne.dir/Myne/GURPS.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/myne.dir
-  OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target myne
-
-
-#############################################
-# Link the static library libmyne.a
-
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/Myne/dice.c.o CMakeFiles/myne.dir/Myne/GURPS.c.o
-  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/myne.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = libmyne.a
-  TARGET_PDB = myne.a.dbg
-# =============================================================================
-# Object build statements for EXECUTABLE target dice
-
-
-#############################################
-# Order-only phony target for dice
-
-build cmake_object_order_depends_target_dice: phony || cmake_object_order_depends_target_myne
-build CMakeFiles/dice.dir/main.c.o: C_COMPILER__dice ../main.c || cmake_object_order_depends_target_dice
-  DEP_FILE = CMakeFiles/dice.dir/main.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/dice.dir
-  OBJECT_FILE_DIR = CMakeFiles/dice.dir
-
-# =============================================================================
-# Link build statements for EXECUTABLE target dice
-
-
-#############################################
-# Link the executable dice
-
-build dice: C_EXECUTABLE_LINKER__dice CMakeFiles/dice.dir/main.c.o | libmyne.a || libmyne.a
-  FLAGS = -O3 -DNDEBUG
-  LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = libmyne.a -lm
-  OBJECT_DIR = CMakeFiles/dice.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = dice
-  TARGET_PDB = dice.dbg
-
-#############################################
-# Utility command for install
-
-build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/Programming/C/dice/build && /usr/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-build install: phony CMakeFiles/install.util
-
-#############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ayeka/Programming/C/dice/build && /usr/bin/cmake-gui -S/home/ayeka/Programming/C/dice -B/home/ayeka/Programming/C/dice/build
+  COMMAND = cd /home/ayeka/Programming/C/Tests/Fish03/build && /usr/bin/cmake-gui -S/home/ayeka/Programming/C/Tests/Fish03 -B/home/ayeka/Programming/C/Tests/Fish03/build
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
 build edit_cache: phony CMakeFiles/edit_cache.util
+# =============================================================================
+# Object build statements for EXECUTABLE target fish03
+
+
+#############################################
+# Order-only phony target for fish03
+
+build cmake_object_order_depends_target_fish03: phony || CMakeFiles/fish03.dir
+build CMakeFiles/fish03.dir/main.c.o: C_COMPILER__fish03 ../main.c || cmake_object_order_depends_target_fish03
+  DEP_FILE = CMakeFiles/fish03.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/fish03.dir
+  OBJECT_FILE_DIR = CMakeFiles/fish03.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target fish03
+
+
+#############################################
+# Link the executable fish03
+
+build fish03: C_EXECUTABLE_LINKER__fish03 CMakeFiles/fish03.dir/main.c.o
+  FLAGS = -O3 -DNDEBUG
+  LINK_FLAGS = -rdynamic
+  OBJECT_DIR = CMakeFiles/fish03.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = fish03
+  TARGET_PDB = fish03.dbg
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ayeka/Programming/C/dice/build && /usr/bin/cmake -S/home/ayeka/Programming/C/dice -B/home/ayeka/Programming/C/dice/build
+  COMMAND = cd /home/ayeka/Programming/C/Tests/Fish03/build && /usr/bin/cmake -S/home/ayeka/Programming/C/Tests/Fish03 -B/home/ayeka/Programming/C/Tests/Fish03/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -147,10 +93,29 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # Utility command for list_install_components
 
 build list_install_components: phony
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/ayeka/Programming/C/Tests/Fish03/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+build install/local: phony CMakeFiles/install/local.util
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/ayeka/Programming/C/Tests/Fish03/build && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+build install: phony CMakeFiles/install.util
 # =============================================================================
 # Target aliases.
 
-build myne: phony libmyne.a
 # =============================================================================
 # Folder targets.
 
@@ -167,7 +132,7 @@ build myne: phony libmyne.a
 #############################################
 # The main all target.
 
-build all: phony libmyne.a dice
+build all: phony fish03
 
 #############################################
 # Make the all target the default.
