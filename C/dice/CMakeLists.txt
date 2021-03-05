@@ -15,4 +15,5 @@ target_link_libraries(dice
    myne
    m
 )
+
 install(TARGETS dice RUNTIME DESTINATION bin)
