@@ -129,7 +129,7 @@ void path ( int argc, char *argv[] ) {
    text2int ( L1, L2, argv );
 
    while ( !move_closer ( L1, L2 ) ) {
-      printf ( "%.2d%.2d,", L1[0],L1[1] );
+      printf ( "%.2d%.2d\n", L1[0],L1[1] );
    }
    printf ( "%.2d%.2d\n", L2[0],L2[1] );
 }
@@ -156,6 +156,7 @@ void text2int ( int *L1, int *L2, char *argv[] ) {
    for ( int i=0; i<len; i++ ) {
       from[3 - i] = argv[2][--count];
    }
+
    len = strlen ( argv[3] );
    count = len;
    for ( int i=0; i<len; i++ ) {
@@ -166,23 +167,29 @@ void text2int ( int *L1, int *L2, char *argv[] ) {
    L1[1] = getY ( from );
    L2[0] = getX ( to );
    L2[1] = getY ( to );
+
+   return;
 }
 
 // ===============================================================================
 int getY ( char *location ) {
    if ( strlen ( location ) != 4 ) return 0;
-   char Y[2];
+   char Y[3];
    Y[0] = location[2];
    Y[1] = location[3];
+   Y[2] = 0;
+
    return atoi ( Y );
 }
 
 // -------------------------------------------------------------------------------
 int getX ( char *location ) {
    if ( strlen ( location ) != 4 ) return 0;
-   char X[2];
+   char X[3];
    X[0] = location[0];
    X[1] = location[1];
+   X[2] = 0;
+
    return atoi ( X );
 }
 

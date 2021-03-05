@@ -1,3 +1,4 @@
 [Project]
-Name=Damage_Table
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=Damage_Table

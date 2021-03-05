@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/ayeka/Programming/C/Tests/Fish03/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/fish03.dir/main.c.o   -c /home/ayeka/Programming/C/Tests/Fish03/main.c",
-  "file": "/home/ayeka/Programming/C/Tests/Fish03/main.c"
-}
-]

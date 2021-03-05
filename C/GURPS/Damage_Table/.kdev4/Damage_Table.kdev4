@@ -6,10 +6,10 @@ Build Directory Count=1
 Current Build Directory Index-Host System=0
 
 [CMake][CMake Build Directory 0]
-Build Directory Path=/usr/home/ayeka/Programming/C/GURPS/Damage_Table/build
+Build Directory Path=/home/ayeka/Programming/C/GURPS/Damage_Table/build
 Build Type=Release
-CMake Binary=/usr/local/bin/cmake
-CMake Executable=/usr/local/bin/cmake
+CMake Binary=/usr/bin/cmake
+CMake Executable=/usr/bin/cmake
 Environment Profile=
 Extra Arguments=
 Install Directory=/home/ayeka
@@ -24,7 +24,7 @@ parserArgumentsCuda=-ferror-limit=100 -fspell-checking -Wdocumentation -Wunused-
 parserArgumentsOpenCL=-ferror-limit=100 -fspell-checking -Wdocumentation -Wunused-parameter -Wunreachable-code -Wall -cl-std=CL1.1
 
 [CustomDefinesAndIncludes][ProjectPath0][Compiler]
-Name=Clang
+Name=GCC
 
 [Project]
-VersionControlSupport=
+VersionControlSupport=kdevgit

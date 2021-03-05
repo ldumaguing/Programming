@@ -1,12 +1,13 @@
 [
 {
-  "directory": "/usr/home/ayeka/Programming/C/GURPS/Damage_Table/build",
-  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/Damage_Table.dir/main.c.o -c /usr/home/ayeka/Programming/C/GURPS/Damage_Table/main.c",
-  "file": "/usr/home/ayeka/Programming/C/GURPS/Damage_Table/main.c"
+  "directory": "/home/ayeka/Programming/C/GURPS/Damage_Table/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/damage_table.c.o   -c /home/ayeka/Programming/C/GURPS/Damage_Table/Myne/damage_table.c",
+  "file": "/home/ayeka/Programming/C/GURPS/Damage_Table/Myne/damage_table.c"
 },
+
 {
-  "directory": "/usr/home/ayeka/Programming/C/GURPS/Damage_Table/build",
-  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/myne.dir/Myne/damage_table.c.o -c /usr/home/ayeka/Programming/C/GURPS/Damage_Table/Myne/damage_table.c",
-  "file": "/usr/home/ayeka/Programming/C/GURPS/Damage_Table/Myne/damage_table.c"
+  "directory": "/home/ayeka/Programming/C/GURPS/Damage_Table/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/Damage_Table.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/Damage_Table/main.c",
+  "file": "/home/ayeka/Programming/C/GURPS/Damage_Table/main.c"
 }
 ]
