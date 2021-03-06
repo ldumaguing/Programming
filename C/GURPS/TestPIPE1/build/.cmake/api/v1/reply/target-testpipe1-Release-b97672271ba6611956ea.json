@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "generateDamage"
+			"path" : "testpipe1"
 		}
 	],
 	"backtrace" : 1,
@@ -52,7 +52,7 @@
 			]
 		}
 	],
-	"id" : "generateDamage::@6890427a1f51a3e7e1df",
+	"id" : "testpipe1::@6890427a1f51a3e7e1df",
 	"install" : 
 	{
 		"destinations" : 
@@ -82,8 +82,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "generateDamage",
-	"nameOnDisk" : "generateDamage",
+	"name" : "testpipe1",
+	"nameOnDisk" : "testpipe1",
 	"paths" : 
 	{
 		"build" : ".",

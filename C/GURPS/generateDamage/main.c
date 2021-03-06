@@ -6,10 +6,12 @@
 void instructions();
 
 int main ( int argc, char *argv[] ) {
-   if ( argc == 1 ) {
+   if ( argc < 3 ) {
       instructions();
       return 0;
    }
+
+   generateDamage ( argc, argv );
 
    return 0;
 }
@@ -17,14 +19,16 @@ int main ( int argc, char *argv[] ) {
 // *******************************************************************************
 void instructions() {
    puts ( "generateDamage   Dice   DamageType" );
-   puts ( "       \"         \"       \"         DR*" );
-   puts ( "       \"         \"       \"               HardenedLevel*" );
+   puts ( "     \"           \"       \"         DR*" );
+   puts ( "     \"           \"       \"               HardenedLevel*" );
    puts ( "-----------------------------------------------------------------------" );
    puts ( "Examples:" );
    puts ( "   generateDamage   3d6+1      p++" );
    puts ( "   generateDamage   3d6+1(2)   p++" );
    puts ( "   generateDamage   3d6+1(2)   p++   5" );
    puts ( "   generateDamage   3d6+1(2)   p++   5   2" );
+   puts ( "   generateDamage   42r        p++   5   2" );
    puts ( "" );
-   puts ( "* Target's damage resistance." );
+   puts ( "*: Target's damage resistance." );
+   puts ( "r: Manually rolled." );
 }

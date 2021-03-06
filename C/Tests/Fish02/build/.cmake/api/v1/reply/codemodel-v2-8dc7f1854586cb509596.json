@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "generateDamage",
+					"name" : "fish02",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "generateDamage::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-generateDamage-Release-8ced8b5fcbe94a8a5c98.json",
-					"name" : "generateDamage",
+					"id" : "fish02::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-fish02-Release-f2c4b06ba4eb9506a143.json",
+					"name" : "fish02",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/usr/home/ayeka/Programming/C/GURPS/generateDamage/build",
-		"source" : "/usr/home/ayeka/Programming/C/GURPS/generateDamage"
+		"build" : "/usr/home/ayeka/Programming/C/Tests/Fish02/build",
+		"source" : "/usr/home/ayeka/Programming/C/Tests/Fish02"
 	},
 	"version" : 
 	{

@@ -4,4 +4,15 @@ project(generateDamage LANGUAGES C)
 
 add_executable(generateDamage main.c)
 
+add_library(
+   myne
+   Myne/myne.h
+   Myne/generateDMG.c
+)
+
+target_link_libraries(generateDamage
+   myne
+   m
+)
+
 install(TARGETS generateDamage RUNTIME DESTINATION bin)

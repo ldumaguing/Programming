@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: generateDamage
+# Project: testpipe1
 # Configurations: Release
 # =============================================================================
 # =============================================================================
@@ -22,7 +22,7 @@ rule CUSTOM_COMMAND
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__generateDamage_Release
+rule C_COMPILER__testpipe1_Release
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/cc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -32,28 +32,9 @@ rule C_COMPILER__generateDamage_Release
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__generateDamage_Release
+rule C_EXECUTABLE_LINKER__testpipe1_Release
   command = $PRE_LINK && /usr/bin/cc $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking C executable $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER__myne_Release
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /usr/bin/cc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER__myne_Release
-  command = $PRE_LINK && /usr/local/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
   restat = $RESTAT
 
 
@@ -61,7 +42,7 @@ rule C_STATIC_LIBRARY_LINKER__myne_Release
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/local/bin/cmake --regenerate-during-build -S/usr/home/ayeka/Programming/C/GURPS/generateDamage -B/usr/home/ayeka/Programming/C/GURPS/generateDamage/build
+  command = /usr/local/bin/cmake --regenerate-during-build -S/usr/home/ayeka/Programming/C/GURPS/TestPIPE1 -B/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build
   description = Re-running CMake...
   generator = 1
 

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: generateDamage
+# Project: testpipe1
 # Configurations: Release
 # =============================================================================
 
@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/generateDamage/build && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -48,10 +48,64 @@ build install/local: phony CMakeFiles/install/local.util
 
 
 #############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build && /usr/local/bin/cmake --regenerate-during-build -S/usr/home/ayeka/Programming/C/GURPS/TestPIPE1 -B/usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testpipe1
+
+
+#############################################
+# Order-only phony target for testpipe1
+
+build cmake_object_order_depends_target_testpipe1: phony || CMakeFiles/testpipe1.dir
+
+build CMakeFiles/testpipe1.dir/main.c.o: C_COMPILER__testpipe1_Release ../main.c || cmake_object_order_depends_target_testpipe1
+  DEP_FILE = CMakeFiles/testpipe1.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/testpipe1.dir
+  OBJECT_FILE_DIR = CMakeFiles/testpipe1.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testpipe1
+
+
+#############################################
+# Link the executable testpipe1
+
+build testpipe1: C_EXECUTABLE_LINKER__testpipe1_Release CMakeFiles/testpipe1.dir/main.c.o
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/testpipe1.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = testpipe1
+  TARGET_PDB = testpipe1.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
 # Utility command for install/strip
 
 build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/generateDamage/build && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
   DESC = Installing the project stripped...
   pool = console
   restat = 1
@@ -63,7 +117,7 @@ build install/strip: phony CMakeFiles/install/strip.util
 # Utility command for install
 
 build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/generateDamage/build && /usr/local/bin/cmake -P cmake_install.cmake
+  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build && /usr/local/bin/cmake -P cmake_install.cmake
   DESC = Install the project...
   pool = console
   restat = 1
@@ -76,96 +130,8 @@ build install: phony CMakeFiles/install.util
 
 build list_install_components: phony
 
-
-#############################################
-# Utility command for rebuild_cache
-
-build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/generateDamage/build && /usr/local/bin/cmake --regenerate-during-build -S/usr/home/ayeka/Programming/C/GURPS/generateDamage -B/usr/home/ayeka/Programming/C/GURPS/generateDamage/build
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build rebuild_cache: phony CMakeFiles/rebuild_cache.util
-
-# =============================================================================
-# Object build statements for EXECUTABLE target generateDamage
-
-
-#############################################
-# Order-only phony target for generateDamage
-
-build cmake_object_order_depends_target_generateDamage: phony || cmake_object_order_depends_target_myne
-
-build CMakeFiles/generateDamage.dir/main.c.o: C_COMPILER__generateDamage_Release ../main.c || cmake_object_order_depends_target_generateDamage
-  DEP_FILE = CMakeFiles/generateDamage.dir/main.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/generateDamage.dir
-  OBJECT_FILE_DIR = CMakeFiles/generateDamage.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target generateDamage
-
-
-#############################################
-# Link the executable generateDamage
-
-build generateDamage: C_EXECUTABLE_LINKER__generateDamage_Release CMakeFiles/generateDamage.dir/main.c.o | libmyne.a || libmyne.a
-  FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = libmyne.a  -lm
-  OBJECT_DIR = CMakeFiles/generateDamage.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = generateDamage
-  TARGET_PDB = generateDamage.dbg
-
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /usr/home/ayeka/Programming/C/GURPS/generateDamage/build && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build edit_cache: phony CMakeFiles/edit_cache.util
-
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target myne
-
-
-#############################################
-# Order-only phony target for myne
-
-build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
-
-build CMakeFiles/myne.dir/Myne/generateDMG.c.o: C_COMPILER__myne_Release ../Myne/generateDMG.c || cmake_object_order_depends_target_myne
-  DEP_FILE = CMakeFiles/myne.dir/Myne/generateDMG.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/myne.dir
-  OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target myne
-
-
-#############################################
-# Link the static library libmyne.a
-
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/Myne/generateDMG.c.o
-  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/myne.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = libmyne.a
-  TARGET_PDB = myne.a.dbg
-
 # =============================================================================
 # Target aliases.
-
-build myne: phony libmyne.a
 
 # =============================================================================
 # Folder targets.
@@ -173,9 +139,9 @@ build myne: phony libmyne.a
 # =============================================================================
 
 #############################################
-# Folder: /usr/home/ayeka/Programming/C/GURPS/generateDamage/build
+# Folder: /usr/home/ayeka/Programming/C/GURPS/TestPIPE1/build
 
-build all: phony generateDamage libmyne.a
+build all: phony testpipe1
 
 # =============================================================================
 # Unknown Build Time Dependencies.
