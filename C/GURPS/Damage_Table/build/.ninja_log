@@ -1,6 +1,6 @@
 # ninja log v5
-0	38	1614963176	CMakeFiles/Damage_Table.dir/main.c.o	fb2611069532178a
-0	66	1614963176	CMakeFiles/myne.dir/Myne/damage_table.c.o	adbccd36f4a375a6
-66	82	1614963176	libmyne.a	d9a4990d45c21421
-82	112	1614963176	Damage_Table	d8c4a7e86bfa952f
-0	19	0	CMakeFiles/install.util	49d58ccfda52a4ed
+0	29	1614999612295352000	CMakeFiles/Damage_Table.dir/main.c.o	59424d631fdca15d
+0	54	1614999612320127000	CMakeFiles/myne.dir/Myne/damage_table.c.o	b7668bc80509faea
+54	63	1614999612330232000	libmyne.a	ff7819e828fc66b5
+63	75	1614999612341252000	Damage_Table	9d76ca94885c2b83
+0	10	0	CMakeFiles/install.util	eecc36903db256d4
