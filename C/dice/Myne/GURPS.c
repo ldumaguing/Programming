@@ -13,7 +13,6 @@ void GURPS ( int argc, char *argv[] ) {
 
    if ( argc == 4 ) {
       VS_scores ( argc, argv, printString );
-      //  printf ( "%s\n", printString );
 
       return;
    }

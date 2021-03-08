@@ -26,8 +26,12 @@ int getRoll ( int argc, char *diceStr ) {
    // ***** base die
    strcpy ( pattern, "d[0-9]*" );
    getGrep ( base, pattern, diceStr );
-   strcpy ( pattern, "[0-9].*" );
-   getGrep ( base, pattern, base );
+   if ( strcmp ( base, "d" ) == 0 ) {
+      strcpy ( base, "6" );
+   } else {
+      strcpy ( pattern, "[0-9].*" );
+      getGrep ( base, pattern, base );
+   }
 
    // ***** number of dice
    strcpy ( pattern, "^[0-9]*" );
