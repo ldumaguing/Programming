@@ -1,8 +1,0 @@
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/install/strip.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/install/local.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/myne.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/install.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/Damage_Table.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/list_install_components.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/edit_cache.dir
-/home/ayeka/Programming/C/GURPS/Damage_Table/build/CMakeFiles/rebuild_cache.dir
