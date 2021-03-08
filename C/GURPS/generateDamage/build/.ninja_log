@@ -1,7 +1,0 @@
-# ninja log v5
-53	62	1615177408218447000	libmyne.a	77f2f92a6be6bbde
-0	9	0	CMakeFiles/install.util	4cd7675da9091e96
-0	53	1615177408207846000	CMakeFiles/myne.dir/Myne/generateDMG.c.o	31fd5d0a7b7bf836
-62	75	1615177408230210000	generateDamage	d8c53d4a297793ba
-0	29	1615174769868808000	CMakeFiles/generateDamage.dir/main.c.o	c5572fc7782e5c39
-1	10	0	CMakeFiles/install.util	4cd7675da9091e96
