@@ -4,25 +4,82 @@
 #include <regex.h>
 #include "myne.h"
 
+float getMultiplier ( char ** );
+
 void generateDamage ( int argc, char *argv[] ) {
 //   3d6+1(2)   p++   5   2
-   int rolled;
-   char buff[80];
+   int rolled = 0;
+   int divisor = 1;
+   float multiplier = 1;
+   int DR = 0;
+   int hardLVL = 0;
+
+   char cmd[80];
    FILE *pipeDice;
-   char readbuf[80];
 
-   if ( ( pipeDice = popen ( "~/bin/dice 3d6", "r" ) ) == NULL ) {
-      perror ( "popen" );
-      return;
+   char buff1[80];
+
+   // ********** define rolled.
+   if ( 'r' == argv[1][0] ) {
+      getGrep ( buff1, "[0-9].*", argv[1] );
+      rolled = atoi ( buff1 );
+   } else {
+      strcpy ( cmd, "~/bin/dice" );
+
+      getGrep ( buff1, "^[0-9dx+-]*", argv[1] );
+      strcat ( cmd, " " );
+      strcat ( cmd, buff1 );
+
+      if ( ( pipeDice = popen ( cmd, "r" ) ) == NULL ) {
+         perror ( "popen" );
+         return;
+      }
+
+      fgets ( buff1, 80, pipeDice );
+      fputs ( buff1, pipeDice );
+      rolled = atoi ( buff1 );
+
+      pclose ( pipeDice );
    }
 
-   while ( fgets ( readbuf, 80, pipeDice ) ) {
-      fputs ( readbuf, pipeDice );
-      puts ( readbuf );
+   buff1[0] = 0;
+
+   // ********** define divisor
+   getGrep ( buff1, "[0-9]*)", argv[1] );
+   if ( strlen ( buff1 ) > 0 ) {
+      divisor = atoi ( buff1 );
    }
 
-   pclose ( pipeDice );
+   // ********** define multiplier
+   multiplier = getMultiplier ( argv );
 
+   // ********** define DR
+   if ( argc >= 4 ) DR = atoi ( argv[3] );
+
+   // ********** define hardLVL
+   if ( argc >= 5 ) hardLVL = atoi ( argv[4] );
+
+
+   if ( ( hardLVL > 0 ) & ( divisor > 1 ) ) {
+
+   }
+
+
+
+   printf ( "d: %f\n", multiplier );
+
+
+
+}
+// ===============================================================================
+float getMultiplier ( char *argv[] ) {
+   if ( strcmp ( "cut", argv[2] ) == 0 ) return 1.5;
+   if ( strcmp ( "pi+", argv[2] ) == 0 ) return 1.5;
+   if ( strcmp ( "pi-", argv[2] ) == 0 ) return 0.5;
+   if ( strcmp ( "p++", argv[2] ) == 0 ) return 2.0;
+   if ( strcmp ( "imp", argv[2] ) == 0 ) return 2.0;
+
+   return 1.0;
 }
 
 // *******************************************************************************

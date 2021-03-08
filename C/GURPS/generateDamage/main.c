@@ -23,11 +23,11 @@ void instructions() {
    puts ( "     \"           \"       \"               HardenedLevel*" );
    puts ( "-----------------------------------------------------------------------" );
    puts ( "Examples:" );
-   puts ( "   generateDamage   3d6+1      p++" );
-   puts ( "   generateDamage   3d6+1(2)   p++" );
-   puts ( "   generateDamage   3d6+1(2)   p++   5" );
-   puts ( "   generateDamage   3d6+1(2)   p++   5   2" );
-   puts ( "   generateDamage   42r        p++   5   2" );
+   puts ( "   generateDamage   3d6+1        p++" );
+   puts ( "   generateDamage   '3d6+1(2)'   p++" );
+   puts ( "   generateDamage   '3d6+1(2)'   p++   5" );
+   puts ( "   generateDamage   '3d6+1(2)'   p++   5   2" );
+   puts ( "   generateDamage   r42          p++   5   2" );
    puts ( "" );
    puts ( "*: Target's damage resistance." );
    puts ( "r: Manually rolled." );
