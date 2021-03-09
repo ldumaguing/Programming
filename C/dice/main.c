@@ -6,20 +6,20 @@
 
 void instructions();
 
-int main ( int argc, char *argv[] ) {
-   srand ( ( unsigned ) time ( NULL ) );
-   if ( argc == 1 ) {
+int main(int argc, char *argv[]) {
+   srand((unsigned) time(NULL));
+   if (argc == 1) {
       instructions();
       return 0;
    }
 
-   if ( strcmp ( argv[1], "GURPS" ) == 0 ) {
-      GURPS ( argc, argv );
+   if (strcmp(argv[1], "GURPS") == 0) {
+      GURPS(argc, argv);
       return 0;
    }
 
-   if ( strlen ( argv[1] ) > 0 ) {
-      rollDice ( argc, argv );
+   if (strlen(argv[1]) > 0) {
+      rollDice(argc, argv);
    }
 
    return 0;
@@ -27,11 +27,11 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instructions() {
-   puts ( "dice   DiceString" );
-   puts ( "       GURPS   ESL" );
-   puts ( "               ESL1   ESL2" );
-   puts ( "---------------------------------------------------" );
-   puts ( "DiceString:   e.g. d6, d8+1, 3d6, 3d6x2, d100, etc." );
-   puts ( "ESL:          Effective Skill Level" );
-   puts ( "ESLx:         Effective Skill Level of player x" );
+   puts("dice   DiceString");
+   puts("       GURPS   ESL");
+   puts("               ESL1   ESL2");
+   puts("---------------------------------------------------");
+   puts("DiceString:   e.g. d6, d8+1, 3d6, 3d6x2, d100, etc.");
+   puts("ESL:          Effective Skill Level");
+   puts("ESLx:         Effective Skill Level of player x");
 }

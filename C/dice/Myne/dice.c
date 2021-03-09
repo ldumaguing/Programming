@@ -5,61 +5,61 @@
 // #include <time.h>
 #include "myne.h"
 
-void rollDice ( int argc, char *argv[] ) {
+void rollDice(int argc, char *argv[]) {
    char diceStr[40];
-   strcpy ( diceStr, argv[1] );
-   printf ( "%d\n", getRoll ( argc, diceStr ) );
+   strcpy(diceStr, argv[1]);
+   printf("%d\n", getRoll(argc, diceStr));
 }
 
 // *******************************************************************************
-int getRoll ( int argc, char *diceStr ) {
+int getRoll(int argc, char *diceStr) {
    char pattern[40];
    char modif[10];
    char base[10];
    char dicenum[10];
 
    // ***** modifier
-   strcpy ( pattern, "[+x-][0-9].*" );
-   getGrep ( modif, pattern, diceStr );
-   if ( strlen ( modif ) == 0 ) strcpy ( modif, "0" );
+   strcpy(pattern, "[+x-][0-9].*");
+   getGrep(modif, pattern, diceStr);
+   if (strlen(modif) == 0) strcpy(modif, "0");
 
    // ***** base die
-   strcpy ( pattern, "d[0-9]*" );
-   getGrep ( base, pattern, diceStr );
-   if ( strcmp ( base, "d" ) == 0 ) {
-      strcpy ( base, "6" );
+   strcpy(pattern, "d[0-9]*");
+   getGrep(base, pattern, diceStr);
+   if (strcmp(base, "d") == 0) {
+      strcpy(base, "6");
    } else {
-      strcpy ( pattern, "[0-9].*" );
-      getGrep ( base, pattern, base );
+      strcpy(pattern, "[0-9].*");
+      getGrep(base, pattern, base);
    }
 
    // ***** number of dice
-   strcpy ( pattern, "^[0-9]*" );
-   getGrep ( dicenum, pattern, diceStr );
-   if ( strlen ( dicenum ) == 0 ) strcpy ( dicenum, "1" );
+   strcpy(pattern, "^[0-9]*");
+   getGrep(dicenum, pattern, diceStr);
+   if (strlen(dicenum) == 0) strcpy(dicenum, "1");
 
    // ***** roll the dice
    // srand ( ( unsigned ) time ( NULL ) );
-   int baseVal = atoi ( base );
-   int dicenumVal = atoi ( dicenum );
+   int baseVal = atoi(base);
+   int dicenumVal = atoi(dicenum);
    int total = 0;
-   for ( int i = 0; i < dicenumVal; i++ ) {
-      total += ( rand() % baseVal ) + 1;
+   for (int i = 0; i < dicenumVal; i++) {
+      total += (rand() % baseVal) + 1;
    }
 
    int result = 0;
 
    // ***** modify dice result
    char anyX[10];
-   strcpy ( pattern, "x" );
-   getGrep ( anyX, pattern, diceStr );
-   if ( strcmp ( anyX, "x" ) == 0 ) {
+   strcpy(pattern, "x");
+   getGrep(anyX, pattern, diceStr);
+   if (strcmp(anyX, "x") == 0) {
       char aString[10];
-      getGrep ( aString, "[0-9].*", modif );
-      int multip = atoi ( aString );
+      getGrep(aString, "[0-9].*", modif);
+      int multip = atoi(aString);
       result = total * multip;
    } else {
-      total += atoi ( modif );
+      total += atoi(modif);
       result = total;
    }
 
@@ -67,22 +67,22 @@ int getRoll ( int argc, char *diceStr ) {
 }
 
 // *******************************************************************************
-void getGrep ( char *kv, char *pattern, char *subject ) {
+void getGrep(char *kv, char *pattern, char *subject) {
    regex_t regex;
    regmatch_t match;
 
-   regcomp ( &regex, pattern, REG_EXTENDED );
+   regcomp(&regex, pattern, REG_EXTENDED);
 
    int w = 0;
    int begin, end, len;
    char *word = NULL;
-   if ( regexec ( &regex, subject, 1, &match, 0 ) == 0 ) {
-      begin = ( int ) match.rm_so;
-      end = ( int ) match.rm_eo;
+   if (regexec(&regex, subject, 1, &match, 0) == 0) {
+      begin = (int) match.rm_so;
+      end = (int) match.rm_eo;
       len = end - begin;
-      word = malloc ( len + 1 );
+      word = malloc(len + 1);
 
-      for ( int i = begin; i < end; i++ ) {
+      for (int i = begin; i < end; i++) {
          word[w] = subject[i];
          w++;
       }
@@ -90,8 +90,8 @@ void getGrep ( char *kv, char *pattern, char *subject ) {
    } else
       return;
 
-   strcpy ( kv, word );
+   strcpy(kv, word);
 
-   free ( word );
-   regfree ( &regex );
+   free(word);
+   regfree(&regex);
 }

@@ -20,81 +20,81 @@ char damage[][20] = {"-",
                      "9d+2/11d+2", "10d/12d",   "10d+2/12d+2", "11d/13d"
                     };
 
-void getGrep ( char *, char *, char * ) ;
+void getGrep(char *, char *, char *) ;
 
 // *******************************************************************************
-void thrust ( int argc, char *argv[] ) {
+void thrust(int argc, char *argv[]) {
    char buff[40];
 
-   int STR = atoi ( argv[1] );
-   if ( ( STR >= 1 ) & ( STR <= 40 ) ) {
-      strcpy ( buff, damage[STR] );
-   } else   if ( ( STR > 40 ) & ( STR <= 100 ) ) {
-      strcpy ( buff, damage[ ( ( STR - 40 ) / 5 ) + 40] );
+   int STR = atoi(argv[1]);
+   if ((STR >= 1) & (STR <= 40)) {
+      strcpy(buff, damage[STR]);
+   } else   if ((STR > 40) & (STR <= 100)) {
+      strcpy(buff, damage[((STR - 40) / 5) + 40]);
    } else {
-      sprintf ( buff, "%d%s%d%s", ( ( ( STR - 100 ) / 10 ) + 11 ), "d/",
-                ( ( ( STR - 100 ) / 10 ) + 13 ), "d" );
+      sprintf(buff, "%d%s%d%s", (((STR - 100) / 10) + 11), "d/",
+              (((STR - 100) / 10) + 13), "d");
    }
 
    char buff1[40];
-   getGrep ( buff1, "^[0-9d+-]*", buff );
+   getGrep(buff1, "^[0-9d+-]*", buff);
 
-   puts ( buff1 );
+   puts(buff1);
 }
 
 // *******************************************************************************
-void swing ( int argc, char *argv[] ) {
+void swing(int argc, char *argv[]) {
    char buff[40];
 
-   int STR = atoi ( argv[1] );
-   if ( ( STR >= 1 ) & ( STR <= 40 ) ) {
-      strcpy ( buff, damage[STR] );
-   } else   if ( ( STR > 40 ) & ( STR <= 100 ) ) {
-      strcpy ( buff, damage[ ( ( STR - 40 ) / 5 ) + 40] );
+   int STR = atoi(argv[1]);
+   if ((STR >= 1) & (STR <= 40)) {
+      strcpy(buff, damage[STR]);
+   } else   if ((STR > 40) & (STR <= 100)) {
+      strcpy(buff, damage[((STR - 40) / 5) + 40]);
    } else {
-      sprintf ( buff, "%d%s%d%s", ( ( ( STR - 100 ) / 10 ) + 11 ), "d/",
-                ( ( ( STR - 100 ) / 10 ) + 13 ), "d" );
+      sprintf(buff, "%d%s%d%s", (((STR - 100) / 10) + 11), "d/",
+              (((STR - 100) / 10) + 13), "d");
    }
 
    char buff1[40];
-   getGrep ( buff1, "[0-9d+-]*$", buff );
+   getGrep(buff1, "[0-9d+-]*$", buff);
 
-   puts ( buff1 );
+   puts(buff1);
 }
 
 // *******************************************************************************
-void both ( int argc, char *argv[] ) {
-   int STR = atoi ( argv[1] );
-   if ( ( STR >= 1 ) & ( STR <= 40 ) ) {
-      puts ( damage[STR] );
+void both(int argc, char *argv[]) {
+   int STR = atoi(argv[1]);
+   if ((STR >= 1) & (STR <= 40)) {
+      puts(damage[STR]);
       return;
    }
-   if ( ( STR > 40 ) & ( STR <= 100 ) ) {
-      puts ( damage[ ( ( STR - 40 ) / 5 ) + 40] );
+   if ((STR > 40) & (STR <= 100)) {
+      puts(damage[((STR - 40) / 5) + 40]);
       return;
    }
 
-   printf ( "%d%s%d%s\n", ( ( ( STR - 100 ) / 10 ) + 11 ), "d/",
-            ( ( ( STR - 100 ) / 10 ) + 13 ), "d" );
+   printf("%d%s%d%s\n", (((STR - 100) / 10) + 11), "d/",
+          (((STR - 100) / 10) + 13), "d");
 }
 
 // *******************************************************************************
-void getGrep ( char *kv, char *pattern, char *subject ) {
+void getGrep(char *kv, char *pattern, char *subject) {
    regex_t regex;
    regmatch_t match;
 
-   regcomp ( &regex, pattern, REG_EXTENDED );
+   regcomp(&regex, pattern, REG_EXTENDED);
 
    int w = 0;
    int begin, end, len;
    char *word = NULL;
-   if ( regexec ( &regex, subject, 1, &match, 0 ) == 0 ) {
-      begin = ( int ) match.rm_so;
-      end = ( int ) match.rm_eo;
+   if (regexec(&regex, subject, 1, &match, 0) == 0) {
+      begin = (int) match.rm_so;
+      end = (int) match.rm_eo;
       len = end - begin;
-      word = malloc ( len + 1 );
+      word = malloc(len + 1);
 
-      for ( int i = begin; i < end; i++ ) {
+      for (int i = begin; i < end; i++) {
          word[w] = subject[i];
          w++;
       }
@@ -102,8 +102,8 @@ void getGrep ( char *kv, char *pattern, char *subject ) {
    } else
       return;
 
-   strcpy ( kv, word );
+   strcpy(kv, word);
 
-   free ( word );
-   regfree ( &regex );
+   free(word);
+   regfree(&regex);
 }

@@ -1,0 +1,103 @@
+The system is: FreeBSD - 12.2-RELEASE-p3 - amd64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is Clang, found in "/usr/home/ayeka/Programming/C/GURPS/generateDamage/build/CMakeFiles/3.19.2/CompilerIdC/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /usr/home/ayeka/Programming/C/GURPS/generateDamage/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/local/bin/ninja cmTC_d2269 && [1/2] Building C object CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o
+FreeBSD clang version 10.0.1 (git@github.com:llvm/llvm-project.git llvmorg-10.0.1-0-gef32c611aa2)
+Target: x86_64-unknown-freebsd12.2
+Thread model: posix
+InstalledDir: /usr/bin
+ (in-process)
+ "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.2 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mframe-pointer=all -fno-rounding-math -masm-verbose -mconstructor-aliases -munwind-tables -target-cpu x86-64 -dwarf-column-info -fno-split-dwarf-inlining -debugger-tuning=gdb -v -resource-dir /usr/lib/clang/10.0.1 -dependency-file CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -sys-header-deps -fdebug-compilation-dir /usr/home/ayeka/Programming/C/GURPS/generateDamage/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fgnuc-version=4.2.1 -fobjc-runtime=gnustep -fdiagnostics-show-option -faddrsig -o CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+clang -cc1 version 10.0.1 based upon LLVM 10.0.1 default target x86_64-unknown-freebsd12.2
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/clang/10.0.1/include
+ /usr/include
+End of search list.
+[2/2] Linking C executable cmTC_d2269
+FreeBSD clang version 10.0.1 (git@github.com:llvm/llvm-project.git llvmorg-10.0.1-0-gef32c611aa2)
+Target: x86_64-unknown-freebsd12.2
+Thread model: posix
+InstalledDir: /usr/bin
+ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_d2269 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/clang/10.0.1/include]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/usr/lib/clang/10.0.1/include] ==> [/usr/lib/clang/10.0.1/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/usr/lib/clang/10.0.1/include;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /usr/home/ayeka/Programming/C/GURPS/generateDamage/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/local/bin/ninja cmTC_d2269 && [1/2] Building C object CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o]
+  ignore line: [FreeBSD clang version 10.0.1 (git@github.com:llvm/llvm-project.git llvmorg-10.0.1-0-gef32c611aa2)]
+  ignore line: [Target: x86_64-unknown-freebsd12.2]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /usr/bin]
+  ignore line: [ (in-process)]
+  ignore line: [ "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.2 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mframe-pointer=all -fno-rounding-math -masm-verbose -mconstructor-aliases -munwind-tables -target-cpu x86-64 -dwarf-column-info -fno-split-dwarf-inlining -debugger-tuning=gdb -v -resource-dir /usr/lib/clang/10.0.1 -dependency-file CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -sys-header-deps -fdebug-compilation-dir /usr/home/ayeka/Programming/C/GURPS/generateDamage/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fgnuc-version=4.2.1 -fobjc-runtime=gnustep -fdiagnostics-show-option -faddrsig -o CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [clang -cc1 version 10.0.1 based upon LLVM 10.0.1 default target x86_64-unknown-freebsd12.2]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/clang/10.0.1/include]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [[2/2] Linking C executable cmTC_d2269]
+  ignore line: [FreeBSD clang version 10.0.1 (git@github.com:llvm/llvm-project.git llvmorg-10.0.1-0-gef32c611aa2)]
+  ignore line: [Target: x86_64-unknown-freebsd12.2]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /usr/bin]
+  link line: [ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_d2269 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o]
+    arg [/usr/bin/ld] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/libexec/ld-elf.so.1] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--enable-new-dtags] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_d2269] ==> ignore
+    arg [/usr/lib/crt1.o] ==> ignore
+    arg [/usr/lib/crti.o] ==> ignore
+    arg [/usr/lib/crtbegin.o] ==> ignore
+    arg [-L/usr/lib] ==> dir [/usr/lib]
+    arg [CMakeFiles/cmTC_d2269.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/crtend.o] ==> ignore
+    arg [/usr/lib/crtn.o] ==> ignore
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [/usr/lib]
+  implicit fwks: []
+
+
