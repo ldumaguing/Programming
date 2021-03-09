@@ -1,0 +1,19 @@
+[
+{
+  "directory": "/home/ayeka/Programming/C/hexagon/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/hexagon.c.o   -c /home/ayeka/Programming/C/hexagon/Myne/hexagon.c",
+  "file": "/home/ayeka/Programming/C/hexagon/Myne/hexagon.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/hexagon/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/sides.c.o   -c /home/ayeka/Programming/C/hexagon/Myne/sides.c",
+  "file": "/home/ayeka/Programming/C/hexagon/Myne/sides.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/hexagon/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/hexagon.dir/main.c.o   -c /home/ayeka/Programming/C/hexagon/main.c",
+  "file": "/home/ayeka/Programming/C/hexagon/main.c"
+}
+]

@@ -1,0 +1,12 @@
+# ninja log v5
+1	43	1615303847	CMakeFiles/myne.dir/Myne/gameturn.c.o	6cddda0d47cd9281
+1	44	1615303847	CMakeFiles/gameTurn.dir/main.c.o	efcb618ddf32389e
+44	103	1615303847	libmyne.a	5d1c140c871a3d34
+103	132	1615303847	gameTurn	446da2ecbd6a17a4
+0	34	1615303878	CMakeFiles/gameTurn.dir/main.c.o	efcb618ddf32389e
+34	65	1615303878	gameTurn	446da2ecbd6a17a4
+0	27	1615303945	CMakeFiles/myne.dir/Myne/gameturn.c.o	f583dd26ecdaae65
+1	38	1615303945	CMakeFiles/gameTurn.dir/main.c.o	b1af255c060a44f6
+27	44	1615303945	libmyne.a	5d1c140c871a3d34
+44	75	1615303945	gameTurn	f318329afa7b4843
+0	16	0	CMakeFiles/install.util	634a05bb5ca2c043

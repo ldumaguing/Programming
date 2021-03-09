@@ -1,20 +1,20 @@
 #include <stdio.h>
 
 int main(void) {
-   FILE *pipein_fp;
+   FILE *pipePULL;
    char readbuf[80];
 
    /* Create one way pipe line with call to popen() */
-   if ((pipein_fp = popen("echo $PATH", "r")) == NULL) {
+   if ((pipePULL = popen("dice 3d6", "r")) == NULL) {
       perror("popen");
       return (1);
    }
    
-   fgets(readbuf, 80, pipein_fp);
+   fgets(readbuf, 80, pipePULL);
    puts (readbuf);
    
    /* Close the pipes */
-   pclose(pipein_fp);
+   pclose(pipePULL);
 
    return (0);
 }
