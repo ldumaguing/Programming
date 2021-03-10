@@ -1,1 +1,0 @@
-/usr/home/ayeka/bin/gameTurn

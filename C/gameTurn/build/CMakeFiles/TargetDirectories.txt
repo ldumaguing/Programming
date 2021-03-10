@@ -1,8 +1,0 @@
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/install/local.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/install/strip.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/install.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/list_install_components.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/rebuild_cache.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/edit_cache.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/myne.dir
-/usr/home/ayeka/Programming/C/gameTurn/build/CMakeFiles/gameTurn.dir
