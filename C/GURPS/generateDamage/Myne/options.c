@@ -11,14 +11,10 @@ void options(char *dmgType, char *opts) {
    if (!((strcmp(dmgType, "cut") == 0) | (strcmp(dmgType, "cr") == 0)))
       return;
    else
-      knockback();
-
-
-   puts(dmgType);
-   puts(opts);
+      knockback(opts);
 }
 
 // *******************************************************************************
-void knockback() {
-
+void knockback(char *opts) {
+   puts("knockback");
 }
