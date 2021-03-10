@@ -75,8 +75,7 @@ void generateDamage(int argc, char *argv[]) {
    }
 
    if (argc >= 6) {
-      options();
-      return;
+      options(argv[2], argv[5]);
    }
 
    if (argc >= 4)
