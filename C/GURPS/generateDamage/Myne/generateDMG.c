@@ -5,7 +5,7 @@
 #include "myne.h"
 
 float getMultiplier(char **);
-void vsDR(int, int, float, int);
+int vsDR(int, int, float, int);
 
 void generateDamage(int argc, char *argv[]) {
    int rolled = 0;
@@ -74,26 +74,26 @@ void generateDamage(int argc, char *argv[]) {
       divisor = divLVL[index];
    }
 
-   if (argc >= 6) {
-      options(argv[2], argv[5]);
-   }
-
-   if (argc >= 4)
-      vsDR(rolled, divisor, multiplier, DR);
-   else {
+   if (argc >= 4) {
+      int X = vsDR(rolled, divisor, multiplier, DR);
+      if (argc >= 6) {
+         options(argv[2], argv[5], X, rolled);
+      }
+      printf("%d\n", X);
+   } else {
       printf("%d\n", (int)(rolled * multiplier));
    }
 }
 
 // -------------------------------------------------------------------------------
-void vsDR(int rolled, int divisor, float multiplier, int DR) {
+int vsDR(int rolled, int divisor, float multiplier, int DR) {
    DR = DR / divisor;
    rolled = rolled - DR;
    if (rolled <= 0)
-      puts("0");
+      return 0;
    else  {
       rolled = rolled * multiplier;
-      printf("%d\n", rolled);
+      return rolled;
    }
 }
 
