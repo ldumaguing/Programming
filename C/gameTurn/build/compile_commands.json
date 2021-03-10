@@ -1,13 +1,12 @@
 [
 {
-  "directory": "/home/ayeka/Programming/C/gameTurn/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/gameturn.c.o   -c /home/ayeka/Programming/C/gameTurn/Myne/gameturn.c",
-  "file": "/home/ayeka/Programming/C/gameTurn/Myne/gameturn.c"
+  "directory": "/usr/home/ayeka/Programming/C/gameTurn/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/myne.dir/Myne/gameturn.c.o -c /usr/home/ayeka/Programming/C/gameTurn/Myne/gameturn.c",
+  "file": "/usr/home/ayeka/Programming/C/gameTurn/Myne/gameturn.c"
 },
-
 {
-  "directory": "/home/ayeka/Programming/C/gameTurn/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/gameTurn.dir/main.c.o   -c /home/ayeka/Programming/C/gameTurn/main.c",
-  "file": "/home/ayeka/Programming/C/gameTurn/main.c"
+  "directory": "/usr/home/ayeka/Programming/C/gameTurn/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/gameTurn.dir/main.c.o -c /usr/home/ayeka/Programming/C/gameTurn/main.c",
+  "file": "/usr/home/ayeka/Programming/C/gameTurn/main.c"
 }
 ]

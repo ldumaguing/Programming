@@ -11,14 +11,16 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
-   if (strcmp("init", argv[1]) == 0) init();
-   
+   if (strcmp("init", argv[1]) == 0) return init();
+   if (strcmp("current", argv[1]) == 0) return current();
+   if (strcmp("increment", argv[1]) == 0) return increment();
+
    return 0;
 }
 
 // *******************************************************************************
 void instructions() {
-    puts("gameTurn   init");
-    puts("           current");
-    puts("           increment");
+   puts("gameTurn   init");
+   puts("           current");
+   puts("           increment");
 }

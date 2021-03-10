@@ -1,4 +1,5 @@
 #pragma once
 
-void init();
-
+int init();
+int current();
+int increment();

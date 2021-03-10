@@ -1,9 +1,0 @@
-# ninja log v5
-0	29	1615304272	CMakeFiles/testpipe1a.dir/main.c.o	5b2b2d4b68c7af2d
-29	54	1615304272	testpipe1a	d19d7efa00c95df1
-0	28	1615304300	CMakeFiles/testpipe1a.dir/main.c.o	8af4684ea1e2c152
-28	50	1615304300	testpipe1a	d886cbac953595e8
-0	16	0	CMakeFiles/install.util	6c88fc1a292d3b1e
-0	32	1615304354	CMakeFiles/testpipe1a.dir/main.c.o	8af4684ea1e2c152
-32	54	1615304354	testpipe1a	d886cbac953595e8
-1	17	0	CMakeFiles/install.util	6c88fc1a292d3b1e

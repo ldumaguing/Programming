@@ -1,1 +1,1 @@
-/home/ayeka/bin/gameTurn
+/usr/home/ayeka/bin/gameTurn
