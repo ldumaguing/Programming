@@ -74,6 +74,11 @@ void generateDamage(int argc, char *argv[]) {
       divisor = divLVL[index];
    }
 
+   if (argc >= 6) {
+      options();
+      return;
+   }
+
    if (argc >= 4)
       vsDR(rolled, divisor, multiplier, DR);
    else {

@@ -1,0 +1,19 @@
+[
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/generateDamage/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/generateDMG.c.o   -c /home/ayeka/Programming/C/GURPS/generateDamage/Myne/generateDMG.c",
+  "file": "/home/ayeka/Programming/C/GURPS/generateDamage/Myne/generateDMG.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/generateDamage/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/options.c.o   -c /home/ayeka/Programming/C/GURPS/generateDamage/Myne/options.c",
+  "file": "/home/ayeka/Programming/C/GURPS/generateDamage/Myne/options.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/C/GURPS/generateDamage/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/generateDamage.dir/main.c.o   -c /home/ayeka/Programming/C/GURPS/generateDamage/main.c",
+  "file": "/home/ayeka/Programming/C/GURPS/generateDamage/main.c"
+}
+]
