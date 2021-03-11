@@ -36,9 +36,7 @@ void generateDamage(int argc, char *argv[]) {
       }
 
       fgets(buff1, 80, pipeDice);
-      fputs(buff1, pipeDice);
       rolled = atoi(buff1);
-
       pclose(pipeDice);
    }
 

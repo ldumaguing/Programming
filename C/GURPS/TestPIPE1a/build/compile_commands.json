@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/usr/home/ayeka/Programming/C/GURPS/TestPIPE1a/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/testpipe1a.dir/main.c.o -c /usr/home/ayeka/Programming/C/GURPS/TestPIPE1a/main.c",
+  "file": "/usr/home/ayeka/Programming/C/GURPS/TestPIPE1a/main.c"
+}
+]

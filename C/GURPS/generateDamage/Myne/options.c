@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "myne.h"
+#include <unistd.h>
 
 void knockback(char *, char *, int, int);
 
@@ -25,6 +26,45 @@ void knockback(char *opts, char *dmgType, int dmg, int rolled) {
    char buff1[80];
    getGrep(buff, "ST:[0-9]*", opts);
    getGrep(buff1, "[0-9].*", buff);
-   int X = atoi(buff1);
-   X = X - 2;
+   int ST = atoi(buff1);
+   int X = ST - 2;
+
+
+
+   int kbyds = 0;
+   if (ST > 3)
+      kbyds = rolled / X;
+   else
+      kbyds = rolled;
+   printf("%dyds\n", kbyds);
+
+   usleep(1000000);
+
+   char cmd[80];
+   getGrep(buff, "DX:[0-9]*", opts);
+   getGrep(buff1, "[0-9].*", buff);
+   int DX = atoi(buff1);
+   FILE *pipeDice;
+   strcpy(cmd, "~/bin/dice 3d6");
+   if ((pipeDice = popen(cmd, "r")) == NULL) {
+      perror("popen");
+      return;
+   }
+   puts("*********");
+   fgets(buff1, 80, pipeDice);
+   puts(buff1);
+   puts("*********");
+
+   pclose(pipeDice);
+
+
+
+
+
+
+
+
+
+
+
 }

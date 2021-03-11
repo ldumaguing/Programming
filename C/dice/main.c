@@ -7,7 +7,7 @@
 void instructions();
 
 int main(int argc, char *argv[]) {
-   srand((unsigned) time(NULL));
+   srand((unsigned) time(0));
    if (argc == 1) {
       instructions();
       return 0;
