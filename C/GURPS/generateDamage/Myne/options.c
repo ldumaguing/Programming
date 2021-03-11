@@ -38,8 +38,6 @@ void knockback(char *opts, char *dmgType, int dmg, int rolled) {
       kbyds = rolled;
    printf("%dyds\n", kbyds);
 
-   usleep(1000000);  // wait for a second to get another random number seed.
-
    char cmd[80];
    getGrep(buff, "DX:[0-9]*", opts);
    getGrep(buff1, "[0-9].*", buff);

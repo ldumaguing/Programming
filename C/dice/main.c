@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/time.h>
 #include "Myne/myne.h"
 
 void instructions();
 
 int main(int argc, char *argv[]) {
-   srand((unsigned) time(0));
    if (argc == 1) {
       instructions();
       return 0;
    }
+
+   struct timeval start;
+   gettimeofday(&start, NULL);
+   long micros = start.tv_usec;
+   srand(micros);
 
    if (strcmp(argv[1], "GURPS") == 0) {
       GURPS(argc, argv);
