@@ -77,9 +77,9 @@ void generateDamage(int argc, char *argv[]) {
       if (argc >= 6) {
          options(argv[2], argv[5], X, rolled);
       }
-      printf("%d\n", X);
+      printf("DMG:%d\n", X);
    } else {
-      printf("%d\n", (int)(rolled * multiplier));
+      printf("DMG:%d\n", (int)(rolled * multiplier));
    }
 }
 
