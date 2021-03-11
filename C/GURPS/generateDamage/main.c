@@ -35,5 +35,5 @@ void instructions() {
    puts("r - Manually rolled.");
    puts("ST:10;DX:10 - Target's stats for Knockback rule.  +4 to DX if target");
    puts("              has Perfect Balance or any other modifiers.");
-   puts("1/2D        - calculate in for a ranged weapon's 1/2D rule.");
+   puts("1/2D        - a flag to apply a ranged weapon's 1/2D rule.");
 }

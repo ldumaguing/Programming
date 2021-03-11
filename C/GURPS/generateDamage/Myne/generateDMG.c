@@ -42,6 +42,15 @@ void generateDamage(int argc, char *argv[]) {
 
    buff1[0] = 0;
 
+   // ********** define 1/2D
+   if (argc >= 6) {
+      getGrep(buff1, "1/2D", argv[5]);
+      if (strlen(buff1) > 0)
+         rolled = rolled / 2;
+   }
+
+   buff1[0] = 0;
+
    // ********** define divisor
    getGrep(buff1, "[0-9]*)", argv[1]);
    if (strlen(buff1) > 0) {
