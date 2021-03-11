@@ -1,10 +1,8 @@
 # ninja log v5
-0	48	1615426189204268000	CMakeFiles/dice.dir/main.c.o	a375f9ce35856c3
-0	57	1615426189213785000	CMakeFiles/myne.dir/Myne/GURPS.c.o	c980cd8895ad3c16
-0	60	1615426189217309000	CMakeFiles/myne.dir/Myne/dice.c.o	e4e916783c6e04be
-60	69	1615426189227077000	libmyne.a	75da5b877a34f500
-69	81	1615426189238312000	dice	f9ea24a572d5648a
-1	10	0	CMakeFiles/install.util	4676a875592ec48
-0	32	1615428535986310000	CMakeFiles/dice.dir/main.c.o	a375f9ce35856c3
-32	45	1615428535999396000	dice	f9ea24a572d5648a
-1	10	0	CMakeFiles/install.util	4676a875592ec48
+1	487	1615433477	CMakeFiles/dice.dir/main.c.o	6e0cde31c7f9bcbc
+0	579	1615433477	CMakeFiles/myne.dir/Myne/dice.c.o	b0012d993b7039cb
+0	611	1615433477	CMakeFiles/myne.dir/Myne/GURPS.c.o	beedd52c5b455116
+612	694	1615433477	libmyne.a	a7b6364802266105
+694	778	1615433477	dice	5e4c150cf92b7774
+0	54	0	CMakeFiles/install.util	97d00b64c916547
+0	33	0	CMakeFiles/install.util	97d00b64c916547
