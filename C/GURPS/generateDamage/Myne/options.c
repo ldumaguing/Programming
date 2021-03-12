@@ -5,18 +5,47 @@
 #include <unistd.h>
 
 void knockback(char *, char *, int, int);
+void flexibleArmor(char *, char *, int, int);
 
 // *******************************************************************************
 void options(char *dmgType, char *opts, int dmg, int rolled) {
-   if (!((strcmp(dmgType, "cut") == 0) | (strcmp(dmgType, "cr") == 0)))
-      return;
-   else
-      knockback(opts, dmgType, dmg, rolled);
+   knockback(opts, dmgType, dmg, rolled);
+   flexibleArmor(opts, dmgType, dmg, rolled);
+}
+
+// ===============================================================================
+void flexibleArmor(char *opts, char *dmgType, int dmg, int rolled) {
+   if (dmg > 0) return;
+
+
+   char buff[80] = "";
+   getGrep(buff, "FlexArmor", opts);
+   if (strlen(buff) <= 0) return;
+
+
+   int X;
+   if ((strcmp(dmgType, "cut") == 0)
+         | (strcmp(dmgType, "imp") == 0)
+         | (strcmp(dmgType, "pi-") == 0)
+         | (strcmp(dmgType, "pi") == 0)
+         | (strcmp(dmgType, "pi+") == 0)
+         | (strcmp(dmgType, "pi++") == 0)
+      ) {
+      X = rolled / 10;
+      printf("BluntTraumaDMG:%d\n", X);
+   }
+   if (strcmp(dmgType, "cr") == 0) {
+      X = rolled / 5;
+      printf("BluntTraumaDMG:%d\n", X);
+   }
 }
 
 // ===============================================================================
 void knockback(char *opts, char *dmgType, int dmg, int rolled) {
-   if ((strcmp(dmgType, "cut") == 0) & (dmg > 0)) return;
+   if (!((strcmp(dmgType, "cut") == 0) | (strcmp(dmgType, "cr") == 0)))
+      return;
+   if ((strcmp(dmgType, "cut") == 0) & (dmg > 0))
+      return;
 
    char buff[80];
    char buff1[80];

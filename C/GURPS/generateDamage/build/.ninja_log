@@ -1,15 +1,13 @@
 # ninja log v5
-75	92	1615481910	libmyne.a	fe4fc999e30c19ef
-0	75	1615481910	CMakeFiles/myne.dir/Myne/generateDMG.c.o	7d3cface72539aeb
-1	42	1615477769	CMakeFiles/generateDamage.dir/main.c.o	45ffe8677168f923
-92	125	1615481910	generateDamage	95f315794728e422
-0	52	1615480524	CMakeFiles/myne.dir/Myne/options.c.o	7cd756ce624fd8eb
-0	16	0	CMakeFiles/install.util	2e1fee6382ab223b
-1	41	1615482174	CMakeFiles/generateDamage.dir/main.c.o	45ffe8677168f923
-1	79	1615482174	CMakeFiles/myne.dir/Myne/generateDMG.c.o	7d3cface72539aeb
-79	98	1615482174	libmyne.a	fe4fc999e30c19ef
-98	128	1615482174	generateDamage	95f315794728e422
+1	124	1615564814	CMakeFiles/myne.dir/Myne/options.c.o	7cd756ce624fd8eb
+141	172	1615564814	generateDamage	95f315794728e422
+118	1061	1615562472	CMakeFiles/generateDamage.dir/main.c.o	45ffe8677168f923
+124	141	1615564814	libmyne.a	fe4fc999e30c19ef
 0	79	1615482284	CMakeFiles/myne.dir/Myne/generateDMG.c.o	7d3cface72539aeb
-79	97	1615482284	libmyne.a	fe4fc999e30c19ef
-97	126	1615482284	generateDamage	95f315794728e422
-0	20	0	CMakeFiles/install.util	2e1fee6382ab223b
+0	15	0	CMakeFiles/install.util	2e1fee6382ab223b
+1	63	1615565253	CMakeFiles/generateDamage.dir/main.c.o	45ffe8677168f923
+1	91	1615565253	CMakeFiles/myne.dir/Myne/options.c.o	7cd756ce624fd8eb
+1	246	1615565253	CMakeFiles/myne.dir/Myne/generateDMG.c.o	7d3cface72539aeb
+246	265	1615565253	libmyne.a	fe4fc999e30c19ef
+265	294	1615565253	generateDamage	95f315794728e422
+0	16	0	CMakeFiles/install.util	2e1fee6382ab223b

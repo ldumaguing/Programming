@@ -109,7 +109,7 @@ float getMultiplier(char *argv[]) {
    if (strcmp("cut", argv[2]) == 0) return 1.5;
    if (strcmp("pi+", argv[2]) == 0) return 1.5;
    if (strcmp("pi-", argv[2]) == 0) return 0.5;
-   if (strcmp("p++", argv[2]) == 0) return 2.0;
+   if (strcmp("pi++", argv[2]) == 0) return 2.0;
    if (strcmp("imp", argv[2]) == 0) return 2.0;
 
    return 1.0;
