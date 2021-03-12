@@ -77,9 +77,9 @@ void knockback(char *opts, char *dmgType, int dmg, int rolled) {
    }
 
    fgets(buff1, 80, pipeDice);
-
+   
    if ((strncmp(buff1, "fail", 4) == 0) | (strncmp(buff1, "crit-fail", 6) == 0))
-      puts("prone");
+      puts("Prone");
 
    pclose(pipeDice);
 }
