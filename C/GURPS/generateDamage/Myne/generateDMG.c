@@ -8,7 +8,7 @@ float getMultiplier(char **);
 int vsDR(int, int, float, int);
 
 void generateDamage(int argc, char *argv[]) {
-   int rolled = 0;
+   int basicDMG = 0;
    int divisor = 1;
    float multiplier = 1;
    int DR = 0;
@@ -19,10 +19,11 @@ void generateDamage(int argc, char *argv[]) {
 
    char buff1[80];
 
-   // ********** define rolled.
+
+   // ********** define basic damage.
    if ('r' == argv[1][0]) {
       getGrep(buff1, "[0-9].*", argv[1]);
-      rolled = atoi(buff1);
+      basicDMG = atoi(buff1);
    } else {
       strcpy(cmd, "~/bin/dice");
 
@@ -36,20 +37,31 @@ void generateDamage(int argc, char *argv[]) {
       }
 
       fgets(buff1, 80, pipeDice);
-      rolled = atoi(buff1);
+      basicDMG = atoi(buff1);
       pclose(pipeDice);
    }
 
    buff1[0] = 0;
 
+
+   // ***** calc minimum basic damage.
+   if (basicDMG < 1) {
+      if (strcmp(argv[2], "cr") == 0)
+         basicDMG = 0;
+      else
+         basicDMG = 1;
+   }
+
+
    // ********** define 1/2D
    if (argc >= 6) {
       getGrep(buff1, "1/2D", argv[5]);
       if (strlen(buff1) > 0)
-         rolled = rolled / 2;
+         basicDMG = basicDMG / 2;
    }
 
    buff1[0] = 0;
+
 
    // ********** define divisor
    getGrep(buff1, "[0-9]*)", argv[1]);
@@ -57,11 +69,14 @@ void generateDamage(int argc, char *argv[]) {
       divisor = atoi(buff1);
    }
 
+
    // ********** define multiplier
    multiplier = getMultiplier(argv);
 
+
    // ********** define DR
    if (argc >= 4) DR = atoi(argv[3]);
+
 
    // ********** define hardLVL
    if (argc >= 5) hardLVL = atoi(argv[4]);
@@ -82,25 +97,25 @@ void generateDamage(int argc, char *argv[]) {
    }
 
    if (argc >= 4) {
-      int X = vsDR(rolled, divisor, multiplier, DR);
+      int X = vsDR(basicDMG, divisor, multiplier, DR);
       if (argc >= 6) {
-         options(argv[2], argv[5], X, rolled);
+         options(argv[2], argv[5], X, basicDMG);
       }
       printf("DMG:%d\n", X);
    } else {
-      printf("DMG:%d\n", (int)(rolled * multiplier));
+      printf("DMG:%d\n", (int)(basicDMG * multiplier));
    }
 }
 
 // -------------------------------------------------------------------------------
-int vsDR(int rolled, int divisor, float multiplier, int DR) {
+int vsDR(int basicDMG, int divisor, float multiplier, int DR) {
    DR = DR / divisor;
-   rolled = rolled - DR;
-   if (rolled <= 0)
+   basicDMG = basicDMG - DR;
+   if (basicDMG <= 0)
       return 0;
    else  {
-      rolled = rolled * multiplier;
-      return rolled;
+      basicDMG = basicDMG * multiplier;
+      return basicDMG;
    }
 }
 
