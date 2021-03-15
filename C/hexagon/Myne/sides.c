@@ -7,21 +7,17 @@
 void getPoints(int argc, char *argv[]) {
    double X = 0.288675134594;
    double scale = 1.0;
-   double movX = 0.0;
-   double movY = 0.0;
    char *ptr;
 
    scale = strtod(argv[2], &ptr);
-   movX = strtod(argv[3], &ptr);
-   movY = strtod(argv[4], &ptr);
 
-   printf("%.12f\n%.12f\n", (X * scale)       + movX, (1.0 * scale) + movY);
-   printf("%.12f\n%.12f\n", (0.0 * scale)     + movX, (0.5 * scale) + movY);
-   printf("%.12f\n%.12f\n", (X * scale)       + movX, (0.0 * scale) + movY);
-   printf("%.12f\n%.12f\n", (3.0 * X * scale) + movX, (0.0 * scale) + movY);
-   printf("%.12f\n%.12f\n", (4.0 * X * scale) + movX, (0.5 * scale) + movY);
-   printf("%.12f\n%.12f\n", (3.0 * X * scale) + movX, (1.0 * scale) + movY);
-   printf("%.12f\n%.12f\n", (6.0 * X * scale) + movX, (0.5 * scale) + movY);
+   printf("%.12f\n%.12f\n", (X * scale)      , (1.0 * scale));
+   printf("%.12f\n%.12f\n", (0.0 * scale)    , (0.5 * scale));
+   printf("%.12f\n%.12f\n", (X * scale)      , (0.0 * scale));
+   printf("%.12f\n%.12f\n", (3.0 * X * scale), (0.0 * scale));
+   printf("%.12f\n%.12f\n", (4.0 * X * scale), (0.5 * scale));
+   printf("%.12f\n%.12f\n", (3.0 * X * scale), (1.0 * scale));
+   printf("%.12f\n%.12f\n", (6.0 * X * scale), (0.5 * scale));
 }
 
 // *******************************************************************************

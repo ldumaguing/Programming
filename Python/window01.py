@@ -1,8 +1,14 @@
+import math
 import pygame
 import subprocess
 from subprocess import Popen
 
-p = Popen('hexagon getpoints 50.0 0.0 0.0', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+scl = '10.0'
+scale = int(float(scl))
+Xpx = 1298
+Ypx = 730
+
+p = Popen('hexagon getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 output, errors = p.communicate()
 X = output.split('\n')
 p1 = (int(float(X[0])), int(float(X[1])))
@@ -17,19 +23,22 @@ h = p1[1]
 
 pygame.init()
 
-window = pygame.display.set_mode((500, 400))
+window = pygame.display.set_mode((Xpx, Ypx))
 print(p7)
+countX = math.ceil(Xpx / w)
+countY = math.ceil(Ypx / h)
 while True:
-   for x in range(5):
-      p1a = (p1[0] + (x * w), p1[1])
-      p2a = (p2[0] + (x * w), p2[1])
-      p3a = (p3[0] + (x * w), p3[1])
-      p4a = (p4[0] + (x * w), p4[1])
-      p5a = (p5[0] + (x * w), p5[1])
-      p6a = (p6[0] + (x * w), p6[1])
-      p7a = (p7[0] + (x * w), p7[1])
-      pygame.draw.lines(window, (255,255,255), False, (p1a, p2a, p3a, p4a, p5a, p6a), 1)
-      pygame.draw.line(window, (255,255,255), p5a, p7a, 1)
+   for x in range(countX):
+      for y in range(countY):
+         p1a = (p1[0] + (x * w), p1[1] + (y * h))
+         p2a = (p2[0] + (x * w), p2[1] + (y * h))
+         p3a = (p3[0] + (x * w), p3[1] + (y * h))
+         p4a = (p4[0] + (x * w), p4[1] + (y * h))
+         p5a = (p5[0] + (x * w), p5[1] + (y * h))
+         p6a = (p6[0] + (x * w), p6[1] + (y * h))
+         p7a = (p7[0] + (x * w), p7[1] + (y * h))
+         pygame.draw.lines(window, (255,255,255), False, (p1a, p2a, p3a, p4a, p5a, p6a), 1)
+         pygame.draw.line(window, (255,255,255), p5a, p7a, 1)
 
    pygame.display.update()
 

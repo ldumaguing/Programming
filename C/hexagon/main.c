@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 
 // *******************************************************************************
 void instructions() {
-   puts("hexagon   getpoints   scale   movX   movY");
+   puts("hexagon   getpoints   scale");
    puts("          hdist   FROM   TO");
    puts("          cdist   FROM   TO");
    puts("          path    FROM   TO");
