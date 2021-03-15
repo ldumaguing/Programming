@@ -11,6 +11,11 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
+   if (strcmp(argv[1], "getpoints") == 0) {
+      getPoints(argc, argv);
+      return 0;
+   }
+
    if (strcmp(argv[1], "hdist") == 0) {
       hdist(argc, argv);
       return 0;
@@ -47,7 +52,8 @@ int main(int argc, char *argv[]) {
 
 // *******************************************************************************
 void instructions() {
-   puts("hexagon   hdist   FROM   TO");
+   puts("hexagon   getpoints   scale   movX   movY");
+   puts("          hdist   FROM   TO");
    puts("          cdist   FROM   TO");
    puts("          path    FROM   TO");
    puts("          deg     FROM   TO");
