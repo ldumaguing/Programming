@@ -327,49 +327,25 @@ void moveA(int *L) {
    L[0]++;
 }
 void moveB(int *L) {
-
+   if ((L[1] % 2) != 0)
+      L[0]++;
+   L[1]++;
 }
 void moveC(int *L) {
-
+   if ((L[1] % 2) == 0)
+      L[0]--;
+   L[1]++;
 }
 void moveD(int *L) {
-
+   L[0]--;
 }
 void moveE(int *L) {
-
+   if ((L[1] % 2) == 0)
+      L[0]--;
+   L[1]--;
 }
 void moveF(int *L) {
-
+   if ((L[1] % 2) != 0)
+      L[0]++;
+   L[1]--;
 }
-
-// *******************************************************************************
-/*
-void moveA(int *L) {
-   L[1] -= 1;
-}
-void moveB(int *L) {
-   L[0]++;
-   if (L[0] % 2)
-      L[1]--;
-}
-void moveC(int *L) {
-   L[0]++;
-   if (!(L[0] % 2))
-      L[1]++;
-}
-void moveD(int *L) {
-   L[1] += 1;
-}
-void moveE(int *L) {
-   L[0]--;
-   if (!(L[0] % 2))
-      L[1]++;
-}
-void moveF(int *L) {
-   L[0]--;
-   if (L[0] % 2)
-      L[1]--;
-}
-*/
-
-
