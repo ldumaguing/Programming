@@ -1,0 +1,8 @@
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/install/strip.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/install/local.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/myne.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/install.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/hexagonCol.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/list_install_components.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/edit_cache.dir
+/home/ayeka/Programming/C/hexagonCol/build/CMakeFiles/rebuild_cache.dir

@@ -3,12 +3,12 @@ import pygame
 import subprocess
 from subprocess import Popen
 
-scl = '10.0'
+scl = '100.0'
 scale = int(float(scl))
 Xpx = 1298
 Ypx = 730
 
-p = Popen('hexagon getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+p = Popen('hexagonCol getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 output, errors = p.communicate()
 X = output.split('\n')
 p1 = (int(float(X[0])), int(float(X[1])))
