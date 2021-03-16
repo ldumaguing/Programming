@@ -4,4 +4,8 @@ project(crap LANGUAGES C)
 
 add_executable(crap main.c)
 
+target_link_libraries(crap
+   m
+)
+
 install(TARGETS crap RUNTIME DESTINATION bin)

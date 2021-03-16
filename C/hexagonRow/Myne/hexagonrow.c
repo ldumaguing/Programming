@@ -301,23 +301,27 @@ void moveHex(int *L, int direction) {
 
 // *******************************************************************************
 float CartesianDistance(int *A, int *B) {
-   if (A[0] == B[0]) {
-      return (abs(A[1] - B[1]) * 1.0);
-   }
+   if (A[1] == B[1])
+      return (abs(A[0] - B[0]) * 1.0);
 
+   float X;
+   float Y;
+
+   /*
    float X = (float)(abs(A[0] - B[0]) * X_lenMod);
    float Y = 0.0;
    float Ay = A[1] * 1.0;
    float By = B[1] * 1.0;
 
    if ((A[0] % 2) != 0) {
-      Ay = A[1] + 0.5;
+    Ay = A[1] + 0.5;
    }
    if ((B[0] % 2) != 0) {
-      By = B[1] + 0.5;
+    By = B[1] + 0.5;
    }
 
    Y = (Ay - By);
+   */
 
    return sqrt((X * X) + (Y * Y) * 1.0);
 }

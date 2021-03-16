@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
-   if (strcmp(argv[1], "getpoints") == 0) {   // to do
+   if (strcmp(argv[1], "getpoints") == 0) {
       getPoints(argc, argv);
       return 0;
    }

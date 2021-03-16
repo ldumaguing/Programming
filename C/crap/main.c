@@ -1,71 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <math.h>
 
-void moveA(int *);
-void moveB(int *);
-void moveC(int *);
-void moveD(int *);
-void moveE(int *);
-void moveF(int *);
+float CartesianDistance(int *, int *);
 
-// *******************************************************************************
 int main(int argc, char *argv[]) {
-   int L[] = {0, 0};
-   L[0] = atoi(argv[1]);
-   L[1] = atoi(argv[2]);
-
-   char X = atoi(argv[3]);
-
-   switch (X) {
-      case 0:
-         moveA(L);
-         break;
-      case 1:
-         moveB(L);
-         break;
-      case 2:
-         moveC(L);
-         break;
-      case 3:
-         moveD(L);
-         break;
-      case 4:
-         moveE(L);
-         break;
-      default:
-         moveF(L);
-   }
-
-   printf("%d,%d\n", L[0], L[1]);
+   int FROM[] = {0, 0};
+   int TO[] = {3, 3};
+   printf("%d\n", CartesianDistance(FROM, TO));
 
    return 0;
 }
 
 // *******************************************************************************
-void moveA(int *L) {
-   L[0]++;
-}
-void moveB(int *L) {
-   if ((L[1] % 2) != 0)
-      L[0]++;
-   L[1]++;
-}
-void moveC(int *L) {
-   if ((L[1] % 2) == 0)
-      L[0]--;
-   L[1]++;
-}
-void moveD(int *L) {
-   L[0]--;
-}
-void moveE(int *L) {
-   if ((L[1] % 2) == 0)
-      L[0]--;
-   L[1]--;
-}
-void moveF(int *L) {
-   if ((L[1] % 2) != 0)
-      L[0]++;
-   L[1]--;
+float CartesianDistance(int *A, int *B) {
+   if (A[1] == B[1])
+      return (abs(A[0] - B[0]) * 1.0);
+
+   float X = 0;
+   float Y = 0;
+
+   /*
+   float X = (float)(abs(A[0] - B[0]) * X_lenMod);
+   float Y = 0.0;
+   float Ay = A[1] * 1.0;
+   float By = B[1] * 1.0;
+
+   if ((A[0] % 2) != 0) {
+    Ay = A[1] + 0.5;
+   }
+   if ((B[0] % 2) != 0) {
+    By = B[1] + 0.5;
+   }
+
+   Y = (Ay - By);
+   */
+
+   return sqrt((X * X) + (Y * Y) * 1.0);
 }

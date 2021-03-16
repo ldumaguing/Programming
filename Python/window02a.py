@@ -3,7 +3,7 @@ import pygame
 import subprocess
 from subprocess import Popen
 
-scl = '100.0'
+scl = '150.0'
 scale = int(float(scl))
 Xpx = 1298
 Ypx = 730

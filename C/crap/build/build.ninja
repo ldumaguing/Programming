@@ -73,6 +73,7 @@ build CMakeFiles/crap.dir/main.c.o: C_COMPILER__crap ../main.c || cmake_object_o
 build crap: C_EXECUTABLE_LINKER__crap CMakeFiles/crap.dir/main.c.o
   FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -lm
   OBJECT_DIR = CMakeFiles/crap.dir
   POST_BUILD = :
   PRE_LINK = :
