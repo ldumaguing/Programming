@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: hexagonRow
-# Configuration: 
+# Configuration: Release
 # =============================================================================
 
 #############################################
@@ -59,10 +59,12 @@ build install/local: phony CMakeFiles/install/local.util
 build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
 build CMakeFiles/myne.dir/Myne/hexagonrow.c.o: C_COMPILER__myne ../Myne/hexagonrow.c || cmake_object_order_depends_target_myne
   DEP_FILE = CMakeFiles/myne.dir/Myne/hexagonrow.c.o.d
+  FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
 build CMakeFiles/myne.dir/Myne/sides.c.o: C_COMPILER__myne ../Myne/sides.c || cmake_object_order_depends_target_myne
   DEP_FILE = CMakeFiles/myne.dir/Myne/sides.c.o.d
+  FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/Myne
 
@@ -74,6 +76,7 @@ build CMakeFiles/myne.dir/Myne/sides.c.o: C_COMPILER__myne ../Myne/sides.c || cm
 # Link the static library libmyne.a
 
 build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/Myne/hexagonrow.c.o CMakeFiles/myne.dir/Myne/sides.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -99,6 +102,7 @@ build install: phony CMakeFiles/install.util
 build cmake_object_order_depends_target_hexagonRow: phony || cmake_object_order_depends_target_myne
 build CMakeFiles/hexagonRow.dir/main.c.o: C_COMPILER__hexagonRow ../main.c || cmake_object_order_depends_target_hexagonRow
   DEP_FILE = CMakeFiles/hexagonRow.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/hexagonRow.dir
   OBJECT_FILE_DIR = CMakeFiles/hexagonRow.dir
 
@@ -110,6 +114,7 @@ build CMakeFiles/hexagonRow.dir/main.c.o: C_COMPILER__hexagonRow ../main.c || cm
 # Link the executable hexagonRow
 
 build hexagonRow: C_EXECUTABLE_LINKER__hexagonRow CMakeFiles/hexagonRow.dir/main.c.o | libmyne.a || libmyne.a
+  FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = libmyne.a -lm
   OBJECT_DIR = CMakeFiles/hexagonRow.dir

@@ -11,14 +11,14 @@ void getPoints(int argc, char *argv[]) {
 
    scale = strtod(argv[2], &ptr);
 
-   printf("%.12f\n%.12f\n", (X * scale), (1.0 * scale));
-   printf("%.12f\n%.12f\n", (0.0 * scale), (0.5 * scale));
-   printf("%.12f\n%.12f\n", (X * scale), (0.0 * scale));
-   printf("%.12f\n%.12f\n", (3.0 * X * scale), (0.0 * scale));
-   printf("%.12f\n%.12f\n", (4.0 * X * scale), (0.5 * scale));
-   printf("%.12f\n%.12f\n", (3.0 * X * scale), (1.0 * scale));
-   printf("%.12f\n%.12f\n", (6.0 * X * scale), (0.5 * scale));
-   printf("%.12f\n%.12f\n", (2.0 * X * scale), (0.5 * scale));
+   printf("%.12f\n%.12f\n", (1.0 * scale), (X * scale));
+   printf("%.12f\n%.12f\n", (0.5 * scale), (0.0 * scale));
+   printf("%.12f\n%.12f\n", (0.0 * scale), (X * scale));
+   printf("%.12f\n%.12f\n", (0.0 * scale), (3.0 * X * scale));
+   printf("%.12f\n%.12f\n", (0.5 * scale), (4.0 * X * scale));
+   printf("%.12f\n%.12f\n", (1.0 * scale), (3.0 * X * scale));
+   printf("%.12f\n%.12f\n", (0.5 * scale), (6.0 * X * scale));
+   printf("%.12f\n%.12f\n", (0.5 * scale), (2.0 * X * scale));
 }
 
 // *******************************************************************************

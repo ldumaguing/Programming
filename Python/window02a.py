@@ -8,7 +8,7 @@ scale = int(float(scl))
 Xpx = 1298
 Ypx = 730
 
-p = Popen('hexagonCol getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+p = Popen('hexagonRow getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 output, errors = p.communicate()
 X = output.split('\n')
 p1 = (int(float(X[0])), int(float(X[1])))
@@ -18,8 +18,8 @@ p4 = (int(float(X[6])), int(float(X[7])))
 p5 = (int(float(X[8])), int(float(X[9])))
 p6 = (int(float(X[10])), int(float(X[11])))
 p7 = (int(float(X[12])), int(float(X[13])))
-w = p7[0]
-h = p1[1]
+w = p1[0]
+h = p7[1]
 
 pygame.init()
 
