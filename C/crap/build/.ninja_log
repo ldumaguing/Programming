@@ -1,8 +1,0 @@
-# ninja log v5
-1	31	1615930586	build.ninja	e4a0770c234c16d8
-0	38	1615930658	CMakeFiles/crap.dir/main.c.o	5686eb1529c63b4f
-38	71	1615930658	crap	ea5759322a6df2be
-0	29	1615930686	build.ninja	e4a0770c234c16d8
-0	45	1615930686	CMakeFiles/crap.dir/main.c.o	e8968e0c1c4c7fd3
-45	72	1615930686	crap	9bd7ed1213b1c47d
-0	19	0	CMakeFiles/install.util	901b02283f7296de

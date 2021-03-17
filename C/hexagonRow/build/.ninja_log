@@ -1,13 +1,7 @@
 # ninja log v5
-0	34	1615924089	CMakeFiles/myne.dir/Myne/sides.c.o	468ea0865ed43809
-0	61	1615924090	CMakeFiles/hexagonRow.dir/main.c.o	b52ec3d5f9db3ca2
-0	120	1615924090	CMakeFiles/myne.dir/Myne/hexagonrow.c.o	9d3836863bfdab4e
-120	145	1615924090	libmyne.a	e5c4f24c1f9303c3
-145	187	1615924090	hexagonRow	8c52b35d37a2380b
-1	69	1615924123	CMakeFiles/hexagonRow.dir/main.c.o	153ea8a926e00f28
-1	81	1615924123	CMakeFiles/myne.dir/Myne/sides.c.o	b877bb696060af3b
-1	174	1615924123	CMakeFiles/myne.dir/Myne/hexagonrow.c.o	1df07dbea67625bf
-174	189	1615924123	libmyne.a	e5c4f24c1f9303c3
-189	219	1615924123	hexagonRow	a768c183416066a4
-1	20	0	CMakeFiles/install.util	ebc27743935726b1
-0	17	0	CMakeFiles/install.util	ebc27743935726b1
+1	79	1615976357	CMakeFiles/hexagonRow.dir/main.c.o	153ea8a926e00f28
+0	116	1615976357	CMakeFiles/myne.dir/Myne/sides.c.o	b877bb696060af3b
+0	340	1615976357	CMakeFiles/myne.dir/Myne/hexagonrow.c.o	1df07dbea67625bf
+340	366	1615976357	libmyne.a	e5c4f24c1f9303c3
+366	413	1615976357	hexagonRow	a768c183416066a4
+1	25	0	CMakeFiles/install.util	ebc27743935726b1
