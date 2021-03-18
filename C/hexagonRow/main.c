@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
-   if (strcmp(argv[1], "edgeID") == 0) {   // to do
+   if (strcmp(argv[1], "edgeID") == 0) {
       edgeID(argc, argv);
       return 0;
    }

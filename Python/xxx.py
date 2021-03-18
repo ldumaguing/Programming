@@ -4,7 +4,7 @@ from pygame.locals import *
 import subprocess
 from subprocess import Popen
 
-scl = '100.0'
+scl = '80.0'
 scale = int(float(scl))
 Xpx = 800
 Ypx = 600
@@ -47,8 +47,8 @@ for x in range(countX):
       pygame.draw.lines(window, (255,255,255), False, (p1a, p2a, p3a, p4a, p5a, p6a), 1)
       pygame.draw.line(window, (255,255,255), p5a, p7a, 1)
 
-window.blit(starship, (0, 0))
 
+window.blit(starship, (0, 0))
 
 while True:
    pygame.display.update()
