@@ -4,7 +4,7 @@
 #include <math.h>
 #include "myne.h"
 
-#define X_lenMod cos(M_PI * (1.0/6.0))
+#define Y_lenMod cos(M_PI * (1.0/6.0))
 
 void moveA(int *);
 void moveB(int *);
@@ -59,34 +59,31 @@ void deg(int argc, char *argv[]) {
       return;
    }
 
-   if (A[0] == B[0]) {
-      if (A[1] < B[1])
-         printf("270.0\n");
+   if (A[1] == B[1]) {
+      if (A[0] < B[0])
+         printf("0.0\n");
       else
-         printf("90.0\n");
-
+         printf("180.0\n");
       return;
    }
 
+   float X = 0.0;
+   float Y = (A[1] - B[1]) * Y_lenMod;
 
-   float X = (float)((B[0] - A[0]) * X_lenMod);
-   float Y = 0.0;
-   float Ay = A[1] * 1.0;
-   float By = B[1] * 1.0;
-
-   if ((A[0] % 2) != 0) {
-      Ay = A[1] + 0.5;
+   float Ax = A[0] * 1.0;
+   float Bx = B[0] * 1.0;
+   if ((A[1] % 2) != 0) {
+      Ax = A[0] + 0.5;
    }
-   if ((B[0] % 2) != 0) {
-      By = B[1] + 0.5;
+   if ((B[1] % 2) != 0) {
+      Bx = B[0] + 0.5;
    }
-
-   Y = 0 - (By - Ay);
+   X = Bx - Ax;
 
    float d = atan(Y / X) * (180.0 / M_PI);
    int D = round(d);
 
-   if ((D - d) < 0.000001) {
+   if ((d - D) < 0.000001) {
       if ((X > 0) & (Y > 0))
          printf("%d.0\n", D);
       if ((X < 0) & (Y > 0))
@@ -304,24 +301,19 @@ float CartesianDistance(int *A, int *B) {
    if (A[1] == B[1])
       return (abs(A[0] - B[0]) * 1.0);
 
-   float X;
-   float Y;
 
-   /*
-   float X = (float)(abs(A[0] - B[0]) * X_lenMod);
-   float Y = 0.0;
-   float Ay = A[1] * 1.0;
-   float By = B[1] * 1.0;
+   float X = 0.0;
+   float Y = (float)(abs(A[1] - B[1]) * Y_lenMod);
 
-   if ((A[0] % 2) != 0) {
-    Ay = A[1] + 0.5;
+   float Ax = A[0] * 1.0;
+   float Bx = B[0] * 1.0;
+   if ((A[1] % 2) != 0) {
+      Ax = A[0] + 0.5;
    }
-   if ((B[0] % 2) != 0) {
-    By = B[1] + 0.5;
+   if ((B[1] % 2) != 0) {
+      Bx = B[0] + 0.5;
    }
-
-   Y = (Ay - By);
-   */
+   X = Ax - Bx;
 
    return sqrt((X * X) + (Y * Y) * 1.0);
 }

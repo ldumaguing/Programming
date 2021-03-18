@@ -16,27 +16,27 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
-   if (strcmp(argv[1], "hdist") == 0) {   // to do
+   if (strcmp(argv[1], "hdist") == 0) {
       hdist(argc, argv);
       return 0;
    }
 
-   if (strcmp(argv[1], "cdist") == 0) {   // to do
+   if (strcmp(argv[1], "cdist") == 0) {
       cdist(argc, argv);
       return 0;
    }
 
-   if (strcmp(argv[1], "path") == 0) {   // to do
+   if (strcmp(argv[1], "path") == 0) {
       path(argc, argv);
       return 0;
    }
 
-   if (strcmp(argv[1], "deg") == 0) {   // to do
+   if (strcmp(argv[1], "deg") == 0) {
       deg(argc, argv);
       return 0;
    }
 
-   if (strcmp(argv[1], "other") == 0) {   // to do
+   if (strcmp(argv[1], "other") == 0) {
       other(argc, argv);
       return 0;
    }

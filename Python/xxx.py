@@ -6,8 +6,8 @@ from subprocess import Popen
 
 scl = '100.0'
 scale = int(float(scl))
-Xpx = 1366
-Ypx = 768
+Xpx = 800
+Ypx = 600
 
 p = Popen('hexagonRow getpoints ' + scl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 output, errors = p.communicate()

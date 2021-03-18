@@ -1,0 +1,7 @@
+/home/ayeka/Programming/C/crap/build/CMakeFiles/install/strip.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/edit_cache.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/crap.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/install.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/rebuild_cache.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/list_install_components.dir
+/home/ayeka/Programming/C/crap/build/CMakeFiles/install/local.dir

@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define X_lenMod cos(M_PI * (1.0/6.0))
+
 float CartesianDistance(int *, int *);
 
 int main(int argc, char *argv[]) {
-   int FROM[] = {0, 0};
-   int TO[] = {3, 3};
-   printf("%d\n", CartesianDistance(FROM, TO));
+   int FROM[] = {1, 1};
+   int TO[] = {0, 0};
+   printf("%f\n", CartesianDistance(FROM, TO));
 
    return 0;
 }
@@ -17,24 +19,20 @@ float CartesianDistance(int *A, int *B) {
    if (A[1] == B[1])
       return (abs(A[0] - B[0]) * 1.0);
 
-   float X = 0;
-   float Y = 0;
 
-   /*
-   float X = (float)(abs(A[0] - B[0]) * X_lenMod);
-   float Y = 0.0;
-   float Ay = A[1] * 1.0;
-   float By = B[1] * 1.0;
+   float X = 0.0;
+   float Y = (float)(abs(A[1] - B[1]) * X_lenMod);
 
-   if ((A[0] % 2) != 0) {
-    Ay = A[1] + 0.5;
+   float Ax = A[0] * 1.0;
+   float Bx = B[0] * 1.0;
+   printf("Ax:%f   Bx:%f\n", Ax, Bx);
+   if ((A[1] % 2) != 0) {
+      Ax = A[0] + 0.5;
    }
-   if ((B[0] % 2) != 0) {
-    By = B[1] + 0.5;
+   if ((B[1] % 2) != 0) {
+      Bx = B[0] + 0.5;
    }
-
-   Y = (Ay - By);
-   */
+   X = Ax - Bx;
 
    return sqrt((X * X) + (Y * Y) * 1.0);
 }
