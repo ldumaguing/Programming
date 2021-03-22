@@ -19,25 +19,16 @@ int main(int argc, char *argv[]) {
 // *******************************************************************************
 void instructions() {
    puts("generateDamage   Dice   DamageType");
-   puts("     \"           \"       \"         DR*");
-   puts("     \"           \"       \"               HardenedLevel*");
-   puts("     \"           \"       \"                    \"           options");
+   puts("     \"           \"       \"         flags");
    puts("----------------------------------------------------------------------");
    puts("Examples:");
    puts("   generateDamage   3d6+1        pi++");
    puts("   generateDamage   '3d6+1(2)'   pi++");
-   puts("   generateDamage   '3d6+1(2)'   pi++   5");
-   puts("   generateDamage   '3d6+1(2)'   pi++   5   2");
-   puts("   generateDamage   r42          pi++   5   2");
-   puts("   generateDamage   r42          pi++   5   2   'ST:10;DX:10;1/2D;...'");
+   puts("   generateDamage   r42          pi++");
    puts("");
-   puts("* - Target's damage resistance.");
    puts("r - Manually rolled.");
    puts("");
-   puts(" options");
-   puts("=========");
-   puts("ST:10;DX:10 - Target's stats for Knockback rule.  +4 to DX if target");
-   puts("              has Perfect Balance or any other modifiers.");
-   puts("1/2D        - a flag to apply a ranged weapon's 1/2D rule.");
-   puts("FlexArmor   - a flag indicating the target's armor being flexible.");
+   puts(" flags");
+   puts("=======");
+   puts("1/2D        - apply a ranged weapon's 1/2D rule.");
 }

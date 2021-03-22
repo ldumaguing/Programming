@@ -8,6 +8,7 @@ add_library(
    myne
    Myne/myne.h
    Myne/generateDMG.c
+   Myne/options.c
 )
 
 target_link_libraries(generateDamage
