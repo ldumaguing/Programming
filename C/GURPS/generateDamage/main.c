@@ -25,6 +25,7 @@ void instructions() {
    puts("   generateDamage   3d6+1        pi++");
    puts("   generateDamage   '3d6+1(2)'   pi++");
    puts("   generateDamage   r42          pi++");
+   puts("   generateDamage   r42          pi++   1/2D");
    puts("");
    puts("r - Manually rolled.");
    puts("");

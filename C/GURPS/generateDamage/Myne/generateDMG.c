@@ -39,7 +39,7 @@ void generateDamage(int argc, char *argv[]) {
 
    // ********** define 1/2D
    if (argc >= 4) {
-      getGrep(buff1, "1/2D", argv[5]);
+      getGrep(buff1, "1/2D", argv[3]);
       if (strlen(buff1) > 0)
          basicDMG = basicDMG / 2;
    }
@@ -60,9 +60,9 @@ void generateDamage(int argc, char *argv[]) {
    getGrep(buff1, "[0-9]*)", argv[1]);
 
    if (strlen(buff1) > 0)
-      printf("%d(%s %s\n", basicDMG, buff1, argv[2]);
+      printf("%d(%s%s\n", basicDMG, buff1, argv[2]);
    else
-      printf("%d %s\n", basicDMG, argv[2]);
+      printf("%d%s\n", basicDMG, argv[2]);
 }
 
 // *******************************************************************************
