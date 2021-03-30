@@ -5,7 +5,7 @@
 #include "myne.h"
 
 
-void generateDamage(int argc, char *argv[]) {
+void generateDamage_(int argc, char *argv[]) {
    int basicDMG = 0;
    char cmd[80];
    FILE *pipeDice;

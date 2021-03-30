@@ -11,21 +11,21 @@ int main(int argc, char *argv[]) {
       return 0;
    }
 
-   generateDamage(argc, argv);
+   generateDamage_(argc, argv);
 
    return 0;
 }
 
 // *******************************************************************************
 void instructions() {
-   puts("generateDamage   Dice   DamageType");
+   puts("generateDamage_   Dice   DamageType");
    puts("     \"           \"       \"         flags");
    puts("----------------------------------------------------------------------");
    puts("Examples:");
-   puts("   generateDamage   3d6+1        pi++");
-   puts("   generateDamage   '3d6+1(2)'   pi++");
-   puts("   generateDamage   r42          pi++");
-   puts("   generateDamage   r42          pi++   1/2D");
+   puts("   generateDamage_   3d6+1        pi++");
+   puts("   generateDamage_   '3d6+1(2)'   pi++");
+   puts("   generateDamage_   r42          pi++");
+   puts("   generateDamage_   r42          pi++   1/2D");
    puts("");
    puts("r - Manually rolled.");
    puts("");
