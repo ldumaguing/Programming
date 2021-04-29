@@ -66,7 +66,7 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=/home/ayeka
+CMAKE_INSTALL_PREFIX:PATH=/home/ayeka/bin/Palladium
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld

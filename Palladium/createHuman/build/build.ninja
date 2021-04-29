@@ -41,14 +41,52 @@ build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
 build install/strip: phony CMakeFiles/install/strip.util
 
 #############################################
-# Utility command for edit_cache
+# Utility command for install/local
 
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake-gui -S/home/ayeka/Programming/Palladium/createHuman -B/home/ayeka/Programming/Palladium/createHuman/build
-  DESC = Running CMake cache editor...
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
   pool = console
   restat = 1
-build edit_cache: phony CMakeFiles/edit_cache.util
+build install/local: phony CMakeFiles/install/local.util
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Order-only phony target for myne
+
+build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
+build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne ../myne/part1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/part1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Link the static library libmyne.a
+
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/myne/part1.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libmyne.a
+  TARGET_PDB = myne.a.dbg
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+build install: phony CMakeFiles/install.util
 # =============================================================================
 # Object build statements for EXECUTABLE target createHuman
 
@@ -56,7 +94,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 #############################################
 # Order-only phony target for createHuman
 
-build cmake_object_order_depends_target_createHuman: phony || CMakeFiles/createHuman.dir
+build cmake_object_order_depends_target_createHuman: phony || cmake_object_order_depends_target_myne
 build CMakeFiles/createHuman.dir/main.c.o: C_COMPILER__createHuman ../main.c || cmake_object_order_depends_target_createHuman
   DEP_FILE = CMakeFiles/createHuman.dir/main.c.o.d
   FLAGS = -O3 -DNDEBUG
@@ -70,9 +108,10 @@ build CMakeFiles/createHuman.dir/main.c.o: C_COMPILER__createHuman ../main.c || 
 #############################################
 # Link the executable createHuman
 
-build createHuman: C_EXECUTABLE_LINKER__createHuman CMakeFiles/createHuman.dir/main.c.o
+build createHuman: C_EXECUTABLE_LINKER__createHuman CMakeFiles/createHuman.dir/main.c.o | libmyne.a /usr/lib/x86_64-linux-gnu/libjson-c.a || libmyne.a
   FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = libmyne.a -lm -Wl,-Bstatic -ljson-c -Wl,-Bdynamic
   OBJECT_DIR = CMakeFiles/createHuman.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -85,14 +124,14 @@ build createHuman: C_EXECUTABLE_LINKER__createHuman CMakeFiles/createHuman.dir/m
 build list_install_components: phony
 
 #############################################
-# Utility command for install/local
+# Utility command for edit_cache
 
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake-gui -S/home/ayeka/Programming/Palladium/createHuman -B/home/ayeka/Programming/Palladium/createHuman/build
+  DESC = Running CMake cache editor...
   pool = console
   restat = 1
-build install/local: phony CMakeFiles/install/local.util
+build edit_cache: phony CMakeFiles/edit_cache.util
 
 #############################################
 # Utility command for rebuild_cache
@@ -103,19 +142,10 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
   pool = console
   restat = 1
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
-
-#############################################
-# Utility command for install
-
-build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/Programming/Palladium/createHuman/build && /usr/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-build install: phony CMakeFiles/install.util
 # =============================================================================
 # Target aliases.
 
+build myne: phony libmyne.a
 # =============================================================================
 # Folder targets.
 
@@ -132,7 +162,7 @@ build install: phony CMakeFiles/install.util
 #############################################
 # The main all target.
 
-build all: phony createHuman
+build all: phony libmyne.a createHuman
 
 #############################################
 # Make the all target the default.
