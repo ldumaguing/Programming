@@ -1,9 +1,0 @@
-# ninja log v5
-4	59	1621820983486817000	CMakeFiles/hexagonCol.dir/main.c.o	f3113a0261c6ea83
-0	43	1621823133891360000	CMakeFiles/myne.dir/Myne/sides.c.o	2d329e5a199c297f
-1	56	1621820983484624000	CMakeFiles/myne.dir/Myne/utils.c.o	962a9e562ec66c1c
-0	155	1621823134003596000	CMakeFiles/myne.dir/Myne/hexagoncol.c.o	45ac36013b9dcf17
-155	166	1621823134015785000	libmyne.a	34a97e3d9be6ba9
-0	11	0	CMakeFiles/install.util	51c4537742778ca9
-166	181	1621823134029629000	hexagonCol	1a184adb4fbcfa80
-0	9	0	CMakeFiles/install.util	51c4537742778ca9

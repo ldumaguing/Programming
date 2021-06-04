@@ -1,7 +1,19 @@
 # ninja log v5
-52	69	1621823825786134000	createHuman	fe27292469f7a8d8
-42	52	1621823825771184000	libmyne.a	5d18078396215897
-0	30	1621823853153537000	build.ninja	e58b3fb6b1965473
-0	42	1621823825759483000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
-0	26	1621823825744036000	CMakeFiles/createHuman.dir/main.c.o	e0e2cb21b9501d9b
-0	11	0	CMakeFiles/install.util	ce56920e446288c7
+0	745	1622821244	CMakeFiles/createHuman.dir/main.c.o	c2a36f6c31d90e0
+0	745	1622821244	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+745	790	1622821244	libmyne.a	3ff5afdf2601a9ef
+790	899	1622821244	createHuman	c3abe281c1fd9c9d
+0	37	0	CMakeFiles/install.util	8e9d576caa44418a
+1	35	1622822454	CMakeFiles/createHuman.dir/main.c.o	c2a36f6c31d90e0
+0	42	1622822454	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+42	59	1622822454	libmyne.a	3ff5afdf2601a9ef
+59	98	1622822454	createHuman	c3abe281c1fd9c9d
+0	15	0	CMakeFiles/install.util	8e9d576caa44418a
+0	39	1622823242	CMakeFiles/createHuman.dir/main.c.o	c2a36f6c31d90e0
+0	48	1622823242	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+48	66	1622823242	libmyne.a	3ff5afdf2601a9ef
+66	101	1622823242	createHuman	c3abe281c1fd9c9d
+0	17	0	CMakeFiles/install.util	8e9d576caa44418a
+1	37	1622823398	CMakeFiles/createHuman.dir/main.c.o	c2a36f6c31d90e0
+37	73	1622823398	createHuman	c3abe281c1fd9c9d
+1	17	0	CMakeFiles/install.util	8e9d576caa44418a

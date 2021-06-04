@@ -5,19 +5,21 @@
 void instruction();
 
 int main ( int argc, char *argv[] ) {
-   if ( argc < 2 )
-      instruction();
+    switch ( argc ) {
+    case 2:
+        nameOnly ( argv );
+        return 0;
+    case 10:
+        withAttributes ( argv );
+        return 0;
+    }
 
-   if ( argc == 2 )
-      nameOnly ( argv );
-
-   if (argc == 10)
-       
-   return 0;
+    instruction();
+    return 0;
 }
 
 // *******************************************************************************
 void instruction() {
-   printf ( "createHuman   NAME\n" );
-   printf ( "     \"          \"    IQ ME MA PS PP PE PB Spd\n" );
+    printf ( "createHuman   NAME\n" );
+    printf ( "     \"          \"    IQ ME MA PS PP PE PB Spd\n" );
 }
