@@ -5,22 +5,38 @@
 #include "myne.h"
 
 struct json_object *get_HumanTemplate();
+void saveHuman ( json_object *, char ** );
 
 // *******************************************************************************
 void withAttributes ( char *argv[] ) {
     printf ( "withAttributes\n" );
+    struct json_object *Human = get_HumanTemplate();
+
+    // ********** Graft a name.
+    json_object *Name = json_object_new_string ( argv[1] );
+    json_object_object_add ( Human, "Name", Name );
+
+    // ********** Get attributes.
+    struct json_object *Attributes;
+    json_object_object_get_ex ( Human, "Attributes", &Attributes );
+
+    // ******************** Set IQ
 }
 
 // *******************************************************************************
 void nameOnly ( char *argv[] ) {
-    printf ( "nameOnly\n" );
     struct json_object *Human = get_HumanTemplate();
 
     // ********** Graft a name.
     json_object *jstring = json_object_new_string ( argv[1] );
     json_object_object_add ( Human, "Name", jstring );
 
-    // ********** Save the human.
+
+    saveHuman ( Human, argv );
+}
+
+// *******************************************************************************
+void saveHuman ( json_object *Human, char *argv[] ) {
     char filename[100];
     strcpy ( filename, argv[1] );
     strcat ( filename, ".json" );
