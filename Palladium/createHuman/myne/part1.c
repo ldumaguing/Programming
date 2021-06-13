@@ -21,6 +21,10 @@ void withAttributes ( char *argv[] ) {
     json_object_object_get_ex ( Human, "Attributes", &Attributes );
 
     // ******************** Set IQ
+    int IQ = atoi(argv[2]);
+    json_object_array_put_idx(Attributes, 0, json_object_new_int(IQ));
+
+    saveHuman(Human, argv);
 }
 
 // *******************************************************************************
@@ -30,7 +34,6 @@ void nameOnly ( char *argv[] ) {
     // ********** Graft a name.
     json_object *jstring = json_object_new_string ( argv[1] );
     json_object_object_add ( Human, "Name", jstring );
-
 
     saveHuman ( Human, argv );
 }
