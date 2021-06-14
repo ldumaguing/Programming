@@ -10,7 +10,8 @@ int main ( int argc, char *argv[] ) {
         nameOnly ( argv );
         return 0;
     case 10:
-        withAttributes ( argv );
+    case 11:
+        withAttributes ( argv, argc );
         return 0;
     }
 
