@@ -1,0 +1,10 @@
+# ninja log v5
+1	554	1623769914	CMakeFiles/createHuman.dir/main.c.o	b6cf2bd442c72f08
+0	643	1623769914	CMakeFiles/myne.dir/myne/part1.c.o	45009e914af48d96
+643	718	1623769914	libmyne.a	3ff5afdf2601a9ef
+718	820	1623769914	createHuman	729638f0b0d39175
+1	221	1623770015	CMakeFiles/createHuman.dir/main.c.o	c2a36f6c31d90e0
+0	229	1623770015	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+229	245	1623770015	libmyne.a	3ff5afdf2601a9ef
+245	284	1623770015	createHuman	c3abe281c1fd9c9d
+0	36	0	CMakeFiles/install.util	8e9d576caa44418a
