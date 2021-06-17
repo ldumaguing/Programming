@@ -3,3 +3,14 @@
 0	44	1623770123	CMakeFiles/myne.dir/myne/part1.c.o	45009e914af48d96
 44	80	1623770123	libmyne.a	3ff5afdf2601a9ef
 80	114	1623770123	viewHuman	e7f513ef7dd30506
+0	60	1623963558	CMakeFiles/myne.dir/myne/part1.c.o	45009e914af48d96
+60	74	1623963558	libmyne.a	3ff5afdf2601a9ef
+75	122	1623963558	viewHuman	e7f513ef7dd30506
+1	70	1623963917	CMakeFiles/myne.dir/myne/part1.c.o	45009e914af48d96
+70	87	1623963917	libmyne.a	3ff5afdf2601a9ef
+87	123	1623963917	viewHuman	e7f513ef7dd30506
+0	36	1623963978	CMakeFiles/viewHuman.dir/main.c.o	34c330b99a45dd41
+0	76	1623963978	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+76	91	1623963978	libmyne.a	3ff5afdf2601a9ef
+91	127	1623963978	viewHuman	9bd7bb4f5891444f
+0	17	0	CMakeFiles/install.util	15963c2080b4dea7

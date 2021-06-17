@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: viewHuman
-# Configuration: 
+# Configuration: Release
 # =============================================================================
 
 #############################################
@@ -59,6 +59,7 @@ build install/local: phony CMakeFiles/install/local.util
 build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
 build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne ../myne/part1.c || cmake_object_order_depends_target_myne
   DEP_FILE = CMakeFiles/myne.dir/myne/part1.c.o.d
+  FLAGS = -O3 -DNDEBUG
   INCLUDES = -I/usr/local/include
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
@@ -71,6 +72,7 @@ build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne ../myne/part1.c || cm
 # Link the static library libmyne.a
 
 build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/myne/part1.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -96,6 +98,7 @@ build install: phony CMakeFiles/install.util
 build cmake_object_order_depends_target_viewHuman: phony || cmake_object_order_depends_target_myne
 build CMakeFiles/viewHuman.dir/main.c.o: C_COMPILER__viewHuman ../main.c || cmake_object_order_depends_target_viewHuman
   DEP_FILE = CMakeFiles/viewHuman.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
   INCLUDES = -I/usr/local/include
   OBJECT_DIR = CMakeFiles/viewHuman.dir
   OBJECT_FILE_DIR = CMakeFiles/viewHuman.dir
@@ -108,6 +111,7 @@ build CMakeFiles/viewHuman.dir/main.c.o: C_COMPILER__viewHuman ../main.c || cmak
 # Link the executable viewHuman
 
 build viewHuman: C_EXECUTABLE_LINKER__viewHuman CMakeFiles/viewHuman.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
+  FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = libmyne.a -lm /usr/local/lib/libjson-c.a
   OBJECT_DIR = CMakeFiles/viewHuman.dir
