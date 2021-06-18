@@ -1,0 +1,5 @@
+* Objects are expressed in JSON format.
+
+* Tokens are strings consisting a unique name and an optional value existing in arrays.
+     tags:["Sleep:3", "Fish"]
+
