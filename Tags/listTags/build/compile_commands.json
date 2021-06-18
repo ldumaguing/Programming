@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/usr/home/ayeka/Programming/Tags/listTags/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/listtags.dir/main.c.o -c /usr/home/ayeka/Programming/Tags/listTags/main.c",
+  "file": "/usr/home/ayeka/Programming/Tags/listTags/main.c"
+}
+]

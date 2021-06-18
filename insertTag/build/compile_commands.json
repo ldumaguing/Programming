@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/usr/home/ayeka/Programming/insertTag/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/part1.c.o -c /usr/home/ayeka/Programming/insertTag/myne/part1.c",
+  "file": "/usr/home/ayeka/Programming/insertTag/myne/part1.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/insertTag/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/insertTag.dir/main.c.o -c /usr/home/ayeka/Programming/insertTag/main.c",
+  "file": "/usr/home/ayeka/Programming/insertTag/main.c"
+}
+]
