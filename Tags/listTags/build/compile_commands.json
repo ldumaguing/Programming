@@ -1,7 +1,17 @@
 [
 {
   "directory": "/usr/home/ayeka/Programming/Tags/listTags/build",
-  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/listtags.dir/main.c.o -c /usr/home/ayeka/Programming/Tags/listTags/main.c",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/listTags.dir/main.c.o -c /usr/home/ayeka/Programming/Tags/listTags/main.c",
   "file": "/usr/home/ayeka/Programming/Tags/listTags/main.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/Tags/listTags/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/part1.c.o -c /usr/home/ayeka/Programming/Tags/listTags/myne/part1.c",
+  "file": "/usr/home/ayeka/Programming/Tags/listTags/myne/part1.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/Tags/listTags/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/utils1.c.o -c /usr/home/ayeka/Programming/Tags/listTags/myne/utils1.c",
+  "file": "/usr/home/ayeka/Programming/Tags/listTags/myne/utils1.c"
 }
 ]

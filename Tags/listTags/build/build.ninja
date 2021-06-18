@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: listtags
+# Project: listTags
 # Configurations: Release
 # =============================================================================
 
@@ -70,11 +70,83 @@ build CMakeFiles/install.util: CUSTOM_COMMAND all
 
 build install: phony CMakeFiles/install.util
 
+# =============================================================================
+# Object build statements for EXECUTABLE target listTags
+
+
+#############################################
+# Order-only phony target for listTags
+
+build cmake_object_order_depends_target_listTags: phony || cmake_object_order_depends_target_myne
+
+build CMakeFiles/listTags.dir/main.c.o: C_COMPILER__listTags_Release ../main.c || cmake_object_order_depends_target_listTags
+  DEP_FILE = CMakeFiles/listTags.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/listTags.dir
+  OBJECT_FILE_DIR = CMakeFiles/listTags.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target listTags
+
+
+#############################################
+# Link the executable listTags
+
+build listTags: C_EXECUTABLE_LINKER__listTags_Release CMakeFiles/listTags.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = libmyne.a  -lm  /usr/local/lib/libjson-c.a
+  OBJECT_DIR = CMakeFiles/listTags.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = listTags
+  TARGET_PDB = listTags.dbg
+
 
 #############################################
 # Utility command for list_install_components
 
 build list_install_components: phony
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Order-only phony target for myne
+
+build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
+
+build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne_Release ../myne/part1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/part1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+build CMakeFiles/myne.dir/myne/utils1.c.o: C_COMPILER__myne_Release ../myne/utils1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/utils1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Link the static library libmyne.a
+
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/myne/part1.c.o CMakeFiles/myne.dir/myne/utils1.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libmyne.a
+  TARGET_PDB = myne.a.dbg
 
 
 #############################################
@@ -100,41 +172,9 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 # =============================================================================
-# Object build statements for EXECUTABLE target listtags
-
-
-#############################################
-# Order-only phony target for listtags
-
-build cmake_object_order_depends_target_listtags: phony || CMakeFiles/listtags.dir
-
-build CMakeFiles/listtags.dir/main.c.o: C_COMPILER__listtags_Release ../main.c || cmake_object_order_depends_target_listtags
-  DEP_FILE = CMakeFiles/listtags.dir/main.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/listtags.dir
-  OBJECT_FILE_DIR = CMakeFiles/listtags.dir
-  TARGET_COMPILE_PDB = CMakeFiles/listtags.dir/
-  TARGET_PDB = listtags.pdb
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target listtags
-
-
-#############################################
-# Link the executable listtags
-
-build listtags: C_EXECUTABLE_LINKER__listtags_Release CMakeFiles/listtags.dir/main.c.o
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/listtags.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/listtags.dir/
-  TARGET_FILE = listtags
-  TARGET_PDB = listtags.pdb
-
-# =============================================================================
 # Target aliases.
+
+build myne: phony libmyne.a
 
 # =============================================================================
 # Folder targets.
@@ -144,7 +184,7 @@ build listtags: C_EXECUTABLE_LINKER__listtags_Release CMakeFiles/listtags.dir/ma
 #############################################
 # Folder: /usr/home/ayeka/Programming/Tags/listTags/build
 
-build all: phony listtags
+build all: phony listTags libmyne.a
 
 # =============================================================================
 # Unknown Build Time Dependencies.
@@ -158,14 +198,14 @@ build all: phony listtags
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /usr/local/share/cmake/Modules/CMakeCCompiler.cmake.in /usr/local/share/cmake/Modules/CMakeCCompilerABI.c /usr/local/share/cmake/Modules/CMakeCInformation.cmake /usr/local/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake/Modules/CMakeCompilerIdDetection.cmake /usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompileFeatures.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompiler.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake /usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake /usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake /usr/local/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake/Modules/CMakeNinjaFindMake.cmake /usr/local/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/local/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake /usr/local/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake /usr/local/share/cmake/Modules/CMakeSystem.cmake.in /usr/local/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake /usr/local/share/cmake/Modules/CMakeTestCompilerCommon.cmake /usr/local/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake/Modules/Compiler/Clang-C.cmake /usr/local/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/local/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake /usr/local/share/cmake/Modules/Compiler/Clang.cmake /usr/local/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GNU.cmake /usr/local/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/local/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Internal/FeatureTesting.cmake /usr/local/share/cmake/Modules/Platform/FreeBSD.cmake /usr/local/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.20.3/CMakeCCompiler.cmake CMakeFiles/3.20.3/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /usr/local/share/cmake/Modules/CMakeCInformation.cmake /usr/local/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake/Modules/Compiler/Clang-C.cmake /usr/local/share/cmake/Modules/Compiler/Clang.cmake /usr/local/share/cmake/Modules/Compiler/GNU.cmake /usr/local/share/cmake/Modules/Platform/FreeBSD.cmake /usr/local/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.20.3/CMakeCCompiler.cmake CMakeFiles/3.20.3/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /usr/local/share/cmake/Modules/CMakeCCompiler.cmake.in /usr/local/share/cmake/Modules/CMakeCCompilerABI.c /usr/local/share/cmake/Modules/CMakeCInformation.cmake /usr/local/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake/Modules/CMakeCompilerIdDetection.cmake /usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompileFeatures.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompiler.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake /usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake /usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake /usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake /usr/local/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake/Modules/CMakeNinjaFindMake.cmake /usr/local/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/local/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake /usr/local/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake /usr/local/share/cmake/Modules/CMakeSystem.cmake.in /usr/local/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake /usr/local/share/cmake/Modules/CMakeTestCompilerCommon.cmake /usr/local/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake/Modules/Compiler/Clang-C.cmake /usr/local/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/local/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake /usr/local/share/cmake/Modules/Compiler/Clang.cmake /usr/local/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/GNU.cmake /usr/local/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/local/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/local/share/cmake/Modules/Internal/FeatureTesting.cmake /usr/local/share/cmake/Modules/Platform/FreeBSD.cmake /usr/local/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.20.3/CMakeCCompiler.cmake CMakeFiles/3.20.3/CMakeSystem.cmake: phony
+build ../CMakeLists.txt /usr/local/share/cmake/Modules/CMakeCInformation.cmake /usr/local/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake/Modules/Compiler/Clang-C.cmake /usr/local/share/cmake/Modules/Compiler/Clang.cmake /usr/local/share/cmake/Modules/Compiler/GNU.cmake /usr/local/share/cmake/Modules/Platform/FreeBSD.cmake /usr/local/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.20.3/CMakeCCompiler.cmake CMakeFiles/3.20.3/CMakeSystem.cmake: phony
 
 
 #############################################

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "listtags"
+			"path" : "listTags"
 		}
 	],
 	"backtrace" : 1,
@@ -11,7 +11,9 @@
 		"commands" : 
 		[
 			"add_executable",
-			"install"
+			"install",
+			"target_link_libraries",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -31,7 +33,19 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 7,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 15,
 				"parent" : 0
 			}
 		]
@@ -45,6 +59,13 @@
 					"fragment" : "-O3 -DNDEBUG"
 				}
 			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "/usr/local/include"
+				}
+			],
 			"language" : "C",
 			"sourceIndexes" : 
 			[
@@ -52,7 +73,14 @@
 			]
 		}
 	],
-	"id" : "listtags::@6890427a1f51a3e7e1df",
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "myne::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "listTags::@6890427a1f51a3e7e1df",
 	"install" : 
 	{
 		"destinations" : 
@@ -64,7 +92,7 @@
 		],
 		"prefix" : 
 		{
-			"path" : "/usr/local"
+			"path" : "/home/ayeka"
 		}
 	},
 	"link" : 
@@ -78,12 +106,27 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "libmyne.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libjson-c.a",
+				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "listtags",
-	"nameOnDisk" : "listtags",
+	"name" : "listTags",
+	"nameOnDisk" : "listTags",
 	"paths" : 
 	{
 		"build" : ".",
