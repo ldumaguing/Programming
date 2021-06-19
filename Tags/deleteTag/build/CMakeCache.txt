@@ -184,12 +184,6 @@ deleteTag_BINARY_DIR:STATIC=/usr/home/ayeka/Programming/Tags/deleteTag/build
 //Value Computed by CMake
 deleteTag_SOURCE_DIR:STATIC=/usr/home/ayeka/Programming/Tags/deleteTag
 
-//Value Computed by CMake
-deletetag_BINARY_DIR:STATIC=/usr/home/ayeka/Programming/Tags/deleteTag/build
-
-//Value Computed by CMake
-deletetag_SOURCE_DIR:STATIC=/usr/home/ayeka/Programming/Tags/deleteTag
-
 
 ########################
 # INTERNAL cache entries

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/usr/home/ayeka/Programming/Tags/setTag/build",
+  "command": "/usr/bin/cc -O3 -DNDEBUG -o CMakeFiles/settag.dir/main.c.o -c /usr/home/ayeka/Programming/Tags/setTag/main.c",
+  "file": "/usr/home/ayeka/Programming/Tags/setTag/main.c"
+}
+]

@@ -27,4 +27,4 @@ parserArgumentsOpenCL=-ferror-limit=100 -fspell-checking -Wdocumentation -Wunuse
 Name=Clang
 
 [Project]
-VersionControlSupport=
+VersionControlSupport=kdevgit
