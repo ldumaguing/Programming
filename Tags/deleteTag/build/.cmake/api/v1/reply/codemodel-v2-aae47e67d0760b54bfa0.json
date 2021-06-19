@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -27,10 +28,11 @@
 					[
 						0
 					],
-					"name" : "deletetag",
+					"name" : "deleteTag",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -38,9 +40,16 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "deletetag::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-deletetag-Release-cb900c2e48c7ba4c89b0.json",
-					"name" : "deletetag",
+					"id" : "deleteTag::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-deleteTag-Release-9303abd6d997c852e55c.json",
+					"name" : "deleteTag",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "myne::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-myne-Release-45e80355ccbadafc66f3.json",
+					"name" : "myne",
 					"projectIndex" : 0
 				}
 			]

@@ -1,8 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "myne/myne.h"
 
-int main(int argc, char *argv[])
-{
-    puts("Hello, World!");
-    return 0;
+void instruction();
+
+int main ( int argc, char *argv[] ) {
+    if ( argc == 3 ) {
+        delete ( argv );
+        return 0;
+    }
+
+    instruction();
+}
+
+// *******************************************************************************
+void instruction() {
+    printf ( "deleteTag   OBJ   TAG\n" );
 }

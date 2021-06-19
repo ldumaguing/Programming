@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: deletetag
+# Project: deleteTag
 # Configurations: Release
 # =============================================================================
 
@@ -70,37 +70,6 @@ build CMakeFiles/install.util: CUSTOM_COMMAND all
 
 build install: phony CMakeFiles/install.util
 
-# =============================================================================
-# Object build statements for EXECUTABLE target deletetag
-
-
-#############################################
-# Order-only phony target for deletetag
-
-build cmake_object_order_depends_target_deletetag: phony || CMakeFiles/deletetag.dir
-
-build CMakeFiles/deletetag.dir/main.c.o: C_COMPILER__deletetag_Release ../main.c || cmake_object_order_depends_target_deletetag
-  DEP_FILE = CMakeFiles/deletetag.dir/main.c.o.d
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/deletetag.dir
-  OBJECT_FILE_DIR = CMakeFiles/deletetag.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target deletetag
-
-
-#############################################
-# Link the executable deletetag
-
-build deletetag: C_EXECUTABLE_LINKER__deletetag_Release CMakeFiles/deletetag.dir/main.c.o
-  FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/deletetag.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = deletetag
-  TARGET_PDB = deletetag.dbg
-
 
 #############################################
 # Utility command for list_install_components
@@ -131,7 +100,81 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 # =============================================================================
+# Object build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Order-only phony target for myne
+
+build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
+
+build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne_Release ../myne/part1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/part1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+build CMakeFiles/myne.dir/myne/utils1.c.o: C_COMPILER__myne_Release ../myne/utils1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/utils1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Link the static library libmyne.a
+
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/myne/part1.c.o CMakeFiles/myne.dir/myne/utils1.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libmyne.a
+  TARGET_PDB = myne.a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target deleteTag
+
+
+#############################################
+# Order-only phony target for deleteTag
+
+build cmake_object_order_depends_target_deleteTag: phony || cmake_object_order_depends_target_myne
+
+build CMakeFiles/deleteTag.dir/main.c.o: C_COMPILER__deleteTag_Release ../main.c || cmake_object_order_depends_target_deleteTag
+  DEP_FILE = CMakeFiles/deleteTag.dir/main.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/deleteTag.dir
+  OBJECT_FILE_DIR = CMakeFiles/deleteTag.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target deleteTag
+
+
+#############################################
+# Link the executable deleteTag
+
+build deleteTag: C_EXECUTABLE_LINKER__deleteTag_Release CMakeFiles/deleteTag.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = libmyne.a  -lm  /usr/local/lib/libjson-c.a
+  OBJECT_DIR = CMakeFiles/deleteTag.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = deleteTag
+  TARGET_PDB = deleteTag.dbg
+
+# =============================================================================
 # Target aliases.
+
+build myne: phony libmyne.a
 
 # =============================================================================
 # Folder targets.
@@ -141,7 +184,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 #############################################
 # Folder: /usr/home/ayeka/Programming/Tags/deleteTag/build
 
-build all: phony deletetag
+build all: phony libmyne.a deleteTag
 
 # =============================================================================
 # Unknown Build Time Dependencies.

@@ -5,7 +5,7 @@
 #include "myne.h"
 
 struct json_object *get_HumanTemplate();
-void saveHuman ( json_object *, char ** );
+void saveHuman ( struct json_object *, char ** );
 
 // *******************************************************************************
 void withAttributes ( char *argv[], int argc ) {
@@ -67,7 +67,7 @@ void nameOnly ( char *argv[] ) {
 }
 
 // *******************************************************************************
-void saveHuman ( json_object *Human, char *argv[] ) {
+void saveHuman ( struct json_object *Human, char *argv[] ) {
     char filename[100];
     strcpy ( filename, argv[1] );
     strcat ( filename, ".json" );
