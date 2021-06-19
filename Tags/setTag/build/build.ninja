@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: settag
+# Project: setTag
 # Configurations: Release
 # =============================================================================
 
@@ -87,6 +87,45 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 
 build edit_cache: phony CMakeFiles/edit_cache.util
 
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Order-only phony target for myne
+
+build cmake_object_order_depends_target_myne: phony || CMakeFiles/myne.dir
+
+build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne_Release ../myne/part1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/part1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+build CMakeFiles/myne.dir/myne/utils1.c.o: C_COMPILER__myne_Release ../myne/utils1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/utils1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target myne
+
+
+#############################################
+# Link the static library libmyne.a
+
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/myne/part1.c.o CMakeFiles/myne.dir/myne/utils1.c.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/myne.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libmyne.a
+  TARGET_PDB = myne.a.dbg
+
 
 #############################################
 # Utility command for install/local
@@ -100,38 +139,42 @@ build CMakeFiles/install/local.util: CUSTOM_COMMAND all
 build install/local: phony CMakeFiles/install/local.util
 
 # =============================================================================
-# Object build statements for EXECUTABLE target settag
+# Object build statements for EXECUTABLE target setTag
 
 
 #############################################
-# Order-only phony target for settag
+# Order-only phony target for setTag
 
-build cmake_object_order_depends_target_settag: phony || CMakeFiles/settag.dir
+build cmake_object_order_depends_target_setTag: phony || cmake_object_order_depends_target_myne
 
-build CMakeFiles/settag.dir/main.c.o: C_COMPILER__settag_Release ../main.c || cmake_object_order_depends_target_settag
-  DEP_FILE = CMakeFiles/settag.dir/main.c.o.d
+build CMakeFiles/setTag.dir/main.c.o: C_COMPILER__setTag_Release ../main.c || cmake_object_order_depends_target_setTag
+  DEP_FILE = CMakeFiles/setTag.dir/main.c.o.d
   FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/settag.dir
-  OBJECT_FILE_DIR = CMakeFiles/settag.dir
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/setTag.dir
+  OBJECT_FILE_DIR = CMakeFiles/setTag.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target settag
+# Link build statements for EXECUTABLE target setTag
 
 
 #############################################
-# Link the executable settag
+# Link the executable setTag
 
-build settag: C_EXECUTABLE_LINKER__settag_Release CMakeFiles/settag.dir/main.c.o
+build setTag: C_EXECUTABLE_LINKER__setTag_Release CMakeFiles/setTag.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
   FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/settag.dir
+  LINK_LIBRARIES = libmyne.a  -lm  /usr/local/lib/libjson-c.a
+  OBJECT_DIR = CMakeFiles/setTag.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = settag
-  TARGET_PDB = settag.dbg
+  TARGET_FILE = setTag
+  TARGET_PDB = setTag.dbg
 
 # =============================================================================
 # Target aliases.
+
+build myne: phony libmyne.a
 
 # =============================================================================
 # Folder targets.
@@ -141,7 +184,7 @@ build settag: C_EXECUTABLE_LINKER__settag_Release CMakeFiles/settag.dir/main.c.o
 #############################################
 # Folder: /usr/home/ayeka/Programming/Tags/setTag/build
 
-build all: phony settag
+build all: phony libmyne.a setTag
 
 # =============================================================================
 # Unknown Build Time Dependencies.

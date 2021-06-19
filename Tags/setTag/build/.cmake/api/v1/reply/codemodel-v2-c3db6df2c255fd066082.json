@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -27,10 +28,11 @@
 					[
 						0
 					],
-					"name" : "settag",
+					"name" : "setTag",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -38,9 +40,16 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "settag::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-settag-Release-c798e5ed6dd25d45fb41.json",
-					"name" : "settag",
+					"id" : "myne::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-myne-Release-45e80355ccbadafc66f3.json",
+					"name" : "myne",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "setTag::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-setTag-Release-eba34104dbf17755da39.json",
+					"name" : "setTag",
 					"projectIndex" : 0
 				}
 			]

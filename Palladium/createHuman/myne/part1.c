@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <string.h>
 #include <json-c/json.h>
-#include "myne.h"
+//#include "myne.h"
 
 struct json_object *get_HumanTemplate();
 void saveHuman ( struct json_object *, char ** );

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "settag"
+			"path" : "setTag"
 		}
 	],
 	"backtrace" : 1,
@@ -11,7 +11,9 @@
 		"commands" : 
 		[
 			"add_executable",
-			"install"
+			"install",
+			"target_link_libraries",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -31,7 +33,19 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 7,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 16,
 				"parent" : 0
 			}
 		]
@@ -45,6 +59,13 @@
 					"fragment" : "-O3 -DNDEBUG"
 				}
 			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "/usr/local/include"
+				}
+			],
 			"language" : "C",
 			"sourceIndexes" : 
 			[
@@ -52,7 +73,14 @@
 			]
 		}
 	],
-	"id" : "settag::@6890427a1f51a3e7e1df",
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "myne::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "setTag::@6890427a1f51a3e7e1df",
 	"install" : 
 	{
 		"destinations" : 
@@ -78,12 +106,27 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "libmyne.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libjson-c.a",
+				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "settag",
-	"nameOnDisk" : "settag",
+	"name" : "setTag",
+	"nameOnDisk" : "setTag",
 	"paths" : 
 	{
 		"build" : ".",
