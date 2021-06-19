@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <json-c/json.h>
+#include <regex.h>
 #include "myne.h"
 
 // *******************************************************************************

@@ -27,19 +27,21 @@ int getIndex ( struct json_object *Tags, char *argv[] ) {
     int len = json_object_array_length ( Tags );
     if ( len == 0 ) return X;
 
+    char *scratch, *tagName, *delimiter = ":";
     int count = 0;
-    char *name;
+    char *tagString;
     struct json_object *aTag;
     int i;
     for ( i = 0; i < len; i++ ) {
         aTag = json_object_array_get_idx ( Tags, i );
-        asprintf ( &name, "%s", json_object_get_string ( aTag ) );
-        if ( strcmp ( name, argv[2] ) == 0 ) {
+        asprintf ( &tagString, "%s", json_object_get_string ( aTag ) );
+        tagName = strtok_r ( tagString, delimiter, &scratch );
+        if ( strcmp ( tagName, argv[2] ) == 0 ) {
             X = count;
-            free ( name );
+            free ( tagString );
             return X;
         }
-        free ( name );
+        free ( tagString );
         count++;
     }
 

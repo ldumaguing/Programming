@@ -19,6 +19,7 @@ struct json_object *getJSON ( char *argv[] ) {
     char buff_64K[65536];
 
     strcpy ( filename, argv[1] );
+    strcat ( filename, ".json" );
 
     // Open file
     fptr = fopen ( filename, "r" );
