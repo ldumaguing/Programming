@@ -80,6 +80,13 @@ build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne_Release ../myne/part1
   OBJECT_DIR = CMakeFiles/myne.dir
   OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
 
+build CMakeFiles/myne.dir/myne/utils1.c.o: C_COMPILER__myne_Release ../myne/utils1.c || cmake_object_order_depends_target_myne
+  DEP_FILE = CMakeFiles/myne.dir/myne/utils1.c.o.d
+  FLAGS = -O3 -DNDEBUG
+  INCLUDES = -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/myne.dir
+  OBJECT_FILE_DIR = CMakeFiles/myne.dir/myne
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target myne
@@ -88,7 +95,7 @@ build CMakeFiles/myne.dir/myne/part1.c.o: C_COMPILER__myne_Release ../myne/part1
 #############################################
 # Link the static library libmyne.a
 
-build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/myne/part1.c.o
+build libmyne.a: C_STATIC_LIBRARY_LINKER__myne_Release CMakeFiles/myne.dir/myne/part1.c.o CMakeFiles/myne.dir/myne/utils1.c.o
   LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/myne.dir
   POST_BUILD = :

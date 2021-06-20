@@ -8,6 +8,7 @@ add_library(
    myne
    myne/myne.h
    myne/part1.c
+   myne/utils1.c
 )
 
 #include_directories(/usr/include)
