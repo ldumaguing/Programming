@@ -3,3 +3,19 @@
 * Tokens are strings consisting a unique name and an optional value existing in arrays.
      tags:["Sleep:3", "Fish"]
 
+*******************************************************************************
+deleteTag   OBJ   TAG
+
+insertTag   OBJ   TAG
+
+listTags    OBJ
+
+setTags     OBJ   TAG
+
+createHuman   NAME
+    "          "     IQ ME MA PS PP PE PB Spd [Gender]
+
+viewHuman     NAME
+
+
+

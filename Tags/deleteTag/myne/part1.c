@@ -5,6 +5,7 @@
 #include "myne.h"
 
 int getIndex ( struct json_object *, char ** );
+void removeAll ( struct json_object * );
 
 // *******************************************************************************
 void delete ( char *argv[] ) {
@@ -12,12 +13,24 @@ void delete ( char *argv[] ) {
     struct json_object *Tags;
     json_object_object_get_ex ( theObj, "Tags", &Tags );
 
+    if ( strstr ( argv[2], "all" ) != 0 ) {
+        removeAll ( Tags );
+        saveObj ( theObj, argv );
+        return;
+    }
+
     int i = getIndex ( Tags, argv );
     if ( i < 0 ) return;
 
     json_object_array_del_idx ( Tags, i, 1 );
 
     saveObj ( theObj, argv );
+}
+
+// *******************************************************************************
+void removeAll ( struct json_object *Tags ) {
+    int len = json_object_array_length ( Tags );
+    json_object_array_del_idx ( Tags, 0, len );
 }
 
 // *******************************************************************************
