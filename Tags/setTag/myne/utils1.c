@@ -4,8 +4,44 @@
 #include "myne.h"
 
 // *******************************************************************************
-int hasColon ( char *argv[] ) {
-    char *X = strstr ( argv[2], ":" );
+int getIndex ( struct json_object *Tags, char *tag ) {
+    int X = -1;
+
+    int len = json_object_array_length ( Tags );
+    if ( len == 0 ) return X;
+
+    char *scratch, *tagName, *delimiter = ":";
+    int count = 0;
+    char *tagString;
+    struct json_object *aTag;
+    int i;
+    for ( i = 0; i < len; i++ ) {
+        aTag = json_object_array_get_idx ( Tags, i );
+        asprintf ( &tagString, "%s", json_object_get_string ( aTag ) );
+        tagName = strtok_r ( tagString, delimiter, &scratch );
+        if ( strcmp ( tagName, tag ) == 0 ) {
+            X = count;
+            free ( tagString );
+            return X;
+        }
+        free ( tagString );
+        count++;
+    }
+
+    return X;
+}
+
+// *******************************************************************************
+int hasPlusMinus ( char *tag ) {
+    if ( strstr ( tag, "+" ) != NULL ) return 1;
+    if ( strstr ( tag, "-" ) != NULL ) return 1;
+
+    return 0;
+}
+
+// *******************************************************************************
+int hasColon ( char *tag ) {
+    char *X = strstr ( tag, ":" );
     if ( X == NULL ) return 0;
 
     return 1;
