@@ -2,13 +2,13 @@
 #include <stdlib.h>
 
 void forward ( char *TheObj, char *ActStr ) {
-    // use facing
+    // Move one hex in the facing direction
     printf ( "%s\n%s\n", TheObj, ActStr );
 }
 
 // *******************************************************************************
 void shove ( char *TheObj, char *ActStr ) {
-    // facing doesn't matter
+    // Move one hex in the direction given in the ActionString
     printf ( "%s\n%s\n", TheObj, ActStr );
 }
 
