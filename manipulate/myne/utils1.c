@@ -5,13 +5,13 @@
 #include "myne.h"
 
 // *******************************************************************************
-struct json_object *getJSON ( char *argv[] ) {
+struct json_object *getJSON ( char *objName ) {
     FILE *fptr;
 
     char filename[100], c;
     char buff_64K[65536];
 
-    strcpy ( filename, argv[1] );
+    strcpy ( filename, objName );
 
     // Open file
     fptr = fopen ( filename, "r" );
