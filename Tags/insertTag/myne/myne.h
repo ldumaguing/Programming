@@ -4,7 +4,8 @@
 void insert ( char ** );
 
 // ********** utils1.c
-int getIndex ( struct json_object *, char ** );
+int getIndex ( struct json_object *, char * );
+int hasTag ( struct json_object *, char * );
 struct json_object *getJSON ( char ** );
 void saveObject ( struct json_object *, char ** );
 

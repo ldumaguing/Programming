@@ -4,6 +4,16 @@
 #include "myne.h"
 
 // *******************************************************************************
+int hasTag ( struct json_object *Tags, char *tag ) {
+    char buff[80];
+    sprintf ( buff, "%s", tag );
+    char *scratch, *tagName;
+    tagName = strtok_r ( buff, ":", &scratch );
+
+    return getIndex ( Tags, tagName );
+}
+
+// *******************************************************************************
 void saveObject ( json_object *TheObj, char *argv[] ) {
     char filename[100];
     strcpy ( filename, argv[1] );
@@ -46,7 +56,7 @@ struct json_object *getJSON ( char *argv[] ) {
 
 
 // *******************************************************************************
-int getIndex ( struct json_object *Tags, char *argv[] ) {
+int getIndex ( struct json_object *Tags, char *thisTag ) {
     int X = -1;
 
     int len = json_object_array_length ( Tags );
@@ -61,7 +71,7 @@ int getIndex ( struct json_object *Tags, char *argv[] ) {
         aTag = json_object_array_get_idx ( Tags, i );
         asprintf ( &tagString, "%s", json_object_get_string ( aTag ) );
         tagName = strtok_r ( tagString, delimiter, &scratch );
-        if ( strcmp ( tagName, argv[2] ) == 0 ) {
+        if ( strcmp ( tagName, thisTag ) == 0 ) {
             X = count;
             free ( tagString );
             return X;
