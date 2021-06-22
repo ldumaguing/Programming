@@ -11,7 +11,7 @@ void manipulate ( char *argv[] ) {
     ActionName = strtok_r ( buff, ":", &ActionString );
 
     if ( strstr ( "Forward", ActionName ) != 0 ) {
-        forward ( argv[1], ActionString );
+        forward ( argv[1] );
         return;
     }
 }

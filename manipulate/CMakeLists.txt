@@ -12,6 +12,7 @@ add_library(
    myne/part1.c
    myne/utils1.c
    myne/Movement.c
+   myne/hexagoncol.c
 )
 
 # include_directories(/usr/include)

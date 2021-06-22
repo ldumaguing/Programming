@@ -2,7 +2,48 @@
 #include <stdlib.h>
 #include <string.h>
 #include <json-c/json.h>
+#include <regex.h>
 #include "myne.h"
+
+// *******************************************************************************
+void saveObject ( struct json_object *TheObj, char *objName ) {
+    char filename[100];
+    strcpy ( filename, objName );
+    FILE *fp;
+    fp = fopen ( filename, "w" );
+    fputs ( json_object_to_json_string_ext ( TheObj, 0 ), fp );
+    fclose ( fp );
+}
+
+// *******************************************************************************
+void getGrep ( char *kv, char *pattern, char *subject ) {
+    regex_t regex;
+    regmatch_t match;
+
+    regcomp ( &regex, pattern, REG_EXTENDED );
+
+    int w = 0;
+    int begin, end, len;
+    char *word = NULL;
+    if ( regexec ( &regex, subject, 1, &match, 0 ) == 0 ) {
+        begin = ( int ) match.rm_so;
+        end = ( int ) match.rm_eo;
+        len = end - begin;
+        word = malloc ( len + 1 );
+
+        for ( int i = begin; i < end; i++ ) {
+            word[w] = subject[i];
+            w++;
+        }
+        word[w] = 0;
+    } else
+        return;
+
+    strcpy ( kv, word );
+
+    free ( word );
+    regfree ( &regex );
+}
 
 // *******************************************************************************
 struct json_object *getJSON ( char *objName ) {

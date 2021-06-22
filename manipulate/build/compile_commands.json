@@ -18,5 +18,10 @@
   "directory": "/usr/home/ayeka/Programming/manipulate/build",
   "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/Movement.c.o -c /usr/home/ayeka/Programming/manipulate/myne/Movement.c",
   "file": "/usr/home/ayeka/Programming/manipulate/myne/Movement.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/manipulate/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/hexagoncol.c.o -c /usr/home/ayeka/Programming/manipulate/myne/hexagoncol.c",
+  "file": "/usr/home/ayeka/Programming/manipulate/myne/hexagoncol.c"
 }
 ]
