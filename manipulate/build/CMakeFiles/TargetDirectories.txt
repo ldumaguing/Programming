@@ -1,0 +1,8 @@
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/install/local.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/install/strip.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/install.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/manipulate.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/edit_cache.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/manipulate/build/CMakeFiles/list_install_components.dir

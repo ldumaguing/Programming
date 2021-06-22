@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/usr/home/ayeka/Programming/manipulate/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/manipulate.dir/main.c.o -c /usr/home/ayeka/Programming/manipulate/main.c",
+  "file": "/usr/home/ayeka/Programming/manipulate/main.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/manipulate/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/part1.c.o -c /usr/home/ayeka/Programming/manipulate/myne/part1.c",
+  "file": "/usr/home/ayeka/Programming/manipulate/myne/part1.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/manipulate/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/utils1.c.o -c /usr/home/ayeka/Programming/manipulate/myne/utils1.c",
+  "file": "/usr/home/ayeka/Programming/manipulate/myne/utils1.c"
+},
+{
+  "directory": "/usr/home/ayeka/Programming/manipulate/build",
+  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/Movement.c.o -c /usr/home/ayeka/Programming/manipulate/myne/Movement.c",
+  "file": "/usr/home/ayeka/Programming/manipulate/myne/Movement.c"
+}
+]
