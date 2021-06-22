@@ -16,4 +16,8 @@ int main ( int argc, char *argv[] ) {
 // *******************************************************************************
 void instruction() {
     printf ( "manipulate   OBJ   ActionString\n" );
+    printf ( "********************************************************************************\n" );
+    printf ( "ActionString:\n" );
+    printf ( "   Forward\n" );
+    printf ( "   Shove:DIRECTION\n" );
 }
