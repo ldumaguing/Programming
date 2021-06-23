@@ -5,6 +5,28 @@
 #include "myne.h"
 
 // *******************************************************************************
+void aboutface ( char *objName ) {
+    struct json_object *theObj = getJSON ( objName );
+    struct json_object *Facing;
+    json_object_object_get_ex ( theObj, "Facing", &Facing );
+
+    if ( Facing == NULL ) return;
+
+    char ActStr[80];
+    sprintf ( ActStr, "%s", json_object_get_string ( Facing ) );
+    json_object *X = json_object_new_string ( "x" );;
+    if ( strstr ( ActStr, "A" ) > 0 ) X = json_object_new_string ( "D" );
+    else if ( strstr ( ActStr, "B" ) > 0 ) X = json_object_new_string ( "E" );
+    else if ( strstr ( ActStr, "C" ) > 0 ) X = json_object_new_string ( "F" );
+    else if ( strstr ( ActStr, "D" ) > 0 ) X = json_object_new_string ( "A" );
+    else if ( strstr ( ActStr, "E" ) > 0 ) X = json_object_new_string ( "B" );
+    else X = json_object_new_string ( "C" );
+
+    json_object_object_add ( theObj, "Facing", X );
+    saveObject ( theObj, objName );
+}
+
+// *******************************************************************************
 void turnLeft ( char *objName ) {
     struct json_object *theObj = getJSON ( objName );
     struct json_object *Facing;

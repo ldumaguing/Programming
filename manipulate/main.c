@@ -15,7 +15,7 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "manipulate   OBJ   ActionString\n\n" );
+    printf ( "\nmanipulate   OBJ   ActionString\n\n" );
     printf ( "********************************************************************************\n" );
     printf ( "DIRECTION: A, B, C, D, E, or F\n" );
     printf ( "ActionString:\n" );
@@ -24,4 +24,5 @@ void instruction() {
     printf ( "   Face:DIRECTION\n" );
     printf ( "   TurnLeft\n" );
     printf ( "   TurnRight\n" );
+    printf ( "   Aboutface\n" );
 }
