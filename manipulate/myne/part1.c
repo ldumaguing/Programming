@@ -10,8 +10,9 @@ void manipulate ( char *argv[] ) {
     char *ActionString, *ActionName;
     ActionName = strtok_r ( buff, ":", &ActionString );
 
-    if ( strstr ( "Forward", ActionName ) != 0 ) {
-        forward ( argv[1] );
-        return;
-    }
+    if ( strstr ( "Forward", ActionName ) != 0 ) forward ( argv[1] );
+    else if ( strstr ( "Shove", ActionName ) != 0 ) shove ( argv[1], ActionString );
+    else if ( strstr ( "Face", ActionName ) != 0 ) face ( argv[1], ActionString );
+    else if ( strstr ( "TurnLeft", ActionName ) != 0 ) turnLeft ( argv[1] );
+    else if ( strstr ( "TurnRight", ActionName ) != 0 ) turnRight ( argv[1] );
 }

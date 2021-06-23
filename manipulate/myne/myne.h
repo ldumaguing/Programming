@@ -19,6 +19,8 @@ void saveObject ( struct json_object *, char * );
 // ********** Movement.c
 void forward ( char * );
 void shove ( char *, char * );
-
+void face ( char *, char * );
+void turnLeft ( char * );
+void turnRight ( char * );
 
 
