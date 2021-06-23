@@ -5,6 +5,49 @@
 #include "myne.h"
 
 // *******************************************************************************
+void displace ( char *objName, char *ActStr ) {
+    struct json_object *theObj = getJSON ( objName );
+    struct json_object *Location;
+    json_object_object_get_ex ( theObj, "Location", &Location );
+
+    if ( Location == NULL )  return;
+
+    int L[] = {0,0,0};
+    L[0] = json_object_get_int ( json_object_array_get_idx ( Location, 0 ) );
+    L[1] = json_object_get_int ( json_object_array_get_idx ( Location, 1 ) );
+
+    char buff[80];
+    sprintf ( buff, "%s", ActStr );
+    char *X, *Y;
+    X = strtok_r ( buff, ",", &Y );
+
+    L[0] += atoi ( X );
+    L[1] += atoi ( Y );
+
+    json_object_array_put_idx ( Location, 0, json_object_new_int ( L[0] ) );
+    json_object_array_put_idx ( Location, 1, json_object_new_int ( L[1] ) );
+    saveObject ( theObj, objName );
+}
+
+// *******************************************************************************
+void place ( char *objName, char *ActStr ) {
+    struct json_object *theObj = getJSON ( objName );
+    struct json_object *Location;
+    json_object_object_get_ex ( theObj, "Location", &Location );
+
+    if ( Location == NULL )  return;
+
+    char buff[80];
+    sprintf ( buff, "%s", ActStr );
+    char *X, *Y;
+    X = strtok_r ( buff, ",", &Y );
+
+    json_object_array_put_idx ( Location, 0, json_object_new_int ( atoi ( X ) ) );
+    json_object_array_put_idx ( Location, 1, json_object_new_int ( atoi ( Y ) ) );
+    saveObject ( theObj, objName );
+}
+
+// *******************************************************************************
 void aboutface ( char *objName ) {
     struct json_object *theObj = getJSON ( objName );
     struct json_object *Facing;

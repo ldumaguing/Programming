@@ -23,6 +23,7 @@ void face ( char *, char * );
 void turnLeft ( char * );
 void turnRight ( char * );
 void aboutface ( char * );
-
+void place ( char *, char * );
+void displace ( char *, char * );
 
 

@@ -25,4 +25,6 @@ void instruction() {
     printf ( "   TurnLeft\n" );
     printf ( "   TurnRight\n" );
     printf ( "   Aboutface\n" );
+    printf ( "   Place:10,-5\n" );
+    printf ( "   Displace:10,-5\n" );
 }

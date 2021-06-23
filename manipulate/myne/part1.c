@@ -15,5 +15,7 @@ void manipulate ( char *argv[] ) {
     else if ( strstr ( "Face", ActionName ) != 0 ) face ( argv[1], ActionString );
     else if ( strstr ( "TurnLeft", ActionName ) != 0 ) turnLeft ( argv[1] );
     else if ( strstr ( "TurnRight", ActionName ) != 0 ) turnRight ( argv[1] );
-    else if ( strstr ( "Aboutface", ActionName ) != 0 ) aboutface( argv[1] );
+    else if ( strstr ( "Aboutface", ActionName ) != 0 ) aboutface ( argv[1] );
+    else if ( strstr ( "Place", ActionName ) != 0 ) place ( argv[1], ActionString );
+    else if ( strstr ( "Displace", ActionName ) != 0 ) displace ( argv[1], ActionString );
 }
