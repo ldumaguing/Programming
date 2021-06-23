@@ -20,6 +20,6 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "createHuman   NAME\n" );
+    printf ( "\ncreateHuman   NAME\n" );
     printf ( "     \"          \"    IQ ME MA PS PP PE PB Spd [Gender]\n" );
 }

@@ -15,5 +15,5 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "viewHuman   NAME\n" );
+    printf ( "\nviewHuman   NAME\n" );
 }

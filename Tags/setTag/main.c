@@ -15,5 +15,5 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "setTags   OBJ   TAG\n" );
+    printf ( "\nsetTags   OBJ   TAG\n" );
 }
