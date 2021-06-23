@@ -86,7 +86,8 @@ struct json_object *get_HumanTemplate() {
                 "\"Attributes\":[10, 10, 10, 10, 10, 10, 10, 10],"
                 "\"Tags\":[],"
                 "\"Location\":[0, 0, 0],"
-                "\"Facing\": \"A\""
+                "\"Facing\": \"A\","
+                "\"Hands\":[\"\",\"\",\"\"]"   // Primary, Off, Both
                 "}";
 
     return  json_tokener_parse ( str );
