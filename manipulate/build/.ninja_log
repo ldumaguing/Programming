@@ -1,7 +1,7 @@
 # ninja log v5
 257	269	1624425023242617000	libmyne.a	69f003b61215d01
-0	15	0	CMakeFiles/install.util	f283af1b5ea423d1
-0	26	1624425214636768000	build.ninja	f86ac83ad1c71125
+1	17	0	CMakeFiles/install.util	f283af1b5ea423d1
+0	26	1624425611147893000	build.ninja	f86ac83ad1c71125
 4	257	1624425023229871000	CMakeFiles/myne.dir/myne/hexagoncol.c.o	d25e5b76f9809274
 0	117	1624425023084615000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
 0	90	1624425023047552000	CMakeFiles/manipulate.dir/main.c.o	fb19936a9c03b089
@@ -9,4 +9,3 @@
 0	24	1624344697334740000	CMakeFiles/myne.dir/myne/forward.c.o	48cebd7953261a41
 269	289	1624425023258705000	manipulate	cd46940a1d68603c
 2	178	1624425023147395000	CMakeFiles/myne.dir/myne/Movement.c.o	877f2193600880df
-1	17	0	CMakeFiles/install.util	f283af1b5ea423d1
