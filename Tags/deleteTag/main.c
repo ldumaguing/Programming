@@ -15,6 +15,6 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "\ndeleteTag   OBJ   TAG\n" );
+    printf ( "\ndeleteTag   JSON   TAG\n" );
     printf ( "     \"       \"    all\n" );
 }

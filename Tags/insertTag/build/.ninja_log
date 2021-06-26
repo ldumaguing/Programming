@@ -1,7 +1,7 @@
 # ninja log v5
 1	106	1624403007582961000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
 138	162	1624403007642252000	libmyne.a	1f7126b73cc9d553
-0	15	0	CMakeFiles/install.util	26786728ac3c73ba
-1	30	1624425497226159000	CMakeFiles/insertTag.dir/main.c.o	d46f7ea65853ca78
+0	9	0	CMakeFiles/install.util	26786728ac3c73ba
+0	25	1624681693734305000	CMakeFiles/insertTag.dir/main.c.o	d46f7ea65853ca78
 1	138	1624403007617337000	CMakeFiles/myne.dir/myne/utils1.c.o	f73318d395ee2c6e
-30	50	1624425497245226000	insertTag	d81f652ac7969899
+26	43	1624681693751559000	insertTag	d81f652ac7969899

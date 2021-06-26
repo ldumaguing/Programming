@@ -15,5 +15,5 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "\nlistTags   OBJ\n" );
+    printf ( "\nlistTags   JSON\n" );
 }
