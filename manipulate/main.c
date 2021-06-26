@@ -27,4 +27,6 @@ void instruction() {
     printf ( "   Aboutface\n" );
     printf ( "   Place:10,-5\n" );
     printf ( "   Displace:10,-5\n" );
+    printf ( "   SideSlipLeft\n" );
+    printf ( "   SideSlipRight\n" );
 }

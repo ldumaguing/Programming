@@ -18,4 +18,6 @@ void manipulate ( char *argv[] ) {
     else if ( strstr ( "Aboutface", ActionName ) != 0 ) aboutface ( argv[1] );
     else if ( strstr ( "Place", ActionName ) != 0 ) place ( argv[1], ActionString );
     else if ( strstr ( "Displace", ActionName ) != 0 ) displace ( argv[1], ActionString );
+    else if ( strstr ( "SideSlipLeft", ActionName ) != 0 ) sideslipLeft ( argv[1] );
+    else if ( strstr ( "SideSlipRight", ActionName ) != 0 ) sideslipRight ( argv[1] );
 }

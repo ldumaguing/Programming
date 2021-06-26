@@ -25,5 +25,7 @@ void turnRight ( char * );
 void aboutface ( char * );
 void place ( char *, char * );
 void displace ( char *, char * );
+void sideslipLeft ( char * );
+void sideslipRight ( char * );
 
 
