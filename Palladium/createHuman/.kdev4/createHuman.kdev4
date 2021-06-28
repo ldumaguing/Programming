@@ -8,8 +8,8 @@ Current Build Directory Index-Host System=0
 [CMake][CMake Build Directory 0]
 Build Directory Path=/usr/home/ayeka/Programming/Palladium/createHuman/build
 Build Type=Release
-CMake Binary=/usr/local/bin/cmake
-CMake Executable=/usr/local/bin/cmake
+CMake Binary=/usr/bin/cmake
+CMake Executable=/usr/bin/cmake
 Environment Profile=
 Extra Arguments=
 Install Directory=/home/ayeka

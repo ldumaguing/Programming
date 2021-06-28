@@ -5,3 +5,10 @@
 0	69	1624425499411600000	CMakeFiles/myne.dir/myne/utils1.c.o	f73318d395ee2c6e
 69	84	1624425499427709000	libmyne.a	1f7126b73cc9d553
 0	9	0	CMakeFiles/install.util	f4747b12d82fb6cb
+0	396	1624887903	build.ninja	5059676792670f5e
+0	45	1624887903	CMakeFiles/listTags.dir/main.c.o	436f86d738bdb7e
+0	48	1624887903	CMakeFiles/myne.dir/myne/utils1.c.o	f56ebdb973457ede
+0	79	1624887903	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+79	95	1624887903	libmyne.a	68a86ad41b2cb139
+95	132	1624887903	listTags	22cbecc2d404e3ef
+0	18	0	CMakeFiles/install.util	940e13f9c103eb71

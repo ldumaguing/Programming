@@ -116,7 +116,7 @@ void aboutface ( char *objName ) {
 
     char ActStr[80];
     sprintf ( ActStr, "%s", json_object_get_string ( Facing ) );
-    json_object *X = json_object_new_string ( "x" );;
+    json_object *X;
     if ( strstr ( ActStr, "A" ) > 0 ) X = json_object_new_string ( "D" );
     else if ( strstr ( ActStr, "B" ) > 0 ) X = json_object_new_string ( "E" );
     else if ( strstr ( ActStr, "C" ) > 0 ) X = json_object_new_string ( "F" );
@@ -138,7 +138,7 @@ void turnLeft ( char *objName ) {
 
     char ActStr[80];
     sprintf ( ActStr, "%s", json_object_get_string ( Facing ) );
-    json_object *X = json_object_new_string ( "x" );
+    json_object *X;
     if ( strstr ( ActStr, "A" ) > 0 ) X = json_object_new_string ( "F" );
     else if ( strstr ( ActStr, "B" ) > 0 ) X = json_object_new_string ( "A" );
     else if ( strstr ( ActStr, "C" ) > 0 ) X = json_object_new_string ( "B" );
@@ -160,7 +160,7 @@ void turnRight ( char *objName ) {
 
     char ActStr[80];
     sprintf ( ActStr, "%s", json_object_get_string ( Facing ) );
-    json_object *X = json_object_new_string ( "x" );;
+    json_object *X;
     if ( strstr ( ActStr, "A" ) > 0 ) X = json_object_new_string ( "B" );
     else if ( strstr ( ActStr, "B" ) > 0 ) X = json_object_new_string ( "C" );
     else if ( strstr ( ActStr, "C" ) > 0 ) X = json_object_new_string ( "D" );
@@ -232,7 +232,7 @@ void face ( char *objName, char *ActStr ) {
 
     if ( Facing == NULL ) return;
 
-    json_object *X = json_object_new_string ( "x" );;
+    json_object *X;
     if ( strstr ( ActStr, "A" ) > 0 ) X = json_object_new_string ( "A" );
     else if ( strstr ( ActStr, "B" ) > 0 ) X = json_object_new_string ( "B" );
     else if ( strstr ( ActStr, "C" ) > 0 ) X = json_object_new_string ( "C" );
