@@ -1,8 +1,8 @@
-/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/install/strip.dir
 /usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/install/local.dir
-/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/install/strip.dir
 /usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/install.dir
-/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/deleteTag.dir
-/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/edit_cache.dir
-/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/rebuild_cache.dir
 /usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/list_install_components.dir
+/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/edit_cache.dir
+/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/Tags/deleteTag/build/CMakeFiles/deleteTag.dir

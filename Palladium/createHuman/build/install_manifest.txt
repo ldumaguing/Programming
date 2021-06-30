@@ -1,1 +1,1 @@
-/usr/home/ayeka/bin/createHuman
+/home/ayeka/bin/createHuman

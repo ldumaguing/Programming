@@ -1,13 +1,6 @@
 # ninja log v5
-0	78	1624425506555562000	CMakeFiles/viewHuman.dir/main.c.o	6a37fb31c8990138
-118	137	1624425506616110000	viewHuman	72e9e4d00b100d11
-0	107	1624425506586752000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
-107	118	1624425506599197000	libmyne.a	5d18078396215897
-0	8	0	CMakeFiles/install.util	bd63b20045f687d6
-0	8	0	CMakeFiles/install.util	bd63b20045f687d6
-0	396	1624887928	build.ninja	bd8e1893f3021a39
-0	36	1624887928	CMakeFiles/viewHuman.dir/main.c.o	34c330b99a45dd41
-0	44	1624887928	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
-44	62	1624887928	libmyne.a	3ff5afdf2601a9ef
-62	96	1624887928	viewHuman	9bd7bb4f5891444f
-0	19	0	CMakeFiles/install.util	421fe54597eb2ef9
+0	28	1625028000012585000	CMakeFiles/viewHuman.dir/main.c.o	6a37fb31c8990138
+53	69	1625028000053355000	viewHuman	72e9e4d00b100d11
+0	42	1625028000026810000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
+42	53	1625028000038987000	libmyne.a	5d18078396215897
+0	11	0	CMakeFiles/install.util	bd63b20045f687d6

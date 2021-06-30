@@ -1,3 +1,4 @@
 [Project]
-Name=manipulate
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=manipulate
