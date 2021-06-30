@@ -11,6 +11,7 @@ void manipulate ( char *argv[] ) {
     ActionName = strtok_r ( buff, ":", &ActionString );
 
     if ( strstr ( "Forward", ActionName ) != 0 ) forward ( argv[1] );
+    else if ( strstr ( "StepBack", ActionName ) != 0 ) stepBack ( argv[1] );
     else if ( strstr ( "Shove", ActionName ) != 0 ) shove ( argv[1], ActionString );
     else if ( strstr ( "Face", ActionName ) != 0 ) face ( argv[1], ActionString );
     else if ( strstr ( "TurnLeft", ActionName ) != 0 ) turnLeft ( argv[1] );

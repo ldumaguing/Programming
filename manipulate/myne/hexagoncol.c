@@ -14,7 +14,6 @@ void moveE ( int * );
 void moveF ( int * );
 double CartesianDistance ( int *, int * );
 _Bool move_closer ( int *, int * );
-// void moveHex ( int *, int );
 _Bool isSameHexLoc ( int *, int * );
 int HexDistance ( int *, int * );
 void text2int ( int *, int *, char ** );

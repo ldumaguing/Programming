@@ -20,6 +20,7 @@ void instruction() {
     printf ( "DIRECTION: A, B, C, D, E, or F\n" );
     printf ( "ActionString:\n" );
     printf ( "   Forward\n" );
+    printf ( "   StepBack\n" );
     printf ( "   Shove:DIRECTION\n" );
     printf ( "   Face:DIRECTION\n" );
     printf ( "   TurnLeft\n" );

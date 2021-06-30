@@ -1,9 +1,9 @@
 # ninja log v5
-0	57	1625027995064389000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
-0	59	1625027995052691000	CMakeFiles/manipulate.dir/main.c.o	fb19936a9c03b089
-0	107	1625027995114822000	CMakeFiles/myne.dir/myne/utils1.c.o	f73318d395ee2c6e
-0	183	1625027995191734000	CMakeFiles/myne.dir/myne/hexagoncol.c.o	d25e5b76f9809274
-183	194	1625027995204038000	libmyne.a	69f003b61215d01
-0	149	1625027995157194000	CMakeFiles/myne.dir/myne/Movement.c.o	877f2193600880df
-194	210	1625027995218831000	manipulate	cd46940a1d68603c
-1	11	0	CMakeFiles/install.util	f283af1b5ea423d1
+1	60	1625030212660380000	CMakeFiles/myne.dir/myne/part1.c.o	20ef2e544aee55c5
+1	60	1625030212647058000	CMakeFiles/manipulate.dir/main.c.o	fb19936a9c03b089
+1	118	1625030212723584000	CMakeFiles/myne.dir/myne/utils1.c.o	f73318d395ee2c6e
+1	165	1625030212770958000	CMakeFiles/myne.dir/myne/hexagoncol.c.o	d25e5b76f9809274
+165	177	1625030212784080000	libmyne.a	69f003b61215d01
+0	8	0	CMakeFiles/install.util	f283af1b5ea423d1
+1	154	1625030212759480000	CMakeFiles/myne.dir/myne/Movement.c.o	877f2193600880df
+177	201	1625030212798797000	manipulate	cd46940a1d68603c
