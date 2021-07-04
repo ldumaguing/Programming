@@ -30,5 +30,5 @@ cd /usr/local/etc/apache24
 
 Database: palladium
 User:     kawaii_babby
-Password: Lurking Horror(2021)[]
+Password: L-- H--(x)[]
 
