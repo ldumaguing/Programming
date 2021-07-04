@@ -1,0 +1,34 @@
+
+pkg install apache24
+pkg install mariadb105-server mariadb105-client
+pkg install openjdk16
+pkg install php74 php74-mysqli mod_php74
+pkg search '^php74-*'
+pkg search ^php74-*
+pkg search jdk
+pkg search mariadb
+pkg search php
+pkg search php7
+
+sysrc apache24_enable=YES
+sysrc mysql_enable=yes
+sysrc php_fpm_enable=yes
+
+service apache24 restart
+service apache24 start
+service mysql-server start
+service php-fpm start
+service php-fpm status
+
+ln -s ../extra/httpd-info.conf .
+ln -s ../extra/httpd-ssl.conf
+
+cd /usr/local/etc/apache24
+
+
+
+
+Database: palladium
+User:     kawaii_babby
+Password: Lurking Horror(2021)[]
+
