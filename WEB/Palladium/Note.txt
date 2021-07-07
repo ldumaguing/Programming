@@ -1,4 +1,17 @@
+*******************************************************************************
+create table users (
+   username   varchar(128),
+   password   varchar(128)
+);
 
+
+
+
+
+
+
+
+*******************************************************************************
 pkg install apache24
 pkg install mariadb105-server mariadb105-client
 pkg install openjdk16
@@ -35,7 +48,7 @@ openssl x509 -req -days 36500 -in server.csr -signkey server.key -out server.crt
 
 
 
-Database: palladium
-User:     kawaii_babby
-Password: L-- H--(x)[]
+Database: Palladium
+User:     vee
+Password: Blood
 
