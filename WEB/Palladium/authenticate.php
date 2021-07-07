@@ -5,7 +5,7 @@ $_SESSION['password'] = $_POST['password'];
 $user = $_SESSION['username'];
 $pass = $_SESSION['password'];
 
-$db = new mysqli("localhost", "vee", "B100dmoney", "Palladium");
+$db = new mysqli("localhost", "vee", "B100dmoney", "Palladium");   // security issue
 
 $stmt = "select * from users where username = '" . $user . "' and password = '" . $pass . "'";
 echo $stmt . "<br \>";
