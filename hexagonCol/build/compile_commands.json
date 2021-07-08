@@ -1,0 +1,25 @@
+[
+{
+  "directory": "/home/ayeka/Programming/hexagonCol/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/hexagoncol.c.o   -c /home/ayeka/Programming/hexagonCol/Myne/hexagoncol.c",
+  "file": "/home/ayeka/Programming/hexagonCol/Myne/hexagoncol.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/hexagonCol/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/sides.c.o   -c /home/ayeka/Programming/hexagonCol/Myne/sides.c",
+  "file": "/home/ayeka/Programming/hexagonCol/Myne/sides.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/hexagonCol/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/Myne/utils.c.o   -c /home/ayeka/Programming/hexagonCol/Myne/utils.c",
+  "file": "/home/ayeka/Programming/hexagonCol/Myne/utils.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/hexagonCol/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/hexagonCol.dir/main.c.o   -c /home/ayeka/Programming/hexagonCol/main.c",
+  "file": "/home/ayeka/Programming/hexagonCol/main.c"
+}
+]

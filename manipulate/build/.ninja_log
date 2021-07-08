@@ -7,3 +7,12 @@
 0	8	0	CMakeFiles/install.util	f283af1b5ea423d1
 1	154	1625030212759480000	CMakeFiles/myne.dir/myne/Movement.c.o	877f2193600880df
 177	201	1625030212798797000	manipulate	cd46940a1d68603c
+0	502	1625768166740385421	build.ninja	f86ac83ad1c71125
+1	92	1625768390303309146	CMakeFiles/manipulate.dir/main.c.o	6d59f872c9891928
+0	101	1625768390311308963	CMakeFiles/myne.dir/myne/part1.c.o	95f86d93ff13d5c6
+0	116	1625768390327308601	CMakeFiles/myne.dir/myne/utils1.c.o	26f3497fbc63099a
+1	289	1625768390499304696	CMakeFiles/myne.dir/myne/Movement.c.o	7f349f6c7350762b
+1	434	1625768390643301425	CMakeFiles/myne.dir/myne/hexagoncol.c.o	ae1b519d9e4b3ce5
+434	464	1625768390675300700	libmyne.a	7ceddb8d3747bc9a
+465	536	1625768390743299155	manipulate	a452d2c5caae8500
+0	21	0	CMakeFiles/install.util	a75a1a7a3afae131

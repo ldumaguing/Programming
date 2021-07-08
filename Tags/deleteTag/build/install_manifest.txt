@@ -1,1 +1,1 @@
-/home/ayeka/bin/deleteTag
+/usr/home/ayeka/bin/deleteTag
