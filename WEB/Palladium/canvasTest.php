@@ -11,6 +11,12 @@
       <img src="images/Z1.png" id="0004">
       <img src="images/Z2.png" id="0005">
    </canvas>
+   <?php
+   $output = null;
+   $retval = null;
+   exec('bin/createHuman', $output, $retval);
+   print($output[2]);
+   ?>
 </body>
 </html>
 
