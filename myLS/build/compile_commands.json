@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ayeka/Programming/myLS/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myLS.dir/main.c.o   -c /home/ayeka/Programming/myLS/main.c",
+  "file": "/home/ayeka/Programming/myLS/main.c"
+}
+]
