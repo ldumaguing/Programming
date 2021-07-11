@@ -3,18 +3,16 @@
 #include "myne.h"
 #include <json-c/json.h>
 
-void setid ( char *argv[] )
+void setimage ( char *argv[] )
 {
-    struct json_object *Id;
+    struct json_object *Image;
     struct json_object *TheObj = getJSON ( argv[1] );
-    json_object_object_get_ex ( TheObj, "Id", &Id );
+    json_object_object_get_ex ( TheObj, "Image", &Image );
 
-    if ( Id == NULL ) return;
-
-    printf("setId\n");
+    if ( Image == NULL ) return;
 
     json_object *X = json_object_new_string ( argv[2] );
 
-    json_object_object_add ( TheObj, "Id", X );
+    json_object_object_add ( TheObj, "Image", X );
     saveObject ( TheObj, argv[1] );
 }

@@ -6,7 +6,7 @@ void instruction();
 
 int main ( int argc, char *argv[] ) {
     if ( argc == 3 ) {
-        setid ( argv );
+        setimage ( argv );
         return 0;
     }
 
@@ -15,5 +15,5 @@ int main ( int argc, char *argv[] ) {
 
 // *******************************************************************************
 void instruction() {
-    printf ( "\nsetID   JSON   IDString\n\n" );
+    printf ( "\nsetImage   JSON   IDString\n\n" );
 }

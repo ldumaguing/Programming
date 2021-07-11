@@ -81,7 +81,7 @@ void saveHuman ( struct json_object *Human, char *argv[] ) {
 // *******************************************************************************
 struct json_object *get_HumanTemplate() {
     char *str = "{"
-                "\"Id\": \"\","
+                "\"Image\": \"\","
                 "\"Class\": \"Human\","
                 "\"Gender\": \"Male\","
                 "\"Attributes\":[10, 10, 10, 10, 10, 10, 10, 10],"

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: setID
+# Project: setImage
 # Configuration: Release
 # =============================================================================
 
@@ -34,7 +34,7 @@ include rules.ninja
 # Utility command for install/strip
 
 build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/projects/setID/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  COMMAND = cd /home/ayeka/Programming/setImage/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
   DESC = Installing the project stripped...
   pool = console
   restat = 1
@@ -46,7 +46,7 @@ build install/strip: phony CMakeFiles/install/strip.util
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/projects/setID/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  COMMAND = cd /home/ayeka/Programming/setImage/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -58,7 +58,7 @@ build install/local: phony CMakeFiles/install/local.util
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ayeka/projects/setID/build && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/ayeka/Programming/setImage/build && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -69,7 +69,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for install
 
 build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ayeka/projects/setID/build && /usr/bin/cmake -P cmake_install.cmake
+  COMMAND = cd /home/ayeka/Programming/setImage/build && /usr/bin/cmake -P cmake_install.cmake
   DESC = Install the project...
   pool = console
   restat = 1
@@ -87,7 +87,7 @@ build list_install_components: phony
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ayeka/projects/setID/build && /usr/bin/cmake -S/home/ayeka/projects/setID -B/home/ayeka/projects/setID/build
+  COMMAND = cd /home/ayeka/Programming/setImage/build && /usr/bin/cmake -S/home/ayeka/Programming/setImage -B/home/ayeka/Programming/setImage/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -132,37 +132,37 @@ build libmyne.a: C_STATIC_LIBRARY_LINKER__myne CMakeFiles/myne.dir/myne/part1.c.
   TARGET_PDB = myne.a.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target setID
+# Object build statements for EXECUTABLE target setImage
 
 
 #############################################
-# Order-only phony target for setID
+# Order-only phony target for setImage
 
-build cmake_object_order_depends_target_setID: phony || cmake_object_order_depends_target_myne
+build cmake_object_order_depends_target_setImage: phony || cmake_object_order_depends_target_myne
 
-build CMakeFiles/setID.dir/main.c.o: C_COMPILER__setID ../main.c || cmake_object_order_depends_target_setID
-  DEP_FILE = CMakeFiles/setID.dir/main.c.o.d
+build CMakeFiles/setImage.dir/main.c.o: C_COMPILER__setImage ../main.c || cmake_object_order_depends_target_setImage
+  DEP_FILE = CMakeFiles/setImage.dir/main.c.o.d
   FLAGS = -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/setID.dir
-  OBJECT_FILE_DIR = CMakeFiles/setID.dir
+  OBJECT_DIR = CMakeFiles/setImage.dir
+  OBJECT_FILE_DIR = CMakeFiles/setImage.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target setID
+# Link build statements for EXECUTABLE target setImage
 
 
 #############################################
-# Link the executable setID
+# Link the executable setImage
 
-build setID: C_EXECUTABLE_LINKER__setID CMakeFiles/setID.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
+build setImage: C_EXECUTABLE_LINKER__setImage CMakeFiles/setImage.dir/main.c.o | libmyne.a /usr/local/lib/libjson-c.a || libmyne.a
   FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = libmyne.a  -lm  /usr/local/lib/libjson-c.a
-  OBJECT_DIR = CMakeFiles/setID.dir
+  OBJECT_DIR = CMakeFiles/setImage.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = setID
-  TARGET_PDB = setID.dbg
+  TARGET_FILE = setImage
+  TARGET_PDB = setImage.dbg
 
 # =============================================================================
 # Target aliases.
@@ -175,9 +175,9 @@ build myne: phony libmyne.a
 # =============================================================================
 
 #############################################
-# Folder: /home/ayeka/projects/setID/build
+# Folder: /home/ayeka/Programming/setImage/build
 
-build all: phony libmyne.a setID
+build all: phony libmyne.a setImage
 
 # =============================================================================
 # Unknown Build Time Dependencies.

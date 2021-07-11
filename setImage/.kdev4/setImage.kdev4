@@ -1,12 +1,9 @@
-[Buildset]
-BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\n\x00s\x00e\x00t\x00I\x00D)
-
 [CMake]
 Build Directory Count=1
 Current Build Directory Index-Host System=0
 
 [CMake][CMake Build Directory 0]
-Build Directory Path=/home/ayeka/projects/setID/build
+Build Directory Path=/home/ayeka/Programming/setImage/build
 Build Type=Release
 CMake Binary=/usr/local/bin/cmake
 CMake Executable=/usr/local/bin/cmake
@@ -16,4 +13,4 @@ Install Directory=/home/ayeka
 Runtime=Host System
 
 [Project]
-VersionControlSupport=
+VersionControlSupport=kdevgit

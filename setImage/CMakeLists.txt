@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(setID LANGUAGES C)
+project(setImage LANGUAGES C)
 
-add_executable(setID main.c)
+add_executable(setImage main.c)
 
 
 
@@ -17,7 +17,7 @@ add_library(
 # include_directories(/usr/include)
 include_directories(/usr/local/include)
 
-target_link_libraries(setID
+target_link_libraries(setImage
    myne
    m
    /usr/local/lib/libjson-c.a
@@ -28,4 +28,4 @@ target_link_libraries(setID
 
 
 
-install(TARGETS setID RUNTIME DESTINATION bin)
+install(TARGETS setImage RUNTIME DESTINATION bin)

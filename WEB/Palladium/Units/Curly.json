@@ -1,1 +1,1 @@
-{"Id":"0001","Class":"Human","Gender":"Male","Attributes":[10,10,10,10,10,10,10,10],"Tags":[],"Location":[4,2,0],"Facing":"A","Handedness":"Right","Holding":["","",""],"Name":"Curly"}
+{"Image":"Jimmy.png","Class":"Human","Gender":"Male","Attributes":[10,10,10,10,10,10,10,10],"Tags":[],"Location":[0,0,0],"Facing":"A","Handedness":"Right","Holding":["","",""],"Name":"Curly"}

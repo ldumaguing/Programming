@@ -1,0 +1,7 @@
+# ninja log v5
+1	74	1626027417145098714	CMakeFiles/setImage.dir/main.c.o	ba5e28cc267c5991
+0	82	1626027417153098633	CMakeFiles/myne.dir/myne/part1.c.o	95f86d93ff13d5c6
+0	109	1626027417181098348	CMakeFiles/myne.dir/myne/utils1.c.o	26f3497fbc63099a
+109	139	1626027417213098021	libmyne.a	68a86ad41b2cb139
+139	202	1626027417273097411	setImage	894e551dffd072f8
+1	16	0	CMakeFiles/install.util	d81d1b8d9b7fc068
