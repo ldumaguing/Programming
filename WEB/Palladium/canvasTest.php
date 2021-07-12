@@ -25,11 +25,8 @@ function pageLoaded() {
    var canvas01 = document.getElementById("canvas01");
    var context = canvas01.getContext("2d");
 
-   var X;
-   X = document.getElementById("0001");
-   context.drawImage(X, <?php echo "30, 30"; ?>);
-   X = document.getElementById("0002");
-   context.drawImage(X, <?php echo "100, 160"; ?>);
+   context.drawImage(document.getElementById("0001"), <?php echo "130, 30"; ?>);
+   context.drawImage(document.getElementById("0002"), <?php echo "100, 160"; ?>);
 }
 </script>
 
