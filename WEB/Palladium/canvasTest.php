@@ -19,6 +19,13 @@
 </html>
 
 <script type="text/javascript">
+setInterval(fish, 1000);
+
+function fish() {
+	location.reload();
+}
+	
+	
 function pageLoaded() {
    var canvas01 = document.getElementById("canvas01");
    var context = canvas01.getContext("2d");
