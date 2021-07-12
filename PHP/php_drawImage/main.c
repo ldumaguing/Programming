@@ -4,21 +4,21 @@
 #include <string.h>
 #include "myne/myne.h"
 
-int main ( int argc, char *argv[] ) {
-    struct dirent *de;
+int main(int argc, char *argv[]) {
+   struct dirent *de;
 
-    DIR *dr = opendir ( "Units" );
+   DIR *dr = opendir("Units");
 
-    if ( dr == NULL ) {
-        printf ( "Could not open current directory" );
-        return 0;
-    }
+   if (dr == NULL) {
+      printf("Could not open current directory");
+      return 0;
+   }
 
-    while ( ( de = readdir ( dr ) ) != NULL ) {
-        if ( strstr ( de->d_name, "json" ) != NULL )
-            printPHP ( de->d_name );
-    }
+   while ((de = readdir(dr)) != NULL) {
+      if (strstr(de->d_name, "json") != NULL)
+         printPHP(de->d_name, argv[1]);
+   }
 
-    closedir ( dr );
-    return 0;
+   closedir(dr);
+   return 0;
 }
