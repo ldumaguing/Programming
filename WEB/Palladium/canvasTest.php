@@ -5,18 +5,14 @@
 </head>
 <body onload="pageLoaded();">
    <canvas width="1600" height="900" id="canvas01" style="border: 1px solid black;">
-      <img src="images/Bank.png" id="0001">
-      <img src="images/Jimmy.png" id="0002">
-      <img src="images/Nick.png" id="0003">
-      <img src="images/Z1.png" id="0004">
-      <img src="images/Z2.png" id="0005">
+      <?php
+      $output = null;
+      $retval = null;
+      exec('bin/php_img', $output, $retval);
+      print($output[0]);
+      ?>
    </canvas>
-   <?php
-   $output = null;
-   $retval = null;
-   exec('bin/createHuman', $output, $retval);
-   print($output[2]);
-   ?>
+
 </body>
 </html>
 
@@ -25,8 +21,8 @@ function pageLoaded() {
    var canvas01 = document.getElementById("canvas01");
    var context = canvas01.getContext("2d");
 
-   context.drawImage(document.getElementById("0001"), <?php echo "130, 30"; ?>);
-   context.drawImage(document.getElementById("0002"), <?php echo "100, 160"; ?>);
+   context.drawImage(document.getElementById("Moe"), <?php echo "130, 30"; ?>);
+   context.drawImage(document.getElementById("Curly"), <?php echo "100, 160"; ?>);
 }
 </script>
 
