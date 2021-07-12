@@ -1,8 +1,8 @@
 /usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/install/strip.dir
 /usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/install/local.dir
-/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/myne.dir
-/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/install.dir
-/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/viewHuman.dir
 /usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/edit_cache.dir
-/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/install.dir
 /usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/list_install_components.dir
+/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/rebuild_cache.dir
+/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/myne.dir
+/usr/home/ayeka/Programming/Palladium/viewHuman/build/CMakeFiles/viewHuman.dir

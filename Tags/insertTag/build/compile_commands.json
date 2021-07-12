@@ -1,19 +1,19 @@
 [
 {
   "directory": "/usr/home/ayeka/Programming/Tags/insertTag/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/myne/part1.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/myne/part1.c",
   "file": "/usr/home/ayeka/Programming/Tags/insertTag/myne/part1.c"
 },
 
 {
   "directory": "/usr/home/ayeka/Programming/Tags/insertTag/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/myne/utils1.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/myne/utils1.c",
   "file": "/usr/home/ayeka/Programming/Tags/insertTag/myne/utils1.c"
 },
 
 {
   "directory": "/usr/home/ayeka/Programming/Tags/insertTag/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/insertTag.dir/main.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/main.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/insertTag.dir/main.c.o   -c /usr/home/ayeka/Programming/Tags/insertTag/main.c",
   "file": "/usr/home/ayeka/Programming/Tags/insertTag/main.c"
 }
 ]

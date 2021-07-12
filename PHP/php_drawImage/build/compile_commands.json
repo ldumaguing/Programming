@@ -1,19 +1,19 @@
 [
 {
   "directory": "/home/ayeka/Programming/PHP/php_drawImage/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/myne/part1.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/myne/part1.c",
   "file": "/home/ayeka/Programming/PHP/php_drawImage/myne/part1.c"
 },
 
 {
   "directory": "/home/ayeka/Programming/PHP/php_drawImage/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/myne/utils1.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/myne/utils1.c",
   "file": "/home/ayeka/Programming/PHP/php_drawImage/myne/utils1.c"
 },
 
 {
   "directory": "/home/ayeka/Programming/PHP/php_drawImage/build",
-  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/php_drawImage.dir/main.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/main.c",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/php_drawImage.dir/main.c.o   -c /home/ayeka/Programming/PHP/php_drawImage/main.c",
   "file": "/home/ayeka/Programming/PHP/php_drawImage/main.c"
 }
 ]

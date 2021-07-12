@@ -14,7 +14,7 @@ void printPHP ( char *filename ) {
     struct json_object *Image;
     json_object_object_get_ex ( theObj, "Image", &Image );
 
-    printf ( "<img src=\"images/%s\" id=\"%s\">",
+    printf ( "<img src=\"images/%s\" id=\"%s\">\n",
              json_object_get_string ( Image ),
              json_object_get_string ( Name ) );
 }

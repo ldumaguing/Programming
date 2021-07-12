@@ -9,7 +9,9 @@
       $output = null;
       $retval = null;
       exec('bin/php_img', $output, $retval);
-      print($output[0]);
+      foreach ($output as $o) {
+		  echo $o;
+	  }
       ?>
    </canvas>
 
@@ -20,9 +22,15 @@
 function pageLoaded() {
    var canvas01 = document.getElementById("canvas01");
    var context = canvas01.getContext("2d");
-
-   context.drawImage(document.getElementById("Moe"), <?php echo "130, 30"; ?>);
-   context.drawImage(document.getElementById("Curly"), <?php echo "100, 160"; ?>);
+   <?php
+ $output1 = null;
+      $retval1 = null;
+      exec('bin/php_drawImage 142', $output1, $retval1);
+      foreach ($output1 as $o1) {
+		  echo $o1;
+		  echo "\n";
+	  }
+	  ?>
 }
 </script>
 
