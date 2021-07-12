@@ -5,3 +5,9 @@
 109	139	1626027417213098021	libmyne.a	68a86ad41b2cb139
 139	202	1626027417273097411	setImage	894e551dffd072f8
 1	16	0	CMakeFiles/install.util	d81d1b8d9b7fc068
+0	51	1626097120	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+1	52	1626097120	CMakeFiles/setImage.dir/main.c.o	31f1f83234d7d133
+0	56	1626097120	CMakeFiles/myne.dir/myne/utils1.c.o	f56ebdb973457ede
+56	71	1626097120	libmyne.a	68a86ad41b2cb139
+71	111	1626097120	setImage	41e3836de0a75d36
+0	15	0	CMakeFiles/install.util	d81d1b8d9b7fc068

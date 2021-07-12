@@ -1,12 +1,13 @@
 [
 {
   "directory": "/usr/home/ayeka/Programming/DO_ROUND/build",
-  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/myne.dir/myne/part1.c.o -c /usr/home/ayeka/Programming/DO_ROUND/myne/part1.c",
+  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /usr/home/ayeka/Programming/DO_ROUND/myne/part1.c",
   "file": "/usr/home/ayeka/Programming/DO_ROUND/myne/part1.c"
 },
+
 {
   "directory": "/usr/home/ayeka/Programming/DO_ROUND/build",
-  "command": "/usr/bin/cc -I/usr/local/include -O3 -DNDEBUG -o CMakeFiles/DO_ROUND.dir/main.c.o -c /usr/home/ayeka/Programming/DO_ROUND/main.c",
+  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/DO_ROUND.dir/main.c.o   -c /usr/home/ayeka/Programming/DO_ROUND/main.c",
   "file": "/usr/home/ayeka/Programming/DO_ROUND/main.c"
 }
 ]

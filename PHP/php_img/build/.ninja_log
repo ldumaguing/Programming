@@ -1,0 +1,12 @@
+# ninja log v5
+0	36	1626097856	CMakeFiles/myne.dir/myne/part1.c.o	45009e914af48d96
+1	75	1626097856	CMakeFiles/php_img.dir/main.c.o	a419d644a810332e
+1	86	1626097856	CMakeFiles/myne.dir/myne/utils1.c.o	5668be11fe4b77de
+86	103	1626097856	libmyne.a	68a86ad41b2cb139
+103	142	1626097856	php_img	4568f059cf5e22e0
+0	53	1626097893	CMakeFiles/myne.dir/myne/part1.c.o	d912f79fe288e3e
+0	56	1626097893	CMakeFiles/php_img.dir/main.c.o	c30517a263653c40
+0	56	1626097893	CMakeFiles/myne.dir/myne/utils1.c.o	f56ebdb973457ede
+56	71	1626097893	libmyne.a	68a86ad41b2cb139
+71	110	1626097893	php_img	3e81d2986be9d01f
+0	16	0	CMakeFiles/install.util	4d11c0d403edb85
