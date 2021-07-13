@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head>
+   <title>Canvas Test</title>
+</head>
+<body onload="pageLoaded();">
+   <canvas width="1600" height="900" id="canvas01" style="border: 1px solid black;">
+      <img src="images/Bank.png" id="Moe"><img src="images/Jimmy.png" id="Curly"><img src="images/Z2.png" id="zombieB"><img src="images/Z1.png" id="zombieA"><img src="images/Nick.png" id="Larry">   </canvas>
+
+
+
+
+<script type="text/javascript">
+// setInterval(fish, 1000);
+
+function fish() {
+	location.reload();
+}
+	
+	
+function pageLoaded() {
+   var canvas01 = document.getElementById("canvas01");
+   var context = canvas01.getContext("2d");
+   context.drawImage(document.getElementById("Moe"), 100, 50);
+   //context.translate(50, -5);
+   //context.rotate(Math.PI / 4);
+   //context.drawImage(document.getElementById("Curly"), 0, 0);
+   //context.rotate(-Math.PI / 4);
+   //context.translate(-50, 5);
+   //context.drawImage(document.getElementById("zombieB"), 491, 0);
+   //context.drawImage(document.getElementById("zombieA"), 0, 142);
+   //context.drawImage(document.getElementById("Larry"), 122, 71);
+}
+</script>
+
+</body></html>
