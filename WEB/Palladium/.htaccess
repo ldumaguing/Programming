@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^fish/?$   a1.php
+RewriteRule ^monger/?$ a2.php

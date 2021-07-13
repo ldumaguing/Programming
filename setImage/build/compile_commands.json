@@ -1,19 +1,19 @@
 [
 {
   "directory": "/home/ayeka/Programming/setImage/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /home/ayeka/Programming/setImage/myne/part1.c",
+  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /home/ayeka/Programming/setImage/myne/part1.c",
   "file": "/home/ayeka/Programming/setImage/myne/part1.c"
 },
 
 {
   "directory": "/home/ayeka/Programming/setImage/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /home/ayeka/Programming/setImage/myne/utils1.c",
+  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /home/ayeka/Programming/setImage/myne/utils1.c",
   "file": "/home/ayeka/Programming/setImage/myne/utils1.c"
 },
 
 {
   "directory": "/home/ayeka/Programming/setImage/build",
-  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/setImage.dir/main.c.o   -c /home/ayeka/Programming/setImage/main.c",
+  "command": "/usr/bin/cc  -I/usr/local/include  -O3 -DNDEBUG   -o CMakeFiles/setImage.dir/main.c.o   -c /home/ayeka/Programming/setImage/main.c",
   "file": "/home/ayeka/Programming/setImage/main.c"
 }
 ]
