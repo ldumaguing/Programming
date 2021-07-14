@@ -1,15 +1,29 @@
 *******************************************************************************
+<?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: appliction/json');
+
+$anArray = array(
+   'A' => 'Moe',
+   'B' => 'Curly',
+   'C' => 'Larry'
+);
+
+echo json_encode($anArray);
+?>
+
+*******************************************************************************
+***** .htaccess
+RewriteEngine On
+RewriteRule ^fish/?$   a1.php
+RewriteRule ^monger/?$ a2.php
+RewriteRule ^molly/([0-9]+)?$   a3.php?id=$1
+
+*******************************************************************************
 create table users (
    username   varchar(128),
    password   varchar(128)
 );
-
-
-
-
-
-
-
 
 *******************************************************************************
 pkg install apache24

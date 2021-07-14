@@ -4,7 +4,7 @@
    <title>Canvas Test</title>
 </head>
 <body onload="pageLoaded();">
-   <canvas width="1600" height="900" id="canvas01" style="border: 1px solid black;">
+   <canvas width="3840" height="2160" id="canvas01" style="border: 1px solid black;">
       <?php
       $output = null;
       $retval = null;
