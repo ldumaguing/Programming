@@ -19,7 +19,7 @@
 </html>
 
 <script type="text/javascript">
-setInterval(fish, 2000);
+// setInterval(fish, 2000);
 
 function fish() {
 	location.reload();
