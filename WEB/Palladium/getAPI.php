@@ -6,7 +6,7 @@
 	</head>
 	<body>
 <script>
-fetch("http://localhost/WEB/Palladium/testAPI.php")
+fetch("http://localhost/WEB/Palladium/generateAPI.php")
    .then( response => response.json() )
    .then( json => console.log(json) )
    .catch( e => console.log(e.message) );
