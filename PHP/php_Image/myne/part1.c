@@ -37,8 +37,7 @@ void printPHP ( char *filename, char *scale ) {
 
     // 58 is half of the width and half of the height of the image square I'm using.
     double rad = 0.0;
-    printf ( "context.translate(%d, %d);\n", ( int ) ( dbl_X + 58.0 ), ( int ) ( dbl_Y + 58.0 ) );
-    
+
     if ( strcmp ( json_object_get_string ( Facing ), "B" ) == 0 )
         rad = M_PI / 3.0;
     else if ( strcmp ( json_object_get_string ( Facing ), "C" ) == 0 )
@@ -49,13 +48,12 @@ void printPHP ( char *filename, char *scale ) {
         rad = ( M_PI * 4.0 ) / 3.0;
     else if ( strcmp ( json_object_get_string ( Facing ), "F" ) == 0 )
         rad = ( M_PI * 5.0 ) / 3.0;
-    printf ( "context.rotate(%f);\n", rad );
-    
-    printf ( "context.drawImage(document.getElementById(\"" );
-    printf ( "%s\"), ", json_object_get_string ( Name ) );
-    printf ( "-58, -58);\n" );
-    
-    printf ( "context.rotate(-%f);\n", rad );
-    
-    printf ( "context.translate(-%d, -%d);\n", ( int ) ( dbl_X + 58.0 ), ( int ) ( dbl_Y + 58.0 ) );
+
+    printf ( "Units/%s|%s|%d|%d|%f;",
+             filename,
+             json_object_get_string ( Name ),
+             ( int ) ( dbl_X + 58.0 ),
+             ( int ) ( dbl_Y + 58.0 ),
+             rad
+           );
 }

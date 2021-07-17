@@ -1,0 +1,19 @@
+[
+{
+  "directory": "/home/ayeka/Programming/PHP/php_Image/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/part1.c.o   -c /home/ayeka/Programming/PHP/php_Image/myne/part1.c",
+  "file": "/home/ayeka/Programming/PHP/php_Image/myne/part1.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/PHP/php_Image/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/myne.dir/myne/utils1.c.o   -c /home/ayeka/Programming/PHP/php_Image/myne/utils1.c",
+  "file": "/home/ayeka/Programming/PHP/php_Image/myne/utils1.c"
+},
+
+{
+  "directory": "/home/ayeka/Programming/PHP/php_Image/build",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG   -o CMakeFiles/php_Image.dir/main.c.o   -c /home/ayeka/Programming/PHP/php_Image/main.c",
+  "file": "/home/ayeka/Programming/PHP/php_Image/main.c"
+}
+]
