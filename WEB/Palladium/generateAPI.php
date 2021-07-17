@@ -8,5 +8,18 @@ $anArray = array(
    'C' => 'Larry'
 );
 
-echo json_encode($anArray);
+// echo json_encode($anArray);
+
+// *********************************************************************
+$craps = "A;B;C";
+$A[] = explode(';', $craps);
+
+$craps = "a;b;c";
+$A[] = explode(';', $craps);
+
+
+echo json_encode($A);
+
+
+
 ?>
