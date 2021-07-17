@@ -14,7 +14,7 @@ fetch("http://localhost/WEB/Palladium/generateJSON.php")
 function foo(X) {
    console.log(X);
    var Y = document.getElementById("fish");
-   Y.innerHTML = X;
+   Y.innerHTML = X[0][0];
 }
 
 
