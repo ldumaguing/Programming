@@ -3,13 +3,25 @@ function assess() {
    document.getElementById("IQ_5or6").style.display = "none";
    document.getElementById("IQ_3or4").style.display = "none";
    document.getElementById("IQ_1or2").style.display = "none";
+   
    document.getElementById("MA_1or7").style.display = "none";
    document.getElementById("MA_5or7").style.display = "none";
    document.getElementById("MA_3or4").style.display = "none";
    document.getElementById("MA_1or2").style.display = "none";
+
    document.getElementById("ME_1or7").style.display = "none";
    document.getElementById("ME_5or7").style.display = "none";
    document.getElementById("ME_3or4").style.display = "none";
+   document.getElementById("ME_1or2").style.display = "none";
+
+   document.getElementById("PS_1or7").style.display = "none";
+   document.getElementById("PS_5or7").style.display = "none";
+   document.getElementById("PS_3or4").style.display = "none";
+   document.getElementById("PS_1or2").style.display = "none";
+
+   document.getElementById("PP_1or7").style.display = "none";
+   document.getElementById("PP_5or7").style.display = "none";
+   document.getElementById("PP_3or4").style.display = "none";
 
    var X = parseInt(document.getElementById("IQ").value);
    if ((X == 7) | (X == 8)) document.getElementById("IQ_7or8").style.display = "";
@@ -27,8 +39,19 @@ function assess() {
    if ((X >= 1) & (X <= 7)) document.getElementById("ME_1or7").style.display = "";
    if ((X >= 5) & (X <= 7)) document.getElementById("ME_5or7").style.display = "";
    if ((X == 3) | (X == 4)) document.getElementById("ME_3or4").style.display = "";
-      
-      
+   if ((X == 1) | (X == 2)) document.getElementById("ME_1or2").style.display = "";
+
+   X = parseInt(document.getElementById("PS").value);
+   if ((X >= 1) & (X <= 7)) document.getElementById("PS_1or7").style.display = "";
+   if ((X >= 5) & (X <= 7)) document.getElementById("PS_5or7").style.display = "";
+   if ((X == 3) | (X == 4)) document.getElementById("PS_3or4").style.display = "";
+   if ((X == 1) | (X == 2)) document.getElementById("PS_1or2").style.display = "";
+
+   X = parseInt(document.getElementById("PP").value);
+   if ((X >= 1) & (X <= 7)) document.getElementById("PP_1or7").style.display = "";
+   if ((X >= 5) & (X <= 7)) document.getElementById("PP_5or7").style.display = "";
+   if ((X == 3) | (X == 4)) document.getElementById("PP_3or4").style.display = "";
+
    // document.getElementById("placeholder").innerHTML = X;
 }
 	
