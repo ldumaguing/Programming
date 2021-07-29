@@ -130,11 +130,14 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b2[bonus] + " to Save vs. Insanity</li>";
       }
-      if ((X2 >= 16) & (X2 <= 30)) {
+      if (X2 >= 16) {
          let bonuses = [40, 45, 50, 55, 60, 65, 70, 75, 80, 84, 88, 92, 94, 96, 97];
          let bonus = X2 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>"
          + bonuses[bonus] + "% to Trust/Intimidate</li>";
+         if (X2 > 30) {
+            
+         }
 	  }
 	  
 	  
