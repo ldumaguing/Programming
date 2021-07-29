@@ -105,22 +105,54 @@ function assess() {
          let bonus = X1 - 14;
          document.getElementById("AttriBonus").innerHTML += "<li>+" 
          + bonus + "% to all skills</li>";
+      } else {
+         let b1 = (Math.floor((X1 - 30) / 5) * 2) + 16;
+         let b2 = Math.floor((X1 - 30) / 10) + 1;
+         let b3 = Math.floor((X1 - 1) / 3) - 9;
+         document.getElementById("AttriBonus").innerHTML += "<li>+" 
+         + b1 + "% to all skills</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>+" 
+         + b2 + " to Perception Roll</li>";
+         if (b3 > 7) {
+            document.getElementById("AttriBonus").innerHTML += "<li>+"
+            + "7 to Save vs. Illusion</li>";
+         } else {
+            document.getElementById("AttriBonus").innerHTML += "<li>+" 
+            + b3 + " to Save vs. Illusion</li>";
+         }
       }
       if ((X3 >= 16) & (X3 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let b2 = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
          let bonus = X3 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b1[bonus] + " to save vs. psionic attack</li>";
+         + b1[bonus] + " to Save vs. Psionic attack</li>";
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b2[bonus] + " to save vs. insanity</li>";
+         + b2[bonus] + " to Save vs. Insanity</li>";
       }
       if ((X2 >= 16) & (X2 <= 30)) {
          let bonuses = [40, 45, 50, 55, 60, 65, 70, 75, 80, 84, 88, 92, 94, 96, 97];
          let bonus = X2 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>"
-         + bonuses[bonus] + "% trust/intimidate</li>";
+         + bonuses[bonus] + "% to Trust/Intimidate</li>";
 	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
       if ((X4 >= 16) & (X4 <= 30)) {
          let bonus = X4 - 15;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
@@ -137,15 +169,15 @@ function assess() {
          let b2 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let bonus = X6 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b1[bonus] + "% to save vs. coma/death</li>";
+         + b1[bonus] + "% to Save vs. Coma/Death</li>";
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b2[bonus] + " to save vs. magic/poison</li>";
+         + b2[bonus] + " to Save vs. Magic/Poison</li>";
       }
       if ((X7 >= 16) & (X7 <= 30)) {
          let b1 = [30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 83, 86, 90, 92];
          let bonus = X7 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>"
-         + b1[bonus] + "% save vs. charm/impress</li>";
+         + b1[bonus] + "% Save vs. Charm/Impress</li>";
       }
 
 
