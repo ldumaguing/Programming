@@ -29,6 +29,10 @@ function assess() {
    document.getElementById("PE_3or4").style.display = "none";
    document.getElementById("PE_1or2").style.display = "none";
 
+   document.getElementById("PB_5or7").style.display = "none";
+   document.getElementById("PB_3or4").style.display = "none";
+   document.getElementById("PB_1or2").style.display = "none";
+
    var X = parseInt(document.getElementById("IQ").value);
    if ((X == 7) | (X == 8)) document.getElementById("IQ_7or8").style.display = "";
    if ((X == 5) | (X == 6)) document.getElementById("IQ_5or6").style.display = "";
@@ -65,9 +69,13 @@ function assess() {
    if ((X == 3) | (X == 4)) document.getElementById("PE_3or4").style.display = "";
    if ((X == 1) | (X == 2)) document.getElementById("PE_1or2").style.display = "";
    
-   
-   
-   
+   X = parseInt(document.getElementById("PB").value);
+   if ((X >= 5) & (X <= 7)) document.getElementById("PB_5or7").style.display = "";
+   if ((X == 3) | (X == 4)) document.getElementById("PB_3or4").style.display = "";
+   if ((X == 1) | (X == 2)) document.getElementById("PB_1or2").style.display = "";
+
+
+
    // document.getElementById("placeholder").innerHTML = X;
 }
 	
