@@ -35,6 +35,8 @@ function assess() {
 
    document.getElementById("Spd_1or6").style.display = "none";
 
+   document.getElementById("AttBonCha").style.display = "none";
+   document.getElementById("AttriBonus").innerHTML = "none";  
 
    var showAttrbBonus = 0;
 
@@ -89,10 +91,16 @@ function assess() {
 
    var X8 = parseInt(document.getElementById("Spd").value);
    if ((X8 >= 1) & (X8 <= 6)) document.getElementById("Spd_1or6").style.display = "";
+   var mph = (X8 * 20 * 60) / 1760;
+   var atks = parseInt(document.getElementById("attacks").value);
+   document.getElementById("Move").innerHTML = "<b>Speed: </b>"
+   + ((X8 * 5) / atks).toFixed(2) + " yds/attack; "
+   + (X8 * 5) + " yds/round; "
+   + mph.toFixed(2) + " mph";   
 
    if (showAttrbBonus) {
       document.getElementById("AttBonCha").style.display = "";
-      document.getElementById("AttriBonus").innerHTML = "";
+      document.getElementById("AttriBonus").innerHTML = "";   
       if ((X1 >= 16) & (X1 <= 30)) {
          let bonus = X1 - 14;
          document.getElementById("AttriBonus").innerHTML += "<li>+" 
@@ -103,9 +111,9 @@ function assess() {
          let b2 = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
          let bonus = X3 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b1[bonus] + " save vs. psionic attack</li>";
+         + b1[bonus] + " to save vs. psionic attack</li>";
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b2[bonus] + " save vs. insanity</li>";
+         + b2[bonus] + " to save vs. insanity</li>";
       }
       if ((X2 >= 16) & (X2 <= 30)) {
          let bonuses = [40, 45, 50, 55, 60, 65, 70, 75, 80, 84, 88, 92, 94, 96, 97];
@@ -116,25 +124,29 @@ function assess() {
       if ((X4 >= 16) & (X4 <= 30)) {
          let bonus = X4 - 15;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + bonus + " Hand to Hand combat damage</li>";
+         + bonus + " to Hand to Hand combat damage</li>";
       }
       if ((X5 >= 16) & (X5 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let bonus = X5 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b1[bonus] + " strike, parry, and dodge</li>";
+         + b1[bonus] + " to strike, parry, and dodge</li>";
       }
       if ((X6 >= 16) & (X6 <= 30)) {
          let b1 = [4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
          let b2 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let bonus = X6 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b1[bonus] + "% save vs. coma/death</li>";
+         + b1[bonus] + "% to save vs. coma/death</li>";
          document.getElementById("AttriBonus").innerHTML += "<li>+"
-         + b2[bonus] + " save vs. magic/poison</li>";
+         + b2[bonus] + " to save vs. magic/poison</li>";
       }
-
-
+      if ((X7 >= 16) & (X7 <= 30)) {
+         let b1 = [30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 83, 86, 90, 92];
+         let bonus = X7 - 16;
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + b1[bonus] + "% save vs. charm/impress</li>";
+      }
 
 
 
