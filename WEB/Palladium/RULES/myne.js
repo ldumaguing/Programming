@@ -101,11 +101,14 @@ function assess() {
    if (showAttrbBonus) {
       document.getElementById("AttBonCha").style.display = "";
       document.getElementById("AttriBonus").innerHTML = "";   
+      
+      // ********** IQ
       if ((X1 >= 16) & (X1 <= 30)) {
          let bonus = X1 - 14;
          document.getElementById("AttriBonus").innerHTML += "<li>+" 
          + bonus + "% to all skills</li>";
-      } else {
+      }
+      if (X1 > 30) {
          let b1 = (Math.floor((X1 - 30) / 5) * 2) + 16;
          let b2 = Math.floor((X1 - 30) / 10) + 1;
          let b3 = Math.floor((X1 - 1) / 3) - 9;
@@ -121,6 +124,8 @@ function assess() {
             + b3 + " to Save vs. Illusion</li>";
          }
       }
+      
+      // ********** ME
       if ((X3 >= 16) & (X3 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let b2 = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -130,37 +135,59 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b2[bonus] + " to Save vs. Insanity</li>";
       }
-      if (X2 >= 16) {
+      if (X3 > 30) {
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + "8 to Save vs. Psionic attack</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + "13 to Save vs. Insanity</li>";
+         let b1 = Math.floor((X3 - 30) / 10) + 1;
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + b1 + " to Save vs. Possession</li>";
+      }
+      
+      // ********** MA
+      if ((X2 >= 16) & (X2 <= 30)) {
          let bonuses = [40, 45, 50, 55, 60, 65, 70, 75, 80, 84, 88, 92, 94, 96, 97];
          let bonus = X2 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>"
          + bonuses[bonus] + "% to Trust/Intimidate</li>";
-         if (X2 > 30) {
-            
-         }
 	  }
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+      if (X2 > 30) {
+		  document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "97% to Trust/Intimidate</li>";
+         let b1 = Math.floor((X2 - 30) / 5) + 1;
+         document.getElementById("AttriBonus").innerHTML += "<li>-"
+         + b1 + " to Perception Roll of <i>others</i> interacting with him.</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "+5% to Find Con­traband, Gambling, Intelligence (gathering), Seduction and Undercover Ops skills.</li>"
+         + "<li>+10% to Interrogation, Performance, Public Speaking and Sing.</li>";
+      }
+      
+	  // ********** PS
       if ((X4 >= 16) & (X4 <= 30)) {
          let bonus = X4 - 15;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + bonus + " to Hand to Hand combat damage</li>";
       }
+      if (X4 > 30) {
+         let bonus = X4 - 15;
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + bonus + " to Hand to Hand combat damage</li>";
+         let b1 = Math.floor((X4 - 30) / 5) + 1;
+         let b2 = b1 * 10;
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + b2 + " yards to hurling rocks, balls, throwing weapons, or shooting arrows without losing accuracy (no penalties for the greater distance).</li>";
+      }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       if ((X5 >= 16) & (X5 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let bonus = X5 - 16;
