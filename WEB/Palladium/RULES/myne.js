@@ -36,7 +36,8 @@ function assess() {
    document.getElementById("Spd_1or6").style.display = "none";
 
    document.getElementById("AttBonCha").style.display = "none";
-   document.getElementById("AttriBonus").innerHTML = "none";  
+   document.getElementById("AttriBonus").innerHTML = "";  
+
 
    var showAttrbBonus = 0;
 
@@ -68,6 +69,15 @@ function assess() {
    if ((X4 >= 5) & (X4 <= 7)) document.getElementById("PS_5or7").style.display = "";
    if ((X4 == 3) | (X4 == 4)) document.getElementById("PS_3or4").style.display = "";
    if ((X4 == 1) | (X4 == 2)) document.getElementById("PS_1or2").style.display = "";
+   var lbs = X4 * 10;
+   if (X4 < 17) {
+      document.getElementById("LiftCarry").innerHTML = "<b>Lift and Carry: </b>"
+      + lbs + " lbs.";
+   } else {
+	   lbs = X4 * 20;
+      document.getElementById("LiftCarry").innerHTML = "<b>Lift and Carry: </b>"
+      + lbs + " lbs.";
+   }
 
    var X5 = parseInt(document.getElementById("PP").value);
    if (X5 >= 16) showAttrbBonus = 1;
@@ -101,7 +111,7 @@ function assess() {
    if (showAttrbBonus) {
       document.getElementById("AttBonCha").style.display = "";
       document.getElementById("AttriBonus").innerHTML = "";   
-      
+
       // ********** IQ
       if ((X1 >= 16) & (X1 <= 30)) {
          let bonus = X1 - 14;
@@ -124,7 +134,7 @@ function assess() {
             + b3 + " to Save vs. Illusion</li>";
          }
       }
-      
+
       // ********** ME
       if ((X3 >= 16) & (X3 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
@@ -144,7 +154,7 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b1 + " to Save vs. Possession</li>";
       }
-      
+
       // ********** MA
       if ((X2 >= 16) & (X2 <= 30)) {
          let bonuses = [40, 45, 50, 55, 60, 65, 70, 75, 80, 84, 88, 92, 94, 96, 97];
@@ -153,7 +163,7 @@ function assess() {
          + bonuses[bonus] + "% to Trust/Intimidate</li>";
 	  }
       if (X2 > 30) {
-		  document.getElementById("AttriBonus").innerHTML += "<li>"
+		 document.getElementById("AttriBonus").innerHTML += "<li>"
          + "97% to Trust/Intimidate</li>";
          let b1 = Math.floor((X2 - 30) / 5) + 1;
          document.getElementById("AttriBonus").innerHTML += "<li>-"
@@ -162,7 +172,7 @@ function assess() {
          + "+5% to Find Con­traband, Gambling, Intelligence (gathering), Seduction and Undercover Ops skills.</li>"
          + "<li>+10% to Interrogation, Performance, Public Speaking and Sing.</li>";
       }
-      
+
 	  // ********** PS
       if ((X4 >= 16) & (X4 <= 30)) {
          let bonus = X4 - 15;
@@ -177,23 +187,30 @@ function assess() {
          let b2 = b1 * 10;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b2 + " yards to hurling rocks, balls, throwing weapons, or shooting arrows without losing accuracy (no penalties for the greater distance).</li>";
+         b1 = Math.floor((X4 - 30) / 5);
+         b2 = b1 * 30;
+         if (b1 > 0) {
+            document.getElementById("AttriBonus").innerHTML += "<li>"
+            + b2 + "% more to carry or lift.</li>";
+         }
       }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+      // ********** PP
       if ((X5 >= 16) & (X5 <= 30)) {
          let b1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
          let bonus = X5 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b1[bonus] + " to strike, parry, and dodge</li>";
       }
+      if (X5 > 30) {
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + "8 to strike, parry, and dodge</li>";
+         let b1 = Math.floor((X5 - 31) / 3) + 1;
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + b1 + " to Initiative Roll</li>";
+      }
+
+      // ********** PE
       if ((X6 >= 16) & (X6 <= 30)) {
          let b1 = [4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
          let b2 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
@@ -203,19 +220,34 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>+"
          + b2[bonus] + " to Save vs. Magic/Poison</li>";
       }
+      if (X6 > 30) {
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + X6 + "% to Save vs. Coma/Death</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>+"
+         + "8 to Save vs. Magic/Poison</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "Fatigues at half the normal rate.</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "Impervious to disease. Only the most virulent virus (or de­signer bug) has a chance of affecting this character.</li>";
+      }
+
+      // ********** PB
       if ((X7 >= 16) & (X7 <= 30)) {
          let b1 = [30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 83, 86, 90, 92];
          let bonus = X7 - 16;
          document.getElementById("AttriBonus").innerHTML += "<li>"
          + b1[bonus] + "% Save vs. Charm/Impress</li>";
       }
-
-
-
-
-
-
-
+      if (X7 > 30) {
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "92% Save vs. Charm/Impress</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "+5% to Cardsharp, Concealment, Palming, Pick Pockets, Performance and Public Speaking skill</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "+13% to Seduction</li>";
+         document.getElementById("AttriBonus").innerHTML += "<li>"
+         + "-10% to Prowl</li>";
+      }
    }
 }
 	
