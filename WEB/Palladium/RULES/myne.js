@@ -83,7 +83,7 @@ function assess() {
    document.getElementById("StrType").innerHTML = "";
    if ((STRtype == 'augmented') & (X4 >= 24)) {
       document.getElementById("StrType").innerHTML += "<h2>Augmented Strength</h2>";
-      var StrTypeList = "<ul>";
+      let StrTypeList = "<ul>";
       if (X4 == 24)
          StrTypeList += "<li>Inflicts 1 point of Mega-Damage when deliv­ered as a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
 	  if ((X4 >= 25) & (X4 <= 27))
@@ -103,16 +103,40 @@ function assess() {
 		 StrTypeList += "<li>4D4 M.D. with a power punch or power kick.</li>";
       }
 	     
-
-	     
-	     
-	     
-	     
-	     
       StrTypeList += "</ul>";
       document.getElementById("StrType").innerHTML += StrTypeList;
    }
+   if (STRtype == 'robot') {
+      document.getElementById("StrType").innerHTML += "<h2>Robot Strength</h2>";
+      let StrTypeList = "<ul>";
+      if (X4 <= 15) {
+         StrTypeList += "<li>Inflicts 1D6 S.D.C. plus P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D6 S.D.C. plus P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>4D6 S.D.C. plus P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 2D6 S.D.C.</li>";
+         StrTypeList += "<li>Leap Kicks 3D6 S.D.C.</li>";
+      }
+      if ((X4 >= 16) & (X4 <= 20)){
+         StrTypeList += "<li>Inflicts 2D6 S.D.C. plus P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1 M.D. plus P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D6 M.D. plus P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 1D4 M.D.</li>";
+         StrTypeList += "<li>Leap Kicks 2D4 M.D.</li>";
+      }
 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      StrTypeList += "</ul>";
+      document.getElementById("StrType").innerHTML += StrTypeList;
+   }
 
 
 
