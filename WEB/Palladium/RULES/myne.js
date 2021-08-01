@@ -79,6 +79,11 @@ function assess() {
 	   lbs = X4 * 20;
       document.getElementById("LiftCarry").innerHTML = "<b>Lift and Carry: </b>"
       + lbs + " lbs.";
+      if (X4 > 30) {
+         let b1 = Math.floor((X4 - 30) / 5);
+         let b2 = ((b1 * 30) / 100) + 1;
+         document.getElementById("LiftCarry").innerHTML += " (" + (lbs * b2) + " lbs.)";
+      }
    }
    document.getElementById("StrType").innerHTML = "";
    if ((STRtype == 'augmented') & (X4 >= 24)) {
