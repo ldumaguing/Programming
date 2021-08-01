@@ -29,14 +29,22 @@
    </tr>
    </table>
    
-   <b># of Attacks:</b> <input id="attacks" type="text" value="2">
+   <b># of Attacks:</b> <input id="attacks" type="number" min="1" value="2">
+   <br>
+   <label for="strTypes"><b>Strength Type:</b> </label>
+   <select id="strTypes">
+      <option value="default">Default</option>
+      <option value="augmented">Augmented</option>
+	  <option value="robot">Robot</option>
+	  <option value="supernatural">Supernatural</option>
+   </select>
    <br>
    <script type='text/javascript' src='./myne.js'></script>
    <button onclick="assess();">Assess</button>
    <br><br>
    <div id='Move'></div>
    <div id='LiftCarry'></div>
-   
+   <div id='StrType'></div>
    
    <div id='AttBonCha' style="display: none;">
 <h2>Attribute Bonuses</h2>

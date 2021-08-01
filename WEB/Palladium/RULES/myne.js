@@ -1,4 +1,6 @@
 function assess() {
+   var STRtype = document.getElementById("strTypes").value;
+
    document.getElementById("IQ_7or8").style.display = "none";
    document.getElementById("IQ_5or6").style.display = "none";
    document.getElementById("IQ_3or4").style.display = "none";
@@ -78,6 +80,68 @@ function assess() {
       document.getElementById("LiftCarry").innerHTML = "<b>Lift and Carry: </b>"
       + lbs + " lbs.";
    }
+   document.getElementById("StrType").innerHTML = "";
+   if ((STRtype == 'augmented') & (X4 >= 24)) {
+      document.getElementById("StrType").innerHTML += "<h2>Augmented Strength</h2>";
+      var StrTypeList = "<ul>";
+      if (X4 == 24)
+         StrTypeList += "<li>Inflicts 1 point of Mega-Damage when deliv­ered as a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
+	  if ((X4 >= 25) & (X4 <= 27))
+	     StrTypeList += "<li>Inflicts 1D4 M.D. with a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
+	  if ((X4 >= 28) & (X4 <= 30))
+	     StrTypeList += "<li>Inflicts 1D6 M.D. with a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
+      if ((X4 >= 31) & (X4 <= 40))
+	     StrTypeList += "<li>Inflicts 2D4 M.D. with a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
+	  if ((X4 >= 41) & (X4 <= 50)) {
+		 StrTypeList += "<li>Inflicts 3D6 S.D.C. plus P.S. damage bonus on a restrained punch.</li>";
+		 StrTypeList += "<li>1D4 M.D. on a full punch.</li>";
+		 StrTypeList += "<li>3D4 M.D. with a power punch or power kick.</li>";
+      }
+	  if (X4 > 50) {
+		 StrTypeList += "<li>Inflicts 4D6 S.D.C. plus P.S. damage bonus on a restrained punch.</li>";
+		 StrTypeList += "<li>1D8 M.D. on a full punch.</li>";
+		 StrTypeList += "<li>4D4 M.D. with a power punch or power kick.</li>";
+      }
+	     
+
+	     
+	     
+	     
+	     
+	     
+      StrTypeList += "</ul>";
+      document.getElementById("StrType").innerHTML += StrTypeList;
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    var X5 = parseInt(document.getElementById("PP").value);
    if (X5 >= 16) showAttrbBonus = 1;
