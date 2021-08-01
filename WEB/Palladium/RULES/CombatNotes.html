@@ -10,34 +10,47 @@
 
    <script>
    $( function() {
-      function runEffect() {
-        var selectedEffect = "pulsate";
-        var options = {};
-        $( "#effect" ).toggle( selectedEffect, options, 500 );
-      };
+      var selectedEffect = "blind";
+      var options = {};
  
-      $( "#button" ).on( "click", function() {
-         runEffect();
+      $( "#strikes" ).on( "click", function() {
+         $( "#TheStrikes" ).toggle( selectedEffect, options, 0 );
       });
+      
   });
+  
+  
   </script>
-
 </head>
+
 <body>
- 
+<h2>Damages</h2>
+<b>Collision:</b> 2D4 per 10 mph.<br>
+<b>Falling:</b> 1D6 damage per 10 feet.<br>
 
-  <div id="effect">
-    <h2>Toggle</h2>
-    <p>
-      Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
-    </p>
-  </div>
+<b id="strikes"><u><span style="color: blue">Strikes</span></u></b>
+<div id="TheStrikes" style="display: none;">
+<b><i>Hand Strike Damage</i></b>
+   <li><u>Backhand</u>: 1D4</li>
+   <li><u>Backhand (Martial Arts)</u>: 1D6</li>
+   <li><u>Back Flip</u>: 1D6</li>
+   <li><u>Punch</u>: 1D4</li>
+   <li><u>Punch (Karate/Martial Arts)</u>: 2D4</li>
+   <li><u>Elbow/Forearm</u>: 1D6</li>
+   <li><u>Power Punch</u>: Does double damage plus any other damage bo­nuses, but counts as 2 melee attacks. Applicable to all hand strikes.</li>
+<b><i>Foot Strike Damage</i></b>
+   <li><u>Kick</u>: 1D8 (or 2D4)</li>
+   <li><u>Karate Kick</u>: 2D6</li>
+   <li><u>Leap Kick</u>: 3D8, but counts as 2 melee attacks/actions.</li>
+   <li><u>Knee</u>: 1D6</li>
+   <li><u>Backward Sweep</u>: No damage, but knocks down opponent if strike is successful (he loses 1 melee action and initiative).</li>
+   <li><u>Trip/Leg Hook</u>: No damage, but knocks down opponent if the strike is successful (he loses 1 melee action and initiative).</li>
+   <li><u>Power Kick</u>: Does double damage, but counts as 2 melee attacks and cannot be done with a Leap Kick.</li>
+</div>
+<br>
+<b>Thrown/Dropped Small Objects:</b> 1D4 or 1D6.<br>
+<b>Thrown/Dropped Large Objects:</b> 3D6 per 100 lbs.<br>
 
- 
-
- 
-<button id="button" class="ui-state-default ui-corner-all">Run Effect</button>
- 
- 
 </body>
+
 </html>
