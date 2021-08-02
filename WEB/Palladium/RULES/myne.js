@@ -82,7 +82,7 @@ function assess() {
       if (X4 > 30) {
          let b1 = Math.floor((X4 - 30) / 5);
          let b2 = ((b1 * 30) / 100) + 1;
-         document.getElementById("LiftCarry").innerHTML += " (" + (lbs * b2) + " lbs.)";
+         document.getElementById("LiftCarry").innerHTML = "<b>Lift and Carry: </b>" + (lbs * b2) + " lbs.";
       }
    }
    document.getElementById("StrType").innerHTML = "";
@@ -125,15 +125,54 @@ function assess() {
          StrTypeList += "<li>Inflicts 2D6 S.D.C. plus P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Inflicts 1 M.D. plus P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>1D6 M.D. plus P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
-         StrTypeList += "<li>Kicks do 1D4 M.D.</li>";
-         StrTypeList += "<li>Leap Kicks 2D4 M.D.</li>";
+         StrTypeList += "<li>Kicks do 1D4 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 2D4 M.D.; counts as 2 melee attacks.</li>";
       }
-
-      
-      
-      
-      
-      
+      if ((X4 >= 21) & (X4 <= 25)){
+         StrTypeList += "<li>Inflicts 6D6 S.D.C. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1D4 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D4 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 1D6 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 2D6 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 26) & (X4 <= 30)){
+         StrTypeList += "<li>Inflicts 1D4 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 2D4 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 2D8 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 31) & (X4 <= 35)){
+         StrTypeList += "<li>Inflicts 1D4 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D4 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>4D4 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 2D8 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 4D8 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 36) & (X4 <= 40)){
+         StrTypeList += "<li>Inflicts 1D4 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D4 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>4D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 3D8 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 5D8 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 41) & (X4 <= 50)){
+         StrTypeList += "<li>Inflicts 1D6 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 3D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D6x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 5D8 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 1D8x10 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 51) & (X4 <= 60)){
+         StrTypeList += "<li>Inflicts 2D6 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 6D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D6x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Kicks do 6D8 M.D.; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Leap Kicks 2D6x10 M.D.; counts as 2 melee attacks.</li>";
+      }
+      if (X4 > 60){
+         StrTypeList += "<li>Robot strength of 60 is the limit.</li>";
+      }
       
       
       
