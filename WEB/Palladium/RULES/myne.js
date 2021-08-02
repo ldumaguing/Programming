@@ -228,25 +228,6 @@ function assess() {
       document.getElementById("StrType").innerHTML += StrTypeList;
    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    var X5 = parseInt(document.getElementById("PP").value);
    if (X5 >= 16) showAttrbBonus = 1;
    if ((X5 >= 1) & (X5 <= 7)) document.getElementById("PP_1or7").style.display = "";
@@ -260,6 +241,16 @@ function assess() {
    if ((X6 >= 5) & (X6 <= 7)) document.getElementById("PE_5or7").style.display = "";
    if ((X6 == 3) | (X6 == 4)) document.getElementById("PE_3or4").style.display = "";
    if ((X6 == 1) | (X6 == 2)) document.getElementById("PE_1or2").style.display = "";
+   document.getElementById("DeadBy").innerHTML = "<b>Dead: </b>below -"
+      + X6 + " HP";
+   
+   
+   
+   
+   
+   
+   
+   
    
    var X7 = parseInt(document.getElementById("PB").value);
    if (X7 >= 16) showAttrbBonus = 1;
