@@ -98,12 +98,12 @@ function assess() {
       if ((X4 >= 31) & (X4 <= 40))
 	     StrTypeList += "<li>Inflicts 2D4 M.D. with a Power Punch or Power Kick; counts as 2 melee attacks.</li>";
 	  if ((X4 >= 41) & (X4 <= 50)) {
-		 StrTypeList += "<li>Inflicts 3D6 S.D.C. plus P.S. damage bonus on a restrained punch.</li>";
+		 StrTypeList += "<li>Inflicts 3D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch.</li>";
 		 StrTypeList += "<li>1D4 M.D. on a full punch.</li>";
 		 StrTypeList += "<li>3D4 M.D. with a power punch or power kick.</li>";
       }
 	  if (X4 > 50) {
-		 StrTypeList += "<li>Inflicts 4D6 S.D.C. plus P.S. damage bonus on a restrained punch.</li>";
+		 StrTypeList += "<li>Inflicts 4D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch.</li>";
 		 StrTypeList += "<li>1D8 M.D. on a full punch.</li>";
 		 StrTypeList += "<li>4D4 M.D. with a power punch or power kick.</li>";
       }
@@ -115,21 +115,21 @@ function assess() {
       document.getElementById("StrType").innerHTML += "<h2>Robot Strength</h2>";
       let StrTypeList = "<ul>";
       if (X4 <= 15) {
-         StrTypeList += "<li>Inflicts 1D6 S.D.C. plus P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
-         StrTypeList += "<li>Inflicts 2D6 S.D.C. plus P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
-         StrTypeList += "<li>4D6 S.D.C. plus P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D6 S.D.C. <i>plus</i> P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>4D6 S.D.C. <i>plus</i> P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Kicks do 2D6 S.D.C.</li>";
          StrTypeList += "<li>Leap Kicks 3D6 S.D.C.</li>";
       }
       if ((X4 >= 16) & (X4 <= 20)){
-         StrTypeList += "<li>Inflicts 2D6 S.D.C. plus P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
-         StrTypeList += "<li>Inflicts 1 M.D. plus P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
-         StrTypeList += "<li>1D6 M.D. plus P.S. damage bonus on a power punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Kicks do 1D4 M.D.; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Leap Kicks 2D4 M.D.; counts as 2 melee attacks.</li>";
       }
       if ((X4 >= 21) & (X4 <= 25)){
-         StrTypeList += "<li>Inflicts 6D6 S.D.C. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 6D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Inflicts 1D4 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>2D4 M.D. on a power punch; counts as 2 melee attacks.</li>";
          StrTypeList += "<li>Kicks do 1D6 M.D.; counts as 2 melee attacks.</li>";
@@ -173,24 +173,60 @@ function assess() {
       if (X4 > 60){
          StrTypeList += "<li>Robot strength of 60 is the limit.</li>";
       }
-      
-      
-      
-      
-      
+
       StrTypeList += "</ul>";
       document.getElementById("StrType").innerHTML += StrTypeList;
    }
+   if (STRtype == 'supernatural') {
+      document.getElementById("StrType").innerHTML += "<h2>Supernatural Strength</h2>";
+      let StrTypeList = "<ul>";
+      if (X4 <= 15) {
+         StrTypeList += "<li>Inflicts 1D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 4D6 S.D.C. <i>plus</i> P.S. damage bonus on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D4 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 16) & (X4 <= 20)){
+         StrTypeList += "<li>Inflicts 3D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 21) & (X4 <= 25)){
+         StrTypeList += "<li>Inflicts 4D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 2D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>4D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 26) & (X4 <= 30)){
+         StrTypeList += "<li>Inflicts 5D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 3D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>6D6 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 31) & (X4 <= 35)){
+         StrTypeList += "<li>Inflicts 5D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 4D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D4x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 36) & (X4 <= 40)){
+         StrTypeList += "<li>Inflicts 6D6 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 5D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>1D6x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 41) & (X4 <= 50)){
+         StrTypeList += "<li>Inflicts 1D6x10 S.D.C. <i>plus</i> P.S. damage bonus on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 6D6 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D4x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if ((X4 >= 51) & (X4 <= 60)){
+         StrTypeList += "<li>Inflicts 1D6 M.D. on a restrained punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>Inflicts 1D6x10 M.D. on a full strength punch; counts as 2 melee attacks.</li>";
+         StrTypeList += "<li>2D6x10 M.D. on a power punch; counts as 2 melee attacks.</li>";
+      }
+      if (X4 > 60){
+         StrTypeList += "<li>Supernatural strength of 60 is the limit.</li>";
+      }
 
-
-
-
-
-
-
-
-
-
+      StrTypeList += "</ul>";
+      document.getElementById("StrType").innerHTML += StrTypeList;
+   }
 
 
 
