@@ -241,16 +241,7 @@ function assess() {
    if ((X6 >= 5) & (X6 <= 7)) document.getElementById("PE_5or7").style.display = "";
    if ((X6 == 3) | (X6 == 4)) document.getElementById("PE_3or4").style.display = "";
    if ((X6 == 1) | (X6 == 2)) document.getElementById("PE_1or2").style.display = "";
-   document.getElementById("DeadBy").innerHTML = "<b>Dead: </b>below -"
-      + X6 + " HP";
-   
-   
-   
-   
-   
-   
-   
-   
+   document.getElementById("DeadBy").innerHTML = "<b>Dead: </b>below -" + X6 + " HP";
    
    var X7 = parseInt(document.getElementById("PB").value);
    if (X7 >= 16) showAttrbBonus = 1;
@@ -407,6 +398,8 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>"
          + "-10% to Prowl</li>";
       }
+      
+      document.getElementById("occSpace").style.display = "";
    }
 }
 	
