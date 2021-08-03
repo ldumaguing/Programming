@@ -398,8 +398,7 @@ function assess() {
          document.getElementById("AttriBonus").innerHTML += "<li>"
          + "-10% to Prowl</li>";
       }
-      
-      document.getElementById("occSpace").style.display = "";
    }
+   document.getElementById("occSpace").style.display = "";
 }
 	
