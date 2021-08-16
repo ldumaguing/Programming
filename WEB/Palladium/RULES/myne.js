@@ -6,27 +6,22 @@ function assess() {
    document.getElementById("IQ_3or4").style.display = "none";
    document.getElementById("IQ_1or2").style.display = "none";
    
-   document.getElementById("MA_1or7").style.display = "none";
    document.getElementById("MA_5or7").style.display = "none";
    document.getElementById("MA_3or4").style.display = "none";
    document.getElementById("MA_1or2").style.display = "none";
 
-   document.getElementById("ME_1or7").style.display = "none";
    document.getElementById("ME_5or7").style.display = "none";
    document.getElementById("ME_3or4").style.display = "none";
    document.getElementById("ME_1or2").style.display = "none";
 
-   document.getElementById("PS_1or7").style.display = "none";
    document.getElementById("PS_5or7").style.display = "none";
    document.getElementById("PS_3or4").style.display = "none";
    document.getElementById("PS_1or2").style.display = "none";
 
-   document.getElementById("PP_1or7").style.display = "none";
    document.getElementById("PP_5or7").style.display = "none";
    document.getElementById("PP_3or4").style.display = "none";
    document.getElementById("PP_1or2").style.display = "none";
 
-   document.getElementById("PE_1or7").style.display = "none";
    document.getElementById("PE_5or7").style.display = "none";
    document.getElementById("PE_3or4").style.display = "none";
    document.getElementById("PE_1or2").style.display = "none";
@@ -53,21 +48,18 @@ function assess() {
    
    var X2 = parseInt(document.getElementById("MA").value);
    if (X2 >= 16) showAttrbBonus = 1;
-   if ((X2 >= 1) & (X2 <= 7)) document.getElementById("MA_1or7").style.display = "";
    if ((X2 >= 5) & (X2 <= 7)) document.getElementById("MA_5or7").style.display = "";
    if ((X2 == 3) | (X2 == 4)) document.getElementById("MA_3or4").style.display = "";
    if ((X2 == 1) | (X2 == 2)) document.getElementById("MA_1or2").style.display = "";
    
    var X3 = parseInt(document.getElementById("ME").value);
    if (X3 >= 16) showAttrbBonus = 1;
-   if ((X3 >= 1) & (X3 <= 7)) document.getElementById("ME_1or7").style.display = "";
    if ((X3 >= 5) & (X3 <= 7)) document.getElementById("ME_5or7").style.display = "";
    if ((X3 == 3) | (X3 == 4)) document.getElementById("ME_3or4").style.display = "";
    if ((X3 == 1) | (X3 == 2)) document.getElementById("ME_1or2").style.display = "";
 
    var X4 = parseInt(document.getElementById("PS").value);
    if (X4 >= 16) showAttrbBonus = 1;
-   if ((X4 >= 1) & (X4 <= 7)) document.getElementById("PS_1or7").style.display = "";
    if ((X4 >= 5) & (X4 <= 7)) document.getElementById("PS_5or7").style.display = "";
    if ((X4 == 3) | (X4 == 4)) document.getElementById("PS_3or4").style.display = "";
    if ((X4 == 1) | (X4 == 2)) document.getElementById("PS_1or2").style.display = "";
@@ -230,14 +222,12 @@ function assess() {
 
    var X5 = parseInt(document.getElementById("PP").value);
    if (X5 >= 16) showAttrbBonus = 1;
-   if ((X5 >= 1) & (X5 <= 7)) document.getElementById("PP_1or7").style.display = "";
    if ((X5 >= 5) & (X5 <= 7)) document.getElementById("PP_5or7").style.display = "";
    if ((X5 == 3) | (X5 == 4)) document.getElementById("PP_3or4").style.display = "";
    if ((X5 == 1) | (X5 == 2)) document.getElementById("PP_1or2").style.display = "";
    
    var X6 = parseInt(document.getElementById("PE").value);
    if (X6 >= 16) showAttrbBonus = 1;
-   if ((X6 >= 1) & (X6 <= 7)) document.getElementById("PE_1or7").style.display = "";
    if ((X6 >= 5) & (X6 <= 7)) document.getElementById("PE_5or7").style.display = "";
    if ((X6 == 3) | (X6 == 4)) document.getElementById("PE_3or4").style.display = "";
    if ((X6 == 1) | (X6 == 2)) document.getElementById("PE_1or2").style.display = "";

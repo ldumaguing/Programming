@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Rifts: Character</title>
+   <link type='text/css' href='myne.css' rel='stylesheet' />
+</head>
+<body>
+   <table>
+   <tr>
+      <th>IQ</th>
+      <th>ME</th>
+      <th>MA</th>
+      <th>PS</th>
+      <th>PP</th>
+      <th>PE</th>
+      <th>PB</th>
+      <th>Spd</th>
+   </tr>
+   <tr>
+      <td><input class="attribInput" type="text" id="IQ" value="10"></td>
+      <td><input class="attribInput" type="text" id="ME" value="10"></td>
+      <td><input class="attribInput" type="text" id="MA" value="10"></td>
+      <td><input class="attribInput" type="text" id="PS" value="10"></td>
+      <td><input class="attribInput" type="text" id="PP" value="10"></td>
+      <td><input class="attribInput" type="text" id="PE" value="10"></td>
+      <td><input class="attribInput" type="text" id="PB" value="10"></td>
+      <td><input class="attribInput" type="text" id="Spd" value="10"></td>
+   </tr>
+   </table>
+   
+   <b># of Attacks:</b> <input id="attacks" type="number" min="1" value="2"><br>
+   <b>S.D.C.:</b> <input id="personSDC" type="number" value="18"><i>(2D6 + 12)</i><br>
+   <b>H.P.:</b> <input id="personHP" type="number" value="13"><i>(P.E. + 1D6)</i><br>
+   <label for="strTypes"><b>Strength Type:</b> </label>
+   <select id="strTypes">
+      <option value="default">Default</option>
+      <option value="augmented">Augmented</option>
+	  <option value="robot">Robot</option>
+	  <option value="supernatural">Supernatural</option>
+   </select>
+   <br>
+   <script type='text/javascript' src='./myne.js'></script>
+   <button onclick="assess();">Assess</button>
+   <br><br>
+   <div id='Move'></div>
+   <div id='LiftCarry'></div>
+   <div id='DeadBy'></div>
+   <div id='StrType'></div>
+   
+   
+   <h2>Attribute Bonuses</h2>  
+   <div id='AttBonCha' style="display: none;">
+   <ul id='AttriBonus'>
+   </ul>
+   </div>
+
+   <h2>Attribute Penalties</h2>  
+   <div id='IQ_7or8' style="display: none;">
+   <ul>
+      <li>Number of <i>O.C.C Related Skills</i> is reduced by half.</li>
+      <li>Add 1D4 skills to his initial set of Secondary Skills.</li>
+   </ul>
+   </div>
+   
+   <div id='IQ_5or6' style="display: none;">
+   <ul>
+      <li>Reduce the number of <i>O.C.C Skills</i> by four (4).</li>
+      <li>Reduce the number of <i>O.C.C. Related Skills</i> by half.</li>
+      <li>Reduce all skill bonuses by half.</li>
+      <li>Add 1D4+2 <i>Secondary Skills</i> to start.</li>
+      <li>If the character can read or write, it is at a second or third grade level and complex skills are impossible to learn.</li>
+   </ul>
+   </div>
+      
+   <div id='IQ_3or4' style="display: none;">
+   <ul>
+      <li>Number of <i>O.C.C Skills</i> is reduced by half with reduced bonuses of half.</li>
+      <li>Number of <i>O.C.C Related Skills</i> is 1D4 with no additional skills with level advance­ment and no bonuses applied.</li>
+      <li>Add 1D4 <i>Secondary Skills</i> to start, +l one new Secondary Skill at levels 3, 6, 10, and 15 (ignore whatever the O.C.C. description usually allows).</li>
+      <li>The character cannot learn to read or write and it is impossible for him to learn anything but the most rudimentary of skills</li>
+   </ul>
+   </div>
+      
+   <div id='IQ_1or2' style="display: none;">
+   <ul>
+      <li>Can select only 1D4+1 <i>O.C.C. Skills</i>.</li>
+      <li>No <i>O.C.C. Re­lated skills</i>.</li>
+      <li>1D4 <i>Secondary Skills</i> with no addi­tional skills gained through experience.</li>
+      <li>None of the skills get any bonuses.</li>
+      <li>Reduce the <i>Base Skill</i> proficiency and level advancement by half, and round down. That means if the <i>Base Skill</i> nor­mally starts at 30% +5% per level of experience, this feeble character's skill starts at 15% +2% (rounded down) per level of experience. </li>
+   </ul>
+   </div>
+   
+   <div id='ME_5or7' style="display: none;">
+   <ul>
+      <li>-3 to save vs Horror Factor</li>
+      <li>-2 to save vs illusions</li>
+      <li>-1 to save vs any battles of will</li>
+      <li>-1 to save vs psionic attacks and mind control (magical, psionic or drug induced)</li>
+      <li>-1 to save vs insanity and possession</li>
+      <li>-10% penalty on the skills Barter, Interroga­tion, Performance, Public Speaking, Seduction, and Undercover Ops</li>
+   </ul>
+   </div>
+   
+   <div id='ME_3or4' style="display: none;">
+   <ul>
+      <li>-6 to save vs Horror Factor</li>
+      <li>-4 to save vs illusions</li>
+      <li>-3 to save vs any battles of will</li>
+      <li>-3 to save psionic attacks and mind control (magical, psionic or drug induced)</li>
+      <li>-2 to save vs insanity</li>
+      <li>-3 to save vs possession</li>
+      <li>Suffers from one phobia (random roll or pick one; described in the Insanity section).</li>
+      <li>Spills his guts after 204 minutes (3 hours 24 minutes) of interrogation.</li>
+      <li>A terrible liar (must roll 01-15% on percentile dice to tell a convincing lie).</li>
+      <li>Susceptible to seduction (the seducer gets a +20% bonus on this character).</li>
+      <li>Susceptible to intimidation (the intimidator gets a +20% bonuses on this character).</li>
+      <li>-30% penalty on the skills Barter, Interrogation, Performance, Public Speaking, Seduction, and Undercover Ops.</li>
+   </ul>
+   </div>   
+   
+   <div id='ME_1or2' style="display: none;">
+   <ul>
+      <li>-8 to save vs Horror Factor</li>
+      <li>-6 to save vs illusions</li>
+      <li>-6 to save vs any battles of will</li>
+      <li>-6 to save vs psionic attacks and mind control (magical, psionic or drug induced)</li>
+      <li>-5 to save vs insanity</li>
+      <li>-6 to save vs possession</li>
+      <li>Suffers from 1D4+1 phobias (random roll or pick them; described in the Insanity section).</li>
+      <li>Spills his guts after 1D4 minutes of interrogation.</li>
+      <li>Cannot tell a convincing lie (everyone can always tell when he's lying).</li>
+      <li>Susceptible to se­duction (the seducer gets a +40% bonus on this character).</li>
+      <li>Susceptible to intimi­dation (the intimidator gets a +30% bonus on this character).</li>
+      <li>Cannot perform the skills Barter, Interrogation, Performance, Public Speaking, Seduction, and Undercover Ops.</li>
+   </ul>
+   </div>
+   
+   <div id='MA_5or7' style="display: none;">
+   <ul>
+      <li>-10% to Barter, Find Contraband, Intelligence, Performance, Public Speaking, Seduction, and Sing</li>
+      <li>-20% on Interrogation</li>
+      <li>+5% on Gambling, Prowl, Undercover Ops, and Surveillance (tends not to be noticed or remembered)</li>
+   </ul>
+   </div>
+   
+   <div id='MA_3or4' style="display: none;">
+   <ul>
+      <li>-20% to Barter, Disguise, Find Contraband, Intelligence, Performance, Public Speaking, and Sing</li>
+      <li>-30% on Interrogation and Seduction</li>
+   </ul>
+   </div>   
+   
+   <div id='MA_1or2' style="display: none;">
+   <ul>
+      <li>-20% to Disguise if he stays quiet and doesn't make a spectacle of himself (oth­erwise his unpleasant or odd personalty leaks through)</li>
+      <li>-50% to Barter, Find Contraband, Intelligence, Interrogation, Performance, Public Speaking, Seduction, and Sing</li>
+   </ul>
+   </div>
+ 
+   <div id='PS_5or7' style="display: none;">
+   <ul>
+      <li>No damage bonuses from Hand to Hand Combat skill, O.C.C, or even the weapon itself.</li>
+      <li>Reduce throwing range by 25%.</li>
+      <li>Guns (range weapons) do full damage.</li>
+   </ul>
+   </div>
+ 
+   <div id='PS_3or4' style="display: none;">
+   <ul>
+      <li>Reduce physical damage by half, includ­ing damage inflicted by punches, kicks, and melee weapons (club, knife, sword, etc.)</li>
+      <li>Reduce throwing range/distance by half</li>
+      <li>Guns do full damage</li>
+   </ul>
+   </div>	  
+		  
+   <div id='PS_1or2' style="display: none;">
+   <ul>
+      <li>Only inflicts one (1) point of damage from punches</li>
+      <li>1D4 damage from kicks</li>
+      <li>Melee weap­ons inflict half normal damage, but no damage bonuses may apply</li>
+      <li>Reduce throwing range/distance by 75%</li>
+      <li>Guns do full damage</li>
+   </ul>
+   </div>
+   
+   <div id='PP_5or7' style="display: none;">
+   <ul>
+	   <li>-1 on initiative</li>
+	   <li>-2 to strike, parry, dodge, disarm, entangle, pull punch, and roll with impact</li>
+	   <li>-15% penalty on skills that require a high level of manual dexterity or grace (mechan­ics, electronics, Gymnastics, Forgery, Pick Pockets, Palming, Prowl, Dance, etc.)</li>
+       <li>-5% on all other skills requiring any manual dexterity</li>
+   </ul>
+   </div>
+
+   <div id='PP_3or4' style="display: none;">
+   <ul>
+      <li>-3 on initiative</li>
+      <li>Reduce all combat bonuses (strike, parry, dodge, disarm, etc.) by half</li>
+      <li>-25% penalty on skills that require a high level of manual dexterity (mechanics, electronics, Gym­ nastics, Forgery, Prowl, Pick Pockets, Palming, etc.).</li>
+      <li>-10% on all other skills requiring any manual dexterity.</li>
+   </ul>
+   </div>   
+
+   <div id='PP_1or2' style="display: none;">
+   <ul>
+      <li>-5 on initiative, no combat bonuses (strike, parry, dodge, disarm, etc.).</li>
+      <li>Drops his weapon when a 1-4 is rolled to strike.</li>
+      <li>Drops whatever is in his hand when startled or fails to save vs Horror Factor.</li>
+      <li>Trips and falls on a roll of 1-4 when trying to dodge (lose initiative and one melee attack).</li>
+      <li>Can NOT perform skills that require a high level of manual dexter­ity or grace (mechanics, electronics, Dance, Forgery, Gymnastics, Prowl, Pick Pockets, Palming, etc.)</li>
+      <li>-20% on any other skills that require any degree of manual dexterity, including riding a bicycle or horse, driving a car, Climbing, Running and Swimming.</li>
+   </ul>
+   </div>
+
+   <div id='PE_5or7' style="display: none;">
+   <ul>
+      <li>-2 to save vs disease</li>
+      <li>-3 to save vs drugs and poison</li>
+      <li>-3 to save vs magic</li>
+      <li>-5% to save vs coma and death</li>
+      <li>fatigues 25% faster than the average per­son unless he can take frequent breaks.</li>
+   </ul>
+   </div>
+
+   <div id='PE_3or4' style="display: none;">
+   <ul>
+	  <li>-6 to save vs disease</li>
+	  <li>-5 to save vs drugs and poison</li>
+	  <li>-4 to save vs magic</li>
+	  <li>-10% to save vs coma and death</li>
+	  <li>Fatigues 50% faster than the average person unless he can take frequent breaks</li>
+      <li>Duration of illness and the side effects from drugs and poisons last 25% longer</li>
+      <li>60% chance the character is also a hypo­chondriac and has a phobia about disease and germs (roll for each)</li>
+   </ul>
+   </div>
+
+   <div id='PE_1or2' style="display: none;">
+   <ul>
+	  <li>-8 to save vs disease</li>
+	  <li>-6 to save vs drugs and poison</li>
+	  <li>-5 to save vs magic</li>
+	  <li>-20% to save vs coma and death</li>
+	  <li>Fatigues 75% faster than the average person unless he can take frequent rest breaks.</li>
+	  <li>Suffers 50% more damage</li>
+	  <li>Double the penalties and du­ration from illness and the side effects from drugs, poisons, and magic.</li>
+   </ul>
+   </div>
+
+   <div id='PB_5or7' style="display: none;">
+   <ul>
+      <li>-5% on skills like Gambling, Intelli­gence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
+      <li>-20% to Seduction</li>
+      <li>+5% to Interrogation skill</li>
+   </ul>
+   </div>
+
+   <div id='PB_3or4' style="display: none;">
+   <ul>
+      <li>-10% on skills like Gambling, Intelligence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
+      <li>-30% to Seduction</li>
+      <li>+10% to Interrogation skill and ability to in­timidate.</li>
+   </ul>
+   </div>
+
+   <div id='PB_1or2' style="display: none;">
+   <ul>
+      <li>-15% on skills like Intelligence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
+      <li>-10% to Prowl (all eyes are on the scary person)</li>
+      <li>-40% to Seduction</li>
+      <li>+15% to Interrogation skill</li>
+      <li>+5% to Gambling</li>
+      <li>+20% to intimidate</li>
+      <li><u>Horror Factor</u>: 1D6+9; this character's looks actually scare people, cause chil­dren (and women faint of heart) to scream and run away, and toddlers to wail and cry.</li>
+   </ul>
+   </div>
+
+   <div id='Spd_1or6' style="display: none;">
+   <ul>
+	   <li>-1 on initiative</li>
+	   <li>-1 to dodge</li>
+	   <li>-10% to Dance skill (unless it's a slow dance).</li>
+	   <li>+5% to Prowl, Palm and Track</li>
+	   <li>+1 on Perception Rolls</li>
+   </ul>
+   </div>
+
+   <div id='occSpace' style="display: none;">
+   <hr>
+   <label for="OCCs"><b>O.C.C.:</b> </label>
+   <select name="OCCs" id="OCCs">
+      <optgroup label="Adventurer & Scholars">
+        <option value="Adv1">Body Fixer</option>
+        <option value="Adv2">City Rat</option>
+        <option value="Adv3">Cyber-Doc</option>
+        <option value="Adv4">Operator</option>
+        <option value="Adv5">Rogue Scholar</option>
+        <option value="Adv6">Rogue Scientist</option>
+        <option value="Adv7">Vagabond</option>
+        <option value="Adv8">Wilderness Scout</option>
+      </optgroup>
+      <optgroup label="Coalition">
+        <option value="Coa1">Dog Boy</option>
+        <option value="Coa2">Grunt/Soldier</option>
+        <option value="Coa3">Military Specialist</option>
+        <option value="Coa4">Psi-Stalker</option>
+        <option value="Coa5">SAMAS Pilot</option>
+        <option value="Coa6">Technical Officer</option>
+      </optgroup>
+      <optgroup label="Men at Arms">
+        <option value="Men1">Combat Cyborg</option>
+        <option value="Men2">Crazies</option>
+        <option value="Men3">Cyber-Knight</option>
+        <option value="Men4">Glitter Boy</option>
+        <option value="Men5">Headhunter</option>
+        <option value="Men6">Juicer</option>
+        <option value="Men7">Merc Soldier</option>
+        <option value="Men8">Robot Pilot</option>
+      </optgroup>
+      <optgroup label="Practitioners of Magic">
+        <option value="Pra1">Elemental Fusionist</option>
+        <option value="Pra2">Ley Line Walker</option>
+        <option value="Pra3">Ley Line Rifter</option>
+        <option value="Pra4">Mystic</option>
+        <option value="Pra5">Shifter</option>
+        <option value="Pra6">Techno-Wizard</option>
+      </optgroup>
+      <optgroup label="Psychic Characters">
+        <option value="Psy1">Buster</option>
+        <option value="Psy2">Mind Melter</option>
+        <option value="Psy3">Psi-Operator</option>
+        <option value="Psy4">Psi-Stalker (Civilized/Coalition)</option>
+        <option value="Psy5">Psi-Stalker (Wild)</option>
+        <option value="Men3">Cyber-Knight</option>
+        <option value="Pra6">Techno-Wizard</option>
+        <option value="Pra4">Mystic</option>
+        <option value="Rac1">Dragon Hatchling</option>
+      </optgroup>
+      <optgroup label="Racial Character Class">
+        <option value="Rac1">Dragon Hatchling</option>
+      </optgroup>
+   </select>
+   <button onclick=";">Assign</button>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   </div>
+   <br><br><br><br><br>
+</body>
+</html>
