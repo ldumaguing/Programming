@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Rifts: GM Screen</title>
+   <link type='text/css' href='myne.css' rel='stylesheet' />
+
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+   <script>
+   $(
+   function() {
+      var selectedEffect = "blind";
+      var options = {};
+ 
+      $("#strikes").on("click",
+      function() {
+         $("#TheStrikes").toggle(selectedEffect, options, 0);
+      });
+      $("#saves").on("click",
+      function() {
+         $("#TheSaves").toggle(selectedEffect, options, 0);
+      });
+      $("#zeroHP").on("click",
+      function() {
+         $("#AtZeroHP").toggle(selectedEffect, options, 0);
+      });
+   });
+  
+  
+  </script>
+</head>
+
+<body>
+<h2>Damages</h2>
+<b id="zeroHP"><span style="color: blue">At and Below Zero (0) HP</span></b>
+<div id="AtZeroHP" style="display: none;">
+<table style="margin: 0px 0px 0px 15px;"><tr><td>
+<li>Collapses and falls into a coma.</li>
+<li>Length of time in coma to survive without treatment: <i>P.E. hours</i></li>
+<li>If the player rolls 2 successful recovery rolls out of 3, the character breaks out of the coma and is no longer in danger of dying. This also means that he is brought up to 1 HP:­</li><br>
+<u>Recovery Ratio (roll 2 out of 3)</u><br>
+32% from an intern or nurse (R.N.)<br>
+46% from a doctor without proper facilities<br>
+56% from a doctor at a clinic (fair facilities)<br>
+66% from a hospital<br>
+70% from a major, large hospital
+</td></tr></table>
+</div>
+<br>
+<b>Dead:</b> HP is below <i>negative</i> P.E.<br>
+<b>Collision:</b> 2D4 per 10 mph.<br>
+<b>Falling:</b> 1D6 damage per 10 feet.<br>
+<b id="saves"><span style="color: blue">Saving Throws</span></b>
+<div id="TheSaves" style="display: none;">
+   <table style="margin: 0px 0px 0px 15px;"><tr><td>
+   <li><u>Curses</u>: 15+</li>
+   <li><u>Disease</u>: 14+</li>
+   <li><u>Poison (lethal)</u>: 14+</li>
+   <li><u>Poison (non-lethal)</u>: 16+</li>
+   <li><u>Harmful Drugs</u>: 15+</li>
+   <li><u>Insanity</u>: 12+</li>
+   <li><u>Magic</u>: 12+ to 16+ (depends on the power level of the spell caster)</li>
+   <li><u>Magic (ritual)</u>: 16+</li>
+   <li><u>Psionics</u>: </li>
+   6+ for Psi-Stalkers<br>
+   10+ for Master Psychic (including Mind Melters, Dog Boys, and Bursters)<br>
+   12+ for Major and Minor Psychics<br>
+   15+ for ordinary people and animals
+   </td></tr></table>
+</div>
+<br>
+<b id="strikes"><span style="color: blue">Strikes</span></b>
+<div id="TheStrikes" style="display: none;">
+<b><i>Hand Strike Damage</i></b>
+   <table style="margin: 0px 0px 0px 15px;"><tr><td>
+   <li><u>Backhand</u>: 1D4</li>
+   <li><u>Backhand (Martial Arts)</u>: 1D6</li>
+   <li><u>Back Flip</u>: 1D6</li>
+   <li><u>Punch</u>: 1D4</li>
+   <li><u>Punch (Karate/Martial Arts)</u>: 2D4</li>
+   <li><u>Elbow/Forearm</u>: 1D6</li>
+   <li><u>Power Punch</u>: Does double damage <i>plus</i> any other damage bo­nuses, but counts as 2 melee attacks. Applicable to all hand strikes.</li>
+   </td></tr></table>
+<b><i>Foot Strike Damage</i></b>
+   <table style="margin: 0px 0px 0px 15px;"><tr><td>
+   <li><u>Kick</u>: 1D8 (or 2D4)</li>
+   <li><u>Karate Kick</u>: 2D6</li>
+   <li><u>Leap Kick</u>: 3D8, but counts as 2 melee attacks/actions.</li>
+   <li><u>Knee</u>: 1D6</li>
+   <li><u>Backward Sweep</u>: No damage, but knocks down opponent if strike is successful (he loses 1 melee action and initiative).</li>
+   <li><u>Trip/Leg Hook</u>: No damage, but knocks down opponent if the strike is successful (he loses 1 melee action and initiative).</li>
+   <li><u>Power Kick</u>: Does double damage, but counts as 2 melee attacks and cannot be done with a Leap Kick.</li>
+   </td></tr></table>
+</div>
+<br>
+<b>Thrown/Dropped Small Objects:</b> 1D4 or 1D6.<br>
+<b>Thrown/Dropped Large Objects:</b> 3D6 per 100 lbs.<br>
+
+</body>
+
+</html>

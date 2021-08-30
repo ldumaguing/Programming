@@ -26,14 +26,15 @@
       <td><input class="attribInput" type="text" id="PE" value="10"></td>
       <td><input class="attribInput" type="text" id="PB" value="10"></td>
       <td><input class="attribInput" type="text" id="Spd" value="10"></td>
+      <td></td>
    </tr>
    </table>
    
-   <b># of Attacks:</b> <input id="attacks" type="number" min="1" value="2"><br>
-   <b>S.D.C.:</b> <input id="personSDC" type="number" value="18"><i>(2D6 + 12)</i><br>
-   <b>H.P.:</b> <input id="personHP" type="number" value="13"><i>(P.E. + 1D6)</i><br>
+   <b># of Attacks:</b> <input id="attacks" class="Inputs0" type="number" min="1" value="2"><br>
+   <b>S.D.C.:</b> <input id="personSDC" class="Inputs0" type="number" value="18"><i>(2D6 + 12)</i><br>
+   <b>H.P.:</b> <input id="personHP" class="Inputs0" type="number" value="13"><i>(P.E. + 1D6)</i><br>
    <label for="strTypes"><b>Strength Type:</b> </label>
-   <select id="strTypes">
+   <select id="strTypes" class="Inputs0">
       <option value="default">Default</option>
       <option value="augmented">Augmented</option>
 	  <option value="robot">Robot</option>
@@ -41,8 +42,8 @@
    </select>
    <br>
    <script type='text/javascript' src='./myne.js'></script>
-   <button onclick="assess();">Assess</button>
-   <br><br>
+   <button id="button0" onclick="assess();">Assess</button>
+   <hr>
    <div id='Move'></div>
    <div id='LiftCarry'></div>
    <div id='DeadBy'></div>
@@ -55,56 +56,49 @@
    </div>
 
 
-   <div id='IQ_7or8' style="display: none;">
-<h2>IQ</h2>
-The character is a little slow and has trouble learning. The level of comprehension is roughly equal to a 12-15 year old.
+   <div id='IQ_7or8' class="lowAttribs" style="display: none;">
    <ul>
       <li>Number of <i>O.C.C Related Skills</i> is reduced by half.</li>
       <li>Add 1D4 skills to his initial set of Secondary Skills.</li>
    </ul>
-This character still gets full benefit of skill bonuses, but probably doesn't care much for book learning or complex skills that require a lot of studying and details to remember. If that is the case, the character is likely to lean toward skills that rely on his hands and a strong back, including Domestic, Horsemanship, Mechanics, Physical, W.P.s, Wilderness and basic skills like Radio: Basic, Automotive Me­chanics, Aircraft Mechanics, Basic Electronics, First Aid, General Repair, Pilot Truck, Pilot Hover Vehicle, Pick Pockets, Palming, etc. On the other hand, the character may choose to work hard to master one more complex and difficult skills in an effort to overcome his short­ falls. Natural talent is another explanation why this character may have one or more skills that would otherwise seem beyond his limited men­tal capabilities.
    </div>
    
-   <div id='IQ_5or6' style="display: none;">
-<h2>IQ</h2>
-The character is slow, dim-witted, and probably rather child-like. His level of comprehension is roughly equal to an 8-10 year old child.
+   <div id='IQ_5or6' class="lowAttribs" style="display: none;">
    <ul>
       <li>Reduce the number of <i>O.C.C Skills</i> by four (4).</li>
       <li>Reduce the number of <i>O.C.C. Related Skills</i> by half.</li>
       <li>Reduce all skill bonuses by half.</li>
       <li>Add 1D4+2 <i>Secondary Skills</i> to start.</li>
+      <li>If the character can read or write, it is at a 2nd or 3rd grade level and complex skills are impossible to learn (i.e., could learn Basic Mechanics or Automotive Mechanics, but cannot learn Lock­ Smith or Mechanical Engineer or even Aircraft Mechanics).</li>
+      <li>The char­acter is likely to lean toward simple skills, including Domestic, Horse­ manship, Physical, W.P.s, and Wilderness, and avoid skills that require a lot of practice, study and details.</li>
    </ul>
-If the character can read or write, it is at a second or third grade level and complex skills are impossible to learn (i.e., could learn Basic Mechanics or Automotive Mechanics, but cannot learn Lock­ smith or Mechanical Engineer or even Aircraft Mechanics). The char­ acter is likely to lean toward simple skills, including Domestic, Horse­ manship, Physical, W.P.s, and Wilderness, and avoid skills that require a lot of practice, study and details. May be sensitive about people who make fun of him or may be totally oblivious to them.
    </div>
       
-   <div id='IQ_3or4' style="display: none;">
-<h2>IQ</h2>
-The character has a feeble mind with a level of comprehension on par with a four or five year old child.
+   <div id='IQ_3or4' class="lowAttribs" style="display: none;">
    <ul>
       <li>Number of <i>O.C.C Skills</i> is reduced by half with reduced bonuses of half.</li>
       <li>Number of <i>O.C.C Related Skills</i> is 1D4 with no additional skills with level advance­ment and no bonuses applied.</li>
       <li>Add 1D4 <i>Secondary Skills</i> to start, +l one new Secondary Skill at levels 3, 6, 10, and 15 (ignore whatever the O.C.C. description usually allows).</li>
+      <li>The character cannot learn to read or write and it is impossible for him to learn anything but the most rudimentary of skills, mainly W.P.s, Domestic, Physical and Wilderness skills.</li>
    </ul>
-The character cannot learn to read or write and it is impossible for him to learn anything but the most rudimentary of skills, mainly W.P.s, Domestic, Physical and Wilderness skills. May be sensitive about people who make fun of him or may be totally obliv­ious to it. Relates best to children.
    </div>
       
-   <div id='IQ_1or2' style="display: none;">
-<h2>IQ</h2>  
-The character has a mind on par with a two year old child. This character barely remembers his name, can only learn the simplest of skills (G.M.'s discretion) at a substandard level, and pretty much needs to be told what to do and led by the hand. Monster races and barbarians put such characters on a leash and treat them like animals.
+   <div id='IQ_1or2' class="lowAttribs" style="display: none;">
    <ul>
       <li>Can select only 1D4+1 <i>O.C.C. Skills</i>.</li>
       <li>No <i>O.C.C. Re­lated skills</i>.</li>
       <li>1D4 <i>Secondary Skills</i> with no addi­tional skills gained through experience.</li>
+      <li>None of the skills get any bonuses.</li>
+      <li>reduce the <i>Base Skill</i> proficiency and level advancement by half round down. That means if the <i>Base Skill</i> nor­mally starts at 30% +5% per level of experience, this feeble character's skill starts at 15% +2% (rounded down) per level of experience.</li>
    </ul>
-None of the skills get any bonuses either, in fact, reduce the <i>Base Skill</i> proficiency and level advancement by half, and round down. That means if the <i>Base Skill</i> nor­mally starts at 30% +5% per level of experience, this feeble character's skill starts at 15% +2% (rounded down) per level of experience. 
    </div>
    
-   <div id='ME_1or7' style="display: none;">
+   <div id='ME_1or7' class="lowAttribs" style="display: none;">
 <h2>ME</h2>
 The character is weak willed, fright­ened, and possibly an outright coward. Easily intimidated and tricked by others, and is susceptible to mind control and possession.
    </div>
    
-   <div id='ME_5or7' style="display: none; text-indent: 30px;">
+   <div id='ME_5or7' class="lowAttribs" style="display: none; text-indent: 30px;">
    <ul>
       <li>-3 to save vs Horror Factor</li>
       <li>-2 to save vs illusions</li>
@@ -115,7 +109,7 @@ The character is weak willed, fright­ened, and possibly an outright coward. Eas
    </ul>
    </div>
    
-   <div id='ME_3or4' style="display: none;">
+   <div id='ME_3or4' class="lowAttribs" style="display: none;">
    <ul>
       <li>-6 to save vs Horror Factor</li>
       <li>-4 to save vs illusions</li>
@@ -132,7 +126,7 @@ The character is weak willed, fright­ened, and possibly an outright coward. Eas
    </ul>
    </div>   
    
-   <div id='ME_1or2' style="display: none;">
+   <div id='ME_1or2' class="lowAttribs" style="display: none;">
    <ul>
       <li>-8 to save vs Horror Factor</li>
       <li>-6 to save vs illusions</li>
@@ -149,12 +143,12 @@ The character is weak willed, fright­ened, and possibly an outright coward. Eas
    </ul>
    </div>
    
-   <div id='MA_1or7' style="display: none;">
+   <div id='MA_1or7' class="lowAttribs" style="display: none;">
 <h2>MA</h2>
 This character has no charm or spark to his per­sonality to make a favorable impression; not very memorable or any impression made is a negative one (loser, strange, jerk). Nobody is im­pressed by this character and any moment he might have in the lime­ light passes quickly and is probably forgotten or overshadowed by something negative or someone else. He is always one of the last to be chosen for anything and is frequently snubbed.
    </div>
    
-   <div id='MA_5or7' style="display: none; text-indent: 30px;">
+   <div id='MA_5or7' class="lowAttribs" style="display: none; text-indent: 30px;">
 The character is so ordinary that he is barely no­ticed or remembered, is usually ignored and picked last for everything.
    <ul>
       <li>-10% to Barter, Find Contraband, Intelligence, Performance, Public Speaking, Seduction, and Sing</li>
@@ -163,7 +157,7 @@ The character is so ordinary that he is barely no­ticed or remembered, is usual
    </ul>
    </div>
    
-   <div id='MA_3or4' style="display: none; text-indent: 30px;">
+   <div id='MA_3or4' class="lowAttribs" style="display: none; text-indent: 30px;">
 The character is treated like a loser and undesirable. The things he says and does are always taken the wrong way, he can't tell a joke and may be something of a grumpy complainer or curmud­geon. That makes the character more memorable, but not in a good way, and people try to avoid and ditch him.
    <ul>
       <li>-20% to Barter, Disguise, Find Contraband, Intelligence, Performance, Public Speaking, and Sing</li>
@@ -171,7 +165,7 @@ The character is treated like a loser and undesirable. The things he says and do
    </ul>
    </div>   
    
-   <div id='MA_1or2' style="display: none;">
+   <div id='MA_1or2' class="lowAttribs" style="display: none;">
 <div style="text-indent: 30px;">
 This character has the personality of a rock (bland, bland, bland) or a belligerent warthog. The things he says and does are always taken the wrong way, he can't tell a joke and is either snide to and critical of others, or a grouch who has nothing nice to say about anything or anyone. That makes the character more memorable, but not in a good way, and people try to avoid and ditch him, and/or target him for pranks and trouble.
 </div>
@@ -181,12 +175,12 @@ This character has the personality of a rock (bland, bland, bland) or a belliger
    </ul>
    </div>
 
-   <div id='PS_1or7' style="display: none;">
+   <div id='PS_1or7' class="lowAttribs" style="display: none;">
 <h2>PS</h2>
 The P.S.x10 pounds (4.5 kg) formula applies and will severely limit how much the character can lift and carry. Intelligence, cunning, treachery, magic and psionics can compensate for a puny character, so will a powerful gun.
    </div>
  
-   <div id='PS_5or7' style="display: none;">
+   <div id='PS_5or7' class="lowAttribs" style="display: none;">
    <ul>
       <li>No damage bonuses from Hand to Hand Combat skill, O.C.C, or even the weapon itself.</li>
       <li>Reduce throwing range by 25%.</li>
@@ -194,7 +188,7 @@ The P.S.x10 pounds (4.5 kg) formula applies and will severely limit how much the
    </ul>
    </div>
  
-   <div id='PS_3or4' style="display: none;">
+   <div id='PS_3or4' class="lowAttribs" style="display: none;">
    <ul>
       <li>Reduce physical damage by half, includ­ing damage inflicted by punches, kicks, and melee weapons (club, knife, sword, etc.)</li>
       <li>Reduce throwing range/distance by half</li>
@@ -202,7 +196,7 @@ The P.S.x10 pounds (4.5 kg) formula applies and will severely limit how much the
    </ul>
    </div>	  
 		  
-   <div id='PS_1or2' style="display: none;">
+   <div id='PS_1or2' class="lowAttribs" style="display: none;">
    <ul>
       <li>Only inflicts one (1) point of damage from punches</li>
       <li>1D4 damage from kicks</li>
@@ -212,12 +206,12 @@ The P.S.x10 pounds (4.5 kg) formula applies and will severely limit how much the
    </ul>
    </div>
    
-   <div id='PP_1or7' style="display: none;">
+   <div id='PP_1or7' class="lowAttribs" style="display: none;">
 <h2>PP</h2>
 This character has poor hand-eye coordination, is graceless, tends to handle things roughly, is a clumsy klutz, and walks like an elephant (heavy footsteps).
    </div>
    
-   <div id='PP_5or7' style="display: none;">
+   <div id='PP_5or7' class="lowAttribs" style="display: none;">
    <ul>
 	   <li>-1 on initiative</li>
 	   <li>-2 to strike, parry, dodge, disarm, entangle, pull punch, and roll with impact</li>
@@ -226,7 +220,7 @@ This character has poor hand-eye coordination, is graceless, tends to handle thi
    </ul>
    </div>
 
-   <div id='PP_3or4' style="display: none;">
+   <div id='PP_3or4' class="lowAttribs" style="display: none;">
    <ul>
       <li>-3 on initiative</li>
       <li>Reduce all combat bonuses (strike, parry, dodge, disarm, etc.) by half</li>
@@ -235,7 +229,7 @@ This character has poor hand-eye coordination, is graceless, tends to handle thi
    </ul>
    </div>   
 
-   <div id='PP_1or2' style="display: none;">
+   <div id='PP_1or2' class="lowAttribs" style="display: none;">
    <ul>
       <li>-5 on initiative, no combat bonuses (strike, parry, dodge, disarm, etc.).</li>
       <li>Drops his weapon when a 1-4 is rolled to strike.</li>
@@ -246,12 +240,12 @@ This character has poor hand-eye coordination, is graceless, tends to handle thi
    </ul>
    </div>
 
-   <div id='PE_1or7' style="display: none;">
+   <div id='PE_1or7' class="lowAttribs" style="display: none;">
 <h2>PE</h2>
 This character has a weak constitution, making him more susceptible to fatigue, disease, poison, and magic than other characters.
    </div>
 
-   <div id='PE_5or7' style="display: none;">
+   <div id='PE_5or7' class="lowAttribs" style="display: none;">
    <ul>
       <li>-2 to save vs disease</li>
       <li>-3 to save vs drugs and poison</li>
@@ -261,7 +255,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='PE_3or4' style="display: none;">
+   <div id='PE_3or4' class="lowAttribs" style="display: none;">
    <ul>
 	  <li>-6 to save vs disease</li>
 	  <li>-5 to save vs drugs and poison</li>
@@ -273,7 +267,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='PE_1or2' style="display: none;">
+   <div id='PE_1or2' class="lowAttribs" style="display: none;">
    <ul>
 	  <li>-8 to save vs disease</li>
 	  <li>-6 to save vs drugs and poison</li>
@@ -285,7 +279,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='PB_5or7' style="display: none;">
+   <div id='PB_5or7' class="lowAttribs" style="display: none;">
 <h2>PB</h2>
    <ul>
       <li>-5% on skills like Gambling, Intelli­gence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
@@ -294,7 +288,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='PB_3or4' style="display: none;">
+   <div id='PB_3or4' class="lowAttribs" style="display: none;">
 <h2>PB</h2>
    <ul>
       <li>-10% on skills like Gambling, Intelligence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
@@ -303,7 +297,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='PB_1or2' style="display: none;">
+   <div id='PB_1or2' class="lowAttribs" style="display: none;">
 <h2>PB</h2>
    <ul>
       <li>-15% on skills like Intelligence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
@@ -316,7 +310,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='Spd_1or6' style="display: none;">
+   <div id='Spd_1or6' class="lowAttribs" style="display: none;">
 <h2>Spd</h2>
    <ul>
 	   <li>-1 on initiative</li>
