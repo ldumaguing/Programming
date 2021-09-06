@@ -44,18 +44,17 @@
    <script type='text/javascript' src='./myne.js'></script>
    <button id="button0" onclick="assess();">Assess</button>
    <hr>
+   
+   <section id="OCC" style="display: none;">
    <div id='Move'></div>
    <div id='LiftCarry'></div>
    <div id='DeadBy'></div>
    <div id='StrType'></div>
-   
-   <div id='AttBonCha' style="display: none;">
-<h2>Attribute Bonuses</h2>
-   <ul id='AttriBonus'>
+
+   <ul>
+   <div id="AttriBonus"></div>
    </ul>
-   </div>
-
-
+   
    <div id='IQ_7or8' class="lowAttribs" style="display: none;">
    <ul>
       <li>Number of <i>O.C.C Related Skills</i> is reduced by half.</li>
@@ -98,7 +97,7 @@
 The character is weak willed, fright­ened, and possibly an outright coward. Easily intimidated and tricked by others, and is susceptible to mind control and possession.
    </div>
    
-   <div id='ME_5or7' class="lowAttribs" style="display: none; text-indent: 30px;">
+   <div id='ME_5or7' class="lowAttribs" style="display: none;">
    <ul>
       <li>-3 to save vs Horror Factor</li>
       <li>-2 to save vs illusions</li>
@@ -143,13 +142,7 @@ The character is weak willed, fright­ened, and possibly an outright coward. Eas
    </ul>
    </div>
    
-   <div id='MA_1or7' class="lowAttribs" style="display: none;">
-<h2>MA</h2>
-This character has no charm or spark to his per­sonality to make a favorable impression; not very memorable or any impression made is a negative one (loser, strange, jerk). Nobody is im­pressed by this character and any moment he might have in the lime­ light passes quickly and is probably forgotten or overshadowed by something negative or someone else. He is always one of the last to be chosen for anything and is frequently snubbed.
-   </div>
-   
-   <div id='MA_5or7' class="lowAttribs" style="display: none; text-indent: 30px;">
-The character is so ordinary that he is barely no­ticed or remembered, is usually ignored and picked last for everything.
+   <div id='MA_5or7' class="lowAttribs" style="display: none;">
    <ul>
       <li>-10% to Barter, Find Contraband, Intelligence, Performance, Public Speaking, Seduction, and Sing</li>
       <li>-20% on Interrogation</li>
@@ -157,8 +150,7 @@ The character is so ordinary that he is barely no­ticed or remembered, is usual
    </ul>
    </div>
    
-   <div id='MA_3or4' class="lowAttribs" style="display: none; text-indent: 30px;">
-The character is treated like a loser and undesirable. The things he says and does are always taken the wrong way, he can't tell a joke and may be something of a grumpy complainer or curmud­geon. That makes the character more memorable, but not in a good way, and people try to avoid and ditch him.
+   <div id='MA_3or4' class="lowAttribs" style="display: none;">
    <ul>
       <li>-20% to Barter, Disguise, Find Contraband, Intelligence, Performance, Public Speaking, and Sing</li>
       <li>-30% on Interrogation and Seduction</li>
@@ -166,9 +158,6 @@ The character is treated like a loser and undesirable. The things he says and do
    </div>   
    
    <div id='MA_1or2' class="lowAttribs" style="display: none;">
-<div style="text-indent: 30px;">
-This character has the personality of a rock (bland, bland, bland) or a belligerent warthog. The things he says and does are always taken the wrong way, he can't tell a joke and is either snide to and critical of others, or a grouch who has nothing nice to say about anything or anyone. That makes the character more memorable, but not in a good way, and people try to avoid and ditch him, and/or target him for pranks and trouble.
-</div>
    <ul>
       <li>-20% to Disguise if he stays quiet and doesn't make a spectacle of himself (oth­erwise his unpleasant or odd personalty leaks through)</li>
       <li>-50% to Barter, Find Contraband, Intelligence, Interrogation, Performance, Public Speaking, Seduction, and Sing</li>
@@ -298,7 +287,6 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </div>
 
    <div id='PB_1or2' class="lowAttribs" style="display: none;">
-<h2>PB</h2>
    <ul>
       <li>-15% on skills like Intelligence (gathering), Performance, Public Speaking, and Undercover Ops.</li>
       <li>-10% to Prowl (all eyes are on the scary person)</li>
@@ -321,7 +309,7 @@ This character has a weak constitution, making him more susceptible to fatigue, 
    </ul>
    </div>
 
-   <div id='occSpace' style="display: none;">
+   
    <hr>
    <label for="OCCs"><b>O.C.C.:</b> </label>
    <select name="OCCs" id="OCCs">
@@ -377,16 +365,8 @@ This character has a weak constitution, making him more susceptible to fatigue, 
       </optgroup>
    </select>
    <button onclick=";">Assign</button>
+   </section>
    
-   
-   
-   
-   
-   
-   
-   
-   
-   </div>
    <br><br><br><br><br>
 </body>
 </html>
