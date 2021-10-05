@@ -12,6 +12,8 @@ Better Search Replace
 
 CMS Tree Page View
 
+Custom Post Type UI
+
 Database Browser
 
 Donation Thermometer
@@ -33,6 +35,8 @@ SearchWP                   ------- failed. Unauthorized
 SearchWP Custom Results Order    --------- failed
 
 Slider Revolution   ------- need license
+
+TablePress
 
 The Events Calendar
 
