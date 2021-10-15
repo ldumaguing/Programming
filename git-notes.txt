@@ -18,7 +18,6 @@ git commit -m "bla"
 git push
 
 
-
 name: Babych Diana Vasilevna 
 city: Kharkiv
 country: Ukraine
