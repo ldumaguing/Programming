@@ -125,6 +125,7 @@ build CMakeFiles/Arrows.dir/main.c.o: C_COMPILER__Arrows_Release ../main.c || cm
 build Arrows: C_EXECUTABLE_LINKER__Arrows_Release CMakeFiles/Arrows.dir/main.c.o
   FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -lm
   OBJECT_DIR = CMakeFiles/Arrows.dir
   POST_BUILD = :
   PRE_LINK = :
