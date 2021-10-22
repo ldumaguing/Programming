@@ -1,3 +1,4 @@
 [Project]
-Name=Arrows
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=Arrows
