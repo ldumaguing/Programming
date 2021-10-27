@@ -21,6 +21,7 @@
 </head>
 
 <body>
+	<h2>Attack/Action Roll</h2>
 	<p>
 		<b>ES</b>: Effective Skill level <i>plus</i> modifiers<br>
 		<b>Roll</b>: 3d6<br>
@@ -30,7 +31,8 @@
 		<span class="in_1">&bull; Ties may be broken by comparing the degrees of success.</span><br>
 		<span class="in_1">&bull; Target may roll for defense if aware of the attack.</span><br>
 		<span class="in_1">&bull; Target may roll for defense if the attack was a ordinary success.</span><br>
-		<span class="in_1">&bull; See pages 556 and 557 for critical results.</span>
+		<span class="in_1">&bull; See pages 556 and 557 for critical results.</span><br>
+		<span class="in_1">&bull; Of course, target must be within range or reach in order to attack.</span><br>
 	</p>
 	
 	<p>
@@ -45,14 +47,24 @@
 		<span class="in_1">&bull;<b> (Roll - ES) >= 10</b>: <i>Crit-Fail.</i></span><br>
 		<span class="in_1">&bull;<b> else</b>: <i>Fail.</i></span>
 	</p>
+	
 	<hr>
 	
+	<h2>Damage Roll Steps</h2>
+	<p>
+	<b>1. Basic Damage</b>: A weapon's damage roll.<br>
+	<b>2.</b> If the target is at or beyond half of a weapon's max distance, reduce Basic Damage by half round down.<br>
+	<b>3. Penatrating Damage</b>: Basic Damage <i>minus</i> <u>Damage Resistance (DR)</u>. DR may be more than one to further reduce Basic Damage.<br>
+	<b>4.</b> Divide Penatrating Damage by <u>Armor Divisor</u> round down. Minimum of zero (0).<br>
 	
+	<b>5. Wounding Modifier</b>: Any Penatrating Damage left is <i>multiplied</i> by this modifier which depends on the weapon's damage type.<br>
+	<b>6.</b> Reduce target's HP by the final calculated damage.
+	</p>
 	
-	
-	
-	
-	
+	<h3>Options</h3>
+	<p>
+	&bull; Each armor's level of <b>Hardened</b> reduces the <i>Armor Divisor</i> of an attack by one step. These steps are, in order: “ignores DR,” 100, 10, 5, 3, 2, and 1 (no divisor).<br>
+	</p>
 	
 	
 	
