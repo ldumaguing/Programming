@@ -57,7 +57,7 @@ void adjustArrows ( double a[][3] ) {
 }
 
 // ============================================================================
-void adjustArrows_ROLL_in_Dow ( double a[][3] ) {
+void adjustArrows_ROLL_in_Down ( double a[][3] ) {
 }
 
 // ============================================================================
