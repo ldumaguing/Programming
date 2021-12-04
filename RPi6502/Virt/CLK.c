@@ -52,13 +52,13 @@ int main(void)
       perror("Error writing to /sys/class/gpio/gpio19/value");
       exit(1);
     }
-    usleep(50000);
+    usleep(50000 * 3);
 
     if (write(fd, "0", 1) != 1) {
       perror("Error writing to /sys/class/gpio/gpio19/value");
       exit(1);
     }
-    usleep(50000);
+    usleep(50000 * 3);
   } while (ch != 27);
 
   close(fd);
@@ -126,6 +126,7 @@ void unexport_CLK() {
 
   close(fd);
 }
+
 
 
 
