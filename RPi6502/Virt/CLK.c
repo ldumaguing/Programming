@@ -33,9 +33,9 @@ int main(void)
   export_CLK();
   set_direction();
   printf("Press [ESC] to quit.\n");
-  int fd = open("/sys/class/gpio/gpio19/value", O_WRONLY);
+  int fd = open("/sys/class/gpio/gpio26/value", O_WRONLY);
   if (fd == -1) {
-    perror("EEK: Unable to open /sys/class/gpio/gpio19/value");
+    perror("EEK: Unable to open /sys/class/gpio/gpio26/value");
     exit(1);
   }
 
@@ -49,13 +49,13 @@ int main(void)
     }
 
     if (write(fd, "1", 1) != 1) {
-      perror("Error writing to /sys/class/gpio/gpio19/value");
+      perror("Error writing to /sys/class/gpio/gpio26/value");
       exit(1);
     }
     usleep(50000 * 3);
 
     if (write(fd, "0", 1) != 1) {
-      perror("Error writing to /sys/class/gpio/gpio19/value");
+      perror("Error writing to /sys/class/gpio/gpio26/value");
       exit(1);
     }
     usleep(50000 * 3);
@@ -87,7 +87,7 @@ void export_CLK() {
     exit(1);
   }
 
-  if (write(fd, "19", 2) != 2) {
+  if (write(fd, "26", 2) != 2) {
     perror("Error writing to /sys/class/gpio/export");
     exit(1);
   }
@@ -97,14 +97,14 @@ void export_CLK() {
 
 void set_direction() {
   printf("set_direction\n");
-    int fd = open("/sys/class/gpio/gpio19/direction", O_WRONLY);
+    int fd = open("/sys/class/gpio/gpio26/direction", O_WRONLY);
     if (fd == -1) {
-        perror("Unable to open /sys/class/gpio/gpio19/direction");
+        perror("Unable to open /sys/class/gpio/gpio26/direction");
         exit(1);
     }
 
     if (write(fd, "out", 3) != 3) {
-        perror("Error writing to /sys/class/gpio/gpio19/direction");
+        perror("Error writing to /sys/class/gpio/gpio26/direction");
         exit(1);
     }
 
@@ -119,7 +119,7 @@ void unexport_CLK() {
     exit(1);
   }
 
-  if (write(fd, "19", 2) != 2) {
+  if (write(fd, "26", 2) != 2) {
     perror("Error writing to /sys/class/gpio/unexport");
     exit(1);
   }
