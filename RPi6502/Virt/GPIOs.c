@@ -70,8 +70,29 @@ int main(void)
         close(fd);
     }
  
-  //printf(": %s\n", GPIOs[16] ? 'r' : 'W');
-  printf(": %d", GPIOs[16]);
+  // printf(": %s\n", GPIOs[16] ? 'r' : 'W');
+  // printf(": %d\n", GPIOs[16]);
+    
+
+
+
+        sprintf(buff, "/sys/class/gpio/gpio%d/value", GPIOs[16]);
+        fd = open(buff, O_RDONLY);
+        if (-1 == fd) {
+            fprintf(stderr, "Failed to open gpio value for reading!\n");
+		      return(-1);
+        }
+        if (-1 == read(fd, value_str, 3)) {
+            fprintf(stderr, "Failed to read value!\n");
+		      return(-1);
+        }
+        printf(": %s\n", atoi(value_str) ? "r" : "W");
+        close(fd);
+
+
+
+
+
 
 
 
@@ -164,6 +185,7 @@ void unexport_Addresses(int *GPIOs) {
 
   close(fd);
 }
+
 
 
 
