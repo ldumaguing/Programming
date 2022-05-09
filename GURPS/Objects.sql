@@ -6,7 +6,7 @@ create table Objects (
 );
 
 
-insert into Objects values (
+insert into Objects (id, className, classDef) values (
 1000,
 'Humanoid',
 '{}'
