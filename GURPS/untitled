@@ -1,0 +1,36 @@
+-- ******************************** AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"', JSON_OBJECT())
+where Id = 2;
+-- *********************************************************************************** Axe
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"', JSON_OBJECT())
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."TL"', 0)
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Damage"', 'sw+2 cut')
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Reach"', 1)
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Parry"', '0U')
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Cost"', 50)
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Weight"', 4)
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."ST"', 11)
+where Id = 2;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."AXE/MACE (DX-5, Flail-4, or Two-Handed Axe/Mace-3)"."Axe"."Notes"', '1')
+where Id = 2;
+
+
+
+

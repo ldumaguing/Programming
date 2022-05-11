@@ -1,0 +1,111 @@
+json_detailed(classDef)
+***********
+json_detailed(body)
+{
+    "Basic Attributes": 
+    {
+        "ST": 10,
+        "DX": 10,
+        "IQ": 10,
+        "HT": 10
+    },
+    "Secondary Characteristics": 
+    {
+        "HP": 10,
+        "Will": 10,
+        "Per": 10,
+        "FP": 10,
+        "Damage": null,
+        "Basic Lift": null,
+        "Basic Speed": null,
+        "Basic Move": null,
+        "Size Modifier": 0
+    }
+}
+***********
+{
+    "Skull": 
+    {
+    },
+    "Eyes": 
+    {
+        "Left": 
+        {
+        },
+        "Right": 
+        {
+        }
+    },
+    "Face": 
+    {
+    },
+    "Neck": 
+    {
+    },
+    "Arms": 
+    {
+        "Left": 
+        {
+        },
+        "Right": 
+        {
+        }
+    },
+    "Hands": 
+    {
+        "Left": 
+        {
+        },
+        "Right": 
+        {
+        }
+    },
+    "Torso": 
+    {
+        "Vitals": 
+        {
+            "Lungs": 
+            {
+                "Left": 
+                {
+                },
+                "Right": 
+                {
+                }
+            },
+            "Heart": 
+            {
+            },
+            "Kidneys": 
+            {
+                "Left": 
+                {
+                },
+                "Right": 
+                {
+                }
+            }
+        },
+        "Groin": 
+        {
+        }
+    },
+    "Legs": 
+    {
+        "Left": 
+        {
+        },
+        "Right": 
+        {
+        }
+    },
+    "Feet": 
+    {
+        "Left": 
+        {
+        },
+        "Right": 
+        {
+        }
+    }
+}
