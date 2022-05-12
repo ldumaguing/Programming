@@ -1,0 +1,58 @@
++----+---------------------------------+
+| Id | Skills                          |
++----+---------------------------------+
+| 47 | ARTILLERY (GUIDED MISSILE)      |
+|  0 | AXE/MACE                        |
+| 45 | BEAM WEAPONS (PISTOL)           |
+| 46 | BEAM WEAPONS (RIFLE)            |
+| 24 | BLOWPIPE                        |
+| 25 | BOLAS                           |
+| 26 | BOW                             |
+|  1 | BOXING, BRAWLING, KARATE, DX    |
+|  3 | BRAWLING or DX                  |
+|  2 | BRAWLING-2, KARATE-2, or DX-2   |
+|  4 | BROADSWORD                      |
+| 27 | CLOAK                           |
+| 28 | CROSSBOW                        |
+|  5 | FLAIL                           |
+|  6 | FORCE SWORD                     |
+|  7 | GARROTE                         |
+| 48 | GUNNER (CATAPULT)               |
+| 49 | GUNNER (MACHINE GUN)            |
+| 50 | GUNS (GRENADE LAUNCHER)         |
+| 40 | GUNS (GYROC)                    |
+| 51 | GUNS (LAW)                      |
+| 52 | GUNS (LMG)                      |
+| 42 | GUNS (MUSKET)                   |
+| 39 | GUNS (PISTOL)                   |
+| 43 | GUNS (RIFLE)                    |
+| 44 | GUNS (SHOTGUN)                  |
+| 41 | GUNS (SMG)                      |
+|  8 | KNIFE                           |
+|  9 | KUSARI                          |
+| 10 | LANCE                           |
+| 29 | LASSO                           |
+| 53 | LIQUID PROJECTOR (FLAMETHROWER) |
+| 11 | MONOWIRE WHIP                   |
+| 30 | NET                             |
+| 12 | POLEARM                         |
+| 13 | RAPIER                          |
+| 14 | SABER                           |
+| 15 | SHIELD                          |
+| 16 | SHORTSWORD                      |
+| 31 | SLING                           |
+| 17 | SMALLSWORD                      |
+| 18 | SPEAR                           |
+| 32 | SPEAR THROWER                   |
+| 19 | STAFF                           |
+| 38 | THROWING                        |
+| 33 | THROWN WEAPON (AXE/MACE)        |
+| 34 | THROWN WEAPON (HARPOON)         |
+| 35 | THROWN WEAPON (KNIFE)           |
+| 36 | THROWN WEAPON (SHURIKEN)        |
+| 37 | THROWN WEAPON (SPEAR)           |
+| 20 | TWO-HANDED AXE/MACE             |
+| 21 | TWO-HANDED FLAIL                |
+| 22 | TWO-HANDED SWORD                |
+| 23 | WHIP                            |
++----+---------------------------------+
