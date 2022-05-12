@@ -1,79 +1,173 @@
-delete from Objects where id = 1000;
-insert into Objects (id, className, classDef) values (
-1000,
+delete from Objects where Id = 5000;
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+5000,
 'Humanoid',
-'{}'
+'John Doe',
+JSON_OBJECT(),
+JSON_OBJECT()
 );
 
+-- *********************************************************************************** Definition
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Basic Attributes"', JSON_OBJECT())
+where Id = 5000;
 
-update Objects set classDef =
-	json_insert(classDef, '$."Basic Attributes"', '[]')
-where id = 1000;
-
-
-update Objects set classDef =
-JSON_SET(
-	classDef,
-	'$."Basic Attributes"[0]',
-	JSON_ARRAY_INSERT(
-		JSON_VALUE(
-			classDef,
-			'$."Basic Attributes"'),
-		'$[0]',
-		JSON_OBJECT("ST",10)))
-where id = 1000;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"', JSON_OBJECT())
+where Id = 5000;
 
 
--- select '*****************************************';
-update Objects set classDef =
-JSON_SET(classDef, '$."Basic Attributes"',
-	JSON_ARRAY_APPEND(
-		JSON_QUERY(classDef, '$."Basic Attributes"'),
-		'$',
-		JSON_OBJECT("DX",10),
-		'$',
-		JSON_OBJECT("IQ",10),
-		'$',
-		JSON_OBJECT("HT",10)
-	)
-)
-where id = 1000;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Basic Attributes"."ST"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Basic Attributes"."DX"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Basic Attributes"."IQ"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Basic Attributes"."HT"', 10)
+where Id = 5000;
 
 
--- select '*****************************************';
-update Objects set classDef =
-	json_insert(classDef, '$."Secondary Characteristics"', '[]')
-where id = 1000;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."HP"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Will"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Per"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."FP"', 10)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Damage"', null)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Basic Lift"', null)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Basic Speed"', null)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Basic Move"', null)
+where Id = 5000;
+
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."Secondary Characteristics"."Size Modifier"', 0)
+where Id = 5000;
 
 
-update Objects set classDef =
-JSON_SET(classDef, '$."Secondary Characteristics"',
-	JSON_ARRAY_APPEND(
-		JSON_VALUE(classDef, '$."Secondary Characteristics"[0]'),
-		'$',
-		JSON_OBJECT("HP",10),
-		'$',
-		JSON_OBJECT("Will",10),
-		'$',
-		JSON_OBJECT("Per",10),
-		'$',
-		JSON_OBJECT("FP",10),
-		'$',
-		JSON_OBJECT("Damage",null),
-		'$',
-		JSON_OBJECT("Basic Lift",null),
-		'$',
-		JSON_OBJECT("Basic Speed",null),
-		'$',
-		JSON_OBJECT("Basic Move",null),
-		'$',
-		JSON_OBJECT("Size Modifier",0)
-	)
-)
-where id = 1000;
+-- *********************************************************************************** Body
+update Objects set Body =
+	JSON_INSERT(Body, '$."Skull"', JSON_OBJECT())
+where Id = 5000;
 
-select * from Objects where id = 1000;
+update Objects set Body =
+	JSON_INSERT(Body, '$."Eyes"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Eyes"."Left"', JSON_OBJECT())
+	where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Eyes"."Right"', JSON_OBJECT())
+	where Id = 5000;
 
+update Objects set Body =
+	JSON_INSERT(Body, '$."Face"', JSON_OBJECT())
+where Id = 5000;
+
+update Objects set Body =
+	JSON_INSERT(Body, '$."Neck"', JSON_OBJECT())
+where Id = 5000;
+
+update Objects set Body =
+	JSON_INSERT(Body, '$."Arms"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Arms"."Left"', JSON_OBJECT())
+	where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Arms"."Right"', JSON_OBJECT())
+	where Id = 5000;
+
+update Objects set Body =
+	JSON_INSERT(Body, '$."Hands"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Hands"."Left"', JSON_OBJECT())
+	where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Hands"."Right"', JSON_OBJECT())
+	where Id = 5000;
+
+update Objects set Body =
+	JSON_INSERT(Body, '$."Torso"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Torso"."Vitals"', JSON_OBJECT())
+	where Id = 5000;
+		update Objects set Body =
+			JSON_INSERT(Body, '$."Torso"."Vitals"."Lungs"', JSON_OBJECT())
+		where Id = 5000;
+			update Objects set Body =
+				JSON_INSERT(Body, '$."Torso"."Vitals"."Lungs"."Left"', JSON_OBJECT())
+			where Id = 5000;
+			update Objects set Body =
+				JSON_INSERT(Body, '$."Torso"."Vitals"."Lungs"."Right"', JSON_OBJECT())
+			where Id = 5000;
+		update Objects set Body =
+			JSON_INSERT(Body, '$."Torso"."Vitals"."Heart"', JSON_OBJECT())
+		where Id = 5000;
+		update Objects set Body =
+			JSON_INSERT(Body, '$."Torso"."Vitals"."Kidneys"', JSON_OBJECT())
+		where Id = 5000;
+			update Objects set Body =
+				JSON_INSERT(Body, '$."Torso"."Vitals"."Kidneys"."Left"', JSON_OBJECT())
+			where Id = 5000;
+			update Objects set Body =
+				JSON_INSERT(Body, '$."Torso"."Vitals"."Kidneys"."Right"', JSON_OBJECT())
+			where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Torso"."Groin"', JSON_OBJECT())
+	where Id = 5000;
+	
+update Objects set Body =
+	JSON_INSERT(Body, '$."Legs"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Legs"."Left"', JSON_OBJECT())
+	where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Legs"."Right"', JSON_OBJECT())
+	where Id = 5000;
+	
+update Objects set Body =
+	JSON_INSERT(Body, '$."Feet"', JSON_OBJECT())
+where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Feet"."Left"', JSON_OBJECT())
+	where Id = 5000;
+	update Objects set Body =
+		JSON_INSERT(Body, '$."Feet"."Right"', JSON_OBJECT())
+	where Id = 5000;
+
+
+select json_detailed(Definition), json_detailed(Body) from Objects where Id = 5000;
+-- mysql GURPS -p'sasamichan[]()' < Humanoid-v3.sql | sed 's/\\n/\n/g' | sed 's/\t/\n************\n/g'
 
 
 
