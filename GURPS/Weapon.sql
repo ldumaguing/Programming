@@ -1484,6 +1484,264 @@ where Id = 10029;
 update Objects set Definition =
 	JSON_INSERT(Definition, '$."stats"."Weight"', 0.25)
 where Id = 10029;
+-- ********************************************************************* Kusari
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+10030,
+'Weapon',
+'Kusari',
+JSON_OBJECT(),
+JSON_OBJECT()
+);
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"', JSON_OBJECT())
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."required skill group"', 9)
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"', JSON_OBJECT())
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Damage"', '+2 cr')
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Reach"', '1-4*')
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Parry"', '-2U')
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."ST"', 11)
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Notes"', '6')
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."TL"', 3)
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Cost"', 70)
+where Id = 10030;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Weight"', 5)
+where Id = 10030;
+-- ********************************************************************* Lance
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+10031,
+'Weapon',
+'Lance',
+JSON_OBJECT(),
+JSON_OBJECT()
+);
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"', JSON_OBJECT())
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."required skill group"', 10)
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"', JSON_OBJECT())
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"."Damage"', '+3 imp')
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"."Reach"', 4)
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"."Parry"', 'No')
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"."ST"', 12)
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."thrust"."Notes"', '9')
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."TL"', 2)
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Cost"', 60)
+where Id = 10031;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Weight"', 6)
+where Id = 10031;
+-- ********************************************************************* Monowire Whip
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+10032,
+'Weapon',
+'Monowire Whip',
+JSON_OBJECT(),
+JSON_OBJECT()
+);
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"', JSON_OBJECT())
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."required skill group"', 11)
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"', JSON_OBJECT())
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Damage"', '+1d-2(10) cut')
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Reach"', '1-7*')
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Parry"', '-2U')
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."ST"', 5)
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."one"."swing"."Notes"', null)
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."TL"', '^')
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Cost"', 900)
+where Id = 10032;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Weight"', 0.5)
+where Id = 10032;
+-- ********************************************************************* Glaive
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+10033,
+'Weapon',
+'Glaive',
+JSON_OBJECT(),
+JSON_OBJECT()
+);
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"', JSON_OBJECT())
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."required skill group"', 12)
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"', JSON_OBJECT())
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Damage"', '+3 cut')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Reach"', '2,3*')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Parry"', '0U')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."ST"', '11‡')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Notes"', null)
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"', JSON_OBJECT())
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Damage"', '+3 imp')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Reach"', '1-3*')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Parry"', '0U')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."ST"', '11†')
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Notes"', null)
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."TL"', 1)
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Cost"', 100)
+where Id = 10033;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Weight"', 8)
+where Id = 10033;
+-- ********************************************************************* Naginata
+insert into Objects (Id, ClassType, Name, Definition, Body) values (
+10034,
+'Weapon',
+'Naginata',
+JSON_OBJECT(),
+JSON_OBJECT()
+);
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"', JSON_OBJECT())
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."required skill group"', 12)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"', JSON_OBJECT())
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Damage"', '+2 cut')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Reach"', '1,2*')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Parry"', '0U')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."ST"', '9†')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."swing"."Notes"', null)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"', JSON_OBJECT())
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Damage"', '+3 imp')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Reach"', 2)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Parry"', 0)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."ST"', '9†')
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."both"."thrust"."Notes"', null)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."TL"', 2)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Cost"', 100)
+where Id = 10034;
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."stats"."Weight"', 6)
+where Id = 10034;
+
+
 
 
 
