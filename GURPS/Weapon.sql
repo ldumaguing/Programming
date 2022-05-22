@@ -2177,10 +2177,6 @@ where Id = 10041;
 
 
 
-
-
-
-
 update Objects set Definition =
 	JSON_INSERT(Definition, '$."handling"', JSON_OBJECT())
 where ClassType = 'weapon';
@@ -2199,8 +2195,32 @@ where ClassType = 'weapon';
 
 
 
+update Objects set Definition =
+	JSON_INSERT(Definition, '$."handling"."strokes"', JSON_OBJECT())
+where ClassType = 'weapon';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."one"', json_query(Definition, '$."handling"."one"'))
+where ClassType = 'weapon';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both"', json_query(Definition, '$."handling"."both"'))
+where ClassType = 'weapon';
+update Objects set Definition =
+   json_remove(Definition, '$."handling"."both"')
+where ClassType = 'weapon';
+update Objects set Definition =
+   json_remove(Definition, '$."handling"."one"')
+where ClassType = 'weapon';
 
 
+
+update Objects set Definition =
+   json_remove(Definition, '$."handling"."strokes"."both"')
+where ClassType = 'weapon'
+and json_query(Definition, '$."handling"."strokes"."both"') is null;
+update Objects set Definition =
+   json_remove(Definition, '$."handling"."strokes"."one"')
+where ClassType = 'weapon'
+and json_query(Definition, '$."handling"."strokes"."one"') is null;
 
 
 

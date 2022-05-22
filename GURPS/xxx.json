@@ -1,111 +1,36 @@
-json_detailed(classDef)
-***********
-json_detailed(body)
+'
 {
-    "Basic Attributes": 
-    {
-        "ST": 10,
-        "DX": 10,
-        "IQ": 10,
-        "HT": 10
-    },
-    "Secondary Characteristics": 
-    {
-        "HP": 10,
-        "Will": 10,
-        "Per": 10,
-        "FP": 10,
-        "Damage": null,
-        "Basic Lift": null,
-        "Basic Speed": null,
-        "Basic Move": null,
-        "Size Modifier": 0
-    }
-}
-***********
+"stats": 
 {
-    "Skull": 
-    {
-    },
-    "Eyes": 
-    {
-        "Left": 
-        {
-        },
-        "Right": 
-        {
-        }
-    },
-    "Face": 
-    {
-    },
-    "Neck": 
-    {
-    },
-    "Arms": 
-    {
-        "Left": 
-        {
-        },
-        "Right": 
-        {
-        }
-    },
-    "Hands": 
-    {
-        "Left": 
-        {
-        },
-        "Right": 
-        {
-        }
-    },
-    "Torso": 
-    {
-        "Vitals": 
-        {
-            "Lungs": 
-            {
-                "Left": 
-                {
-                },
-                "Right": 
-                {
-                }
-            },
-            "Heart": 
-            {
-            },
-            "Kidneys": 
-            {
-                "Left": 
-                {
-                },
-                "Right": 
-                {
-                }
-            }
-        },
-        "Groin": 
-        {
-        }
-    },
-    "Legs": 
-    {
-        "Left": 
-        {
-        },
-        "Right": 
-        {
-        }
-    },
-    "Feet": 
-    {
-        "Left": 
-        {
-        },
-        "Right": 
-        {
-        }
-    }
+"TL": 0,
+"Cost": 40,
+"Weight": 4
+},
+"handling": 
+{
+"strokes": 
+{
+"one": 
+{
+"required skill group": 18,
+"thrust": 
+{
+"Damage": "+2 imp",
+"Reach": "1*",
+"Parry": 0,
+"ST": 9,
+"Notes": "1"
 }
+}
+"both":
+{
+"Damage": "+3 imp",
+"Reach": "1,2*",
+"Parry": 0,
+"ST": "9†",
+"Notes": "1"
+}
+}
+}
+}
+'
