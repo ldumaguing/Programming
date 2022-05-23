@@ -2230,6 +2230,64 @@ and json_query(Definition, '$."handling"."strokes"."one"') is null;
 
 
 
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"', json_object())
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."required skill group"', 19)
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"', json_object())
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"."Damage"', "+2 cr")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"."Reach"', "1,2")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"."Parry"', "0U")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"."ST"', "9†")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."swing"."Notes"', "Blunt end.")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"', json_object())
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"."Damage"', "+2 cr")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"."Reach"', "1,2")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"."Parry"', 0)
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"."ST"', "9†")
+where Name = 'Naginata';
+update Objects set Definition =
+   json_insert(Definition, '$."handling"."strokes"."both2"."thrust"."Notes"', "Blunt end.")
+where Name = 'Naginata';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 select Name, json_detailed(Definition) from Objects where ClassType = 'weapon';
 
 
