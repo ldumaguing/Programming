@@ -2522,7 +2522,7 @@ where Id = 10015;
 
 
 
-
+select Name, json_detailed(Definition) from Objects where Id = 10034;
 
 
 

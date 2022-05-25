@@ -1,178 +1,188 @@
-delete from Objects where Id >= 10042;
-delete from Objects where ClassType = 'Weapon' and Id >= 10042;
+delete from Objects where Id >= 10046;
 
--- ********************************************************************* Spear
+-- ********************************************************************* Maul
 insert into Objects (Id, ClassType, Name, Definition) values (
-10042,
+10046,
 'Weapon',
-'Spear',
+'Maul',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
-	"stats": 
-	{
-		"TL": 0,
-		"Cost": 40,
-		"Weight": 4
-	},
-	"handling": 
-	{
-		"strokes": 
-		{
-			"one": 
-			{
-				"required skill group": 18,
-				"thrust": 
-				{
-					"Damage": "+2 imp",
-					"Reach": "1*",
-					"Parry": 0,
-					"ST": 9,
-					"Notes": "1"
-				}
-			},
-			"both": 
-			{
-				"required skill group": 18,
-				"thrust":
-				{
-					"Damage": "+3 imp",
-					"Reach": "1,2*",
-					"Parry": 0,
-					"ST": "9†",
-					"Notes": "1"
-				}
-			}
-		}
-	}
+"stats": 
+{
+"TL": 0,
+"Cost": 80,
+"Weight": 12
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 20,
+"swing":
+{
+"Damage": "+4 cr",
+"Reach": "1,2*",
+"Parry": "0U",
+"ST": "13‡",
+"Notes": null
+}
+}
+}
+}
 }'
-where Id = 10042;
--- ********************************************************************* Javelin
+where Id = 10046;
+-- ********************************************************************* Great Axe
 insert into Objects (Id, ClassType, Name, Definition) values (
-10043,
+10047,
 'Weapon',
-'Javelin',
+'Great Axe',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
-	"stats": 
-	{
-		"TL": 0,
-		"Cost": 40,
-		"Weight": 4
-	},
-	"handling": 
-	{
-		"strokes": 
-		{
-			"one": 
-			{
-				"required skill group": 18,
-				"thrust": 
-				{
-					"Damage": "+2 imp",
-					"Reach": "1*",
-					"Parry": 0,
-					"ST": 9,
-					"Notes": "1"
-				}
-			}
-		}
-	}
+"stats": 
+{
+"TL": 1,
+"Cost": 100,
+"Weight": 8
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 20,
+"swing":
+{
+"Damage": "+3 cut",
+"Reach": "1,2*",
+"Parry": "0U",
+"ST": "12‡",
+"Notes": null
+}
+}
+}
+}
 }'
-where Id = 10043;
--- ********************************************************************* Long Spear
+where Id = 10047;
+-- ********************************************************************* Scythe
 insert into Objects (Id, ClassType, Name, Definition) values (
-10044,
+10048,
 'Weapon',
-'Long Spear',
+'Scythe',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
-	"stats": 
-	{
-		"TL": 2,
-		"Cost": 60,
-		"Weight": 5
-	},
-	"handling": 
-	{
-		"strokes": 
-		{
-			"one": 
-			{
-				"required skill group": 18,
-				"thrust": 
-				{
-					"Damage": "+2 imp",
-					"Reach": "2,3*",
-					"Parry": "0U",
-					"ST": 10,
-					"Notes": null
-				}
-			},
-			"both": 
-			{
-				"required skill group": 18,
-				"thrust":
-				{
-					"Damage": "+3 imp",
-					"Reach": "2,3*",
-					"Parry": 0,
-					"ST": "10†",
-					"Notes": null
-				}
-			}
-		}
-	}
+"stats": 
+{
+"TL": 1,
+"Cost": 15,
+"Weight": 5
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 20,
+"swing":
+{
+"Damage": "+2 cut",
+"Reach": 1,
+"Parry": "0U",
+"ST": "11‡",
+"Notes": null
+},
+"swing2":
+{
+"Damage": "+0 imp",
+"Reach": 1,
+"Parry": "0U",
+"ST": "11‡",
+"Notes": "2"
+}
+}
+}
+}
 }'
-where Id = 10044;
--- ********************************************************************* Quarterstaff
+where Id = 10048;
+-- ********************************************************************* Warhammer
 insert into Objects (Id, ClassType, Name, Definition) values (
-10045,
+10049,
 'Weapon',
-'Quarterstaff',
+'Warhammer',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
-	"stats": 
-	{
-		"TL": 0,
-		"Cost": 100,
-		"Weight": 4
-	},
-	"handling": 
-	{
-		"strokes": 
-		{
-			"both": 
-			{
-				"required skill group": 18,
-				"swing":
-				{
-					"Damage": "+2 cr",
-					"Reach": "1,2",
-					"Parry": 2,
-					"ST": "7†",
-					"Notes": null
-				},
-				"thrust": 
-				{
-					"Damage": "+2 cr",
-					"Reach": "1,2",
-					"Parry": 2,
-					"ST": "7†",
-					"Notes": null
-				}
-			}
-		}
-	}
+"stats": 
+{
+"TL": 3,
+"Cost": 100,
+"Weight": 7
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 20,
+"swing":
+{
+"Damage": "+3 imp",
+"Reach": "1,2*",
+"Parry": "0U",
+"ST": "12‡",
+"Notes": "2"
+}
+}
+}
+}
 }'
-where Id = 10045;
+where Id = 10049;
+-- ********************************************************************* Chainsaw
+insert into Objects (Id, ClassType, Name, Definition) values (
+10050,
+'Weapon',
+'Chainsaw',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 6,
+"Cost": 150,
+"Weight": 13
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 20,
+"swing":
+{
+"Damage": "+1d cut",
+"Reach": 1,
+"Parry": "No",
+"ST": "10‡",
+"Notes": "11"
+}
+}
+}
+}
+}'
+where Id = 10050;
 
 
 
@@ -187,5 +197,16 @@ where Id = 10045;
 
 
 
-select Name, json_detailed(Definition) from Objects where ClassType = 'weapon';
+
+
+
+
+
+select Name, json_detailed(Definition) from Objects;
+
+
+
+
+
+
 
