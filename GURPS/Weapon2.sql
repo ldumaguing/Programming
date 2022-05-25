@@ -183,6 +183,76 @@ update Objects set Definition =
 }
 }'
 where Id = 10050;
+-- ********************************************************************* Flail
+insert into Objects (Id, ClassType, Name, Definition) values (
+10051,
+'Weapon',
+'Flail',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 2,
+"Cost": 100,
+"Weight": 8
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 21,
+"swing":
+{
+"Damage": "+4 cr",
+"Reach": "1,2*",
+"Parry": "0U",
+"ST": "13†",
+"Notes": "6"
+}
+}
+}
+}
+}'
+where Id = 10051;
+
+
+
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"', JSON_OBJECT())
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."required skill group"', 22)
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"', JSON_OBJECT())
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Damage"', "+2 cr")
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Reach"', "1,2")
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Parry"', 0)
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."ST"', "9†")
+where Id = 10045;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Notes"', null)
+where Id = 10045;
 
 
 
@@ -202,7 +272,7 @@ where Id = 10050;
 
 
 
-select Name, json_detailed(Definition) from Objects;
+select Name, json_detailed(Definition) from Objects where Id = 10045;
 
 
 

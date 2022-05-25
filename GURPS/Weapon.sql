@@ -2435,7 +2435,7 @@ update Objects set Definition =
 "stats": 
 {
 "TL": 0,
-"Cost": 100,
+"Cost": 10,
 "Weight": 4
 },
 "handling": 
