@@ -2531,39 +2531,6 @@ where Id = 10015;
 update Objects set Definition =
 JSON_remove(Definition, '$."handling"."strokes"')
 where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"."Damage"', JSON_value(
-Definition,
-'$."handling"."trigger"."one"."trigger"."Damage"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"."Reach"', JSON_value(
-Definition,
-'$."handling"."trigger"."one"."trigger"."Reach"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"."Parry"', JSON_value(
-Definition,
-'$."handling"."trigger"."one"."trigger"."Parry"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"."ST"', JSON_value(
-Definition,
-'$."handling"."trigger"."one"."trigger"."ST"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"."Notes"', JSON_value(
-Definition,
-'$."handling"."trigger"."one"."trigger"."Notes"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_remove(Definition, '$."handling"."trigger"."one"."trigger"')
-where Id = 10015;
 
 
 
@@ -2782,7 +2749,7 @@ where Id = 10021;
 
 
 
-select Name, json_detailed(Definition) from Objects where Id = 10021;
+select Name, json_detailed(Definition) from Objects where Id = 10015;
 
 
 
