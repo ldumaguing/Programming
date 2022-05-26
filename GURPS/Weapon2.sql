@@ -218,41 +218,92 @@ update Objects set Definition =
 }
 }'
 where Id = 10051;
-
-
-
-
-
-
-
-
-
-
-
+-- ********************************************************************* Greatsword
+insert into Objects (Id, ClassType, Name, Definition) values (
+10052,
+'Weapon',
+'Greatsword',
+JSON_OBJECT()
+);
 update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"', JSON_OBJECT())
-where Id = 10045;
+'{
+"stats": 
+{
+"TL": 3,
+"Cost": 800,
+"Weight": 7
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 22,
+"swing":
+{
+"Damage": "+3 cut",
+"Reach": "1,2",
+"Parry": 0,
+"ST": "12†",
+"Notes": null
+},
+"thrust":
+{
+"Damage": "+2 cr",
+"Reach": 2,
+"Parry": 0,
+"ST": "12†",
+"Notes": null
+}
+}
+}
+}
+}'
+where Id = 10052;
+-- ********************************************************************* Thrusting Greatsword
+insert into Objects (Id, ClassType, Name, Definition) values (
+10053,
+'Weapon',
+'Thrusting Greatsword',
+JSON_OBJECT()
+);
 update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."required skill group"', 22)
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"', JSON_OBJECT())
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Damage"', "+2 cr")
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Reach"', "1,2")
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Parry"', 0)
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."ST"', "9†")
-where Id = 10045;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."strokes"."both2"."swing"."Notes"', null)
-where Id = 10045;
+'{
+"stats": 
+{
+"TL": 3,
+"Cost": 900,
+"Weight": 7
+},
+"handling": 
+{
+"strokes": 
+{
+"both": 
+{
+"required skill group": 22,
+"swing":
+{
+"Damage": "+3 cut",
+"Reach": "1,2",
+"Parry": 0,
+"ST": "12†",
+"Notes": null
+},
+"thrust":
+{
+"Damage": "+3 imp",
+"Reach": 2,
+"Parry": 0,
+"ST": "12†",
+"Notes": null
+}
+}
+}
+}
+}'
+where Id = 10053;
 
 
 
@@ -271,8 +322,7 @@ where Id = 10045;
 
 
 
-
-select Name, json_detailed(Definition) from Objects where Id = 10045;
+select Name, json_detailed(Definition) from Objects;
 
 
 
