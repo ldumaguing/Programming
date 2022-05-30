@@ -304,6 +304,42 @@ update Objects set Definition =
 }
 }'
 where Id = 10053;
+-- ********************************************************************* Whip
+insert into Objects (Id, ClassType, Name, Definition) values (
+10054,
+'Weapon',
+'Whip',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 1,
+"Cost": 20,
+"Weight": 2
+},
+"handling": 
+{
+"strokes": 
+{
+"one": 
+{
+"required skill group": 23,
+"swing":
+{
+"Damage": "-2(0.5) cr",
+"Reach": "1-7*",
+"Parry": "-2U",
+"ST": "var.",
+"Notes": "12"
+}
+}
+}
+}
+}'
+where Id = 10054;
+
 
 
 

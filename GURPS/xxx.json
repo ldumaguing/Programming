@@ -1,47 +1,34 @@
--- ********************************************************************* Quarterstaff
+-- ********************************************************************* Blowpipe
 insert into Objects (Id, ClassType, Name, Definition) values (
-10045,
+10055,
 'Weapon',
-'Quarterstaff',
+'Blowpipe',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
-	"stats": 
-	{
-		"TL": 0,
-		"Cost": 100,
-		"Weight": 4
-	},
-	"handling": 
-	{
-		"strokes": 
-		{
-			"one": 
-			{
-				"required skill group": 18,
-				"swing":
-				{
-					"Damage": "+2 cr",
-					"Reach": "1,2",
-					"Parry": 2,
-					"ST": "7†",
-					"Notes": null
-				},
-				"thrust": 
-				{
-					"Damage": "+2 cr",
-					"Reach": "1,2",
-					"Parry": 2,
-					"ST": "7†",
-					"Notes": null
-				}
-			}
-		}
-	}
+"stats": 
+{
+"TL": 0,
+"Cost": 30,
+"Weight": 2,
+"Bulk": -6
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+"required skill group": 23,
+"Damage": "-2(0.5) cr",
+"Reach": "1-7*",
+"Parry": "-2U",
+"ST": "var.",
+"Notes": "12"
+}
+}
 }'
-where Id = 10045;
-
+where Id = 10055;
 
 
 

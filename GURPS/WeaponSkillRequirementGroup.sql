@@ -113,12 +113,63 @@ null),
 (52, 'GUNS (LMG)',
 'DX-4, or most other Guns at -2'),
 (53, 'LIQUID PROJECTOR (FLAMETHROWER)',
-'DX-4, or other Liquid Projector at -4');
+'DX-4, or other Liquid Projector at -4'),
+(54, 'BLOWPIPE',
+'DX-6'),
+(55, 'BOLAS',
+null),
+(56, 'BOW',
+'DX-5'),
+(57, 'CLOAK',
+'DX-5, Net-5, Shield-4'),
+(58, 'CROSSBOW',
+'DX-4'),
+(59, 'LASSO',
+null),
+(60, 'NET',
+'Cloak-5'),
+(61, 'SLING',
+'DX-6'),
+(62, 'SPEAR THROWER',
+'DX-5, Thrown Weapon (Spear)-4'),
+(63, 'THROWN WEAPON (AXE/MACE)',
+'DX-4'),
+(64, 'THROWN WEAPON (HARPOON)',
+'DX-4, Thrown Weapon (Spear)-2'),
+(65, 'THROWN WEAPON (KNIFE)',
+'DX-4'),
+(66, 'THROWN WEAPON (SHURIKEN)',
+'DX-4, Throwing-2'),
+(67, 'THROWN WEAPON (SPEAR)',
+'DX-4, Spear Thrower-4, Thrown Weapon (Harpoon)-2')
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+;
 
 select * from WeaponSkillGroup;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
