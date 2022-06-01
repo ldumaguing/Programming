@@ -1,8 +1,8 @@
--- ********************************************************************* Blowpipe
+-- ********************************************************************* Atlatl with Javelin
 insert into Objects (Id, ClassType, Name, Definition) values (
-10055,
+10072,
 'Weapon',
-'Blowpipe',
+'Atlatl with Javelin',
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -11,24 +11,50 @@ update Objects set Definition =
 {
 "TL": 0,
 "Cost": 30,
-"Weight": 2,
-"Bulk": -6
+"Weight": 2
 },
 "handling": 
 {
-"trigger": 
+"muscle": 
 {
-"both": 
-"required skill group": 23,
-"Damage": "-2(0.5) cr",
-"Reach": "1-7*",
-"Parry": "-2U",
-"ST": "var.",
-"Notes": "12"
+"one": 
+{
+"required skill group": 32,
+"Damage": "sw+1 imp",
+"Acc": 3,
+"Range": "x2/x3",
+"RoF": 1,
+"Shots": "1(1)",
+"ST": 6,
+"Bulk": -4,
+"Notes": "2"
+}
 }
 }
 }'
-where Id = 10055;
+where Id = 10072;
+
+
+
+
+
+
+
+
+Atlatl
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

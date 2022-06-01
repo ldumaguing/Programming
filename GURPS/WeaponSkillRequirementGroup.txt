@@ -9,8 +9,8 @@
 | 25 | BOLAS                           |
 | 26 | BOW                             |
 |  1 | BOXING, BRAWLING, KARATE, DX    |
-|  3 | BRAWLING or DX                  |
-|  2 | BRAWLING-2, KARATE-2, or DX-2   |
+|  3 | BRAWLING, DX                    |
+|  2 | BRAWLING-2, KARATE-2, DX-2      |
 |  4 | BROADSWORD                      |
 | 27 | CLOAK                           |
 | 28 | CROSSBOW                        |
@@ -56,3 +56,10 @@
 | 22 | TWO-HANDED SWORD                |
 | 23 | WHIP                            |
 +----+---------------------------------+
+
+
+
+
+
+
+
