@@ -2744,12 +2744,430 @@ where Id = 10021;
 
 
 
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 33)
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'sw cut')
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 1)
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x1.5/x2.5')
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 8)
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -2)
+where Id = 10001;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10001;
 
 
 
 
 
-select Name, json_detailed(Definition) from Objects where Id = 10015;
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 33)
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'sw+2 cut')
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 2)
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x1/x1.5')
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 11)
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -3)
+where Id = 10002;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10002;
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 33)
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'sw+3 cr')
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 1)
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x0.5/x1')
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 12)
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -4)
+where Id = 10003;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10003;
+
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 33)
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'sw+2 cr')
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 1)
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x1/x1.5')
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 10)
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -3)
+where Id = 10004;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10004;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 35)
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr imp')
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 0)
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x0.8/x1.5')
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 6)
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -2)
+where Id = 10026;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10026;
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 35)
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr-1 imp')
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 0)
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x0.5/x1')
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 5)
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -1)
+where Id = 10027;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10027;
+
+
+
+
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 35)
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr(0.5) imp')
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 0)
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x0.5/x1')
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 5)
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -2)
+where Id = 10028;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10028;
+
+
+
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 35)
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr-1 imp')
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 0)
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x0.5/x1')
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 5)
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -1)
+where Id = 10029;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10029;
+
+
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 37)
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr+3 imp')
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 2)
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x1/x1.5')
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 9)
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -6)
+where Id = 10042;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10042;
+
+
+
+
+
+
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"', JSON_OBJECT())
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"', JSON_OBJECT())
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."required skill group"', 37)
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Damage"', 'thr+1 imp')
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Acc"', 3)
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Range"', 'x1.5/x2.5')
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."RoF"', 1)
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Shots"', 'T(1)')
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."ST"', 6)
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Bulk"', -4)
+where Id = 10043;
+update Objects set Definition =
+JSON_INSERT(Definition, '$."handling"."muscle"."one"."Notes"', null)
+where Id = 10043;
+
+
+
+
+
+
+
+
+
+
+
+
+
+select Id, Name, json_detailed(Definition) from Objects where Id = 10043;
 
 
 

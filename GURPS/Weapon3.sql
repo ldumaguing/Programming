@@ -630,6 +630,80 @@ update Objects set Definition =
 }
 }'
 where Id = 10072;
+-- ********************************************************************* Harpoon
+insert into Objects (Id, ClassType, Name, Definition) values (
+10073,
+'Weapon',
+'Harpoon',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 2,
+"Cost": 60,
+"Weight": 6
+},
+"handling": 
+{
+"muscle": 
+{
+"one": 
+{
+"required skill group": 34,
+"Damage": "thr+5 imp",
+"Acc": 2,
+"Range": "x1/x1.5",
+"RoF": 1,
+"Shots": "T(1)",
+"ST": 11,
+"Bulk": -6,
+"Notes": "8"
+}
+}
+}
+}'
+where Id = 10073;
+-- ********************************************************************* Shuriken
+insert into Objects (Id, ClassType, Name, Definition) values (
+10074,
+'Weapon',
+'Shuriken',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 3,
+"Cost": 3,
+"Weight": 0.1
+},
+"handling": 
+{
+"muscle": 
+{
+"one": 
+{
+"required skill group": 36,
+"Damage": "thr-1 cut",
+"Acc": 1,
+"Range": "x0.5/x1",
+"RoF": 1,
+"Shots": "T(1)",
+"ST": 5,
+"Bulk": 0,
+"Notes": "8"
+}
+}
+}
+}'
+where Id = 10074;
+
+
+
+
 
 
 
