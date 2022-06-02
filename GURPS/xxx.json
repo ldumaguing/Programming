@@ -1,38 +1,39 @@
--- ********************************************************************* Shuriken
+-- ********************************************************************* Flintlock Pistol, .51
 insert into Objects (Id, ClassType, Name, Definition) values (
-10074,
+10075,
 'Weapon',
-'Shuriken',
+'Flintlock Pistol, .51',
 JSON_OBJECT()
 );
 update Objects set Definition =
 '{
 "stats": 
 {
-"TL": 3,
-"Cost": 3,
-"Weight": 0.1
+"TL": 4,
+"Cost": 200,
+"Weight": "3/0.01"
 },
 "handling": 
 {
-"muscle": 
+"trigger": 
 {
 "one": 
 {
-"required skill group": 36,
-"Damage": "thr-1 cut",
+"required skill group": 39,
+"Damage": "2d-1 pi+",
 "Acc": 1,
-"Range": "x0.5/x1",
+"Range": "75/450",
 "RoF": 1,
-"Shots": "T(1)",
-"ST": 5,
-"Bulk": 0,
-"Notes": "8"
+"Shots": "1(20)",
+"ST": 10,
+"Bulk": -3,
+"Recoil": 2,
+"Notes": null
 }
 }
 }
 }'
-where Id = 10074;
+where Id = 10075;
 
 
 
@@ -41,8 +42,37 @@ where Id = 10074;
 
 
 
-Atlatl
 
+
+
+
+
+
+
+
+
+handling
+   strokes
+      one
+         any
+         swing
+         thrust
+      both
+         swing
+         swing2
+         thrust
+      both2
+         swing
+         thrust
+      both3
+         swing
+         thrust
+   muscle
+      one
+      both
+      
+      
+      
 
 
 

@@ -660,51 +660,6 @@ where Id = 10014;
 update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 1)
 where Id = 10014;
--- ********************************************************************* Stun Gun
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
-10015,
-'Weapon',
-'Stun Gun',
-JSON_OBJECT(),
-JSON_OBJECT()
-);
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"', JSON_OBJECT())
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."required skill group"', 3)
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"', JSON_OBJECT())
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"."Damage"', 'HT-3(0.5) aff')
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"."Reach"', 'C,1')
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"."Parry"', 'No')
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"."ST"', 2)
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."one"."trigger"."Notes"', '5')
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."stats"', JSON_OBJECT())
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."stats"."TL"', 8)
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."stats"."Cost"', 100)
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."stats"."Weight"', 1)
-where Id = 10015;
-
 
 -- ********************************************************************* Light Club
 insert into Objects (Id, ClassType, Name, Definition, Body) values (
@@ -2519,20 +2474,6 @@ where Id = 10045;
 
 
 
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"', JSON_OBJECT())
-where Id = 10015;
-update Objects set Definition =
-JSON_INSERT(Definition, '$."handling"."trigger"."one"', JSON_query(
-Definition,
-'$."handling"."strokes"."one"'
-))
-where Id = 10015;
-update Objects set Definition =
-JSON_remove(Definition, '$."handling"."strokes"')
-where Id = 10015;
-
-
 
 
 
@@ -3159,6 +3100,41 @@ where Id = 10043;
 
 
 
+-- ********************************************************************* Stun Gun
+insert into Objects (Id, ClassType, Name, Definition) values (
+10015,
+'Weapon',
+'Stun Gun',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 8,
+"Cost": 100,
+"Weight": 1
+},
+"handling": 
+{
+"strokes": 
+{
+"one": 
+{
+"required skill group": 3,
+"any":
+{
+"Damage": "HT-3(0.5) aff",
+"Reach": "C,1",
+"Parry": "No",
+"ST": 2,
+"Notes": "5"
+}
+}
+}
+}
+}'
+where Id = 10015;
 
 
 
@@ -3167,7 +3143,7 @@ where Id = 10043;
 
 
 
-select Id, Name, json_detailed(Definition) from Objects where Id = 10043;
+select Id, Name, json_detailed(Definition) from Objects;
 
 
 
