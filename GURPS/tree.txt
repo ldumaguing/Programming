@@ -45,3 +45,56 @@ handling
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select aaa.Name, aaa.Damage from (
+select Name, json_value(Definition, '$.handling.strokes.one.any.Damage') as Damage from Objects
+) aaa
+where
+aaa.Damage is not null;
+
+
+select aaa.Name, aaa.Damage from (
+select Name, json_value(Definition, '$.handling.strokes.one.swing.Damage') as Damage from Objects
+) aaa
+where
+aaa.Damage is not null;
+
+
+select aaa.Name, aaa.Damage from (
+select Name, json_value(Definition, '$.handling.strokes.one.thrust.Damage') as Damage from Objects
+) aaa
+where
+aaa.Damage is not null;
+
+
+select aaa.Name, aaa.Damage from (
+select Name, json_value(Definition, '$.handling.strokes.one.any.Damage') as Damage from Objects
+union all
+select Name, json_value(Definition, '$.handling.strokes.one.swing.Damage') as Damage from Objects
+union all
+select Name, json_value(Definition, '$.handling.strokes.one.thrust.Damage') as Damage from Objects
+) aaa
+where
+aaa.Damage is not null
+order by
+aaa.Name;
+
+
+
+
+
+
