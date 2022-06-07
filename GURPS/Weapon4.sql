@@ -1437,27 +1437,379 @@ update Objects set Definition =
 }}}}'
 where Id = 10116;
 
+-- ********************************************************************* Electrolaser Pistol
+insert into Objects (Id, ClassType, Name, Definition) values (
+10117,
+'Weapon',
+'Electrolaser Pistol',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 9,
+"Cost": 1800,
+"Weight": "2.2/0.5"
+},
+"handling": 
+{
+"trigger": 
+{
+"one": 
+{
+"required skill group": 45,
+"Damage": ["1d-3 burn", "HT-4(2) aff"],
+"Acc": 4,
+"Range": "40/80",
+"RoF": 3,
+"Shots": "180(3)",
+"ST": 4,
+"Bulk": -2,
+"Recoil": 1,
+"Notes": "1,2,3"
+}}}}'
+where Id = 10117;
 
+-- ********************************************************************* Laser Pistol
+insert into Objects (Id, ClassType, Name, Definition) values (
+10118,
+'Weapon',
+'Laser Pistol',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 10,
+"Cost": 2800,
+"Weight": "3.3/0.5"
+},
+"handling": 
+{
+"trigger": 
+{
+"one": 
+{
+"required skill group": 45,
+"Damage": "3d(2) burn",
+"Acc": 6,
+"Range": "250/750",
+"RoF": 10,
+"Shots": "400(3)",
+"ST": 6,
+"Bulk": -2,
+"Recoil": 1,
+"Notes": "3"
+}}}}'
+where Id = 10118;
 
+-- ********************************************************************* Blaster Pistol
+insert into Objects (Id, ClassType, Name, Definition) values (
+10119,
+'Weapon',
+'Blaster Pistol',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 11,
+"Cost": 2200,
+"Weight": "1.6/0.5"
+},
+"handling": 
+{
+"trigger": 
+{
+"one": 
+{
+"required skill group": 45,
+"Damage": "3d(5) burn",
+"Acc": 5,
+"Range": "300/900",
+"RoF": 3,
+"Shots": "200(3)",
+"ST": 4,
+"Bulk": -2,
+"Recoil": 1,
+"Notes": "4,5"
+}}}}'
+where Id = 10119;
 
+-- ********************************************************************* Electrolaser Carbine
+insert into Objects (Id, ClassType, Name, Definition) values (
+10120,
+'Weapon',
+'Electrolaser Carbine',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 9,
+"Cost": 3900,
+"Weight": "3.7/1"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 46,
+"Damage": ["1d-3 burn", "HT-4(2) aff"],
+"Acc": "8+1",
+"Range": "160/470",
+"RoF": 3,
+"Shots": "360(3)",
+"ST": "4†",
+"Bulk": -4,
+"Recoil": 1,
+"Notes": "1,2,3"
+}}}}'
+where Id = 10120;
 
+-- ********************************************************************* Laser Sniper Rifle
+insert into Objects (Id, ClassType, Name, Definition) values (
+10121,
+'Weapon',
+'Laser Sniper Rifle',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 9,
+"Cost": 20000,
+"Weight": "20/4p"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 46,
+"Damage": "5d(2) burn",
+"Acc": "12+2",
+"Range": "1100/3300",
+"RoF": 3,
+"Shots": "75(3)",
+"ST": "10†",
+"Bulk": -8,
+"Recoil": 1,
+"Notes": "3"
+}}}}'
+where Id = 10121;
 
+-- ********************************************************************* Laser Rifle
+insert into Objects (Id, ClassType, Name, Definition) values (
+10122,
+'Weapon',
+'Laser Rifle',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 10,
+"Cost": 10000,
+"Weight": "10/2"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 46,
+"Damage": "5d(2) burn",
+"Acc": "12+2",
+"Range": "700/2100",
+"RoF": 10,
+"Shots": "150(3)",
+"ST": "7†",
+"Bulk": -4,
+"Recoil": 1,
+"Notes": "3"
+}}}}'
+where Id = 10122;
 
+-- ********************************************************************* Blaster Rifle
+insert into Objects (Id, ClassType, Name, Definition) values (
+10123,
+'Weapon',
+'Blaster Rifle',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 11,
+"Cost": 18000,
+"Weight": "10/1"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 46,
+"Damage": "6d(5) burn",
+"Acc": "10+2",
+"Range": "700/2100",
+"RoF": 3,
+"Shots": "50(3)",
+"ST": "7†",
+"Bulk": -4,
+"Recoil": 1,
+"Notes": "4,5"
+}}}}'
+where Id = 10123;
 
+-- ********************************************************************* Heavy Blaster
+insert into Objects (Id, ClassType, Name, Definition) values (
+10124,
+'Weapon',
+'Heavy Blaster',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 11,
+"Cost": 23000,
+"Weight": "20/4p"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 46,
+"Damage": "8d(5) burn",
+"Acc": "10+4",
+"Range": "900/2700",
+"RoF": 3,
+"Shots": "90(5)",
+"ST": "10†",
+"Bulk": -6,
+"Recoil": 1,
+"Notes": "4"
+}}}}'
+where Id = 10124;
 
+-- ********************************************************************* ATGM, 115mm
+insert into Objects (Id, ClassType, Name, Definition) values (
+10125,
+'Weapon',
+'ATGM, 115mm',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 7,
+"Cost": 20000,
+"Weight": "37/26"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 47,
+"Damage": "6dx10(10) cr ex",
+"Acc": 3,
+"Range": "200/2000",
+"RoF": 1,
+"Shots": "1(20)",
+"ST": "11B†",
+"Bulk": -10,
+"Recoil": 1,
+"Notes": "1,2,3"
+}}}}'
+where Id = 10125;
 
+-- ********************************************************************* SAM, 70mm
+insert into Objects (Id, ClassType, Name, Definition) values (
+10126,
+'Weapon',
+'SAM, 70mm',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 8,
+"Cost": 38000,
+"Weight": "18/22"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 47,
+"Damage": "6dx3 cr ex[6d]",
+"Acc": 7,
+"Range": "1000/8800",
+"RoF": 1,
+"Shots": "1(20)",
+"ST": "10†",
+"Bulk": -8,
+"Recoil": 1,
+"Notes": "1,2,4"
+}}}}'
+where Id = 10126;
 
-
-
-
-
-
-
-
-
-
-
-
+-- ********************************************************************* Scorpion
+insert into Objects (Id, ClassType, Name, Definition) values (
+10127,
+'Weapon',
+'Scorpion',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 2,
+"Cost": 5000,
+"Weight": "110/0.9"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 48,
+"Damage": "5d imp",
+"Acc": 3,
+"Range": "415/520",
+"RoF": 1,
+"Shots": "1(30)",
+"ST": "45M†",
+"Bulk": -10,
+"Recoil": null,
+"Notes": null
+}}}}'
+where Id = 10127;
 
 
 
