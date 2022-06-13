@@ -1459,7 +1459,7 @@ update Objects set Definition =
 "one": 
 {
 "required skill group": 45,
-"Damage": ["1d-3 burn", "HT-4(2) aff"],
+"Damages": ["1d-3 burn", "HT-4(2) aff"],
 "Acc": 4,
 "Range": "40/80",
 "RoF": 3,
@@ -1561,7 +1561,7 @@ update Objects set Definition =
 "both": 
 {
 "required skill group": 46,
-"Damage": ["1d-3 burn", "HT-4(2) aff"],
+"Damages": ["1d-3 burn", "HT-4(2) aff"],
 "Acc": "8+1",
 "Range": "160/470",
 "RoF": 3,
