@@ -138,7 +138,7 @@ where Id = 10131;
 
 -- ********************************************************************* RPG, 85mm
 insert into Objects (Id, ClassType, Name, Definition) values (
-10131,
+10132,
 'Weapon',
 'RPG, 85mm',
 JSON_OBJECT()
@@ -168,11 +168,11 @@ update Objects set Definition =
 "Recoil": 1,
 "Notes": "2,7"
 }}}}'
-where Id = 10131;
+where Id = 10132;
 
 -- ********************************************************************* LAW, 84mm
 insert into Objects (Id, ClassType, Name, Definition) values (
-10132,
+10133,
 'Weapon',
 'LAW, 84mm',
 JSON_OBJECT()
@@ -202,7 +202,7 @@ update Objects set Definition =
 "Recoil": 1,
 "Notes": "2,7"
 }}}}'
-where Id = 10132;
+where Id = 10133;
 
 
 
