@@ -204,13 +204,141 @@ update Objects set Definition =
 }}}}'
 where Id = 10133;
 
+-- ********************************************************************* Auto Rifle, 7.62mm
+insert into Objects (Id, ClassType, Name, Definition) values (
+10134,
+'Weapon',
+'Auto Rifle, 7.62mm',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 6,
+"Cost": 6500,
+"Weight": "22/1.6"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 52,
+"Damage": "7d pi",
+"Acc": 5,
+"Range": "1000/4200",
+"RoF": "9!",
+"Shots": "20(3)",
+"ST": "12B†",
+"Bulk": -6,
+"Recoil": 3,
+"Notes": null
+}}}}'
+where Id = 10134;
 
+-- ********************************************************************* LMG, 7.62mm
+insert into Objects (Id, ClassType, Name, Definition) values (
+10135,
+'Weapon',
+'LMG, 7.62mm',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 6,
+"Cost": 6600,
+"Weight": "30/6"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 52,
+"Damage": "7d pi",
+"Acc": 5,
+"Range": "1000/4200",
+"RoF": "15!",
+"Shots": "100(5)",
+"ST": "13B†",
+"Bulk": -6,
+"Recoil": 2,
+"Notes": null
+}}}}'
+where Id = 10135;
 
+-- ********************************************************************* SAW, 5.56mm
+insert into Objects (Id, ClassType, Name, Definition) values (
+10136,
+'Weapon',
+'SAW, 5.56mm',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 7,
+"Cost": 4800,
+"Weight": "24/7"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 52,
+"Damage": "5d+1 pi",
+"Acc": 5,
+"Range": "800/3500",
+"RoF": "12!",
+"Shots": "200(5)",
+"ST": "12B†",
+"Bulk": -6,
+"Recoil": 2,
+"Notes": null
+}}}}'
+where Id = 10136;
 
-
-
-
-
+-- ********************************************************************* Flamethrower
+insert into Objects (Id, ClassType, Name, Definition) values (
+10137,
+'Weapon',
+'Flamethrower',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"stats": 
+{
+"TL": 6,
+"Cost": 1800,
+"Weight": "24/7"
+},
+"handling": 
+{
+"trigger": 
+{
+"both": 
+{
+"required skill group": 53,
+"Damage": "3d burn",
+"Acc": null,
+"Range": 50,
+"RoF": 70,
+"Shots": 10,
+"ST": "10†",
+"Bulk": -8,
+"Recoil": null,
+"Notes": null
+}}}}'
+where Id = 10137;
 
 
 
