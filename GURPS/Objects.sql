@@ -3,6 +3,7 @@ create table Objects (
 	Id          int unsigned primary key,
 	ClassType   varchar(128),
 	Name        varchar(128),
-	Definition  json
+	Definition  json,
+	Body        json
 );
 
