@@ -36,6 +36,50 @@ update Objects set Definition =
 }'
 where Id = 20001;
 
+-- ********************************************************************* Bronze Breastplate
+insert into Objects (Id, ClassType, Name, Definition) values (
+20002,
+'Armor',
+'Bronze Breastplate',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 1,
+"Locations": ["torso"],
+"DR": "4F",
+"Cost": 400,
+"Weight": 20,
+"Notes": "2"
+}'
+where Id = 20002;
+
+-- ********************************************************************* Bronze Corselet
+insert into Objects (Id, ClassType, Name, Definition) values (
+20003,
+'Armor',
+'Bronze Corselet',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 1,
+"Locations": ["torso", "groin"],
+"DR": 5,
+"Cost": 1300,
+"Weight": 40,
+"Notes": null
+}'
+where Id = 20003;
+
+
+
+
+
+
+
+
+
 
 
 
