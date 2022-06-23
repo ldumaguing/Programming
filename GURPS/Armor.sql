@@ -72,6 +72,94 @@ update Objects set Definition =
 }'
 where Id = 20003;
 
+-- ********************************************************************* Cloth Armor
+insert into Objects (Id, ClassType, Name, Definition) values (
+20004,
+'Armor',
+'Cloth Armor',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 1,
+"Locations": ["torso", "groin"],
+"DR": "1*",
+"Cost": 30,
+"Weight": 6,
+"Notes": "1"
+}'
+where Id = 20004;
+
+-- ********************************************************************* Leather Armor
+insert into Objects (Id, ClassType, Name, Definition) values (
+20005,
+'Armor',
+'Leather Armor',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 1,
+"Locations": ["torso", "groin"],
+"DR": 2,
+"Cost": 100,
+"Weight": 10,
+"Notes": null
+}'
+where Id = 20005;
+
+-- ********************************************************************* Leather Jacket
+insert into Objects (Id, ClassType, Name, Definition) values (
+20006,
+'Armor',
+'Leather Jacket',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 1,
+"Locations": ["torso", "arms"],
+"DR": "1*",
+"Cost": 50,
+"Weight": 4,
+"Notes": "1"
+}'
+where Id = 20006;
+
+-- ********************************************************************* Light Scale Armor
+insert into Objects (Id, ClassType, Name, Definition) values (
+20007,
+'Armor',
+'Light Scale Armor',
+JSON_OBJECT()
+);
+update Objects set Definition =
+'{
+"TL": 2,
+"Locations": ["torso"],
+"DR": 3,
+"Cost": 150,
+"Weight": 15,
+"Notes": null
+}'
+where Id = 20007;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
