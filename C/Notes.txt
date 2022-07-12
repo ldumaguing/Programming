@@ -1,0 +1,1 @@
+cc test.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient_r
