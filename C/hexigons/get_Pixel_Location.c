@@ -31,7 +31,11 @@ int main (int argc, char *argv[]) {
 
 	// Row
 	int delta_x = x1 - x0;
-	printf("%d\n", delta_x);
+	int x_scale = 0;
+	if (nX % 2) {   // odd
+		puts("x1"); }
+	else {          // even
+		puts("x0"); }
 
 
 
