@@ -20,30 +20,38 @@ int main (int argc, char *argv[]) {
 	int x = atoi(argv[7]);
 	int y = atoi(argv[8]);
 
-	// Column
+	double x_scale, y_scale;
+
 	// get_Pixel_Location  149 115 4826 19 3116 21 10 10
+	// get_Pixel_Location  149 115 4566 18 3116 21 10 10
+
+
+	// Column
    int delta_y = y2 - y0;
-	int y_scale = (double)delta_y / (nY - 1);
-	printf("%d\n", y_scale);
-	if (y_scale < 18) {
+	y_scale = (double)delta_y / (nY - 1);
+	if (y_scale < 18.0) {
 		puts("Y scale is too small.");
 		return 0; }
 
 	// Row
 	int delta_x = x1 - x0;
-	int x_scale = 0;
+	double cos30 = cos(M_PI / 6.0);
+	x_scale = (double)delta_x / ((nX * 2) - 2);
+	/*
 	if (nX % 2) {   // odd
-		puts("x1"); }
+		x_scale = (double)delta_x / ((nX * 2) - 2); }
 	else {          // even
+		printf(">> %d\n", (nX * 2) - 2);
+		x_scale = (double)delta_x / ((nX * 2) - 2);
 		puts("x0"); }
+	*/
 
 
 
 
 
 
-
-	//printf("%.8f\n", cos(M_PI / 6.0));
+	printf("%d %d %f %d\n", (int)(x_scale * x) + x0, (int)(y_scale * y) + y0, y_scale, delta_y);
 
 	return 0;	
 }
