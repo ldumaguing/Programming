@@ -44,9 +44,8 @@ int main (int argc, char *argv[]) {
 	printf("%d %d\n", pX, pY);
 
 	printf("%f %d\n", y_scale, delta_y);
-	printf("%f\n", (delta_y * 20) / y_scale);
-	return 0;	
-}
+	printf("%f\n", (delta_y * 30) / y_scale);
+	return 0; }
 
 // ***************************************************************************************
 void instructions() {
@@ -83,5 +82,4 @@ void instructions() {
 	puts("   / __,y2 \\");
 	puts("   \\  nY   /");
 	puts("    \\_____/");
-	puts("");
-}
+	puts(""); }
