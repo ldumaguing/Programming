@@ -38,8 +38,11 @@ int main (int argc, char *argv[]) {
 	double cos30 = cos(M_PI / 6.0);
 	x_scale = (double)delta_x / ((nX * 2) - 2);
 
+	// OUTPUT
+	int pX = (int)(x_scale * x) + x0;
+	int pY = (int)(y_scale * y) + y0 + ((x % 2) ? y0 : 0);
+	printf("%d %d\n", pX, pY);
 
-	printf("%d %d\n", (int)(x_scale * x) + x0, (int)(y_scale * y) + y0);
 	printf("%f %d\n", y_scale, delta_y);
 	printf("%f\n", (delta_y * 20) / y_scale);
 	return 0;	
@@ -60,11 +63,11 @@ void instructions() {
 	puts("   y: Hexagon's Y ID to query its pixel location");
 	puts("   *****");
 	puts("   OUTPUT: pixel location of the queried hexagon");
-	puts("     _____                                           _____");
-	puts("    /     \\                                         /     \\");
-	puts("   / x0,y0 \\_____                             _____/ x1,__ \\");
-	puts("   \\   1   /     \\                           /     \\  nX   /");
-	puts("    \\_____/   .   \\ . . . . . . . . . . . . /   .   \\_____/");
+	puts("     _____         _____                             _____");
+	puts("    /     \\       /     \\                           /     \\");
+	puts("   / x0,y0 \\_____/ __,__ \\                    _____/ x1,__ \\");
+	puts("   \\   1   /     \\   2   /                   /     \\  nX   /");
+	puts("    \\_____/   .   \\_____/ . . . . . . . . . /   .   \\_____/");
 	puts("       .");
 	puts("       .");
 	puts("       .");
@@ -75,10 +78,10 @@ void instructions() {
 	puts("       .                  \\_____/");
 	puts("       .");
 	puts("       .");
-	puts("       .");
 	puts("     _____");
 	puts("    /     \\");
 	puts("   / __,y2 \\");
 	puts("   \\  nY   /");
 	puts("    \\_____/");
+	puts("");
 }
