@@ -37,22 +37,11 @@ int main (int argc, char *argv[]) {
 	int delta_x = x1 - x0;
 	double cos30 = cos(M_PI / 6.0);
 	x_scale = (double)delta_x / ((nX * 2) - 2);
-	/*
-	if (nX % 2) {   // odd
-		x_scale = (double)delta_x / ((nX * 2) - 2); }
-	else {          // even
-		printf(">> %d\n", (nX * 2) - 2);
-		x_scale = (double)delta_x / ((nX * 2) - 2);
-		puts("x0"); }
-	*/
 
 
-
-
-
-
-	printf("%d %d %f %d\n", (int)(x_scale * x) + x0, (int)(y_scale * y) + y0, y_scale, delta_y);
-
+	printf("%d %d\n", (int)(x_scale * x) + x0, (int)(y_scale * y) + y0);
+	printf("%f %d\n", y_scale, delta_y);
+	printf("%f\n", (delta_y * 20) / y_scale);
 	return 0;	
 }
 
