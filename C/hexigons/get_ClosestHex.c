@@ -24,12 +24,20 @@ int main (int argc, char *argv[]) {
 
 	int d;
 	int location[] = {0, 0};
-	for (d=0; d<6; d++) {
+	int loc[] = {0, 0};
+	get_OtherHex(x0, y0, 0, location);
+	double dist = get_Distance(location[0], location[1], x1, y1);
+	for (d=1; d<6; d++) {
 		get_OtherHex(x0, y0, d, location);
-		printf("%d %d %f\n", location[0], location[1],
-			get_Distance(location[0], location[1], x1, y1));
+		double dst = get_Distance(location[0], location[1], x1, y1);
+		printf("%d %d %f\n", location[0], location[1], dst);
+		if (dist >= dst) {
+			loc[0] = location[0];
+			loc[1] = location[1];
+			dist = dst;}
 		}
 
+printf("...%d %d %f\n", loc[0], loc[1], dist);
 	return 0; }
 
 // =======================================================================================
