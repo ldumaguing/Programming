@@ -21,7 +21,7 @@ int main (int argc, char *argv[]) {
 	int FROM[] = {atoi(argv[1]), atoi(argv[2])};
 	int TO[] = {atoi(argv[3]), atoi(argv[4])};
 	double ref_angle = get_Degrees(FROM[0], FROM[1], TO[0], TO[1]);
-	printf("%f\n", ref_angle);
+	//printf("%f\n", ref_angle);
 
 	int movingHex[] = {FROM[0], FROM[1]};
 	int queryHex[] = {0, 0};
@@ -29,24 +29,25 @@ int main (int argc, char *argv[]) {
 	double cmp_angles[2];  // old, new
 
 
-while (!((movingHex[0] == TO[0]) & (movingHex[0] == TO[0]))) {
-	cmp_angles[0] = 400.0;
-	cmp_angles[1] = 400.0;
-	for (int d=0; d<6; d++) {
-		get_OtherHex(movingHex[0], movingHex[1], d, queryHex);
-		double ang = get_Degrees(FROM[0], FROM[1], queryHex[0], queryHex[1]);
-		double delta_angle = (ang > ref_angle) ? (ang - ref_angle) : (ref_angle - ang);
-		cmp_angles[1] = delta_angle;
-		printf("%d %d ... %f --- %f\n", queryHex[0], queryHex[1], ang, delta_angle);
+	while (!((movingHex[0] == TO[0]) & (movingHex[0] == TO[0]))) {
+		cmp_angles[0] = 400.0;
+		cmp_angles[1] = 400.0;
+		for (int d=0; d<6; d++) {
+			get_OtherHex(movingHex[0], movingHex[1], d, queryHex);
+			double ang = get_Degrees(FROM[0], FROM[1], queryHex[0], queryHex[1]);
+			double delta_angle = (ang > ref_angle) ? (ang - ref_angle) : (ref_angle - ang);
+			cmp_angles[1] = delta_angle;
+			// printf("%d %d ... %f --- %f\n", queryHex[0], queryHex[1], ang, delta_angle);
 
-		if (cmp_angles[0] > cmp_angles[1]) {
-			candidateHex[0] = queryHex[0];
-			candidateHex[1] = queryHex[1];
-			cmp_angles[0] = cmp_angles[1]; }}
+			if (cmp_angles[0] > cmp_angles[1]) {
+				candidateHex[0] = queryHex[0];
+				candidateHex[1] = queryHex[1];
+				cmp_angles[0] = cmp_angles[1]; }}
 
-	movingHex[0] = candidateHex[0];
-	movingHex[1] = candidateHex[1];
-	printf("%d %d\n\n", movingHex[0], movingHex[1]); }
+		movingHex[0] = candidateHex[0];
+		movingHex[1] = candidateHex[1];
+		printf("%d %d\n", movingHex[0], movingHex[1]); }
+
 
 	return 0; }
 
@@ -55,7 +56,7 @@ double get_Degrees (int x0, int y0, int x1, int y1) {
 	double delta_X, delta_Y, distance;
 
 	if ((x0 == x1) & (y0 == y1)) {
-		puts("same space");
+		// puts("same space");
 		return -1000.0; }
 
 	if (x0 == x1) {
@@ -152,7 +153,7 @@ void get_OtherHex (int x0, int y0, int d, int location[]) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("get_ClosestHex2   x0   y0   x1   y2");
+	puts("get_Path   x0   y0   x1   y2");
 	puts("   x0: first hex's X location");
 	puts("   y0: first hex's Y location");
 	puts("   x1: second hex's X location");
