@@ -10,6 +10,7 @@ void instructions(void);
 void get_OtherHex (int, int, int, int[]);
 double get_Degrees (int, int, int, int);
 double print_degrees(double, double, int, int, int, int);
+double get_Distance(int, int, int, int);
 
 // ***************************************************************************************
 int main (int argc, char *argv[]) {
@@ -21,35 +22,70 @@ int main (int argc, char *argv[]) {
 	int FROM[] = {atoi(argv[1]), atoi(argv[2])};
 	int TO[] = {atoi(argv[3]), atoi(argv[4])};
 	double ref_angle = get_Degrees(FROM[0], FROM[1], TO[0], TO[1]);
-	//printf("%f\n", ref_angle);
+	printf("%f\n", ref_angle);
 
 	int movingHex[] = {FROM[0], FROM[1]};
 	int queryHex[] = {0, 0};
 	int candidateHex[] = {0, 0};
 	double cmp_angles[2];  // old, new
+	double cmp_distances[2];  // old, new
 
-
-	while (!((movingHex[0] == TO[0]) & (movingHex[0] == TO[0]))) {
+	while (!((movingHex[0] == TO[0]) & (movingHex[1] == TO[1]))) {
 		cmp_angles[0] = 400.0;
 		cmp_angles[1] = 400.0;
+		cmp_distances[0] = get_Distance(movingHex[0], movingHex[1], TO[0], TO[1]);
+		cmp_distances[1] = cmp_distances[0];
 		for (int d=0; d<6; d++) {
 			get_OtherHex(movingHex[0], movingHex[1], d, queryHex);
 			double ang = get_Degrees(FROM[0], FROM[1], queryHex[0], queryHex[1]);
 			double delta_angle = (ang > ref_angle) ? (ang - ref_angle) : (ref_angle - ang);
 			cmp_angles[1] = delta_angle;
-			// printf("%d %d ... %f --- %f\n", queryHex[0], queryHex[1], ang, delta_angle);
+			cmp_distances[1] = get_Distance(queryHex[0], queryHex[1], TO[0], TO[1]);
+			//printf("%d %d ... %f --- %f +++ %f + %f\n", queryHex[0], queryHex[1], ang, delta_angle,
+			//	cmp_distances[0], cmp_distances[1]);
 
 			if (cmp_angles[0] > cmp_angles[1]) {
-				candidateHex[0] = queryHex[0];
-				candidateHex[1] = queryHex[1];
-				cmp_angles[0] = cmp_angles[1]; }}
+				if (cmp_distances[0] > cmp_distances[1]) {
+					candidateHex[0] = queryHex[0];
+					candidateHex[1] = queryHex[1];
+					cmp_angles[0] = cmp_angles[1];
+					cmp_distances[0] = cmp_distances[1]; }}}
 
 		movingHex[0] = candidateHex[0];
 		movingHex[1] = candidateHex[1];
-		printf("%d %d\n", movingHex[0], movingHex[1]); }
+		printf("%d %d\n", movingHex[0], movingHex[1]);
+		}
 
 
 	return 0; }
+	
+// ***************************************************************************************
+double get_Distance(int x0, int y0, int x1, int y1) {
+	double delta_X, delta_Y;
+	
+	if ((x0 == x1) & (y0 == y1)) return 0.0;
+
+	if (x0 == x1) return (double)abs(y0 - y1);
+
+	if ((x0 % 2) != (x1 % 2)) {    // uneven
+		if (x0 % 2) {    //  odd
+			if (y0 < y1)
+				delta_Y = abs(y0 - y1) - 0.5;
+			else
+				delta_Y = abs(y0 - y1) + 0.5; }
+		else {
+			if (y0 <= y1)
+				delta_Y = abs(y0 - y1) + 0.5;
+			else
+				delta_Y = abs(y0 - y1) - 0.5; }
+
+		delta_X = abs(x0 - x1) * cos(M_PI / 6.0);
+		return sqrt((delta_X * delta_X) + (delta_Y * delta_Y)); }
+
+
+	delta_X = abs(x0 - x1) * cos(M_PI / 6.0);
+	delta_Y = abs(y0 - y1);
+	return sqrt((delta_X * delta_X) + (delta_Y * delta_Y)); }
 
 // ***************************************************************************************
 double get_Degrees (int x0, int y0, int x1, int y1) {
