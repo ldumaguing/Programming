@@ -20,12 +20,9 @@ int main (int argc, char *argv[]) {
 
 	for (int d=0; d<6; d++) {
 		get_OtherHex(FROM[0], FROM[1], d, queryHex);
-		// printf("%d %d\n", queryHex[0], queryHex[1]);
 		if ((queryHex[0] == TO[0]) & (queryHex[1] == TO[1])) {
 			get_HexSpineID(FROM[0], FROM[1], d);
-			return 0;
-			}
-	}
+			return 0; }}
 
 
 	return -1; }
@@ -75,16 +72,7 @@ void get_HexSpineID (int x, int y, int d) {
 		return; }
 	if (d == 5) {
 		printf("%d %d F\n", x, y);
-		return; }
-
-
-
-
-
-
-
-
-	}
+		return; }}
 
 // ***************************************************************************************
 void get_OtherHex (int x0, int y0, int d, int queryHex[]) {
