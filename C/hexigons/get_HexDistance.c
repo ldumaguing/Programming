@@ -18,10 +18,12 @@ int main (int argc, char *argv[]) {
 		instructions();
 		return 0; }
 
+	int count = 0;
+
 	int FROM[] = {atoi(argv[1]), atoi(argv[2])};
 	int TO[] = {atoi(argv[3]), atoi(argv[4])};
 	double ref_angle = get_Degrees(FROM[0], FROM[1], TO[0], TO[1]);
-	printf("%f\n", ref_angle);
+	//printf("%f\n", ref_angle);
 
 	int movingHex[] = {FROM[0], FROM[1]};
 	int queryHex[] = {0, 0};
@@ -51,7 +53,8 @@ int main (int argc, char *argv[]) {
 
 			movingHex[0] = candidateHex[0];
 			movingHex[1] = candidateHex[1];
-			printf("%d %d\n", movingHex[0], movingHex[1]); }
+			// printf("%d %d\n", movingHex[0], movingHex[1]);
+			}
 
 
 		if (((FROM[1] - TO[1]) >= 0)   // NW
@@ -72,7 +75,8 @@ int main (int argc, char *argv[]) {
 
 			movingHex[0] = candidateHex[0];
 			movingHex[1] = candidateHex[1];
-			printf("%d %d\n", movingHex[0], movingHex[1]); }
+			// printf("%d %d\n", movingHex[0], movingHex[1]);
+			}
 
 
 		if (((FROM[1] - TO[1]) > 0)   // NE
@@ -93,7 +97,8 @@ int main (int argc, char *argv[]) {
 
 			movingHex[0] = candidateHex[0];
 			movingHex[1] = candidateHex[1];
-			printf("%d %d\n", movingHex[0], movingHex[1]); }
+			// printf("%d %d\n", movingHex[0], movingHex[1]);
+			}
 
 
 		if (((FROM[1] - TO[1]) < 0)   // SW
@@ -114,8 +119,11 @@ int main (int argc, char *argv[]) {
 
 			movingHex[0] = candidateHex[0];
 			movingHex[1] = candidateHex[1];
-			printf("%d %d\n", movingHex[0], movingHex[1]); }}
-
+			// printf("%d %d\n", movingHex[0], movingHex[1]);
+			}
+			
+			count++; }
+	printf("%d\n", count);
 	return 0; }
 	
 // ***************************************************************************************
@@ -220,13 +228,13 @@ void get_OtherHex (int x0, int y0, int d, int location[]) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("get_Path   x0   y0   x1   y2");
+	puts("get_HexDistance   x0   y0   x1   y2");
 	puts("   x0: first hex's X location");
 	puts("   y0: first hex's Y location");
 	puts("   x1: second hex's X location");
 	puts("   y1: second hex's Y location");
 	puts("   *****");
-	puts("   OUTPUT: a list of hexIDs representing the shortest path to the other hex");
+	puts("   OUTPUT: hex count distance");
 	puts("");
 	puts("         _____");
 	puts("        /     \\");
