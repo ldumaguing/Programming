@@ -1,11 +1,10 @@
 delete from Objects where Id >= 10000;
 
 -- ********************************************************************* Axe
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10000,
 'Weapon',
 'Axe',
-JSON_OBJECT(),
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -45,11 +44,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 4)
 where Id = 10000;
 -- ********************************************************************* Hatchet
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10001,
 'Weapon',
 'Hatchet',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -89,11 +88,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 8)
 where Id = 10001;
 -- ********************************************************************* Throwing Axe
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10002,
 'Weapon',
 'Throwing Axe',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -133,11 +132,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 4)
 where Id = 10002;
 -- ********************************************************************* Mace
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10003,
 'Weapon',
 'Mace',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -177,11 +176,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 5)
 where Id = 10003;
 -- ********************************************************************* Small Mace
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10004,
 'Weapon',
 'Small Mace',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -221,11 +220,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10004;
 -- ********************************************************************* Pick
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10005,
 'Weapon',
 'Pick',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -265,11 +264,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10005;
 -- ********************************************************************* Punch
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10006,
 'Weapon',
 'Punch',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -309,11 +308,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10006;
 -- ********************************************************************* Brass Knuckles
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10007,
 'Weapon',
 'Brass Knuckles',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -353,11 +352,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 0.25)
 where Id = 10007;
 -- ********************************************************************* Kick
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10008,
 'Weapon',
 'Kick',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -397,11 +396,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10008;
 -- ********************************************************************* Kick w. Boots
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10009,
 'Weapon',
 'Kick w. Boots',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -441,11 +440,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10009;
 -- ********************************************************************* Blunt Teeth
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10010,
 'Weapon',
 'Blunt Teeth',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -485,11 +484,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10010;
 -- ********************************************************************* Fangs
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10011,
 'Weapon',
 'Fangs',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -529,11 +528,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10011;
 -- ********************************************************************* Sharp Beak
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10012,
 'Weapon',
 'Sharp Beak',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -573,11 +572,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10012;
 -- ********************************************************************* Sharp Teeth
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10013,
 'Weapon',
 'Sharp Teeth',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -617,11 +616,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', null)
 where Id = 10013;
 -- ********************************************************************* Blackjack or Sap
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10014,
 'Weapon',
 'Blackjack or Sap',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -662,11 +661,11 @@ JSON_INSERT(Definition, '$."stats"."Weight"', 1)
 where Id = 10014;
 
 -- ********************************************************************* Light Club
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10016,
 'Weapon',
 'Light Club',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -724,11 +723,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10016;
 -- ********************************************************************* Broadsword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10017,
 'Weapon',
 'Broadsword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -786,11 +785,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10017;
 -- ********************************************************************* Thrusting Broadsword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10018,
 'Weapon',
 'Thrusting Broadsword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -848,11 +847,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10018;
 -- ********************************************************************* Bastard Sword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10019,
 'Weapon',
 'Bastard Sword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -910,11 +909,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 5)
 where Id = 10019;
 -- ********************************************************************* Katana
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10020,
 'Weapon',
 'Katana',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -972,11 +971,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 5)
 where Id = 10020;
 -- ********************************************************************* Thrusting Bastard Sword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10021,
 'Weapon',
 'Thrusting Bastard Sword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1034,11 +1033,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 5)
 where Id = 10021;
 -- ********************************************************************* Cavalry Saber
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10022,
 'Weapon',
 'Cavalry Saber',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1096,11 +1095,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 3)
 where Id = 10022;
 -- ********************************************************************* Morningstar
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10023,
 'Weapon',
 'Morningstar',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1140,11 +1139,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 6)
 where Id = 10023;
 -- ********************************************************************* Nunchaku
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10024,
 'Weapon',
 'Nunchaku',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1184,11 +1183,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 2)
 where Id = 10024;
 -- ********************************************************************* Force Sword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10025,
 'Weapon',
 'Force Sword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1228,11 +1227,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 2)
 where Id = 10025;
 -- ********************************************************************* Large Knife
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10026,
 'Weapon',
 'Large Knife',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1290,11 +1289,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 1)
 where Id = 10026;
 -- ********************************************************************* Small Knife
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10027,
 'Weapon',
 'Small Knife',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1352,11 +1351,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 0.5)
 where Id = 10027;
 -- ********************************************************************* Wooden Stake
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10028,
 'Weapon',
 'Wooden Stake',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1396,11 +1395,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 0.5)
 where Id = 10028;
 -- ********************************************************************* Dagger
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10029,
 'Weapon',
 'Dagger',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1440,11 +1439,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 0.25)
 where Id = 10029;
 -- ********************************************************************* Kusari
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10030,
 'Weapon',
 'Kusari',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1484,11 +1483,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 5)
 where Id = 10030;
 -- ********************************************************************* Lance
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10031,
 'Weapon',
 'Lance',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1528,11 +1527,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 6)
 where Id = 10031;
 -- ********************************************************************* Monowire Whip
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10032,
 'Weapon',
 'Monowire Whip',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1572,11 +1571,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 0.5)
 where Id = 10032;
 -- ********************************************************************* Glaive
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10033,
 'Weapon',
 'Glaive',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1634,11 +1633,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 8)
 where Id = 10033;
 -- ********************************************************************* Naginata
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10034,
 'Weapon',
 'Naginata',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1696,11 +1695,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 6)
 where Id = 10034;
 -- ********************************************************************* Halberd
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10035,
 'Weapon',
 'Halberd',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1776,11 +1775,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 12)
 where Id = 10035;
 -- ********************************************************************* Poleaxe
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10036,
 'Weapon',
 'Poleaxe',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1838,11 +1837,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 10)
 where Id = 10036;
 -- ********************************************************************* Rapier
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10037,
 'Weapon',
 'Rapier',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1882,11 +1881,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 2.75)
 where Id = 10037;
 -- ********************************************************************* Saber
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10038,
 'Weapon',
 'Saber',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -1944,11 +1943,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 2)
 where Id = 10038;
 -- ********************************************************************* Baton
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10039,
 'Weapon',
 'Baton',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -2006,11 +2005,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 1)
 where Id = 10039;
 -- ********************************************************************* Shortsword
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10040,
 'Weapon',
 'Shortsword',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -2068,11 +2067,11 @@ update Objects set Definition =
 JSON_INSERT(Definition, '$."stats"."Weight"', 2)
 where Id = 10040;
 -- ********************************************************************* Cutlass
-insert into Objects (Id, ClassType, Name, Definition, Body) values (
+insert into Objects (Id, ClassType, Name, Definition) values (
 10041,
 'Weapon',
 'Cutlass',
-JSON_OBJECT(),
+
 JSON_OBJECT()
 );
 update Objects set Definition =
@@ -3143,7 +3142,7 @@ where Id = 10015;
 
 
 
-select Id, Name, json_detailed(Definition) from Objects;
+-- select Id, Name, json_detailed(Definition) from Objects;
 
 
 

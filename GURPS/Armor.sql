@@ -186,6 +186,6 @@ where Id = 20007;
 
 
 
-select Id, Name, json_detailed(Definition) from Objects order by Id;
+-- select Id, Name, json_detailed(Definition) from Objects order by Id;
 
 

@@ -358,7 +358,7 @@ where Id = 10054;
 
 
 
-select Name, json_detailed(Definition) from Objects;
+-- select Name, json_detailed(Definition) from Objects;
 
 
 

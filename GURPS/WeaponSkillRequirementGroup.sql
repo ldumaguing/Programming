@@ -129,7 +129,7 @@ null),
 
 ;
 
-select * from WeaponSkillGroup;
+-- select * from WeaponSkillGroup;
 
 
 
