@@ -1,13 +1,13 @@
-delete from Objects where Id >= 20000;
+delete from Stuffs where Id >= 20000;
 
 -- ********************************************************************* Fur Loincloth
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20000,
 'Armor',
 'Fur Loincloth',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 0,
 "Locations": ["groin"],
@@ -19,13 +19,13 @@ update Objects set Definition =
 where Id = 20000;
 
 -- ********************************************************************* Fur Tunic
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20001,
 'Armor',
 'Fur Tunic',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 0,
 "Locations": ["torso"],
@@ -37,13 +37,13 @@ update Objects set Definition =
 where Id = 20001;
 
 -- ********************************************************************* Bronze Breastplate
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20002,
 'Armor',
 'Bronze Breastplate',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 1,
 "Locations": ["torso"],
@@ -55,13 +55,13 @@ update Objects set Definition =
 where Id = 20002;
 
 -- ********************************************************************* Bronze Corselet
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20003,
 'Armor',
 'Bronze Corselet',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 1,
 "Locations": ["torso", "groin"],
@@ -73,13 +73,13 @@ update Objects set Definition =
 where Id = 20003;
 
 -- ********************************************************************* Cloth Armor
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20004,
 'Armor',
 'Cloth Armor',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 1,
 "Locations": ["torso", "groin"],
@@ -91,13 +91,13 @@ update Objects set Definition =
 where Id = 20004;
 
 -- ********************************************************************* Leather Armor
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20005,
 'Armor',
 'Leather Armor',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 1,
 "Locations": ["torso", "groin"],
@@ -109,13 +109,13 @@ update Objects set Definition =
 where Id = 20005;
 
 -- ********************************************************************* Leather Jacket
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20006,
 'Armor',
 'Leather Jacket',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 1,
 "Locations": ["torso", "arms"],
@@ -127,13 +127,13 @@ update Objects set Definition =
 where Id = 20006;
 
 -- ********************************************************************* Light Scale Armor
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 20007,
 'Armor',
 'Light Scale Armor',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "TL": 2,
 "Locations": ["torso"],
@@ -186,6 +186,6 @@ where Id = 20007;
 
 
 
--- select Id, Name, json_detailed(Definition) from Objects order by Id;
+-- select Id, Name, json_detailed(Definition) from Stuffs order by Id;
 
 

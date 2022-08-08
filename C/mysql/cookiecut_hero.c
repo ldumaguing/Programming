@@ -43,7 +43,7 @@ void create_instance(MYSQL* conn, char* name) {
 	int i = 0;
 
 	for (i = 0; i < 20; i++) {
-		sprintf(stmt, "insert into Instances (Id, Name) values (%d, '%s')", i, name);
+		sprintf(stmt, "insert into TheWorld (Id, Name) values (%d, '%s')", i, name);
 		puts(stmt);
 		if (mysql_query(conn, stmt))
 			continue;
@@ -54,7 +54,7 @@ void create_instance(MYSQL* conn, char* name) {
 // ---------------------------------------------------------------------------------------
 void fill_it(MYSQL* conn, int i) {
 	printf("%d\n", i);
-	if (mysql_query(conn, "select Definition from Objects where ClassType = 'Humanoid'")) {
+	if (mysql_query(conn, "select Definition from Stuffs where ClassType = 'Humanoid'")) {
 		puts("error SELECTing");
       return; }
 
@@ -66,7 +66,8 @@ void fill_it(MYSQL* conn, int i) {
 	MYSQL_ROW row;
 	row = mysql_fetch_row(result);
 	char Definition[512];
-	sprintf(Definition, "update Instances set Definition = '%s' where Id = %d", row[0], i); 
+	sprintf(Definition, "update TheWorld set Definition = '%s' where Id = %d", row[0], i); 
+	// sprintf(Definition, "update TheWorld set Definition = '{}' where Id = %d", i); 
 	if (mysql_query(conn, Definition))
 		puts("error UPDATEing");
 

@@ -1,5 +1,5 @@
-delete from Objects where Id = 5000;
-insert into Objects (Id, ClassType, Name, Definition) values (
+delete from Stuffs where Id = 5000;
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 5000,
 'Humanoid',
 'John Doe',
@@ -7,7 +7,7 @@ JSON_OBJECT()
 );
 
 -- ********************************************************************* Definition
-update Objects set  Definition =
+update Stuffs set  Definition =
 '{
 "basic attributes": {
 "ST": 10,

@@ -1,5 +1,5 @@
-drop table if exists Objects;
-create table Objects (
+drop table if exists Stuffs;
+create table Stuffs (
 	Id          int unsigned primary key,
 	ClassType   varchar(128),
 	Name        varchar(128),
@@ -7,8 +7,8 @@ create table Objects (
 );
 
 
-drop table if exists Instances;
-create table Instances (
+drop table if exists TheWorld;
+create table TheWorld (
 	Id          int unsigned primary key,
 	ClassType   varchar(128),
 	Name        varchar(128),

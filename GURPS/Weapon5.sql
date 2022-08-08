@@ -1,13 +1,13 @@
-delete from Objects where Id >= 10128;
+delete from Stuffs where Id >= 10128;
 
 -- ********************************************************************* HMG, .50
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10128,
 'Weapon',
 'HMG, .50',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -35,13 +35,13 @@ update Objects set Definition =
 where Id = 10128;
 
 -- ********************************************************************* Under-Barrel, 40mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10129,
 'Weapon',
 'Under-Barrel, 40mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -69,13 +69,13 @@ update Objects set Definition =
 where Id = 10129;
 
 -- ********************************************************************* Integral, 25mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10130,
 'Weapon',
 'Integral, 25mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -103,13 +103,13 @@ update Objects set Definition =
 where Id = 10130;
 
 -- ********************************************************************* Bazooka, 60mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10131,
 'Weapon',
 'Bazooka, 60mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -137,13 +137,13 @@ update Objects set Definition =
 where Id = 10131;
 
 -- ********************************************************************* RPG, 85mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10132,
 'Weapon',
 'RPG, 85mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -171,13 +171,13 @@ update Objects set Definition =
 where Id = 10132;
 
 -- ********************************************************************* LAW, 84mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10133,
 'Weapon',
 'LAW, 84mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -205,13 +205,13 @@ update Objects set Definition =
 where Id = 10133;
 
 -- ********************************************************************* Auto Rifle, 7.62mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10134,
 'Weapon',
 'Auto Rifle, 7.62mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -239,13 +239,13 @@ update Objects set Definition =
 where Id = 10134;
 
 -- ********************************************************************* LMG, 7.62mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10135,
 'Weapon',
 'LMG, 7.62mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -273,13 +273,13 @@ update Objects set Definition =
 where Id = 10135;
 
 -- ********************************************************************* SAW, 5.56mm
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10136,
 'Weapon',
 'SAW, 5.56mm',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -307,13 +307,13 @@ update Objects set Definition =
 where Id = 10136;
 
 -- ********************************************************************* Flamethrower
-insert into Objects (Id, ClassType, Name, Definition) values (
+insert into Stuffs (Id, ClassType, Name, Definition) values (
 10137,
 'Weapon',
 'Flamethrower',
 JSON_OBJECT()
 );
-update Objects set Definition =
+update Stuffs set Definition =
 '{
 "stats": 
 {
@@ -357,7 +357,7 @@ where Id = 10137;
 
 
 
--- select Id, Name, json_detailed(Definition) from Objects order by Id;
+-- select Id, Name, json_detailed(Definition) from Stuffs order by Id;
 
 
 
