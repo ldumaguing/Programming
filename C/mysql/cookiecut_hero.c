@@ -67,7 +67,10 @@ void fill_it(MYSQL* conn, int i) {
 	row = mysql_fetch_row(result);
 	char Definition[512];
 	sprintf(Definition, "update TheWorld set Definition = '%s' where Id = %d", row[0], i); 
-	// sprintf(Definition, "update TheWorld set Definition = '{}' where Id = %d", i); 
+	if (mysql_query(conn, Definition))
+		puts("error UPDATEing");
+
+	sprintf(Definition, "update TheWorld set ClassType = 'Humanoid' where Id = %d", i); 
 	if (mysql_query(conn, Definition))
 		puts("error UPDATEing");
 
