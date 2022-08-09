@@ -1,17 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <mysql.h>
 
 void instructions(void);
+void dispatch(char*, MYSQL*, char*);
+void set_name(char*, MYSQL*, char*);
+void set_ST(void);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
-	if ((argc == 1)
+	if ((argc <= 2)
 	| (argc > 3)) {
 		instructions();
 		return 0; }
 
-	printf("reading %s\n", argv[1]);
+	// ********** Database
+	MYSQL *conn;
+	if (!(conn = mysql_init(0))) {
+		fprintf(stderr, "unable to initialize connection struct\n");
+		exit(1); }
+
+	if (!mysql_real_connect(
+		conn,        // Connection
+		"localhost", // Host
+		"ayeka",     // User account
+		"",          // User password
+		"GURPS",     // Default database
+		3306,        // Port number
+		NULL,        // Path to socket file
+		0            // Additional options
+		)) {
+		fprintf(stderr, "Error connecting to Server: %s\n", mysql_error(conn));
+		mysql_close(conn);
+		exit(1); }
+
+
+	// ********** File reading
 	char buffer[256];
 	FILE *fp = fopen(argv[1], "r");
 	if (fp == NULL) {
@@ -20,13 +45,43 @@ int main (int argc, char* argv[]) {
 		return 0; }
 
 	while (fgets(buffer, 256, fp) != NULL) {
-		printf("%s", buffer);
+		dispatch(buffer, conn, argv[2]);
 		}
 
 
 
 	fclose(fp);
+	mysql_close(conn);
 	return 0;}
+// =======================================================================================
+void dispatch(char* line, MYSQL* conn, char* id) {
+	if (strspn(line, "-n") == 2) {
+		set_name(&line[3], conn, id);
+		return; }
+
+	if (strspn(line, "-ST") == 3) {
+		set_ST();
+		return; }
+}
+
+// ---------------------------------------------------------------------------------------
+void set_ST() {
+	puts("ST");
+}
+
+// ---------------------------------------------------------------------------------------
+void set_name(char* val, MYSQL* conn, char* id) {
+	char name[160];
+	for (int i=0; i<160; ++i) name[i] = 0;
+	int len = strlen(val) - 1;  // removing newline
+	strncpy(name, val, len);
+
+	char stmt[512];
+	sprintf(stmt, "update TheWorld set Name = '%s' where Id = %s", name, id);
+	if (mysql_query(conn, stmt))
+		puts("error UPDATEing");
+
+}
 
 // ***************************************************************************************
 void instructions() {
