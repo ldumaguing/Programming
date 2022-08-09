@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <mysql.h>
 
 void instructions(void);
@@ -8,6 +9,8 @@ void dispatch(char*, MYSQL*, char*);
 void set_name(char*, MYSQL*, char*);
 void set_BasicAttributes(char*, MYSQL*, char*, char*);
 void set_Secondaries(char*, MYSQL*, char*, char*);
+void calc_Thrust(char*, MYSQL*);
+void Thrust_1(int, MYSQL*, char*);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -48,11 +51,56 @@ int main (int argc, char* argv[]) {
 	while (fgets(buffer, 256, fp) != NULL) {
 		dispatch(buffer, conn, argv[2]); }
 
+	calc_Thrust(argv[2], conn);
 
-
+	// ********** Closing
 	fclose(fp);
 	mysql_close(conn);
 	return 0; }
+	
+// =======================================================================================
+void calc_Thrust(char* id, MYSQL* conn) {
+	char stmt[512];
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"ST\"')"
+		" from TheWorld"
+		" where Id = %s", id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading ST");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+
+	if ((val >= 1) & (val <= 18)) {
+		Thrust_1(val, conn, id);
+		return; }
+
+}
+
+// ---------------------------------------------------------------------------------------
+void Thrust_1(int val, MYSQL* conn, char* id) {
+	char dice[80];
+	int modifier = round(val / 2.0) - 7;
+	if (modifier < 0)
+		sprintf(dice, "1d%d", modifier);
+	if (modifier == 0)
+		sprintf(dice, "1d");
+	if (modifier > 0)
+		sprintf(dice, "1d+%d", modifier);
+
+	char stmt[512];
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"damage\".\"thrust\"',"
+		" \"%s\")"
+		" where Id = %s", dice, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Secondary Characteristics"); }
 
 // =======================================================================================
 void dispatch(char* line, MYSQL* conn, char* id) {
@@ -84,8 +132,7 @@ void dispatch(char* line, MYSQL* conn, char* id) {
 		return; }
 	if (strspn(line, "-Per") == 4) {
 		set_Secondaries(&line[4], conn, id, "Per");
-		return; }
-}
+		return; }}
 
 // ---------------------------------------------------------------------------------------
 void set_Secondaries(char* val, MYSQL* conn, char* id, char* attr) {
@@ -96,8 +143,7 @@ void set_Secondaries(char* val, MYSQL* conn, char* id, char* attr) {
 		" '$.\"secondary characteristics\".\"%s\"', %d)"
 		" where Id = %s", attr, ST, id);
 	if (mysql_query(conn, stmt))
-		puts("error setting Secondary Characteristics");
-}
+		puts("error setting Secondary Characteristics"); }
 
 // ---------------------------------------------------------------------------------------
 void set_BasicAttributes(char* val, MYSQL* conn, char* id, char* attr) {
@@ -108,8 +154,7 @@ void set_BasicAttributes(char* val, MYSQL* conn, char* id, char* attr) {
 		" '$.\"basic attributes\".\"%s\"', %d)"
 		" where Id = %s", attr, ST, id);
 	if (mysql_query(conn, stmt))
-		puts("error setting Basic Attributes");
-}
+		puts("error setting Basic Attributes"); }
 
 // ---------------------------------------------------------------------------------------
 void set_name(char* val, MYSQL* conn, char* id) {
@@ -121,9 +166,7 @@ void set_name(char* val, MYSQL* conn, char* id) {
 	char stmt[512];
 	sprintf(stmt, "update TheWorld set Name = '%s' where Id = %s", name, id);
 	if (mysql_query(conn, stmt))
-		puts("error UPDATEing");
-
-}
+		puts("error UPDATEing"); }
 
 // ***************************************************************************************
 void instructions() {

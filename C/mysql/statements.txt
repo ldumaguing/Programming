@@ -18,7 +18,37 @@ where Id = 2
 
 
 
-        "HP": 0,
-        "Will": 0,
-        "Per": 0,
-        "FP": 0,
+
+UPDATE TheWorld
+	SET Definition = JSON_REPLACE(Definition,
+	'$."secondary characteristics"."damage"."thrust"',
+	100
+	)
+where Id = 2
+;
+
+
+
+
+
+
+
+SELECT
+	JSON_VALUE(Definition,
+	'$."basic attributes"."ST"'
+	)
+from TheWorld
+where Id = 2
+;
+
+
+SELECT JSON_VALUE(Definition, '$."basic attributes"."ST"') from TheWorld where Id = 2
+
+
+
+
+
+
+
+
+
