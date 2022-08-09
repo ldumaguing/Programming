@@ -1,0 +1,24 @@
+mysql GURPS -e "select Id, Name from TheWorld"
+
+
+mysql GURPS -e "
+select Name, json_detailed(Definition)
+from TheWorld
+where Id = 2
+"
+
+
+UPDATE TheWorld
+	SET Definition = JSON_REPLACE(Definition,
+	'$."basic attributes"."ST"',
+	100
+	)
+where Id = 2
+;
+
+
+
+        "HP": 0,
+        "Will": 0,
+        "Per": 0,
+        "FP": 0,

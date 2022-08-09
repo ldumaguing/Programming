@@ -6,7 +6,8 @@
 void instructions(void);
 void dispatch(char*, MYSQL*, char*);
 void set_name(char*, MYSQL*, char*);
-void set_ST(void);
+void set_BasicAttributes(char*, MYSQL*, char*, char*);
+void set_Secondaries(char*, MYSQL*, char*, char*);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -45,14 +46,14 @@ int main (int argc, char* argv[]) {
 		return 0; }
 
 	while (fgets(buffer, 256, fp) != NULL) {
-		dispatch(buffer, conn, argv[2]);
-		}
+		dispatch(buffer, conn, argv[2]); }
 
 
 
 	fclose(fp);
 	mysql_close(conn);
-	return 0;}
+	return 0; }
+
 // =======================================================================================
 void dispatch(char* line, MYSQL* conn, char* id) {
 	if (strspn(line, "-n") == 2) {
@@ -60,13 +61,54 @@ void dispatch(char* line, MYSQL* conn, char* id) {
 		return; }
 
 	if (strspn(line, "-ST") == 3) {
-		set_ST();
+		set_BasicAttributes(&line[3], conn, id, "ST");
+		return; }
+	if (strspn(line, "-DX") == 3) {
+		set_BasicAttributes(&line[3], conn, id, "DX");
+		return; }
+	if (strspn(line, "-IQ") == 3) {
+		set_BasicAttributes(&line[3], conn, id, "IQ");
+		return; }
+	if (strspn(line, "-HT") == 3) {
+		set_BasicAttributes(&line[3], conn, id, "HT");
+		return; }
+
+	if (strspn(line, "-HP") == 3) {
+		set_Secondaries(&line[3], conn, id, "HP");
+		return; }
+	if (strspn(line, "-FP") == 3) {
+		set_Secondaries(&line[3], conn, id, "FP");
+		return; }
+	if (strspn(line, "-Will") == 5) {
+		set_Secondaries(&line[5], conn, id, "Will");
+		return; }
+	if (strspn(line, "-Per") == 4) {
+		set_Secondaries(&line[4], conn, id, "Per");
 		return; }
 }
 
 // ---------------------------------------------------------------------------------------
-void set_ST() {
-	puts("ST");
+void set_Secondaries(char* val, MYSQL* conn, char* id, char* attr) {
+	int ST = atoi(val);
+	char stmt[512];
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"%s\"', %d)"
+		" where Id = %s", attr, ST, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Secondary Characteristics");
+}
+
+// ---------------------------------------------------------------------------------------
+void set_BasicAttributes(char* val, MYSQL* conn, char* id, char* attr) {
+	int ST = atoi(val);
+	char stmt[512];
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"basic attributes\".\"%s\"', %d)"
+		" where Id = %s", attr, ST, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Basic Attributes");
 }
 
 // ---------------------------------------------------------------------------------------
