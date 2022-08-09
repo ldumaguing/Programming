@@ -11,6 +11,8 @@ void set_BasicAttributes(char*, MYSQL*, char*, char*);
 void set_Secondaries(char*, MYSQL*, char*, char*);
 void calc_Thrust(char*, MYSQL*);
 void Thrust_1(int, MYSQL*, char*);
+void Thrust_2(int, MYSQL*, char*);
+void Thrust_3(int, MYSQL*, char*);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -79,8 +81,57 @@ void calc_Thrust(char* id, MYSQL* conn) {
 	if ((val >= 1) & (val <= 18)) {
 		Thrust_1(val, conn, id);
 		return; }
-
+	if ((val >= 19) & (val <= 34)) {
+		Thrust_2(val, conn, id);
+		return; }
+		/*
+	if ((val >= 35) & (val <= 44)) {
+		Thrust_3(val, conn, id);
+		return; }
+		*/
 }
+// ---------------------------------------------------------------------------------------
+/*
+void Thrust_3(int val, MYSQL* conn, char* id) {
+	char dice[80];
+	if ((val == 35) & (val == 36))
+		sprintf(dice, "4d-1");
+	if ((val == 37) & (val == 38))
+		sprintf(dice, "4d");
+	if ((val == 39) & (val < 45))
+		sprintf(dice, "4d+1");
+
+	char stmt[512];
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"damage\".\"thrust\"',"
+		" \"%s\")"
+		" where Id = %s", dice, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Secondary Characteristics"); }
+*/
+// ---------------------------------------------------------------------------------------
+void Thrust_2(int val, MYSQL* conn, char* id) {
+	char dice[80];
+	int x = 2;
+	if (val >=27) x = 3;
+	int modifier = round(val / 2.0) - 11;
+	if (val >=27) modifier = modifier - 4;
+	if (modifier < 0)
+		sprintf(dice, "%dd%d", x, modifier);
+	if (modifier == 0)
+		sprintf(dice, "%dd", x);
+	if (modifier > 0)
+		sprintf(dice, "%dd+%d", x, modifier);
+
+	char stmt[512];
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"damage\".\"thrust\"',"
+		" \"%s\")"
+		" where Id = %s", dice, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Secondary Characteristics"); }
 
 // ---------------------------------------------------------------------------------------
 void Thrust_1(int val, MYSQL* conn, char* id) {
