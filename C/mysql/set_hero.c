@@ -10,15 +10,6 @@ void set_name(char*, MYSQL*, char*);
 void set_BasicAttributes(char*, MYSQL*, char*, char*);
 void set_Secondaries(char*, MYSQL*, char*, char*);
 
-void calc_Thrust(char*, MYSQL*);
-void Thrust_1(int, MYSQL*, char*);
-void Thrust_2(int, MYSQL*, char*);
-void Thrust_3(int, MYSQL*, char*);
-void Thrust_4(int, MYSQL*, char*);
-void Thrust_5(int, MYSQL*, char*);
-void Thrust_6(int, MYSQL*, char*);
-void update_Thrust(char*, char*, MYSQL*);
-
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
 	if ((argc <= 2)
@@ -58,145 +49,11 @@ int main (int argc, char* argv[]) {
 	while (fgets(buffer, 256, fp) != NULL) {
 		dispatch(buffer, conn, argv[2]); }
 
-	calc_Thrust(argv[2], conn);
 
 	// ********** Closing
 	fclose(fp);
 	mysql_close(conn);
 	return 0; }
-	
-// =======================================================================================
-void calc_Thrust(char* id, MYSQL* conn) {
-	char stmt[512];
-	sprintf(stmt, "SELECT"
-		" JSON_VALUE(Definition,"
-		" '$.\"basic attributes\".\"ST\"')"
-		" from TheWorld"
-		" where Id = %s", id);
-	if (mysql_query(conn, stmt)) {
-		puts("error reading ST");
-		return; }
-	MYSQL_RES *result = mysql_store_result(conn);
-	if (result == NULL) {
-		puts("Null result");
-		return; }
-	MYSQL_ROW row = mysql_fetch_row(result);
-	int val = atoi(row[0]);
-
-	if ((val >= 1) & (val <= 18)) {
-		Thrust_1(val, conn, id);
-		return; }
-	if ((val >= 19) & (val <= 34)) {
-		Thrust_2(val, conn, id);
-		return; }
-	if ((val >= 35) & (val <= 44)) {
-		Thrust_3(val, conn, id);
-		return; }
-	if ((val >= 45) & (val <= 59)) {
-		Thrust_4(val, conn, id);
-		return; }
-	if ((val >= 60) & (val <= 109)) {
-		Thrust_5(val, conn, id);
-		return; }
-	if (val >= 110) {
-		Thrust_6(val, conn, id);
-		return; }
-}
-
-// ---------------------------------------------------------------------------------------
-void Thrust_6(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	int num = trunc(val / 10) + 1;
-	sprintf(dice, "%dd", num);
-
-	update_Thrust(dice, id, conn); }
-
-// ---------------------------------------------------------------------------------------
-void Thrust_5(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	int num = trunc(val / 10) + 1;
-	int modifier = 0;
-	if ((val >= 60) & (val <= 64))
-		modifier = -1;
-	if ((val >= 65) & (val <= 69))
-		modifier = 1;
-	if (((val >= 75) & (val <= 79))
-		| ((val >= 85) & (val <= 89))
-		| ((val >= 95) & (val <= 99)))
-		modifier = 2;
-
-	if (modifier < 0)
-		sprintf(dice, "%dd%d", num, modifier);
-	if (modifier == 0)
-		sprintf(dice, "%dd", num);
-	if (modifier > 0)
-		sprintf(dice, "%dd+%d", num, modifier);
-
-	update_Thrust(dice, id, conn); }
-
-// ---------------------------------------------------------------------------------------
-void Thrust_4(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	if ((val >= 45) & (val <= 49))
-		strcpy(dice, "5d");
-	if ((val >= 50) & (val <= 54))
-		strcpy(dice, "5d+2");
-	if ((val >= 55) & (val <= 59))
-		strcpy(dice, "6d");
-		
-	update_Thrust(dice, id, conn); }
-
-// ---------------------------------------------------------------------------------------
-void Thrust_3(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	if ((val == 35) | (val == 36))
-		strcpy(dice, "4d-1");
-	if ((val == 37) | (val == 38))
-		strcpy(dice, "4d");
-	if ((val >= 39) & (val < 45))
-		strcpy(dice, "4d+1");
-
-	update_Thrust(dice, id, conn); }
-
-// ---------------------------------------------------------------------------------------
-void Thrust_2(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	int num = 2;
-	if (val >= 27) num = 3;
-	int modifier = round(val / 2.0) - 11;
-	if (val >= 27) modifier = modifier - 4;
-	if (modifier < 0)
-		sprintf(dice, "%dd%d", num, modifier);
-	if (modifier == 0)
-		sprintf(dice, "%dd", num);
-	if (modifier > 0)
-		sprintf(dice, "%dd+%d", num, modifier);
-
-	update_Thrust(dice, id, conn); }
-
-// ---------------------------------------------------------------------------------------
-void Thrust_1(int val, MYSQL* conn, char* id) {
-	char dice[80];
-	int modifier = round(val / 2.0) - 7;
-	if (modifier < 0)
-		sprintf(dice, "1d%d", modifier);
-	if (modifier == 0)
-		sprintf(dice, "1d");
-	if (modifier > 0)
-		sprintf(dice, "1d+%d", modifier);
-
-	update_Thrust(dice, id, conn); }
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void update_Thrust(char* dice, char* id, MYSQL* conn) {
-	char stmt[512];
-	sprintf(stmt, "UPDATE TheWorld"
-		" SET Definition = JSON_REPLACE(Definition,"
-		" '$.\"secondary characteristics\".\"damage\".\"thrust\"',"
-		" \"%s\")"
-		" where Id = %s", dice, id);
-	if (mysql_query(conn, stmt))
-		puts("error thrust"); }
 
 // =======================================================================================
 void dispatch(char* line, MYSQL* conn, char* id) {

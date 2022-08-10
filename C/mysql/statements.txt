@@ -8,6 +8,10 @@ where Id = 2
 "
 
 
+
+
+
+
 UPDATE TheWorld
 	SET Definition = JSON_REPLACE(Definition,
 	'$."basic attributes"."ST"',
