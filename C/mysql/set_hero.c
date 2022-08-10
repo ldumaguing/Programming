@@ -8,7 +8,10 @@ void instructions(void);
 void dispatch(char*, MYSQL*, char*);
 void set_name(char*, MYSQL*, char*);
 void set_BasicAttributes(char*, MYSQL*, char*, char*);
+
 void set_Secondaries(char*, MYSQL*, char*, char*);
+void fix_Secondaries(MYSQL*, char*, char*);
+void fix_Secondaries_1(MYSQL*, char*, char*, char*);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -16,6 +19,7 @@ int main (int argc, char* argv[]) {
 	| (argc > 3)) {
 		instructions();
 		return 0; }
+
 
 	// ********** Database
 	MYSQL *conn;
@@ -76,16 +80,74 @@ void dispatch(char* line, MYSQL* conn, char* id) {
 
 	if (strspn(line, "-HP") == 3) {
 		set_Secondaries(&line[3], conn, id, "HP");
+		fix_Secondaries(conn, id, "HP");
 		return; }
 	if (strspn(line, "-FP") == 3) {
 		set_Secondaries(&line[3], conn, id, "FP");
+		fix_Secondaries(conn, id, "FP");
 		return; }
 	if (strspn(line, "-Will") == 5) {
 		set_Secondaries(&line[5], conn, id, "Will");
+		fix_Secondaries(conn, id, "Will");
 		return; }
 	if (strspn(line, "-Per") == 4) {
 		set_Secondaries(&line[4], conn, id, "Per");
+		fix_Secondaries(conn, id, "Per");
 		return; }}
+
+// ---------------------------------------------------------------------------------------
+void fix_Secondaries(MYSQL* conn, char* id, char* attr) {
+	if (mysql_query(conn, "COMMIT"))
+		puts("error commiting");
+
+	char stmt[512];
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"secondary characteristics\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", attr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading secondary characteristic");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+
+
+	if (val <= 0) {
+		if (strcmp(attr, "Will") == 0) fix_Secondaries_1(conn, id, "Will", "IQ");
+		if (strcmp(attr, "Per") == 0) fix_Secondaries_1(conn, id, "Per", "IQ");
+		if (strcmp(attr, "HP") == 0) fix_Secondaries_1(conn, id, "HP", "ST");
+		if (strcmp(attr, "FP") == 0) fix_Secondaries_1(conn, id, "FP", "HT"); }}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void fix_Secondaries_1(MYSQL* conn, char* id, char* ndChar, char* baseAttr) {
+	char stmt[512];
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", baseAttr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading basic attribute");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+
+
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"%s\"', %d)"
+		" where Id = %s", ndChar, val, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Basic Attributes"); }
 
 // ---------------------------------------------------------------------------------------
 void set_Secondaries(char* val, MYSQL* conn, char* id, char* attr) {
