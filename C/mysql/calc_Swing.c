@@ -11,6 +11,7 @@ void Swing_3(int);
 void Swing_4(int);
 void Swing_5(int);
 void Swing_6(int);
+void Swing_7(int);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -32,10 +33,16 @@ int main (int argc, char* argv[]) {
 		Swing_5(val);
 	if ((val >= 45) & (val <= 109))
 		Swing_6(val);
+	if (val >= 110) Swing_7(val);
 
 	return 0; }
 
 // =======================================================================================
+void Swing_7(int val) {
+	int num = trunc(val / 10) + 3;
+	printf("%dd\n", num); }
+
+// ---------------------------------------------------------------------------------------
 void Swing_6(int val) {
 	if ((val >= 45) & (val <= 49)) {
 		printf("7d+1\n");
@@ -49,6 +56,9 @@ void Swing_6(int val) {
 		return; }
 	if ((val >= 55) & (val <= 59)) {
 		printf("8d+1");
+		return; }
+	if ((val >= 100) & (val <= 109)) {
+		printf("13d");
 		return; }
 
 	modifier = trunc(val / 5.0);
