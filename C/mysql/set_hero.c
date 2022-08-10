@@ -84,22 +84,21 @@ void calc_Thrust(char* id, MYSQL* conn) {
 	if ((val >= 19) & (val <= 34)) {
 		Thrust_2(val, conn, id);
 		return; }
-		/*
 	if ((val >= 35) & (val <= 44)) {
 		Thrust_3(val, conn, id);
 		return; }
-		*/
 }
 // ---------------------------------------------------------------------------------------
-/*
 void Thrust_3(int val, MYSQL* conn, char* id) {
 	char dice[80];
-	if ((val == 35) & (val == 36))
-		sprintf(dice, "4d-1");
-	if ((val == 37) & (val == 38))
-		sprintf(dice, "4d");
-	if ((val == 39) & (val < 45))
-		sprintf(dice, "4d+1");
+	for(int i=0; i<80; ++i) dice[i] = 0;
+	printf("> %d >%s\n", val, id);
+	if ((val == 35) | (val == 36))
+		strcpy(dice, "4d-1");
+	if ((val == 37) | (val == 38))
+		strcpy(dice, "4d");
+	if ((val >= 39) & (val < 45))
+		strcpy(dice, "4d+1");
 
 	char stmt[512];
 	sprintf(stmt, "UPDATE TheWorld"
@@ -107,9 +106,10 @@ void Thrust_3(int val, MYSQL* conn, char* id) {
 		" '$.\"secondary characteristics\".\"damage\".\"thrust\"',"
 		" \"%s\")"
 		" where Id = %s", dice, id);
+
 	if (mysql_query(conn, stmt))
 		puts("error setting Secondary Characteristics"); }
-*/
+
 // ---------------------------------------------------------------------------------------
 void Thrust_2(int val, MYSQL* conn, char* id) {
 	char dice[80];
