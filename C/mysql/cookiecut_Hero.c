@@ -78,7 +78,7 @@ void fill_it(MYSQL* conn, int i) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("cookiecut_hero   \"name\"");
+	puts("cookiecut_Hero   \"name\"");
 	puts("");
 }
 

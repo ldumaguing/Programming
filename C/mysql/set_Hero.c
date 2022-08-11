@@ -185,6 +185,6 @@ void set_name(char* val, MYSQL* conn, char* id) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("set_hero   file.conf   Id");
+	puts("set_Hero   file.conf   Id");
 	puts("");
 }
