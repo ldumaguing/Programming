@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 	pclose(fp);
 
 
-	// **********
+	// ********** scan
 	char cmd[64];
 	sprintf(cmd, "%s", path);
 	char stmt[512];
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 		, "-e"
 		, stmt
 		, NULL};
-	execv(args[0],args);
+	execv(args[0], args);
 
 
 	return 0;

@@ -43,7 +43,7 @@ void create_instance(MYSQL* conn, char* name) {
 	int i = 0;
 
 	for (i = 0; i < 20; i++) {
-		sprintf(stmt, "insert into TheWorld (Id, Name) values (%d, '%s')", i, name);
+		sprintf(stmt, "insert into TheWorld (Id, Name, Tags) values (%d, '%s', '{}')", i, name);
 		puts(stmt);
 		if (mysql_query(conn, stmt))
 			continue;
