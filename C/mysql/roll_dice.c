@@ -4,7 +4,7 @@
 #include <time.h>
 
 void instructions(void);
-
+int get_seed();
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -32,7 +32,7 @@ int main (int argc, char* argv[]) {
 
 
 	int rand_num, theSum = 0;
-	srand(time(0));
+	srand(get_seed());
 
 	for(int i=0; i<dices; ++i) {
 		rand_num = (rand() % 6) + 1;
@@ -44,6 +44,14 @@ int main (int argc, char* argv[]) {
 
 
 	return 0; }
+
+// =======================================================================================
+int get_seed() {
+	struct timespec spec;
+	if (clock_gettime(1, &spec) == -1) {
+		abort(); }
+
+	return spec.tv_sec * 1000 + spec.tv_nsec / 1e6; }
 
 // ***************************************************************************************
 void instructions() {
