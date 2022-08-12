@@ -119,6 +119,6 @@ void Swing_1(int val) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("calc_Swing   number");
+	puts("calc_Swing   ST");
 	puts("");
 }

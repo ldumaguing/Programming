@@ -104,6 +104,6 @@ void Thrust_1(int val) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("calc_Thrust   number");
+	puts("calc_Thrust   ST");
 	puts("");
 }
