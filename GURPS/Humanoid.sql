@@ -26,7 +26,8 @@ update Stuffs set  Definition =
 "Per": 0,
 "FP": 0,
 "basic speed": 0,
-"basic move": 0
+"basic move": 0,
+"dodge": 0
 },
 "anatomy": {
 "head": {
