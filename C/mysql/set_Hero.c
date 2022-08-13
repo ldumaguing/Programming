@@ -13,6 +13,10 @@ void set_Secondaries(char*, MYSQL*, char*, char*);
 void fix_Secondaries(MYSQL*, char*, char*);
 void fix_Secondaries_1(MYSQL*, char*, char*, char*);
 
+void set_Damage(MYSQL*, char*);
+void set_BL(MYSQL*, char*);
+void set_Speed(MYSQL*, char*);
+
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
 	if ((argc <= 2)
@@ -53,11 +57,209 @@ int main (int argc, char* argv[]) {
 	while (fgets(buffer, 256, fp) != NULL) {
 		dispatch(buffer, conn, argv[2]); }
 
+	set_Damage(conn, argv[2]);
+	set_BL(conn, argv[2]);
+	set_Speed(conn, argv[2]);
 
 	// ********** Closing
 	fclose(fp);
 	mysql_close(conn);
 	return 0; }
+
+// ***************************************************************************************
+void set_Speed(MYSQL* conn, char* id) {
+	char stmt[512];
+	char attr[] = "basic speed";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"secondary characteristics\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", attr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading secondary characteristic");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+	
+	if (val != 0) return;
+	
+	// ********** get HT
+	char baseAttr[] = "HT";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", baseAttr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading basic attribute");
+		return; }
+	result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	row = mysql_fetch_row(result);
+	int HT_val = atoi(row[0]);
+
+
+	// ********** get DX
+	char baseAttr1[] = "DX";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", baseAttr1, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading basic attribute");
+		return; }
+	result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	row = mysql_fetch_row(result);
+	int DX_val = atoi(row[0]);
+
+
+	// ********** 
+	char cmd[128];
+	sprintf(cmd, "./calc_Speed %d %d", HT_val, DX_val);
+	FILE* fp;
+	char path[128];
+	fp = popen(cmd, "r");
+	if (fp == NULL) return;
+
+	char bl[128];
+	while (fgets(path, 128, fp) != NULL)
+		sprintf(bl, "%s", path);
+	pclose(fp);
+
+	double lift = atof(bl);
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"basic speed\"', %.2f)"
+		" where Id = %s", lift, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Speed"); }
+
+// ***************************************************************************************
+void set_BL(MYSQL* conn, char* id) {
+	char stmt[512];
+	char attr[] = "basic lift";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"secondary characteristics\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", attr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading secondary characteristic");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+	
+	if (val != 0) return;
+	
+	// ********** get ST
+	char baseAttr[] = "ST";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", baseAttr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading basic attribute");
+		return; }
+	result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	row = mysql_fetch_row(result);
+	val = atoi(row[0]);
+
+
+	// ********** 
+	char cmd[128];
+	sprintf(cmd, "./calc_BL %d", val);
+	FILE* fp;
+	char path[128];
+	fp = popen(cmd, "r");
+	if (fp == NULL) return;
+
+	char bl[128];
+	while (fgets(path, 128, fp) != NULL)
+		sprintf(bl, "%s", path);
+	pclose(fp);
+
+	double lift = atof(bl);
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"basic lift\"', %.1f)"
+		" where Id = %s", lift, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Swing"); }
+
+// ***************************************************************************************
+void set_Damage(MYSQL* conn, char* id){
+	char stmt[512];
+	char baseAttr[] = "ST";
+	sprintf(stmt, "SELECT"
+		" JSON_VALUE(Definition,"
+		" '$.\"basic attributes\".\"%s\"')"
+		" from TheWorld"
+		" where Id = %s", baseAttr, id);
+	if (mysql_query(conn, stmt)) {
+		puts("error reading basic attribute");
+		return; }
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) {
+		puts("Null result");
+		return; }
+	MYSQL_ROW row = mysql_fetch_row(result);
+	int val = atoi(row[0]);
+
+	// ********** Swing
+	char cmd[128];
+	sprintf(cmd, "./calc_Swing %d", val);
+	FILE* fp;
+	char path[128];
+	fp = popen(cmd, "r");
+	if (fp == NULL) return;
+
+	char dice[128];
+	while (fgets(path, 128, fp) != NULL)
+		sprintf(dice, "%s", path);
+	pclose(fp);
+	dice[strlen(dice) - 1] = 0;
+
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"damage\".\"swing\"', \"%s\")"
+		" where Id = %s", dice, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Swing");
+
+	// ********** Thrust
+	sprintf(cmd, "./calc_Thrust %d", val);
+	fp = popen(cmd, "r");
+	if (fp == NULL) return;
+
+	while (fgets(path, 128, fp) != NULL)
+		sprintf(dice, "%s", path);
+	pclose(fp);
+	dice[strlen(dice) - 1] = 0;
+
+	sprintf(stmt, "UPDATE TheWorld"
+		" SET Definition = JSON_REPLACE(Definition,"
+		" '$.\"secondary characteristics\".\"damage\".\"thrust\"', \"%s\")"
+		" where Id = %s", dice, id);
+	if (mysql_query(conn, stmt))
+		puts("error setting Swing"); }
 
 // =======================================================================================
 void dispatch(char* line, MYSQL* conn, char* id) {
@@ -93,6 +295,15 @@ void dispatch(char* line, MYSQL* conn, char* id) {
 	if (strspn(line, "-Per") == 4) {
 		set_Secondaries(&line[4], conn, id, "Per");
 		fix_Secondaries(conn, id, "Per");
+		return; }
+	if (strspn(line, "-lift") == 5) {
+		set_Secondaries(&line[5], conn, id, "basic lift");
+		return; }
+	if (strspn(line, "-speed") == 6) {
+		set_Secondaries(&line[6], conn, id, "basic speed");
+		return; }
+	if (strspn(line, "-move") == 5) {
+		set_Secondaries(&line[5], conn, id, "basic move");
 		return; }}
 
 // ---------------------------------------------------------------------------------------
