@@ -63,6 +63,7 @@ int main (int argc, char* argv[]) {
 	set_BL(conn, argv[2]);
 	set_Speed(conn, argv[2]);
 	set_Move(conn, argv[2]);
+	set_Dodge(conn, argv[2]);
 
 	// ********** Closing
 	fclose(fp);
@@ -72,24 +73,6 @@ int main (int argc, char* argv[]) {
 // ***************************************************************************************
 void set_Dodge(MYSQL* conn, char* id) {
 	char stmt[512];
-	char attr[] = "basic move";
-	sprintf(stmt, "SELECT"
-		" JSON_VALUE(Definition,"
-		" '$.\"secondary characteristics\".\"%s\"')"
-		" from TheWorld"
-		" where Id = %s", attr, id);
-	if (mysql_query(conn, stmt)) {
-		puts("error reading secondary characteristic");
-		return; }
-	MYSQL_RES *result = mysql_store_result(conn);
-	if (result == NULL) {
-		puts("Null result");
-		return; }
-	MYSQL_ROW row = mysql_fetch_row(result);
-	int val = atoi(row[0]);
-	
-	if (val != 0) return;
-	
 	// ********** get HT
 	char baseAttr[] = "HT";
 	sprintf(stmt, "SELECT"
@@ -100,11 +83,11 @@ void set_Dodge(MYSQL* conn, char* id) {
 	if (mysql_query(conn, stmt)) {
 		puts("error reading basic attribute");
 		return; }
-	result = mysql_store_result(conn);
+	MYSQL_RES *result = mysql_store_result(conn);
 	if (result == NULL) {
 		puts("Null result");
 		return; }
-	row = mysql_fetch_row(result);
+	MYSQL_ROW row = mysql_fetch_row(result);
 	int HT_val = atoi(row[0]);
 
 
@@ -142,8 +125,8 @@ void set_Dodge(MYSQL* conn, char* id) {
 	int lift = atoi(bl);
 	sprintf(stmt, "UPDATE TheWorld"
 		" SET Definition = JSON_REPLACE(Definition,"
-		" '$.\"secondary characteristics\".\"basic move\"', %d)"
-		" where Id = %s", lift, id);
+		" '$.\"secondary characteristics\".\"dodge\"', %d)"
+		" where Id = %s", lift + 3, id);
 	if (mysql_query(conn, stmt))
 		puts("error setting Speed"); }
 
