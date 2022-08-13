@@ -45,7 +45,7 @@ void maxLBS(char* argv[]) {
 	if ((ST < 8) & (lvl < 4))
 		printf("%.1f lbs.\n", x * multiplier[lvl]);
 	else
-		printf("%d lbs.\n", (int)round(x) * multiplier[lvl]); }
+		printf("%d lbs.\n", (int)round(x * multiplier[lvl])); }
 
 // ***************************************************************************************
 void instructions() {
