@@ -59,18 +59,18 @@ void fill_it(MYSQL* conn, int i) {
       return; }
 
 	MYSQL_RES *result = mysql_store_result(conn);
+	MYSQL_ROW row;
 	if (result == NULL) {
 		puts("error RESULT");
 		return; }
 
-	MYSQL_ROW row;
 	row = mysql_fetch_row(result);
-	char Definition[512];
-	sprintf(Definition, "update TheWorld set Definition = '%s' where Id = %d", row[0], i); 
+	char Definition[5280];  // 80 * 66 (1 page)
+	sprintf(Definition, "update TheWorld set Definition = '%s' where Id = %d", row[0], i);
 	if (mysql_query(conn, Definition))
 		puts("error UPDATEing");
 
-	sprintf(Definition, "update TheWorld set ClassType = 'Humanoid' where Id = %d", i); 
+	sprintf(Definition, "update TheWorld set ClassType = 'Humanoid' where Id = %d", i);
 	if (mysql_query(conn, Definition))
 		puts("error UPDATEing");
 
