@@ -32,7 +32,8 @@ update Stuffs set  Definition =
 "anatomy": {
 "head": {
 "skull": {},
-"eyes": {},
+"left eye": {},
+"right eye": {},
 "face": {}
 },
 "body": {
@@ -41,12 +42,16 @@ update Stuffs set  Definition =
 "groin": {}
 },
 "limbs": {
-"arms": {
-"hands": {}
-},
-"legs": {
-"feet": {}
-}}}
+"left arm": {},
+"right arm": {},
+"left hand": {},
+"right hand": {},
+"left leg": {},
+"right leg": {},
+"left foot": {},
+"right foot": {}
+}
+}
 }'
 where Id = 5000;
 

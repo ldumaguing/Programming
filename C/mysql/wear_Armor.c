@@ -12,9 +12,6 @@ int main (int argc, char* argv[]) {
 		instructions();
 		return 0; }
 
-	if (argc == 3) {
-		maxLBS(argv);
-		return 0;}
 
 
 
