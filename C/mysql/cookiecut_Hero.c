@@ -44,7 +44,6 @@ void create_instance(MYSQL* conn, char* name) {
 
 	for (i = 0; i < 20; i++) {
 		sprintf(stmt, "insert into TheWorld (Id, Name, Tags) values (%d, '%s', '{}')", i, name);
-		puts(stmt);
 		if (mysql_query(conn, stmt))
 			continue;
 		else {
@@ -53,7 +52,6 @@ void create_instance(MYSQL* conn, char* name) {
 
 // ---------------------------------------------------------------------------------------
 void fill_it(MYSQL* conn, int i) {
-	printf("%d\n", i);
 	if (mysql_query(conn, "select Definition from Stuffs where ClassType = 'Humanoid'")) {
 		puts("error SELECTing");
       return; }

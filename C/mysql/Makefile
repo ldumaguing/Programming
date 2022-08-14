@@ -14,7 +14,7 @@ all: *.c
 	gcc set_Hero.c         -o set_Hero       $(INCLUDES)
 	# gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
 
-now: wear_Armor.c
+current: wear_Armor.c
 	gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
 
 clean:
