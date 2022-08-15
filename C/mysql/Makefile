@@ -10,12 +10,12 @@ all: *.c
 	gcc list_Armor.c       -o list_Armor     $(INCLUDES)
 	gcc list_Heroes.c      -o list_Heroes    $(INCLUDES)
 	gcc roll_dice.c        -o roll_dice
-	gcc scan_Hero.c        -o scan_Hero      $(INCLUDES)
+	# gcc scan_Hero.c        -o scan_Hero      $(INCLUDES)
 	gcc set_Hero.c         -o set_Hero       $(INCLUDES)
-	# gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
+	gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
 
 current: wear_Armor.c
-	gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
+	gcc scan_Hero.c       -o scan_Hero     $(INCLUDES)
 
 clean:
 	rm calc_BL
