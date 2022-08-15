@@ -1,3 +1,70 @@
+update TheWorld set Definition = json_insert (Definition,
+'$."armor stats"."20003"',
+json_extract('
+{
+"TL": 1,
+"Locations": ["torso", "groin"],
+"DR": 5,
+"Cost": 1300,
+"Weight": 40,
+"Notes": null,
+"Name": "Bronze Corselet"
+}
+', '$')
+)
+where Id = 2;
+select json_detailed(Definition) from TheWorld where Id = 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+update TheWorld set Definition = json_insert (Definition,
+'$."armor stats"."fishscale2"',
+json_extract('{}', '$')
+)
+where Id = 2;
+select json_detailed(Definition) from TheWorld where Id = 2;
+ 
+
+
+
+update TheWorld set Definition = json_remove (Definition,
+'$."armor stats"."fish*"'
+
+)
+where Id = 2;
+
+ 
+ 
+ 
+ 
+ 
+ update TheWorld set Definition = json_insert (Definition, '$."armor stats"', 'fishing:5' ) where Id = 2;
+
+
+
+
+mysql GURPS -e "update TheWorld set Definition = json_remove (Definition, \
+'$.armors[0]') where Id = 2"
+
+
+
+
+update TheWorld set Definition = json_remove (Definition, '$.armors[0]' ) where Id = 2;
+
+
+
 mysql GURPS -e "select Id, Name from TheWorld where ClassType = 'Humanoid'"
 
 
