@@ -8,6 +8,7 @@ void instructions(void);
 MYSQL* open_DB();
 void don_Armor(MYSQL*, int, int);
 int don_Armor1(MYSQL*, int, int);
+void don_Armor2(MYSQL*, int, int);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -28,7 +29,7 @@ int main (int argc, char* argv[]) {
 // ***************************************************************************************
 void don_Armor(MYSQL* conn, int HeroID, int ArmorID) {
 	// check if ArmorID already exists
-	if (don_Armor1(conn, HeroID, ArmorID) == 1)	return;
+	if (don_Armor1(conn, HeroID, ArmorID) == 0)	don_Armor2(conn, HeroID, ArmorID);
 
 	// insert ArmorID to the armors array
 	puts("insert ArmorID to the armors array");
@@ -38,10 +39,44 @@ void don_Armor(MYSQL* conn, int HeroID, int ArmorID) {
 		" %d)"
 		" where Id = %d"
 	, ArmorID, HeroID);
-
+puts(">>>>");
+puts(stmt);
 	if (mysql_query(conn, stmt))
 		puts("error UPDATEing");
 }
+
+// =======================================================================================
+void don_Armor2(MYSQL* conn, int HeroID, int ArmorID) {
+	puts("insert armor data");
+	char stmt[256];
+	sprintf(stmt, "select Id, Name, Definition from Stuffs where Id = %d"
+		, ArmorID );
+
+	if (mysql_query(conn, stmt)) {
+		puts("error SELECTing");
+      return; }
+
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) puts("result is null");
+	MYSQL_ROW row;
+	if (result == NULL) {
+		puts("error RESULT");
+		return; }
+	row = mysql_fetch_row(result);
+
+	char anObj[2048];
+	sprintf(anObj, "%s", row[2]);
+	anObj[strlen(anObj) - 2] = 0;
+
+	char newObj[1024];
+	sprintf(newObj, "%s,\n\"Name\": \"%s\"\n}", anObj, row[1]);
+
+	sprintf(anObj, "update TheWorld set Definition = json_insert (Definition,"
+		" '$.\"armor stats\".\"%s\"',"
+		" json_extract('%s', '$')) where Id = %d"
+		, row[0], newObj, HeroID);
+	mysql_query(conn, anObj);
+ }
 
 // =======================================================================================
 int don_Armor1(MYSQL* conn, int HeroID, int ArmorID) {
@@ -54,7 +89,7 @@ int don_Armor1(MYSQL* conn, int HeroID, int ArmorID) {
 	if (mysql_query(conn, stmt)) {
 		puts("error SELECTing");
       return 0; }
-
+puts(stmt);
 	MYSQL_RES *result = mysql_store_result(conn);
 	MYSQL_ROW row;
 	if (result == NULL) {

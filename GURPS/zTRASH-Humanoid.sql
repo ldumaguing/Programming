@@ -29,6 +29,8 @@ update Stuffs set  Definition =
 "basic move": 0,
 "dodge": 0
 },
+"armors": [],
+"armor stats": {},
 "anatomy": {
 "head": {
 "skull": {},
@@ -50,8 +52,6 @@ update Stuffs set  Definition =
 "right leg": {},
 "left foot": {},
 "right foot": {}
-}
-}
-}'
+}}}'
 where Id = 5000;
 
