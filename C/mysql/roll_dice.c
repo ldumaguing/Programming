@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/time.h>
 
 void instructions(void);
 int get_seed();
@@ -47,11 +47,11 @@ int main (int argc, char* argv[]) {
 
 // =======================================================================================
 int get_seed() {
-	struct timespec spec;
-	if (clock_gettime(1, &spec) == -1) {
-		abort(); }
-
-	return spec.tv_sec * 1000 + spec.tv_nsec / 1e6; }
+	struct timeval time_now;
+	gettimeofday(&time_now, NULL);
+	// printf ("%ld\n", time_now.tv_usec);
+	
+	return time_now.tv_usec; }
 
 // ***************************************************************************************
 void instructions() {
