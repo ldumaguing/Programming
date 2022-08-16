@@ -1,3 +1,22 @@
+update TheWorld set Definition = json_remove
+(Definition, '$."armors"[2]') where Id = 3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+update TheWorld set Definition = json_set
+(Definition, '$."armors"[1]', '123') where Id = 6
+
+
 SELECT JSON_VALUE(Definition, '$."armors"[2]' ) from TheWorld where Id = 2;
 
 select Name, json_query(Definition, '$."Locations"'), json_value(Definition, '$."DR"'), json_value(Definition, '$."Weight"') from Stuffs where Id = 20003;

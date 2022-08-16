@@ -8,7 +8,9 @@ MYSQL* open_DB();
 void default_scan(MYSQL*, int);
 void opt_wearing(MYSQL*, int);
 void opt_wearing1(MYSQL*, int);
-void opt_rearrange(MYSQL*, int, char**);
+void opt_rearrange(MYSQL*, int, char**, int);
+void opt_rearrange1(MYSQL*, int, int, int);
+void opt_remove_armor(MYSQL*, int, char**, int);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -32,19 +34,69 @@ int main (int argc, char* argv[]) {
 		opt_wearing(conn, HeroID); }
 
 	if (strcmp(option, "rearrange") == 0) {
-		opt_rearrange(conn, HeroID, argv); }
-		
+		opt_rearrange(conn, HeroID, argv, argc); }
 
-
+	if (strcmp(option, "remove_armor") == 0) {
+		opt_remove_armor(conn, HeroID, argv, argc); }
 
 	mysql_close(conn);
 	return 0; }
 
 // ***************************************************************************************
-void opt_rearrange(MYSQL* conn, int HeroID, char* argv[]) {
+void opt_remove_armor(MYSQL* conn, int HeroID, char* argv[], int argc) {
+puts("opt_remove_armor");
+	if (argc != 4) {
+		instructions();
+		return; }
+
+	int layer = atoi(argv[3]);
+	char stmt[256];
+	if (layer < 1) return;
+puts("------------------");
+
+	// ********** get array length
+	sprintf(stmt, "SELECT JSON_LENGTH(Definition,"
+		" '$.\"armors\"') from TheWorld where Id = %d"
+	, HeroID);
+
+	if (mysql_query(conn, stmt)) {
+		puts("error SELECTing");
+		return; }
+
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) puts("result is null");
+	MYSQL_ROW row;
+	if (result == NULL) {
+		puts("error RESULT");
+		return; }
+	row = mysql_fetch_row(result);
+	int len = atoi(row[0]);        // <----------- len
+	if (len <= 1) return;
+	if (len < layer) return;
+
+
+	--layer;
+	sprintf(stmt, "update TheWorld set Definition = json_remove"
+		" (Definition, '$.\"armors\"[%d]') where Id = %d"
+		, layer, HeroID);
+	if (mysql_query(conn, stmt)) {
+		puts("error UPDATEing");
+		return; }}
+
+// ***************************************************************************************
+void opt_rearrange(MYSQL* conn, int HeroID, char* argv[], int argc) {
+	if (argc != 5) {
+		instructions();
+		return; }
+
+
 	int lay1 = atoi(argv[3]);
 	int lay2 = atoi(argv[4]);
 	char stmt[256];
+	if (lay1 == lay2) return;        // <----------- same layer
+	if (lay1 < 1) return;
+	if (lay2 < 1) return;
+
 	// ********** get array length
 	sprintf(stmt, "SELECT JSON_LENGTH(Definition,"
 		" '$.\"armors\"') from TheWorld where Id = %d"
@@ -65,14 +117,73 @@ void opt_rearrange(MYSQL* conn, int HeroID, char* argv[]) {
 	if (len <= 1) return;
 
 	int bigNum = (lay1 > lay2) ? lay1 : lay2;
-	printf("big: %d .. %d\n", bigNum, len);
-	if (len > bigNum) return;
-	
-	
-	
-	
-	
-}
+	if (len < bigNum) return;        // <----------- beyond layer
+
+	--lay1;
+	--lay2;
+	opt_rearrange1(conn, HeroID, lay1, lay2); }
+
+// =======================================================================================
+void opt_rearrange1(MYSQL* conn, int HeroID, int lay1, int lay2) {
+	char stmt[256];
+	char armorA[128];
+	char armorB[128];
+
+	// ********** layer 1
+	sprintf(stmt, "select json_value(Definition, '$.\"armors\"[%d]')"
+		" from TheWorld where Id = %d"
+		, lay1, HeroID);
+
+	if (mysql_query(conn, stmt)) {
+		puts("error SELECTing");
+		return; }
+
+	MYSQL_RES *result = mysql_store_result(conn);
+	if (result == NULL) puts("result is null");
+	MYSQL_ROW row;
+	if (result == NULL) {
+		puts("error RESULT");
+		return; }
+	row = mysql_fetch_row(result);
+
+	sprintf(armorA, "%s", row[0]);
+
+
+	// ********** layer 2
+	sprintf(stmt, "select json_value(Definition, '$.\"armors\"[%d]')"
+		" from TheWorld where Id = %d"
+		, lay2, HeroID);
+
+	if (mysql_query(conn, stmt)) {
+		puts("error SELECTing");
+		return; }
+
+	result = mysql_store_result(conn);
+	if (result == NULL) puts("result is null");
+	if (result == NULL) {
+		puts("error RESULT");
+		return; }
+	row = mysql_fetch_row(result);
+
+	sprintf(armorB, "%s", row[0]);
+
+
+	// ********** switching
+	sprintf(stmt, "update TheWorld set Definition = json_set"
+		" (Definition, '$.\"armors\"[%d]', %d) where Id = %d"
+		, lay1, atoi(armorB), HeroID);
+
+	if (mysql_query(conn, stmt)) {
+		puts("error UPDATEing");
+		return; }
+
+	sprintf(stmt, "update TheWorld set Definition = json_set"
+		" (Definition, '$.\"armors\"[%d]', %d) where Id = %d"
+		, lay2, atoi(armorA), HeroID);
+
+	if (mysql_query(conn, stmt)) {
+		puts("error UPDATEing");
+		return; }}
 
 // ***************************************************************************************
 void opt_wearing(MYSQL* conn, int HeroID) {
@@ -189,9 +300,9 @@ void instructions() {
 	puts("scan_Hero   HeroID   [what]");
 	puts("   [what]:");
 	puts("    wearing");
-	puts("    rearrange   layer1   layer2");
-	puts("");
-}
+	puts("    rearrange      layer1   layer2");
+	puts("    remove_armor   layer");
+	puts(""); }
 
 
 
