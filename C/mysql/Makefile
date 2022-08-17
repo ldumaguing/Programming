@@ -1,25 +1,32 @@
-INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
+INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
+CC=cc
+
 all: *.c
-	gcc calc_BL.c -o calc_BL -lm
-	gcc calc_BMI.c -o calc_BMI -lm
-	gcc calc_Encumbrance.c -o calc_Encumbrance           -lm
-	gcc calc_Move.c        -o calc_Move                  -lm
-	gcc calc_Speed.c       -o calc_Speed                 -lm
-	gcc calc_Swing.c       -o calc_Swing                 -lm
-	gcc calc_Thrust.c      -o calc_Thrust                -lm
-	gcc cookiecut_Hero.c   -o cookiecut_Hero $(INCLUDES) -lm
-	gcc list_Armor.c       -o list_Armor     $(INCLUDES)
-	gcc list_Heroes.c      -o list_Heroes    $(INCLUDES)
-	gcc roll_dice.c        -o roll_dice
-	gcc roll_Attack.c      -o roll_Attack
-	gcc scan_Hero.c        -o scan_Hero      $(INCLUDES)
-	gcc set_Hero.c         -o set_Hero       $(INCLUDES)
-	gcc wear_Armor.c       -o wear_Armor     $(INCLUDES)
+	$(CC) calc_BL.c -o calc_BL -lm
+	$(CC) calc_BMI.c -o calc_BMI -lm
+	$(CC) calc_Encumbrance.c -o calc_Encumbrance           -lm
+	$(CC) calc_Move.c        -o calc_Move                  -lm
+	$(CC) calc_Speed.c       -o calc_Speed                 -lm
+	$(CC) calc_Swing.c       -o calc_Swing                 -lm
+	$(CC) calc_Thrust.c      -o calc_Thrust                -lm
+	$(CC) cookiecut_Hero.c   -o cookiecut_Hero $(INCLUDES) -lm
+	$(CC) list_Armor.c       -o list_Armor     $(INCLUDES)
+	$(CC) list_Heroes.c      -o list_Heroes    $(INCLUDES)
+	$(CC) roll_dice.c        -o roll_dice
+	$(CC) roll_Attack.c      -o roll_Attack
+	$(CC) scan_Hero.c        -o scan_Hero      $(INCLUDES)
+	$(CC) set_Hero.c         -o set_Hero       $(INCLUDES)
+	$(CC) wear_Armor.c       -o wear_Armor     $(INCLUDES)
+	$(CC) calc_Jumping.c       -o calc_Jumping
+	$(CC) roll_Contest.c       -o roll_Contest
+
 
 current: wear_Armor.c
-	gcc scan_Hero.c       -o scan_Hero     $(INCLUDES)
+	$(CC) roll_Contest.c       -o roll_Contest
 
 clean:
+	rm calc_Contest
+	rm calc_Jumping
 	rm calc_BL
 	rm calc_BMI
 	rm calc_Encumbrance
