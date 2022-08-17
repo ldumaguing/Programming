@@ -51,6 +51,12 @@ void maxLBS(char* argv[]) {
 void instructions() {
 	puts("calc_BL   ST   [level]");
 	puts("   ST:    ST value");
-	puts("   level: 0, 1, 2, 3, or 4");
+	puts("   [level]:");
+	puts("      0: None");
+	puts("      1: Light");
+	puts("      2: Medium");
+	puts("      3: Heavy");
+	puts("      4: Extra-Heavy");
+	puts("");
 	puts("");
 }
