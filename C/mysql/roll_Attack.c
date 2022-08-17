@@ -49,11 +49,7 @@ void evaluate(int ES, int rolled) {
 	if (ES >= rolled)
 		printf("Succeed by %d\n", delta);
 	else
-		printf("Failed by %d\n", delta);
-
-
-
-}
+		printf("Failed by %d\n", delta); }
 
 // ***************************************************************************************
 int roll_3d6() {
