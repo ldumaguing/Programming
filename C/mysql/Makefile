@@ -23,11 +23,15 @@ all: *.c
 	$(CC) calc_Dodge.c       -o calc_Dodge     -lm
 	$(CC) calc_Throwing_Distance.c    -o calc_Throwing_Distance
 	$(CC) calc_Throwing_Damage.c      -o calc_Throwing_Damage     -lm
+	$(CC) calc_Throwing_RngDmg.c      -o calc_Throwing_RngDmg     -lm
 
 current:
-	$(CC) calc_Throwing_Damage.c      -o calc_Throwing_Damage     -lm
+	$(CC) calc_Throwing_RngDmg.c      -o calc_Throwing_RngDmg     -lm
+
+
 
 clean:
+	rm calc_Throwing_RngDmg
 	rm calc_Throwing_Damage
 	rm calc_Throwing_Distance
 	rm calc_Dodge
@@ -48,7 +52,6 @@ clean:
 	rm scan_Hero
 	rm set_Hero
 	rm wear_Armor
-	rm test
 
 
 
