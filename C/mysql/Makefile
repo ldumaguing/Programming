@@ -48,6 +48,7 @@ clean:
 	rm scan_Hero
 	rm set_Hero
 	rm wear_Armor
+	rm test
 
 
 
