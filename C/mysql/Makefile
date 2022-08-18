@@ -1,5 +1,5 @@
-# INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
-INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
+INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
+#INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
 CC=cc
 
 all: *.c
@@ -22,11 +22,13 @@ all: *.c
 	$(CC) roll_Contest.c     -o roll_Contest
 	$(CC) calc_Dodge.c       -o calc_Dodge     -lm
 	$(CC) calc_Throwing_Distance.c    -o calc_Throwing_Distance
+	$(CC) calc_Throwing_Damage.c      -o calc_Throwing_Damage     -lm
 
-current: wear_Armor.c
-	$(CC) calc_Throwing_Distance.c    -o calc_Throwing_Distance
+current:
+	$(CC) calc_Throwing_Damage.c      -o calc_Throwing_Damage     -lm
 
 clean:
+	rm calc_Throwing_Damage
 	rm calc_Throwing_Distance
 	rm calc_Dodge
 	rm roll_Contest
