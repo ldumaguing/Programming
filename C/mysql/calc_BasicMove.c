@@ -19,6 +19,6 @@ int main (int argc, char* argv[]) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("calc_Speed   HT   DX");
+	puts("calc_BasicMove   HT   DX");
 	puts("   HT: HT value");
 	puts("   DX: DX value"); }

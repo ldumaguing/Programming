@@ -1,4 +1,5 @@
-INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
+# INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
+INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
 CC=cc
 
 all: *.c
