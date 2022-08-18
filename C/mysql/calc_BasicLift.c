@@ -49,9 +49,9 @@ void maxLBS(char* argv[]) {
 
 // ***************************************************************************************
 void instructions() {
-	puts("calc_BasicLift   ST   [level]");
+	puts("calc_BasicLift   ST   [enc]");
 	puts("   ST:    ST value");
-	puts("   [level]:");
+	puts("   [enc]:");
 	puts("      0: None");
 	puts("      1: Light");
 	puts("      2: Medium");

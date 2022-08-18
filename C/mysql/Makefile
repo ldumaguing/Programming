@@ -18,14 +18,16 @@ all: *.c
 	$(CC) scan_Hero.c        -o scan_Hero      $(INCLUDES)
 	$(CC) set_Hero.c         -o set_Hero       $(INCLUDES)
 	$(CC) wear_Armor.c       -o wear_Armor     $(INCLUDES)
-	$(CC) calc_Jumping.c       -o calc_Jumping
-	$(CC) roll_Contest.c       -o roll_Contest
+	$(CC) calc_Jumping.c     -o calc_Jumping
+	$(CC) roll_Contest.c     -o roll_Contest
+	$(CC) calc_Dodge.c       -o calc_Dodge     -lm
 
 
 current: wear_Armor.c
-	$(CC) roll_Contest.c       -o roll_Contest
+	$(CC) calc_BasicMove.c       -o calc_BasicMove     -lm
 
 clean:
+	rm calc_Dodge
 	rm roll_Contest
 	rm calc_Jumping
 	rm calc_BasicLift

@@ -10,20 +10,21 @@ int main (int argc, char* argv[]) {
 	if (argc == 1) {
 		instructions();
 		return 0; }
+	
+	int enc = 0;
+	if (argc == 4)
+		enc = atoi(argv[3]);
 
-	int multiplier = 0;
-	double multipliers[] = {1, 0.8, 0.6, 0.4, 0.2};
-	if (argc == 4) multiplier = atoi(argv[3]);
 	int HT = atoi(argv[1]);
 	int DX = atoi(argv[2]);
 	int x = trunc((HT + DX) / 4.0);
-	x *= multipliers[multiplier];
+	x -= enc;
 	printf("%d\n", x);
 	return 0; }
 
 // ***************************************************************************************
 void instructions() {
-	puts("calc_BasicMove   HT   DX   [enc]");
+	puts("calc_Dodge   HT   DX   [enc]");
 	puts("   HT: HT value");
 	puts("   DX: DX value");
 	puts("   [enc]:");
@@ -33,4 +34,8 @@ void instructions() {
 	puts("      3: Heavy");
 	puts("      4: Extra-Heavy");
 	puts("");
-	puts(""); }
+	puts("");
+	
+	
+	
+	}
