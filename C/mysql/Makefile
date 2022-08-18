@@ -21,12 +21,13 @@ all: *.c
 	$(CC) calc_Jumping.c     -o calc_Jumping
 	$(CC) roll_Contest.c     -o roll_Contest
 	$(CC) calc_Dodge.c       -o calc_Dodge     -lm
-
+	$(CC) calc_Throwing_Distance.c    -o calc_Throwing_Distance
 
 current: wear_Armor.c
-	$(CC) calc_BasicMove.c       -o calc_BasicMove     -lm
+	$(CC) calc_Throwing_Distance.c    -o calc_Throwing_Distance
 
 clean:
+	rm calc_Throwing_Distance
 	rm calc_Dodge
 	rm roll_Contest
 	rm calc_Jumping
