@@ -25,9 +25,9 @@ all: *.c
 	$(CC) calc_Throwing_Damage.c      -o calc_Throwing_Damage     -lm
 	$(CC) calc_Throwing_RngDmg.c      -o calc_Throwing_RngDmg     -lm
 
-current:
-	$(CC) calc_Throwing_RngDmg.c      -o calc_Throwing_RngDmg     -lm
 
+
+current:
 
 
 clean:
