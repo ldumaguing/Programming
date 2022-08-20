@@ -30,6 +30,16 @@ update Stuffs set  Definition =
 "dodge": 0
 },
 "armors": [],
+"weapons": {
+"innate": [
+10006,
+10008,
+10010
+],
+"left": 0,
+"right": 0,
+"both": 0
+},
 "anatomy": {
 "head": {
 "skull": {},

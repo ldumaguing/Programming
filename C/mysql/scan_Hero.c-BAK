@@ -6,15 +6,11 @@
 void instructions(void);
 MYSQL* open_DB();
 void default_scan(MYSQL*, int);
-
 void opt_wearing(MYSQL*, int);
 void opt_wearing1(MYSQL*, int);
 void opt_rearrange(MYSQL*, int, char**, int);
 void opt_rearrange1(MYSQL*, int, int, int);
 void opt_remove_armor(MYSQL*, int, char**, int);
-
-void opt_arms(MYSQL*, int);
-void opt_arms1(MYSQL*, int);
 
 // ***************************************************************************************
 int main (int argc, char* argv[]) {
@@ -43,73 +39,8 @@ int main (int argc, char* argv[]) {
 	if (strcmp(option, "remove_armor") == 0) {
 		opt_remove_armor(conn, HeroID, argv, argc); }
 
-	if (strcmp(option, "arms") == 0) {
-		opt_arms(conn, HeroID); }
-
 	mysql_close(conn);
 	return 0; }
-
-// ***************************************************************************************
-void opt_arms(MYSQL* conn, int HeroID) {
-	char stmt[256];
-	// ********** get array length
-	sprintf(stmt, "SELECT JSON_LENGTH(Definition,"
-		" '$.\"weapons\".\"innate\"') from TheWorld where Id = %d"
-	, HeroID);
-
-	if (mysql_query(conn, stmt)) {
-		puts("error SELECTing");
-		return; }
-
-	MYSQL_RES *result = mysql_store_result(conn);
-	if (result == NULL) puts("result is null");
-	MYSQL_ROW row;
-	if (result == NULL) {
-		puts("error RESULT");
-		return; }
-	row = mysql_fetch_row(result);
-	int len = atoi(row[0]);
-
-	// ********** get WeaponIDs
-	int WeaponID;
-	for (int i=0; i<len; ++i) {
-		sprintf(stmt, "SELECT JSON_VALUE(Definition, '$.\"weapons\".\"innate\"[%d]')"
-		" from TheWorld where Id = %d"
-		, i, HeroID);
-
-		if (mysql_query(conn, stmt)) {
-			puts("error loop SELECTing");
-			exit(0); }
-
-		result = mysql_store_result(conn);
-		if (result == NULL) {
-			puts("error RESULT");
-			return; }
-		row = mysql_fetch_row(result);
-		WeaponID = atoi(row[0]);
-		opt_arms1(conn, WeaponID);
-		}}
-
-// =======================================================================================
-void opt_arms1(MYSQL* conn, int WeaponID) {
-	char stmt[256];
-	// ********** show detail
-	sprintf(stmt, "select Id, Name"
-		" from Stuffs where Id = %d"
-	, WeaponID);
-
-	if (mysql_query(conn, stmt)) {
-		puts("error SELECTing");
-		return; }
-
-	MYSQL_RES *result = mysql_store_result(conn);
-	if (result == NULL) puts("result is null");
-	MYSQL_ROW row;
-	if (result == NULL) {
-		puts("error RESULT");
-		return; }
-	row = mysql_fetch_row(result);
-	printf("%s\t%s\n", row[0], row[1]); }
 
 // ***************************************************************************************
 void opt_remove_armor(MYSQL* conn, int HeroID, char* argv[], int argc) {
@@ -366,9 +297,8 @@ MYSQL* open_DB() {
 
 // ***************************************************************************************
 void instructions() {
-	puts("scan_Hero   HeroID   [____]");
-	puts("   [____]:");
-	puts("    arms");
+	puts("scan_Hero   HeroID   [what]");
+	puts("   [what]:");
 	puts("    wearing");
 	puts("    rearrange      layer1   layer2");
 	puts("    remove_armor   layer");

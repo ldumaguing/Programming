@@ -111,7 +111,7 @@ void set_Dodge(MYSQL* conn, char* id) {
 
 	// ********** 
 	char cmd[128];
-	sprintf(cmd, "./calc_Move %d %d", HT_val, DX_val);
+	sprintf(cmd, "./calc_BasicMove %d %d", HT_val, DX_val);
 	FILE* fp;
 	char path[128];
 	fp = popen(cmd, "r");
@@ -189,7 +189,7 @@ void set_Move(MYSQL* conn, char* id) {
 
 	// ********** 
 	char cmd[128];
-	sprintf(cmd, "./calc_Move %d %d", HT_val, DX_val);
+	sprintf(cmd, "./calc_BasicMove %d %d", HT_val, DX_val);
 	FILE* fp;
 	char path[128];
 	fp = popen(cmd, "r");
@@ -267,7 +267,7 @@ void set_Speed(MYSQL* conn, char* id) {
 
 	// ********** 
 	char cmd[128];
-	sprintf(cmd, "./calc_Speed %d %d", HT_val, DX_val);
+	sprintf(cmd, "./calc_BasicSpeed %d %d", HT_val, DX_val);
 	FILE* fp;
 	char path[128];
 	fp = popen(cmd, "r");
@@ -327,7 +327,7 @@ void set_BL(MYSQL* conn, char* id) {
 
 	// ********** 
 	char cmd[128];
-	sprintf(cmd, "./calc_BL %d", val);
+	sprintf(cmd, "./calc_BasicLift %d", val);
 	FILE* fp;
 	char path[128];
 	fp = popen(cmd, "r");

@@ -1,5 +1,5 @@
-INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
-#INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
+#INCLUDES=-I/usr/local/include/mysql -I/usr/local/include/mysql/mysql -L/usr/local/lib/mysql/ -lmariadb
+INCLUDES=-I/usr/include/mysql -I/usr/include/mysql/mysql -L/usr/lib64/ -lmariadb
 CC=cc
 
 all: *.c
@@ -11,7 +11,7 @@ all: *.c
 	$(CC) calc_Swing.c       -o calc_Swing                 -lm
 	$(CC) calc_Thrust.c      -o calc_Thrust                -lm
 	$(CC) cookiecut_Hero.c   -o cookiecut_Hero $(INCLUDES) -lm
-	$(CC) list_Armor.c       -o list_Armor     $(INCLUDES)
+	$(CC) list_Armors.c      -o list_Armors    $(INCLUDES)
 	$(CC) list_Heroes.c      -o list_Heroes    $(INCLUDES)
 	$(CC) roll_dice.c        -o roll_dice
 	$(CC) roll_Attack.c      -o roll_Attack
@@ -28,6 +28,7 @@ all: *.c
 
 
 current:
+	$(CC) scan_Hero.c        -o scan_Hero      $(INCLUDES)
 
 
 clean:
@@ -45,7 +46,7 @@ clean:
 	rm calc_Swing
 	rm calc_Thrust
 	rm cookiecut_Hero
-	rm list_Armor
+	rm list_Armors
 	rm list_Heroes
 	rm roll_dice
 	rm roll_Attack
