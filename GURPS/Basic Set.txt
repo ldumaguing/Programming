@@ -1,0 +1,714 @@
+Accounting|IQ/H|1|B174|IQ-6, Finance-4, Mathematics (Statistics)-5, Merchant-5|
+Acrobatics|DX/H|1|B174|DX-6, Aerobatics-4, Aquabatics-4|
+Acting|IQ/A|1|B174|IQ-5, Performance-2, Public Speaking-5|
+Administration|IQ/A|1|B174|Merchant-3|IQ-5|
+Aerobatics|DX/H|1|B174|DX-6, Acrobatics-4, Aquabatics-4|
+Airshipman|IQ/E|1|B185|IQ-4|
+Alchemy|IQ/VH|1|B174|
+Animal Handling (@Specialty@)|IQ/A|1|B175|IQ-5|
+Animal Handling (Big Cats)|IQ/A|1|B175|IQ-5|
+Animal Handling (Dogs)|IQ/A|1|B175|IQ-5|
+Animal Handling (Equines)|IQ/A|1|B175|IQ-5|
+Animal Handling (Raptors)|IQ/A|1|B175|IQ-5|
+Anthropology (@Species@)|IQ/H|1|B175|IQ-6, Paleontology (Paleoanthropology)-2, Sociology-3|
+Aquabatics|DX/H|1|B174|DX-6, Acrobatics-4, Aerobatics-4|
+Archaeology|IQ/H|1|B176|IQ-6|
+Architecture|IQ/A|1|B176|IQ-5, Engineer (Civil)-4|
+Area Knowledge (@Barony, County, Duchy, or Small Nation@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Barony, County, Duchy, or Small Nation@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@City@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@City@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Galaxy@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Galaxy@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Interplanetary State@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Interplanetary State@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Large Nation@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Large Nation@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Planet@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Planet@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Rural Area@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Rural Area@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Urban Neighborhood@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Urban Neighborhood@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Area Knowledge (@Village or Town@)|IQ/E|1|B176|Geography (@Specialty@)-3|
+Area Knowledge (@Village or Town@; Lived there)|IQ/E|1|B176|IQ-4, Geography (@Specialty@)-3|
+Arm Lock|A|1|B230|Judo0|
+Arm Lock|A|1|B230|Wrestling0|
+Armoury (@Armor type@)|IQ/A|1|B178|IQ-5, Engineer (Battlesuits)-4|
+Armoury (Battlesuits)|IQ/A|1|B178|IQ-5, Engineer (Battlesuits)-4|
+Armoury (Body Armor)|IQ/A|1|B178|IQ-5, Engineer (Body Armor)-4|
+Armoury (Force Shields)|IQ/A|1|B178|IQ-5, Engineer (Force Shields)-4|
+Armoury (Heavy Weapons)|IQ/A|1|B178|IQ-5, Engineer (Heavy Weapons)-4|
+Armoury (Melee Weapons)|IQ/A|1|B178|IQ-5, Engineer (Melee Weapons)-4|
+Armoury (Missile Weapons)|IQ/A|1|B178|IQ-5, Engineer (Missile Weapons)-4|
+Armoury (Small Arms)|IQ/A|1|B178|IQ-5, Engineer (Small Arms)-4|
+Armoury (Vehicular Armor)|IQ/A|1|B178|IQ-5, Engineer (Vehicular Armor)-4|
+Artillery (@Weapon type@)|IQ/A|1|B178|IQ-5|
+Artillery (Beams)|IQ/A|1|B178|IQ-5|
+Artillery (Bombs)|IQ/A|1|B178|IQ-5|
+Artillery (Cannon)|IQ/A|1|B178|IQ-5|
+Artillery (Catapult)|IQ/A|1|B178|IQ-5|
+Artillery (Guided Missile)|IQ/A|1|B178|IQ-5|
+Artillery (Torpedoes)|IQ/A|1|B178|IQ-5|
+Artist (@Art@)|IQ/H|1|B179|IQ-6, Artist-6|
+Artist (Body Art)|IQ/H|1|B179|IQ-6, Artist (Calligraphy)-4, Artist (Drawing)-4, Artist (Illumination)-4, Artist (Painting)-4, Artist-6|
+Artist (Calligraphy)|IQ/H|1|B179|IQ-6, Artist (Drawing)-2, Artist (Illumination)-2, Artist (Painting)-2, Artist (Body Art)-4, Artist-6|
+Artist (Drawing)|IQ/H|1|B179|IQ-6, Artist (Calligraphy)-2, Artist (Illumination)-2, Artist (Painting)-2, Artist (Body Art)-4, Artist-6|
+Artist (Illumination)|IQ/H|1|B179|IQ-6, Artist (Calligraphy)-2, Artist (Drawing)-2, Artist (Painting)-2, Artist (Body Art)-4, Artist-6|
+Artist (Illusion)|IQ/H|1|B179|IQ-6, Artist-6|
+Artist (Interior Decorating)|IQ/H|1|B179|IQ-6, Architecture-3, Artist (Scene Design)-4, Artist (Woodworking)-4, Artist-6|
+Artist (Painting)|IQ/H|1|B179|IQ-6, Artist (Calligraphy)-2, Artist (Drawing)-2, Artist (Illumination)-2, Artist (Body Art)-4, Artsit-6|
+Artist (Pottery)|IQ/H|1|B179|IQ-6, Artist-6|
+Artist (Scene Design)|IQ/H|1|B179|IQ-6, Architecture-3, Artist (Interior Decorating)-4, Artist (Woodworking)-4, Artist-6|
+Artist (Sculpting)|IQ/H|1|B179|IQ-6, Artist-6|
+Artist (Woodworking)|IQ/H|1|B179|IQ-6, Carpentry-3, Artist (Interior Decorating)-4, Artist (Scene Design)-4, Artist-6|
+Astronomy|IQ/H|1|B179|
+Autohypnosis|Will/H|1|B179|Meditation-4|
+Axe/Mace|DX/A|1|B208|DX-5, Two-Handed Axe/Mace-3, Flail-4|
+Back Kick|H|2|B230,MA67|Karate-4|
+Bartender|IQ/A|1|B216|IQ-5, Carousing-3|
+Battlesuit|DX/A|1|B192|DX-5, Diving Suit-4, Vacc Suit-2, NBC Suit-2|
+Beam Weapons (@Weapon class@)|DX/E|1|B179|DX-4, Beam Weapons-4, Guns (Pistol)-4|
+Beam Weapons (Pistol)|DX/E|1|B179|DX-4, Beam Weapons-4, Guns (Pistol)-4|
+Beam Weapons (Projector)|DX/E|1|B179|DX-4, Beam Weapons-4|
+Beam Weapons (Rifle)|DX/E|1|B179|DX-4, Beam Weapons-4, Guns (Rifle)-4|
+Bicycling|DX/E|1|B180|DX-4, Driving (Motorcycle)-4|
+Bioengineering (@Specialty@)|IQ/H|1|B180|Biology-5, Bioengineering-4|
+Bioengineering (Cloning)|IQ/H|1|B180|Biology-5, Bioengineering-4|
+Bioengineering (Genetic Engineering)|IQ/H|1|B180|Biology-5, Bioengineering-4|
+Bioengineering (Tissue Engineering)|IQ/H|1|B180|Biology-5, Bioengineering-4|
+Biology (@Specialty@)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Biochemistry)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Botany)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Earthlike)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Ecology)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Gas Giants)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Genetics)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Hostile Terrestrial)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Ice Dwarfs)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Ice Worlds)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Marine Biology)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Microbiology)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Rock Worlds)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Biology (Zoology)|IQ/VH|1|B180|IQ-6, Naturalist-6|
+Blind Fighting|Per/VH|1|B180|
+Blowpipe|DX/H|1|B180|DX-6|
+Boating (@Boat class@)|DX/A|1|B180|DX-5|IQ-5, Boating (Motorboat)-2, Boating (Sailboat)-4, Boating (Unpowered)-4, Seamanship-4|
+Boating (Large Powerboat)|DX/A|1|B180|DX-5|IQ-5, Boating (Motorboat)-2, Boating (Sailboat)-4, Boating (Unpowered)-4, Seamanship-4|
+Boating (Motorboat)|DX/A|1|B180|DX-5|IQ-5, Boating (Large Powerboat)-2, Boating (Sailboat)-3, Boating (Unpowered)-3|
+Boating (Sailboat)|DX/A|1|B180|DX-5|IQ-5, Boating (Large Powerboat)-4, Boating (Motorboat)-3, Boating (Unpowered)-3|
+Boating (Unpowered)|DX/A|1|B180|IQ-5|DX-5, Boating (Large Powerboat)-4, Boating (Motorboat)-3, Boating (Sailboat)-3|
+Body Control|HT/VH|1|B181|
+Body Language|Per/A|1|B181|Detect Lies-4, Psychology-4|
+Body Sense|DX/H|1|B181|DX-6, Acrobatics-3|
+Bolas|DX/A|1|B181|
+Bow|DX/A|1|B182|DX-5|
+Boxing|DX/A|1|B182|
+Brain Hacking|IQ/H|1|B182|
+Brainwashing|IQ/H|1|B182|
+Brawling|DX/E|1|B182|
+Breaking Blow|IQ/H|1|B182|
+Breath Control|HT/H|1|B182|
+Broadsword|DX/A|1|B208|Force Sword-4, Rapier-4, Saber-4, Shortsword-2, Two-Handed Sword-4|DX-5|
+Camouflage|IQ/E|1|B183|IQ-4, Survival-2|
+Captivate|Will/H|1|B191|
+Carousing|HT/E|1|B183|HT-4|
+Carpentry|IQ/E|1|B183|IQ-4|
+Cartography|IQ/A|1|B183|IQ-5, Geography-2, Mathematics (Surveying)-2, Navigation-4|
+Chemistry|IQ/H|1|B183|IQ-6, Alchemy-3|
+Choke Hold|H|2|B230,MA69|Judo-2|
+Choke Hold|H|2|B230,MA69|Wrestling-3|
+Climbing|DX/A|1|B183|DX-5|
+Cloak|DX/A|1|B184|DX-5, Net-4, Shield-4|
+Combat Art (@Average Skill@)|DX/A|1|B184|@Average Skill@-3, Combat Sport (@Average Skill@)-3|DX-5|
+Combat Art (@Easy Skill@)|DX/E|1|B184|@Easy Skill@-3, Combat Sport (@Easy Skill@)-3|DX-4|
+Combat Art (@Hard Skill@)|DX/H|1|B184|@Hard Skill@-3, Combat Sport (@Hard Skill@)-3|DX-6|
+Combat Sport (@Average Skill@)|DX/A|1|B184|@Average Skill@-3, Combat Art (@Average Skill@)-3|DX-5|
+Combat Sport (@Easy Skill@)|DX/E|1|B184|@Easy Skill@-3, Combat Art (@Easy Skill@)-3|DX-4|
+Combat Sport (@Hard Skill@)|DX/H|1|B184|@Hard Skill@-3, Combat Art (@Hard Skill@)-3|DX-6|
+Computer Hacking|IQ/VH|1|B184|
+Computer Operation|IQ/E|1|B184|IQ-4|
+Computer Programming|IQ/H|1|B184|
+Computer Programming (AI)|IQ/H|1|B184|
+Connoisseur (@Subject@)|IQ/A|1|B185|IQ-5|
+Connoisseur (Dance)|IQ/A|1|B185|IQ-5|
+Connoisseur (Literature)|IQ/A|1|B185|Literature-3, Poetry-3, Writing-3|IQ-5|
+Connoisseur (Music)|IQ/A|1|B185|Group Performance (Conducting)-3, Musical Composition-3, Musical Instrument-3|IQ-5|
+Connoisseur (Visual Arts)|IQ/A|1|B185|IQ-5|
+Connoisseur (Wine)|IQ/A|1|B185|IQ-5|
+Cooking|IQ/A|1|B185|IQ-5, Housekeeping-5|
+Cooking (@Specialty@)|IQ/E|1|B185|IQ-5, Housekeeping-5|
+Cooking (Baking)|IQ/E|1|B185|IQ-5, Housekeeping-5|
+Cooking (Beverage Making)|IQ/E|1|B185|IQ-5, Housekeeping-5|
+Counterfeiting|IQ/H|1|B185|IQ-6, Forgery-2|
+Criminology|IQ/A|1|B186|IQ-5, Psychology-4|
+Crossbow|DX/E|1|B186|DX-4|
+Cryptography|IQ/H|1|B186|Mathematics (Cryptology)-5|
+Cryptography (Code Design)|IQ/A|1|B186|Mathematics (Cryptology)-5|
+Cryptography (Cryptanalysis)|IQ/A|1|B186|Mathematics (Cryptology)-5|
+Current Affairs (@Subject@)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Business)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Headline News)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (High Culture)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (People)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Politics)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Popular Culture)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Regional)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Science &amp; Technology)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Sports)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Current Affairs (Travel)|IQ/E|1|B186|IQ-4, Research-4, Current Affairs-4|
+Dancing|DX/A|1|B187|DX-4|
+Detect Lies|Per/H|1|B187|Per-6, Body Language-4, Psychology-4|
+Diagnosis|IQ/H|1|B187|IQ-6, First Aid-8, Physician-4, Veterinary-5|
+Diplomacy|IQ/H|1|B187|IQ-6, Politics-6|
+Disarming|H|2|B230,MA70|@Unarmed or Melee Weapon Skill@0|
+Disarming|H|2|B230|Brawling0|
+Disarming|H|2|B230|Broadsword0|
+Disarming|H|2|B230|Karate0|
+Disarming|H|2|B230|Knife0|
+Disarming|H|2|B230|Shortsword0|
+Disguise (@Specialty@)|IQ/A|1|B187|IQ-5, Makeup-3|
+Diving Suit|DX/A|1|B192|DX-5, Scuba-2, Battlesuit-4, NBC Suit-4, Vacc Suit-4|
+Dreaming|Will/H|1|B188|Will-6|
+Driving (@Vehicle class@)|DX/A|1|B188|DX-5|IQ-5, Driving (Heavy Wheeled)-2, Driving-4|
+Driving (Automobile)|DX/A|1|B188|DX-5|IQ-5, Driving (Heavy Wheeled)-2, Driving-4|
+Driving (Construction Equipment)|DX/A|1|B188|DX-5|IQ-5, Driving-5|
+Driving (Halftrack)|DX/A|1|B188|IQ-5|DX-5, Driving (Tracked)-2, Driving-4|
+Driving (Heavy Wheeled)|DX/A|1|B188|DX-5|IQ-5, Driving (Automobile)-2, Driving-4|
+Driving (Hovercraft)|DX/A|1|B188|IQ-5|DX-5, Driving-5|
+Driving (Locomotive)|DX/A|1|B188|DX-5|IQ-5, Driving-5|
+Driving (Mecha)|DX/A|1|B188|IQ-5|DX-5, Battlesuit-3, Driving-5|
+Driving (Motorcycle)|DX/A|1|B188|DX-5|IQ-5, Bicycling-4|
+Driving (Tracked)|DX/A|1|B188|DX-5|IQ-5, Driving (Halftrack)-2, Driving-4|
+Dropping|DX/A|1|B189|DX-3, Throwing-4|
+Dual-Weapon Attack|H|2|B230,MA83|Broadsword-4|
+Dual-Weapon Attack|H|2|B230,MA83|Guns (Pistol)-4|
+Dual-Weapon Attack|H|2|B230,MA83|Knife-4|
+Dual-Weapon Attack|H|2|B230,MA83|Shortsword-4|
+Economics|IQ/H|1|B189|IQ-6, Finance-3, Market Analysis-5, Merchant-6|
+Elbow Strike|A|1|B230,MA71|Brawling-2|
+Elbow Strike|A|1|B230,MA71|Karate-2|
+Electrician|IQ/A|1|B189|IQ-5, Engineer (Electrical)-3|
+Electronics Operation (@Electronics type@)|IQ/A|1|B189|IQ-5, Electronics Operation-4, Electronics Repair (Communications)-5, Engineer (Electronics)-5|
+Electronics Operation (Communications)|IQ/A|1|B189|IQ-5, Electronics Operation-4, Electronics Repair (Communications)-5, Engineer (Electronics)-5|
+Electronics Operation (Electronic Warfare)|IQ/A|1|B189|IQ-5, Electronics Repair (Electronic Warfare)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Force Shields)|IQ/A|1|B189|IQ-5, Electronics Repair (Force Shields)-5, Engineer (Electronics)-5, Electronics Operation-4|Skill0|
+Electronics Operation (Matter Transmitters)|IQ/A|1|B189|IQ-5, Electronics Repair (Matter Transmitters)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Media)|IQ/A|1|B189|IQ-5, Electronics Repair (Media)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Medical)|IQ/A|1|B189|IQ-5, Electronics Repair (Medical)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Parachronic)|IQ/A|1|B189|IQ-5, Electronics Repair (Parachronic)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Psychotronics)|IQ/A|1|B189|IQ-5, Electronics Repair (Psychotronics)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Scientific)|IQ/A|1|B189|IQ-5, Electronics Repair (Scientific)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Security)|IQ/A|1|B189|IQ-5, Electronics Operation (Security)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Sensors)|IQ/A|1|B189|IQ-5, Electronics Repair (Sensors)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Sonar)|IQ/A|1|B189|IQ-5, Electronics Repair (Sonar)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Surveillance)|IQ/A|1|B189|IQ-5, Electronics Repair (Surveillance)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Operation (Temporal)|IQ/A|1|B189|IQ-5, Electronics Repair (Temporal)-5, Engineer (Electronics)-5, Electronics Operation-4|
+Electronics Repair (@Electronics type@)|IQ/A|1|B190|IQ-5, Electronics Operation (Communications)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Communications)|IQ/A|1|B190|IQ-5, Electronics Operation (Communications)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Computer)|IQ/A|1|B190|IQ-5, Computer Operation-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Electronic Warfare)|IQ/A|1|B190|IQ-5, Electronics Operation (Electronic Warfare)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Force Shields)|IQ/A|1|B190|IQ-5, Electronics Operation (Force Shields)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Matter Transmitters)|IQ/A|1|B190|IQ-5, Electronics Operation (Matter Transmitters)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Media)|IQ/A|1|B190|IQ-5, Electronics Operation (Media)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Medical)|IQ/A|1|B190|IQ-5, Electronics Operation (Medical)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Parachronic)|IQ/A|1|B190|IQ-5, Electronics Operation (Parachronic)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Psychotronics)|IQ/A|1|B190|IQ-5, Electronics Operation (Psychotronics)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Scientific)|IQ/A|1|B190|IQ-5, Electronics Operation (Scientific)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Security)|IQ/A|1|B190|IQ-5, Electronics Operation (Security)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Sensors)|IQ/A|1|B190|IQ-5, Electronics Operation (Sensors)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Sonar)|IQ/A|1|B190|IQ-5, Electronics Operation (Sonar)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Surveillance)|IQ/A|1|B190|IQ-5, Electronics Operation (Surveillance)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Electronics Repair (Temporal)|IQ/A|1|B190|IQ-5, Electronics Operation (Temporal)-3, Engineer (Electronics)-3, Electronics Repair-4|
+Engineer (@Field of expertise@)|IQ/H|1|B190|Armoury (Heavy Weapons)-6|
+Engineer (Artillery)|IQ/H|1|B190|Armoury (Heavy Weapons)-6|
+Engineer (Automobiles)|IQ/H|1|B190|Mechanic (Automobiles)-6|
+Engineer (Civil)|IQ/H|1|B190|Architecture-6|
+Engineer (Clockwork)|IQ/H|1|B190|Mechanic (Clockwork)-6|
+Engineer (Combat)|IQ/H|1|B190|Explosives (Demolition)-6|
+Engineer (Electrical)|IQ/H|1|B190|Electrician-6|
+Engineer (Electronics)|IQ/H|1|B190|Electronics Repair-6|
+Engineer (Materials)|IQ/H|1|B190|Chemistry-6, Metallurgy-6|
+Engineer (Microtechnology)|IQ/H|1|B190|Mechanic (Micromachines)-6|
+Engineer (Mining)|IQ/H|1|B190|Explosives (Demolition)-6, Geology-6|
+Engineer (Nanotechnology)|IQ/H|1|B190|Mechanic (Nanomachines)-6|
+Engineer (Parachronic)|IQ/H|1|B190|Electronics Operation (Parachronic)-6|
+Engineer (Psychotronics)|IQ/H|1|B190|Electronics Operation (Psychotronics)-6|
+Engineer (Robotics)|IQ/H|1|B190|Mechanic (Robotics)-6|
+Engineer (Ships)|IQ/H|1|B190|Mechanic (Ships)-6|
+Engineer (Small Arms)|IQ/H|1|B190|Armoury (Small Arms)-6|
+Engineer (Starships)|IQ/H|1|B190|Mechanic (Starships)-6|
+Engineer (Temporal)|IQ/H|1|B190|Electronics Operation (Temporal)-6|
+Enthrallment|Will/H|1|B191|
+Environment Suit|DX/A|1|B192|DX-5|
+Erotic Art|DX/A|1|B192|DX-5, Acrobatics-5|
+Escape|DX/H|1|B192|DX-6|
+Esoteric Medicine|Per/H|1|B192|Per-6|
+Exorcism|Will/H|1|B193|Will-6, Religious Ritual-3, Ritual Magic-3, Theology-3|
+Expert Skill (Computer Security)|IQ/H|1|B193|
+Expert Skill (Conspiracy Theory)|IQ/H|1|B193|
+Expert Skill (Egyptology)|IQ/H|1|B193|
+Expert Skill (Epidemiology)|IQ/H|1|B193|
+Expert Skill (Hydrology)|IQ/H|1|B193|
+Expert Skill (Military Science)|IQ/H|1|B193|
+Expert Skill (Natural Philosophy)|IQ/H|1|B193|
+Expert Skill (Political Science)|IQ/H|1|B193|
+Expert Skill (Psionics)|IQ/H|1|B193|
+Expert Skill (Thantology)|IQ/H|1|B193|
+Expert Skill (Xenology)|IQ/H|1|B193|
+Explosives (@Specialty@)|IQ/A|1|B194|IQ-5, Engineer (Combat)-3, Engineer (Mining)-3, Explosives (Underwater Demolition)-2, Explosives-4|
+Explosives (Demolition)|IQ/A|1|B194|IQ-5, Engineer (Combat)-3, Engineer (Mining)-3, Explosives (Underwater Demolition)-2, Explosives-4|
+Explosives (Explosive Ordnance Disposal)|IQ/A|1|B194|
+Explosives (Fireworks)|IQ/A|1|B194|IQ-5, Chemistry-3, Explosives-4|
+Explosives (Nuclear Ordnance Disposal)|IQ/A|1|B194|IQ-5, Explosives (Explosive Ordnance Disposal)-2, Explosives-4|
+Explosives (Underwater Demolition)|IQ/A|1|B194|IQ-5, Explosives (Demolition)-2, Explosives-4|
+Falconry|IQ/A|1|B194|IQ-5, Animal Handling (Raptors)-3|
+Farming|DX/A|1|B194|IQ-5, Biology-5, Gardening-5|
+Fast-Draw (Arrow)|DX/E|1|B194|
+Fast-Draw (Force Sword)|DX/E|1|B194|
+Fast-Draw (Knife)|DX/E|1|B194|
+Fast-Draw (Long Arm)|DX/E|1|B194|
+Fast-Draw (Pistol)|DX/E|1|B194|
+Fast-Draw (Sword)|DX/E|1|B194|
+Fast-Draw (Two-Handed Sword)|DX/E|1|B194|
+Fast-Draw (Ammo)|DX/E|1|B194|
+Fast-Talk|IQ/A|1|B195|IQ-5, Acting-5|
+Feint|H|2|B231,MA73|@Unarmed or Melee Weapon Skill@0|
+Feint|H|2|B231|Brawling0|
+Feint|H|2|B231|Broadsword0|
+Feint|H|2|B231|Force Sword0|
+Feint|H|2|B231|Karate0|
+Feint|H|2|B231|Knife0|
+Feint|H|2|B231|Shortsword0|
+Filch|DX/A|1|B195|DX-5, Pickpocket-4, Sleight of Hand-4|
+Finance|IQ/H|1|B195|Accounting-4, Economics-3, Merchant-6|
+Finger Lock|H|2|B231,MA73|Arm Lock-3|
+Fire Eating|DX/A|1|B195|
+First Aid|IQ/E|1|B195|IQ-4, Esoteric Medicine0, Physician0, Veterinary-4|
+Fishing|Per/E|1|B195|Per-4|
+Flail|DX/H|1|B208|DX-6, Axe/Mace-4, Two-Handed Flail-3|
+Flight|HT/A|1|B195|
+Flying Leap|IQ/H|1|B196|
+Force Sword|DX/A|1|B208|Broadsword-3, Shortsword-3, Two-Handed Sword-3, Jitte/Sai-3, Knife-3|DX-5|
+Force Whip|DX/A|1|B209|DX-5, Kusari-3, Monowire Whip-3, Whip-3|
+Forced Entry|DX/E|1|B196|
+Forensics|IQ/H|1|B196|IQ-6, Criminology-4|
+Forgery|IQ/H|1|B196|IQ-6, Counterfeiting-2|
+Fortune-Telling (Astrology)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Augury)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Crystal Gazing)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Dream Interpretation)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Feng Shui)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Palmistry)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Fortune-Telling (Tarot)|IQ/A|1|B196|IQ-5, Fast-Talk-3, Occultism-3|
+Forward Observer|IQ/A|1|B196|IQ-5, Artillery-5|
+Free Fall|DX/A|1|B197|HT-5|DX-5|
+Freight Handling|IQ/A|1|B197|IQ-5|
+Gambling|IQ/A|1|B197|IQ-5, Mathematics (Statistics)-5|
+Games (@Specialty@)|IQ/E|1|B197|IQ-4|
+Gardening|IQ/E|1|B197|IQ-4, Farming-3|
+Garrote|DX/E|1|B197|DX-4|
+Geography (Physical, @Planet class@)|IQ/H|1|B198|IQ-5, Geology (Earthlike)-4, Meteorology (Earthlike)-4, Geography-5|
+Geography (Physical, Earthlike)|IQ/H|1|B198|IQ-5, Geology (Earthlike)-4, Meteorology (Earthlike)-4, Geography-5|
+Geography (Physical, Gas Giants)|IQ/H|1|B198|IQ-6, Geology (Gas Giants)-4, Meteorology (Gas Giants)-4, Geography-5|
+Geography (Physical, Hostile Terrestrial)|IQ/H|1|B198|IQ-6, Geology (Hostile Terrestrial)-4, Meteorology (Hostile Terrestrial)-4, Geography-5|
+Geography (Physical, Ice Dwarfs)|IQ/H|1|B198|IQ-6, Geology (Ice Dwarfs)-4, Meteorology (Ice Dwarfs)-4, Geography-5|
+Geography (Physical, Ice Worlds)|IQ/H|1|B198|IQ-6, Geology (Ice Worlds)-4, Meteorology (Ice Worlds)-4, Geography-5|
+Geography (Physical, Rock Worlds)|IQ/H|1|B198|IQ-6, Geology (Rock Worlds)-4, Meteorology (Rock Worlds)-4, Geography-5|
+Geography (Political)|IQ/H|1|B198|IQ-6, Economics-4, Geography-5|
+Geography (Regional)|IQ/H|1|B198|IQ-6, Area Knowledge-6, Geography-5|
+Geology (@Planet class@)|IQ/H|1|B198|IQ-6, Geography (Physical, Earthlike)-4, Prospecting-5|
+Geology (Earthlike)|IQ/H|1|B198|IQ-6, Geography (Physical, Earthlike)-4, Prospecting-5|
+Geology (Gas Giants)|IQ/H|1|B198|IQ-6, Geography (Physical, Gas Giants)-4, Prospecting-5|
+Geology (Hostile Terrestrial)|IQ/H|1|B198|IQ-6, Geography (Physical, Hostile Terrestrial)-4, Prospecting-5|
+Geology (Ice Dwarfs)|IQ/H|1|B198|IQ-6, Geography (Physical, Ice Dwarfs)-4, Prospecting-5|
+Geology (Ice Worlds)|IQ/H|1|B198|IQ-6, Geography (Physical, Ice Worlds)-4, Prospecting-5|
+Geology (Rock Worlds)|IQ/H|1|B198|IQ-6, Geography (Physical, Rock Worlds)-4, Prospecting-5|
+Gesture|IQ/E|1|B198|IQ-4|
+Ground Fighting|H|2|B231,MA73|@Combat Skill@-4|
+Ground Fighting|H|2|B231|Brawling-4|
+Ground Fighting|H|2|B231|Broadsword-4|
+Ground Fighting|H|2|B231|Karate-4|
+Ground Fighting|H|2|B231|Knife-4|
+Ground Fighting|H|2|B231|Shortsword-4|
+Group Performance (@Art@)|IQ/A|1|B198|IQ-5, Dancing-2|
+Group Performance (Choreography)|IQ/A|1|B198|
+Group Performance (Conducting)|IQ/A|1|B198|IQ-5, Musical Instrument-2, Singing-3|
+Group Performance (Directing)|IQ/A|1|B198|
+Group Performance (Fight Choreography)|IQ/A|1|B198|
+Gunner (@Gun class@)|DX/E|1|B198|DX-4, Gunner-4|
+Gunner (Beams)|DX/E|1|B198|DX-4, Gunner-4|
+Gunner (Cannon)|DX/E|1|B198|DX-4, Gunner-4|
+Gunner (Catapult)|DX/E|1|B198|DX-4, Gunner-4|
+Gunner (Machine Gun)|DX/E|1|B198|DX-4, Gunner-4|
+Gunner (Rockets)|DX/E|1|B198|DX-4, Gunner-4|
+Guns (@Gun class@)|DX/E|1|B198|DX-4, Guns-4|
+Guns (Grenade Launcher)|DX/E|1|B198|DX-4, Guns-4|
+Guns (Gyroc)|DX/E|1|B198|DX-4, Guns-4|
+Guns (Light Anti-Armor Weapon)|DX/E|1|B198|DX-4, Guns-4|
+Guns (Light Machine Gun)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Musket)-2, Guns (Pistol)-2, Guns (Rifle)-2, Guns (Shotgun)-2, Guns (Submachine Gun)-2|
+Guns (Musket)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Light Machine Gun)-2, Guns (Pistol)-2, Guns (Rifle)-2, Guns (Shotgun)-2, Guns (Submachine Gun)-2|
+Guns (Pistol)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Light Machine Gun)-2, Guns (Musket)-2, Beam Weapons (Pistol)-4, Guns (Rifle)-2, Guns (Shotgun)-2, Guns (Submachine Gun)-2|
+Guns (Rifle)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Light Machine Gun)-2, Guns (Musket)-2, Guns (Pistol)-2, Beam Weapons (Rifle)-4, Guns (Shotgun)-2, Guns (Submachine Gun)-2|
+Guns (Shotgun)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Light Machine Gun)-2, Guns (Musket)-2, Guns (Pistol)-2, Guns (Rifle)-2, Guns (Submachine Gun)-2|
+Guns (Submachine Gun)|DX/E|1|B198|DX-4, Guns (Grenade Launcher)-4, Guns (Gyroc)-4, Guns (Light Anti-Armor Weapon)-4, Guns (Light Machine Gun)-2, Guns (Musket)-2, Guns (Pistol)-2, Guns (Rifle)-2, Guns (Shotgun)-2|
+Hazardous Materials (Biological)|IQ/A|1|B199|IQ-5|
+Hazardous Materials (Chemical)|IQ/A|1|B199|IQ-5|
+Hazardous Materials (Magical)|IQ/A|1|B199|IQ-5|
+Hazardous Materials (Nanotech)|IQ/A|1|B199|IQ-5|
+Hazardous Materials (Nuclear)|IQ/A|1|B199|IQ-5|
+Heraldry|IQ/A|1|B199|IQ-5, Savoir-Faire (High Society)-3|
+Herb Lore|IQ/VH|1|B199|
+Hidden Lore (@Subject@)|IQ/A|1|B199|
+Hidden Lore (Conspiracies)|IQ/A|1|B199|
+Hidden Lore (Demon Lore)|IQ/A|1|B199|
+Hidden Lore (Earth)|IQ/A|1|B199|
+Hidden Lore (Faerie Lore)|IQ/A|1|B199|
+Hidden Lore (Spirit Lore)|IQ/A|1|B199|
+Hiking|HT/A|1|B200|HT-5|
+History (@Specialty@)|IQ/H|1|B200|IQ-6|
+Hobby Skill (@Mental Hobby@)|IQ/E|1|B200|IQ-4|
+Hobby Skill (@Physical Hobby@)|DX/E|1|B200|DX-4|
+Holdout|IQ/A|1|B200|IQ-5, Sleight of Hand-3|
+Horse Archery|H|2|B231,MA74|Bow-4|
+Housekeeping|IQ/E|1|B200|IQ-4|
+Hypnotism|IQ/H|1|B201|
+Immovable Stance|DX/H|1|B201|
+Impersonate|A|1|B233|Mimicry (Speech)-3|
+Innate Attack (Beam)|DX/E|1|B201|DX-4, Innate Attack-2|
+Innate Attack (Breath)|DX/E|1|B201|DX-4, Innate Attack-2|
+Innate Attack (Gaze)|DX/E|1|B201|DX-4, Innate Attack-2|
+Innate Attack (Projectile)|DX/E|1|B201|DX-4, Innate Attack-2|
+Intelligence Analysis|IQ/H|1|B201|IQ-6, Strategy-6|
+Interrogation|IQ/A|1|B202|IQ-5, Intimidation-3, Psychology-4|
+Intimidation|Will/A|1|B202|Per-5, Acting-3|
+Invisibility Art|IQ/VH|1|B202|
+Jeweler|IQ/H|1|B203|IQ-6, Smith (Copper)-4, Smith (Lead &amp; Tin)-4|
+Jitte/Sai|DX/A|1|B208|Force Sword-4, Main-Gauche-4, Shortsword-3|DX-5|
+Judo|DX/H|1|B203|
+Jump Kick|H|2|B231,MA75|Karate-4|
+Jumping|DX/E|1|B203|
+Karate|DX/H|1|B203|
+Kiai|HT/H|1|B203|
+Kicking|H|2|B231,MA75|Brawling-2|
+Kicking|H|2|B231,MA75|Karate-2|
+Knee Strike|A|1|B232,MA76|Brawling-1|
+Knee Strike|A|1|B232|Karate-1|
+Knife|DX/E|1|B208|Force Sword-3, Main-Gauche-3, Shortsword-3|DX-4|
+Knot-Tying|DX/E|1|B203|DX-4, Climbing-4, Seamanship-4|
+Kusari|DX/H|1|B209|DX-6, Force Whip-3, Monowire Whip-3, Whip-3, Two-Handed Flail-4|
+Lance|DX/A|1|B204|
+Lasso|DX/A|1|B204|
+Law (@Specialty@)|IQ/H|1|B204|IQ-6|
+Leadership|IQ/A|1|B204|IQ-5|
+Leatherworking|DX/E|1|B205|DX-4|
+Lifesaving|H|2|B233|Swimming-5|
+Lifting|HT/A|1|B205|
+Light Walk|DX/H|1|B205|
+Linguistics|IQ/H|1|B205|
+Lip Reading|Per/A|1|B205|Per-10|
+Liquid Projector (@Weapon class@)|DX/E|1|B205|DX-4, Liquid Projector-4|
+Liquid Projector (Flamethrower)|DX/E|1|B205|DX-4, Liquid Projector-4|
+Liquid Projector (Sprayer)|DX/E|1|B205|DX-4, Liquid Projector-4|
+Liquid Projector (Squirt Gun)|DX/E|1|B205|DX-4, Liquid Projector-4|
+Liquid Projector (Water Cannon)|DX/E|1|B205|DX-4, Liquid Projector-4|
+Literature|IQ/H|1|B205|IQ-6|
+Lockpicking|IQ/A|1|B206|IQ-5|
+Machinist|IQ/A|1|B206|IQ-5, Mechanic-5|
+Main-Gauche|DX/A|1|B208|DX-5, Jitte/Sai-4, Knife-4, Rapier-3, Saber-3, Smallsword-3|
+Makeup|IQ/E|1|B206|IQ-4, Disguise-2|
+Market Analysis|IQ/H|1|B207|IQ-6, Economics-5, Merchant-4|
+Masonry|IQ/E|1|B207|IQ-4|
+Mathematics (Applied)|IQ/H|1|B207|IQ-6, Physics-5, Engineer-5|
+Mathematics (Computer Science)|IQ/H|1|B207|IQ-6, Computer Programming-5|
+Mathematics (Cryptology)|IQ/H|1|B207|IQ-6, Cryptography-5|
+Mathematics (Pure)|IQ/H|1|B207|IQ-6|
+Mathematics (Pure: @Optional specialty@)|IQ/A|1|B207|IQ-6|
+Mathematics (Statistics)|IQ/H|1|B207|IQ-6|
+Mathematics (Surveying)|IQ/H|1|B207|IQ-6, Cartography-3, Navigation-4|
+Mechanic (@Machine class@)|IQ/A|1|B207|IQ-5, Engineer (Aerospace)-4, Machinist-5, Mechanic-4|
+Mechanic (Aerospace)|IQ/A|1|B207|IQ-5, Engineer (Aerospace)-4, Machinist-5, Mechanic-4|
+Mechanic (Antimatter Reactor)|IQ/A|1|B207|IQ-5, Engineer (Antimatter Reactor)-4, Machinist-5, Mechanic-4|
+Mechanic (Autogyro)|IQ/A|1|B207|IQ-5, Engineer (Autogyro)-4, Machinist-5, Mechanic-4|
+Mechanic (Automobile)|IQ/A|1|B207|IQ-5, Engineer (Automobile)-4, Machinist-5, Mechanic-4|
+Mechanic (Clockwork)|IQ/A|1|B107|IQ-5, Engineer (Clockwork)-4, Machinist-5, Mechanic-4|
+Mechanic (Construction Equipment)|IQ/A|1|B207|IQ-5, Engineer (Construction Equipment)-4, Machinist-5, Mechanic-4|
+Mechanic (Contragravity)|IQ/A|1|B207|IQ-5, Engineer (Contragravity)-4, Machinist-5, Mechanic-4|
+Mechanic (Diesel Engine)|IQ/A|1|B207|IQ-5, Engineer (Diesel Engine)-4, Machinist-5, Mechanic-4|
+Mechanic (Fission Reactor)|IQ/A|1|B207|IQ-5, Engineer (Fission Reactor)-4, Machinist-5, Mechanic-4|
+Mechanic (Flight Pack)|IQ/A|1|B207|IQ-5, Engineer (Flight Pack)-4, Machinist-5, Mechanic-4|
+Mechanic (Free-Flooding Sub)|IQ/A|1|B207|IQ-5, Engineer (Free-Flooding Sub)-4, Machinist-5, Mechanic-4|
+Mechanic (Fuel Cell)|IQ/A|1|B207|IQ-5, Engineer (Fuel Cell)-4, Machinist-5, Mechanic-4|
+Mechanic (Fusion Reactor)|IQ/A|1|B207|IQ-5, Engineer (Fusion Reactor)-4, Machinist-5, Mechanic-4|
+Mechanic (Gas Turbine)|IQ/A|1|B207|IQ-5, Engineer (Gas Turbine)-4, Machinist-5, Mechanic-4|
+Mechanic (Gasoline Engine)|IQ/A|1|B207|IQ-5, Engineer (Gasoline Engine)-4, Machinist-5, Mechanic-4|
+Mechanic (Glider)|IQ/A|1|B207|IQ-5, Engineer (Glider)-4, Machinist-5, Mechanic-4|
+Mechanic (Halftrack)|IQ/A|1|B207|IQ-5, Engineer (Halftrack)-4, Machinist-5, Mechanic-4|
+Mechanic (Heavy Airplane)|IQ/A|1|B207|IQ-5, Engineer (Heavy Airplane)-4, Machinist-5, Mechanic-4|
+Mechanic (Heavy Wheeled)|IQ/A|1|B207|IQ-5, Engineer (Heavy Wheeled)-4, Machinist-5, Mechanic-4|
+Mechanic (Helicopter)|IQ/A|1|B207|IQ-5, Engineer (Helicopter)-4, Machinist-5, Mechanic-4|
+Mechanic (High-Performance Airplane)|IQ/A|1|B207|IQ-5, Engineer (High-Performance Airplane)-4, Machinist-5, Mechanic-4|
+Mechanic (High-Performance Spacecraft)|IQ/A|1|B207|IQ-5, Engineer (High-Performance Spacecraft)-4, Machinist-5, Mechanic-4|
+Mechanic (Hovercraft)|IQ/A|1|B207|IQ-5, Engineer (Hovercraft)-4, Machinist-5, Mechanic-4|
+Mechanic (Large Sub)|IQ/A|1|B207|IQ-5, Engineer (Large Sub)-4, Machinist-5, Mechanic-4|
+Mechanic (Legged Drive)|IQ/A|1|B207|IQ-5, Engineer (Legged Drive)-4, Machinist-5, Mechanic-4|
+Mechanic (Light Airplane)|IQ/A|1|B207|IQ-5, Engineer (Light Airplane)-4, Machinist-5, Mechanic-4|
+Mechanic (Lighter-Than-Air)|IQ/A|1|B207|IQ-5, Engineer (Lighter-Than-Air)-4, Machinist-5, Mechanic-4|
+Mechanic (Lightsail)|IQ/A|1|B207|IQ-5, Engineer (Lightsail)-4, Machinist-5, Mechanic-4|
+Mechanic (Low-G Wings)|IQ/A|1|B207|IQ-5, Engineer (Low-G Wings)-4, Machinist-5, Mechanic-4|
+Mechanic (Low-Performance Spacecraft)|IQ/A|1|B207|IQ-5, Engineer (Low-Performance Spacecraft)-4, Machinist-5, Mechanic-4|
+Mechanic (Mecha)|IQ/A|1|B207|IQ-5, Engineer (Mecha)-4, Machinist-5, Mechanic-4|
+Mechanic (Micromachines)|IQ/A|1|B207|IQ-5, Engineer (Micromachines)-4, Machinist-5, Mechanic-4|
+Mechanic (Mini-Sub)|IQ/A|1|B207|IQ-5, Engineer (Mini-Sub)-4, Machinist-5, Mechanic-4|
+Mechanic (Motorcycle)|IQ/A|1|B207|IQ-5, Engineer (Motorcycle)-4, Machinist-5, Mechanic-4|
+Mechanic (Nanomachines)|IQ/A|1|B207|IQ-5, Engineer (Nanomachines)-4, Machinist-5, Mechanic-4|
+Mechanic (Reactionless Thrusters)|IQ/A|1|B207|IQ-5, Engineer (Reactionless Thrusters)-4, Machinist-5, Mechanic-4|
+Mechanic (Robotics)|IQ/A|1|B207|IQ-5, Engineer (Robotics)-4, Machinist-5, Mechanic-4|
+Mechanic (Rockets)|IQ/A|1|B207|IQ-5, Engineer (Rockets)-4, Machinist-5, Mechanic0|
+Mechanic (Steam Engine)|IQ/A|1|B207|IQ-5, Engineer (Steam Engine)-4, Machinist-5, Mechanic-4|
+Mechanic (Tracked Drive)|IQ/A|1|B207|IQ-5, Engineer (Tracked Drive)-4, Machinist-5, Mechanic-4|
+Mechanic (Tracked Vehicle)|IQ/A|1|B207|IQ-5, Engineer (Tracked Vehicle)-4, Machinist-5, Mechanic-4|
+Mechanic (Ultralight)|IQ/A|1|B207|IQ-5, Engineer (Ultralight)-4, Machinist-5, Mechanic-4|
+Mechanic (Vertol)|IQ/A|1|B207|IQ-5, Engineer (Vertol)-4, Machinist-5, Mechanic-4|
+Mechanic (Wheeled Drive)|IQ/A|1|B207|IQ-5, Engineer (Wheeled Drive)-4, Machinist-5, Mechanic-4|
+Meditation|Will/H|1|B207|Will-6, Autohypnosis-4|
+Mental Strength|Will/E|1|B209|
+Merchant|IQ/A|1|B209|IQ-5, Finance-6, Market Analysis-4|
+Metallurgy|IQ/H|1|B209|Chemistry-5, Jeweler-8, Smith-8|
+Meteorology (@Planet type@)|IQ/A|1|B209|IQ-5|
+Meteorology (Earthlike)|IQ/A|1|B209|IQ-5|
+Meteorology (Gas Giants)|IQ/A|1|B209|IQ-5|
+Meteorology (Hostile Terrestrial)|IQ/A|1|B209|IQ-5|
+Meteorology (Ice Dwarfs)|IQ/A|1|B209|IQ-5|
+Meteorology (Ice Worlds)|IQ/A|1|B209|IQ-5|
+Meteorology (Rock Worlds)|IQ/A|1|B209|IQ-5|
+Mimicry (Animal Sounds)|IQ/H|1|B210|IQ-6, Naturalist-6, Mimicry (Bird Calls)-6|
+Mimicry (Bird Calls)|IQ/H|1|B210|IQ-6, Naturalist-6, Mimicry (Animal Sounds)-6|
+Mimicry (Speech)|IQ/H|1|B210|
+Mind Block|Will/A|1|B210|Will-5, Meditation-5|
+Monowire Whip|DX/H|1|B209|DX-6, Force Whip-3, Kusari-3, Whip-3|
+	<technique version="2">
+Motion-Picture Camera|A|1|B233|Photography-3|
+Mount|DX/A|1|B210|DX-5|
+Musical Composition|IQ/H|1|B210|Musical Instrument-2, Poetry-2|
+Musical Influence|IQ/VH|1|B210|
+Musical Instrument (@Specialty@)|IQ/H|1|B211|
+Naturalist (@Planet type@)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Earthlike)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Gas Giants)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Hostile Terrestrial)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Ice Dwarfs)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Ice Worlds)|IQ/H|1|B211|IQ-6, Biology-3|
+Naturalist (Rock Worlds)|IQ/H|1|B211|IQ-6, Biology-3|
+Navigation (@Environment@)|IQ/A|1|B211|Astronomy-5, Navigation (Land)-2, Navigation (Sea)-2|
+Navigation (Air)|IQ/A|1|B211|Astronomy-5, Navigation (Land)-2, Navigation (Sea)-2|
+Navigation (Hyperspace)|IQ/A|1|B211|Astronomy-4, Mathematics (Applied)-4, Navigation (Space)-5|
+Navigation (Land)|IQ/A|1|B211|IQ-5, Cartography-4, Mathematics (Surveying)-4, Navigation (Air)-2, Navigation (Sea)-2|
+Navigation (Sea)|IQ/A|1|B211|Astronomy-5, Seamanship-5, Navigation (Air)-2, Navigation (Land)-2|
+Navigation (Space)|IQ/A|1|B211|Astronomy-4, Mathematics (Applied)-4, Navigation (Hyperspace)-5|
+NBC Suit|DX/A|1|B192|DX-5, Battlesuit-2, Diving Suit-4, Vacc Suit-2|
+Neck Snap|H|2|B232,MA77|ST-4|
+Net|DX/H|1|B211|Cloak-5|
+No-Landing Extraction|H|2|B233|Piloting-4|
+Observation|Per/A|1|B211|Per-5, Shadowing-5|
+Occultism|IQ/A|1|B212|IQ-5|
+Off-Hand Weapon Training|H|2|B232|Broadsword-4|
+Off-Hand Weapon Training|H|2|B232|Guns (Pistol)-4|
+Off-Hand Weapon Training|H|2|B232|Knife-4|
+Off-Hand Weapon Training|H|2|B232|Shortsword-4|
+Packing|IQ/A|1|B212|IQ-5, Animal Handling (Equines)-5|
+Paleontology (Micropaleontology)|IQ/H|1|B212|Biology-4, Paleontology-2|
+Paleontology (Paleoanthropology)|IQ/H|1|B212|Biology-4, Paleontology-2, Anthropology-2|
+Paleontology (Paleobotany)|IQ/H|1|B212|Biology-4, Paleontology-2|
+Paleontology (Paleozoology)|IQ/H|1|B212|Biology-4, Paleontology-2|
+Panhandling|IQ/E|1|B212|IQ-4, Fast Talk-2, Public Speaking-3|
+Parachuting|DX/E|1|B212|DX-4|
+Parry Missile-Weapons|DX/H|1|B212|
+Performance|IQ/A|1|B212|IQ-5, Acting-2, Public Speaking-2|
+Persuade|Will/H|1|B191|
+Pharmacy (Herbal)|IQ/H|1|B213|
+Pharmacy (Synthetic)|IQ/H|1|B213|IQ-6, Chemistry-5, Physician-5|
+Philosophy (@Specialty@)|IQ/H|1|B213|IQ-6|
+Photography|IQ/A|1|B213|IQ-5, Electronics Operation (Media)-5|
+Physician|IQ/H|1|B213|IQ-7, First Aid-11, Veterinary-5|
+Physics|IQ/VH|1|B213|
+Physics (@TL 6+ Optional Specialty@)|IQ/H|1|B213|
+Physiology (@Specialty@)|IQ/H|1|B213|IQ-6, Diagnosis-5, Physician-5, Surgery-5|
+Pickpocket|DX/H|1|B213|DX-6, Filch-5, Sleight of Hand-4|
+Piloting (@Flying vehicle class@)|DX/A|1|B214|IQ-6, Piloting (High-Performance Airplane)-2, Piloting-4|
+Piloting (Aerospace)|DX/A|1|B214|IQ-6, Piloting (High-Performance Airplane)-2, Piloting-4|
+Piloting (Autogyro)|DX/A|1|B214|Piloting (Helicopter)-3, Piloting (Heavy Airplane)-4, Piloting-5|IQ-6, Piloting (Light Airplane)-4, Piloting (High-Performance Airplane)-4|
+Piloting (Contragravity)|DX/A|1|B214|IQ-6, Piloting (Vertol)-3, Piloting-5|
+Piloting (Flight Pack)|DX/A|1|B214|IQ-6, Piloting (Vertol)-4, Piloting-5|
+Piloting (Glider)|DX/A|1|B214|IQ-6, Piloting (Light Airplane)-2, Piloting (Ultralight)-2, Piloting-4|
+Piloting (Heavy Airplane)|DX/A|1|B214|IQ-6, Piloting (High-Performance Airplane)-2, Piloting (Light Airplane)-2, Piloting-4|
+Piloting (Helicopter)|DX/A|1|B214|IQ-6, Piloting (Autogyro)-2, Piloting (Vertol)-4, Piloting-5|
+Piloting (High-Performance Airplane)|DX/A|1|B214|IQ-6, Piloting (Aerospace)-2, Piloting (Heavy Airplane)-2, Piloting (Light Airplane)-2, Piloting-5|
+Piloting (High-Performance Spacecraft)|DX/A|1|B214|IQ-6, Piloting (Aerospace)-4, Piloting (Low-Performance Spacecraft)-2|
+Piloting (Light Airplane)|DX/A|1|B214|IQ-6, Piloting (Glider)-2, Piloting (Heavy Airplane)-2, Piloting (High-Performance Airplane)-2, Piloting-4, Piloting (Ultralight)-2|
+Piloting (Lighter-Than-Air)|DX/A|1|B214|IQ-6, Piloting-5|
+Piloting (Lightsail)|DX/A|1|B214|IQ-6, Piloting (Low-Performance Spacecraft)-4|
+Piloting (Low-G Wings)|DX/A|1|B214|IQ-6, Piloting (Glider)-4|
+Piloting (Low-Performance Spacecraft)|DX/A|1|B214|IQ-6, Piloting (Aerospace)-4, Piloting (High-Performance Spacecraft)-2|
+Piloting (Ultralight)|DX/A|1|B214|IQ-6, Piloting (Gilder)-2, Piloting (Light Airplane)-2, Piloting (Heavy Airplane)-4, Piloting-5, Piloting (High-Performance Airplane)-4|
+Piloting (Vertol)|DX/A|1|B214|IQ-6, Piloting (Contragravity)-3, Piloting (Helicopter)-4, Piloting-5|
+Poetry|IQ/A|1|B214|IQ-5, Writing-5|
+Poisons|IQ/H|1|B214|IQ-6, Chemistry-5, Pharmacy-3, Physician-3|
+Polearm|DX/A|1|B208|DX-5, Spear-4, Staff-4, Two-Handed Axe/Mace-4|
+Politics|IQ/A|1|B215|IQ-5, Diplomacy-5|
+Power Blow|Will/H|1|B215|
+Pressure Points|IQ/H|1|B215|
+Pressure Secrets|IQ/VH|1|B215|
+Professional Skill (@Mental Skill@)|IQ/A|1|B215|IQ-5|
+Professional Skill (@Physical Skill@)|DX/A|1|B215|DX-5|
+Propaganda|IQ/A|1|B216|IQ-5, Merchant-5, Psychology-4|
+Prospecting|IQ/A|1|B216|IQ-5, Geology-4|
+Psychology|IQ/H|1|B216|IQ-6, Sociology-4|
+Public Speaking|IQ/A|1|B216|IQ-5, Acting-5, Performance-2, Politics-5|
+Push|DX/H|1|B216|
+Rapier|DX/A|1|B208|DX-5, Broadsword-4, Main-Gauche-3, Saber-3, Smallsword-3|
+Religious Ritual (@Specialty@)|IQ/H|1|B217|Ritual Magic (@Specialty@)-6, Theology (@Specialty@)-4|
+Research|IQ/A|1|B217|IQ-5, Writing-3|
+Retain Weapon|H|2|B232,MA78|@Melee Weapon Skill@0|
+Retain Weapon (@Ranged Weapon@)|H|2|B232,MA78|DX0|
+Retain Weapon|H|2|B232|Broadsword0|
+Retain Weapon|H|2|B232|Knife0|
+Retain Weapon|H|2|B232|Shortsword0|
+Riding (@Specialty@)|DX/A|1|B217|DX-5, Animal Handling (@Specialty@)-3|
+Riding (Camel)|DX/A|1|B217|DX-5, Animal Handling (Camel)-3|
+Riding (Dolphin)|DX/A|1|B217|DX-5, Animal Handling (Dolphin)-3|
+Riding (Dragon)|DX/A|1|B217|DX-5, Animal Handling (Dragon)-3|
+Riding (Equine)|DX/A|1|B217|DX-5, Animal Handling (Equine)-3|
+Ritual Magic (@Specialty@)|IQ/VH|1|B218|Ritual Magic-6|
+Rope Up|A|1|B233|Climbing-2|
+Running|HT/A|1|B218|HT-5|
+Saber|DX/A|1|B208|DX-5, Broadsword-4, Shortswort-4, Main-Gauche-3, Rapier-3, Smallsword-3|
+Savoir-Faire (@Social group@)|IQ/E|1|B218|IQ-4, Games-3|
+Savoir-Faire (Dojo)|IQ/E|1|B218|IQ-4, Games-3|
+Savoir-Faire (High Society)|IQ/E|1|B218|IQ-4, Savoir-Faire (Servant)-2|
+Savoir-Faire (Mafia)|IQ/E|1|B218|IQ-4, Streetwise-3|
+Savoir-Faire (Military)|IQ/E|1|B218|IQ-4|
+Savoir-Faire (Police)|IQ/E|1|B218|IQ-4|
+Savoir-Faire (Servant)|IQ/E|1|B218|IQ-4, Savoir-Faire (High Society)-2|
+Scaling|H|2|B233|Climbing-3|
+Scrounging|Per/E|1|B218|Per-4|
+Scuba|IQ/A|1|B219|
+Seamanship|IQ/E|1|B185|IQ-4|
+Search|Per/A|1|B219|Per-5, Criminology-5|
+Set Trap|H|2|B233|Explosives (Demolition)-2|
+Sewing|DX/E|1|B219|DX-4|
+Sex Appeal|HT/A|1|B219|HT-3|
+Shadowing|IQ/A|1|B219|IQ-5, Observation-5, Stealth-4|
+Shield (Buckler)|DX/E|1|B220|DX-4, Shield (Force)-2|
+Shield (Force Shield)|DX/E|1|B220|DX-4, Shield (Buckler)-2|
+Shield (Shield)|DX/E|1|B220|DX-4|
+Shiphandling (@Ship class@)|IQ/H|1|B220|
+Shiphandling (Airship)|IQ/H|1|B220|
+Shiphandling (Ship)|IQ/H|1|B220|
+Shiphandling (Spaceship)|IQ/H|1|B220|
+Shiphandling (Starship)|IQ/H|1|B220|
+Shiphandling (Submarine)|IQ/H|1|B220|
+Shortsword|DX/A|1|B209|Broadsword-2, Force Sword-4, Jitte/Sai-3, Knife-4, Saber-4, Smallsword-4, Tonfa-3|DX-5|
+Singing|HT/E|1|B220|HT-4|
+Skating|HT/H|1|B220|HT-6|
+Skiing|HT/H|1|B221|HT-6|
+Sleight of Hand|DX/H|1|B221|Filch-5|
+Sling|DX/H|1|B221|DX-6|
+Slip Handcuffs|H|2|B233|Escape-5|
+Smallsword|DX/A|1|B208|DX-5, Shortsword-4, Main-Gauche-3, Rapier-3, Saber-3|
+Smith (Copper)|IQ/A|1|B221|IQ-6, Jeweler-4, Smith-4|
+Smith (Iron)|IQ/A|1|B221|IQ-5, Smith-4|
+Smith (Lead &amp; Tin)|IQ/A|1|B221|IQ-5, Jeweler-4, Smith-4|
+Smuggling|IQ/A|1|B221|IQ-5|
+Sociology|IQ/H|1|B221|IQ-6, Anthropology-3, Psychology-4|
+Soldier|IQ/A|1|B221|IQ-5|
+Spacer|IQ/E|1|B185|IQ-4|
+Spear|DX/A|1|B208|DX-5, Polearm-4, Staff-2|
+Spear Thrower|DX/A|1|B222|DX-5, Thrown Weapon (Spear)-4|
+Speed-Reading|IQ/A|1|B222|
+Sports (@Speciality@)|DX/A|1|B222|DX-5|
+Staff|DX/A|1|B208|DX-5, Polearm-4, Spear-2|
+Stage Combat|DX/A|1|B222|Performance-3|DX/A|1|B222|IQ-5|DX-5|
+Strategy (Land)|IQ/H|1|B222|IQ-6, Intelligence Analysis-6, Tactics-6, Strategy-4|
+Strategy (Naval)|IQ/H|1|B222|IQ-6, Intelligence Analysis-6, Tactics-6, Strategy-4|
+Strategy (Space)|IQ/H|1|B222|IQ-6, Intelligence Analysis-6, Tactics-6, Strategy-4|
+Streetwise|IQ/A|1|B223|IQ-5|
+Submarine (Free-Flooding Sub)|DX/A|1|B222|
+Submarine (Large Sub)|DX/A|1|B222|IQ-6, Submarine (Free-Flooding Sub)-5, Submarine (Mini-Sub)-4|
+Submarine (Min-Sub)|DX/A|1|B222|IQ-6, Submarine-4|
+Submariner|IQ/E|1|B185|IQ-4|
+Suggest|Will/H|1|B191|
+Sumo Wrestling|DX/A|1|B223|
+Surgery|IQ/VH|1|B223|First Aid-12, Physician-5, Physiology-8, Veterinary-5|
+Survival (@Environment@)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Tropical Lagoon)-4|
+Survival (Arctic)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Desert)-3, Survival (Island/Beach)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Swamplands)-3, Survival (Woodlands)-3|
+Survival (Bank)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (Deep Ocean Vent)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (Desert)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Arctic)-3, Survival (Island/Beach)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Swampland)-3, Survival (Woodlands)-3|
+Survival (Fresh-Water Lake)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (Island/Beach)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Tropical Lagoon)-4, Survival (Arctic)-3, Survival (Desert)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Swampland)-3, Survival (Woodlands)-3|
+Survival (Jungle)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Arctic)-3, Survival (Desert)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Swampland)-3, Survival (Island/Beach)-3, Survival (Woodlands)-3|
+Survival (Mountain)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Arctic)-3, Survival (Desert)-3, Survival (Island/Beach)-3, Survival (Jungle)-3, Survival (Plains)-3, Survival (Swampland)-3, Survival (Woodlands)-3|
+Survival (Open Ocean)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (Plains)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Arctic)-3, Survival (Desert)-3, Survival (Island/Beach)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Swampland)-3, Survival (Woodlands)-3|
+Survival (Reef)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (River/Stream)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (River/Stream)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Swampland)-4, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (Salt-Water Sea)-4, Survival (Tropical Lagoon)-4|
+Survival (Salt-Water Sea)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (River/Stream)-4, Survival (Tropical Lagoon)-4|
+Survival (Swampland)|Per/A|1|B223|Per-6, Naturalist-3, Survival (River/Stream)-4, Survival (Arctic)-3, Survival (Desert)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Island/Beach)-3, Survival (Woodlands)-3|
+Survival (Tropical Lagoon)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Island/Beach)-4, Survival (Bank)-4, Survival (Deep Ocean Vent)-4, Survival (Fresh-Water Lake)-4, Survival (Open Ocean)-4, Survival (Reef)-4, Survival (Salt-Water Sea)-4, Survival (River/Stream)-4|
+Survival (Woodlands)|Per/A|1|B223|Per-5, Naturalist-3, Survival (Arctic)-3, Survival (Desert)-3, Survival (Island/Beach)-3, Survival (Jungle)-3, Survival (Mountain)-3, Survival (Plains)-3, Survival (Swampland)-3|
+Sway Emotions|Will/H|1|B192|
+Sweep|H|2|B232,MA81|@Two-Handed Weapon Skill@-3|
+Sweep|H|2|B232,MA81|Polearm-3|
+Sweep|H|2|B232,MA81|Spear-3|
+Sweep|H|2|B232,MA81|Staff-3|
+Sweeping Kick|H|2|B232,MA81|@Unarmed Combat Skill@-3|
+Sweeping Kick|H|2|B232,MA81|Judo-3|
+Sweeping Kick|H|2|B232,MA81|Karate-3|
+Sweeping Kick|H|2|B232,MA81|Sumo Wrestling-3|
+Swimming|HT/E|1|B224|HT-4|
+Symbol Drawing (@Specialty@)|IQ/H|1|B224|
+Tactics|IQ/H|1|B224|IQ-6, Strategy-6|
+Teaching|IQ/A|1|B224|IQ-5|
+Teamster (@Specialty@)|IQ/A|1|B225|IQ-5, Animal Handling (@Specialty@)-4, Riding (@Specialty@)-2, Teamster-3|
+Teamster (Equines)|IQ/A|1|B225|IQ-5, Animal Handling (Equines)-4, Riding (Equines)-2|
+Thaumatology|IQ/VH|1|B225|IQ-7|
+Theology (@Specialty@)|IQ/H|1|B226|IQ-6, Religious Ritual (@Specialty@)-4|
+Throwing|DX/A|1|B226|DX-3, Dropping-4|
+Throwing Art|DX/H|1|B226|
+Thrown Weapon (@Specialty@)|DX/E|1|B226|DX-4|
+Thrown Weapon (Axe/Mace)|DX/E|1|B226|DX-4|
+Thrown Weapon (Dart)|DX/E|1|B226|DX-4, Throwing-2|
+Thrown Weapon (Harpoon)|DX/E|1|B226|DX-4, Thrown Weapon (Spear)-2|
+Thrown Weapon (Knife)|DX/E|1|B226|DX-4|
+Thrown Weapon (Shuriken)|DX/E|1|B226|DX-4, Throwing-2|
+Thrown Weapon (Spear)|DX/E|1|B226|DX-4, Spear Thrower-4, Thrown Weapon (Harpoon)-2|
+Thrown Weapon (Stick)|DX/E|1|B226|DX-4|
+Tonfa|DX/A|1|B209|DX-5, Shortsword-3|
+Tracking|Per/A|1|B226|Per-5, Naturalist-5|
+Traps|IQ/A|1|B226|IQ-5, Lockpicking-3|
+Two-Handed Axe/Mace|DX/A|1|B208|DX-5, Axe/Mace-3, Polearm-4, Two-Handed Flail-4|
+Two-Handed Flail|DX/H|1|B208|DX-6, Flail-3, Kusari-4, Two-Handed Axe/Mace-4|
+Two-Handed Sword|DX/A|1|B209|Broadsword-4, Force Sword-4|DX-5|
+Typing|DX/E|1|B228|DX-4|
+Urban Survival|Per/A|1|B228|Per-5|
+Vacc Suit|DX/A|1|B192|DX-5, Diving Suit-4, NBC Suit-2, Battlesuit-2|
+Ventriloquism|IQ/H|1|B228|
+Veterinary|IQ/H|1|B228|Animal Handling-6, Physician-5, Surgery-5|
+Weather Sense|IQ/A|1|B209|IQ-5|
+Weird Science|IQ/VH|1|B228|
+Whip|DX/A|1|B209|DX-5, Force Whip-3, Kusari-3, Monowire Whip-3|
+Whirlwind Attack|H|2|B232,MA89|@Melee Weapon Skill@-5|
+Whirlwind Attack|H|2|B232,MA89|Boxing-5|
+Whirlwind Attack|H|2|B232,MA89|Broadsword-5|
+Whirlwind Attack|H|2|B232,MA89|Karate-5|
+Whirlwind Attack|H|2|B232,MA89|Staff-5|
+Whirlwind Attack|H|2|B232,MA89|Two-Handed Sword-5|
+Work by Touch|H|2|B233|Lockpicking-5|
+Wrestling|DX/A|1|B228|
+Writing|IQ/A|1|B228|IQ-5|
+Zen Archery|IQ/VH|1|B228|
+
+
+
+
