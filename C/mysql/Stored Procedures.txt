@@ -1,0 +1,123 @@
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 500 DO
+	SET @y = "'$[";
+	SET @y = CONCAT(@y, x);
+	SET @y = CONCAT(@y, "].\"weapons\"'");
+	select json_query(stuffs, @y) from v_Rows;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+	DECLARE counter INT DEFAULT 0;
+
+	select json_length(stuffs)
+	from v_Rows into counter;
+
+	select counter;
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	select x;
+	SET x=x+1;
+END WHILE;
+
+SET y = "fish";
+SET y = CONCAT(y, "monger");
+select y;
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	SET y = "fish: ";
+	SET y = CONCAT(y, x);
+	select y;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	SET y = "'$[";
+	SET y = CONCAT(y, x);
+	SET y = CONCAT(y, "].\"weapons\"'");
+	select y;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
