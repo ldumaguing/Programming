@@ -29,16 +29,11 @@ update Stuffs set  Definition =
 "basic move": 0,
 "dodge": 0
 },
-"armors": [],
-"weapons": {
-"innate": [
-10006,
-10008,
-10010
-],
-"left": 0,
-"right": 0,
-"both": 0
+"wearing": [],
+"arms": {
+"left": {},
+"right": {},
+"both": {}
 },
 "anatomy": {
 "head": {
