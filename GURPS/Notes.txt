@@ -1,3 +1,44 @@
 https://codebeautify.org/xmltojson/
 
 
+create table Weapons (
+Folder       varchar(128),
+Filename     varchar(128),
+RowLoc       int
+);
+
+Basic Set | Basic Set Equipment
+
+
+
+
+
+create table Equipment (
+Folder       varchar(128),
+Filename     varchar(128),
+RowLoc       int,
+Name         varchar(64),     // description
+categ1       varchar(64),
+categ2       varchar(64),
+categ3       varchar(64)
+);
+
+
+
+
+
+---   insert into Equipment (Folder, Filename, RowLoc, Name, categ1, categ2, categ3)
+---   values ('Basic Set', 'Basic Set Equipment', x, n, a, b, c);
+
+
+   select
+   json_value(Definitions, y1),
+   json_value(Definitions, y2),
+   json_value(Definitions, y3),
+   json_value(Definitions, y4)
+   from GCS where Id = 1 INTO n, a, b, c;
+   
+   
+   
+   
+   

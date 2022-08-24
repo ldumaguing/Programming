@@ -1,0 +1,233 @@
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y1 TEXT;
+DECLARE y2 TEXT;
+DECLARE y3 TEXT;
+DECLARE y4 TEXT;
+DECLARE n TEXT;
+DECLARE a TEXT;
+DECLARE b TEXT;
+DECLARE c TEXT;
+DECLARE counter INT DEFAULT 0;
+
+select json_length(Definitions, '$."rows"') from GCS where Id = 1 into counter;
+	
+SET x = 0;
+WHILE x < counter DO
+   SET y1 = "$.\"rows\"[";
+   SET y1 = CONCAT(y1, x);
+   SET y1 = CONCAT(y1, "].\"description\"");
+   
+   SET y2 = "$.\"rows\"[";
+   SET y2 = CONCAT(y2, x);
+   SET y2 = CONCAT(y2, "].\"categories\"[0]");
+   
+   SET y3 = "$.\"rows\"[";
+   SET y3 = CONCAT(y3, x);
+   SET y3 = CONCAT(y3, "].\"categories\"[1]");
+   
+   SET y4 = "$.\"rows\"[";
+   SET y4 = CONCAT(y4, x);
+   SET y4 = CONCAT(y4, "].\"categories\"[2]");
+      
+   select
+   json_value(Definitions, y1),
+   json_value(Definitions, y2),
+   json_value(Definitions, y3),
+   json_value(Definitions, y4)
+   from GCS where Id = 1 INTO n, a, b, c;
+
+   insert into Equipment (Folder, Filename, RowLoc, Name, categ1, categ2, categ3)
+   values ('Basic Set', 'Basic Set Equipment', x, n, a, b, c);
+
+   SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+DECLARE z INT DEFAULT 0;
+
+SET x = 0;
+WHILE x < 500 DO
+   SET y = "$[";
+   SET y = CONCAT(y, x);
+   SET y = CONCAT(y, "].\"weapons\"");
+   select json_exists(stuffs, y) from v_Rows INTO z;
+   IF z = 0 THEN
+      select "zero";
+   ELSE
+      select "one";
+   END IF;
+
+   SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+DECLARE z INT DEFAULT 1;
+
+select z;
+
+   IF z = 1 THEN
+      select "fish";
+   END IF;
+
+
+	
+END$$
+DELIMITER ;
+
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 500 DO
+	SET y = "$[";
+	SET y = CONCAT(y, x);
+	SET y = CONCAT(y, "].\"weapons\"");
+	select json_query(stuffs, y) from v_Rows;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+	DECLARE counter INT DEFAULT 0;
+
+	select json_length(stuffs)
+	from v_Rows into counter;
+
+	select counter;
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	select x;
+	SET x=x+1;
+END WHILE;
+
+SET y = "fish";
+SET y = CONCAT(y, "monger");
+select y;
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	SET y = "fish: ";
+	SET y = CONCAT(y, x);
+	select y;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+******************************************************************************************
+DROP PROCEDURE IF EXISTS foo;
+DELIMITER $$
+CREATE PROCEDURE foo()
+BEGIN
+
+
+DECLARE x INT;
+DECLARE y TEXT;
+
+SET x = 0;
+WHILE x < 10 DO
+	SET y = "'$[";
+	SET y = CONCAT(y, x);
+	SET y = CONCAT(y, "].\"weapons\"'");
+	select y;
+	SET x=x+1;
+END WHILE;
+
+
+	
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

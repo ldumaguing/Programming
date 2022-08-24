@@ -1,0 +1,64 @@
+drop view v_Rows;
+create view v_Rows as
+
+select json_query(Definitions, '$."rows"') stuffs from GCS;
+
+
+
+*************************************************************************************************
+drop view v_Rows;
+create view v_Rows as
+
+select json_query(Definitions, '$."rows"') stuffs from GCS where Id = 1
+
+;
+
+
+*************** NOTES
+We're dealing with an array of objects.
+
+
+
+************* VALID
+select json_length(stuffs) from v_Rows;
+
+
+select json_keys(stuffs, '$[0]') from v_Rows;  // list of keys (1st level) of the object
+
+
+select json_query(stuffs, '$[5]."weapons"') from v_Rows;   // query a specific object
+select json_query(stuffs, '$[55]."weapons"') from v_Rows;
+
+
+select json_query(stuffs, '$[0]') from v_Rows;   // get object at row 0
+
+
+select json_search(stuffs, 'all', '%Bastard%') from v_Rows;  // search a value thru rows; case-sensitive
+
+
+
+select
+json_value(Definitions, '$."rows"[155]."description"'),
+json_value(Definitions, '$."rows"[155]."categories"[0]'),
+json_value(Definitions, '$."rows"[155]."categories"[1]'),
+json_value(Definitions, '$."rows"[155]."categories"[2]')
+from GCS where Id = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
