@@ -9,10 +9,10 @@ DECLARE y TEXT;
 
 SET x = 0;
 WHILE x < 500 DO
-	SET @y = "'$[";
-	SET @y = CONCAT(@y, x);
-	SET @y = CONCAT(@y, "].\"weapons\"'");
-	select json_query(stuffs, @y) from v_Rows;
+	SET y = "$[";
+	SET y = CONCAT(y, x);
+	SET y = CONCAT(y, "].\"weapons\"");
+	select json_query(stuffs, y) fish from v_Rows;
 	SET x=x+1;
 END WHILE;
 
