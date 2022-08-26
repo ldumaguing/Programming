@@ -1,3 +1,14 @@
+create view v_All_Files as
+select g.Filename, f.Name Folder
+from GCS g, Folders f
+where
+g.FolderId = f.Id;
+
+
+
+
+
+
 https://codebeautify.org/xmltojson/
 
 

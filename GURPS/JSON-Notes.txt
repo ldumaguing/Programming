@@ -1,3 +1,75 @@
+select json_type (
+select json_QUERY(Stuffs, '$."rows"[0]') from GCS
+where
+FolderId = 15 and Filename = 'Equipment'
+);
+
+
+
+
+
+
+********** List of keys from an object in a specific row.
+select json_KEYS(Stuffs, '$."rows"[55]') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Returns an object in a specific row.
+select json_QUERY(Stuffs, '$."rows"[55]') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Returns a lot of data
+select json_QUERY(Stuffs, '$."rows"') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Returns a lot of data
+select json_QUERY(Stuffs, '$') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Is NULL if it's a variable
+select json_QUERY(Stuffs, '$."type"') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Returns a value if referencing a variable.
+select json_VALUE(Stuffs, '$."type"') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Returns NULL value if querying an object or an array
+select json_VALUE(Stuffs, '$') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Number of nodes in an array.
+select json_LENGTH(Stuffs, '$."rows"') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** Number of nodes in the object.  A variable returns one (1).
+select json_LENGTH(Stuffs, '$') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+********** List keys in the object
+select json_KEYS(Stuffs, '$') from GCS
+where
+FolderId = 15 and Filename = 'Equipment';
+
+
+*************************************************************************************************
 drop view v_Rows;
 create view v_Rows as
 
