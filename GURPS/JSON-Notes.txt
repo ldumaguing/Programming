@@ -69,6 +69,16 @@ where
 FolderId = 15 and Filename = 'Equipment';
 
 
+
+
+
+
+
+
+
+
+
+
 *************************************************************************************************
 drop view v_Rows;
 create view v_Rows as

@@ -1,4 +1,30 @@
+DROP FUNCTION IF EXISTS getTYPE;
+DELIMITER $$
+CREATE FUNCTION getTYPE(branch VARCHAR(128))
+RETURNS VARCHAR(32)
+BEGIN
 
+DECLARE x JSON;
+DECLARE y VARCHAR(32);
+
+select json_QUERY(Stuffs, branch) from GCS where
+FolderId = 15 and Filename = 'Equipment' into x;
+
+select json_type(x) into y;
+
+RETURN (y);
+	
+END$$
+DELIMITER ;
+
+select getTYPE('$');
+
+
+
+
+
+
+******************************************************************************************
 DROP PROCEDURE IF EXISTS foo;
 DELIMITER $$
 CREATE PROCEDURE foo()
