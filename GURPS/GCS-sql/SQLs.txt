@@ -1,0 +1,30 @@
+
+
+
+
+create table Folders (
+Id       int not null,
+Name     varchar(128),
+primary key (Id)
+);
+
+
+
+
+LOAD DATA LOCAL INFILE '/home/ayeka/Desktop/GCS-sql/Folders.csv' INTO TABLE Folders
+FIELDS TERMINATED BY ',' 
+ OPTIONALLY ENCLOSED BY '"'
+ ESCAPED BY '"'
+ LINES TERMINATED BY '\n'
+;
+
+
+
+
+
+
+create table GCS (
+FolderId       int,
+Filename       varchar(128),
+Stuffs         json
+);
