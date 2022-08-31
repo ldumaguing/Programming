@@ -19,7 +19,7 @@ int main(int argc, char **argv)
       exit(1);
   }
 
-  if (mysql_real_connect(con, "localhost", "ayeka", "sasamichan[]()",
+  if (mysql_real_connect(con, "localhost", "ayeka", "",
           "testdb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
