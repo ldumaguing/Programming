@@ -1,6 +1,36 @@
+gdb-multiarch hello_serial.elf
+(gdb) target remote localhost:3333
+(gdb) load
+(gdb) monitor reset init
+(gdb) continue
+
+
+
+
+
+
+
+
+
+
+
 sudo minicom -D /dev/ttyACM0 -b 115200
 
 
 
-openocd -f /usr/local/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr/local/share/openocd/scripts/target/rp2040.cfg 
 
+
+
+
+sudo apt install automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev
+
+
+
+
+sudo apt install libhidapi-dev libhidapi-hidraw0 libhidapi-libusb0
+./configure --enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio --enable-cmsis-dap-v2 --enable-cmsis-dap
+
+
+
+
+sudo openocd -f /usr/local/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr/local/share/openocd/scripts/target/rp2040.cfg -c "adapter speed 5000"
