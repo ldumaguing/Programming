@@ -1,0 +1,6 @@
+sudo minicom -D /dev/ttyACM0 -b 115200
+
+
+
+openocd -f /usr/local/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr/local/share/openocd/scripts/target/rp2040.cfg 
+
