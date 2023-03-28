@@ -8,7 +8,13 @@ gdb-multiarch hello_serial.elf
 
 
 
-
+adm
+cdrom
+dip
+lpadmin
+plugdev
+sambashare
+sudo
 
 
 
@@ -38,6 +44,11 @@ sudo openocd -f /usr/local/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr
 
 
 
+
+
+
+/pico-sdk/lib/tinyusb/src/host/usbh.h
+/pico-sdk/lib/tinyusb/src/host/usbh.c
 
 
 
