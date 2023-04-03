@@ -52,11 +52,36 @@ sudo openocd -f /usr/local/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr
 
 
 
+***********************************************************************************
+SnakeByte Gamepad 4s
+====================
+VID = 0c12, PID = 0e15
+
+
+
+Logitech RumblePad 2
+====================
+VID = 046d, PID = c218
+
+
+
+Logitech Gamepad F310 (D mode)
+=====================
+VID = 046d, PID = c216
+
+
+
+linux-6.2.9/drivers/input/joystick/xpad.c
 
 
 
 
+/home/ayeka/MyPico/pico-sdk/lib/tinyusb/examples/host/hid_controller/src/hid_app.c
 
 
 
+
+if ( !tuh_hid_receive_report(dev_addr, instance) )
+      printf("Error: cannot request to receive report\r\n");
+    return;
 
