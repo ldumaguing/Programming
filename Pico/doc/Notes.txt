@@ -1,3 +1,12 @@
+ git clone https://github.com/viduraembedded/Raspberry-Pi-Pico.git
+
+
+
+
+
+
+
+
 gdb-multiarch hello_serial.elf
 (gdb) target remote localhost:3333
 (gdb) load
