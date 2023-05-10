@@ -87,7 +87,6 @@ int reg_read(   i2c_inst_t *i2c,
  * Main
  */
 int main() {
-
     int16_t acc_x;
     int16_t acc_y;
     int16_t acc_z;
@@ -96,8 +95,8 @@ int main() {
     float acc_z_f;
 
     // Pins
-    const uint sda_pin = 16;
-    const uint scl_pin = 17;
+    const uint sda_pin = 4;
+    const uint scl_pin = 5;
 
     // Ports
     i2c_inst_t *i2c = i2c0;
