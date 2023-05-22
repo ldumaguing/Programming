@@ -5,7 +5,7 @@
 #define LED_PIN  25
 
 #define ILI9341_CS   2   // Chip Select
-#define ILI9341_CD   3   // Command / Data
+#define ILI9341_DCX  3
 #define ILI9341_WR   4
 #define ILI9341_RD   5
 #define ILI9341_D0   6

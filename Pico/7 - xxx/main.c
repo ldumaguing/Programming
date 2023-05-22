@@ -4,11 +4,11 @@
 
 int main() {
    stdio_usb_init();
-
+sleep_ms(2000); 
    gpio_init(ILI9341_CS);
-   gpio_init(ILI9341_CD);  // D/CX
-   gpio_init(ILI9341_WR);  // WRX
-   gpio_init(ILI9341_RD);  // RDX
+   gpio_init(ILI9341_DCX);
+   gpio_init(ILI9341_WR);
+   gpio_init(ILI9341_RD);
    gpio_init(ILI9341_D0);
    gpio_init(ILI9341_D1);
    gpio_init(ILI9341_D2);
@@ -20,7 +20,7 @@ int main() {
    gpio_init(ILI9341_RST);
 
 
-while(1) {
+
 printf("fish\n");
 
 
@@ -30,25 +30,34 @@ printf("fish\n");
    gpio_put(ILI9341_CS, 1);
    gpio_set_dir(ILI9341_RST, GPIO_OUT);
    gpio_put(ILI9341_RST, 1);
-   gpio_set_dir(ILI9341_CD, GPIO_OUT);   // D/CX
-   gpio_put(ILI9341_CD, 1);
+   gpio_set_dir(ILI9341_DCX, GPIO_OUT);
+   gpio_put(ILI9341_DCX, 1);
    gpio_set_dir(ILI9341_WR, GPIO_OUT);
    gpio_put(ILI9341_WR, 1);
    gpio_set_dir(ILI9341_RD, GPIO_OUT);
    gpio_put(ILI9341_RD, 1);
-   
+   sleep_ms(100);
+
+
+
+while(1){
+
+
+
    // Chip select
    gpio_put(ILI9341_CS, 0);   // active low
-   sleep_ms(100);
+   sleep_ms(1);
    
   
-   // D/CX
-   gpio_put(ILI9341_CD, 0);
-   sleep_ms(100);
-   
-   // command address
-   gpio_put(ILI9341_WR, 0);
 
+   gpio_set_dir(ILI9341_D0, GPIO_OUT);
+   gpio_set_dir(ILI9341_D1, GPIO_OUT);
+   gpio_set_dir(ILI9341_D2, GPIO_OUT);
+   gpio_set_dir(ILI9341_D3, GPIO_OUT);
+   gpio_set_dir(ILI9341_D4, GPIO_OUT);
+   gpio_set_dir(ILI9341_D5, GPIO_OUT);
+   gpio_set_dir(ILI9341_D6, GPIO_OUT);
+   gpio_set_dir(ILI9341_D7, GPIO_OUT);
    gpio_put(ILI9341_D0, 0);
    gpio_put(ILI9341_D1, 0);
    gpio_put(ILI9341_D2, 1);
@@ -57,28 +66,53 @@ printf("fish\n");
    gpio_put(ILI9341_D5, 0);
    gpio_put(ILI9341_D6, 0);
    gpio_put(ILI9341_D7, 0);
-   sleep_ms(100);  // ?
 
 
+
+   gpio_put(ILI9341_DCX, 0);
+   //sleep_ms(1);
+   
+   // command strobe
+   gpio_put(ILI9341_WR, 0);
+   sleep_ms(150);
+   gpio_put(ILI9341_WR, 1);
+   sleep_ms(150);
+
+   gpio_put(ILI9341_DCX, 1);
+   //sleep_ms(1);
 
 
 
    // read strobe
    gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
+   sleep_ms(150);  // ?
    gpio_put(ILI9341_RD, 1);
-   sleep_ms(100);  // ?
-   
-   // read data
-   gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
-   for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
-       gpio_set_dir(i, GPIO_IN);
-   }
-   sleep_ms(100);  // ?
+   sleep_ms(150);  // ?
 
+
+
+
+   gpio_set_dir(ILI9341_D0, GPIO_IN);
+   gpio_set_dir(ILI9341_D1, GPIO_IN);
+   gpio_set_dir(ILI9341_D2, GPIO_IN);
+   gpio_set_dir(ILI9341_D3, GPIO_IN);
+   gpio_set_dir(ILI9341_D4, GPIO_IN);
+   gpio_set_dir(ILI9341_D5, GPIO_IN);
+   gpio_set_dir(ILI9341_D6, GPIO_IN);
+   gpio_set_dir(ILI9341_D7, GPIO_IN);
+   sleep_ms(1);
+
+
+   // read strobe
+   gpio_put(ILI9341_RD, 0);
+   sleep_ms(150);  // ?
+   gpio_put(ILI9341_RD, 1);
+   sleep_ms(150);  // ?
+
+   // read data
    printf("1) ");
    for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
+printf("%d", i);
       if (gpio_get(i) == 0) {
          printf("0");
       }
@@ -96,22 +130,13 @@ printf("fish\n");
 
 
 
-
-
    // read strobe
    gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
+   sleep_ms(1);  // ?
    gpio_put(ILI9341_RD, 1);
-   sleep_ms(100);  // ?
-   
-   // read data
-   gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
-   for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
-       gpio_set_dir(i, GPIO_IN);
-   }
-   sleep_ms(100);  // ?
+   sleep_ms(1);  // ?
 
+   // read data
    printf("2) ");
    for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
       if (gpio_get(i) == 0) {
@@ -133,28 +158,13 @@ printf("fish\n");
 
 
 
-
-
-
-
-
-
-
-
    // read strobe
    gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
+   sleep_ms(1);  // ?
    gpio_put(ILI9341_RD, 1);
-   sleep_ms(100);  // ?
-   
-   // read data
-   gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
-   for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
-       gpio_set_dir(i, GPIO_IN);
-   }
-   sleep_ms(100);  // ?
+   sleep_ms(1);  // ?
 
+   // read data
    printf("3) ");
    for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
       if (gpio_get(i) == 0) {
@@ -173,57 +183,13 @@ printf("fish\n");
 
 
 
-
-
-
-
-
-
-
-
-   // read strobe
-   gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
-   gpio_put(ILI9341_RD, 1);
-   sleep_ms(100);  // ?
+   gpio_put(ILI9341_CS, 1);   // active low
    
-   // read data
-   gpio_put(ILI9341_RD, 0);
-   sleep_ms(100);  // ?
-   for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
-       gpio_set_dir(i, GPIO_IN);
-   }
-   sleep_ms(100);  // ?
-
-   printf("4) ");
-   for (int i=ILI9341_D0; i<=ILI9341_D7; ++i) {
-      if (gpio_get(i) == 0) {
-         printf("0");
-      }
-      else {
-         printf("1");
-      }
-   }
-   printf("\n");
-   sleep_ms(100);  // ?
+  
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-   
-   
-   
-   
    
    
 
