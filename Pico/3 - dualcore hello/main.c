@@ -1,5 +1,6 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
+#include <stdio.h>
 
 void main2() {
    while(1) {
