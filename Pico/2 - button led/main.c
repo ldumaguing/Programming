@@ -14,11 +14,12 @@ int main() {
 
    gpio_init(BUTTON_PIN);
    gpio_set_dir(BUTTON_PIN, GPIO_IN);
-   gpio_pull_up(BUTTON_PIN);  // required
+   gpio_pull_up(BUTTON_PIN);  // required; pull_down doesn't work
 
 
 
    while(true) {
+      // gpio_get() returns 1 by default
       if(!gpio_get(BUTTON_PIN)) {
          printf("button was pressed\n");
          gpio_put(LED_PIN, GPIO_ON);
