@@ -18,10 +18,10 @@
 
 #define wait_2sec  sleep_ms(2000)
 #define wait_3sec  sleep_ms(3000)
-#define wait_1     sleep_ms(250)
-#define wait_2     sleep_ms(500)
-#define wait_3     sleep_ms(750)
-#define wait_pause sleep_ms(500)
+#define wait_1     sleep_ms(2)
+#define wait_2     sleep_ms(3)
+#define wait_3     sleep_ms(4)
+#define wait_pause sleep_ms(2)
 
 // ***************************************************************************************
 void high_zero() {
@@ -45,22 +45,8 @@ void main2() {
     uint32_t Y = 10000;
 
 	while(1) {
-		X = gpio_get(6);
-
-		X = X << 1;
-		X |= gpio_get(7);
-		X = X << 1;
-		X |= gpio_get(8);
-		X = X << 1;
-		X |= gpio_get(9);
-		X = X << 1;
-		X |= gpio_get(10);
-		X = X << 1;
-		X |= gpio_get(11);
-		X = X << 1;
-		X |= gpio_get(12);
-		X = X << 1;
-		X |= gpio_get(13);
+		X = gpio_get_all();
+		X &= comm_n_data_mask;
 
 		if (Y != X) {
 			printf("%x\n", Y);
@@ -71,47 +57,17 @@ void main2() {
 
 // ***************************************************************************************
 void col_16() {
-		uint32_t X = 0;
-	X = gpio_get(6);
-
-	X = X << 1;
-	X |= gpio_get(7);
-	X = X << 1;
-	X |= gpio_get(8);
-	X = X << 1;
-	X |= gpio_get(9);
-	X = X << 1;
-	X |= gpio_get(10);
-	X = X << 1;
-	X |= gpio_get(11);
-	X = X << 1;
-	X |= gpio_get(12);
-	X = X << 1;
-	X |= gpio_get(13);
-	printf(">>> %x\n", X);
 	gpio_put(ILI9341_RD, GPIO_ON);
 	wait_1;
+	uint32_t X = gpio_get_all();
+	X &= comm_n_data_mask;
+	printf(">>> %x\n", X);
 }
 
 void col_15() {
-	uint32_t X = 0;
-	X = gpio_get(6);
-
-	X = X << 1;
-	X |= gpio_get(7);
-	X = X << 1;
-	X |= gpio_get(8);
-	X = X << 1;
-	X |= gpio_get(9);
-	X = X << 1;
-	X |= gpio_get(10);
-	X = X << 1;
-	X |= gpio_get(11);
-	X = X << 1;
-	X |= gpio_get(12);
-	X = X << 1;
-	X |= gpio_get(13);
-	printf("> %x\n", X);
+	//uint32_t X = gpio_get_all();
+	//X &= comm_n_data_mask;
+	//printf(">> %x\n", X);
 	wait_3;
 }
 
@@ -168,7 +124,15 @@ void col_04() {
 void col_03() {
 	gpio_put(ILI9341_WR, GPIO_OFF);
 	
-	gpio_init_mask(comm_n_data_mask);
+	// gpio_init_mask(comm_n_data_mask);
+	gpio_disable_pulls(6);
+	gpio_disable_pulls(7);
+	gpio_disable_pulls(8);
+	gpio_disable_pulls(9);
+	gpio_disable_pulls(10);
+	gpio_disable_pulls(11);
+	gpio_disable_pulls(12);
+	gpio_disable_pulls(13);
 	gpio_set_dir_out_masked(comm_n_data_mask);
 	gpio_put(6, 0);
 	gpio_put(7, 0);
@@ -198,6 +162,9 @@ void col_00() {
 	gpio_put(ILI9341_CD, GPIO_ON);
 	gpio_put(ILI9341_WR, GPIO_ON);
 	gpio_put(ILI9341_RD, GPIO_ON);
+
+	high_zero();
+
 	wait_2sec;
 }
 
