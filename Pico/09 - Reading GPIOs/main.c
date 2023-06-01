@@ -36,17 +36,32 @@ void main2() {
 	gpio_pull_up(13);
 	wait_2000;
 
-   while(1) {
-      printf("%d", gpio_get(6));
-		printf("%d", gpio_get(7));
-		printf("%d", gpio_get(8));
-		printf("%d", gpio_get(9));
-		printf("%d", gpio_get(10));
-		printf("%d", gpio_get(11));
-		printf("%d", gpio_get(12));
-		printf("%d", gpio_get(13));
-		printf("\n");
-   }
+	uint32_t X = 0;
+    uint32_t Y = 10000;
+
+	while(1) {
+		X = gpio_get(6);
+
+		X = X << 1;
+		X |= gpio_get(7);
+		X = X << 1;
+		X |= gpio_get(8);
+		X = X << 1;
+		X |= gpio_get(9);
+		X = X << 1;
+		X |= gpio_get(10);
+		X = X << 1;
+		X |= gpio_get(11);
+		X = X << 1;
+		X |= gpio_get(12);
+		X = X << 1;
+		X |= gpio_get(13);
+
+		if (Y != X) {
+			printf("%x\n", Y);
+			Y = X;
+		}
+	}
 }
 
 // ***************************************************************************************
@@ -143,6 +158,7 @@ void col_01() {
 }
 
 void col_00() {
+	printf("*******************\n");
 	gpio_put(ILI9341_CS, GPIO_ON);
 	gpio_put(ILI9341_CD, GPIO_ON);
 	gpio_put(ILI9341_WR, GPIO_ON);
