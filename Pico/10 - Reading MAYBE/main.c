@@ -12,44 +12,38 @@
 #define ILI9341_WR  4
 #define ILI9341_RD  5
 
+#define GPIOs_mask       0x3ffc // GPIOs 2 - 13
 #define interface_mask   0x3c   // GPIOs 2 - 5
 #define comm_n_data_mask 0x3fc0 // GPIOs 6 - 13
-#define GPIOs_mask       0x3ffc // GPIOs 2 - 13
 
 #define wait_2sec  sleep_ms(2000)
 #define wait_3sec  sleep_ms(3000)
-#define wait_1     sleep_ms(1)
-#define wait_2     sleep_ms(1)
-#define wait_3     sleep_ms(1)
-#define wait_pause sleep_ms(1)
+#define wait_1     sleep_ms(5)
+#define wait_2     sleep_ms(5)
+#define wait_3     sleep_ms(5)
+#define wait_pause sleep_ms(5)
+
+#define Hi_Z gpio_set_dir_in_masked(comm_n_data_mask)
 
 // ***************************************************************************************
+/*
 void high_zero() {
 	gpio_set_dir_in_masked(comm_n_data_mask);
-	gpio_pull_up(6);
-	gpio_pull_up(7);
-	gpio_pull_up(8);
-	gpio_pull_up(9);
-	gpio_pull_up(10);
-	gpio_pull_up(11);
-	gpio_pull_up(12);
-	gpio_pull_up(13);
 }
-
+*/
 // ***************************************************************************************
 void main2() {
-	high_zero();
+	Hi_Z;
 	wait_2sec;
 
 	uint32_t X = 0;
-    uint32_t Y = 10000;
+    uint32_t Y = 0;
 
 	while(1) {
 		X = gpio_get_all();
-		X &= comm_n_data_mask;
 
 		if (Y != X) {
-			printf(". %x\n", Y);
+			printf(". %x\n", Y & comm_n_data_mask);
 			Y = X;
 		}
 	}
@@ -60,9 +54,6 @@ void col_16() {
 printf("******************* 16\n");
 	gpio_put(ILI9341_RD, GPIO_ON);
 	wait_1;
-	uint32_t X = gpio_get_all();
-	X &= comm_n_data_mask;
-	printf(">>> %x\n", X);
 }
 
 void col_15() {
@@ -73,9 +64,6 @@ printf("******************* 15\n");
 void col_14() {
 printf("******************* 14\n");
 	gpio_put(ILI9341_RD, GPIO_OFF);
-	//uint32_t X = gpio_get_all();
-	//X &= comm_n_data_mask;
-	//printf(">> %x\n", X);
 	wait_1;
 }
 
@@ -108,8 +96,7 @@ printf("******************* 9\n");
 
 void col_08() {
 printf("******************* 8\n");
-	//high_zero();
-	gpio_set_dir_in_masked(comm_n_data_mask);
+	Hi_Z;
 	wait_1;
 }
 
@@ -126,7 +113,7 @@ printf("******************* 6\n");
 
 void col_05() {
 printf("******************* 5\n");
-	gpio_put(ILI9341_WR, GPIO_ON);
+	gpio_put(ILI9341_WR, GPIO_ON);  // Command (from host) is recognized.
 	wait_1;
 }
 
@@ -152,9 +139,9 @@ printf("******************* 3\n");
 */
 	gpio_set_dir_out_masked(comm_n_data_mask);
 	gpio_put(6, 0);
-	gpio_put(7, 0);
+	gpio_put(7, 1);
 	gpio_put(8, 1);
-	gpio_put(9, 0);
+	gpio_put(9, 1);
 	gpio_put(10, 0);
 	gpio_put(11, 0);
 	gpio_put(12, 0);
@@ -182,7 +169,7 @@ void col_00() {
 	gpio_put(ILI9341_WR, GPIO_ON);
 	gpio_put(ILI9341_RD, GPIO_ON);
 
-	high_zero();
+	Hi_Z;
 
 	wait_2sec;
 }
@@ -195,8 +182,20 @@ int main() {
 
 	gpio_set_dir_out_masked(interface_mask);
 
+	gpio_set_dir_in_masked(comm_n_data_mask);
+	gpio_pull_up(6);
+	gpio_pull_up(7);
+	gpio_pull_up(8);
+	gpio_pull_up(9);
+	gpio_pull_up(10);
+	gpio_pull_up(11);
+	gpio_pull_up(12);
+	gpio_pull_up(13);
+
 	multicore_launch_core1(main2);
-wait_2sec;
+
+	wait_2sec;
+
 	while(true) {
 		col_00();
 		col_01();
@@ -216,7 +215,7 @@ wait_2sec;
 		col_14();
 		col_15();
 		col_16();
-
+/*
 		col_13();
 		col_14();
 		col_15();
@@ -227,8 +226,11 @@ wait_2sec;
 		col_15();
 		col_16();
 
-
-		gpio_clr_mask(0x3c);
+		col_13();
+		col_14();
+		col_15();
+		col_16();
+*/
 		wait_2sec;
 	}
 
