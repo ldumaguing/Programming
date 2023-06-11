@@ -27,58 +27,24 @@ ili9341_config_t ili9341_config = {
 static inline void pen_down();
 static inline void pen_up();
 
-uint8_t X = 0;
-
-
 int sio_write(const uint8_t *src, size_t len) {
-/*
-	if (X != *src) {
-		printf(">>>>>>>>>>> %x: %d\n", *src, len);
-		X = *src;
-	}
-*/
-
-
-
 	do {
-	
-	gpio_put(ili9341_config.pin_d7, (*src & 1) ? 1:0);
-	gpio_put(ili9341_config.pin_d6, (*src & 2) ? 1:0);
-	gpio_put(ili9341_config.pin_d5, (*src & 4) ? 1:0);
-	gpio_put(ili9341_config.pin_d4, (*src & 8) ? 1:0);
-	gpio_put(ili9341_config.pin_d3, (*src & 16) ? 1:0);
-	gpio_put(ili9341_config.pin_d2, (*src & 32) ? 1:0);
-	gpio_put(ili9341_config.pin_d1, (*src & 64) ? 1:0);
-	gpio_put(ili9341_config.pin_d0, (*src & 128) ? 1:0);
+		gpio_put(ili9341_config.pin_d0, (*src & 1) ? 1:0);
+		gpio_put(ili9341_config.pin_d1, (*src & 2) ? 1:0);
+		gpio_put(ili9341_config.pin_d2, (*src & 4) ? 1:0);
+		gpio_put(ili9341_config.pin_d3, (*src & 8) ? 1:0);
+		gpio_put(ili9341_config.pin_d4, (*src & 16) ? 1:0);
+		gpio_put(ili9341_config.pin_d5, (*src & 32) ? 1:0);
+		gpio_put(ili9341_config.pin_d6, (*src & 64) ? 1:0);
+		gpio_put(ili9341_config.pin_d7, (*src & 128) ? 1:0);
 
-	gpio_put(ili9341_config.pin_wr, 0);
+		pen_down();
+		pen_up();
 
-	//printf(">>>>>>>>>>> %x: %d\n", *src, len);
-	gpio_put(ili9341_config.pin_wr, 1);
-	
-	gpio_put(ili9341_config.pin_wr, 0);
-	gpio_put(ili9341_config.pin_wr, 1);
-	
-	
-	//sleep_ms(10);
 		len--;
 		src++;
 	} while (len > 0);
 	
-	//
-	//sleep_ms(10);
-	//pen_down();
-	//pen_up();
-	
-	/*
-	sleep_ms(1000);
-	if (len > 16) return 0;
-
-
-		printf ("%d\n", len);
-
-	*/
-
 	return 0;
 }
 
@@ -186,7 +152,6 @@ static inline void stop_read() {
 }
 
 void ili9341_set_command(uint8_t cmd) {
-	// printf("cmd: %x\n", &cmd);
     cs_select();
     gpio_put(ili9341_config.pin_dc, 0);
     sio_write(&cmd, 1);
@@ -195,7 +160,6 @@ void ili9341_set_command(uint8_t cmd) {
 }
 
 void ili9341_command_param(uint8_t data) {
-	//printf("............data: %x\n", data);
     cs_select();
     sio_write(&data, 1);
     cs_deselect();
@@ -230,7 +194,7 @@ void ili9341_init() {
     // negative gamma correction
     ili9341_set_command(ILI9341_GMCTRN1);
     ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-//printf("************************************************\n");
+
     // memory access control
     ili9341_set_command(ILI9341_MADCTL);
     ili9341_command_param(0x48);
