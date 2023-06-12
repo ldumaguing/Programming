@@ -7,21 +7,23 @@
 ili9341_config_t ili9341_config = {
 	.port = spi0,
 	.pin_miso = 16,
-	.pin_cs = 0,
 	.pin_sck = 18,
 	.pin_mosi = 19,
-	.pin_reset = 12,
+
+
+	.pin_cs = 0,
 	.pin_dc = 1,
-	.pin_rd = 3,
 	.pin_wr = 2,
-	.pin_d0 = 4,
-	.pin_d1 = 5,
-	.pin_d2 = 6,
-	.pin_d3 = 7,
-	.pin_d4 = 8,
-	.pin_d5 = 9,
-	.pin_d6 = 10,
-	.pin_d7 = 11
+	.pin_rd = 3,
+	.pin_reset = 4,
+	.pin_d0 = 5,
+	.pin_d1 = 6,
+	.pin_d2 = 7,
+	.pin_d3 = 8,
+	.pin_d4 = 9,
+	.pin_d5 = 10,
+	.pin_d6 = 11,
+	.pin_d7 = 12
 };
 
 static inline void pen_down();
@@ -29,14 +31,7 @@ static inline void pen_up();
 
 int sio_write(const uint8_t *src, size_t len) {
 	do {
-		gpio_put(ili9341_config.pin_d0, (*src & 1) ? 1:0);
-		gpio_put(ili9341_config.pin_d1, (*src & 2) ? 1:0);
-		gpio_put(ili9341_config.pin_d2, (*src & 4) ? 1:0);
-		gpio_put(ili9341_config.pin_d3, (*src & 8) ? 1:0);
-		gpio_put(ili9341_config.pin_d4, (*src & 16) ? 1:0);
-		gpio_put(ili9341_config.pin_d5, (*src & 32) ? 1:0);
-		gpio_put(ili9341_config.pin_d6, (*src & 64) ? 1:0);
-		gpio_put(ili9341_config.pin_d7, (*src & 128) ? 1:0);
+		gpio_put_masked((0xff << 5), (*src << 5));
 
 		pen_down();
 		pen_up();
@@ -128,13 +123,13 @@ static inline void cs_deselect() {
 }
 
 static inline void pen_down() {
-    asm volatile("nop \n nop \n nop");
+    //asm volatile("nop \n nop \n nop");
     gpio_put(ili9341_config.pin_wr, 0);  // writing
     asm volatile("nop \n nop \n nop");
 }
 
 static inline void pen_up() {
-    asm volatile("nop \n nop \n nop");
+    //asm volatile("nop \n nop \n nop");
     gpio_put(ili9341_config.pin_wr, 1);  // not writing
     asm volatile("nop \n nop \n nop");
 }
@@ -174,15 +169,14 @@ void ili9341_write_data(void *buffer, int bytes) {
 
 void ili9341_init() {
 	init_pins();
+	sleep_ms(500);
 
-    sleep_ms(5000);
-    printf("start...\n");
-    gpio_put(ili9341_config.pin_reset, 0);
-    sleep_ms(10);
-    gpio_put(ili9341_config.pin_reset, 1);
+    //gpio_put(ili9341_config.pin_reset, 0);
+    //sleep_ms(10);
+    //gpio_put(ili9341_config.pin_reset, 1);
 
     ili9341_set_command(0x01);//soft reset
-    sleep_ms(100);
+    sleep_ms(500);
 
     ili9341_set_command(ILI9341_GAMMASET);
     ili9341_command_param(0x01);

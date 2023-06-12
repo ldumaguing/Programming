@@ -7,21 +7,23 @@
 ili9341_config_t ili9341_config = {
 	.port = spi0,
 	.pin_miso = 16,
-	.pin_cs = 0,
 	.pin_sck = 18,
 	.pin_mosi = 19,
-	.pin_reset = 12,
+
+
+	.pin_cs = 0,
 	.pin_dc = 1,
-	.pin_rd = 3,
 	.pin_wr = 2,
-	.pin_d0 = 4,
-	.pin_d1 = 5,
-	.pin_d2 = 6,
-	.pin_d3 = 7,
-	.pin_d4 = 8,
-	.pin_d5 = 9,
-	.pin_d6 = 10,
-	.pin_d7 = 11
+	.pin_rd = 3,
+	.pin_reset = 4,
+	.pin_d0 = 5,
+	.pin_d1 = 6,
+	.pin_d2 = 7,
+	.pin_d3 = 8,
+	.pin_d4 = 9,
+	.pin_d5 = 10,
+	.pin_d6 = 11,
+	.pin_d7 = 12
 };
 
 static inline void pen_down();
@@ -29,7 +31,7 @@ static inline void pen_up();
 
 int sio_write(const uint8_t *src, size_t len) {
 	do {
-		gpio_put_masked((0xff << 4), (*src << 4));
+		gpio_put_masked((0xff << 5), (*src << 5));
 
 		pen_down();
 		pen_up();
