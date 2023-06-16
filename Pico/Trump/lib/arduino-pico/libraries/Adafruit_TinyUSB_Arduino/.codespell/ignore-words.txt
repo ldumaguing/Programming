@@ -1,0 +1,4 @@
+synopsys
+sie
+inout
+busses
