@@ -67,18 +67,6 @@ static inline void pen_up() {
     //asm volatile("nop \n nop \n nop");
 }
 
-static inline void go_read() {
-    asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_rd, 0);  // reading
-    //asm volatile("nop \n nop \n nop");
-}
-
-static inline void stop_read() {
-    asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_rd, 1);  // stop reading
-    asm volatile("nop \n nop \n nop");
-}
-
 void ili9341_set_command(uint8_t cmd) {
     cs_select();
     gpio_put(ili9341_config.pin_dc, 0);

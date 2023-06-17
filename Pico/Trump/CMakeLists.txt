@@ -9,13 +9,20 @@ project(${PROJ_NAME} C CXX ASM)
 
 add_library(lib1 STATIC
 	lib/foo.cpp
-	lib/TFTLCD-Library/Adafruit_TFTLCD.cpp
+	lib/Adafruit_ILI9341/Adafruit_ILI9341.cpp
 	lib/Adafruit-GFX-Library/Adafruit_GFX.cpp
+	lib/Adafruit_BusIO/Adafruit_SPIDevice.cpp
+	lib/arduino/hardware/avr/1.8.6/libraries/SPI/src/SPI.cpp
 )
 target_include_directories(lib1 PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/lib/include
-	${CMAKE_CURRENT_SOURCE_DIR}/lib/TFTLCD-Library
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/Adafruit_ILI9341
 	${CMAKE_CURRENT_SOURCE_DIR}/lib/Adafruit-GFX-Library
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/arduino/hardware/avr/1.8.6/cores/arduino
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/arduino/hardware/avr/1.8.6/variants/standard
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/Adafruit_BusIO
+	${CMAKE_CURRENT_SOURCE_DIR}/lib/arduino/hardware/avr/1.8.6/libraries/SPI/src
 )
 
 

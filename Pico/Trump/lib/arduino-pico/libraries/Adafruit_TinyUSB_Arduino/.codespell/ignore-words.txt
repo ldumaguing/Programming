@@ -1,4 +1,0 @@
-synopsys
-sie
-inout
-busses
