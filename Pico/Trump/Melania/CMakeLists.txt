@@ -11,8 +11,8 @@ project(${PROJ_NAME} C CXX ASM)
 
 
 add_library(lib1
-	ili9341.cpp
-#	lib/foo.cpp
+#	ili9341.cpp
+	lib/foo.cpp
 #	lib/Adafruit_ILI9341/Adafruit_ILI9341.cpp
 #	lib/Adafruit-GFX-Library/Adafruit_GFX.cpp
 #	lib/Adafruit_BusIO/Adafruit_SPIDevice.cpp
