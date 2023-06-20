@@ -1,0 +1,49 @@
+cmake_minimum_required(VERSION 3.22)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(PROJ_NAME fish)
+
+
+project(${PROJ_NAME} C CXX ASM)
+
+
+add_executable(${PROJ_NAME}
+	main.c
+)
+
+
+# ******************************** The meat
+add_library(lib1
+	myLibrary/foo/foo.c
+)
+add_library(lib2
+	myLibrary/bar/bar.c
+)
+
+# ******************************** The bones.
+target_include_directories(lib1 PUBLIC
+    myLibrary/foo
+    myLibrary/arduino/Arduino
+)
+target_include_directories(lib2 PUBLIC
+    myLibrary/bar
+    myLibrary/arduino/Arduino
+)
+
+
+target_link_libraries(${PROJ_NAME} PUBLIC
+    lib1
+    lib2
+)
+
+
+
+
+
+
+
+
+
+
+
