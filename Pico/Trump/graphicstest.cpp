@@ -21,14 +21,15 @@ using namespace std;
 int main() {
 	cout << "Hello World!";
 
-	setup();
-	loop();
+//	setup();
+//	loop();
 
 	return 0;
 }
 
 /***************************************************
  ****************************************************/
+/* 
 void setup() {
 	tft.begin();
 }
@@ -42,7 +43,7 @@ void loop(void) {
   }
 }
 
-/*
+
 unsigned long testFillScreen() {
   unsigned long start = micros();
   tft.fillScreen(ILI9341_BLACK);
