@@ -17,34 +17,39 @@ add_executable(${PROJ_NAME}
 
 
 # ******************************** The meat
-add_library(GFX
-	stuffs/Adafruit-GFX-Library/Adafruit_GFX.cpp
+add_library(ILI9341
+	stuffs/Adafruit_ILI9341/Adafruit_ILI9341.cpp
 )
-add_library(Print
-    stuffs/arduino/Print.cpp
-)
+# ####### add_library(GFX
+# #######	stuffs/Adafruit-GFX-Library/Adafruit_GFX.cpp
+# ####### )
+# ####### add_library(Print
+# #######     stuffs/arduino/Print.cpp
+# ####### )
 
 # ******************************** The bones.
-target_include_directories(GFX PUBLIC
-    stuffs/Adafruit-GFX-Library
-    stuffs/arduino
+target_include_directories(ILI9341 PUBLIC
+	stuffs/Adafruit_ILI9341
+	stuffs/Adafruit-GFX-Library
 )
-target_include_directories(Print PUBLIC stuffs/arduino)
+# ####### target_include_directories(GFX PUBLIC
+# #######    stuffs/Adafruit-GFX-Library
+# #######    stuffs/arduino
+# #######    stuffs/Adafruit_BusIO
+# ####### )
+# ####### target_include_directories(Print PUBLIC stuffs/arduino)
 
 
 
 
 target_link_libraries(${PROJ_NAME}
 	pico_stdlib
-	GFX
-    Print
+	ILI9341
+# #######	GFX
+# #######	Print
 )
 
 pico_add_extra_outputs(${PROJ_NAME})
-
-
-
-
 
 
 
