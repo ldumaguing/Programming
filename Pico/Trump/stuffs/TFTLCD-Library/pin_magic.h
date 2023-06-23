@@ -1,6 +1,3 @@
-#ifndef _pin_magic_
-#define _pin_magic_
-
 // This header file serves two purposes:
 //
 // 1) Isolate non-portable MCU port- and pin-specific identifiers and
@@ -550,4 +547,4 @@
     write8(lo);                                                                \
   }
 
-#endif // _pin_magic_
+
