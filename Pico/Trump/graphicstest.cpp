@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MAGA_TFTLCD.h"
+#include "pico/stdlib.h"
 
 #define	BLACK   0x0000
 #define	BLUE    0x001F
@@ -30,7 +31,7 @@ int main() {
 
 	setup();
 	loop();
-
+	
 	return 0;
 }
 
@@ -52,5 +53,12 @@ void setup() {
 }
 
 void loop() {
+	for(;;) {
+		std::cout << tft._d0 << "\n";
+		std::cout << tft._d1 << "\n";
+		std::cout << tft._d2 << "\n";
+		sleep_ms(5000);
+	}
+
 }
 

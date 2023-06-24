@@ -1,12 +1,13 @@
 #include <cstdint>
+#include <cstring>
 #include "gfxfont.h"
 
 class MAGA_GFX {
 	public:
 		MAGA_GFX(int16_t w, int16_t h);
-/*
-		virtual void drawPixel(int16_t, int16_t, int16_t){};
 
+		virtual void drawPixel(int16_t, int16_t, int16_t){};
+/*
 		virtual void drawPixel(int16_t x, int16_t y, uint16_t color) = 0;
 		virtual void startWrite(void);
 		virtual void writePixel(int16_t x, int16_t y, uint16_t color);
@@ -48,27 +49,27 @@ class MAGA_GFX {
 };
 
 
-
-
-
+// *************************************************************************************************
+// *************************************************************************************************
+// *************************************************************************************************
 class GFXcanvas8 : public MAGA_GFX {
-public:
-  GFXcanvas8(uint16_t w, uint16_t h);
+	public:
+		GFXcanvas8(uint16_t w, uint16_t h);
+		~GFXcanvas8();
+
+		void drawPixel(int16_t x, int16_t y, uint16_t color);
 /*
-  ~GFXcanvas8(void);
-  void drawPixel(int16_t x, int16_t y, uint16_t color);
   void fillScreen(uint16_t color);
   void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
   void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
   uint8_t getPixel(int16_t x, int16_t y) const;
   uint8_t *getBuffer(void) const { return buffer; }
-
-protected:
-  uint8_t getRawPixel(int16_t x, int16_t y) const;
-  void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-  void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-  uint8_t *buffer;
 */
+	protected:
+		uint8_t getRawPixel(int16_t x, int16_t y) const;
+		void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
+		void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
+		uint8_t *buffer;
 };
 
 

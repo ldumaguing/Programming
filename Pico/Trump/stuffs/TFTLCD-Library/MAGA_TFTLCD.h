@@ -4,6 +4,25 @@ class MAGA_TFTLCD : public MAGA_GFX {
 	public:
 		MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0);
 
+		uint8_t _cs;
+		uint8_t _cd;
+		uint8_t _wr;
+		uint8_t _rd;
+		uint8_t _rst;
+		uint8_t _d0;
+		uint8_t _d1;
+		uint8_t _d2;
+		uint8_t _d3;
+		uint8_t _d4;
+		uint8_t _d5;
+		uint8_t _d6;
+		uint8_t _d7;
+
+
+
+// ********** larry
+void yo();
+
 		void begin(uint16_t id = 0x9325);
 		void drawPixel(int16_t x, int16_t y, uint16_t color);
 		void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
@@ -23,9 +42,28 @@ class MAGA_TFTLCD : public MAGA_GFX {
 			readID(void);
 		uint32_t readReg(uint8_t r);
 
+
 	private:
 		void init();
-		void setWriteDir(void);
+		void setWriteDir();
+		/*
+		write8(uint8_t value),
+		
+		setReadDir(void),
+		writeRegister8(uint8_t a, uint8_t d),
+		writeRegister16(uint16_t a, uint16_t d),
+		writeRegister24(uint8_t a, uint32_t d),
+		writeRegister32(uint8_t a, uint32_t d),
+		writeRegisterPair(uint8_t aH, uint8_t aL, uint16_t d),
+		setLR(void), flood(uint16_t color, uint32_t len);
+
+		uint8_t driver;
+		uint8_t read8fn(void);
+
+		volatile uint8_t *csPort, *cdPort, *wrPort, *rdPort;
+		uint8_t csPinSet, cdPinSet, wrPinSet, rdPinSet, csPinUnset, cdPinUnset,
+			wrPinUnset, rdPinUnset, _reset;
+			*/
 };
 
 #define Color565 color565
