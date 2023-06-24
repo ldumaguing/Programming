@@ -57,9 +57,9 @@ pico_add_extra_outputs(${PROJ_NAME})
 
 
 
+ 
 
+# ####### sudo minicom -b 115200 -o -D /dev/ttyACM0 
 
-
-
-
+  
 

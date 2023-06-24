@@ -26,6 +26,7 @@ void loop();
 MAGA_TFTLCD tft = MAGA_TFTLCD(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET, LCD_D0);
 
 int main() {
+	stdio_usb_init();
 	std::cout << "Hello World!";
 	
 
@@ -54,9 +55,7 @@ void setup() {
 
 void loop() {
 	for(;;) {
-		std::cout << tft._d0 << "\n";
-		std::cout << tft._d1 << "\n";
-		std::cout << tft._d2 << "\n";
+		printf("%d, %d, %d\n", tft._d0, tft._d1, tft._d2);
 		sleep_ms(5000);
 	}
 
