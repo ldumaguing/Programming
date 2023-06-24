@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <cstddef>
+#include <iostream>
 #include "MAGA_GFX.h"
 
 MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) {
@@ -13,4 +14,11 @@ MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) {
 	_cp437 = false;
 	gfxFont = NULL;
 };
+
+
+GFXcanvas8::GFXcanvas8(uint16_t w, uint16_t h) : MAGA_GFX (w, h) {
+	std::cout << "canvas8: " << w << "\n";
+};
+
+
 

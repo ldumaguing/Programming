@@ -36,6 +36,19 @@ int main() {
 
 // *************************************************************************************************
 void setup() {
+	/*
+	tft.reset();
+
+	uint16_t identifier = tft.readID();
+	if(identifier == 0x9341)
+		std::cout << "Found ILI9341 LCD driver\n";
+	else {
+		std::cout << "Unknown LCD driver chip: " << identifier << "\n";
+		return;
+	}
+
+	tft.begin(identifier);
+	*/
 }
 
 void loop() {

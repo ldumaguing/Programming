@@ -6,18 +6,15 @@
 
 MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t reset, uint8_t d0)
 	: MAGA_GFX(TFTWIDTH, TFTHEIGHT) {
+
+	init();
 };
-
-
-
-
-
-
 
 // *************************************************************************************************
 void MAGA_TFTLCD::init(void) {
 	std::cout << "in init...\n";
 	setWriteDir();
+	GFXcanvas8 fish = GFXcanvas8(333, 666);
 }
 
 void MAGA_TFTLCD::setWriteDir(void) {
