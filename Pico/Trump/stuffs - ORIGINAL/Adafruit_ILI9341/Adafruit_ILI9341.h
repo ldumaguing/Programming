@@ -1,6 +1,46 @@
-#include "Arduino.h"
-#include <Adafruit_SPITFT.h>
+/*!
+ * @file Adafruit_ILI9341.h
+ *
+ * This is the documentation for Adafruit's ILI9341 driver for the
+ * Arduino platform.
+ *
+ * This library works with the Adafruit 2.8" Touch Shield V2 (SPI)
+ *    http://www.adafruit.com/products/1651
+ * Adafruit 2.4" TFT LCD with Touchscreen Breakout w/MicroSD Socket - ILI9341
+ *    https://www.adafruit.com/product/2478
+ * 2.8" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket - ILI9341
+ *    https://www.adafruit.com/product/1770
+ * 2.2" 18-bit color TFT LCD display with microSD card breakout - ILI9340
+ *    https://www.adafruit.com/product/1770
+ * TFT FeatherWing - 2.4" 320x240 Touchscreen For All Feathers
+ *    https://www.adafruit.com/product/3315
+ *
+ * These displays use SPI to communicate, 4 or 5 pins are required
+ * to interface (RST is optional).
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ *
+ * This library depends on <a href="https://github.com/adafruit/Adafruit_GFX">
+ * Adafruit_GFX</a> being present on your system. Please make sure you have
+ * installed the latest version before using this library.
+ *
+ * Written by Limor "ladyada" Fried for Adafruit Industries.
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 
+#ifndef _ADAFRUIT_ILI9341H_
+#define _ADAFRUIT_ILI9341H_
+
+#include "Adafruit_GFX.h"
+#include "Arduino.h"
+#include "Print.h"
+#include <Adafruit_SPITFT.h>
+#include <SPI.h>
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
@@ -38,9 +78,11 @@
 #define ILI9341_VSCRSADD 0x37 ///< Vertical Scrolling Start Address
 #define ILI9341_PIXFMT 0x3A   ///< COLMOD: Pixel Format Set
 
-#define ILI9341_FRMCTR1 0xB1 ///< Frame Rate Control (In Normal Mode/Full Colors)
+#define ILI9341_FRMCTR1                                                        \
+  0xB1 ///< Frame Rate Control (In Normal Mode/Full Colors)
 #define ILI9341_FRMCTR2 0xB2 ///< Frame Rate Control (In Idle Mode/8 colors)
-#define ILI9341_FRMCTR3 0xB3 ///< Frame Rate control (In Partial Mode/Full Colors)
+#define ILI9341_FRMCTR3                                                        \
+  0xB3 ///< Frame Rate control (In Partial Mode/Full Colors)
 #define ILI9341_INVCTR 0xB4  ///< Display Inversion Control
 #define ILI9341_DFUNCTR 0xB6 ///< Display Function Control
 
@@ -82,10 +124,24 @@
 #define ILI9341_GREENYELLOW 0xAFE5 ///< 173, 255,  41
 #define ILI9341_PINK 0xFC18        ///< 255, 130, 198
 
-// *************************************************************************************************
+/**************************************************************************/
+/*!
+@brief Class to manage hardware interface with ILI9341 chipset (also seems to
+work with ILI9340)
+*/
+/**************************************************************************/
+
 class Adafruit_ILI9341 : public Adafruit_SPITFT {
 public:
-  Adafruit_ILI9341(int8_t _CS, int8_t _DC, int8_t _MOSI, int8_t _SCLK, int8_t _RST = -1, int8_t _MISO = -1);
+  Adafruit_ILI9341(int8_t _CS, int8_t _DC, int8_t _MOSI, int8_t _SCLK,
+                   int8_t _RST = -1, int8_t _MISO = -1);
+  Adafruit_ILI9341(int8_t _CS, int8_t _DC, int8_t _RST = -1);
+#if !defined(ESP8266)
+  Adafruit_ILI9341(SPIClass *spiClass, int8_t dc, int8_t cs = -1,
+                   int8_t rst = -1);
+#endif // end !ESP8266
+  Adafruit_ILI9341(tftBusWidth busWidth, int8_t d0, int8_t wr, int8_t dc,
+                   int8_t cs = -1, int8_t rst = -1, int8_t rd = -1);
 
   void begin(uint32_t freq = 0);
   void setRotation(uint8_t r);
@@ -99,4 +155,4 @@ public:
   uint8_t readcommand8(uint8_t reg, uint8_t index = 0);
 };
 
-
+#endif // _ADAFRUIT_ILI9341H_
