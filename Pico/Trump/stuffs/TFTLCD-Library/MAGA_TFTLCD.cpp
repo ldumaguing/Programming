@@ -1,5 +1,6 @@
-#include <iostream>
-#include "MAGA_TFTLCD.h"
+#include <stdio.h>
+#include "TFTLCD-Library/MAGA_TFTLCD.h"
+#include "pico/stdlib.h"
 
 #define TFTWIDTH 240
 #define TFTHEIGHT 320
@@ -26,13 +27,11 @@ MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t
 
 // *************************************************************************************************
 void MAGA_TFTLCD::init() {
-	std::cout << "in init...\n";
-	setWriteDir();
-	GFXcanvas8 fish = GFXcanvas8(333, 666);
+	//setWriteDir();
+	//GFXcanvas8 fish = GFXcanvas8(333, 666);
 }
 
 void MAGA_TFTLCD::setWriteDir() {
-	std::cout << "in setWriteDir...\n";
 }
 
 void MAGA_TFTLCD::yo() {

@@ -1,4 +1,5 @@
-#include "MAGA_GFX.h"
+#include "pico/stdlib.h"
+#include "MAGA-GFX-Library/MAGA_GFX.h"
 
 class MAGA_TFTLCD : public MAGA_GFX {
 	public:

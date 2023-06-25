@@ -1,5 +1,5 @@
-#include <iostream>
-#include "MAGA_TFTLCD.h"
+#include <stdio.h>
+#include "TFTLCD-Library/MAGA_TFTLCD.h"
 #include "pico/stdlib.h"
 
 #define	BLACK   0x0000
@@ -27,7 +27,7 @@ MAGA_TFTLCD tft = MAGA_TFTLCD(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET, LCD_D0)
 
 int main() {
 	stdio_usb_init();
-	std::cout << "Hello World!";
+
 	
 
 	setup();
