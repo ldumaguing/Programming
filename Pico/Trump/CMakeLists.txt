@@ -2,49 +2,27 @@ cmake_minimum_required(VERSION 3.22)
 
 include(/opt/pico-sdk/external/pico_sdk_import.cmake)
 
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
+
 set(PROJ_NAME fish)
+
 
 project(${PROJ_NAME} C CXX ASM)
 
+
 pico_sdk_init()
-
-
-
-
-
-
-
-
-add_library(GFX
-	stuffs/MAGA-GFX-Library/MAGA_GFX.cpp
-	stuffs/TFTLCD-Library/MAGA_TFTLCD.cpp
-)
-target_link_libraries(GFX pico_stdlib)
-target_include_directories(GFX PUBLIC stuffs)
-
-
-
-
-
 
 add_executable(${PROJ_NAME}
 	graphicstest.cpp
 )
 
-
-
+target_link_libraries(${PROJ_NAME} pico_stdlib)
 
 pico_enable_stdio_usb(${PROJ_NAME} 1)
+pico_enable_stdio_uart(${PROJ_NAME} 0)
 pico_add_extra_outputs(${PROJ_NAME})
-
-target_link_libraries(${PROJ_NAME}
-	GFX
-	pico_stdlib
-	pico_mem_ops
-)
-
 
 
  

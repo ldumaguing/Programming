@@ -1,0 +1,20 @@
+touch X.txt ;
+echo '#include "pico/stdlib.h"' > X.txt ;
+echo '#include <stdio.h>' >> X.txt ;
+echo "" >> X.txt ;
+
+echo "***** mostly definitions" ;
+cat stuffs/MAGA-GFX-Library/gfxfont.h >> X.txt ;
+cat stuffs/TFTLCD-Library/registers.h >> X.txt ;
+
+echo "***** mostly headers" ;
+cat stuffs/MAGA-GFX-Library/MAGA_GFX.h >> X.txt ;
+cat stuffs/TFTLCD-Library/MAGA_TFTLCD.h >> X.txt ;
+
+
+
+cat main.cpp >> X.txt ;
+mv X.txt graphicstest.cpp ;
+
+echo "" ;
+echo "TODO: cmake -DPICO_SDK_PATH=/opt/pico-sdk .."

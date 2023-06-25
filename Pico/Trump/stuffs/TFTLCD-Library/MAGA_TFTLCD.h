@@ -1,6 +1,3 @@
-#include "pico/stdlib.h"
-#include "MAGA-GFX-Library/MAGA_GFX.h"
-
 class MAGA_TFTLCD : public MAGA_GFX {
 	public:
 		MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0);

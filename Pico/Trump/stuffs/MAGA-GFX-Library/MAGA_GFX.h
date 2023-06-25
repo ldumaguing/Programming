@@ -1,10 +1,6 @@
-#include "pico/stdlib.h"
-
 class MAGA_GFX {
 	public:
 		MAGA_GFX(int16_t w, int16_t h);
-/*
-		virtual void drawPixel(int16_t, int16_t, int16_t){};
 
 		virtual void drawPixel(int16_t x, int16_t y, uint16_t color) = 0;
 		virtual void startWrite(void);
@@ -44,7 +40,7 @@ class MAGA_GFX {
 		bool wrap;            ///< If set, 'wrap' text at right edge of display
 		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
 		GFXfont *gfxFont;     ///< Pointer to special font
-*/		
+
 		
 };
 
