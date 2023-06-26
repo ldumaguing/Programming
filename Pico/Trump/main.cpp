@@ -7,19 +7,22 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-#define LCD_CS    0
-#define LCD_CD    1
-#define LCD_WR    2
-#define LCD_RD    3
-#define LCD_RESET 4
-#define LCD_D0    5
+#define LCD_CS     0
+#define LCD_CD     1
+#define LCD_WR     2
+#define LCD_RD     3
+#define LCD_RESET  4
+#define LCD_D0     5
+#define LCD_WIDTH  320
+#define LCD_HEIGHT 240
 
 // *************************************************************************************************
 void setup();
 void loop();
 
 // *************************************************************************************************
-MAGA_TFTLCD tft = MAGA_TFTLCD(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET, LCD_D0);
+MAGA_TFTLCD tft = MAGA_TFTLCD(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET, LCD_D0,
+	LCD_WIDTH, LCD_HEIGHT);
 
 int main() {
 	stdio_usb_init();
