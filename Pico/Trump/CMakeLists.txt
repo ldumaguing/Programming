@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-include(/opt/pico-sdk/external/pico_sdk_import.cmake)
+include(/pico/pico-sdk/external/pico_sdk_import.cmake)
 
 
 set(CMAKE_C_STANDARD 11)

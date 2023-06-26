@@ -13,8 +13,8 @@
 #define LCD_RD     3
 #define LCD_RESET  4
 #define LCD_D0     5
-#define LCD_WIDTH  320
-#define LCD_HEIGHT 240
+#define LCD_WIDTH  240
+#define LCD_HEIGHT 320
 
 // *************************************************************************************************
 void setup();
@@ -37,9 +37,8 @@ int main() {
 
 // *************************************************************************************************
 void setup() {
-	/*
 	tft.reset();
-
+	/*
 	uint16_t identifier = tft.readID();
 	if(identifier == 0x9341)
 		std::cout << "Found ILI9341 LCD driver\n";

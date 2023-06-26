@@ -1,6 +1,10 @@
 struct MAGA_TFTLCD : public MAGA_GFX {
-	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w, int16_t h)
-		: MAGA_GFX(w, h){};
+	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w, int16_t h);
+
+
+
+	void drawPixel(int16_t x, int16_t y, uint16_t color);
+	void reset(void);
 
 	uint8_t _cs;
 	uint8_t _cd;
@@ -8,13 +12,6 @@ struct MAGA_TFTLCD : public MAGA_GFX {
 	uint8_t _rd;
 	uint8_t _rst;
 	uint8_t _d0;
-	uint8_t _d1;
-	uint8_t _d2;
-	uint8_t _d3;
-	uint8_t _d4;
-	uint8_t _d5;
-	uint8_t _d6;
-	uint8_t _d7;
 
 
 
