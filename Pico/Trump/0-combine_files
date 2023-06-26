@@ -11,6 +11,11 @@ echo "********** mostly headers" ;
 cat stuffs/MAGA-GFX-Library/MAGA_GFX.h >> X.txt ;
 cat stuffs/TFTLCD-Library/MAGA_TFTLCD.h >> X.txt ;
 
+echo "********** CPPs" ;
+cat stuffs/TFTLCD-Library/MAGA_TFTLCD.cpp >> X.txt ;
+
+
+
 
 
 cat main.cpp >> X.txt ;

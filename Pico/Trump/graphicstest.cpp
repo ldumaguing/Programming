@@ -191,6 +191,42 @@ struct MAGA_TFTLCD : public MAGA_GFX {
 
 #define Color565 color565
 
+MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t reset, uint8_t d0,
+	int16_t w, int16_t h) {
+
+	_cs = cs;
+	_cd = cd;
+	_wr = wr;
+	_rd = rd;
+	_rst = reset;
+	_d0 = d0;
+	_d1 = d0 + 1;
+	_d2 = d0 + 2;
+	_d3 = d0 + 3;
+	_d4 = d0 + 4;
+	_d5 = d0 + 5;
+	_d6 = d0 + 6;
+	_d7 = d0 + 7;
+
+	init();
+};
+
+// *************************************************************************************************
+void MAGA_TFTLCD::init() {
+	//setWriteDir();
+	//GFXcanvas8 fish = GFXcanvas8(333, 666);
+}
+
+void MAGA_TFTLCD::setWriteDir() {
+}
+
+void MAGA_TFTLCD::yo() {
+
+}
+
+
+
+
 #define	BLACK   0x0000
 #define	BLUE    0x001F
 #define	RED     0xF800

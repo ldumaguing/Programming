@@ -1,10 +1,3 @@
-#include <stdio.h>
-#include "TFTLCD-Library/MAGA_TFTLCD.h"
-#include "pico/stdlib.h"
-
-#define TFTWIDTH 240
-#define TFTHEIGHT 320
-
 MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t reset, uint8_t d0)
 	: MAGA_GFX(TFTWIDTH, TFTHEIGHT) {
 
