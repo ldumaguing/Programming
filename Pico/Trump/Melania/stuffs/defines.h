@@ -1,3 +1,4 @@
+// Register names from Peter Barrett's Microtouch code
 #define ILI9341_SOFTRESET 0x01
 #define ILI9341_SLEEPIN 0x10
 #define ILI9341_SLEEPOUT 0x11
@@ -28,10 +29,6 @@
 #define ILI9341_MADCTL_RGB 0x00
 #define ILI9341_MADCTL_BGR 0x08
 #define ILI9341_MADCTL_MH 0x04
-
-
-#define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
-#define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register
@@ -89,25 +86,22 @@
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
 //#define ILI9341_PWCTR6     0xFC
 
-// Color definitions
-#define ILI9341_BLACK 0x0000       ///<   0,   0,   0
-#define ILI9341_NAVY 0x000F        ///<   0,   0, 123
-#define ILI9341_DARKGREEN 0x03E0   ///<   0, 125,   0
-#define ILI9341_DARKCYAN 0x03EF    ///<   0, 125, 123
-#define ILI9341_MAROON 0x7800      ///< 123,   0,   0
-#define ILI9341_PURPLE 0x780F      ///< 123,   0, 123
-#define ILI9341_OLIVE 0x7BE0       ///< 123, 125,   0
-#define ILI9341_LIGHTGREY 0xC618   ///< 198, 195, 198
-#define ILI9341_DARKGREY 0x7BEF    ///< 123, 125, 123
-#define ILI9341_BLUE 0x001F        ///<   0,   0, 255
-#define ILI9341_GREEN 0x07E0       ///<   0, 255,   0
-#define ILI9341_CYAN 0x07FF        ///<   0, 255, 255
-#define ILI9341_RED 0xF800         ///< 255,   0,   0
-#define ILI9341_MAGENTA 0xF81F     ///< 255,   0, 255
-#define ILI9341_YELLOW 0xFFE0      ///< 255, 255,   0
-#define ILI9341_WHITE 0xFFFF       ///< 255, 255, 255
-#define ILI9341_ORANGE 0xFD20      ///< 255, 165,   0
-#define ILI9341_GREENYELLOW 0xAFE5 ///< 173, 255,  41
-#define ILI9341_PINK 0xFC18        ///< 255, 130, 198
+#define BLACK   0x0000
+#define BLUE    0x001F
+#define RED     0xF800
+#define GREEN   0x07E0
+#define CYAN    0x07FF
+#define MAGENTA 0xF81F
+#define YELLOW  0xFFE0
+#define WHITE   0xFFFF
 
+#define LCD_CS  0
+#define LCD_CD  1
+#define LCD_WR  2
+#define LCD_RD  3
+#define LCD_RST 4
+#define LCD_D0  5
+
+#define LCD_WIDTH  240
+#define LCD_HEIGHT 320
 

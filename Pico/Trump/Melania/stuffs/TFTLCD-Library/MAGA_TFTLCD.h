@@ -1,42 +1,42 @@
+// *************************************************************************************************
+// *************************************************************************************************
 struct MAGA_TFTLCD : public MAGA_GFX {
-	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst);
-	MAGA_TFTLCD(void);
+	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w,
+		int16_t h);
 
-	void begin(uint16_t id = 0x9325);
-	void drawPixel(int16_t x, int16_t y, uint16_t color);
-	void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
-	void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
-	void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
-	void fillScreen(uint16_t color);
-	void reset(void);
-	void setRegisters8(uint8_t *ptr, uint8_t n);
-	void setRegisters16(uint16_t *ptr, uint8_t n);
-	void setRotation(uint8_t x);
+	void foo();
+	void reset();
 
-	void setAddrWindow(int x1, int y1, int x2, int y2);
-	void pushColors(uint16_t *data, uint8_t len, boolean first);
+	// ***** GPIO Pins manipulations
+	void CD_Command();
+	void CD_Data();
 
-	uint16_t color565(uint8_t r, uint8_t g, uint8_t b),
-	readPixel(int16_t x, int16_t y),
-	readID(void);
+	void CS_Active();
+	void CS_Idle();
 
-	uint32_t readReg(uint8_t r);
+	// void RD_Idle();
 
-	private:
-		void init(),
-	    write8(uint8_t value),
-	    setWriteDir(void),
-	    setReadDir(void),
-	    writeRegister8(uint8_t a, uint8_t d),
-	    writeRegister16(uint16_t a, uint16_t d),
-		writeRegister24(uint8_t a, uint32_t d),
-	    writeRegister32(uint8_t a, uint32_t d),
-	    writeRegisterPair(uint8_t aH, uint8_t aL, uint16_t d),
-	    setLR(void), flood(uint16_t color, uint32_t len);
+	void WR_Idle();
+	void WR_Strobe();
 
-		uint8_t driver;
-		uint8_t read8fn(void);
+	void sio_write(const uint8_t *src, size_t len);
+	void init_pins();
+
+	// ***** GPIO functions
+	void MAGA_gpio_init_mask(uint16_t aNum);
+	void MAGA_gpio_set_dir_out_masked(uint16_t aNum);
+	void MAGA_gpio_set_mask(uint16_t aNum);
+	void MAGA_gpio_put(uint16_t aPin, uint8_t yN);
+	void MAGA_gpio_put_masked(uint32_t mask, uint32_t val);
+
+	// ***** ILI9341 stuffs
+	void ili9341_set_command(uint8_t cmd);
+	void ili9341_command_param(uint8_t data);
+	void ili9341_init();
+	void ili9341_write_data(void *buffer, int bytes);
+
+
+	protected:
+		uint8_t _cs, _cd, _wr, _rd, _rst, _d0;
 };
-
-#define Color565 color565
 

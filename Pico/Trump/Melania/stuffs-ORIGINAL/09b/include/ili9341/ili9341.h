@@ -5,16 +5,6 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 
-/*
-#define SPI_PORT spi0
-#define PIN_MISO 4
-#define PIN_CS   5
-#define PIN_SCK  6
-#define PIN_MOSI 7
-#define PIN_RESET 8
-#define PIN_DC 9  // data/command
-*/
-
 typedef struct {
     spi_inst_t *port;
     uint pin_miso;
@@ -23,6 +13,17 @@ typedef struct {
     uint pin_mosi;
     uint pin_reset;
     uint pin_dc;
+
+    uint pin_rd;
+    uint pin_wr;
+    uint pin_d0;
+    uint pin_d1;
+    uint pin_d2;
+    uint pin_d3;
+    uint pin_d4;
+    uint pin_d5;
+    uint pin_d6;
+    uint pin_d7;
 } ili9341_config_t;
 
 extern ili9341_config_t ili9341_config;
@@ -94,7 +95,4 @@ void ili9341_init();
 void ili9341_set_command(uint8_t cmd);
 void ili9341_command_param(uint8_t data);
 void ili9341_write_data(void *buffer, int bytes);
-void ili9341_start_writing();
-void ili9341_stop_writing();
-void ili9341_write_data_continuous(void *biffer, int bytes);
 #endif
