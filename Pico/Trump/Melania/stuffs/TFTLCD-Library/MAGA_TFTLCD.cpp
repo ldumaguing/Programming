@@ -71,19 +71,19 @@ void MAGA_TFTLCD::init_pins() {
 
 // ===============================================
 // ***** GPIO functions
-void MAGA_TFTLCD::MAGA_gpio_init_mask(uint16_t aNum) {
+void MAGA_TFTLCD::MAGA_gpio_init_mask(uint32_t aNum) {
 	printf("gpio_init_mask(0x%x)\n", aNum);
 };
 
-void MAGA_TFTLCD::MAGA_gpio_set_dir_out_masked(uint16_t aNum) {
+void MAGA_TFTLCD::MAGA_gpio_set_dir_out_masked(uint32_t aNum) {
 	printf("gpio_set_dir_out_masked(0x%x)\n", aNum);
 };
 
-void MAGA_TFTLCD::MAGA_gpio_set_mask(uint16_t aNum) {
+void MAGA_TFTLCD::MAGA_gpio_set_mask(uint32_t aNum) {
 	printf("gpio_set_mask(0x%x)\n", aNum);
 };
 
-void MAGA_TFTLCD::MAGA_gpio_put(uint16_t aPin, uint8_t yN) {
+void MAGA_TFTLCD::MAGA_gpio_put(uint32_t aPin, bool yN) {
 	printf("gpio_put(0x%x, %d)\n", aPin, yN);
 };
 
