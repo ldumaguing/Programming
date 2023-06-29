@@ -1,4 +1,4 @@
-// *************** Wed Jun 28 04:48:40 PM EDT 2023
+// *************** Wed Jun 28 10:39:19 PM EDT 2023
 // *************************************************************************************************
 #include <cstdint>
 #include <stdio.h>
@@ -183,7 +183,7 @@ struct MAGA_TFTLCD : public MAGA_GFX {
 	void ili9341_set_command(uint8_t cmd);
 	void ili9341_command_param(uint8_t data);
 	void ili9341_init();
-	void ili9341_write_data(uint8_t *buffer, int bytes);
+	void ili9341_write_data(void *buffer, int bytes);
 
 
 	protected:
@@ -307,11 +307,11 @@ void MAGA_TFTLCD::ili9341_init() {
 
 	// positive gamma correction
 	ili9341_set_command(ILI9341_GMCTRP1);
-	ili9341_write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
+    ili9341_write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
 
 	// negative gamma correction
 	ili9341_set_command(ILI9341_GMCTRN1);
-	ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
+	ili9341_write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
 
 	// memory access control
 	ili9341_set_command(ILI9341_MADCTL);
@@ -349,13 +349,14 @@ void MAGA_TFTLCD::ili9341_init() {
 	ili9341_set_command(ILI9341_RAMWR);
 };
 
-void MAGA_TFTLCD::ili9341_write_data(uint8_t *buffer, int bytes) {
+void MAGA_TFTLCD::ili9341_write_data(void *buffer, int bytes) {
     CS_Active();
     sio_write(buffer, bytes);
     CS_Idle();
 };
 
 
+MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
 // *************************************************************************************************
 // *************************************************************************************************
 // ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
@@ -653,21 +654,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    tft.ili9341_set_command(ILI9341_CASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start column
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    tft.ili9341_set_command(ILI9341_PASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start page
+    tft.ili9341_command_param(0x01);
+    tft.ili9341_command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    tft.ili9341_set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
@@ -748,7 +749,7 @@ uint16_t swap_bytes(uint16_t color) {
 
 // *************************************************************************************************
 // *************************************************************************************************
-MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
+// MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
 
 int main() {
     mode0_init();

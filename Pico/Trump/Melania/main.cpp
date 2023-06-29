@@ -1,6 +1,6 @@
 // *************************************************************************************************
 // *************************************************************************************************
-MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
+// MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
 
 void setup();
 void loop();

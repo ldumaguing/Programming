@@ -253,21 +253,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    tft.ili9341_set_command(ILI9341_CASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start column
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    tft.ili9341_set_command(ILI9341_PASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start page
+    tft.ili9341_command_param(0x01);
+    tft.ili9341_command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    tft.ili9341_set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 

@@ -21,7 +21,7 @@ cat stuffs/TFTLCD-Library/MAGA_TFTLCD.cpp >> X.txt ;
 
 
 
-
+echo 'MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);' >> X.txt ;
 
 cat stuffs/mode0/mode0.h >> X.txt ;
 cat stuffs/mode0/mode0.cpp >> X.txt ;
