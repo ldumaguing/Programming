@@ -1,4 +1,4 @@
-// *************** Thu Jun 29 04:16:33 PM EDT 2023
+// *************** Fri Jun 30 01:11:37 AM EDT 2023
 // *************************************************************************************************
 #include <cstdint>
 #include <stdio.h>
@@ -170,7 +170,7 @@ struct MAGA_TFTLCD : public MAGA_GFX {
 	void WR_Strobe();
 
 	// ***** Mine
-	void sio_write(uint8_t *src, size_t len);
+	void sio_write(const uint8_t *src, size_t len);
 	void sio_write(uint16_t *src, size_t len);
 	void init_pins();
 
@@ -185,7 +185,7 @@ struct MAGA_TFTLCD : public MAGA_GFX {
 	void ili9341_set_command(uint8_t cmd);
 	void ili9341_command_param(uint8_t data);
 	void ili9341_init();
-	void ili9341_write_data(uint8_t *buffer, int bytes);
+	void ili9341_write_data(const uint8_t *buffer, int bytes);
 	void ili9341_write_data(uint16_t *buffer, int bytes);
 
 	protected:
@@ -245,7 +245,7 @@ void MAGA_TFTLCD::WR_Strobe() {
 };
 
 // ===============================================
-void MAGA_TFTLCD::sio_write(uint8_t *src, size_t len) {
+void MAGA_TFTLCD::sio_write(const uint8_t *src, size_t len) {
 	do {
 		MAGA_gpio_put_masked((0xff << LCD_D0), (*src << LCD_D0));
 
@@ -321,15 +321,15 @@ void MAGA_TFTLCD::ili9341_init() {
 
 	// positive gamma correction
 	ili9341_set_command(ILI9341_GMCTRP1);
-	// ili9341_write_data((uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
-uint8_t X[15] = { 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 };
-ili9341_write_data(X, 15);
+	ili9341_write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
+// uint8_t X[15] = { 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 };
+// ili9341_write_data(X, 15);
 
 	// negative gamma correction
 	ili9341_set_command(ILI9341_GMCTRN1);
-//	ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-uint8_t Y[15] = { 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f };
-ili9341_write_data(Y, 15);
+	ili9341_write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
+// uint8_t Y[15] = { 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f };
+// ili9341_write_data(Y, 15);
 
 	// memory access control
 	ili9341_set_command(ILI9341_MADCTL);
@@ -367,7 +367,7 @@ ili9341_write_data(Y, 15);
 	ili9341_set_command(ILI9341_RAMWR);
 };
 
-void MAGA_TFTLCD::ili9341_write_data(uint8_t *buffer, int bytes) {
+void MAGA_TFTLCD::ili9341_write_data(const uint8_t *buffer, int bytes) {
     CS_Active();
     sio_write(buffer, bytes);
     CS_Idle();
