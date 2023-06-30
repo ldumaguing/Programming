@@ -1,3 +1,59 @@
+#ifndef _pin_magic_
+#define _pin_magic_
+
+// This header file serves two purposes:
+//
+// 1) Isolate non-portable MCU port- and pin-specific identifiers and
+//    operations so the library code itself remains somewhat agnostic
+//    (PORTs and pin numbers are always referenced through macros).
+//
+// 2) GCC doesn't always respect the "inline" keyword, so this is a
+//    ham-fisted manner of forcing the issue to minimize function calls.
+//    This sometimes makes the library a bit bigger than before, but fast++.
+//    However, because they're macros, we need to be SUPER CAREFUL about
+//    parameters -- for example, write8(x) may expand to multiple PORT
+//    writes that all refer to x, so it needs to be a constant or fixed
+//    variable and not something like *ptr++ (which, after macro
+//    expansion, may increment the pointer repeatedly and run off into
+//    la-la land).  Macros also give us fine-grained control over which
+//    operations are inlined on which boards (balancing speed against
+//    available program space).
+
+// When using the TFT shield, control and data pins exist in set physical
+// locations, but the ports and bitmasks corresponding to each vary among
+// boards.  A separate set of pin definitions is given for each supported
+// board type.
+// When using the TFT breakout board, control pins are configurable but
+// the data pins are still fixed -- making every data pin configurable
+// would be much too slow.  The data pin layouts are not the same between
+// the shield and breakout configurations -- for the latter, pins were
+// chosen to keep the tutorial wiring manageable more than making optimal
+// use of ports and bitmasks.  So there's a second set of pin definitions
+// given for each supported board.
+
+// Shield pin usage:
+// LCD Data Bit :    7    6    5    4    3    2    1    0
+// Digital pin #:    7    6   13    4   11   10    9    8
+// Uno port/pin :  PD7  PD6  PB5  PD4  PB3  PB2  PB1  PB0
+// Mega port/pin:  PH4  PH3  PB7  PG5  PB5  PB4  PH6  PH5
+// Leo port/pin :  PE6  PD7  PC7  PD4  PB7  PB6  PB5  PB4
+// Due port/pin : PC23 PC24 PB27 PC26  PD7 PC29 PC21 PC22
+// Breakout pin usage:
+// LCD Data Bit :   7   6   5   4   3   2   1   0
+// Uno dig. pin :   7   6   5   4   3   2   9   8
+// Uno port/pin : PD7 PD6 PD5 PD4 PD3 PD2 PB1 PB0
+// Mega dig. pin:  29  28  27  26  25  24  23  22
+// Mega port/pin: PA7 PA6 PA5 PA4 PA3 PA2 PA1 PA0 (one contiguous PORT)
+// Leo dig. pin :   7   6   5   4   3   2   9   8
+// Leo port/pin : PE6 PD7 PC6 PD4 PD0 PD1 PB5 PB4
+// Due dig. pin :  40  39  38  37  36  35  34  33
+// Due port/pin : PC8 PC7 PC6 PC5 PC4 PC3 PC2 PC1 (one contiguous PORT. -ish…)
+
+// Pixel read operations require a minimum 400 nS delay from RD_ACTIVE
+// to polling the input pins.  At 16 MHz, one machine cycle is 62.5 nS.
+// This code burns 7 cycles (437.5 nS) doing nothing; the RJMPs are
+// equivalent to two NOPs each, final NOP burns the 7th cycle, and the
+// last line is a radioactive mutant emoticon.
 #define DELAY7                                                                 \
   asm volatile("rjmp .+0"                                                      \
                "\n\t"                                                          \
@@ -494,4 +550,4 @@
     write8(lo);                                                                \
   }
 
-
+#endif // _pin_magic_

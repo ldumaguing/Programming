@@ -1,64 +1,44 @@
+// *************************************************************************************************
+// *************************************************************************************************
 struct MAGA_TFTLCD : public MAGA_GFX {
-	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w, int16_t h);
+	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w,
+		int16_t h);
 
+	void foo();
+	void reset();
 
+	// ***** GPIO Pins manipulations
+	void CD_Command();
+	void CD_Data();
 
-	void drawPixel(int16_t x, int16_t y, uint16_t color);
-	void reset(void);
+	void CS_Active();
+	void CS_Idle();
 
-	uint8_t _cs;
-	uint8_t _cd;
-	uint8_t _wr;
-	uint8_t _rd;
-	uint8_t _rst;
-	uint8_t _d0;
+	// void RD_Idle();
 
+	void WR_Idle();
+	void WR_Strobe();
 
+	// ***** Mine
+	void sio_write(uint8_t *src, size_t len);
+	void sio_write(uint16_t *src, size_t len);
+	void init_pins();
 
+	// ***** GPIO functions
+	void MAGA_gpio_init_mask(uint32_t aNum);
+	void MAGA_gpio_set_dir_out_masked(uint32_t aNum);
+	void MAGA_gpio_set_mask(uint32_t aNum);
+	void MAGA_gpio_put(uint32_t aPin, bool yN);
+	void MAGA_gpio_put_masked(uint32_t mask, uint32_t val);
 
-		/*
-		void begin(uint16_t id = 0x9325);
-		void drawPixel(int16_t x, int16_t y, uint16_t color);
-		void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
-		void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
-		void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
-		void fillScreen(uint16_t color);
-		void reset(void);
-		void setRegisters8(uint8_t *ptr, uint8_t n);
-		void setRegisters16(uint16_t *ptr, uint8_t n);
-		void setRotation(uint8_t x);
-		// These methods are public in order for BMP examples to work:
-		void setAddrWindow(int x1, int y1, int x2, int y2);
-		void pushColors(uint16_t *data, uint8_t len, bool first);
+	// ***** ILI9341 stuffs
+	void ili9341_set_command(uint8_t cmd);
+	void ili9341_command_param(uint8_t data);
+	void ili9341_init();
+	void ili9341_write_data(uint8_t *buffer, int bytes);
+	void ili9341_write_data(uint16_t *buffer, int bytes);
 
-		uint16_t color565(uint8_t r, uint8_t g, uint8_t b),
-			readPixel(int16_t x, int16_t y),
-			readID(void);
-		uint32_t readReg(uint8_t r);
-
-
-	private:
-		void init();
-		void setWriteDir();
-
-		write8(uint8_t value),
-		
-		setReadDir(void),
-		writeRegister8(uint8_t a, uint8_t d),
-		writeRegister16(uint16_t a, uint16_t d),
-		writeRegister24(uint8_t a, uint32_t d),
-		writeRegister32(uint8_t a, uint32_t d),
-		writeRegisterPair(uint8_t aH, uint8_t aL, uint16_t d),
-		setLR(void), flood(uint16_t color, uint32_t len);
-
-		uint8_t driver;
-		uint8_t read8fn(void);
-
-		volatile uint8_t *csPort, *cdPort, *wrPort, *rdPort;
-		uint8_t csPinSet, cdPinSet, wrPinSet, rdPinSet, csPinUnset, cdPinUnset,
-			wrPinUnset, rdPinUnset, _reset;
-			*/
+	protected:
+		uint8_t _cs, _cd, _wr, _rd, _rst, _d0;
 };
-
-#define Color565 color565
 

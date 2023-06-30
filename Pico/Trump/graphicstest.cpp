@@ -1,28 +1,9 @@
-#include "pico/stdlib.h"
+// *************** Thu Jun 29 04:16:33 PM EDT 2023
+// *************************************************************************************************
+#include <cstdint>
 #include <stdio.h>
 #include <cstdlib>
 #include <cstring>
-
-/// Font data stored PER GLYPH
-typedef struct {
-  uint16_t bitmapOffset; ///< Pointer into GFXfont->bitmap
-  uint8_t width;         ///< Bitmap dimensions in pixels
-  uint8_t height;        ///< Bitmap dimensions in pixels
-  uint8_t xAdvance;      ///< Distance to advance cursor (x axis)
-  int8_t xOffset;        ///< X dist from cursor pos to UL corner
-  int8_t yOffset;        ///< Y dist from cursor pos to UL corner
-} GFXglyph;
-
-/// Data stored for FONT AS A WHOLE
-typedef struct {
-  uint8_t *bitmap;  ///< Glyph bitmaps, concatenated
-  GFXglyph *glyph;  ///< Glyph array
-  uint16_t first;   ///< ASCII extents (first char)
-  uint16_t last;    ///< ASCII extents (last char)
-  uint8_t yAdvance; ///< Newline distance (y axis)
-} GFXfont;
-
-
 
 // Register names from Peter Barrett's Microtouch code
 #define ILI9341_SOFTRESET 0x01
@@ -55,12 +36,6 @@ typedef struct {
 #define ILI9341_MADCTL_RGB 0x00
 #define ILI9341_MADCTL_BGR 0x08
 #define ILI9341_MADCTL_MH 0x04
-
-
-
-// from https://github.com/shawnhyam/pico
-#define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
-#define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register
@@ -116,428 +91,706 @@ typedef struct {
 
 #define ILI9341_GMCTRP1 0xE0 ///< Positive Gamma Correction
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
-
-
-static inline void pen_down(uint8_t wr) {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(wr, 0);  // writing
-    //asm volatile("nop \n nop \n nop");
-}
-
-static inline void pen_up(uint8_t wr) {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(wr, 1);  // not writing
-    //asm volatile("nop \n nop \n nop");
-}
-
-int sio_write(const uint8_t *src, size_t len, uint8_t wr) {
-	do {
-		gpio_put_masked((0xff << 5), (*src << 5));
-
-		pen_down(wr);
-		pen_up(wr);
-
-		len--;
-		src++;
-	} while (len > 0);
-	
-	return 0;
-}
-
-void init_pins() {
-	gpio_init_mask(0x1fff);
-	gpio_set_dir_out_masked(0x1fff);
-	gpio_set_mask(0x1fff);
-}
-
-static inline void cs_select(uint8_t cs) {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(cs, 0);  // Active low
-    //asm volatile("nop \n nop \n nop");
-}
-
-static inline void cs_deselect(uint8_t cs) {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(cs, 1);
-    //asm volatile("nop \n nop \n nop");
-}
-
-void ili9341_set_command(uint8_t cmd, uint8_t cs, uint8_t wr, uint8_t dc) {
-    cs_select(cs);
-    gpio_put(dc, 0);
-    sio_write(&cmd, 1, wr);
-    gpio_put(dc, 1);
-    cs_deselect(cs);
-}
-
-void ili9341_command_param(uint8_t data, uint8_t cs, uint8_t wr) {
-    cs_select(cs);
-    sio_write(&data, 1, wr);
-    cs_deselect(cs);
-}
-
-void ili9341_write_data(uint8_t *buffer, int bytes, uint8_t cs, uint8_t wr) {
-    cs_select(cs);
-    sio_write(buffer, bytes, wr);
-    cs_deselect(cs);
-}
-
-void ili9341_init(uint8_t cs, uint8_t wr, uint8_t dc) {
-	init_pins();
-	ili9341_set_command(0x01, cs, wr, dc); //soft reset
-	sleep_ms(1000);
-
-	ili9341_set_command(ILI9341_GAMMASET, cs, wr, dc);
-	ili9341_command_param(0x01, cs, wr);
-
-	// positive gamma correction
-	ili9341_set_command(ILI9341_GMCTRP1, cs, wr, dc);
-	uint8_t x1[15] = { 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 };
-	ili9341_write_data(x1, 15, cs, wr);
-
-
-
-//    ili9341_write_data((uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15, cs, wr);
-	
-
-	// negative gamma correction
-	ili9341_set_command(ILI9341_GMCTRN1, cs, wr, dc);
-//	ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15, cs, wr);
-	uint8_t x2[15] = { 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f };
-	ili9341_write_data(x2, 15, cs, wr);
-
-
-
-	// memory access control
-	ili9341_set_command(ILI9341_MADCTL, cs, wr, dc);
-	ili9341_command_param(0x48, cs, wr);
-
-	// pixel format
-	ili9341_set_command(ILI9341_PIXFMT, cs, wr, dc);
-	ili9341_command_param(0x55, cs, wr);  // 16-bit
-
-	// frame rate; default, 70 Hz
-	ili9341_set_command(ILI9341_FRMCTR1, cs, wr, dc);
-	ili9341_command_param(0x00, cs, wr);
-	ili9341_command_param(0x1B, cs, wr);
-
-	// exit sleep
-	ili9341_set_command(ILI9341_SLPOUT, cs, wr, dc);
-
-	// display on
-	ili9341_set_command(ILI9341_DISPON, cs, wr, dc);
-
-	// column address set
-	ili9341_set_command(ILI9341_CASET, cs, wr, dc);
-	ili9341_command_param(0x00, cs, wr);
-	ili9341_command_param(0x00, cs, wr);  // start column
-	ili9341_command_param(0x00, cs, wr);
-	ili9341_command_param(0xef, cs, wr);  // end column -> 239
-
-	// page address set
-	ili9341_set_command(ILI9341_PASET, cs, wr, dc);
-	ili9341_command_param(0x00, cs, wr);
-	ili9341_command_param(0x00, cs, wr);  // start page
-	ili9341_command_param(0x01, cs, wr);
-	ili9341_command_param(0x3f, cs, wr);  // end page -> 319
-
-	ili9341_set_command(ILI9341_RAMWR, cs, wr, dc);
-
-
-}
-
-uint16_t swap_bytes(uint16_t color) {
-    return (color>>8) | (color<<8);
-}
-
-struct MAGA_GFX {
-	MAGA_GFX(int16_t w, int16_t h);
-
-	virtual void drawPixel(int16_t x, int16_t y, uint16_t color);
-
-	protected:
-		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
-		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
-		int16_t _width;       ///< Display width as modified by current rotation
-		int16_t _height;      ///< Display height as modified by current rotation
-		int16_t cursor_x;     ///< x location to start print()ing text
-		int16_t cursor_y;     ///< y location to start print()ing text
-		uint16_t textcolor;   ///< 16-bit background color for print()
-		uint16_t textbgcolor; ///< 16-bit text color for print()
-		uint8_t textsize_x;   ///< Desired magnification in X-axis of text to print()
-		uint8_t textsize_y;   ///< Desired magnification in Y-axis of text to print()
-		uint8_t rotation;     ///< Display rotation (0 thru 3)
-		bool wrap;            ///< If set, 'wrap' text at right edge of display
-		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
-
-/*
-	virtual void startWrite(void);
-	virtual void writePixel(int16_t x, int16_t y, uint16_t color);
-	virtual void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
-	virtual void writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-	virtual void writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-	virtual void writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
-	virtual void endWrite(void);
-
-	virtual void setRotation(uint8_t r);
-	virtual void invertDisplay(bool i);
-
-	virtual void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-	virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-	virtual void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
-	virtual void fillScreen(uint16_t color);
-
-	// Optional and probably not necessary to change
-	virtual void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
-	virtual void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
-*/
-
-
-
-/*
-	protected:
-		void charBounds(unsigned char c, int16_t *x, int16_t *y, int16_t *minx,
-			int16_t *miny, int16_t *maxx, int16_t *maxy);
-
-		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
-		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
-		int16_t _width;       ///< Display width as modified by current rotation
-		int16_t _height;      ///< Display height as modified by current rotation
-		int16_t cursor_x;     ///< x location to start print()ing text
-		int16_t cursor_y;     ///< y location to start print()ing text
-		uint16_t textcolor;   ///< 16-bit background color for print()
-		uint16_t textbgcolor; ///< 16-bit text color for print()
-		uint8_t textsize_x;   ///< Desired magnification in X-axis of text to print()
-		uint8_t textsize_y;   ///< Desired magnification in Y-axis of text to print()
-		uint8_t rotation;     ///< Display rotation (0 thru 3)
-		bool wrap;            ///< If set, 'wrap' text at right edge of display
-		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
-		GFXfont *gfxFont;     ///< Pointer to special font
-*/
-};
-
-
-// *************************************************************************************************
-// *************************************************************************************************
-// *************************************************************************************************
-struct GFXcanvas8 : public MAGA_GFX {
-	GFXcanvas8(int16_t x, int16_t y, uint16_t color, uint16_t w, uint16_t h);
-	~GFXcanvas8();
-
-	void drawPixel(int16_t x, int16_t y, uint16_t color);
-
-	protected:
-		uint8_t *buffer;
-/*
-	
-
-	protected:
-		uint8_t *buffer;
-
-	void fillScreen(uint16_t color);
-	void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-	void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-	uint8_t getPixel(int16_t x, int16_t y) const;
-	uint8_t *getBuffer(void) const { return buffer; }
-
-	protected:
-		uint8_t getRawPixel(int16_t x, int16_t y) const;
-		void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-		void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-		uint8_t *buffer;
-*/
-
-};
-MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) {
-	WIDTH = w;
-	HEIGHT = h;
-	_width = w;
-	_height = h;
-	rotation = 0;
-	cursor_y = cursor_x = 0;
-	textsize_x = textsize_y = 1;
-	textcolor = textbgcolor = 0xFFFF;
-	wrap = true;
-	_cp437 = false;
-//	gfxFont = NULL;
-
-};
-
-
-
-
-// *************************************************************************************************
-// *************************************************************************************************
-// *************************************************************************************************
-GFXcanvas8::GFXcanvas8(int16_t x, int16_t y, uint16_t color, uint16_t w, uint16_t h) : MAGA_GFX (w, h) {
-	uint32_t bytes = w * h;
-	if ((buffer = (uint8_t *)malloc(bytes))) {
-		memset(buffer, 0, bytes);
-	}
-
-};
-
-GFXcanvas8::~GFXcanvas8() {
-	if (buffer)
-		free(buffer);
-};
-
-void GFXcanvas8::drawPixel(int16_t x, int16_t y, uint16_t color) {
-};
-
-
-
-
-
-
-
-
-/*
-
-void GFXcanvas8::drawPixel(int16_t x, int16_t y, uint16_t color) {
-}
-*/
-struct MAGA_TFTLCD : public MAGA_GFX {
-	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w, int16_t h);
-
-
-
-	void drawPixel(int16_t x, int16_t y, uint16_t color);
-	void reset(void);
-
-	uint8_t _cs;
-	uint8_t _cd;
-	uint8_t _wr;
-	uint8_t _rd;
-	uint8_t _rst;
-	uint8_t _d0;
-
-
-
-
-		/*
-		void begin(uint16_t id = 0x9325);
-		void drawPixel(int16_t x, int16_t y, uint16_t color);
-		void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
-		void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
-		void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
-		void fillScreen(uint16_t color);
-		void reset(void);
-		void setRegisters8(uint8_t *ptr, uint8_t n);
-		void setRegisters16(uint16_t *ptr, uint8_t n);
-		void setRotation(uint8_t x);
-		// These methods are public in order for BMP examples to work:
-		void setAddrWindow(int x1, int y1, int x2, int y2);
-		void pushColors(uint16_t *data, uint8_t len, bool first);
-
-		uint16_t color565(uint8_t r, uint8_t g, uint8_t b),
-			readPixel(int16_t x, int16_t y),
-			readID(void);
-		uint32_t readReg(uint8_t r);
-
-
-	private:
-		void init();
-		void setWriteDir();
-
-		write8(uint8_t value),
-		
-		setReadDir(void),
-		writeRegister8(uint8_t a, uint8_t d),
-		writeRegister16(uint16_t a, uint16_t d),
-		writeRegister24(uint8_t a, uint32_t d),
-		writeRegister32(uint8_t a, uint32_t d),
-		writeRegisterPair(uint8_t aH, uint8_t aL, uint16_t d),
-		setLR(void), flood(uint16_t color, uint32_t len);
-
-		uint8_t driver;
-		uint8_t read8fn(void);
-
-		volatile uint8_t *csPort, *cdPort, *wrPort, *rdPort;
-		uint8_t csPinSet, cdPinSet, wrPinSet, rdPinSet, csPinUnset, cdPinUnset,
-			wrPinUnset, rdPinUnset, _reset;
-			*/
-};
-
-#define Color565 color565
-
-MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t reset, uint8_t d0, int16_t w, int16_t h)
-	: MAGA_GFX(w, h) {
-
-	_cs = cs;
-	_cd = cd;
-	_wr = wr;
-	_rd = rd;
-	_rst = reset;
-	_d0 = d0;
-}
-
-// *************************************************************************************************
-void MAGA_TFTLCD::drawPixel(int16_t x, int16_t y, uint16_t color) {
-};
-
-void MAGA_TFTLCD::reset() {
-}
-
-#define	BLACK   0x0000
-#define	BLUE    0x001F
-#define	RED     0xF800
-#define	GREEN   0x07E0
+//#define ILI9341_PWCTR6     0xFC
+
+#define BLACK   0x0000
+#define BLUE    0x001F
+#define RED     0xF800
+#define GREEN   0x07E0
 #define CYAN    0x07FF
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-#define LCD_CS     0
-#define LCD_CD     1
-#define LCD_WR     2
-#define LCD_RD     3
-#define LCD_RESET  4
-#define LCD_D0     5
+#define LCD_CS  0
+#define LCD_CD  1
+#define LCD_WR  2
+#define LCD_RD  3
+#define LCD_RST 4
+#define LCD_D0  5
+
 #define LCD_WIDTH  240
 #define LCD_HEIGHT 320
 
 // *************************************************************************************************
-void setup();
-void loop();
+// *************************************************************************************************
+struct MAGA_GFX {
+	MAGA_GFX(int16_t w, int16_t h);
+
+	protected:
+//		void charBounds(unsigned char c, int16_t *x, int16_t *y, int16_t *minx, int16_t *miny, int16_t *maxx, int16_t *maxy);
+		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
+		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
+		int16_t _width;       ///< Display width as modified by current rotation
+		int16_t _height;      ///< Display height as modified by current rotation
+//		int16_t cursor_x;     ///< x location to start print()ing text
+//		int16_t cursor_y;     ///< y location to start print()ing text
+//		uint16_t textcolor;   ///< 16-bit background color for print()
+//		uint16_t textbgcolor; ///< 16-bit text color for print()
+//		uint8_t textsize_x;   ///< Desired magnification in X-axis of text to print()
+//		uint8_t textsize_y;   ///< Desired magnification in Y-axis of text to print()
+//		uint8_t rotation;     ///< Display rotation (0 thru 3)
+//		bool wrap;            ///< If set, 'wrap' text at right edge of display
+//		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
+//		GFXfont *gfxFont;     ///< Pointer to special font
+};
 
 // *************************************************************************************************
-MAGA_TFTLCD tft = MAGA_TFTLCD(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET, LCD_D0,
-	LCD_WIDTH, LCD_HEIGHT);
+MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) : WIDTH(w), HEIGHT(h) {
+	_width = WIDTH;
+	_height = HEIGHT;
+//	rotation = 0;
+//	cursor_y = cursor_x = 0;
+//	textsize_x = textsize_y = 1;
+//	textcolor = textbgcolor = 0xFFFF;
+//	wrap = true;
+//	_cp437 = false;
+//	gfxFont = NULL;
+};
+
+// *************************************************************************************************
+// *************************************************************************************************
+struct MAGA_TFTLCD : public MAGA_GFX {
+	MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0, int16_t w,
+		int16_t h);
+
+	void foo();
+	void reset();
+
+	// ***** GPIO Pins manipulations
+	void CD_Command();
+	void CD_Data();
+
+	void CS_Active();
+	void CS_Idle();
+
+	// void RD_Idle();
+
+	void WR_Idle();
+	void WR_Strobe();
+
+	// ***** Mine
+	void sio_write(uint8_t *src, size_t len);
+	void sio_write(uint16_t *src, size_t len);
+	void init_pins();
+
+	// ***** GPIO functions
+	void MAGA_gpio_init_mask(uint32_t aNum);
+	void MAGA_gpio_set_dir_out_masked(uint32_t aNum);
+	void MAGA_gpio_set_mask(uint32_t aNum);
+	void MAGA_gpio_put(uint32_t aPin, bool yN);
+	void MAGA_gpio_put_masked(uint32_t mask, uint32_t val);
+
+	// ***** ILI9341 stuffs
+	void ili9341_set_command(uint8_t cmd);
+	void ili9341_command_param(uint8_t data);
+	void ili9341_init();
+	void ili9341_write_data(uint8_t *buffer, int bytes);
+	void ili9341_write_data(uint16_t *buffer, int bytes);
+
+	protected:
+		uint8_t _cs, _cd, _wr, _rd, _rst, _d0;
+};
+
+// *************************************************************************************************
+MAGA_TFTLCD::MAGA_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst, uint8_t d0,
+	int16_t w, int16_t h) : MAGA_GFX(w, h) {
+	_cs = cs;
+	_cd = cd;
+	_wr = wr;
+	_rd = rd;
+	_rst = rst;
+	_d0 = d0;
+};
+
+// ===============================================
+void MAGA_TFTLCD::foo() {
+	printf("foo: %d, %d, %d\n", _width, WIDTH, _cd);
+}
+
+// ===============================================
+void MAGA_TFTLCD::reset() {
+	ili9341_set_command(0x01); //soft reset
+	// sleep_ms(1000);
+}
+
+// ===============================================
+void MAGA_TFTLCD::CD_Command() {
+	MAGA_gpio_put(_cd, 0);
+};
+
+// ===============================================
+void MAGA_TFTLCD::CD_Data() {
+	MAGA_gpio_put(_cd, 1);
+};
+// ===============================================
+void MAGA_TFTLCD::CS_Active() {
+	MAGA_gpio_put(_cs, 0);
+};
+
+// ===============================================
+void MAGA_TFTLCD::CS_Idle() {
+	MAGA_gpio_put(_cs, 1);
+};
+
+// ===============================================
+void MAGA_TFTLCD::WR_Idle() {
+	MAGA_gpio_put(_wr, 1);
+};
+
+// ===============================================
+void MAGA_TFTLCD::WR_Strobe() {
+	MAGA_gpio_put(_wr, 0);
+	MAGA_gpio_put(_wr, 1);
+};
+
+// ===============================================
+void MAGA_TFTLCD::sio_write(uint8_t *src, size_t len) {
+	do {
+		MAGA_gpio_put_masked((0xff << LCD_D0), (*src << LCD_D0));
+
+		WR_Strobe();
+
+		len--;
+		src++;
+	} while (len > 0);
+};
+
+// -----------------------------------------------
+void MAGA_TFTLCD::sio_write(uint16_t *src, size_t len) {
+	do {
+		MAGA_gpio_put_masked((0xff << LCD_D0), (*src << LCD_D0));
+
+		WR_Strobe();
+
+		len--;
+		src++;
+	} while (len > 0);
+};
+
+// ===============================================
+void MAGA_TFTLCD::init_pins() {
+	MAGA_gpio_init_mask(0x1fff);
+	MAGA_gpio_set_dir_out_masked(0x1fff);
+	MAGA_gpio_set_mask(0x1fff);
+};
+
+// ===============================================
+// ***** GPIO functions
+void MAGA_TFTLCD::MAGA_gpio_init_mask(uint32_t aNum) {
+	printf("gpio_init_mask(0x%x)\n", aNum);
+};
+
+void MAGA_TFTLCD::MAGA_gpio_set_dir_out_masked(uint32_t aNum) {
+	printf("gpio_set_dir_out_masked(0x%x)\n", aNum);
+};
+
+void MAGA_TFTLCD::MAGA_gpio_set_mask(uint32_t aNum) {
+	printf("gpio_set_mask(0x%x)\n", aNum);
+};
+
+void MAGA_TFTLCD::MAGA_gpio_put(uint32_t aPin, bool yN) {
+	printf("gpio_put(0x%x, %d)\n", aPin, yN);
+};
+
+void MAGA_TFTLCD::MAGA_gpio_put_masked(uint32_t mask, uint32_t val) {
+	printf("gpio_put_masked(0x%x, %d)\n", mask, val);
+};
+
+// ===============================================
+// ***** ILI9341 stuffs
+void MAGA_TFTLCD::ili9341_set_command(uint8_t cmd) {
+    CS_Active();
+    CD_Command();
+    sio_write(&cmd, 1);
+    CD_Data();
+    CS_Idle();
+};
+
+void MAGA_TFTLCD::ili9341_command_param(uint8_t data) {
+    CS_Active();
+    sio_write(&data, 1);
+    CS_Idle();
+};
+
+void MAGA_TFTLCD::ili9341_init() {
+	init_pins();
+
+	ili9341_set_command(ILI9341_GAMMASET);
+	ili9341_command_param(0x01);
+
+	// positive gamma correction
+	ili9341_set_command(ILI9341_GMCTRP1);
+	// ili9341_write_data((uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
+uint8_t X[15] = { 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 };
+ili9341_write_data(X, 15);
+
+	// negative gamma correction
+	ili9341_set_command(ILI9341_GMCTRN1);
+//	ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
+uint8_t Y[15] = { 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f };
+ili9341_write_data(Y, 15);
+
+	// memory access control
+	ili9341_set_command(ILI9341_MADCTL);
+	ili9341_command_param(0x48);
+
+	// pixel format
+	ili9341_set_command(ILI9341_PIXFMT);
+	ili9341_command_param(0x55);  // 16-bit
+
+	// frame rate; default, 70 Hz
+	ili9341_set_command(ILI9341_FRMCTR1);
+	ili9341_command_param(0x00);
+	ili9341_command_param(0x1B);
+
+	// exit sleep
+	ili9341_set_command(ILI9341_SLPOUT);
+
+	// display on
+	ili9341_set_command(ILI9341_DISPON);
+
+	// column address set
+	ili9341_set_command(ILI9341_CASET);
+	ili9341_command_param(0x00);
+	ili9341_command_param(0x00);  // start column
+	ili9341_command_param(0x00);
+	ili9341_command_param(0xef);  // end column -> 239
+
+	// page address set
+	ili9341_set_command(ILI9341_PASET);
+	ili9341_command_param(0x00);
+	ili9341_command_param(0x00);  // start page
+	ili9341_command_param(0x01);
+	ili9341_command_param(0x3f);  // end page -> 319
+
+	ili9341_set_command(ILI9341_RAMWR);
+};
+
+void MAGA_TFTLCD::ili9341_write_data(uint8_t *buffer, int bytes) {
+    CS_Active();
+    sio_write(buffer, bytes);
+    CS_Idle();
+};
+
+void MAGA_TFTLCD::ili9341_write_data(uint16_t *buffer, int bytes) {
+    CS_Active();
+    sio_write(buffer, bytes);
+    CS_Idle();
+};
+
+MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
+
+// *************************************************************************************************
+// *************************************************************************************************
+// ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
+enum mode0_color_t {
+    MODE0_BLACK,
+    MODE0_BROWN,
+    MODE0_RED,
+    MODE0_BLUSH,
+    MODE0_GRAY,
+    MODE0_DESERT,
+    MODE0_ORANGE,
+    MODE0_YELLOW,
+    MODE0_WHITE,
+    MODE0_MIDNIGHT,
+    MODE0_DARK_SLATE_GRAY,
+    MODE0_GREEN,
+    MODE0_YELLOW_GREEN,
+    MODE0_BLUE,
+    MODE0_PICTON_BLUE,
+    MODE0_PALE_BLUE
+};
+
+void mode0_init();
+void mode0_clear(mode0_color_t color);
+void mode0_draw_screen();
+void mode0_draw_region(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+void mode0_scroll_vertical(int8_t amount);
+void mode0_set_foreground(mode0_color_t color);
+void mode0_set_background(mode0_color_t color);
+void mode0_set_cursor(uint8_t x, uint8_t y);
+uint8_t mode0_get_cursor_x();
+uint8_t mode0_get_cursor_y();
+void mode0_print(const char *s);
+void mode0_write(const char *s, int len);
+void mode0_putc(char c);
+void mode0_show_cursor();
+void mode0_hide_cursor();
+
+// Won't redraw until the matching _end is invoked.
+void mode0_begin();
+void mode0_end();
+
+// *************************************************************************************************
+// *************************************************************************************************
+/* Character graphics mode */
+
+// Characters are 8x12 -- characters start at (x:1,y:1) and are 5x7 in size, so
+// it is possible to not display the full area. This display mode actually treats
+// them as 6x10, starting at (x:1,y:0)
+static const uint8_t font_data[95][12] = {
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x28, 0x28, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x28, 0x7C, 0x28, 0x7C, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x3C, 0x40, 0x38, 0x04, 0x78, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x60, 0x64, 0x08, 0x10, 0x20, 0x4C, 0x0C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x20, 0x50, 0x50, 0x20, 0x54, 0x48, 0x34, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x08, 0x10, 0x20, 0x20, 0x20, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x20, 0x10, 0x08, 0x08, 0x08, 0x10, 0x20, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x10, 0x54, 0x38, 0x38, 0x54, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x10, 0x10, 0x7C, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18, 0x10, 0x20, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x00, 0x7C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x04, 0x08, 0x10, 0x20, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x4C, 0x54, 0x64, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x30, 0x10, 0x10, 0x10, 0x10, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x04, 0x38, 0x40, 0x40, 0x7C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x04, 0x18, 0x04, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x08, 0x18, 0x28, 0x48, 0x7C, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x40, 0x78, 0x04, 0x04, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x18, 0x20, 0x40, 0x78, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x04, 0x08, 0x10, 0x20, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x44, 0x38, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x44, 0x3C, 0x04, 0x08, 0x30, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x30, 0x30, 0x00, 0x30, 0x30, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x30, 0x30, 0x00, 0x30, 0x30, 0x10, 0x20, 0x00, 0x00 },
+    { 0x00, 0x08, 0x10, 0x20, 0x40, 0x20, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x7C, 0x00, 0x7C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x40, 0x20, 0x10, 0x08, 0x10, 0x20, 0x40, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x04, 0x08, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x04, 0x34, 0x4C, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x28, 0x44, 0x44, 0x7C, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x78, 0x44, 0x44, 0x78, 0x44, 0x44, 0x78, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x40, 0x40, 0x40, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x78, 0x44, 0x44, 0x44, 0x44, 0x44, 0x78, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x40, 0x40, 0x70, 0x40, 0x40, 0x7C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x40, 0x40, 0x70, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x40, 0x4C, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x44, 0x7C, 0x44, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x10, 0x10, 0x10, 0x10, 0x10, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x04, 0x04, 0x04, 0x04, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x48, 0x50, 0x60, 0x50, 0x48, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x7C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x6C, 0x54, 0x54, 0x44, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x64, 0x54, 0x4C, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x44, 0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x78, 0x44, 0x44, 0x78, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x44, 0x44, 0x54, 0x48, 0x34, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x78, 0x44, 0x44, 0x78, 0x50, 0x48, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x44, 0x40, 0x38, 0x04, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x44, 0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x44, 0x28, 0x28, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x44, 0x54, 0x54, 0x6C, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x28, 0x10, 0x28, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x44, 0x44, 0x28, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x7C, 0x04, 0x08, 0x10, 0x20, 0x40, 0x7C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x20, 0x20, 0x20, 0x20, 0x20, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x40, 0x20, 0x10, 0x08, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x38, 0x08, 0x08, 0x08, 0x08, 0x08, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x28, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7C, 0x00, 0x00, 0x00 },
+    { 0x00, 0x20, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x04, 0x3C, 0x44, 0x3C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x40, 0x40, 0x58, 0x64, 0x44, 0x44, 0x78, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x44, 0x40, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x04, 0x04, 0x34, 0x4C, 0x44, 0x44, 0x3C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x44, 0x78, 0x40, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x28, 0x20, 0x70, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x3C, 0x44, 0x44, 0x4C, 0x34, 0x04, 0x38, 0x00, 0x00 },
+    { 0x00, 0x40, 0x40, 0x58, 0x64, 0x44, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x00, 0x30, 0x10, 0x10, 0x10, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x08, 0x00, 0x08, 0x08, 0x08, 0x08, 0x48, 0x30, 0x00, 0x00 },
+    { 0x00, 0x40, 0x40, 0x48, 0x50, 0x60, 0x50, 0x48, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x30, 0x10, 0x10, 0x10, 0x10, 0x10, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x68, 0x54, 0x54, 0x54, 0x54, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x58, 0x64, 0x44, 0x44, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x44, 0x44, 0x64, 0x58, 0x40, 0x40, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x38, 0x44, 0x44, 0x4C, 0x34, 0x04, 0x04, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x58, 0x64, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x3C, 0x40, 0x38, 0x04, 0x78, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x20, 0x70, 0x20, 0x20, 0x20, 0x28, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x44, 0x44, 0x44, 0x4C, 0x34, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x44, 0x44, 0x44, 0x28, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x44, 0x44, 0x54, 0x54, 0x28, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x44, 0x28, 0x10, 0x28, 0x44, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x44, 0x44, 0x44, 0x44, 0x3C, 0x04, 0x38, 0x00, 0x00 },
+    { 0x00, 0x00, 0x00, 0x7C, 0x08, 0x10, 0x20, 0x7C, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x20, 0x10, 0x10, 0x08, 0x10, 0x10, 0x20, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x08, 0x10, 0x10, 0x20, 0x10, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00 },
+    { 0x00, 0x28, 0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
+};
+
+
+#define TEXT_HEIGHT 24
+#define TEXT_WIDTH 53
+
+#define SWAP_BYTES(color) ((uint16_t)(color>>8) | (uint16_t)(color<<8))
+
+static mode0_color_t screen_bg_color = MODE0_BLACK;
+static mode0_color_t screen_fg_color = MODE0_WHITE;  // TODO need to store a color per cell
+static int cursor_x = 0;
+static int cursor_y = 0;
+static uint8_t screen[TEXT_HEIGHT * TEXT_WIDTH] = { 0 };
+static uint8_t colors[TEXT_HEIGHT * TEXT_WIDTH] = { 0 };
+static uint8_t show_cursor = 0;
+
+static int depth = 0;
+static uint16_t palette[16] = {
+    SWAP_BYTES(0x0000),
+    SWAP_BYTES(0x49E5),
+    SWAP_BYTES(0xB926),
+    SWAP_BYTES(0xE371),
+    SWAP_BYTES(0x9CF3),
+    SWAP_BYTES(0xA324),
+    SWAP_BYTES(0xEC46),
+    SWAP_BYTES(0xF70D),
+    SWAP_BYTES(0xffff),
+    SWAP_BYTES(0x1926),
+    SWAP_BYTES(0x2A49),
+    SWAP_BYTES(0x4443),
+    SWAP_BYTES(0xA664),
+    SWAP_BYTES(0x02B0),
+    SWAP_BYTES(0x351E),
+    SWAP_BYTES(0xB6FD)
+};
+
+void mode0_clear(mode0_color_t color) {
+    mode0_begin();
+    int size = TEXT_WIDTH*TEXT_HEIGHT;
+    memset(screen, 0, size);
+    memset(colors, color, size);
+    mode0_set_cursor(0, 0);
+    mode0_end();
+}
+
+void mode0_set_foreground(mode0_color_t color) {
+    mode0_begin();
+    screen_fg_color = color;
+    mode0_end();
+}
+
+void mode0_set_background(mode0_color_t color) {
+    mode0_begin();
+    screen_bg_color = color;
+    mode0_end();
+}
+
+void mode0_set_cursor(uint8_t x, uint8_t y) {
+    cursor_x = x;
+    cursor_y = y;
+}
+
+void mode0_show_cursor() {
+    mode0_begin();
+    show_cursor = 1;
+    mode0_end();
+}
+
+void mode0_hide_cursor() {
+    mode0_begin();
+    show_cursor = 0;
+    mode0_end();
+}
+
+uint8_t mode0_get_cursor_x() {
+    return cursor_x;
+}
+
+uint8_t mode0_get_cursor_y() {
+    return cursor_y;
+}
+
+void mode0_putc(char c) {
+    mode0_begin();
+    
+    if (cursor_y >= TEXT_HEIGHT) {
+        mode0_scroll_vertical(cursor_y-TEXT_HEIGHT+1);
+        cursor_y = TEXT_HEIGHT-1;
+    }
+
+    int idx = cursor_y*TEXT_WIDTH + cursor_x;
+    if (c == '\n') {
+        // fill the rest of the line with empty content + the current bg color
+        memset(screen+idx, 0, TEXT_WIDTH-cursor_x);
+        memset(colors+idx, screen_bg_color, TEXT_WIDTH-cursor_x);
+        cursor_y++;
+        cursor_x = 0;
+    } else if (c == '\r') {
+        //cursor_x = 0;
+    } else if (c>=32 && c<=127) {
+        screen[idx] = c-32;
+        colors[idx] = ((screen_fg_color & 0xf) << 4) | (screen_bg_color & 0xf);
+        
+        cursor_x++;
+        if (cursor_x >= TEXT_WIDTH) {
+            cursor_x = 0;
+            cursor_y++;
+        }
+    }
+    
+    mode0_end();
+}
+
+void mode0_print(const char *str) {
+    mode0_begin();
+    char c;
+    while (c = *str++) {
+        mode0_putc(c);
+    }
+    mode0_end();
+}
+
+void mode0_write(const char *str, int len) {
+    mode0_begin();
+    for (int i=0; i<len; i++) {
+        mode0_putc(*str++);
+    }
+    mode0_end();
+}
+
+inline void mode0_begin() {
+    depth++;
+}
+
+inline void mode0_end() {
+    if (--depth == 0) {
+        mode0_draw_screen();
+    }
+}
+
+void mode0_draw_region(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
+    // TODO
+    mode0_draw_screen();
+}
+
+void mode0_draw_screen() {
+    // assert depth == 0?
+    depth = 0;
+    
+    // setup to draw the whole screen
+    
+    // column address set
+    tft.ili9341_set_command(ILI9341_CASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start column
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0xef);  // end column -> 239
+
+    // page address set
+    tft.ili9341_set_command(ILI9341_PASET);
+    tft.ili9341_command_param(0x00);
+    tft.ili9341_command_param(0x00);  // start page
+    tft.ili9341_command_param(0x01);
+    tft.ili9341_command_param(0x3f);  // end page -> 319
+
+    // start writing
+    tft.ili9341_set_command(ILI9341_RAMWR);
+
+    uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
+
+    int screen_idx = 0;
+    for (int x=0; x<TEXT_WIDTH; x++) {
+        // create one column of screen information
+        
+        uint16_t *buffer_idx = buffer;
+        
+        for (int bit=0; bit<6; bit++) {
+            uint8_t mask = 64>>bit;
+            for (int y=TEXT_HEIGHT-1; y>=0; y--) {
+                uint8_t character = screen[y*53+x];
+                uint16_t fg_color = palette[colors[y*53+x] >> 4];
+                uint16_t bg_color = palette[colors[y*53+x] & 0xf];
+
+                if (show_cursor && (cursor_x == x) && (cursor_y == y)) {
+                    bg_color = MODE0_GREEN;
+                }
+                                
+                const uint8_t* pixel_data = font_data[character];
+                
+                // draw the character into the buffer
+                for (int j=10; j>=1; j--) {
+                    *buffer_idx++ = (pixel_data[j] & mask) ? fg_color : bg_color;
+                }
+            }
+        }
+        
+        // now send the slice
+        tft.ili9341_write_data(buffer, 6*240*2);
+    }
+    
+    uint16_t extra_buffer[2*240] = { 0 };
+    tft.ili9341_write_data(extra_buffer, 2*240*2);
+
+}
+
+void mode0_scroll_vertical(int8_t amount) {
+    mode0_begin();
+
+    
+    if (amount > 0) {
+        int size1 = TEXT_WIDTH*amount;
+        int size2 = TEXT_WIDTH*TEXT_HEIGHT - size1;
+        
+        memmove(screen, screen+size1, size2);
+        memmove(colors, colors+size1, size2);
+        memset(screen+size2, 0, size1);
+        memset(colors+size2, screen_bg_color, size1);
+    } else if (amount < 0) {
+        amount = -amount;
+        int size1 = TEXT_WIDTH*amount;
+        int size2 = TEXT_WIDTH*TEXT_HEIGHT - size1;
+
+        memmove(screen+size1, screen, size2);
+        memmove(colors+size1, colors, size2);
+        memset(screen, 0, size1);
+        memset(colors, screen_bg_color, size1);
+    }
+    
+    mode0_end();
+}
+
+void mode0_init() {
+    // stdio_init_all();
+
+    tft.ili9341_init();
+}
+
+/*
+uint16_t swap_bytes(uint16_t color) {
+    return (color>>8) | (color<<8);
+}
+*/
+
+
+
+// *************************************************************************************************
+// *************************************************************************************************
+// MAGA_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RST, LCD_D0, LCD_WIDTH, LCD_HEIGHT);
 
 int main() {
-	stdio_usb_init();
+    mode0_init();
+    
+    mode0_set_cursor(0, 0);
+    mode0_color_t fg = MODE0_WHITE;
+    mode0_color_t bg = MODE0_BLACK;
+    
+    while (1) {
+        mode0_print("Retro Computer (c) 2021, Shawn Hyam\n");
+        // sleep_ms(500);
+        fg = (fg+1) % 16;
+        if (fg == 0) {
+            bg = (bg+1) % 16;
+            mode0_set_background(bg);
+        }
+        mode0_set_foreground(fg);
 
-	
-
-	setup();
-	loop();
-	
-	return 0;
+    }
 }
-
-// *************************************************************************************************
-void setup() {
-	tft.reset();
-	/*
-	uint16_t identifier = tft.readID();
-	if(identifier == 0x9341)
-		std::cout << "Found ILI9341 LCD driver\n";
-	else {
-		std::cout << "Unknown LCD driver chip: " << identifier << "\n";
-		return;
-	}
-
-	tft.begin(identifier);
-	*/
-}
-
-void loop() {
-	/*
-	for(;;) {
-		printf("%d, %d, %d\n", tft._d0, tft._d1, tft._d2);
-		sleep_ms(5000);
-	}
-*/
-}
-
