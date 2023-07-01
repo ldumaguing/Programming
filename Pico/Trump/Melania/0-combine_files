@@ -1,0 +1,33 @@
+touch X.txt ;
+echo '// *************** '`date` > X.txt ;
+echo '// *************************************************************************************************' >> X.txt ;
+
+
+echo '#include <cstdint>' >> X.txt ;
+echo '#include <stdio.h>' >> X.txt ;
+echo '#include <cstdlib>' >> X.txt ;
+echo '#include <cstring>' >> X.txt ;
+echo '' >> X.txt;
+
+
+
+
+cat ILI9341/defines.h >> X.txt ;
+cat ILI9341/ILI9341.h >> X.txt ;
+cat ILI9341/ILI9341.cpp >> X.txt ;
+
+
+
+
+
+cat mode0.h >> X.txt ;
+cat mode0.cpp >> X.txt ;
+cat mode0_demo.cpp >> X.txt ;
+mv X.txt main.cpp ;
+
+
+
+
+echo ''
+
+
