@@ -1,4 +1,4 @@
-// *************** Fri Jun 30 09:57:07 PM EDT 2023
+// *************** Fri Jun 30 10:52:35 PM EDT 2023
 // *************************************************************************************************
 #include <cstdint>
 #include <stdio.h>
@@ -231,14 +231,10 @@ void ILI9341::ili9341_init() {
 	// positive gamma correction
 	ili9341_set_command(ILI9341_GMCTRP1);
 	ili9341_write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
-// uint8_t X[15] = { 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 };
-// ili9341_write_data(X, 15);
 
 	// negative gamma correction
 	ili9341_set_command(ILI9341_GMCTRN1);
 	ili9341_write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-//uint8_t Y[15] = { 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f };
-//ili9341_write_data(Y, 15);
 
 	// memory access control
 	ili9341_set_command(ILI9341_MADCTL);
@@ -301,6 +297,9 @@ void ILI9341::ili9341_write_data(uint16_t *buffer, int bytes) {
     sio_write(buffer, bytes);
     CS_Idle();
 };
+
+ILI9341 ili(ILI9341_CS, ILI9341_CD, ILI9341_WR, ILI9341_RD, ILI9341_RST, ILI9341_D0, ILI9341_WIDTH,
+	ILI9341_HEIGHT);
 
 // ***************************************************************************************** mode0.h
 // *************************************************************************************************
@@ -597,21 +596,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    ili.ili9341_set_command(ILI9341_CASET);
+    ili.ili9341_command_param(0x00);
+    ili.ili9341_command_param(0x00);  // start column
+    ili.ili9341_command_param(0x00);
+    ili.ili9341_command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    ili.ili9341_set_command(ILI9341_PASET);
+    ili.ili9341_command_param(0x00);
+    ili.ili9341_command_param(0x00);  // start page
+    ili.ili9341_command_param(0x01);
+    ili.ili9341_command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    ili.ili9341_set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
@@ -642,11 +641,11 @@ void mode0_draw_screen() {
         }
         
         // now send the slice
-        ili9341_write_data(buffer, 6*240*2);
+        ili.ili9341_write_data(buffer, 6*240*2);
     }
     
     uint16_t extra_buffer[2*240] = { 0 };
-    ili9341_write_data(extra_buffer, 2*240*2);
+    ili.ili9341_write_data(extra_buffer, 2*240*2);
 
 }
 
@@ -679,7 +678,7 @@ void mode0_scroll_vertical(int8_t amount) {
 void mode0_init() {
 //    stdio_init_all();
 
-    ili9341_init();
+    ili.ili9341_init();
 }
 
 // *************************************************************************************************
@@ -695,9 +694,13 @@ int main() {
     while (1) {
         mode0_print("Retro Computer (c) 2021, Shawn Hyam\n");
         // sleep_ms(500);
-        fg = (fg+1) % 16;
+        int x = (fg+1) % 16;
+        fg = (mode0_color_t)x;
+        // fg = (fg+1) % 16;
         if (fg == 0) {
-            bg = (bg+1) % 16;
+			int y = (bg+1) % 16;
+			bg = (mode0_color_t)y;
+            // bg = (bg+1) % 16;
             mode0_set_background(bg);
         }
         mode0_set_foreground(fg);
