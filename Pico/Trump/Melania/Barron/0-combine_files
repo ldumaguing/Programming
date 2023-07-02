@@ -9,14 +9,14 @@ echo '#include <stdio.h>' >> X.txt ;
 echo '' >> X.txt ;
 
 cat include/defines.h >> X.txt ;
-cat include/ili9341.h >> X.txt ;
-cat include/ili9341.c >> X.txt ;
+cat include/ILI9341.h >> X.txt ;
+cat include/ILI9341.cpp >> X.txt ;
 
 
 cat mode0.h >> X.txt ;
-cat mode0.c >> X.txt ;
-cat mode0_demo.c >> X.txt ;
-mv X.txt main.c ;
+cat mode0.cpp >> X.txt ;
+cat mode0_demo.cpp >> X.txt ;
+mv X.txt main.cpp ;
 
 
 

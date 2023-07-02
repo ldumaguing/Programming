@@ -1,32 +1,21 @@
-// *************** Sun Jul 2 12:49:22 AM EDT 2023
+// *************** Sun Jul 2 01:05:52 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <string.h>
 #include <stdint.h>
 #include <stdio.h>
 
-typedef struct {
-    uint pin_miso;
-    uint pin_cs;
-    uint pin_sck;
-    uint pin_mosi;
-    uint pin_reset;
-    uint pin_dc;
-
-    uint pin_rd;
-    uint pin_wr;
-    uint pin_d0;
-    uint pin_d1;
-    uint pin_d2;
-    uint pin_d3;
-    uint pin_d4;
-    uint pin_d5;
-    uint pin_d6;
-    uint pin_d7;
-} ili9341_config_t;
-
+// ************************************************************************************** defines.h
+// ************************************************************************************************
 #define LCD_WIDTH 240  ///< ILI9341 max TFT width
 #define LCD_HEIGHT 320 ///< ILI9341 max TFT height
+
+#define ILI9341_CS     0
+#define ILI9341_CD     1
+#define ILI9341_WR     2
+#define ILI9341_RD     3
+#define ILI9341_RST    4
+#define ILI9341_D0     5
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register
@@ -85,154 +74,52 @@ typedef struct {
 //#define ILI9341_PWCTR6     0xFC
 
 
-void ili9341_init();
-void ili9341_set_command(uint8_t cmd);
-void ili9341_command_param(uint8_t data);
-void ili9341_write_data(void *buffer, int bytes);
+// ************************************************************************************** ILI9341.h
+// ************************************************************************************************
+struct ILI9341 {
+	ILI9341();
+
+	void init();
+	void set_command(uint8_t cmd);
+	void command_param(uint8_t data);
+	void write_data(void *buffer, int bytes);
 
 
-ili9341_config_t ili9341_config = {
-	.pin_cs = 0,
-	.pin_dc = 1,
-	.pin_wr = 2,
-	.pin_rd = 3,
-	.pin_reset = 4,
-	.pin_d0 = 5,
-	.pin_d1 = 6,
-	.pin_d2 = 7,
-	.pin_d3 = 8,
-	.pin_d4 = 9,
-	.pin_d5 = 10,
-	.pin_d6 = 11,
-	.pin_d7 = 12
+
+	protected:
+		uint8_t _cs, _cd, _wr, _rd, _rst, _d0;
+		uint16_t _w, _h;
 };
 
-static inline void pen_down();
-static inline void pen_up();
 
-int sio_write(const uint8_t *src, size_t len) {
-	do {
-		gpio_put_masked((0xff << 5), (*src << 5));
+// ************************************************************************************ ILI9341.cpp
+ILI9341::ILI9341() {
+	_cs = ILI9341_CS;
+	_cd = ILI9341_CD;
+	_wr = ILI9341_WR;
+	_rd = ILI9341_RD;
+	_rst = ILI9341_RST;
+	_d0 = ILI9341_D0;
+	_w = LCD_WIDTH;
+	_h = LCD_HEIGHT;
+};
 
-		pen_down();
-		pen_up();
+void ILI9341::init() {
+};
 
-		len--;
-		src++;
-	} while (len > 0);
-	
-	return 0;
-}
+void ILI9341::set_command(uint8_t cmd) {
+};
 
-void init_pins() {
-	gpio_init_mask(0x1fff);
-	gpio_set_dir_out_masked(0x1fff);
-	gpio_set_mask(0x1fff);
-}
+void ILI9341::command_param(uint8_t data) {
+};
 
-static inline void cs_select() {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_cs, 0);  // Active low
-    //asm volatile("nop \n nop \n nop");
-}
+void write_data(void *buffer, int bytes) {
+};
 
-static inline void cs_deselect() {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_cs, 1);
-    //asm volatile("nop \n nop \n nop");
-}
+ILI9341 ili = ILI9341();
 
-static inline void pen_down() {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_wr, 0);  // writing
-    //asm volatile("nop \n nop \n nop");
-}
-
-static inline void pen_up() {
-    //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_wr, 1);  // not writing
-    //asm volatile("nop \n nop \n nop");
-}
-
-void ili9341_set_command(uint8_t cmd) {
-    cs_select();
-    gpio_put(ili9341_config.pin_dc, 0);
-    sio_write(&cmd, 1);
-    gpio_put(ili9341_config.pin_dc, 1);
-    cs_deselect();
-}
-
-void ili9341_command_param(uint8_t data) {
-    cs_select();
-    sio_write(&data, 1);
-    cs_deselect();
-}
-
-void ili9341_write_data(void *buffer, int bytes) {
-	// printf("buf: %x\n", buffer);
-    cs_select();
-    sio_write(buffer, bytes);
-    cs_deselect();
-}
-
-void ili9341_init() {
-	init_pins();
-	ili9341_set_command(0x01); //soft reset
-	sleep_ms(1000);
-
-	ili9341_set_command(ILI9341_GAMMASET);
-	ili9341_command_param(0x01);
-
-	// positive gamma correction
-	ili9341_set_command(ILI9341_GMCTRP1);
-    ili9341_write_data((uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
-
-	// negative gamma correction
-	ili9341_set_command(ILI9341_GMCTRN1);
-	ili9341_write_data((uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-
-	// memory access control
-	ili9341_set_command(ILI9341_MADCTL);
-	ili9341_command_param(0x48);
-
-	// pixel format
-	ili9341_set_command(ILI9341_PIXFMT);
-	ili9341_command_param(0x55);  // 16-bit
-
-	// frame rate; default, 70 Hz
-	ili9341_set_command(ILI9341_FRMCTR1);
-	ili9341_command_param(0x00);
-	ili9341_command_param(0x1B);
-
-	// exit sleep
-	ili9341_set_command(ILI9341_SLPOUT);
-
-	// display on
-	ili9341_set_command(ILI9341_DISPON);
-
-	// column address set
-	ili9341_set_command(ILI9341_CASET);
-	ili9341_command_param(0x00);
-	ili9341_command_param(0x00);  // start column
-	ili9341_command_param(0x00);
-	ili9341_command_param(0xef);  // end column -> 239
-
-	// page address set
-	ili9341_set_command(ILI9341_PASET);
-	ili9341_command_param(0x00);
-	ili9341_command_param(0x00);  // start page
-	ili9341_command_param(0x01);
-	ili9341_command_param(0x3f);  // end page -> 319
-
-	ili9341_set_command(ILI9341_RAMWR);
-
-
-}
-
-uint16_t swap_bytes(uint16_t color) {
-    return (color>>8) | (color<<8);
-}
-
+// ***************************************************************************************** mode0.h
+// *************************************************************************************************
 // ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
 typedef enum {
     MODE0_BLACK,
@@ -273,6 +160,7 @@ void mode0_hide_cursor();
 void mode0_begin();
 void mode0_end();
 
+// *************************************************************************************** mode0.cpp
 /* Character graphics mode */
 
 // Characters are 8x12 -- characters start at (x:1,y:1) and are 5x7 in size, so
@@ -526,21 +414,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    ili.set_command(ILI9341_CASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start column
+    ili.command_param(0x00);
+    ili.command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    ili.set_command(ILI9341_PASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start page
+    ili.command_param(0x01);
+    ili.command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    ili.set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
@@ -571,11 +459,11 @@ void mode0_draw_screen() {
         }
         
         // now send the slice
-        ili9341_write_data(buffer, 6*240*2);
+        ili.write_data(buffer, 6*240*2);
     }
     
     uint16_t extra_buffer[2*240] = { 0 };
-    ili9341_write_data(extra_buffer, 2*240*2);
+    ili.write_data(extra_buffer, 2*240*2);
 
 }
 
@@ -606,10 +494,18 @@ void mode0_scroll_vertical(int8_t amount) {
 }
 
 void mode0_init() {
-    stdio_init_all();
+    // stdio_init_all();
 
-    ili9341_init();
+    ili.init();
 }
+
+/*
+uint16_t swap_bytes(uint16_t color) {
+    return (color>>8) | (color<<8);
+}
+*/
+
+// ********************************************************************************** mode0_demo.cpp
 int main() {
     mode0_init();
     

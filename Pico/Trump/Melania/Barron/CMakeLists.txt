@@ -15,7 +15,7 @@ project(${PROJ_NAME} C CXX ASM)
 pico_sdk_init()
 
 add_executable(${PROJ_NAME}
-	main.c
+	main.cpp
 )
 
 target_link_libraries(${PROJ_NAME} pico_stdlib)
