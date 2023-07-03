@@ -1,7 +1,8 @@
 // ***************************************************************************************** mode0.h
 // *************************************************************************************************
-enum mode0_color_t {
-	MODE0_BLACK,
+// ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
+typedef enum {
+    MODE0_BLACK,
     MODE0_BROWN,
     MODE0_RED,
     MODE0_BLUSH,
@@ -17,7 +18,7 @@ enum mode0_color_t {
     MODE0_BLUE,
     MODE0_PICTON_BLUE,
     MODE0_PALE_BLUE
-};
+} mode0_color_t;
 
 void mode0_init();
 void mode0_clear(mode0_color_t color);

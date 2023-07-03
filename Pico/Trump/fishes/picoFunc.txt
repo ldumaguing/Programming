@@ -1,0 +1,13 @@
+gpio_init_mask(uint)
+
+gpio_put(uint, bool)
+
+gpio_put_masked(uint32_t, uint32_t)
+
+gpio_set_dir_out_masked(uint32_t)
+
+gpio_set_mask(uint32_t)
+
+sio_write(const uint8_t *, size_t)
+
+
