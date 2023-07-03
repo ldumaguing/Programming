@@ -9,7 +9,7 @@ int main() {
     mode0_color_t bg = MODE0_BLACK;
     
     while (1) {
-        mode0_print("Shawn Hyam C++\n");
+        mode0_print("Shawn Hyam\n");
         sleep_ms(500);
         fg = (fg+1) % 16;
         if (fg == 0) {
