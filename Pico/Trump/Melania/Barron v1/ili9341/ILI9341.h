@@ -1,14 +1,29 @@
-// ************************************************************************************** defines.h
-// ************************************************************************************************
-#define LCD_WIDTH 240  ///< ILI9341 max TFT width
-#define LCD_HEIGHT 320 ///< ILI9341 max TFT height
+// *************************************************************************************** ILI9341.h
+// *************************************************************************************************
+typedef struct {
+    uint pin_miso;
+    uint pin_cs;
+    uint pin_sck;
+    uint pin_mosi;
+    uint pin_reset;
+    uint pin_dc;
 
-#define ILI9341_CS     0
-#define ILI9341_CD     1
-#define ILI9341_WR     2
-#define ILI9341_RD     3
-#define ILI9341_RST    4
-#define ILI9341_D0     5
+    uint pin_rd;
+    uint pin_wr;
+    uint pin_d0;
+    uint pin_d1;
+    uint pin_d2;
+    uint pin_d3;
+    uint pin_d4;
+    uint pin_d5;
+    uint pin_d6;
+    uint pin_d7;
+} ili9341_config_t;
+
+// extern ili9341_config_t ili9341_config;
+
+#define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
+#define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register
@@ -46,7 +61,7 @@
 #define ILI9341_FRMCTR1 0xB1 ///< Frame Rate Control (In Normal Mode/Full Colors)
 #define ILI9341_FRMCTR2 0xB2 ///< Frame Rate Control (In Idle Mode/8 colors)
 #define ILI9341_FRMCTR3 0xB3 ///< Frame Rate control (In Partial Mode/Full Colors)
-#define ILI9341_INVCTR 0xB4  ///< Display Inversion Control
+#define ILI9341_INVCTR  0xB4 ///< Display Inversion Control
 #define ILI9341_DFUNCTR 0xB6 ///< Display Function Control
 
 #define ILI9341_PWCTR1 0xC0 ///< Power Control 1
@@ -66,4 +81,10 @@
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
 //#define ILI9341_PWCTR6     0xFC
 
+// extern const uint8_t font6x8[];
+
+void ili9341_init();
+void ili9341_set_command(uint8_t cmd);
+void ili9341_command_param(uint8_t data);
+void ili9341_write_data(void *buffer, int bytes);
 

@@ -1,4 +1,4 @@
-// *************** Sun Jul 2 07:05:50 PM EDT 2023
+// *************** Sun Jul 2 06:51:42 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
@@ -630,7 +630,7 @@ int main() {
     mode0_color_t bg = MODE0_BLACK;
     
     while (1) {
-        mode0_print("Shawn Hyam C++\n");
+        mode0_print("Shawn Hyam\n");
         sleep_ms(500);
         fg = (fg+1) % 16;
         if (fg == 0) {

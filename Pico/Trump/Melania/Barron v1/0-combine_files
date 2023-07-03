@@ -9,15 +9,15 @@ echo '#include <stdio.h>' >> X.txt ;
 echo '' >> X.txt;
 
 cat ili9341/ILI9341.h >> X.txt ;
-cat ili9341/ILI9341.cpp >> X.txt ;
+cat ili9341/ILI9341.c >> X.txt ;
 
 
 
 
 
 cat mode0.h >> X.txt ;
-cat mode0.cpp >> X.txt ;
-cat mode0_demo.cpp >> X.txt ;
+cat mode0.c >> X.txt ;
+cat mode0_demo.c >> X.txt ;
 
 
 
@@ -25,7 +25,7 @@ cat mode0_demo.cpp >> X.txt ;
 
 
 
-mv X.txt main.cpp ;
+mv X.txt main.c ;
 
 
 

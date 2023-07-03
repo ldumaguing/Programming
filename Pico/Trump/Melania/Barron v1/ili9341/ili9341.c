@@ -1,3 +1,10 @@
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include "pico/stdlib.h"
+
+#include "ili9341/ili9341.h"
+
 ili9341_config_t ili9341_config = {
 	.pin_cs = 0,
 	.pin_dc = 1,
