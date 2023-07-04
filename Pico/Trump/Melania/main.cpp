@@ -1,29 +1,18 @@
-// *************** Mon Jul 3 05:20:15 PM EDT 2023
+// *************** Mon Jul 3 10:25:05 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 
-// *************************************************************************************** ILI9341.h
+// *************************************************************************************** defines.h
 // *************************************************************************************************
-typedef struct {
-    uint pin_cs;
-    uint pin_dc;
-    uint pin_wr;
-    uint pin_rd;
-    uint pin_reset;
-    uint pin_d0;
-    uint pin_d1;
-    uint pin_d2;
-    uint pin_d3;
-    uint pin_d4;
-    uint pin_d5;
-    uint pin_d6;
-    uint pin_d7;
-} ili9341_config_t;
-
-// extern ili9341_config_t ili9341_config;
+#define ILI9341_CS  0
+#define ILI9341_CD  1
+#define ILI9341_WR  2
+#define ILI9341_RD  3
+#define ILI9341_RST 4
+#define ILI9341_D0  5
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
@@ -84,14 +73,47 @@ typedef struct {
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
 //#define ILI9341_PWCTR6     0xFC
 
-// extern const uint8_t font6x8[];
+
+// *************************************************************************************** ILI9341.h
+// *************************************************************************************************
+typedef struct {
+    uint pin_cs;
+    uint pin_dc;
+    uint pin_wr;
+    uint pin_rd;
+    uint pin_reset;
+    uint pin_d0;
+    uint pin_d1;
+    uint pin_d2;
+    uint pin_d3;
+    uint pin_d4;
+    uint pin_d5;
+    uint pin_d6;
+    uint pin_d7;
+} ili9341_config_t;
 
 void ili9341_init();
 void ili9341_set_command(uint8_t cmd);
 void ili9341_command_param(uint8_t data);
 void ili9341_write_data(void *buffer, int bytes);
 void ili9341_write_data(const uint8_t *buffer, int bytes);
-// *************************************************************************************** ILI9341.c
+
+// ************************************************************************************************
+struct ILI9341 {
+	ILI9341();
+
+	void init();
+	void set_command(uint8_t cmd);
+	void command_param(uint8_t data);
+	void write_data(void *buffer, int bytes);
+	void write_data(const uint8_t *buffer, int bytes);
+
+	protected:
+		uint _cs, _cd, _wr, _rd, _rst, _d0;
+};
+
+
+// ************************************************************************************* ILI9341.cpp
 ili9341_config_t ili9341_config = {
 	.pin_cs = 0,
 	.pin_dc = 1,
@@ -272,6 +294,114 @@ uint16_t swap_bytes(uint16_t color) {
     return (color>>8) | (color<<8);
 }
 
+// *************************************************************************************************
+ILI9341::ILI9341() {
+	_cs  = ILI9341_CS;
+	_cd  = ILI9341_CD;
+	_wr  = ILI9341_WR;
+	_rd  = ILI9341_RD;
+	_rst = ILI9341_RST;
+	_d0  = ILI9341_D0;
+};
+
+void ILI9341::init() {
+	init_pins();
+	set_command(0x01); //soft reset
+	sleep_ms(1000);
+
+	set_command(ILI9341_GAMMASET);
+	command_param(0x01);
+
+	// positive gamma correction
+	set_command(ILI9341_GMCTRP1);
+    write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
+
+	// negative gamma correction
+	set_command(ILI9341_GMCTRN1);
+	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
+
+	// memory access control
+	set_command(ILI9341_MADCTL);
+	command_param(0x48);
+
+	// pixel format
+	set_command(ILI9341_PIXFMT);
+	command_param(0x55);  // 16-bit
+
+	// frame rate; default, 70 Hz
+	set_command(ILI9341_FRMCTR1);
+	command_param(0x00);
+	command_param(0x1B);
+
+	// exit sleep
+	set_command(ILI9341_SLPOUT);
+
+	// display on
+	set_command(ILI9341_DISPON);
+
+	// column address set
+	set_command(ILI9341_CASET);
+	command_param(0x00);
+	command_param(0x00);  // start column
+	command_param(0x00);
+	command_param(0xef);  // end column -> 239
+
+	// page address set
+	set_command(ILI9341_PASET);
+	command_param(0x00);
+	command_param(0x00);  // start page
+	command_param(0x01);
+	command_param(0x3f);  // end page -> 319
+
+	set_command(ILI9341_RAMWR);
+
+
+};
+
+void ILI9341::set_command(uint8_t cmd) {
+	cs_select();
+    gpio_put(_cd, 0);
+    sio_write(&cmd, 1);
+    gpio_put(_cd, 1);
+    cs_deselect();
+};
+
+void ILI9341::command_param(uint8_t data) {
+	cs_select();
+	sio_write(&data, 1);
+	cs_deselect();
+};
+
+void ILI9341::write_data(void *buffer, int bytes) {
+	cs_select();
+	sio_write(buffer, bytes);
+	cs_deselect();
+};
+
+void ILI9341::write_data(const uint8_t *buffer, int bytes) {
+	cs_select();
+	sio_write(buffer, bytes);
+	cs_deselect();
+};
+
+
+
+
+ILI9341 ili = ILI9341();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ***************************************************************************************** mode0.h
 // *************************************************************************************************
 // ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
@@ -314,7 +444,7 @@ void mode0_hide_cursor();
 void mode0_begin();
 void mode0_end();
 
-// ***************************************************************************************** mode0.c
+// *************************************************************************************** mode0.cpp
 /* Character graphics mode */
 
 // Characters are 8x12 -- characters start at (x:1,y:1) and are 5x7 in size, so
@@ -568,21 +698,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    ili.set_command(ILI9341_CASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start column
+    ili.command_param(0x00);
+    ili.command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    ili.set_command(ILI9341_PASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start page
+    ili.command_param(0x01);
+    ili.command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    ili.set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
@@ -613,11 +743,11 @@ void mode0_draw_screen() {
         }
         
         // now send the slice
-        ili9341_write_data(buffer, 6*240*2);
+        ili.write_data(buffer, 6*240*2);
     }
     
     uint16_t extra_buffer[2*240] = { 0 };
-    ili9341_write_data(extra_buffer, 2*240*2);
+    ili.write_data(extra_buffer, 2*240*2);
 
 }
 
@@ -650,11 +780,11 @@ void mode0_scroll_vertical(int8_t amount) {
 void mode0_init() {
     stdio_init_all();
 
-    ili9341_init();
+    ili.init();
 }
 
 // *************************************************************************************************
-// ************************************************************************************ mode0_demo.c
+// ********************************************************************************** mode0_demo.cpp
 // *************************************************************************************************
 int main() {
     mode0_init();
@@ -666,9 +796,9 @@ int main() {
     while (1) {
         mode0_print("Shawn Hyam\n");
         sleep_ms(500);
-        //fg = (fg+1) % 16;
+        fg = (mode0_color_t)((fg+1) % 16);
         if (fg == 0) {
-            //bg = (bg+1) % 16;
+            bg = (mode0_color_t)((bg+1) % 16);
             mode0_set_background(bg);
         }
         mode0_set_foreground(fg);

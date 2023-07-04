@@ -1,26 +1,11 @@
-// *************************************************************************************** ILI9341.h
+// *************************************************************************************** defines.h
 // *************************************************************************************************
-typedef struct {
-    uint pin_miso;
-    uint pin_cs;
-    uint pin_sck;
-    uint pin_mosi;
-    uint pin_reset;
-    uint pin_dc;
-
-    uint pin_rd;
-    uint pin_wr;
-    uint pin_d0;
-    uint pin_d1;
-    uint pin_d2;
-    uint pin_d3;
-    uint pin_d4;
-    uint pin_d5;
-    uint pin_d6;
-    uint pin_d7;
-} ili9341_config_t;
-
-// extern ili9341_config_t ili9341_config;
+#define ILI9341_CS  0
+#define ILI9341_CD  1
+#define ILI9341_WR  2
+#define ILI9341_RD  3
+#define ILI9341_RST 4
+#define ILI9341_D0  5
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
@@ -81,10 +66,4 @@ typedef struct {
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
 //#define ILI9341_PWCTR6     0xFC
 
-// extern const uint8_t font6x8[];
-
-void ili9341_init();
-void ili9341_set_command(uint8_t cmd);
-void ili9341_command_param(uint8_t data);
-void ili9341_write_data(void *buffer, int bytes);
 

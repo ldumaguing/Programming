@@ -8,6 +8,9 @@ echo '#include <string.h>' >> X.txt ;
 echo '#include <stdio.h>' >> X.txt ;
 echo '' >> X.txt;
 
+
+
+cat ili9341/defines.h >> X.txt ;
 cat ili9341/ILI9341.h >> X.txt ;
 cat ili9341/ILI9341.cpp >> X.txt ;
 
