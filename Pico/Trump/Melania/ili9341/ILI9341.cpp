@@ -1,26 +1,10 @@
 // ************************************************************************************* ILI9341.cpp
-ili9341_config_t ili9341_config = {
-	.pin_cs = 0,
-	.pin_dc = 1,
-	.pin_wr = 2,
-	.pin_rd = 3,
-	.pin_reset = 4,
-	.pin_d0 = 5,
-	.pin_d1 = 6,
-	.pin_d2 = 7,
-	.pin_d3 = 8,
-	.pin_d4 = 9,
-	.pin_d5 = 10,
-	.pin_d6 = 11,
-	.pin_d7 = 12
-};
-
 static inline void pen_down();
 static inline void pen_up();
 
 int sio_write(const uint8_t *src, size_t len) {
 	do {
-		gpio_put_masked((0xff << 5), (*src << 5));
+		gpio_put_masked((0xff << ILI9341_D0), (*src << ILI9341_D0));
 
 		pen_down();
 		pen_up();
@@ -35,7 +19,7 @@ int sio_write(const uint8_t *src, size_t len) {
 int sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
-		gpio_put_masked((0xff << 5), (*x << 5));
+		gpio_put_masked((0xff << ILI9341_D0), (*x << ILI9341_D0));
 
 		pen_down();
 		pen_up();
@@ -71,33 +55,33 @@ void init_pins() {
 
 static inline void cs_select() {
     //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_cs, 0);  // Active low
+    gpio_put(ILI9341_CS, 0);  // Active low
     //asm volatile("nop \n nop \n nop");
 }
 
 static inline void cs_deselect() {
     //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_cs, 1);
+    gpio_put(ILI9341_CS, 1);
     //asm volatile("nop \n nop \n nop");
 }
 
 static inline void pen_down() {
     //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_wr, 0);  // writing
+    gpio_put(ILI9341_WR, 0);  // writing
     //asm volatile("nop \n nop \n nop");
 }
 
 static inline void pen_up() {
     //asm volatile("nop \n nop \n nop");
-    gpio_put(ili9341_config.pin_wr, 1);  // not writing
+    gpio_put(ILI9341_WR, 1);  // not writing
     //asm volatile("nop \n nop \n nop");
 }
 
 void ili9341_set_command(uint8_t cmd) {
     cs_select();
-    gpio_put(ili9341_config.pin_dc, 0);
+    gpio_put(ILI9341_CD, 0);
     sio_write(&cmd, 1);
-    gpio_put(ili9341_config.pin_dc, 1);
+    gpio_put(ILI9341_CD, 1);
     cs_deselect();
 }
 
@@ -180,15 +164,6 @@ uint16_t swap_bytes(uint16_t color) {
 }
 
 // *************************************************************************************************
-ILI9341::ILI9341() {
-	_cs  = ILI9341_CS;
-	_cd  = ILI9341_CD;
-	_wr  = ILI9341_WR;
-	_rd  = ILI9341_RD;
-	_rst = ILI9341_RST;
-	_d0  = ILI9341_D0;
-};
-
 void ILI9341::init() {
 	init_pins();
 	set_command(0x01); //soft reset
@@ -245,9 +220,9 @@ void ILI9341::init() {
 
 void ILI9341::set_command(uint8_t cmd) {
 	cs_select();
-    gpio_put(_cd, 0);
+    gpio_put(ILI9341_CD, 0);
     sio_write(&cmd, 1);
-    gpio_put(_cd, 1);
+    gpio_put(ILI9341_CD, 1);
     cs_deselect();
 };
 
