@@ -1,3 +1,268 @@
+// *************** Wed Jul 5 12:20:57 PM EDT 2023
+// *************************************************************************************************
+#include "pico/stdlib.h"
+#include <stdint.h>
+#include <string.h>
+#include <stdio.h>
+
+// *************************************************************************************** defines.h
+// *************************************************************************************************
+#define ILI9341_CS   0
+#define ILI9341_CD   1
+#define ILI9341_WR   2
+#define ILI9341_RD   3
+#define ILI9341_RST  4
+#define ILI9341_D0   5
+#define ILI9341_MASK 0x1fff   // 0001 1111 1111 1111
+
+#define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
+#define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
+
+#define ILI9341_NOP 0x00     ///< No-op register
+#define ILI9341_SWRESET 0x01 ///< Software reset register
+#define ILI9341_RDDID 0x04   ///< Read display identification information
+#define ILI9341_RDDST 0x09   ///< Read Display Status
+
+#define ILI9341_SLPIN 0x10  ///< Enter Sleep Mode
+#define ILI9341_SLPOUT 0x11 ///< Sleep Out
+#define ILI9341_PTLON 0x12  ///< Partial Mode ON
+#define ILI9341_NORON 0x13  ///< Normal Display Mode ON
+
+#define ILI9341_RDMODE 0x0A     ///< Read Display Power Mode
+#define ILI9341_RDMADCTL 0x0B   ///< Read Display MADCTL
+#define ILI9341_RDPIXFMT 0x0C   ///< Read Display Pixel Format
+#define ILI9341_RDIMGFMT 0x0D   ///< Read Display Image Format
+#define ILI9341_RDSELFDIAG 0x0F ///< Read Display Self-Diagnostic Result
+
+#define ILI9341_INVOFF 0x20   ///< Display Inversion OFF
+#define ILI9341_INVON 0x21    ///< Display Inversion ON
+#define ILI9341_GAMMASET 0x26 ///< Gamma Set
+#define ILI9341_DISPOFF 0x28  ///< Display OFF
+#define ILI9341_DISPON 0x29   ///< Display ON
+
+#define ILI9341_CASET 0x2A ///< Column Address Set
+#define ILI9341_PASET 0x2B ///< Page Address Set
+#define ILI9341_RAMWR 0x2C ///< Memory Write
+#define ILI9341_RAMRD 0x2E ///< Memory Read
+
+#define ILI9341_PTLAR 0x30    ///< Partial Area
+#define ILI9341_VSCRDEF 0x33  ///< Vertical Scrolling Definition
+#define ILI9341_MADCTL 0x36   ///< Memory Access Control
+#define ILI9341_VSCRSADD 0x37 ///< Vertical Scrolling Start Address
+#define ILI9341_PIXFMT 0x3A   ///< COLMOD: Pixel Format Set
+
+#define ILI9341_FRMCTR1 0xB1 ///< Frame Rate Control (In Normal Mode/Full Colors)
+#define ILI9341_FRMCTR2 0xB2 ///< Frame Rate Control (In Idle Mode/8 colors)
+#define ILI9341_FRMCTR3 0xB3 ///< Frame Rate control (In Partial Mode/Full Colors)
+#define ILI9341_INVCTR  0xB4 ///< Display Inversion Control
+#define ILI9341_DFUNCTR 0xB6 ///< Display Function Control
+
+#define ILI9341_PWCTR1 0xC0 ///< Power Control 1
+#define ILI9341_PWCTR2 0xC1 ///< Power Control 2
+#define ILI9341_PWCTR3 0xC2 ///< Power Control 3
+#define ILI9341_PWCTR4 0xC3 ///< Power Control 4
+#define ILI9341_PWCTR5 0xC4 ///< Power Control 5
+#define ILI9341_VMCTR1 0xC5 ///< VCOM Control 1
+#define ILI9341_VMCTR2 0xC7 ///< VCOM Control 2
+
+#define ILI9341_RDID1 0xDA ///< Read ID 1
+#define ILI9341_RDID2 0xDB ///< Read ID 2
+#define ILI9341_RDID3 0xDC ///< Read ID 3
+#define ILI9341_RDID4 0xDD ///< Read ID 4
+
+#define ILI9341_GMCTRP1 0xE0 ///< Positive Gamma Correction
+#define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
+//#define ILI9341_PWCTR6     0xFC
+
+// *************************************************************************************** ILI9341.h
+// *************************************************************************************************
+struct ILI9341 {
+	void init();
+	void set_command(uint8_t cmd);
+	void command_param(uint8_t data);
+	void write_data(void *buffer, int bytes);
+	void write_data(const uint8_t *buffer, int bytes);
+};
+
+// ************************************************************************************* ILI9341.cpp
+static inline void init_pins() {
+	gpio_init_mask(ILI9341_MASK);
+	gpio_set_dir_out_masked(ILI9341_MASK);
+	gpio_set_mask(ILI9341_MASK);
+};
+
+static inline void CS_Active() {
+    gpio_put(ILI9341_CS, 0);  // Active low
+};
+
+static inline void CS_Idle() {
+    gpio_put(ILI9341_CS, 1);
+};
+
+static inline void WR_Strobe() {
+	gpio_put(ILI9341_WR, 0);
+	gpio_put(ILI9341_WR, 1);
+};
+
+static inline void WR_Idle() {
+	gpio_put(ILI9341_WR, 1);
+};
+
+static inline void CD_Command() {
+	gpio_put(ILI9341_CD, 0);
+};
+
+static inline void CD_Data() {
+	gpio_put(ILI9341_CD, 1);
+};
+
+static inline void sio_write(const uint8_t *src, size_t len) {
+	do {
+		gpio_put_masked((0xff << ILI9341_D0), (*src << ILI9341_D0));
+		WR_Strobe();
+
+		len--;
+		src++;
+	} while (len > 0);
+}
+
+static inline void sio_write(void *src, size_t len) {
+	char *x = (char *)src;
+	do {
+		gpio_put_masked((0xff << ILI9341_D0), (*x << ILI9341_D0));
+		WR_Strobe();
+
+		len--;
+		x++;
+	} while (len > 0);
+}
+
+// *************************************************************************************************
+void ILI9341::init() {
+	init_pins();
+	set_command(0x01); //soft reset
+	sleep_ms(1000);
+
+	set_command(ILI9341_GAMMASET);
+	command_param(0x01);
+
+	// positive gamma correction
+	set_command(ILI9341_GMCTRP1);
+    write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
+
+	// negative gamma correction
+	set_command(ILI9341_GMCTRN1);
+	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
+
+	// memory access control
+	set_command(ILI9341_MADCTL);
+	command_param(0x48);
+
+	// pixel format
+	set_command(ILI9341_PIXFMT);
+	command_param(0x55);  // 16-bit
+
+	// frame rate; default, 70 Hz
+	set_command(ILI9341_FRMCTR1);
+	command_param(0x00);
+	command_param(0x1B);
+
+	// exit sleep
+	set_command(ILI9341_SLPOUT);
+
+	// display on
+	set_command(ILI9341_DISPON);
+
+	// column address set
+	set_command(ILI9341_CASET);
+	command_param(0x00);
+	command_param(0x00);  // start column
+	command_param(0x00);
+	command_param(0xef);  // end column -> 239
+
+	// page address set
+	set_command(ILI9341_PASET);
+	command_param(0x00);
+	command_param(0x00);  // start page
+	command_param(0x01);
+	command_param(0x3f);  // end page -> 319
+
+	set_command(ILI9341_RAMWR);
+
+
+};
+
+void ILI9341::set_command(uint8_t cmd) {
+	CS_Active();
+	CD_Command();
+	sio_write(&cmd, 1);
+	CD_Data();
+	CS_Idle();
+};
+
+void ILI9341::command_param(uint8_t data) {
+	CS_Active();
+	sio_write(&data, 1);
+	CS_Idle();
+};
+
+void ILI9341::write_data(void *buffer, int bytes) {
+	CS_Active();
+	sio_write(buffer, bytes);
+	CS_Idle();
+};
+
+void ILI9341::write_data(const uint8_t *buffer, int bytes) {
+	CS_Active();
+	sio_write(buffer, bytes);
+	CS_Idle();
+};
+
+// ***********************************************
+ILI9341 ili = ILI9341();
+
+// ***************************************************************************************** mode0.h
+// *************************************************************************************************
+// ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
+typedef enum {
+    MODE0_BLACK,
+    MODE0_BROWN,
+    MODE0_RED,
+    MODE0_BLUSH,
+    MODE0_GRAY,
+    MODE0_DESERT,
+    MODE0_ORANGE,
+    MODE0_YELLOW,
+    MODE0_WHITE,
+    MODE0_MIDNIGHT,
+    MODE0_DARK_SLATE_GRAY,
+    MODE0_GREEN,
+    MODE0_YELLOW_GREEN,
+    MODE0_BLUE,
+    MODE0_PICTON_BLUE,
+    MODE0_PALE_BLUE
+} mode0_color_t;
+
+void mode0_init();
+void mode0_clear(mode0_color_t color);
+void mode0_draw_screen();
+void mode0_draw_region(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+void mode0_scroll_vertical(int8_t amount);
+void mode0_set_foreground(mode0_color_t color);
+void mode0_set_background(mode0_color_t color);
+void mode0_set_cursor(uint8_t x, uint8_t y);
+uint8_t mode0_get_cursor_x();
+uint8_t mode0_get_cursor_y();
+void mode0_print(const char *s);
+void mode0_write(const char *s, int len);
+void mode0_putc(char c);
+void mode0_show_cursor();
+void mode0_hide_cursor();
+
+// Won't redraw until the matching _end is invoked.
+void mode0_begin();
+void mode0_end();
+
 // *************************************************************************************** mode0.cpp
 /* Character graphics mode */
 
@@ -252,21 +517,21 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    ili.set_command(ILI9341_CASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start column
+    ili.command_param(0x00);
+    ili.command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    ili.set_command(ILI9341_PASET);
+    ili.command_param(0x00);
+    ili.command_param(0x00);  // start page
+    ili.command_param(0x01);
+    ili.command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    ili.set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
@@ -297,11 +562,11 @@ void mode0_draw_screen() {
         }
         
         // now send the slice
-        ili9341_write_data(buffer, 6*240*2);
+        ili.write_data(buffer, 6*240*2);
     }
     
     uint16_t extra_buffer[2*240] = { 0 };
-    ili9341_write_data(extra_buffer, 2*240*2);
+    ili.write_data(extra_buffer, 2*240*2);
 
 }
 
@@ -334,6 +599,29 @@ void mode0_scroll_vertical(int8_t amount) {
 void mode0_init() {
     stdio_init_all();
 
-    ili9341_init();
+    ili.init();
+}
+
+// *************************************************************************************************
+// ********************************************************************************** mode0_demo.cpp
+// *************************************************************************************************
+int main() {
+    mode0_init();
+    
+    mode0_set_cursor(0, 0);
+    mode0_color_t fg = MODE0_WHITE;
+    mode0_color_t bg = MODE0_BLACK;
+    
+    while (1) {
+        mode0_print("Shawn Hyam (Larry was here 3)\n");
+        sleep_ms(500);
+        fg = (mode0_color_t)((fg+1) % 16);
+        if (fg == 0) {
+            bg = (mode0_color_t)((bg+1) % 16);
+            mode0_set_background(bg);
+        }
+        mode0_set_foreground(fg);
+
+    }
 }
 
