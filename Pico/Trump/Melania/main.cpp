@@ -1,4 +1,4 @@
-// *************** Thu Jul 6 04:32:55 PM EDT 2023
+// *************** Thu Jul 6 09:52:46 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
@@ -74,11 +74,46 @@
 #define ILI9341_GMCTRN1 0xE1 ///< Negative Gamma Correction
 //#define ILI9341_PWCTR6     0xFC
 
+// ********************************************************* From Adafruit
+#define ILI9341_SOFTRESET 0x01
+#define ILI9341_SLEEPIN 0x10
+#define ILI9341_SLEEPOUT 0x11
+#define ILI9341_NORMALDISP 0x13
+#define ILI9341_INVERTOFF 0x20
+#define ILI9341_INVERTON 0x21
+#define ILI9341_GAMMASET 0x26
+#define ILI9341_DISPLAYOFF 0x28
+#define ILI9341_DISPLAYON 0x29
+#define ILI9341_COLADDRSET 0x2A
+#define ILI9341_PAGEADDRSET 0x2B
+#define ILI9341_MEMORYWRITE 0x2C
+#define ILI9341_PIXELFORMAT 0x3A
+#define ILI9341_FRAMECONTROL 0xB1
+#define ILI9341_DISPLAYFUNC 0xB6
+#define ILI9341_ENTRYMODE 0xB7
+#define ILI9341_POWERCONTROL1 0xC0
+#define ILI9341_POWERCONTROL2 0xC1
+#define ILI9341_VCOMCONTROL1 0xC5
+#define ILI9341_VCOMCONTROL2 0xC7
+#define ILI9341_MEMCONTROL 0x36
+#define ILI9341_MADCTL 0x36
+
+#define ILI9341_MADCTL_MY 0x80
+#define ILI9341_MADCTL_MX 0x40
+#define ILI9341_MADCTL_MV 0x20
+#define ILI9341_MADCTL_ML 0x10
+#define ILI9341_MADCTL_RGB 0x00
+#define ILI9341_MADCTL_BGR 0x08
+#define ILI9341_MADCTL_MH 0x04
+
 // ************************************************************************************** MAGA_GFX.h
 // *************************************************************************************************
 struct MAGA_GFX {
-	MAGA_GFX();
-//	MAGA_GFX(int16_t w, int16_t h);
+	MAGA_GFX(int16_t w, int16_t h);
+
+	virtual void setRotation(uint8_t r);
+
+
 
 /*
 	virtual void drawPixel(int16_t x, int16_t y, uint16_t color) = 0;
@@ -165,7 +200,6 @@ struct MAGA_GFX {
 
 
 	protected:
-/*
 		void charBounds(unsigned char c, int16_t *x, int16_t *y, int16_t *minx, int16_t *miny, int16_t *maxx, int16_t *maxy);
 		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
 		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
@@ -180,22 +214,53 @@ struct MAGA_GFX {
 		uint8_t rotation;     ///< Display rotation (0 thru 3)
 		bool wrap;            ///< If set, 'wrap' text at right edge of display
 		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
-		GFXfont *gfxFont;     ///< Pointer to special font
-*/
+//		GFXfont *gfxFont;     ///< Pointer to special font
 };
 
 // ************************************************************************************ MAGA_GFX.cpp
-MAGA_GFX::MAGA_GFX() {
+MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) {
+	WIDTH = w;
+	HEIGHT = h;
 };
+
+/**************************************************************************/
+/*!
+    @brief      Set rotation setting for display
+    @param  x   0 thru 3 corresponding to 4 cardinal rotations
+*/
+/**************************************************************************/
+void MAGA_GFX::setRotation(uint8_t x) {
+	rotation = (x & 3);
+	switch (rotation) {
+		case 0:
+		case 2:
+			_width = WIDTH;
+			_height = HEIGHT;
+			break;
+		case 1:
+		case 3:
+			_width = HEIGHT;
+			_height = WIDTH;
+			break;
+	}
+}
 
 // *************************************************************************************** ILI9341.h
 // *************************************************************************************************
 struct ILI9341: public MAGA_GFX {
+	ILI9341(int16_t w, int16_t h);
+
 	void init();
 	void set_command(uint8_t cmd);
 	void command_param(uint8_t data);
 	void write_data(void *buffer, int bytes);
 	void write_data(const uint8_t *buffer, int bytes);
+
+	// ************************************************** Adafruit base
+	void begin();
+
+	// ************************************************** Defining the virtual functions
+	
 };
 
 // ************************************************************************************* ILI9341.cpp
@@ -252,6 +317,11 @@ static inline void sio_write(void *src, size_t len) {
 }
 
 // *************************************************************************************************
+ILI9341::ILI9341(int16_t w, int16_t h): MAGA_GFX(w, h) {
+	WIDTH = w;
+	HEIGHT = h;
+};
+
 void ILI9341::init() {
 	init_pins();
 	set_command(0x01); //soft reset
@@ -332,8 +402,13 @@ void ILI9341::write_data(const uint8_t *buffer, int bytes) {
 	CS_Idle();
 };
 
+// *********************************************************************************** Adafruit base
+void ILI9341::begin() {
+	init();
+};
+
 // ***********************************************
-ILI9341 ili = ILI9341();
+ILI9341 ili = ILI9341(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT);
 
 // *************************************************************************************************
 // *************************************************************************************************
@@ -342,6 +417,8 @@ ILI9341 ili = ILI9341();
 // *************************************************************************************************
 // ********************************************************************************************* ***
 int main() {
+	ili.begin();
+
 	for(uint8_t rotation=0; rotation<4; rotation++) {
 		ili.setRotation(rotation);
 		//testText();

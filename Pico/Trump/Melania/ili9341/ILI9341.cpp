@@ -52,6 +52,11 @@ static inline void sio_write(void *src, size_t len) {
 }
 
 // *************************************************************************************************
+ILI9341::ILI9341(int16_t w, int16_t h): MAGA_GFX(w, h) {
+	WIDTH = w;
+	HEIGHT = h;
+};
+
 void ILI9341::init() {
 	init_pins();
 	set_command(0x01); //soft reset
@@ -132,6 +137,11 @@ void ILI9341::write_data(const uint8_t *buffer, int bytes) {
 	CS_Idle();
 };
 
+// *********************************************************************************** Adafruit base
+void ILI9341::begin() {
+	init();
+};
+
 // ***********************************************
-ILI9341 ili = ILI9341();
+ILI9341 ili = ILI9341(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT);
 

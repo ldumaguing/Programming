@@ -1,15 +1,9 @@
 // ************************************************************************************** MAGA_GFX.h
 // *************************************************************************************************
 struct MAGA_GFX {
-	MAGA_GFX();
-//	MAGA_GFX(int16_t w, int16_t h);
+	MAGA_GFX(int16_t w, int16_t h);
 
 	virtual void setRotation(uint8_t r);
-
-
-
-
-
 
 
 
@@ -98,7 +92,6 @@ struct MAGA_GFX {
 
 
 	protected:
-/*
 		void charBounds(unsigned char c, int16_t *x, int16_t *y, int16_t *minx, int16_t *miny, int16_t *maxx, int16_t *maxy);
 		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
 		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
@@ -113,7 +106,6 @@ struct MAGA_GFX {
 		uint8_t rotation;     ///< Display rotation (0 thru 3)
 		bool wrap;            ///< If set, 'wrap' text at right edge of display
 		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
-		GFXfont *gfxFont;     ///< Pointer to special font
-*/
+//		GFXfont *gfxFont;     ///< Pointer to special font
 };
 

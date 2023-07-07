@@ -1,7 +1,9 @@
 // ********************************************************************************************* ***
 int main() {
+	ili.begin();
+
 	for(uint8_t rotation=0; rotation<4; rotation++) {
-		//ili.setRotation(rotation);
+		ili.setRotation(rotation);
 		//testText();
 		//delay(1000);
 	}
