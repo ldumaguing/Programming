@@ -1,4 +1,4 @@
-// *************** Wed Jul 5 08:32:00 PM EDT 2023
+// *************** Fri Jul 7 02:57:37 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
@@ -91,35 +91,17 @@ static inline void init_pins() {
 	gpio_set_mask(ILI9341_MASK);
 };
 
-static inline void CS_Active() {
-    gpio_put(ILI9341_CS, 0);  // Active low
-};
-
-static inline void CS_Idle() {
-    gpio_put(ILI9341_CS, 1);
-};
-
-static inline void WR_Strobe() {
-	gpio_put(ILI9341_WR, 0);
-	gpio_put(ILI9341_WR, 1);
-};
-
-static inline void WR_Idle() {
-	gpio_put(ILI9341_WR, 1);
-};
-
-static inline void CD_Command() {
-	gpio_put(ILI9341_CD, 0);
-};
-
-static inline void CD_Data() {
-	gpio_put(ILI9341_CD, 1);
-};
+#define CS_Active  gpio_put(ILI9341_CS, 0)
+#define CS_Idle    gpio_put(ILI9341_CS, 1)
+#define CD_Command gpio_put(ILI9341_CD, 0)
+#define CD_Data    gpio_put(ILI9341_CD, 1)
+#define WR_Idle    gpio_put(ILI9341_WR, 1)
+#define WR_Strobe  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
 
 static inline void sio_write(const uint8_t *src, size_t len) {
 	do {
 		gpio_put_masked((0xff << ILI9341_D0), (*src << ILI9341_D0));
-		WR_Strobe();
+		WR_Strobe;
 
 		len--;
 		src++;
@@ -130,7 +112,7 @@ static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
 		gpio_put_masked((0xff << ILI9341_D0), (*x << ILI9341_D0));
-		WR_Strobe();
+		WR_Strobe;
 
 		len--;
 		x++;
@@ -172,50 +154,32 @@ void ILI9341::init() {
 
 	// display on
 	set_command(ILI9341_DISPON);
-
-	// column address set
-	set_command(ILI9341_CASET);
-	command_param(0x00);
-	command_param(0x00);  // start column
-	command_param(0x00);
-	command_param(0xef);  // end column -> 239
-
-	// page address set
-	set_command(ILI9341_PASET);
-	command_param(0x00);
-	command_param(0x00);  // start page
-	command_param(0x01);
-	command_param(0x3f);  // end page -> 319
-
-	set_command(ILI9341_RAMWR);
-
-
 };
 
 void ILI9341::set_command(uint8_t cmd) {
-	CS_Active();
-	CD_Command();
+	CS_Active;
+	CD_Command;
 	sio_write(&cmd, 1);
-	CD_Data();
-	CS_Idle();
+	CD_Data;
+	CS_Idle;
 };
 
 void ILI9341::command_param(uint8_t data) {
-	CS_Active();
+	CS_Active;
 	sio_write(&data, 1);
-	CS_Idle();
+	CS_Idle;
 };
 
 void ILI9341::write_data(void *buffer, int bytes) {
-	CS_Active();
+	CS_Active;
 	sio_write(buffer, bytes);
-	CS_Idle();
+	CS_Idle;
 };
 
 void ILI9341::write_data(const uint8_t *buffer, int bytes) {
-	CS_Active();
+	CS_Active;
 	sio_write(buffer, bytes);
-	CS_Idle();
+	CS_Idle;
 };
 
 // ***********************************************
@@ -898,7 +862,7 @@ int main() {
     while (1) {
         for (int i=0; i<32; i++) {
         scroll_background(1);
-        sleep_ms(20);
+        sleep_ms(1);
         }
         //height_offset += 1;
         //draw_background();
