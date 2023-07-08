@@ -1,4 +1,4 @@
-// *************** Thu Jul 6 09:52:46 PM EDT 2023
+// *************** Thu Jul 6 11:48:48 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
@@ -105,6 +105,28 @@
 #define ILI9341_MADCTL_RGB 0x00
 #define ILI9341_MADCTL_BGR 0x08
 #define ILI9341_MADCTL_MH 0x04
+
+// Color definitions
+#define ILI9341_BLACK 0x0000       ///<   0,   0,   0
+#define ILI9341_NAVY 0x000F        ///<   0,   0, 123
+#define ILI9341_DARKGREEN 0x03E0   ///<   0, 125,   0
+#define ILI9341_DARKCYAN 0x03EF    ///<   0, 125, 123
+#define ILI9341_MAROON 0x7800      ///< 123,   0,   0
+#define ILI9341_PURPLE 0x780F      ///< 123,   0, 123
+#define ILI9341_OLIVE 0x7BE0       ///< 123, 125,   0
+#define ILI9341_LIGHTGREY 0xC618   ///< 198, 195, 198
+#define ILI9341_DARKGREY 0x7BEF    ///< 123, 125, 123
+#define ILI9341_BLUE 0x001F        ///<   0,   0, 255
+#define ILI9341_GREEN 0x07E0       ///<   0, 255,   0
+#define ILI9341_CYAN 0x07FF        ///<   0, 255, 255
+#define ILI9341_RED 0xF800         ///< 255,   0,   0
+#define ILI9341_MAGENTA 0xF81F     ///< 255,   0, 255
+#define ILI9341_YELLOW 0xFFE0      ///< 255, 255,   0
+#define ILI9341_WHITE 0xFFFF       ///< 255, 255, 255
+#define ILI9341_ORANGE 0xFD20      ///< 255, 165,   0
+#define ILI9341_GREENYELLOW 0xAFE5 ///< 173, 255,  41
+#define ILI9341_PINK 0xFC18        ///< 255, 130, 198
+
 
 // ************************************************************************************** MAGA_GFX.h
 // *************************************************************************************************
@@ -218,10 +240,32 @@ struct MAGA_GFX {
 };
 
 // ************************************************************************************ MAGA_GFX.cpp
-MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) {
-	WIDTH = w;
-	HEIGHT = h;
-};
+
+
+/**************************************************************************/
+/*!
+   @brief    Instatiate a GFX context for graphics! Can only be done by a
+   superclass
+   @param    w   Display width, in pixels
+   @param    h   Display height, in pixels
+*/
+/**************************************************************************/
+MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) : WIDTH(w), HEIGHT(h) {
+  _width = WIDTH;
+  _height = HEIGHT;
+  rotation = 0;
+  cursor_y = cursor_x = 0;
+  textsize_x = textsize_y = 1;
+  textcolor = textbgcolor = 0xFFFF;
+  wrap = true;
+  _cp437 = false;
+//  gfxFont = NULL;
+}
+
+
+
+
+
 
 /**************************************************************************/
 /*!
@@ -415,14 +459,19 @@ ILI9341 ili = ILI9341(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT);
 // *************************************************************************************************
 // *************************************************************************************************
 // *************************************************************************************************
-// ********************************************************************************************* ***
+// *************************************************************************************************
+void testText();
+
+// *************************************************************************************************
 int main() {
 	ili.begin();
 
-	for(uint8_t rotation=0; rotation<4; rotation++) {
-		ili.setRotation(rotation);
-		//testText();
-		//delay(1000);
+	for(;;) {
+		for(uint8_t rotation=0; rotation<4; rotation++) {
+			ili.setRotation(rotation);
+			testText();
+			sleep_ms(1000);
+		}
 	}
 
 	return 0;
@@ -449,9 +498,10 @@ void testFillScreen() {
 
 
 
-/*
+
 void testText() {
-  ili.fillScreen(ILI9341_BLACK);
+	ili.fillScreen(ILI9341_BLACK);
+/*
   void start = micros();
   ili.setCursor(0, 0);
   ili.setTextColor(ILI9341_WHITE);  ili.setTextSize(1);
@@ -474,8 +524,9 @@ void testText() {
   ili.println("in the gobberwarts");
   ili.println("with my blurglecruncheon,");
   ili.println("see if I don't!");
+  */
 }
-*/
+
 
 
 

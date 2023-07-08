@@ -6,5 +6,6 @@ struct ILI9341 {
 	void command_param(uint8_t data);
 	void write_data(void *buffer, int bytes);
 	void write_data(const uint8_t *buffer, int bytes);
+	void pin_reset();
 };
 

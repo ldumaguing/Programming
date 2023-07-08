@@ -1,11 +1,16 @@
-// ********************************************************************************************* ***
+// *************************************************************************************************
+void testText();
+
+// *************************************************************************************************
 int main() {
 	ili.begin();
 
-	for(uint8_t rotation=0; rotation<4; rotation++) {
-		ili.setRotation(rotation);
-		//testText();
-		//delay(1000);
+	for(;;) {
+		for(uint8_t rotation=0; rotation<4; rotation++) {
+			ili.setRotation(rotation);
+			testText();
+			sleep_ms(1000);
+		}
 	}
 
 	return 0;
@@ -32,9 +37,10 @@ void testFillScreen() {
 
 
 
-/*
+
 void testText() {
-  ili.fillScreen(ILI9341_BLACK);
+	ili.fillScreen(ILI9341_BLACK);
+/*
   void start = micros();
   ili.setCursor(0, 0);
   ili.setTextColor(ILI9341_WHITE);  ili.setTextSize(1);
@@ -57,8 +63,9 @@ void testText() {
   ili.println("in the gobberwarts");
   ili.println("with my blurglecruncheon,");
   ili.println("see if I don't!");
+  */
 }
-*/
+
 
 
 

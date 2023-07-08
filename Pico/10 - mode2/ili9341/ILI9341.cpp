@@ -11,6 +11,8 @@ static inline void init_pins() {
 #define CD_Data    gpio_put(ILI9341_CD, 1)
 #define WR_Idle    gpio_put(ILI9341_WR, 1)
 #define WR_Strobe  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
+#define RST_Active gpio_put(ILI9341_RST, 0)
+#define RST_Idle   gpio_put(ILI9341_RST, 1)
 
 static inline void sio_write(const uint8_t *src, size_t len) {
 	do {
@@ -110,6 +112,12 @@ void ILI9341::write_data(const uint8_t *buffer, int bytes) {
 	CS_Active;
 	sio_write(buffer, bytes);
 	CS_Idle;
+};
+
+void ILI9341::pin_reset() {
+	RST_Active;
+	sleep_ms(1000);
+	RST_Idle;
 };
 
 // ***********************************************
