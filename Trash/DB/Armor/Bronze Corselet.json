@@ -1,9 +1,0 @@
-{
-   "Name": "Bronze Corselet",
-   "Class": "Armor",
-   "Tags":[],
-   "Locations":["torso", "groin"],
-   "DR": "5",
-   "Weight": 40,
-   "Notes": null
-}
