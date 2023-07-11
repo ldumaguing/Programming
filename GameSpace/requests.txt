@@ -1,8 +1,0 @@
-Redner;Forward
-Redner;Forward
-Redner;Forward
-Redner;Place:5,5
-Redner;TurnRight
-zombie_1;Forward
-zombie_1;Forward
-zombie_1;Forward
