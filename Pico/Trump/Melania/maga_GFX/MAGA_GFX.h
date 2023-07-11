@@ -3,8 +3,8 @@
 struct MAGA_GFX {
 	MAGA_GFX(int16_t w, int16_t h);
 
-	virtual void setRotation(uint8_t r);
-	virtual void fillScreen(uint16_t color);
+	void setRotation(uint8_t r);
+	void fillScreen(uint16_t color);
 
 
 /*

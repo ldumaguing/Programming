@@ -10,6 +10,8 @@
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
+#define SWAP_BYTES(color) ((uint16_t)(color>>8) | (uint16_t)(color<<8))
+#define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register

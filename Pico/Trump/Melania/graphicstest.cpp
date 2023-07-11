@@ -1,6 +1,10 @@
 // *************************************************************************************************
 void testText();
 
+void yield() {
+	ili.write_data(screenbuffer, ILI9341_SIZE*2);
+}
+
 // *************************************************************************************************
 int main() {
 	ili.begin();
@@ -39,7 +43,8 @@ void testFillScreen() {
 
 
 void testText() {
-	ili.fillScreen(ILI9341_BLACK);
+	ili.fillScreen(SWAP_BYTES(ILI9341_RED));
+	yield();
 /*
   void start = micros();
   ili.setCursor(0, 0);

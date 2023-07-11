@@ -1,5 +1,5 @@
 // ************************************************************************************ MAGA_GFX.cpp
-
+uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 
 /**************************************************************************/
 /*!
@@ -21,7 +21,24 @@ MAGA_GFX::MAGA_GFX(int16_t w, int16_t h) : WIDTH(w), HEIGHT(h) {
 //  gfxFont = NULL;
 }
 
-
+/**************************************************************************/
+/*!
+    @brief  Fill the framebuffer completely with one color
+    @param  color 16-bit 5-6-5 Color to fill with
+*/
+/**************************************************************************/
+void MAGA_GFX::fillScreen(uint16_t color) {
+	if (screenbuffer) {
+		uint8_t hi = color >> 8, lo = color & 0xFF;
+		if (hi == lo) {
+		memset(screenbuffer, lo, ILI9341_SIZE*2);
+		} else {
+			uint32_t i, pixels = ILI9341_SIZE;
+			for (i = 0; i < pixels; i++)
+			screenbuffer[i] = color;
+		}
+	}
+}
 
 
 
