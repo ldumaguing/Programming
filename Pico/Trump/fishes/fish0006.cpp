@@ -260,14 +260,22 @@ uint8_t font_data[] = {
 };
 
 void do_glyph(uint8_t r) {
-
+	printf("%c", r & 0x80 ? 'X':' ');
+	printf("%c", r & 0x40 ? 'X':' ');
+	printf("%c", r & 0x20 ? 'X':' ');
+	printf("%c", r & 0x10 ? 'X':' ');
+	printf("%c", r & 0x08 ? 'X':' ');
+	printf("%c", r & 0x04 ? 'X':' ');
+	printf("%c", r & 0x02 ? 'X':' ');
+	printf("%c", r & 0x01 ? 'X':' ');
+	printf("\n");
 }
 
 
 void do_row(int r) {
 	int row = r * 5;
 	for (int i=0; i<5; i++) {
-		printf("%x ", font_data[row + i]);
+		do_glyph(font_data[row + i]);
 	}
 	printf("\n");
 }
@@ -279,7 +287,7 @@ int main(void)
 	do {
 		do_row(row);
 		row++;
-	} while(row < 15);
+	} while(row < 256);
 
 
 
