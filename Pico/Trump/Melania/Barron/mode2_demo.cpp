@@ -7,13 +7,19 @@ int main() {
 
 	mode2_clear();
 	
-	for (int i=0; i<32; i++) {
-		mode2_rect(i, 0, 1, 10, SWAP_BYTES(colors[i]));
+	for (int i=0; i<300; i++) {
+		mode2_rect(i, 0, 1, 40, SWAP_BYTES(colors[i]));
 	}
 	
+	for (int i=300; i<343; i++) {
+		mode2_rect(i - 299, 50, 1, 40, SWAP_BYTES(colors[i]));
+	}
 	
+	for (int i=0; i<300; i++) {
+		mode2_rect(i, 100, 1, 40, colors[i]);
+	}
 	
-	
+	mode2_rect(310, 100, 1, 40, 0xffff);
 	
 	/*
 	mode2_rect(0, 0, 25, 25, SWAP_BYTES(ILI9341_CYAN));

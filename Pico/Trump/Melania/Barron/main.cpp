@@ -1,4 +1,4 @@
-// *************** Fri Jul 14 08:56:23 PM EDT 2023
+// *************** Fri Jul 14 09:31:06 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
 #include <stdint.h>
@@ -253,7 +253,7 @@ void ILI9341::init() {
 	set_command(ILI9341_GAMMASET);
 	command_param(0x01);
 
-/*
+
 	// positive gamma correction
 	set_command(ILI9341_GMCTRP1);
     write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
@@ -261,7 +261,7 @@ void ILI9341::init() {
 	// negative gamma correction
 	set_command(ILI9341_GMCTRN1);
 	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-*/
+
 	// memory access control
 	set_command(ILI9341_MADCTL);
 	command_param(0x48);
@@ -385,13 +385,19 @@ int main() {
 
 	mode2_clear();
 	
-	for (int i=0; i<32; i++) {
-		mode2_rect(i, 0, 1, 10, SWAP_BYTES(colors[i]));
+	for (int i=0; i<300; i++) {
+		mode2_rect(i, 0, 1, 40, SWAP_BYTES(colors[i]));
 	}
 	
+	for (int i=300; i<343; i++) {
+		mode2_rect(i - 299, 50, 1, 40, SWAP_BYTES(colors[i]));
+	}
 	
+	for (int i=0; i<300; i++) {
+		mode2_rect(i, 100, 1, 40, colors[i]);
+	}
 	
-	
+	mode2_rect(310, 100, 1, 40, 0xffff);
 	
 	/*
 	mode2_rect(0, 0, 25, 25, SWAP_BYTES(ILI9341_CYAN));
