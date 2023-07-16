@@ -10,8 +10,16 @@
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
-#define SWAP_BYTES(color) ((uint16_t)(color>>8) | (uint16_t)(color<<8))
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
+
+#define CS_ACTIVE  gpio_put(ILI9341_CS, 0)
+#define CS_IDLE    gpio_put(ILI9341_CS, 1)
+#define CD_COMMAND gpio_put(ILI9341_CD, 0)
+#define CD_DATA    gpio_put(ILI9341_CD, 1)
+#define WR_IDLE    gpio_put(ILI9341_WR, 1)
+#define WR_STROBE  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
+#define RST_ACTIVE gpio_put(ILI9341_RST, 0)
+#define RST_IDLE   gpio_put(ILI9341_RST, 1)
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register

@@ -5,15 +5,6 @@ static inline void init_pins() {
 	gpio_set_mask(ILI9341_MASK);
 };
 
-#define CS_ACTIVE  gpio_put(ILI9341_CS, 0)
-#define CS_IDLE    gpio_put(ILI9341_CS, 1)
-#define CD_COMMAND gpio_put(ILI9341_CD, 0)
-#define CD_DATA    gpio_put(ILI9341_CD, 1)
-#define WR_IDLE    gpio_put(ILI9341_WR, 1)
-#define WR_STROBE  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
-#define RST_ACTIVE gpio_put(ILI9341_RST, 0)
-#define RST_IDLE   gpio_put(ILI9341_RST, 1)
-
 static inline void sio_write(const uint8_t *src, size_t len) {
 	do {
 		gpio_put_masked((0xff << ILI9341_D0), (*src << ILI9341_D0));
