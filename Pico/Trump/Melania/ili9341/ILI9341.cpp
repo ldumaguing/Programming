@@ -27,10 +27,16 @@ static inline void sio_write(void *src, size_t len) {
 }
 
 // *************************************************************************************************
-ILI9341::ILI9341(int16_t w, int16_t h):MAGA_GFX(WIDTH, HEIGHT) {
+ILI9341::ILI9341() {
 }
 
 void ILI9341::init() {
+	WIDTH    = ILI9341_TFTWIDTH;
+	HEIGHT   = ILI9341_TFTHEIGHT
+	_width   = ILI9341_TFTWIDTH;
+	_height  = ILI9341_TFTHEIGHT
+	rotation = 0;
+
 	init_pins();
 
 	set_command(0x01); //soft reset
@@ -121,5 +127,5 @@ void ILI9341::begin() {
 };
 
 // ***********************************************
-ILI9341 ili = ILI9341(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT);
+ILI9341 ili = ILI9341();
 
