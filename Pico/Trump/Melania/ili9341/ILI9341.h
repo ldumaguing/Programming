@@ -9,6 +9,7 @@ struct ILI9341: public MAGA_GFX {
 	void write_data(void *buffer, int bytes);
 	void write_data(const uint8_t *buffer, int bytes);
 	void pin_reset();
+	void render();
 
 	// ************************************************** Adafruit base
 	void begin();

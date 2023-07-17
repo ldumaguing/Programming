@@ -20,6 +20,13 @@
 #define WR_STROBE  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
 #define RST_ACTIVE gpio_put(ILI9341_RST, 0)
 #define RST_IDLE   gpio_put(ILI9341_RST, 1)
+#define _swap_int16_t(a, b)                                                    \
+  {                                                                            \
+    int16_t t = a;                                                             \
+    a = b;                                                                     \
+    b = t;                                                                     \
+  }
+
 
 #define ILI9341_NOP 0x00     ///< No-op register
 #define ILI9341_SWRESET 0x01 ///< Software reset register

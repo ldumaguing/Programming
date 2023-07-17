@@ -6,12 +6,13 @@ echo '#include "pico/stdlib.h"' >> X.txt;
 echo '#include <stdint.h>' >> X.txt ;
 echo '#include <string.h>' >> X.txt ;
 echo '#include <stdio.h>' >> X.txt ;
+echo '#include <cstdlib>' >> X.txt ;
 echo '' >> X.txt;
 
 
 
 cat ili9341/defines.h >> X.txt ;
-
+cat ili9341/colors.h >> X.txt ;
 
 
 cat maga_GFX/MAGA_GFX.h >> X.txt ;

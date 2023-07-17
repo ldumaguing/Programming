@@ -32,9 +32,9 @@ ILI9341::ILI9341() {
 
 void ILI9341::init() {
 	WIDTH    = ILI9341_TFTWIDTH;
-	HEIGHT   = ILI9341_TFTHEIGHT
+	HEIGHT   = ILI9341_TFTHEIGHT;
 	_width   = ILI9341_TFTWIDTH;
-	_height  = ILI9341_TFTHEIGHT
+	_height  = ILI9341_TFTHEIGHT;
 	rotation = 0;
 
 	init_pins();
@@ -88,6 +88,10 @@ void ILI9341::init() {
 
 	set_command(ILI9341_RAMWR);
 };
+
+void ILI9341::render() {
+	write_data(screenbuffer, ILI9341_SIZE*2);
+}
 
 void ILI9341::set_command(uint8_t cmd) {
 	CS_ACTIVE;

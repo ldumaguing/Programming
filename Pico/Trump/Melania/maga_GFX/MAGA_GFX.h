@@ -4,26 +4,33 @@ struct MAGA_GFX {
 	MAGA_GFX();
 
 	void setRotation(uint8_t r);
-	void fillScreen(uint16_t color);
-
-
+	void fillScreen(int color);
+	void drawPixel(int16_t x, int16_t y, int color);
+	void drawFastRawVLine(int16_t x, int16_t y, int16_t h, int color);
+	void drawFastRawHLine(int16_t x, int16_t y, int16_t w, int color);
+	void drawFastVLine(int16_t x, int16_t y, int16_t h, int color);
+	void drawFastHLine(int16_t x, int16_t y, int16_t w, int color);
+	void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int color);
+	void writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int color);
+	void writePixel(int16_t x, int16_t y, int color);
 /*
-	virtual void drawPixel(int16_t x, int16_t y, uint16_t color) = 0;
+
 	virtual void startWrite(void);
-	virtual void writePixel(int16_t x, int16_t y, uint16_t color);
+	
+
 	virtual void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 	virtual void writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 	virtual void writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-	virtual void writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
-	virtual void endWrite(void);
 
-	virtual void setRotation(uint8_t r);
+	virtual void endWrite(void);
+	void writeFastVLine(int16_t x, int16_t y, int16_t h, int color);
+	void writeFastHLine(int16_t x, int16_t y, int16_t w, int color);
+
 	virtual void invertDisplay(bool i);
 
-	virtual void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-	virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
+
 	virtual void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
-	virtual void fillScreen(uint16_t color);
+
 
 	virtual void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 	virtual void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
@@ -91,7 +98,7 @@ struct MAGA_GFX {
 */
 
 
-	protected:
+//	protected:
 		void charBounds(unsigned char c, int16_t *x, int16_t *y, int16_t *minx, int16_t *miny, int16_t *maxx, int16_t *maxy);
 		int16_t WIDTH;        ///< This is the 'raw' display width - never changes
 		int16_t HEIGHT;       ///< This is the 'raw' display height - never changes
@@ -107,5 +114,6 @@ struct MAGA_GFX {
 		bool wrap;            ///< If set, 'wrap' text at right edge of display
 		bool _cp437;          ///< If set, use correct CP437 charset (default is off)
 //		GFXfont *gfxFont;     ///< Pointer to special font
+
 };
 
