@@ -4,6 +4,8 @@ void testText();
 void dotTest();
 void fillScreenTest();
 void lineTest(int);
+void listColors();
+void testFastLines(int, int);
 
 void yield() {
 	ili.render();
@@ -15,11 +17,60 @@ int main() {
 	ili.begin();
 
 	//fillScreen();
+
 	//dotTest();
-	for (int i=0; i<150; i++) {
-		lineTest(i);
-	}
+
+	// for (int i=0; i<150; i++) {
+	//	lineTest(i);
+	//}
+
+	//listColors();
+	
+	//for (int c1=0; c1<150; c1++) {
+	//	for (int c2=149; c2>=0; c2--) {
+	//		testFastLines(c1, c2);
+	//		ili.render();
+	//	}
+	//}
+
+
+
 	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void testFastLines(int color1, int color2) {
+  int           x, y, w = ili._width, h = ili._height;
+
+  ili.fillScreen(0);
+  for(y=0; y<h; y+=5) ili.drawFastHLine(0, y, w, color1);
+  for(x=0; x<w; x+=5) ili.drawFastVLine(x, 0, h, color2);
+
+}
+
+void listColors() {
+	for (int i=0; i<150; i++) {
+		ili.drawLine(0, i, 40, i, i);
+		if ((i%10) == 0) ili.drawLine(41, i, 44, i, 149);
+	}
+	ili.render();
 }
 
 void dotTest() {
@@ -58,10 +109,6 @@ void fillScreenTest() {
 	}
 }
 
-
-
-
-
 void testText() {
 
 /*
@@ -89,10 +136,6 @@ void testText() {
   ili.println("see if I don't!");
   */
 }
-
-
-
-
 
 void lineTest(int color) {
   int           x1, y1, x2, y2,
@@ -152,184 +195,4 @@ yield();
   
 }
 
-
-
-
-/*
-void testFastLines(uint16_t color1, uint16_t color2) {
-  void start;
-  int           x, y, w = ili._width, h = ili._height;
-
-  ili.fillScreen(ILI9341_BLACK);
-  start = micros();
-  for(y=0; y<h; y+=5) ili.drawFastHLine(0, y, w, color1);
-  for(x=0; x<w; x+=5) ili.drawFastVLine(x, 0, h, color2);
-}
-*/
-
-
-
-/*
-void testRects(uint16_t color) {
-  void start;
-  int           n, i, i2,
-                cx = ili._width  / 2,
-                cy = ili._height / 2;
-
-  ili.fillScreen(ILI9341_BLACK);
-  n     = min(ili._width, ili._height);
-  start = micros();
-  for(i=2; i<n; i+=6) {
-    i2 = i / 2;
-    ili.drawRect(cx-i2, cy-i2, i, i, color);
-  }
-}
-*/
-
-
-
-/*
-void testFilledRects(uint16_t color1, uint16_t color2) {
-  void start, t = 0;
-  int           n, i, i2,
-                cx = ili._width  / 2 - 1,
-                cy = ili._height / 2 - 1;
-
-  ili.fillScreen(ILI9341_BLACK);
-  n = min(ili._width, ili._height);
-  for(i=n; i>0; i-=6) {
-    i2    = i / 2;
-    start = micros();
-    ili.fillRect(cx-i2, cy-i2, i, i, color1);
-    t    += micros() - start;
-    // Outlines are not included in timing results
-    ili.drawRect(cx-i2, cy-i2, i, i, color2);
-    yield();
-  }
-
-  return t;
-}
-*/
-
-
-
-/*
-void testFilledCircles(uint8_t radius, uint16_t color) {
-  void start;
-  int x, y, w = ili._width, h = ili._height, r2 = radius * 2;
-
-  ili.fillScreen(ILI9341_BLACK);
-  start = micros();
-  for(x=radius; x<w; x+=r2) {
-    for(y=radius; y<h; y+=r2) {
-      ili.fillCircle(x, y, radius, color);
-    }
-  }
-
-  
-}
-*/
-
-
-
-/*
-void testCircles(uint8_t radius, uint16_t color) {
-  void start;
-  int           x, y, r2 = radius * 2,
-                w = ili._width  + radius,
-                h = ili._height + radius;
-
-  // Screen is not cleared for this one -- this is
-  // intentional and does not affect the reported time.
-  start = micros();
-  for(x=0; x<w; x+=r2) {
-    for(y=0; y<h; y+=r2) {
-      ili.drawCircle(x, y, radius, color);
-    }
-  }
-}
-*/
-
-
-
-/*
-void testTriangles() {
-  void start;
-  int           n, i, cx = ili._width  / 2 - 1,
-                      cy = ili._height / 2 - 1;
-
-  ili.fillScreen(ILI9341_BLACK);
-  n     = min(cx, cy);
-  start = micros();
-  for(i=0; i<n; i+=5) {
-    ili.drawTriangle(
-      cx    , cy - i, // peak
-      cx - i, cy + i, // bottom left
-      cx + i, cy + i, // bottom right
-      ili.color565(i, i, i));
-  }
-}
-*/
-
-
-
-/*
-void testFilledTriangles() {
-  void start, t = 0;
-  int           i, cx = ili._width  / 2 - 1,
-                   cy = ili._height / 2 - 1;
-
-  ili.fillScreen(ILI9341_BLACK);
-  start = micros();
-  for(i=min(cx,cy); i>10; i-=5) {
-    start = micros();
-    ili.fillTriangle(cx, cy - i, cx - i, cy + i, cx + i, cy + i,
-      ili.color565(0, i*10, i*10));
-    t += micros() - start;
-    ili.drawTriangle(cx, cy - i, cx - i, cy + i, cx + i, cy + i,
-      ili.color565(i*10, i*10, 0));
-    yield();
-  }
-
-  return t;
-}
-*/
-
-
-
-/*
-void testRoundRects() {
-  void start;
-  int           w, i, i2,
-                cx = ili._width  / 2 - 1,
-                cy = ili._height / 2 - 1;
-
-  ili.fillScreen(ILI9341_BLACK);
-  w     = min(ili._width, ili._height);
-  start = micros();
-  for(i=0; i<w; i+=6) {
-    i2 = i / 2;
-    ili.drawRoundRect(cx-i2, cy-i2, i, i, i/8, ili.color565(i, 0, 0));
-  }
-}
-*/
-
-
-
-/*
-void testFilledRoundRects() {
-  void start;
-  int           i, i2,
-                cx = ili._width  / 2 - 1,
-                cy = ili._height / 2 - 1;
-
-  ili.fillScreen(ILI9341_BLACK);
-  start = micros();
-  for(i=min(ili._width, ili._height); i>20; i-=6) {
-    i2 = i / 2;
-    ili.fillRoundRect(cx-i2, cy-i2, i, i, i/8, ili.color565(0, i, 0));
-    yield();
-  }
-}
-*/
 
