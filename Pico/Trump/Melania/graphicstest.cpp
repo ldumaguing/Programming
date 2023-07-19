@@ -6,6 +6,9 @@ void fillScreenTest();
 void lineTest(int);
 void listColors();
 void testFastLines(int, int);
+void testRects(int);
+void testFilledRects(int, int);
+void testCircles(uint8_t, int);
 
 void yield() {
 	ili.render();
@@ -33,9 +36,31 @@ int main() {
 	//	}
 	//}
 
+	//testRects(74);
+	//testFilledRects(74, 9);
+	testCircles(10, 147);
 
-
+	ili.render();
 	return 0;
+}
+
+
+
+
+
+
+void testCircles(uint8_t radius, int color) {
+  int           x, y, r2 = radius * 2,
+                w = ili._width  + radius,
+                h = ili._height + radius;
+
+
+  for(x=0; x<w; x+=r2) {
+    for(y=0; y<h; y+=r2) {
+      ili.drawCircle(x, y, radius, color);
+    }
+  }
+
 }
 
 
@@ -55,6 +80,40 @@ int main() {
 
 
 
+
+
+
+
+
+void testFilledRects(int color1, int color2) {
+  int           n, i, i2,
+                cx = ili._width  / 2 - 1,
+                cy = ili._height / 2 - 1;
+
+  ili.fillScreen(0);
+  n = min(ili._width, ili._height);
+  for(i=n; i>0; i-=6) {
+    i2    = i / 2;
+    ili.fillRect(cx-i2, cy-i2, i, i, color1);
+    // Outlines are not included in timing results
+    ili.drawRect(cx-i2, cy-i2, i, i, color2);
+  }
+
+}
+
+void testRects(int color) {
+  int           n, i, i2,
+                cx = ili._width  / 2,
+                cy = ili._height / 2;
+
+  ili.fillScreen(0);
+  n     = min(ili._width, ili._height);
+  for(i=2; i<n; i+=6) {
+    i2 = i / 2;
+    ili.drawRect(cx-i2, cy-i2, i, i, color);
+  }
+
+}
 
 void testFastLines(int color1, int color2) {
   int           x, y, w = ili._width, h = ili._height;

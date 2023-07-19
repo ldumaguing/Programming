@@ -26,6 +26,10 @@
     a = b;                                                                     \
     b = t;                                                                     \
   }
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+
+
+
 
 
 #define ILI9341_NOP 0x00     ///< No-op register

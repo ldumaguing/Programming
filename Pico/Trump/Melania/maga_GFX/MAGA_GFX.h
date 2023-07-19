@@ -14,6 +14,10 @@ struct MAGA_GFX {
 	void writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int color);
 	void writePixel(int16_t x, int16_t y, int color);
 	void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, int color);
+	void writeFastVLine(int16_t x, int16_t y, int16_t h, int color);
+	void writeFastHLine(int16_t x, int16_t y, int16_t w, int color);
+	void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, int color);
+	void drawCircle(int16_t x0, int16_t y0, int16_t r, int color);
 /*
 
 	virtual void startWrite(void);

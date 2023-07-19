@@ -14,6 +14,149 @@ MAGA_GFX::MAGA_GFX() {
 
 
 
+
+
+/**************************************************************************/
+/*!
+   @brief    Draw a circle outline
+    @param    x0   Center-point x coordinate
+    @param    y0   Center-point y coordinate
+    @param    r   Radius of circle
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void MAGA_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r,
+                              int color) {
+  int16_t f = 1 - r;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * r;
+  int16_t x = 0;
+  int16_t y = r;
+
+
+  writePixel(x0, y0 + r, color);
+  writePixel(x0, y0 - r, color);
+  writePixel(x0 + r, y0, color);
+  writePixel(x0 - r, y0, color);
+
+  while (x < y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f += ddF_x;
+
+    writePixel(x0 + x, y0 + y, color);
+    writePixel(x0 - x, y0 + y, color);
+    writePixel(x0 + x, y0 - y, color);
+    writePixel(x0 - x, y0 - y, color);
+    writePixel(x0 + y, y0 + x, color);
+    writePixel(x0 - y, y0 + x, color);
+    writePixel(x0 + y, y0 - x, color);
+    writePixel(x0 - y, y0 - x, color);
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************************************/
+/*!
+   @brief    Fill a rectangle completely with one color. Update in subclasses if
+   desired!
+    @param    x   Top left corner x coordinate
+    @param    y   Top left corner y coordinate
+    @param    w   Width in pixels
+    @param    h   Height in pixels
+   @param    color 16-bit 5-6-5 Color to fill with
+*/
+/**************************************************************************/
+void MAGA_GFX::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
+                            int color) {
+
+  for (int16_t i = x; i < x + w; i++) {
+    writeFastVLine(i, y, h, color);
+  }
+
+}
+
+
+
+
+/**************************************************************************/
+/*!
+   @brief    Write a perfectly vertical line, overwrite in subclasses if
+   startWrite is defined!
+    @param    x   Top-most x coordinate
+    @param    y   Top-most y coordinate
+    @param    h   Height in pixels
+   @param    color 16-bit 5-6-5 Color to fill with
+*/
+/**************************************************************************/
+void MAGA_GFX::writeFastVLine(int16_t x, int16_t y, int16_t h,
+                                  int color) {
+  // Overwrite in subclasses if startWrite is defined!
+  // Can be just writeLine(x, y, x, y+h-1, color);
+  // or writeFillRect(x, y, 1, h, color);
+  drawFastVLine(x, y, h, color);
+}
+
+/**************************************************************************/
+/*!
+   @brief    Write a perfectly horizontal line, overwrite in subclasses if
+   startWrite is defined!
+    @param    x   Left-most x coordinate
+    @param    y   Left-most y coordinate
+    @param    w   Width in pixels
+   @param    color 16-bit 5-6-5 Color to fill with
+*/
+/**************************************************************************/
+void MAGA_GFX::writeFastHLine(int16_t x, int16_t y, int16_t w,
+                                  int color) {
+  // Overwrite in subclasses if startWrite is defined!
+  // Example: writeLine(x, y, x+w-1, y, color);
+  // or writeFillRect(x, y, w, 1, color);
+  drawFastHLine(x, y, w, color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**************************************************************************/
 /*!
    @brief    Write a pixel, overwrite in subclasses if startWrite is defined!
@@ -27,8 +170,23 @@ void MAGA_GFX::writePixel(int16_t x, int16_t y, int color) {
 }
 
 
-
-
+/**************************************************************************/
+/*!
+   @brief   Draw a rectangle with no fill color
+    @param    x   Top left corner x coordinate
+    @param    y   Top left corner y coordinate
+    @param    w   Width in pixels
+    @param    h   Height in pixels
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void MAGA_GFX::drawRect(int16_t x, int16_t y, int16_t w, int16_t h,
+                            int color) {
+  writeFastHLine(x, y, w, color);
+  writeFastHLine(x, y + h - 1, w, color);
+  writeFastVLine(x, y, h, color);
+  writeFastVLine(x + w - 1, y, h, color);
+}
 
 
 
