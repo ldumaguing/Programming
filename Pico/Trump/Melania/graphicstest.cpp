@@ -61,7 +61,7 @@ int main() {
 	//	lineTest(i);
 	//}
 
-	//listColors();
+	listColors();
 	
 	//for (int c1=0; c1<150; c1++) {
 	//	for (int c2=149; c2>=0; c2--) {
@@ -74,11 +74,11 @@ int main() {
 	//testFilledRects(74, 9);
 	//testCircles(10, 147);
 
-	for(;;) {
-		testRects_v2();
-		ili.render();
-		sleep_ms(10);
-	}
+	//for(;;) {
+	//	testRects_v2();
+	//	ili.render();
+	//	sleep_ms(10);
+	//}
 
 	return 0;
 }
@@ -168,10 +168,52 @@ void testFastLines(int color1, int color2) {
 }
 
 void listColors() {
-	for (int i=0; i<150; i++) {
-		ili.drawLine(0, i, 40, i, i);
-		if ((i%10) == 0) ili.drawLine(41, i, 44, i, 149);
+	for (int i=0; i<30; i++) {
+		ili.drawLine(0, i*7, 40, i*7, i);
+		ili.drawLine(0, (i*7)+1, 40, (i*7)+1, i);
+		ili.drawLine(0, (i*7)+2, 40, (i*7)+2, i);
+		ili.drawLine(0, (i*7)+3, 40, (i*7)+3, i);
+		ili.drawLine(0, (i*7)+4, 40, (i*7)+4, i);
+		ili.drawLine(0, (i*7)+5, 40, (i*7)+5, i);
+		ili.drawLine(0, (i*7)+6, 40, (i*7)+6, 7);
 	}
+	for (int i=0; i<30; i++) {
+		ili.drawLine(42, i*7, 82, i*7, i+30);
+		ili.drawLine(42, (i*7)+1, 82, (i*7)+1, i+30);
+		ili.drawLine(42, (i*7)+2, 82, (i*7)+2, i+30);
+		ili.drawLine(42, (i*7)+3, 82, (i*7)+3, i+30);
+		ili.drawLine(42, (i*7)+4, 82, (i*7)+4, i+30);
+		ili.drawLine(42, (i*7)+5, 82, (i*7)+5, i+30);
+		ili.drawLine(42, (i*7)+6, 82, (i*7)+6, 7);
+	}
+	for (int i=0; i<30; i++) {
+		ili.drawLine(84, i*7, 122, i*7, i+60);
+		ili.drawLine(84, (i*7)+1, 122, (i*7)+1, i+60);
+		ili.drawLine(84, (i*7)+2, 122, (i*7)+2, i+60);
+		ili.drawLine(84, (i*7)+3, 122, (i*7)+3, i+60);
+		ili.drawLine(84, (i*7)+4, 122, (i*7)+4, i+60);
+		ili.drawLine(84, (i*7)+5, 122, (i*7)+5, i+60);
+		ili.drawLine(84, (i*7)+6, 122, (i*7)+6, 7);
+	}
+	for (int i=0; i<30; i++) {
+		ili.drawLine(124, i*7, 162, i*7, i+90);
+		ili.drawLine(124, (i*7)+1, 162, (i*7)+1, i+90);
+		ili.drawLine(124, (i*7)+2, 162, (i*7)+2, i+90);
+		ili.drawLine(124, (i*7)+3, 162, (i*7)+3, i+90);
+		ili.drawLine(124, (i*7)+4, 162, (i*7)+4, i+90);
+		ili.drawLine(124, (i*7)+5, 162, (i*7)+5, i+90);
+		ili.drawLine(124, (i*7)+6, 162, (i*7)+6, 7);
+	}
+	for (int i=0; i<30; i++) {
+		ili.drawLine(164, i*7, 202, i*7, i+120);
+		ili.drawLine(164, (i*7)+1, 202, (i*7)+1, i+120);
+		ili.drawLine(164, (i*7)+2, 202, (i*7)+2, i+120);
+		ili.drawLine(164, (i*7)+3, 202, (i*7)+3, i+120);
+		ili.drawLine(164, (i*7)+4, 202, (i*7)+4, i+120);
+		ili.drawLine(164, (i*7)+5, 202, (i*7)+5, i+120);
+		ili.drawLine(164, (i*7)+6, 202, (i*7)+6, 7);
+	}
+
 	ili.render();
 }
 
