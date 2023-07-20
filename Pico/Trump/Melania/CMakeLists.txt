@@ -18,7 +18,10 @@ add_executable(${PROJ_NAME}
 	main.cpp
 )
 
-target_link_libraries(${PROJ_NAME} pico_stdlib)
+target_link_libraries(${PROJ_NAME}
+    pico_stdlib
+    pico_multicore
+)
 
 # pico_enable_stdio_usb(${PROJ_NAME} 1)
 # pico_enable_stdio_uart(${PROJ_NAME} 0)

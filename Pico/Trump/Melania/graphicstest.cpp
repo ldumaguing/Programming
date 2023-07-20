@@ -1,4 +1,7 @@
 // *************************************************************************************************
+#define BUTTON_UP    15
+#define BUTTON_DOWN  16
+
 void testText();
 
 void dotTest();
@@ -9,18 +12,49 @@ void testFastLines(int, int);
 void testRects(int);
 void testFilledRects(int, int);
 void testCircles(uint8_t, int);
+void testRects_v2();
 
 void yield() {
 	ili.render();
 	sleep_ms(500);
 };
 
+void initButtons() {
+	gpio_init(BUTTON_UP);
+   gpio_set_dir(BUTTON_UP, GPIO_IN);
+   gpio_pull_up(BUTTON_UP);
+
+	gpio_init(BUTTON_DOWN);
+   gpio_set_dir(BUTTON_DOWN, GPIO_IN);
+   gpio_pull_up(BUTTON_DOWN); 
+}
+
+int currColor = 0;
+
+// *************************************************************************************************
+void main2() {
+	for(;;) {
+      if(!gpio_get(BUTTON_UP)) {
+			currColor++;
+			if (currColor >= 150) currColor = 0;
+		}
+      if(!gpio_get(BUTTON_DOWN)) {
+			currColor--;
+			if (currColor < 0) currColor = 149;
+		}
+		sleep_ms(200);
+	}
+}
+
 // *************************************************************************************************
 int main() {
+	initButtons();
+   multicore_launch_core1(main2);
+
 	ili.begin();
 
-	//fillScreen();
-
+	//ili.fillScreen(TFT_RED);
+	//ili.render();
 	//dotTest();
 
 	// for (int i=0; i<150; i++) {
@@ -36,15 +70,24 @@ int main() {
 	//	}
 	//}
 
-	//testRects(74);
+	//testRects(TFT_RED);
 	//testFilledRects(74, 9);
-	testCircles(10, 147);
+	//testCircles(10, 147);
 
-	ili.render();
+	for(;;) {
+		testRects_v2();
+		ili.render();
+		sleep_ms(10);
+	}
+
 	return 0;
 }
 
+void testRects_v2() {
+	ili.fillScreen(currColor);
+	ili.drawLine(41, currColor, 44, currColor, TFT_BLACK);
 
+}
 
 
 

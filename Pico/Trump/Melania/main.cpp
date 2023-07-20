@@ -1,6 +1,7 @@
-// *************** Tue Jul 18 10:31:15 PM EDT 2023
+// *************** Wed Jul 19 10:18:00 PM EDT 2023
 // *************************************************************************************************
 #include "pico/stdlib.h"
+#include "pico/multicore.h"
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
@@ -128,47 +129,313 @@
 #define ILI9341_MADCTL_BGR 0x08
 #define ILI9341_MADCTL_MH 0x04
 
-// Color definitions
-#define ILI9341_BLACK 0x0000       ///<   0,   0,   0
-#define ILI9341_NAVY 0x000F        ///<   0,   0, 123
-#define ILI9341_DARKGREEN 0x03E0   ///<   0, 125,   0
-#define ILI9341_DARKCYAN 0x03EF    ///<   0, 125, 123
-#define ILI9341_MAROON 0x7800      ///< 123,   0,   0
-#define ILI9341_PURPLE 0x780F      ///< 123,   0, 123
-#define ILI9341_OLIVE 0x7BE0       ///< 123, 125,   0
-#define ILI9341_LIGHTGREY 0xC618   ///< 198, 195, 198
-#define ILI9341_DARKGREY 0x7BEF    ///< 123, 125, 123
-#define ILI9341_BLUE 0x001F        ///<   0,   0, 255
-#define ILI9341_GREEN 0x07E0       ///<   0, 255,   0
-#define ILI9341_CYAN 0x07FF        ///<   0, 255, 255
-#define ILI9341_RED 0xF800         ///< 255,   0,   0
-#define ILI9341_MAGENTA 0xF81F     ///< 255,   0, 255
-#define ILI9341_YELLOW 0xFFE0      ///< 255, 255,   0
-#define ILI9341_WHITE 0xFFFF       ///< 255, 255, 255
-#define ILI9341_ORANGE 0xFD20      ///< 255, 165,   0
-#define ILI9341_GREENYELLOW 0xAFE5 ///< 173, 255,  41
-#define ILI9341_PINK 0xFC18        ///< 255, 130, 198
-
 
 uint16_t colors[] = {  // no need to swap
-0x0000, 0x0500, 0x0f00, 0x1900, 0x1f00, 0xe003, 0xe503, 0xef03, 0xf903, 0xff03,
-0x2004, 0x2504, 0x2f04, 0x3904, 0x3f04, 0x2005, 0x2505, 0x2f05, 0x3905, 0x3f05,
-0x2006, 0x2506, 0x2f06, 0x3906, 0x3f06, 0xe007, 0xe507, 0xef07, 0xf907, 0xff07,
-0x0078, 0x0578, 0x0f78, 0x1978, 0x1f78, 0xe07b, 0xe57b, 0xef7b, 0xf97b, 0xff7b,
-0x207c, 0x257c, 0x2f7c, 0x397c, 0x3f7c, 0x207d, 0x257d, 0x2f7d, 0x397d, 0x3f7d,
-0x207e, 0x257e, 0x2f7e, 0x397e, 0x3f7e, 0xe07f, 0xe57f, 0xef7f, 0xf97f, 0xff7f,
-0x00b0, 0x05b0, 0x0fb0, 0x19b0, 0x1fb0, 0xe0b3, 0xe5b3, 0xefb3, 0xf9b3, 0xffb3,
-0x20b4, 0x25b4, 0x2fb4, 0x39b4, 0x3fb4, 0x20b5, 0x25b5, 0x2fb5, 0x39b5, 0x3fb5,
-0x20b6, 0x25b6, 0x2fb6, 0x39b6, 0x3fb6, 0xe0b7, 0xe5b7, 0xefb7, 0xf9b7, 0xffb7,
-0x00c8, 0x05c8, 0x0fc8, 0x19c8, 0x1fc8, 0xe0cb, 0xe5cb, 0xefcb, 0xf9cb, 0xffcb,  // 100
-
-0x20cc, 0x25cc, 0x2fcc, 0x39cc, 0x3fcc, 0x20cd, 0x25cd, 0x2fcd, 0x39cd, 0x3fcd,
-0x20ce, 0x25ce, 0x2fce, 0x39ce, 0x3fce, 0xe0cf, 0xe5cf, 0xefcf, 0xf9cf, 0xffcf,
-0x00f8, 0x05f8, 0x0ff8, 0x19f8, 0x1ff8, 0xe0fb, 0xe5fb, 0xeffb, 0xf9fb, 0xfffb,
-0x20fc, 0x25fc, 0x2ffc, 0x39fc, 0x3ffc, 0x20fd, 0x25fd, 0x2ffd, 0x39fd, 0x3ffd,
-0x20fe, 0x25fe, 0x2ffe, 0x39fe, 0x3ffe, 0xe0ff, 0xe5ff, 0xefff, 0xf9ff, 0xffff   // 150
+0xdff7,	// TFT_ALICEBLUE
+0x5aff,	// TFT_ANTIQUEWHITE
+0xff07,	// TFT_AQUA
+0xfa7f,	// TFT_AQUAMARINE
+0xfff7,	// TFT_AZURE
+0xbbf7,	// TFT_BEIGE
+0x38ff,	// TFT_BISQUE
+0x0000,	// TFT_BLACK
+0x59ff,	// TFT_BLANCHEDALMOND
+0x1f00,	// TFT_BLUE
+0x5c89,	// TFT_BLUEVIOLET
+0x45a1,	// TFT_BROWN
+0xd0dd,	// TFT_BURLYWOOD
+0xf45c,	// TFT_CADETBLUE
+0xe07f,	// TFT_CHARTREUSE
+0x43d3,	// TFT_CHOCOLATE
+0xeafb,	// TFT_CORAL
+0xbd64,	// TFT_CORNFLOWERBLUE
+0xdbff,	// TFT_CORNSILK
+0xa7d8,	// TFT_CRIMSON
+0xff07,	// TFT_CYAN
+0x1100,	// TFT_DARKBLUE
+0xef03,	// TFT_DARKCYAN
+0x5104,	// TFT_DARKCYAN2
+0x21bc,	// TFT_DARKGOLDENROD
+0x55ad,	// TFT_DARKGRAY
+0x2003,	// TFT_DARKGREEN2
+0xe003,	// TFT_DARKGREEN
+0xef7b,	// TFT_DARKGREY
+0xadbd,	// TFT_DARKKHAKI
+0x1188,	// TFT_DARKMAGENTA
+0x4553,	// TFT_DARKOLIVEGREEN
+0x60fc,	// TFT_DARKORANGE
+0x9999,	// TFT_DARKORCHID
+0x0088,	// TFT_DARKRED
+0xafec,	// TFT_DARKSALMON
+0xf18d,	// TFT_DARKSEAGREEN
+0xf149,	// TFT_DARKSLATEBLUE
+0x692a,	// TFT_DARKSLATEGRAY
+0x7a06,	// TFT_DARKTURQUOISE
+0x1a90,	// TFT_DARKVIOLET
+0xb2f8,	// TFT_DEEPPINK
+0xff05,	// TFT_DEEPSKYBLUE
+0x4d6b,	// TFT_DIMGRAY
+0x9f1c,	// TFT_DODGERBLUE
+0x04b1,	// TFT_FIREBRICK
+0xdeff,	// TFT_FLORALWHITE
+0x4424,	// TFT_FORESTGREEN
+0x1ff8,	// TFT_FUCHSIA
+0xfbde,	// TFT_GAINSBORO
+0xdfff,	// TFT_GHOSTWHITE
+0xa0fe,	// TFT_GOLD
+0x24dd,	// TFT_GOLDENROD
+0x1084,	// TFT_GRAY
+0x0004,	// TFT_GREEN2
+0xe007,	// TFT_GREEN
+0xe5af,	// TFT_GREENYELLOW
+0xfef7,	// TFT_HONEYDEW
+0x56fb,	// TFT_HOTPINK
+0xebca,	// TFT_INDIANRED
+0x1048,	// TFT_INDIGO
+0xfeff,	// TFT_IVORY
+0x31f7,	// TFT_KHAKI
+0x3fe7,	// TFT_LAVENDER
+0x9eff,	// TFT_LAVENDERBLUSH
+0xe07f,	// TFT_LAWNGREEN
+0xd9ff,	// TFT_LEMONCHIFFON
+0xdcae,	// TFT_LIGHTBLUE
+0x10f4,	// TFT_LIGHTCORAL
+0xffe7,	// TFT_LIGHTCYAN
+0xdaff,	// TFT_LIGHTGOLDENRODYELLOW
+0x7297,	// TFT_LIGHTGREEN
+0x18c6,	// TFT_LIGHTGREY
+0x9ad6,	// TFT_LIGHTGREY2
+0xb8fd,	// TFT_LIGHTPINK
+0x0ffd,	// TFT_LIGHTSALMON
+0x9525,	// TFT_LIGHTSEAGREEN
+0x7f86,	// TFT_LIGHTSKYBLUE
+0x5374,	// TFT_LIGHTSLATEGRAY
+0x3bb6,	// TFT_LIGHTSTEELBLUE
+0xfcff,	// TFT_LIGHTYELLOW
+0xe007,	// TFT_LIME
+0x6636,	// TFT_LIMEGREEN
+0x9cff,	// TFT_LINEN
+0x1ff8,	// TFT_MAGENTA
+0x0078,	// TFT_MAROON
+0x0080,	// TFT_MAROON2
+0x7566,	// TFT_MEDIUMAQUAMARINE
+0x1900,	// TFT_MEDIUMBLUE
+0xbaba,	// TFT_MEDIUMORCHID
+0x9b93,	// TFT_MEDIUMPURPLE
+0x8e3d,	// TFT_MEDIUMSEAGREEN
+0x5d7b,	// TFT_MEDIUMSLATEBLUE
+0xd307,	// TFT_MEDIUMSPRINGGREEN
+0x994e,	// TFT_MEDIUMTURQUOISE
+0xb0c0,	// TFT_MEDIUMVIOLETRED
+0xce18,	// TFT_MIDNIGHTBLUE
+0xfff7,	// TFT_MINTCREAM
+0x3cff,	// TFT_MISTYROSE
+0x36ff,	// TFT_MOCCASIN
+0xf5fe,	// TFT_NAVAJOWHITE
+0x0f00,	// TFT_NAVY
+0x1000,	// TFT_NAVY2
+0xbcff,	// TFT_OLDLACE
+0xe07b,	// TFT_OLIVE
+0x0084,	// TFT_OLIVE2
+0x646c,	// TFT_OLIVEDRAB
+0x20fd,	// TFT_ORANGE
+0x20fa,	// TFT_ORANGERED
+0x9adb,	// TFT_ORCHID
+0x55ef,	// TFT_PALEGOLDENROD
+0xd39f,	// TFT_PALEGREEN
+0x7daf,	// TFT_PALETURQUOISE
+0x92db,	// TFT_PALEVIOLETRED
+0x7aff,	// TFT_PAPAYAWHIP
+0xd7fe,	// TFT_PEACHPUFF
+0x27cc,	// TFT_PERU
+0x1ff8,	// TFT_PINK
+0x19fe,	// TFT_PINK_2
+0x1bdd,	// TFT_PLUM
+0x1cb7,	// TFT_POWDERBLUE
+0x0f78,	// TFT_PURPLE
+0x1080,	// TFT_PURPLE2
+0x00f8,	// TFT_RED
+0x71bc,	// TFT_ROSYBROWN
+0x5c43,	// TFT_ROYALBLUE
+0x228a,	// TFT_SADDLEBROWN
+0x0efc,	// TFT_SALMON
+0x2cf5,	// TFT_SANDYBROWN
+0x4a2c,	// TFT_SEAGREEN
+0xbdff,	// TFT_SEASHELL
+0x85a2,	// TFT_SIENNA
+0x18c6,	// TFT_SILVER
+0x7d86,	// TFT_SKYBLUE
+0xd96a,	// TFT_SLATEBLUE
+0x1274,	// TFT_SLATEGRAY
+0xdfff,	// TFT_SNOW
+0xef07,	// TFT_SPRINGGREEN
+0x1644,	// TFT_STEELBLUE
+0xb1d5,	// TFT_TAN
+0x1004,	// TFT_TEAL
+0xfbdd,	// TFT_THISTLE
+0x08fb,	// TFT_TOMATO
+0x1a47,	// TFT_TURQUOISE
+0x1dec,	// TFT_VIOLET
+0xf6f6,	// TFT_WHEAT
+0xffff,	// TFT_WHITE
+0xbef7,	// TFT_WHITESMOKE
+0xe0ff,	// TFT_YELLOW
+0x669e	// TFT_YELLOWGREEN
 };
 
+
+
+#define TFT_ALICEBLUE            0
+#define TFT_ANTIQUEWHITE         1
+#define TFT_AQUA                 2
+#define TFT_AQUAMARINE           3
+#define TFT_AZURE                4
+#define TFT_BEIGE                5
+#define TFT_BISQUE               6
+#define TFT_BLACK                7
+#define TFT_BLANCHEDALMOND       8
+#define TFT_BLUE                 9
+#define TFT_BLUEVIOLET           10
+#define TFT_BROWN                11
+#define TFT_BURLYWOOD            12
+#define TFT_CADETBLUE            13
+#define TFT_CHARTREUSE           14
+#define TFT_CHOCOLATE            15
+#define TFT_CORAL                16
+#define TFT_CORNFLOWERBLUE       17
+#define TFT_CORNSILK             18
+#define TFT_CRIMSON              19
+#define TFT_CYAN                 20
+#define TFT_DARKBLUE             21
+#define TFT_DARKCYAN             22
+#define TFT_DARKCYAN2            23
+#define TFT_DARKGOLDENROD        24 
+#define TFT_DARKGRAY             25
+#define TFT_DARKGREEN2           26
+#define TFT_DARKGREEN            27
+#define TFT_DARKGREY             28
+#define TFT_DARKKHAKI            29
+#define TFT_DARKMAGENTA          30
+#define TFT_DARKOLIVEGREEN       31 
+#define TFT_DARKORANGE           32
+#define TFT_DARKORCHID           33
+#define TFT_DARKRED              34
+#define TFT_DARKSALMON           35 
+#define TFT_DARKSEAGREEN         36 
+#define TFT_DARKSLATEBLUE        37
+#define TFT_DARKSLATEGRAY        38
+#define TFT_DARKTURQUOISE        39
+#define TFT_DARKVIOLET           40
+#define TFT_DEEPPINK             41
+#define TFT_DEEPSKYBLUE          42 
+#define TFT_DIMGRAY              43
+#define TFT_DODGERBLUE           44 
+#define TFT_FIREBRICK            45
+#define TFT_FLORALWHITE          46
+#define TFT_FORESTGREEN          47
+#define TFT_FUCHSIA              48
+#define TFT_GAINSBORO            49
+#define TFT_GHOSTWHITE           50
+#define TFT_GOLD                 51
+#define TFT_GOLDENROD            52   
+#define TFT_GRAY                 53
+#define TFT_GREEN2               54
+#define TFT_GREEN                55
+#define TFT_GREENYELLOW          56
+#define TFT_HONEYDEW             57
+#define TFT_HOTPINK              58
+#define TFT_INDIANRED            59
+#define TFT_INDIGO               60
+#define TFT_IVORY                61
+#define TFT_KHAKI                62
+#define TFT_LAVENDER             63
+#define TFT_LAVENDERBLUSH        64    
+#define TFT_LAWNGREEN            65
+#define TFT_LEMONCHIFFON         66 
+#define TFT_LIGHTBLUE            67
+#define TFT_LIGHTCORAL           68
+#define TFT_LIGHTCYAN            69
+#define TFT_LIGHTGOLDENRODYELLOW 70
+#define TFT_LIGHTGREEN           71
+#define TFT_LIGHTGREY            72
+#define TFT_LIGHTGREY2           73
+#define TFT_LIGHTPINK            74
+#define TFT_LIGHTSALMON          75
+#define TFT_LIGHTSEAGREEN        76
+#define TFT_LIGHTSKYBLUE         77
+#define TFT_LIGHTSLATEGRAY       78
+#define TFT_LIGHTSTEELBLUE       79
+#define TFT_LIGHTYELLOW          80
+#define TFT_LIME                 81
+#define TFT_LIMEGREEN            82
+#define TFT_LINEN                83
+#define TFT_MAGENTA              84
+#define TFT_MAROON               85
+#define TFT_MAROON2              86
+#define TFT_MEDIUMAQUAMARINE     87
+#define TFT_MEDIUMBLUE           88
+#define TFT_MEDIUMORCHID         89
+#define TFT_MEDIUMPURPLE         90
+#define TFT_MEDIUMSEAGREEN       91
+#define TFT_MEDIUMSLATEBLUE      92
+#define TFT_MEDIUMSPRINGGREEN    93
+#define TFT_MEDIUMTURQUOISE      94
+#define TFT_MEDIUMVIOLETRED      95
+#define TFT_MIDNIGHTBLUE         96
+#define TFT_MINTCREAM            97
+#define TFT_MISTYROSE            98
+#define TFT_MOCCASIN             99
+#define TFT_NAVAJOWHITE          100
+#define TFT_NAVY                 101
+#define TFT_NAVY2                102
+#define TFT_OLDLACE              103
+#define TFT_OLIVE                104
+#define TFT_OLIVE2               105
+#define TFT_OLIVEDRAB            106
+#define TFT_ORANGE               107
+#define TFT_ORANGERED            108
+#define TFT_ORCHID               109
+#define TFT_PALEGOLDENROD        110
+#define TFT_PALEGREEN            111
+#define TFT_PALETURQUOISE        112
+#define TFT_PALEVIOLETRED        113
+#define TFT_PAPAYAWHIP           114
+#define TFT_PEACHPUFF            115
+#define TFT_PERU                 116
+#define TFT_PINK                 117
+#define TFT_PINK_2               118
+#define TFT_PLUM                 119
+#define TFT_POWDERBLUE           120
+#define TFT_PURPLE               121
+#define TFT_PURPLE2              122
+#define TFT_RED                  123
+#define TFT_ROSYBROWN            124
+#define TFT_ROYALBLUE            125
+#define TFT_SADDLEBROWN          126
+#define TFT_SALMON               127
+#define TFT_SANDYBROWN           128
+#define TFT_SEAGREEN             129
+#define TFT_SEASHELL             130
+#define TFT_SIENNA               131
+#define TFT_SILVER               132
+#define TFT_SKYBLUE              133
+#define TFT_SLATEBLUE            134
+#define TFT_SLATEGRAY            135
+#define TFT_SNOW                 136
+#define TFT_SPRINGGREEN          137
+#define TFT_STEELBLUE            138
+#define TFT_TAN                  139
+#define TFT_TEAL                 140
+#define TFT_THISTLE              141
+#define TFT_TOMATO               142
+#define TFT_TURQUOISE            143
+#define TFT_VIOLET               144
+#define TFT_WHEAT                145
+#define TFT_WHITE                146
+#define TFT_WHITESMOKE           147
+#define TFT_YELLOW               148
+#define TFT_YELLOWGREEN          149  
+ 
 
 // ************************************************************************************** MAGA_GFX.h
 // *************************************************************************************************
@@ -308,10 +575,6 @@ uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 MAGA_GFX::MAGA_GFX() {
 }
 
-
-
-
-
 /**************************************************************************/
 /*!
    @brief    Draw a circle outline
@@ -321,61 +584,39 @@ MAGA_GFX::MAGA_GFX() {
     @param    color 16-bit 5-6-5 Color to draw with
 */
 /**************************************************************************/
-void MAGA_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r,
-                              int color) {
-  int16_t f = 1 - r;
-  int16_t ddF_x = 1;
-  int16_t ddF_y = -2 * r;
-  int16_t x = 0;
-  int16_t y = r;
+void MAGA_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r, int color) {
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
 
+	writePixel(x0, y0 + r, color);
+	writePixel(x0, y0 - r, color);
+	writePixel(x0 + r, y0, color);
+	writePixel(x0 - r, y0, color);
 
-  writePixel(x0, y0 + r, color);
-  writePixel(x0, y0 - r, color);
-  writePixel(x0 + r, y0, color);
-  writePixel(x0 - r, y0, color);
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
 
-  while (x < y) {
-    if (f >= 0) {
-      y--;
-      ddF_y += 2;
-      f += ddF_y;
-    }
-    x++;
-    ddF_x += 2;
-    f += ddF_x;
-
-    writePixel(x0 + x, y0 + y, color);
-    writePixel(x0 - x, y0 + y, color);
-    writePixel(x0 + x, y0 - y, color);
-    writePixel(x0 - x, y0 - y, color);
-    writePixel(x0 + y, y0 + x, color);
-    writePixel(x0 - y, y0 + x, color);
-    writePixel(x0 + y, y0 - x, color);
-    writePixel(x0 - y, y0 - x, color);
-  }
+		writePixel(x0 + x, y0 + y, color);
+		writePixel(x0 - x, y0 + y, color);
+		writePixel(x0 + x, y0 - y, color);
+		writePixel(x0 - x, y0 - y, color);
+		writePixel(x0 + y, y0 + x, color);
+		writePixel(x0 - y, y0 + x, color);
+		writePixel(x0 + y, y0 - x, color);
+		writePixel(x0 - y, y0 - x, color);
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**************************************************************************/
 /*!
@@ -388,17 +629,11 @@ void MAGA_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r,
    @param    color 16-bit 5-6-5 Color to fill with
 */
 /**************************************************************************/
-void MAGA_GFX::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
-                            int color) {
-
-  for (int16_t i = x; i < x + w; i++) {
-    writeFastVLine(i, y, h, color);
-  }
-
+void MAGA_GFX::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, int color) {
+	for (int16_t i = x; i < x + w; i++) {
+		writeFastVLine(i, y, h, color);
+	}
 }
-
-
-
 
 /**************************************************************************/
 /*!
@@ -410,12 +645,8 @@ void MAGA_GFX::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
    @param    color 16-bit 5-6-5 Color to fill with
 */
 /**************************************************************************/
-void MAGA_GFX::writeFastVLine(int16_t x, int16_t y, int16_t h,
-                                  int color) {
-  // Overwrite in subclasses if startWrite is defined!
-  // Can be just writeLine(x, y, x, y+h-1, color);
-  // or writeFillRect(x, y, 1, h, color);
-  drawFastVLine(x, y, h, color);
+void MAGA_GFX::writeFastVLine(int16_t x, int16_t y, int16_t h, int color) {
+	drawFastVLine(x, y, h, color);
 }
 
 /**************************************************************************/
@@ -428,30 +659,9 @@ void MAGA_GFX::writeFastVLine(int16_t x, int16_t y, int16_t h,
    @param    color 16-bit 5-6-5 Color to fill with
 */
 /**************************************************************************/
-void MAGA_GFX::writeFastHLine(int16_t x, int16_t y, int16_t w,
-                                  int color) {
-  // Overwrite in subclasses if startWrite is defined!
-  // Example: writeLine(x, y, x+w-1, y, color);
-  // or writeFillRect(x, y, w, 1, color);
-  drawFastHLine(x, y, w, color);
+void MAGA_GFX::writeFastHLine(int16_t x, int16_t y, int16_t w, int color) {
+	drawFastHLine(x, y, w, color);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**************************************************************************/
 /*!
@@ -462,9 +672,8 @@ void MAGA_GFX::writeFastHLine(int16_t x, int16_t y, int16_t w,
 */
 /**************************************************************************/
 void MAGA_GFX::writePixel(int16_t x, int16_t y, int color) {
-  drawPixel(x, y, color);
+	drawPixel(x, y, color);
 }
-
 
 /**************************************************************************/
 /*!
@@ -476,22 +685,12 @@ void MAGA_GFX::writePixel(int16_t x, int16_t y, int color) {
     @param    color 16-bit 5-6-5 Color to draw with
 */
 /**************************************************************************/
-void MAGA_GFX::drawRect(int16_t x, int16_t y, int16_t w, int16_t h,
-                            int color) {
-  writeFastHLine(x, y, w, color);
-  writeFastHLine(x, y + h - 1, w, color);
-  writeFastVLine(x, y, h, color);
-  writeFastVLine(x + w - 1, y, h, color);
+void MAGA_GFX::drawRect(int16_t x, int16_t y, int16_t w, int16_t h, int color) {
+	writeFastHLine(x, y, w, color);
+	writeFastHLine(x, y + h - 1, w, color);
+	writeFastVLine(x, y, h, color);
+	writeFastVLine(x + w - 1, y, h, color);
 }
-
-
-
-
-
-
-
-
-
 
 /**************************************************************************/
 /*!
@@ -503,44 +702,43 @@ void MAGA_GFX::drawRect(int16_t x, int16_t y, int16_t w, int16_t h,
     @param    color 16-bit 5-6-5 Color to draw with
 */
 /**************************************************************************/
-void MAGA_GFX::writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1,
-                             int color) {
-  int16_t steep = abs(y1 - y0) > abs(x1 - x0);
-  if (steep) {
-    _swap_int16_t(x0, y0);
-    _swap_int16_t(x1, y1);
-  }
+void MAGA_GFX::writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int color) {
+	int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+	if (steep) {
+		_swap_int16_t(x0, y0);
+		_swap_int16_t(x1, y1);
+	}
 
-  if (x0 > x1) {
-    _swap_int16_t(x0, x1);
-    _swap_int16_t(y0, y1);
-  }
+	if (x0 > x1) {
+		_swap_int16_t(x0, x1);
+		_swap_int16_t(y0, y1);
+	}
 
-  int16_t dx, dy;
-  dx = x1 - x0;
-  dy = abs(y1 - y0);
+	int16_t dx, dy;
+	dx = x1 - x0;
+	dy = abs(y1 - y0);
 
-  int16_t err = dx / 2;
-  int16_t ystep;
+	int16_t err = dx / 2;
+	int16_t ystep;
 
-  if (y0 < y1) {
-    ystep = 1;
-  } else {
-    ystep = -1;
-  }
+	if (y0 < y1) {
+		ystep = 1;
+	} else {
+		ystep = -1;
+	}
 
-  for (; x0 <= x1; x0++) {
-    if (steep) {
-      writePixel(y0, x0, color);
-    } else {
-      writePixel(x0, y0, color);
-    }
-    err -= dy;
-    if (err < 0) {
-      y0 += ystep;
-      err += dx;
-    }
-  }
+	for (; x0 <= x1; x0++) {
+		if (steep) {
+			writePixel(y0, x0, color);
+		} else {
+			writePixel(x0, y0, color);
+		}
+		err -= dy;
+		if (err < 0) {
+			y0 += ystep;
+			err += dx;
+		}
+	}
 }
 
 /**************************************************************************/
@@ -554,18 +752,17 @@ void MAGA_GFX::writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 */
 /**************************************************************************/
 void MAGA_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int color) {
-  // Update in subclasses if desired!
-  if (x0 == x1) {
-    if (y0 > y1)
-      _swap_int16_t(y0, y1);
-    drawFastVLine(x0, y0, y1 - y0 + 1, color);
-  } else if (y0 == y1) {
-    if (x0 > x1)
-      _swap_int16_t(x0, x1);
-    drawFastHLine(x0, y0, x1 - x0 + 1, color);
-  } else {
-    writeLine(x0, y0, x1, y1, color);
-  }
+	if (x0 == x1) {
+		if (y0 > y1)
+			_swap_int16_t(y0, y1);
+		drawFastVLine(x0, y0, y1 - y0 + 1, color);
+	} else if (y0 == y1) {
+		if (x0 > x1)
+			_swap_int16_t(x0, x1);
+		drawFastHLine(x0, y0, x1 - x0 + 1, color);
+	} else {
+		writeLine(x0, y0, x1, y1, color);
+	}
 }
 
 /**************************************************************************/
@@ -577,50 +774,49 @@ void MAGA_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int colo
    @param    color   color 16-bit 5-6-5 Color to draw line with
 */
 /**************************************************************************/
-void MAGA_GFX::drawFastVLine(int16_t x, int16_t y, int16_t h,
-                                int color) {
-  if (h < 0) { // Convert negative heights to positive equivalent
-    h *= -1;
-    y -= h - 1;
-    if (y < 0) {
-      h += y;
-      y = 0;
-    }
-  }
+void MAGA_GFX::drawFastVLine(int16_t x, int16_t y, int16_t h, int color) {
+	if (h < 0) { // Convert negative heights to positive equivalent
+		h *= -1;
+		y -= h - 1;
+		if (y < 0) {
+			h += y;
+			y = 0;
+		}
+	}
 
-  // Edge rejection (no-draw if totally off canvas)
-  if ((x < 0) || (x >= _width) || (y >= _height) || ((y + h - 1) < 0)) {
-    return;
-  }
+	// Edge rejection (no-draw if totally off canvas)
+	if ((x < 0) || (x >= _width) || (y >= _height) || ((y + h - 1) < 0)) {
+		return;
+	}
 
-  if (y < 0) { // Clip top
-    h += y;
-    y = 0;
-  }
-  if (y + h > _height) { // Clip bottom
-    h = _height - y;
-  }
+	if (y < 0) { // Clip top
+		h += y;
+		y = 0;
+	}
+	if (y + h > _height) { // Clip bottom
+		h = _height - y;
+	}
 
-  if (rotation == 0) {
-    drawFastRawVLine(x, y, h, color);
-  } else if (rotation == 1) {
-    int16_t t = x;
-    x = WIDTH - 1 - y;
-    y = t;
-    x -= h - 1;
-    drawFastRawHLine(x, y, h, color);
-  } else if (rotation == 2) {
-    x = WIDTH - 1 - x;
-    y = HEIGHT - 1 - y;
+	if (rotation == 0) {
+		drawFastRawVLine(x, y, h, color);
+	} else if (rotation == 1) {
+		int16_t t = x;
+		x = WIDTH - 1 - y;
+		y = t;
+		x -= h - 1;
+		drawFastRawHLine(x, y, h, color);
+	} else if (rotation == 2) {
+		x = WIDTH - 1 - x;
+		y = HEIGHT - 1 - y;
 
-    y -= h - 1;
-    drawFastRawVLine(x, y, h, color);
-  } else if (rotation == 3) {
-    int16_t t = x;
-    x = y;
-    y = HEIGHT - 1 - t;
-    drawFastRawHLine(x, y, h, color);
-  }
+		y -= h - 1;
+		drawFastRawVLine(x, y, h, color);
+	} else if (rotation == 3) {
+		int16_t t = x;
+		x = y;
+		y = HEIGHT - 1 - t;
+		drawFastRawHLine(x, y, h, color);
+	}
 }
 
 /**************************************************************************/
@@ -632,50 +828,49 @@ void MAGA_GFX::drawFastVLine(int16_t x, int16_t y, int16_t h,
    @param  color  Color 16-bit 5-6-5 Color to draw line with
 */
 /**************************************************************************/
-void MAGA_GFX::drawFastHLine(int16_t x, int16_t y, int16_t w,
-                                int color) {
-  if (w < 0) { // Convert negative widths to positive equivalent
-    w *= -1;
-    x -= w - 1;
-    if (x < 0) {
-      w += x;
-      x = 0;
-    }
-  }
+void MAGA_GFX::drawFastHLine(int16_t x, int16_t y, int16_t w, int color) {
+	if (w < 0) { // Convert negative widths to positive equivalent
+		w *= -1;
+		x -= w - 1;
+		if (x < 0) {
+			w += x;
+			x = 0;
+		}
+	}
 
-  // Edge rejection (no-draw if totally off canvas)
-  if ((y < 0) || (y >= _height) || (x >= _width) || ((x + w - 1) < 0)) {
-    return;
-  }
+	// Edge rejection (no-draw if totally off canvas)
+	if ((y < 0) || (y >= _height) || (x >= _width) || ((x + w - 1) < 0)) {
+		return;
+	}
 
-  if (x < 0) { // Clip left
-    w += x;
-    x = 0;
-  }
-  if (x + w >= _width) { // Clip right
-    w = _width - x;
-  }
+	if (x < 0) { // Clip left
+		w += x;
+		x = 0;
+	}
+	if (x + w >= _width) { // Clip right
+		w = _width - x;
+	}
 
-  if (rotation == 0) {
-    drawFastRawHLine(x, y, w, color);
-  } else if (rotation == 1) {
-    int16_t t = x;
-    x = WIDTH - 1 - y;
-    y = t;
-    drawFastRawVLine(x, y, w, color);
-  } else if (rotation == 2) {
-    x = WIDTH - 1 - x;
-    y = HEIGHT - 1 - y;
+	if (rotation == 0) {
+		drawFastRawHLine(x, y, w, color);
+	} else if (rotation == 1) {
+		int16_t t = x;
+		x = WIDTH - 1 - y;
+		y = t;
+		drawFastRawVLine(x, y, w, color);
+	} else if (rotation == 2) {
+		x = WIDTH - 1 - x;
+		y = HEIGHT - 1 - y;
 
-    x -= w - 1;
-    drawFastRawHLine(x, y, w, color);
-  } else if (rotation == 3) {
-    int16_t t = x;
-    x = y;
-    y = HEIGHT - 1 - t;
-    y -= w - 1;
-    drawFastRawVLine(x, y, w, color);
-  }
+		x -= w - 1;
+		drawFastRawHLine(x, y, w, color);
+	} else if (rotation == 3) {
+		int16_t t = x;
+		x = y;
+		y = HEIGHT - 1 - t;
+		y -= w - 1;
+		drawFastRawVLine(x, y, w, color);
+	}
 }
 
 /**************************************************************************/
@@ -688,12 +883,12 @@ void MAGA_GFX::drawFastHLine(int16_t x, int16_t y, int16_t w,
 */
 /**************************************************************************/
 void MAGA_GFX::drawFastRawVLine(int16_t x, int16_t y, int16_t h, int color) {
-  // x & y already in raw (rotation 0) coordinates, no need to transform.
-  uint16_t *buffer_ptr = screenbuffer + y * WIDTH + x;
-  for (int16_t i = 0; i < h; i++) {
-    (*buffer_ptr) = colors[color];
-    buffer_ptr += WIDTH;
-  }
+	// x & y already in raw (rotation 0) coordinates, no need to transform.
+	uint16_t *buffer_ptr = screenbuffer + y * WIDTH + x;
+	for (int16_t i = 0; i < h; i++) {
+		(*buffer_ptr) = colors[color];
+		buffer_ptr += WIDTH;
+	}
 }
 
 /**************************************************************************/
@@ -706,11 +901,11 @@ void MAGA_GFX::drawFastRawVLine(int16_t x, int16_t y, int16_t h, int color) {
 */
 /**************************************************************************/
 void MAGA_GFX::drawFastRawHLine(int16_t x, int16_t y, int16_t w, int color) {
-  // x & y already in raw (rotation 0) coordinates, no need to transform.
-  uint32_t buffer_index = y * WIDTH + x;
-  for (uint32_t i = buffer_index; i < buffer_index + w; i++) {
-    screenbuffer[i] = colors[color];
-  }
+	// x & y already in raw (rotation 0) coordinates, no need to transform.
+	uint32_t buffer_index = y * WIDTH + x;
+	for (uint32_t i = buffer_index; i < buffer_index + w; i++) {
+		screenbuffer[i] = colors[color];
+	}
 }
 
 /**************************************************************************/
@@ -847,7 +1042,7 @@ void ILI9341::init() {
 
 	set_command(ILI9341_GAMMASET);
 	command_param(0x01);
-
+/*
 	// positive gamma correction
 	set_command(ILI9341_GMCTRP1);
     write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
@@ -855,7 +1050,7 @@ void ILI9341::init() {
 	// negative gamma correction
 	set_command(ILI9341_GMCTRN1);
 	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-
+*/
 	// memory access control
 	set_command(ILI9341_MADCTL);
 	command_param(0x48);
@@ -942,6 +1137,9 @@ ILI9341 ili = ILI9341();
 // *************************************************************************************************
 // *************************************************************************************************
 // *************************************************************************************************
+#define BUTTON_UP    15
+#define BUTTON_DOWN  16
+
 void testText();
 
 void dotTest();
@@ -952,18 +1150,49 @@ void testFastLines(int, int);
 void testRects(int);
 void testFilledRects(int, int);
 void testCircles(uint8_t, int);
+void testRects_v2();
 
 void yield() {
 	ili.render();
 	sleep_ms(500);
 };
 
+void initButtons() {
+	gpio_init(BUTTON_UP);
+   gpio_set_dir(BUTTON_UP, GPIO_IN);
+   gpio_pull_up(BUTTON_UP);
+
+	gpio_init(BUTTON_DOWN);
+   gpio_set_dir(BUTTON_DOWN, GPIO_IN);
+   gpio_pull_up(BUTTON_DOWN); 
+}
+
+int currColor = 0;
+
+// *************************************************************************************************
+void main2() {
+	for(;;) {
+      if(!gpio_get(BUTTON_UP)) {
+			currColor++;
+			if (currColor >= 150) currColor = 0;
+		}
+      if(!gpio_get(BUTTON_DOWN)) {
+			currColor--;
+			if (currColor < 0) currColor = 149;
+		}
+		sleep_ms(200);
+	}
+}
+
 // *************************************************************************************************
 int main() {
+	initButtons();
+   multicore_launch_core1(main2);
+
 	ili.begin();
 
-	//fillScreen();
-
+	//ili.fillScreen(TFT_RED);
+	//ili.render();
 	//dotTest();
 
 	// for (int i=0; i<150; i++) {
@@ -979,15 +1208,24 @@ int main() {
 	//	}
 	//}
 
-	//testRects(74);
+	//testRects(TFT_RED);
 	//testFilledRects(74, 9);
-	testCircles(10, 147);
+	//testCircles(10, 147);
 
-	ili.render();
+	for(;;) {
+		testRects_v2();
+		ili.render();
+		sleep_ms(10);
+	}
+
 	return 0;
 }
 
+void testRects_v2() {
+	ili.fillScreen(currColor);
+	ili.drawLine(41, currColor, 44, currColor, TFT_BLACK);
 
+}
 
 
 
