@@ -1,13 +1,44 @@
-// ************************************************************************************* ILI9341.cpp
+// ************************************************************************************** ILI9341.c
 static inline void init_pins() {
-	gpio_init_mask(ILI9341_MASK);
-	gpio_set_dir_out_masked(ILI9341_MASK);
-	gpio_set_mask(ILI9341_MASK);
+	gpio_reset_pin(ILI9341_CS);
+	gpio_reset_pin(ILI9341_CD);
+	gpio_reset_pin(ILI9341_WR);
+	gpio_reset_pin(ILI9341_RD);
+
+	gpio_reset_pin(ILI9341_D0);
+	gpio_reset_pin(ILI9341_D1);
+	gpio_reset_pin(ILI9341_D2);
+	gpio_reset_pin(ILI9341_D3);
+	gpio_reset_pin(ILI9341_D4);
+	gpio_reset_pin(ILI9341_D5);
+	gpio_reset_pin(ILI9341_D6);
+	gpio_reset_pin(ILI9341_D7);
+
+	gpio_set_direction(ILI9341_CS, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_CD, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_WR, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_RD, GPIO_MODE_OUTPUT);
+
+	gpio_set_direction(ILI9341_D0, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D1, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D2, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D3, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D4, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D5, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D6, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_D7, GPIO_MODE_OUTPUT);
 };
 
 static inline void sio_write(const uint8_t *src, size_t len) {
 	do {
-		gpio_put_masked((0xff << ILI9341_D0), (*src << ILI9341_D0));
+		gpio_set_level(ILI9341_D0, (*src & 1) ? 1:0);
+		gpio_set_level(ILI9341_D1, (*src & 2) ? 1:0);
+		gpio_set_level(ILI9341_D2, (*src & 4) ? 1:0);
+		gpio_set_level(ILI9341_D3, (*src & 8) ? 1:0);
+		gpio_set_level(ILI9341_D4, (*src & 16) ? 1:0);
+		gpio_set_level(ILI9341_D5, (*src & 32) ? 1:0);
+		gpio_set_level(ILI9341_D6, (*src & 64) ? 1:0);
+		gpio_set_level(ILI9341_D7, (*src & 128) ? 1:0);
 		WR_STROBE;
 
 		len--;
@@ -15,6 +46,7 @@ static inline void sio_write(const uint8_t *src, size_t len) {
 	} while (len > 0);
 }
 
+/*
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
@@ -25,8 +57,9 @@ static inline void sio_write(void *src, size_t len) {
 		x++;
 	} while (len > 0);
 }
+*/
 
-// *************************************************************************************************
+// ************************************************************************************************
 void ILI9341_init() {
 	WIDTH    = ILI9341_TFTWIDTH;
 	HEIGHT   = ILI9341_TFTHEIGHT;
@@ -114,12 +147,6 @@ void ILI9341_write_data(const uint8_t *buffer, int bytes) {
 	CS_ACTIVE;
 	sio_write(buffer, bytes);
 	CS_IDLE;
-};
-
-void ILI9341_pin_reset() {
-	RST_ACTIVE;
-	sleep_ms(1000);
-	RST_IDLE;
 };
 
 // *********************************************************************************** Adafruit base

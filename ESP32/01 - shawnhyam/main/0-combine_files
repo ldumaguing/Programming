@@ -12,9 +12,9 @@ echo '' >> X.txt;
 
 
 
-
+cat ili9341/defines.h >> X.txt ;
 cat ili9341/ILI9341.h >> X.txt ;
-
+cat ili9341/ILI9341.c >> X.txt ;
 
 
 

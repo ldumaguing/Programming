@@ -1,25 +1,29 @@
 // *************************************************************************************** defines.h
 // *************************************************************************************************
-#define ILI9341_CS   0
-#define ILI9341_CD   1
-#define ILI9341_WR   2
-#define ILI9341_RD   3
-#define ILI9341_RST  4
-#define ILI9341_D0   5
-#define ILI9341_MASK 0x1fff   // 0001 1111 1111 1111
+#define ILI9341_CS 15
+#define ILI9341_CD 2
+#define ILI9341_WR 4
+#define ILI9341_RD 16
+
+#define ILI9341_D0 17
+#define ILI9341_D1 5
+#define ILI9341_D2 18
+#define ILI9341_D3 19
+#define ILI9341_D4 21
+#define ILI9341_D5 22
+#define ILI9341_D6 23
+#define ILI9341_D7 32
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
-#define CS_ACTIVE  gpio_put(ILI9341_CS, 0)
-#define CS_IDLE    gpio_put(ILI9341_CS, 1)
-#define CD_COMMAND gpio_put(ILI9341_CD, 0)
-#define CD_DATA    gpio_put(ILI9341_CD, 1)
-#define WR_IDLE    gpio_put(ILI9341_WR, 1)
-#define WR_STROBE  gpio_put(ILI9341_WR, 0); gpio_put(ILI9341_WR, 1)
-#define RST_ACTIVE gpio_put(ILI9341_RST, 0)
-#define RST_IDLE   gpio_put(ILI9341_RST, 1)
+#define CS_ACTIVE  gpio_set_level(ILI9341_CS, 0)
+#define CS_IDLE    gpio_set_level(ILI9341_CS, 1)
+#define CD_COMMAND gpio_set_level(ILI9341_CD, 0)
+#define CD_DATA    gpio_set_level(ILI9341_CD, 1)
+#define WR_IDLE    gpio_set_level(ILI9341_WR, 1)
+#define WR_STROBE  gpio_set_level(ILI9341_WR, 0); gpio_set_level(ILI9341_WR, 1)
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \
