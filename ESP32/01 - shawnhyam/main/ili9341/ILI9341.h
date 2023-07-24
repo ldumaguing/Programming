@@ -1,18 +1,14 @@
 // *************************************************************************************** ILI9341.h
 // *************************************************************************************************
-struct ILI9341 {
-	void init();
-	void set_command(uint8_t cmd);
-	void command_param(uint8_t data);
-	void write_data(void *buffer, int bytes);
-	void write_data(const uint8_t *buffer, int bytes);
-	void pin_reset();
-	void render();
+void ILI9341_init();
+void ILI9341_set_command(uint8_t cmd);
+void ILI9341_command_param(uint8_t data);
+void ILI9341_write_data(void *buffer, int bytes);
+void ILI9341_write_data(const uint8_t *buffer, int bytes);
+void ILI9341_pin_reset();
+void ILI9341_render();
 
-	// ************************************************** Adafruit base
-	void begin();
+// ************************************************** Adafruit base
+void ILI9341_begin();
 
-	// ************************************************** Defining the virtual functions
-	
-};
 
