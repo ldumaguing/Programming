@@ -1,9 +1,12 @@
 // ************************************************************************************** ILI9341.c
+uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
+
 static inline void init_pins() {
 	gpio_reset_pin(ILI9341_CS);
 	gpio_reset_pin(ILI9341_CD);
 	gpio_reset_pin(ILI9341_WR);
 	gpio_reset_pin(ILI9341_RD);
+	gpio_reset_pin(ILI9341_RST);
 
 	gpio_reset_pin(ILI9341_D0);
 	gpio_reset_pin(ILI9341_D1);
@@ -18,6 +21,7 @@ static inline void init_pins() {
 	gpio_set_direction(ILI9341_CD, GPIO_MODE_OUTPUT);
 	gpio_set_direction(ILI9341_WR, GPIO_MODE_OUTPUT);
 	gpio_set_direction(ILI9341_RD, GPIO_MODE_OUTPUT);
+	gpio_set_direction(ILI9341_RST, GPIO_MODE_OUTPUT);
 
 	gpio_set_direction(ILI9341_D0, GPIO_MODE_OUTPUT);
 	gpio_set_direction(ILI9341_D1, GPIO_MODE_OUTPUT);
@@ -27,53 +31,49 @@ static inline void init_pins() {
 	gpio_set_direction(ILI9341_D5, GPIO_MODE_OUTPUT);
 	gpio_set_direction(ILI9341_D6, GPIO_MODE_OUTPUT);
 	gpio_set_direction(ILI9341_D7, GPIO_MODE_OUTPUT);
+	
+	gpio_set_level(ILI9341_CS, 1);
+	gpio_set_level(ILI9341_CD, 1);
+	gpio_set_level(ILI9341_WR, 1);
+	gpio_set_level(ILI9341_RD, 1);
+	gpio_set_level(ILI9341_RST, 1);
 };
 
-static inline void sio_write(const uint8_t *src, size_t len) {
-	do {
-		gpio_set_level(ILI9341_D0, (*src & 1) ? 1:0);
-		gpio_set_level(ILI9341_D1, (*src & 2) ? 1:0);
-		gpio_set_level(ILI9341_D2, (*src & 4) ? 1:0);
-		gpio_set_level(ILI9341_D3, (*src & 8) ? 1:0);
-		gpio_set_level(ILI9341_D4, (*src & 16) ? 1:0);
-		gpio_set_level(ILI9341_D5, (*src & 32) ? 1:0);
-		gpio_set_level(ILI9341_D6, (*src & 64) ? 1:0);
-		gpio_set_level(ILI9341_D7, (*src & 128) ? 1:0);
-		WR_STROBE;
-
-		len--;
-		src++;
-	} while (len > 0);
-}
-
-/*
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
-		gpio_put_masked((0xff << ILI9341_D0), (*x << ILI9341_D0));
+		gpio_set_level(ILI9341_D0, (*x & 1));
+		gpio_set_level(ILI9341_D1, (*x & 2));
+		gpio_set_level(ILI9341_D2, (*x & 4));
+		gpio_set_level(ILI9341_D3, (*x & 8));
+		gpio_set_level(ILI9341_D4, (*x & 16));
+		gpio_set_level(ILI9341_D5, (*x & 32));
+		gpio_set_level(ILI9341_D6, (*x & 64));
+		gpio_set_level(ILI9341_D7, (*x & 128));
+
 		WR_STROBE;
 
 		len--;
 		x++;
 	} while (len > 0);
 }
-*/
+
 
 // ************************************************************************************************
 void ILI9341_init() {
-	WIDTH    = ILI9341_TFTWIDTH;
-	HEIGHT   = ILI9341_TFTHEIGHT;
-	_width   = ILI9341_TFTWIDTH;
-	_height  = ILI9341_TFTHEIGHT;
-	rotation = 0;
+	ili.WIDTH    = ILI9341_TFTWIDTH;
+	ili.HEIGHT   = ILI9341_TFTHEIGHT;
+	ili._width   = ILI9341_TFTWIDTH;
+	ili._height  = ILI9341_TFTHEIGHT;
+	ili.rotation = 0;
 
 	init_pins();
 
-	set_command(0x01); //soft reset
+	ILI9341_set_command(0x01); //soft reset
 	sleep_ms(1000);
 
-	set_command(ILI9341_GAMMASET);
-	command_param(0x01);
+	ILI9341_set_command(ILI9341_GAMMASET);
+	ILI9341_command_param(0x01);
 /*
 	// positive gamma correction
 	set_command(ILI9341_GMCTRP1);
@@ -84,43 +84,43 @@ void ILI9341_init() {
 	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
 */
 	// memory access control
-	set_command(ILI9341_MADCTL);
-	command_param(0x48);
+	ILI9341_set_command(ILI9341_MADCTL);
+	ILI9341_command_param(0x48);
 
 	// pixel format
-	set_command(ILI9341_PIXFMT);
-	command_param(0x55);  // 16-bit
+	ILI9341_set_command(ILI9341_PIXFMT);
+	ILI9341_command_param(0x55);  // 16-bit
 
 	// frame rate; default, 70 Hz
-	set_command(ILI9341_FRMCTR1);
-	command_param(0x00);
-	command_param(0x1B);
+	ILI9341_set_command(ILI9341_FRMCTR1);
+	ILI9341_command_param(0x00);
+	ILI9341_command_param(0x1B);
 
 	// exit sleep
-	set_command(ILI9341_SLPOUT);
+	ILI9341_set_command(ILI9341_SLPOUT);
 
 	// display on
-	set_command(ILI9341_DISPON);
+	ILI9341_set_command(ILI9341_DISPON);
 
 	// column address set
-	set_command(ILI9341_CASET);
-	command_param(0x00);
-	command_param(0x00);  // start column
-	command_param(0x00);
-	command_param(0xef);  // end column -> 239
+	ILI9341_set_command(ILI9341_CASET);
+	ILI9341_command_param(0x00);
+	ILI9341_command_param(0x00);  // start column
+	ILI9341_command_param(0x00);
+	ILI9341_command_param(0xef);  // end column -> 239
 
 	// page address set
-	set_command(ILI9341_PASET);
-	command_param(0x00);
-	command_param(0x00);  // start page
-	command_param(0x01);
-	command_param(0x3f);  // end page -> 319
+	ILI9341_set_command(ILI9341_PASET);
+	ILI9341_command_param(0x00);
+	ILI9341_command_param(0x00);  // start page
+	ILI9341_command_param(0x01);
+	ILI9341_command_param(0x3f);  // end page -> 319
 
-	set_command(ILI9341_RAMWR);
+	ILI9341_set_command(ILI9341_RAMWR);
 };
 
 void ILI9341_render() {
-	write_data(screenbuffer, ILI9341_SIZE*2);
+	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
 }
 
 void ILI9341_set_command(uint8_t cmd) {
@@ -138,12 +138,6 @@ void ILI9341_command_param(uint8_t data) {
 };
 
 void ILI9341_write_data(void *buffer, int bytes) {
-	CS_ACTIVE;
-	sio_write(buffer, bytes);
-	CS_IDLE;
-};
-
-void ILI9341_write_data(const uint8_t *buffer, int bytes) {
 	CS_ACTIVE;
 	sio_write(buffer, bytes);
 	CS_IDLE;

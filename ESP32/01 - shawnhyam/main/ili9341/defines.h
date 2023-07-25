@@ -1,9 +1,12 @@
 // *************************************************************************************** defines.h
 // *************************************************************************************************
-#define ILI9341_CS 15
-#define ILI9341_CD 2
-#define ILI9341_WR 4
-#define ILI9341_RD 16
+#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
+
+#define ILI9341_CS  15
+#define ILI9341_CD  2
+#define ILI9341_WR  4
+#define ILI9341_RD  16
+#define ILI9341_RST 33
 
 #define ILI9341_D0 17
 #define ILI9341_D1 5
