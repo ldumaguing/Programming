@@ -15,7 +15,7 @@
 #define ILI9341_D4 21
 #define ILI9341_D5 22
 #define ILI9341_D6 23
-#define ILI9341_D7 32
+#define ILI9341_D7 25
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
