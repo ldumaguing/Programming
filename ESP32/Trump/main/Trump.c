@@ -5,7 +5,7 @@
 
 #define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
 
-#define ILI9341_CS  15
+#define ILI9341_CS  26
 #define ILI9341_CD  2
 #define ILI9341_WR  4
 #define ILI9341_RD  16
@@ -45,19 +45,17 @@ void app_main(void) {
 	volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 	volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
-// 10111011111000000000110100 : 0x2EF8034
-	// *gpio_enable_reg = 0x2EF8034;
-	*gpio_enable_reg = (1 << 2);
+	*gpio_enable_reg = 0x6EF0034;
 	sleep_ms(500);
 
 	while(1) {
 		for(int i=0; i<12; i++) {
-			//*gpio_out_w1ts_reg = (1 << pins[i]);
-			*gpio_out_w1ts_reg = (1 << 2);
-			sleep_ms(500);
-			//*gpio_out_w1tc_reg = (1 << pins[i]);
-			*gpio_out_w1tc_reg = (1 << 2);
-			sleep_ms(500);
+			*gpio_out_w1ts_reg = (1 << pins[i]);
+			//*gpio_out_w1ts_reg = (1 << 2);
+			sleep_ms(100);
+			*gpio_out_w1tc_reg = (1 << pins[i]);
+			//*gpio_out_w1tc_reg = (1 << 2);
+			sleep_ms(100);
 		}
 	}
 }
