@@ -24,12 +24,12 @@
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
-#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS)
-#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS)
-#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD)
-#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD)
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(100)
+#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(100)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(100)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(1)
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
-#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR); 
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(1); *gpio_out_w1ts_reg = (1 << ILI9341_WR); 
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \

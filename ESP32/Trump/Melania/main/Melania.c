@@ -1,4 +1,4 @@
-// *************** Sun Jul 30 02:22:01 AM EDT 2023
+// *************** Sun Jul 30 01:56:43 PM EDT 2023
 // *************************************************************************************************
 #include <stdio.h>
 #include <stdint.h>
@@ -33,12 +33,12 @@
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
-#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(500)
-#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(500)
-#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(500)
-#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(500)
-#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE); sleep_ms(500)
-#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(500); *gpio_out_w1ts_reg = (1 << ILI9341_WR); 
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(100)
+#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(100)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(100)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(1)
+#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(1); *gpio_out_w1ts_reg = (1 << ILI9341_WR); 
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \
@@ -161,6 +161,9 @@ void ILI9341_render();
 
 
 // ************************************************************************************** ILI9341.c
+#define controlPins 0x4010014
+#define colorPins  0x2EE0020
+
 uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 
 volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
@@ -172,6 +175,7 @@ static inline void sio_write(void *src, size_t len) {
 	uint8_t color;
 	do {
 		color = 0;
+		*gpio_out_w1tc_reg = colorPins;
 		color |= (1 << ILI9341_D0);
 		color |= (1 << ILI9341_D1);
 		color |= (1 << ILI9341_D2);
@@ -199,23 +203,17 @@ void ILI9341_init() {
 	ili.rotation = 0;
 	
 	// init pins
-	*gpio_enable_reg = 0x6EF0034;
-	sleep_ms(500);
+	*gpio_enable_reg = colorPins | controlPins;
+	*gpio_out_w1ts_reg = colorPins | controlPins;
+	sleep_ms(3000);
+	
 
 	ILI9341_set_command(0x01); //soft reset
 	sleep_ms(1000);
 
 	ILI9341_set_command(ILI9341_GAMMASET);
 	ILI9341_command_param(0x01);
-/*
-	// positive gamma correction
-	set_command(ILI9341_GMCTRP1);
-    write_data((const uint8_t[15]){ 0x0f, 0x31, 0x2b, 0x0c, 0x0e, 0x08, 0x4e, 0xf1, 0x37, 0x07, 0x10, 0x03, 0x0e, 0x09, 0x00 }, 15);
 
-	// negative gamma correction
-	set_command(ILI9341_GMCTRN1);
-	write_data((const uint8_t[15]){ 0x00, 0x0e, 0x14, 0x03, 0x11, 0x07, 0x31, 0xc1, 0x48, 0x08, 0x0f, 0x0c, 0x31, 0x36, 0x0f }, 15);
-*/
 	// memory access control
 	ILI9341_set_command(ILI9341_MADCTL);
 	ILI9341_command_param(0x48);
@@ -278,7 +276,6 @@ void ILI9341_write_data(void *buffer, int bytes) {
 
 void app_main(void) {
 	ILI9341_init();
-	/*
 	while(1) {
 		memset(screenbuffer, 0xE371, ILI9341_SIZE*2);
 		ILI9341_render();
@@ -287,6 +284,5 @@ void app_main(void) {
 		ILI9341_render();
 		sleep_ms(1000);
 	}
-	*/
 }
 
