@@ -22,17 +22,16 @@
 
 #define ILI9341_TFTWIDTH 240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
-#define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
+// #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
+#define ILI9341_SIZE (2 * 3)
 
 #define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(100)
 #define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(100)
-
 #define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(100)
-#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(100)
-
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(1)
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
-#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(100); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
-#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_WR); sleep_ms(250)
+#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_RD); sleep_ms(250)
 
 
 
