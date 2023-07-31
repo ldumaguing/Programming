@@ -55,7 +55,7 @@ void app_main(void) {
 	while(1) {
 		for(int i=0; i<12; i++) {
 			*gpio_out_w1ts_reg = (1 << pins[i]);
-			sleep_ms(500);
+			sleep_ms(100);
 		}
 		*gpio_out_w1tc_reg = controlPins | colorPins;
 		sleep_ms(2000);

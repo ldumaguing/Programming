@@ -10,20 +10,17 @@ volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
-	uint8_t color;
-	do {
-		color = 0;
-		*gpio_out_w1tc_reg = colorPins;
-		color |= (1 << ILI9341_D0);
-		color |= (1 << ILI9341_D1);
-		color |= (1 << ILI9341_D2);
-		color |= (1 << ILI9341_D3);
-		color |= (1 << ILI9341_D4);
-		color |= (1 << ILI9341_D5);
-		color |= (1 << ILI9341_D6);
-		color |= (1 << ILI9341_D7);
 
-		*gpio_out_w1ts_reg = color;
+	do {
+		*gpio_out_w1tc_reg = colorPins;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D7);
 		WR_STROBE;
 
 		len--;
@@ -42,10 +39,17 @@ void ILI9341_init() {
 	
 	// init pins
 	*gpio_enable_reg = colorPins | controlPins;
-	*gpio_out_w1ts_reg = colorPins | controlPins;
+	*gpio_out_w1tc_reg = colorPins | controlPins;
 	sleep_ms(3000);
+	*gpio_out_w1ts_reg = controlPins; sleep_ms(500);
+	*gpio_out_w1ts_reg = colorPins; sleep_ms(500);
+	*gpio_out_w1tc_reg = colorPins; sleep_ms(500);
+	//sleep_ms(5000);
+	for (;;) {
+		RD_STROBE;
+	}
 	
-
+/*
 	ILI9341_set_command(0x01); //soft reset
 	sleep_ms(1000);
 
@@ -86,6 +90,7 @@ void ILI9341_init() {
 	ILI9341_command_param(0x3f);  // end page -> 319
 
 	ILI9341_set_command(ILI9341_RAMWR);
+	*/
 };
 
 void ILI9341_render() {

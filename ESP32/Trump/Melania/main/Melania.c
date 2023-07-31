@@ -1,4 +1,4 @@
-// *************** Sun Jul 30 01:56:43 PM EDT 2023
+// *************** Sun Jul 30 10:15:08 PM EDT 2023
 // *************************************************************************************************
 #include <stdio.h>
 #include <stdint.h>
@@ -35,10 +35,17 @@
 
 #define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(100)
 #define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(100)
+
 #define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(100)
-#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(1)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(100)
+
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
-#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(1); *gpio_out_w1ts_reg = (1 << ILI9341_WR); 
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(100); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
+#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+
+
+
+
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \
@@ -172,20 +179,17 @@ volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
-	uint8_t color;
-	do {
-		color = 0;
-		*gpio_out_w1tc_reg = colorPins;
-		color |= (1 << ILI9341_D0);
-		color |= (1 << ILI9341_D1);
-		color |= (1 << ILI9341_D2);
-		color |= (1 << ILI9341_D3);
-		color |= (1 << ILI9341_D4);
-		color |= (1 << ILI9341_D5);
-		color |= (1 << ILI9341_D6);
-		color |= (1 << ILI9341_D7);
 
-		*gpio_out_w1ts_reg = color;
+	do {
+		*gpio_out_w1tc_reg = colorPins;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		*gpio_out_w1ts_reg = (1 << ILI9341_D7);
 		WR_STROBE;
 
 		len--;
@@ -204,10 +208,18 @@ void ILI9341_init() {
 	
 	// init pins
 	*gpio_enable_reg = colorPins | controlPins;
-	*gpio_out_w1ts_reg = colorPins | controlPins;
+	*gpio_out_w1tc_reg = colorPins | controlPins;
 	sleep_ms(3000);
+	*gpio_out_w1ts_reg = controlPins; sleep_ms(500);
+	*gpio_out_w1ts_reg = colorPins; sleep_ms(500);
+	*gpio_out_w1tc_reg = colorPins; sleep_ms(500);
+	*gpio_enable_reg = colorPins | controlPins;
+	sleep_ms(5000);
+	for (;;) {
+		RD_STROBE;
+	}
 	
-
+/*
 	ILI9341_set_command(0x01); //soft reset
 	sleep_ms(1000);
 
@@ -248,6 +260,7 @@ void ILI9341_init() {
 	ILI9341_command_param(0x3f);  // end page -> 319
 
 	ILI9341_set_command(ILI9341_RAMWR);
+	*/
 };
 
 void ILI9341_render() {
@@ -276,13 +289,20 @@ void ILI9341_write_data(void *buffer, int bytes) {
 
 void app_main(void) {
 	ILI9341_init();
+	/*
 	while(1) {
+		RD_STROBE;
+			
+		
+
 		memset(screenbuffer, 0xE371, ILI9341_SIZE*2);
 		ILI9341_render();
-		sleep_ms(1000);
+		sleep_ms(500);
 		memset(screenbuffer, 0xA324, ILI9341_SIZE*2);
 		ILI9341_render();
-		sleep_ms(1000);
+		sleep_ms(500);
+		
 	}
+	*/
 }
 
