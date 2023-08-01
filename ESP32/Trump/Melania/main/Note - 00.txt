@@ -1,0 +1,83 @@
+#define ILI9341_CS  26
+#define ILI9341_CD  2
+#define ILI9341_WR  4
+#define ILI9341_RD  16
+
+#define ILI9341_D0 17
+#define ILI9341_D1 5
+#define ILI9341_D2 18
+#define ILI9341_D3 19
+#define ILI9341_D4 21
+#define ILI9341_D5 22
+#define ILI9341_D6 23
+#define ILI9341_D7 25
+
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(500)
+#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS); sleep_ms(500)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(500)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD); sleep_ms(500)
+#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(500); *gpio_out_w1ts_reg = (1 << ILI9341_WR); sleep_ms(500)
+#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); sleep_ms(500); *gpio_out_w1ts_reg = (1 << ILI9341_RD); sleep_ms(500)
+
+
+
+
+// ************************************************************************************** ILI9341.c
+#define controlPins 0x4010014
+#define colorPins  0x2EE0020
+
+uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
+
+volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
+volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
+volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
+
+static inline void sio_write(void *src, size_t len) {
+	char *x = (char *)src;
+
+	do {
+		*gpio_out_w1tc_reg = colorPins;
+
+		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		if(*x&4) *gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		if(*x&8) *gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		if(*x&16) *gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
+
+		WR_STROBE;   // 0000 0001 : 10 00
+                     // 0000 0001 : 11 00
+		len--;
+		x++;
+	} while (len > 0);
+}
+
+
+// ************************************************************************************************
+void ILI9341_init() {
+
+	*gpio_enable_reg = colorPins | controlPins;
+	*gpio_out_w1ts_reg = colorPins | controlPins;   // 1111 1111 : 11 11
+	sleep_ms(3000);
+	*gpio_out_w1tc_reg = colorPins;                 // 0000 0000 : 11 11
+	sleep_ms(3000);
+	
+	ILI9341_set_command(0x01); //soft reset
+	sleep_ms(1000);
+};
+
+void ILI9341_set_command(uint8_t cmd) {
+	CS_ACTIVE;              // 0000 0000 : 11 10
+	CD_COMMAND;             // 0000 0000 : 11 00
+	sio_write(&cmd, 1);
+	CD_DATA;                // 0000 0001 : 11 10
+	CS_IDLE;                // 0000 0001 : 11 11
+};
+
+void app_main(void) {
+	ILI9341_init();
+}
+
