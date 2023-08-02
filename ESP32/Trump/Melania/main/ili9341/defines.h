@@ -6,6 +6,7 @@
 #define ILI9341_CD  2
 #define ILI9341_WR  4
 #define ILI9341_RD  16
+#define ILI9341_MISC 27
 
 #define ILI9341_D0 17
 #define ILI9341_D1 5
@@ -32,6 +33,29 @@
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
 #define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_WR); sleep_ms(250)
 #define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); sleep_ms(250); *gpio_out_w1ts_reg = (1 << ILI9341_RD); sleep_ms(250)
+
+
+
+
+#define controlPins 0xC010014
+#define colorPins   0x2EE0020
+#define ACHTUNG                            \
+	*gpio_out_w1tc_reg = (1 << ILI9341_WR); \
+	sleep_ms(250);                          \
+	*gpio_out_w1ts_reg = (1 << ILI9341_WR); \
+	sleep_ms(250)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

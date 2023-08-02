@@ -1,7 +1,4 @@
 // ************************************************************************************** ILI9341.c
-#define controlPins 0x4010014
-#define colorPins  0x2EE0020
-
 uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 
 volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
