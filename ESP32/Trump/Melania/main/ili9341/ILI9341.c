@@ -47,15 +47,19 @@ void ILI9341_init() {
 	
 	
 	
-	
-	
-	/*
+
 	ILI9341_set_command(0x01); //soft reset
 	sleep_ms(1000);
 
+
+	ACHTUNG;
+	ACHTUNG;
+	ACHTUNG;
 	ILI9341_set_command(ILI9341_GAMMASET);
 	ILI9341_command_param(0x01);
 
+
+	/*
 	// memory access control
 	ILI9341_set_command(ILI9341_MADCTL);
 	ILI9341_command_param(0x48);
