@@ -28,12 +28,34 @@
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
+
+/*
 #define CS_ACTIVE  gpio_set_level(ILI9341_CS, 0)
 #define CS_IDLE    gpio_set_level(ILI9341_CS, 1)
 #define CD_COMMAND gpio_set_level(ILI9341_CD, 0)
 #define CD_DATA    gpio_set_level(ILI9341_CD, 1)
 #define WR_IDLE    gpio_set_level(ILI9341_WR, 1)
 #define WR_STROBE  gpio_set_level(ILI9341_WR, 0); gpio_set_level(ILI9341_WR, 1)
+*/
+
+#define GPIO_OUT_W1TS_REG 0x3FF44008
+#define GPIO_OUT_W1TC_REG 0x3FF4400C
+#define GPIO_ENABLE_REG   0x3FF44020
+#define controlPins 0xC010014
+#define colorPins   0x2EE0020
+
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS)
+#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD)
+#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
+#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+
+
+
+
+
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \

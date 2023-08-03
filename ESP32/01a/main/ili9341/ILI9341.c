@@ -1,6 +1,10 @@
 // ************************************************************************************** ILI9341.c
 uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 
+volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
+volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
+volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
+
 static inline void init_pins() {
 	gpio_reset_pin(ILI9341_CS);
 	gpio_reset_pin(ILI9341_CD);
@@ -40,15 +44,16 @@ static inline void init_pins() {
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
-		gpio_set_level(ILI9341_D0, (*x & 1));
-		gpio_set_level(ILI9341_D1, (*x & 2));
-		gpio_set_level(ILI9341_D2, (*x & 4));
-		gpio_set_level(ILI9341_D3, (*x & 8));
-		gpio_set_level(ILI9341_D4, (*x & 16));
-		gpio_set_level(ILI9341_D5, (*x & 32));
-		gpio_set_level(ILI9341_D6, (*x & 64));
-		gpio_set_level(ILI9341_D7, (*x & 128));
+		*gpio_out_w1tc_reg = colorPins;
 
+		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		if(*x&4) *gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		if(*x&8) *gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		if(*x&16) *gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
 		WR_STROBE;
 
 		len--;

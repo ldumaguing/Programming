@@ -1,0 +1,33 @@
+touch X.txt ;
+echo '// *************** '`date` > X.txt ;
+echo '// *************************************************************************************************' >> X.txt ;
+
+echo '#include <stdio.h>' >> X.txt ;
+echo '#include <stdint.h>' >> X.txt ;
+echo '#include <string.h>' >> X.txt ;
+echo '' >> X.txt;
+echo '#include "freertos/FreeRTOS.h"' >> X.txt ;
+echo '#include "freertos/task.h"' >> X.txt ;
+# echo '#include "esp_log.h"' >> X.txt ;
+echo '#include "driver/gpio.h"' >> X.txt ;
+echo '' >> X.txt;
+
+
+
+cat ili9341/defines.h >> X.txt ;
+cat ili9341/ILI9341.h >> X.txt ;
+cat ili9341/ILI9341.c >> X.txt ;
+
+cat mode0.h >> X.txt ;
+cat mode0.c >> X.txt ;
+
+
+cat mode0_demo.c >> X.txt ;
+
+
+
+
+mv X.txt shawnhyam.c ;
+
+
+

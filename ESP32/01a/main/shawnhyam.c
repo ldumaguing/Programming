@@ -1,4 +1,4 @@
-// *************** Wed Aug 2 10:00:09 PM EDT 2023
+// *************** Wed Aug 2 10:25:22 PM EDT 2023
 // *************************************************************************************************
 #include <stdio.h>
 #include <stdint.h>
@@ -38,12 +38,34 @@
 #define ILI9341_TFTHEIGHT 320 ///< ILI9341 max TFT height
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
 
+
+/*
 #define CS_ACTIVE  gpio_set_level(ILI9341_CS, 0)
 #define CS_IDLE    gpio_set_level(ILI9341_CS, 1)
 #define CD_COMMAND gpio_set_level(ILI9341_CD, 0)
 #define CD_DATA    gpio_set_level(ILI9341_CD, 1)
 #define WR_IDLE    gpio_set_level(ILI9341_WR, 1)
 #define WR_STROBE  gpio_set_level(ILI9341_WR, 0); gpio_set_level(ILI9341_WR, 1)
+*/
+
+#define GPIO_OUT_W1TS_REG 0x3FF44008
+#define GPIO_OUT_W1TC_REG 0x3FF4400C
+#define GPIO_ENABLE_REG   0x3FF44020
+#define controlPins 0xC010014
+#define colorPins   0x2EE0020
+
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS)
+#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD)
+#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD)
+#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
+#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+
+
+
+
+
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
     int16_t t = a;                                                             \
@@ -171,6 +193,10 @@ struct ILI9341 ili;
 // ************************************************************************************** ILI9341.c
 uint16_t screenbuffer[ILI9341_SIZE] = { 0 };
 
+volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
+volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
+volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
+
 static inline void init_pins() {
 	gpio_reset_pin(ILI9341_CS);
 	gpio_reset_pin(ILI9341_CD);
@@ -210,15 +236,16 @@ static inline void init_pins() {
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
 	do {
-		gpio_set_level(ILI9341_D0, (*x & 1));
-		gpio_set_level(ILI9341_D1, (*x & 2));
-		gpio_set_level(ILI9341_D2, (*x & 4));
-		gpio_set_level(ILI9341_D3, (*x & 8));
-		gpio_set_level(ILI9341_D4, (*x & 16));
-		gpio_set_level(ILI9341_D5, (*x & 32));
-		gpio_set_level(ILI9341_D6, (*x & 64));
-		gpio_set_level(ILI9341_D7, (*x & 128));
+		*gpio_out_w1tc_reg = colorPins;
 
+		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		if(*x&4) *gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		if(*x&8) *gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		if(*x&16) *gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
 		WR_STROBE;
 
 		len--;
