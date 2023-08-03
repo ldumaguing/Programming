@@ -1,4 +1,4 @@
-// *************** Wed Aug 2 10:25:22 PM EDT 2023
+// *************** Wed Aug 2 10:44:05 PM EDT 2023
 // *************************************************************************************************
 #include <stdio.h>
 #include <stdint.h>
@@ -198,6 +198,16 @@ volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void init_pins() {
+	
+		*gpio_enable_reg = colorPins | controlPins;
+	*gpio_out_w1ts_reg = colorPins | controlPins;   // 1111 1111 : 11 11
+	sleep_ms(3000);
+	*gpio_out_w1tc_reg = colorPins;                 // 0000 0000 : 11 11
+	sleep_ms(3000);
+	
+	/*
+	
+	
 	gpio_reset_pin(ILI9341_CS);
 	gpio_reset_pin(ILI9341_CD);
 	gpio_reset_pin(ILI9341_WR);
@@ -230,7 +240,7 @@ static inline void init_pins() {
 	gpio_set_level(ILI9341_CD, 1);
 	gpio_set_level(ILI9341_WR, 1);
 	gpio_set_level(ILI9341_RD, 1);
-
+*/
 };
 
 static inline void sio_write(void *src, size_t len) {
@@ -731,10 +741,10 @@ void mode0_init() {
 void app_main(void) {
 	ILI9341_init();
 	while(1) {
-		memset(screenbuffer, 0xE371, ILI9341_SIZE*2);
+		memset(screenbuffer, 0xE381, ILI9341_SIZE*2);
 		ILI9341_render();
 		sleep_ms(1000);
-		memset(screenbuffer, 0xA324, ILI9341_SIZE*2);
+		memset(screenbuffer, 0xA334, ILI9341_SIZE*2);
 		ILI9341_render();
 		sleep_ms(1000);
 	}
