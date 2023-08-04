@@ -2,7 +2,6 @@
 // so a Tile consumes 24 bytes
 uint16_t global_background = SWAP_BYTES(0x843E);
 
-
 uint16_t palette0[8] = {  // .db $0f, $29, $1a, $0f
     0x0000,
     SWAP_BYTES(0x7600),  //CC23
@@ -91,7 +90,7 @@ uint8_t level_data[29] = {
 // auto walk = 1
 
 
-Tile tiles[256] = {
+uint8_t fish[256] = {
     /*
     0x03, 0x0f, 0x1f, 0x1f, 0x1c, 0x24, 0x26, 0x66, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x3f, 0x3f, 0x7f,
     0xe0, 0xc0, 0x80, 0xfc, 0x80, 0xc0, 0x00, 0x20, 0x00, 0x20, 0x60, 0x00, 0xf0, 0xfc, 0xfe, 0xfe,
@@ -722,7 +721,8 @@ void place_ground_at(int x, int y, int width, int height) {
 
 
 int main() {
-    stdio_init_all();
+	tiles = (Tile *)fish;
+
 	mode1_init();
 
     palette[0] = palette0;

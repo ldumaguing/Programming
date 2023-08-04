@@ -24,8 +24,8 @@ uint8_t fish[] = {
 
 void main(void)
 {
-	Tile *F = (Tile *)fish;
-	printf("%x\n", F[1].mem[1]);
+	Tile *tiles = (Tile *)fish;
+	printf("%x\n", tiles[1].mem[1]);
 	
 	
 	

@@ -18,7 +18,7 @@ typedef struct {
     uint8_t mem[24];
 } Sprite;
 
-
+Tile *tiles;
 
 extern uint8_t background[MAP_HEIGHT * MAP_WIDTH];
 extern uint8_t bg_palette[MAP_HEIGHT * MAP_WIDTH];
