@@ -183,7 +183,7 @@ uint8_t mode0_get_cursor_y() {
 }
 
 void mode0_putc(char c) {
-   // mode0_begin();
+    // mode0_begin();
     
     if (cursor_y >= TEXT_HEIGHT) {
         mode0_scroll_vertical(cursor_y-TEXT_HEIGHT+1);
@@ -210,33 +210,26 @@ void mode0_putc(char c) {
         }
     }
     
-  //  mode0_end();
+    // mode0_end();
 }
 
 void mode0_print(const char *str) {
     mode0_begin();
-
     char c;
-    /*
-    while (c = *str++) {
-        mode0_putc(c);
-    }
-    */
-    for(;;) {
+    while (1) {
 		c = *str++;
 		if (c == 0) break;
-		mode0_putc(c);
-	}
-
+        mode0_putc(c);
+    }
     mode0_end();
 }
 
 void mode0_write(const char *str, int len) {
-    // mode0_begin();
+    mode0_begin();
     for (int i=0; i<len; i++) {
         mode0_putc(*str++);
     }
-    //mode0_end();
+    mode0_end();
 }
 
 inline void mode0_begin() {
@@ -257,7 +250,7 @@ void mode0_draw_region(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
 void mode0_draw_screen() {
     // assert depth == 0?
     depth = 0;
-
+    
     // setup to draw the whole screen
     
     // column address set
@@ -307,14 +300,17 @@ void mode0_draw_screen() {
         // now send the slice
         ILI9341_write_data(buffer, 6*240*2);
     }
-    
+
+
+
+
     uint16_t extra_buffer[2*240] = { 0 };
     ILI9341_write_data(extra_buffer, 2*240*2);
 
 }
 
 void mode0_scroll_vertical(int8_t amount) {
-    mode0_begin();
+    //mode0_begin();
 
     
     if (amount > 0) {
@@ -336,7 +332,7 @@ void mode0_scroll_vertical(int8_t amount) {
         memset(colors, screen_bg_color, size1);
     }
     
-    mode0_end();
+    //mode0_end();
 }
 
 void mode0_init() {

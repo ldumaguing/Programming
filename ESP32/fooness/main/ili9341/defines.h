@@ -27,12 +27,12 @@
 #define controlPins 0xC010014
 #define datumPins   0x2EE0020
 
-#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS)
+#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS); sleep_ms(500)
 #define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS)
-#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD)
+#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD); sleep_ms(500)
 #define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD)
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
-#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
+#define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); sleep_ms(500); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
 #define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
 #define ACHTUNG    *gpio_out_w1ts_reg = (1 << ILI9341_MISC); sleep_ms(250); *gpio_out_w1tc_reg = (1 << ILI9341_MISC); sleep_ms(250)
 

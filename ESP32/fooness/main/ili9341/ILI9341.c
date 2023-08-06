@@ -106,6 +106,9 @@ void ILI9341_init() {
 	ILI9341_command_param(0x3f);  // end page -> 319
 
 	ILI9341_set_command(ILI9341_RAMWR);
+	
+	*gpio_out_w1tc_reg = datumPins;
+	*gpio_out_w1ts_reg = controlPins;
 };
 
 void ILI9341_render() {
