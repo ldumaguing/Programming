@@ -1,4 +1,4 @@
-// *************** Sat Aug 5 02:18:44 AM EDT 2023
+// *************** Sat Aug 5 09:14:03 PM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -44,6 +44,7 @@
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
 #define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
 #define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+#define ACHTUNG    *gpio_out_w1ts_reg = (1 << ILI9341_MISC); sleep_ms(250); *gpio_out_w1tc_reg = (1 << ILI9341_MISC); sleep_ms(250)
 
 
 
@@ -181,6 +182,7 @@ static inline void init_pins() {
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
 	sleep_ms(250);
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
+	*gpio_out_w1tc_reg = ILI9341_MISC;
 	sleep_ms(250);
 };
 
@@ -304,13 +306,14 @@ void ILI9341_write_data(void *buffer, int bytes) {
 
 void app_main(void) {
 	ILI9341_init();
+	ACHTUNG;ACHTUNG;ACHTUNG;
 	while(1) {
 		memset(screenbuffer, 0xE382, ILI9341_SIZE*2);
 		ILI9341_render();
-		sleep_ms(1000);
+		ACHTUNG;
 		memset(screenbuffer, 0xA335, ILI9341_SIZE*2);
 		ILI9341_render();
-		sleep_ms(1000);
+		ACHTUNG;
 	}
 }
 

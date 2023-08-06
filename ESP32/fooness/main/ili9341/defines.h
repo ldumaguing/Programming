@@ -34,6 +34,7 @@
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
 #define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
 #define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
+#define ACHTUNG    *gpio_out_w1ts_reg = (1 << ILI9341_MISC); sleep_ms(250); *gpio_out_w1tc_reg = (1 << ILI9341_MISC); sleep_ms(250)
 
 
 

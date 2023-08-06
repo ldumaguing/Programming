@@ -10,6 +10,7 @@ static inline void init_pins() {
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
 	sleep_ms(250);
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
+	*gpio_out_w1tc_reg = ILI9341_MISC;
 	sleep_ms(250);
 };
 
