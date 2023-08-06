@@ -1,5 +1,0 @@
-[1/4] cd /home/ayeka/github/Programming/ESP32/fooness/build/esp-idf/esptool_py && /home/ayeka/.espressif/python_env/idf5.2_py3.10_env/bin/python /home/ayeka/bin/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/ayeka/github/Programming/ESP32/fooness/build/partition_table/partition-table.bin /home/ayeka/github/Programming/ESP32/fooness/build/fooness.bin
-fooness.bin binary size 0x2b8f0 bytes. Smallest app partition is 0x100000 bytes. 0xd4710 bytes (83%) free.
-[2/4] Performing build step for 'bootloader'
-[1/1] cd /home/ayeka/github/Programming/ESP32/fooness/build/bootloader/esp-idf/esptool_py && /home/ayeka/.espressif/python_env/idf5.2_py3.10_env/bin/python /home/ayeka/bin/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/ayeka/github/Programming/ESP32/fooness/build/bootloader/bootloader.bin
-Bootloader binary size 0x68d0 bytes. 0x730 bytes (6%) free.

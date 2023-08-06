@@ -1,1 +1,0 @@
-/home/ayeka/bin/esp-idf/components/mbedtls/mbedtls/library/error.c
