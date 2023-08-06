@@ -199,7 +199,6 @@ void place_ground_at(int x, int y, int width, int height) {
 
 
 void app_main() {
-    stdio_init_all();
 	mode1_init();
 
     palette[0] = palette0;
