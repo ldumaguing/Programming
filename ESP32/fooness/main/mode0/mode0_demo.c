@@ -8,7 +8,8 @@ void app_main(void) {
     // mode0_color_t fg = MODE0_WHITE;
     // mode0_color_t bg = MODE0_BLACK;
     
-mode0_print("Shawn Hyam (Larry was here 3)\n");
+mode0_write("Shawn Hyam.\n", 12);
+ILI9341_render();
 /*
     while (1) {
         mode0_print("Shawn Hyam (Larry was here 3)\n");
