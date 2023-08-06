@@ -1,9 +1,4 @@
 // *************************************************************************************** mode0.cpp
-/* Character graphics mode */
-
-// Characters are 8x12 -- characters start at (x:1,y:1) and are 5x7 in size, so
-// it is possible to not display the full area. This display mode actually treats
-// them as 6x10, starting at (x:1,y:0)
 static const uint8_t font_data[95][12] = {
     { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
     { 0x00, 0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00 },
@@ -216,9 +211,19 @@ void mode0_putc(char c) {
 void mode0_print(const char *str) {
     mode0_begin();
     char c;
+/*
     while (c = *str++) {
         mode0_putc(c);
     }
+*/
+    while (1) {
+		c = *str++;
+		if (c == 0) break;
+        mode0_putc(c);
+    }
+
+
+
     mode0_end();
 }
 
@@ -252,25 +257,24 @@ void mode0_draw_screen() {
     // setup to draw the whole screen
     
     // column address set
-    ili9341_set_command(ILI9341_CASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start column
-    ili9341_command_param(0x00);
-    ili9341_command_param(0xef);  // end column -> 239
+    ILI9341_set_command(ILI9341_CASET);
+    ILI9341_command_param(0x00);
+    ILI9341_command_param(0x00);  // start column
+    ILI9341_command_param(0x00);
+    ILI9341_command_param(0xef);  // end column -> 239
 
     // page address set
-    ili9341_set_command(ILI9341_PASET);
-    ili9341_command_param(0x00);
-    ili9341_command_param(0x00);  // start page
-    ili9341_command_param(0x01);
-    ili9341_command_param(0x3f);  // end page -> 319
+    ILI9341_set_command(ILI9341_PASET);
+    ILI9341_command_param(0x00);
+    ILI9341_command_param(0x00);  // start page
+    ILI9341_command_param(0x01);
+    ILI9341_command_param(0x3f);  // end page -> 319
 
     // start writing
-    ili9341_set_command(ILI9341_RAMWR);
+    ILI9341_set_command(ILI9341_RAMWR);
 
     uint16_t buffer[6*240];  // 'amount' pixels wide, 240 pixels tall
 
-    int screen_idx = 0;
     for (int x=0; x<TEXT_WIDTH; x++) {
         // create one column of screen information
         
@@ -297,12 +301,12 @@ void mode0_draw_screen() {
         }
         
         // now send the slice
-        ili9341_write_data(buffer, 6*240*2);
+        ILI9341_write_data(buffer, 6*240*2);
     }
-    
+    /*
     uint16_t extra_buffer[2*240] = { 0 };
-    ili9341_write_data(extra_buffer, 2*240*2);
-
+    ILI9341_write_data(extra_buffer, 2*240*2);
+*/
 }
 
 void mode0_scroll_vertical(int8_t amount) {
@@ -332,7 +336,6 @@ void mode0_scroll_vertical(int8_t amount) {
 }
 
 void mode0_init() {
-
-    ili9341_init();
+    ILI9341_init();
 }
 
