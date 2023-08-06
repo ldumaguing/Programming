@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "/home/ayeka/github/Programming/ESP32/fooness/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}

@@ -17,7 +17,7 @@ cat main/ili9341/ILI9341.h >> main/X.txt;
 cat main/ili9341/ILI9341.c >> main/X.txt;
 
 
-cat main/main.c >> main/X.txt;
+cat main/app_main.c >> main/X.txt;
 
 
 

@@ -1,4 +1,4 @@
-// *************** Sat Aug 5 09:14:03 PM EDT 2023
+// *************** Sat Aug 5 10:15:15 PM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -182,7 +182,7 @@ static inline void init_pins() {
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
 	sleep_ms(250);
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
-	*gpio_out_w1tc_reg = ILI9341_MISC;
+	*gpio_out_w1tc_reg = (1 << ILI9341_MISC);
 	sleep_ms(250);
 };
 
@@ -306,7 +306,9 @@ void ILI9341_write_data(void *buffer, int bytes) {
 
 void app_main(void) {
 	ILI9341_init();
-	ACHTUNG;ACHTUNG;ACHTUNG;
+	sleep_ms(5000);
+	ACHTUNG;
+/*
 	while(1) {
 		memset(screenbuffer, 0xE382, ILI9341_SIZE*2);
 		ILI9341_render();
@@ -315,5 +317,6 @@ void app_main(void) {
 		ILI9341_render();
 		ACHTUNG;
 	}
+*/
 }
 
