@@ -1,17 +1,13 @@
 // ************************************************************************************** ILI9341.c
-uint16_t screenbuffer[ILI9341_SIZE];
-
 volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
 volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void init_pins() {
-	*gpio_enable_reg = datumPins | controlPins;
+	*gpio_enable_reg = datumPins | controlPins | (1 << ILI9341_MISC);
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
-	// sleep_ms(250);
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
 	*gpio_out_w1tc_reg = (1 << ILI9341_MISC);
-	// sleep_ms(5000);
 };
 
 static inline void sio_write(void *src, size_t len) {
@@ -111,9 +107,11 @@ void ILI9341_init() {
 	*gpio_out_w1ts_reg = controlPins;
 };
 
+/*
 void ILI9341_render() {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
 }
+*/
 
 void ILI9341_set_command(uint8_t cmd) {
 	CS_ACTIVE;

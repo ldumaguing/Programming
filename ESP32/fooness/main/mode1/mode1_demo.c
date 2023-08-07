@@ -260,9 +260,10 @@ void app_main() {
     place_mountainbase_at(194, 10);
 
 
-    
+
     draw_background();
-    
+
+ /*   
     while (1) {
         for (int i=0; i<32; i++) {
         scroll_background(1);
@@ -271,7 +272,7 @@ void app_main() {
         //height_offset += 1;
         //draw_background();
     }
-    
+*/  
 
 }
 

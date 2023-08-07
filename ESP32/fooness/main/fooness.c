@@ -1,4 +1,4 @@
-// *************** Sun Aug 6 02:57:58 PM EDT 2023
+// *************** Sun Aug 6 10:24:06 PM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -166,20 +166,20 @@ void ILI9341_init();
 void ILI9341_set_command(uint8_t cmd);
 void ILI9341_command_param(uint8_t data);
 void ILI9341_write_data(void *buffer, int bytes);
-void ILI9341_render();
+// void ILI9341_render();
 
 // *************************************************************************************************
 struct ILI9341 ili;
 
 // ************************************************************************************** ILI9341.c
-uint16_t screenbuffer[ILI9341_SIZE];
+// uint16_t screenbuffer[ILI9341_SIZE];
 
 volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
 volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void init_pins() {
-	*gpio_enable_reg = datumPins | controlPins;
+	*gpio_enable_reg = datumPins | controlPins | (1 << ILI9341_MISC);
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
 	// sleep_ms(250);
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
@@ -284,9 +284,11 @@ void ILI9341_init() {
 	*gpio_out_w1ts_reg = controlPins;
 };
 
+/*
 void ILI9341_render() {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
 }
+*/
 
 void ILI9341_set_command(uint8_t cmd) {
 	CS_ACTIVE;
@@ -660,6 +662,7 @@ void scroll_background(int amount) {
 
 
 void draw_slice(int x, int width) {
+ACHTUNG;
     uint16_t buffer[width*SCREEN_HEIGHT];  // 'amount' pixels wide, 240 pixels tall
     int buffer_idx = 0;
 
@@ -677,23 +680,24 @@ void draw_slice(int x, int width) {
             uint8_t tile_palette_idx = get_tile_palette_at(tile_x, (tile_y+height_offset)%MAP_HEIGHT);
             uint16_t *tile_palette = palette[tile_palette_idx];
 
+			uint8_t palette_index = 0;
+			uint16_t color = 0;
             for (int i=0; i<8; i++) {
-                uint8_t palette_index = 0;
+                palette_index = 0;
                 for (int bit=2; bit>=0; bit--) {
                     palette_index <<= 1;
                     palette_index |= ((tile->mem[bit*8+(7-i)] >> (7-tile_x_offset)) & 1);
                 }
                 // look up the color from the palette
                 // color 0 is "transparent", will show global background color instead
-                uint16_t color = palette_index ? tile_palette[palette_index] : global_background;
+                color = palette_index ? tile_palette[palette_index] : global_background;
 
                 // this color is pre-byteswapped and blue-red swapped
-                buffer[buffer_idx++] = color;
-
+                // ****************************** buffer[buffer_idx++] = color;
             }
         }
     }
-
+/*
     // set the address to write to
     // page address set
 
@@ -711,6 +715,7 @@ void draw_slice(int x, int width) {
     // write out this data
     ILI9341_set_command(ILI9341_RAMWR);
     ILI9341_write_data(buffer, width*SCREEN_HEIGHT*2);
+*/
 }
 
 // *********************************************************************************  mode1_demo.cpp
@@ -975,9 +980,10 @@ void app_main() {
     place_mountainbase_at(194, 10);
 
 
-    
+
     draw_background();
-    
+
+ /*   
     while (1) {
         for (int i=0; i<32; i++) {
         scroll_background(1);
@@ -986,7 +992,7 @@ void app_main() {
         //height_offset += 1;
         //draw_background();
     }
-    
+*/  
 
 }
 

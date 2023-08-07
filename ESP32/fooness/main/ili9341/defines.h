@@ -24,7 +24,6 @@
 #define GPIO_OUT_W1TS_REG 0x3FF44008
 #define GPIO_OUT_W1TC_REG 0x3FF4400C
 #define GPIO_ENABLE_REG   0x3FF44020
-// #define controlPins 0xC010014
 #define controlPins 0x4010014
 #define datumPins   0x2EE0020
 

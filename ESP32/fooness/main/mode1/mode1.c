@@ -62,6 +62,7 @@ void scroll_background(int amount) {
 
 
 void draw_slice(int x, int width) {
+ACHTUNG;
     uint16_t buffer[width*SCREEN_HEIGHT];  // 'amount' pixels wide, 240 pixels tall
     int buffer_idx = 0;
 
@@ -79,23 +80,24 @@ void draw_slice(int x, int width) {
             uint8_t tile_palette_idx = get_tile_palette_at(tile_x, (tile_y+height_offset)%MAP_HEIGHT);
             uint16_t *tile_palette = palette[tile_palette_idx];
 
+			uint8_t palette_index = 0;
+			uint16_t color = 0;
             for (int i=0; i<8; i++) {
-                uint8_t palette_index = 0;
+                palette_index = 0;
                 for (int bit=2; bit>=0; bit--) {
                     palette_index <<= 1;
                     palette_index |= ((tile->mem[bit*8+(7-i)] >> (7-tile_x_offset)) & 1);
                 }
                 // look up the color from the palette
                 // color 0 is "transparent", will show global background color instead
-                uint16_t color = palette_index ? tile_palette[palette_index] : global_background;
+                color = palette_index ? tile_palette[palette_index] : global_background;
 
                 // this color is pre-byteswapped and blue-red swapped
-                buffer[buffer_idx++] = color;
-
+                // ****************************** buffer[buffer_idx++] = color;
             }
         }
     }
-
+/*
     // set the address to write to
     // page address set
 
@@ -113,5 +115,6 @@ void draw_slice(int x, int width) {
     // write out this data
     ILI9341_set_command(ILI9341_RAMWR);
     ILI9341_write_data(buffer, width*SCREEN_HEIGHT*2);
+*/
 }
 
