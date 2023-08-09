@@ -6,7 +6,9 @@
 #define ILI9341_CD  2
 #define ILI9341_WR  4
 #define ILI9341_RD  16
-#define ILI9341_MISC 27
+
+#define ILI9341_MISC1 27
+#define ILI9341_MISC2 1 // 33
 
 #define ILI9341_D0 17
 #define ILI9341_D1 5
@@ -24,6 +26,12 @@
 #define GPIO_OUT_W1TS_REG 0x3FF44008
 #define GPIO_OUT_W1TC_REG 0x3FF4400C
 #define GPIO_ENABLE_REG   0x3FF44020
+
+#define GPIO_OUT1_W1TS_REG 0x3FF44014
+#define GPIO_OUT1_W1TC_REG 0x3FF44018
+#define GPIO_ENABLE1_REG   0x3FF4402C
+
+
 #define controlPins 0x4010014
 #define datumPins   0x2EE0020
 
@@ -34,7 +42,10 @@
 #define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
 #define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
 #define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
-#define ACHTUNG    *gpio_out_w1ts_reg = (1 << ILI9341_MISC); sleep_ms(250); *gpio_out_w1tc_reg = (1 << ILI9341_MISC); sleep_ms(250)
+
+#define ACHTUNG1   *gpio_out_w1ts_reg = (1 << ILI9341_MISC1); sleep_ms(250); *gpio_out_w1tc_reg = (1 << ILI9341_MISC1); sleep_ms(250)
+
+#define ACHTUNG2   *gpio_out1_w1ts_reg = (1 << ILI9341_MISC2); sleep_ms(250); *gpio_out1_w1tc_reg = (1 << ILI9341_MISC2); sleep_ms(250)
 
 
 

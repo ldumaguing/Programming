@@ -3,11 +3,18 @@ volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
 volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
+volatile uint32_t* gpio_out1_w1ts_reg = (volatile uint32_t*) GPIO_OUT1_W1TS_REG;
+volatile uint32_t* gpio_out1_w1tc_reg = (volatile uint32_t*) GPIO_OUT1_W1TC_REG;
+volatile uint32_t* gpio_enable1_reg = (volatile uint32_t*) GPIO_ENABLE1_REG;
+
 static inline void init_pins() {
-	*gpio_enable_reg = datumPins | controlPins | (1 << ILI9341_MISC);
+	*gpio_enable_reg = datumPins | controlPins | (1 << ILI9341_MISC1);
 	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
 	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
-	*gpio_out_w1tc_reg = (1 << ILI9341_MISC);
+	*gpio_out_w1tc_reg = (1 << ILI9341_MISC1);
+
+	*gpio_enable1_reg = (1 << ILI9341_MISC2);
+	*gpio_out1_w1tc_reg = (1 << ILI9341_MISC2);
 };
 
 static inline void sio_write(void *src, size_t len) {
