@@ -11,7 +11,7 @@ cd esp-idf
 
 
 *************************************************************************
-. ~/bin/esp/esp-idf/export.sh     // sets up an ESP32 environment
+. ~/bin/esp-idf/export.sh     // sets up an ESP32 environment
 
 idf.py create-project '00 - Blink'
 
