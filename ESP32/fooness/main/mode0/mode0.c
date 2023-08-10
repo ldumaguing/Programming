@@ -335,7 +335,3 @@ void mode0_scroll_vertical(int8_t amount) {
     mode0_end();
 }
 
-void mode0_init() {
-    ILI9341_init();
-}
-

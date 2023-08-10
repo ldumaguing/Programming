@@ -20,7 +20,6 @@ typedef enum {
     MODE0_PALE_BLUE
 } mode0_color_t;
 
-void mode0_init();
 void mode0_clear(mode0_color_t color);
 void mode0_draw_screen();
 void mode0_draw_region(uint8_t x, uint8_t y, uint8_t width, uint8_t height);

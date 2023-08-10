@@ -2,15 +2,13 @@
 // ********************************************************************************** mode0_demo.cpp
 // *************************************************************************************************
 void app_main() {
-    mode0_init();
+    ILI9341_init();
     
-//    mode0_set_cursor(0, 0);
-//    mode0_color_t fg = MODE0_WHITE;
-//    mode0_color_t bg = MODE0_BLACK;
+    mode0_set_cursor(0, 0);
+    mode0_color_t fg = MODE0_WHITE;
+    mode0_color_t bg = MODE0_BLACK;
 
     while (1) {
-		ACHTUNG;
-/*
         mode0_print("Shawn Hyam...\n");
         sleep_ms(500);
         fg = (mode0_color_t)((fg+1) % 16);
@@ -19,9 +17,6 @@ void app_main() {
             mode0_set_background(bg);
         }
         mode0_set_foreground(fg);
-*/
     }
-
-
 }
 
