@@ -24,7 +24,7 @@ volatile uint32_t* gpio_enable1_reg = (volatile uint32_t*) GPIO_ENABLE1_REG;
 
 static inline void init_pins() {
 	*gpio_enable_reg = (1 << LED_1);
-	*gpio_out1_w1tc_reg = (1 << LED_1);
+	*gpio_out_w1tc_reg = (1 << LED_1);
 
 	*gpio_enable1_reg = (1 << LED_2);
 	*gpio_out1_w1tc_reg = (1 << LED_2);
