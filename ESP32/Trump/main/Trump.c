@@ -1,4 +1,4 @@
-// *************** Sat Aug 19 01:16:52 AM EDT 2023
+// *************** Sat Aug 19 01:35:58 AM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -617,6 +617,7 @@ void ILI9341_write_data(void *buffer, int bytes) {
 void initGFX();
 void drawPixel(int16_t x, int16_t y, uint16_t color);
 void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
+void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
 void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
@@ -634,6 +635,23 @@ void initGFX() {
 
 void renderScreenbuffer() {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
+}
+
+/**************************************************************************/
+/*!
+   @brief   Draw a rectangle with no fill color
+    @param    x   Top left corner x coordinate
+    @param    y   Top left corner y coordinate
+    @param    w   Width in pixels
+    @param    h   Height in pixels
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+	drawFastHLine(x, y, w, color);
+	drawFastHLine(x, y + h - 1, w, color);
+	drawFastVLine(x, y, h, color);
+	drawFastVLine(x + w - 1, y, h, color);
 }
 
 /**************************************************************************/
@@ -892,7 +910,7 @@ void app_main() {
 
 	uint16_t c1 = 0xdff7;
 
-	drawLine(10, 10, 150, 130, c1);
+	drawRect(10, 10, 150, 130, c1);
 
 	renderScreenbuffer();
 }

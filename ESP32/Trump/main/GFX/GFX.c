@@ -12,6 +12,23 @@ void renderScreenbuffer() {
 
 /**************************************************************************/
 /*!
+   @brief   Draw a rectangle with no fill color
+    @param    x   Top left corner x coordinate
+    @param    y   Top left corner y coordinate
+    @param    w   Width in pixels
+    @param    h   Height in pixels
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+	drawFastHLine(x, y, w, color);
+	drawFastHLine(x, y + h - 1, w, color);
+	drawFastVLine(x, y, h, color);
+	drawFastVLine(x + w - 1, y, h, color);
+}
+
+/**************************************************************************/
+/*!
    @brief    Draw a line
     @param    x0  Start point x coordinate
     @param    y0  Start point y coordinate
