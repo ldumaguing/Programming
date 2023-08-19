@@ -5,7 +5,7 @@ void app_main() {
 
 	uint16_t c1 = 0xdff7;
 
-	drawLine(10, 10, 30, 30, c1);
+	drawLine(10, 10, 150, 130, c1);
 
 	renderScreenbuffer();
 }
