@@ -12,6 +12,25 @@ void renderScreenbuffer() {
 
 /**************************************************************************/
 /*!
+   @brief   Draw a triangle with no fill color
+    @param    x0  Vertex #0 x coordinate
+    @param    y0  Vertex #0 y coordinate
+    @param    x1  Vertex #1 x coordinate
+    @param    y1  Vertex #1 y coordinate
+    @param    x2  Vertex #2 x coordinate
+    @param    y2  Vertex #2 y coordinate
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2,
+	uint16_t color) {
+	drawLine(x0, y0, x1, y1, color);
+	drawLine(x1, y1, x2, y2, color);
+	drawLine(x2, y2, x0, y0, color);
+}
+
+/**************************************************************************/
+/*!
    @brief   Draw a rounded rectangle with no fill color
     @param    x   Top left corner x coordinate
     @param    y   Top left corner y coordinate

@@ -1,4 +1,4 @@
-// *************** Sat Aug 19 09:38:56 PM EDT 2023
+// *************** Sat Aug 19 09:50:05 PM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -621,6 +621,7 @@ void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
 void drawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color);
+void drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 
 void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
 void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
@@ -641,6 +642,25 @@ void initGFX() {
 
 void renderScreenbuffer() {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
+}
+
+/**************************************************************************/
+/*!
+   @brief   Draw a triangle with no fill color
+    @param    x0  Vertex #0 x coordinate
+    @param    y0  Vertex #0 y coordinate
+    @param    x1  Vertex #1 x coordinate
+    @param    y1  Vertex #1 y coordinate
+    @param    x2  Vertex #2 x coordinate
+    @param    y2  Vertex #2 y coordinate
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2,
+	uint16_t color) {
+	drawLine(x0, y0, x1, y1, color);
+	drawLine(x1, y1, x2, y2, color);
+	drawLine(x2, y2, x0, y0, color);
 }
 
 /**************************************************************************/
@@ -1031,7 +1051,7 @@ void app_main() {
 
 	uint16_t c1 = 0xdff7;
 
-	drawRoundRect(10, 10, 150, 150, 10, c1);
+	drawTriangle(10, 10, 30, 30, 60, 20, c1);
 
 	renderScreenbuffer();
 }
