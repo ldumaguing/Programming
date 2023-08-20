@@ -1,4 +1,4 @@
-// *************** Sat Aug 19 01:35:58 AM EDT 2023
+// *************** Sat Aug 19 09:16:17 PM EDT 2023
 // *************************************************************************************************
 
 #include <stdio.h>
@@ -615,14 +615,18 @@ void ILI9341_write_data(void *buffer, int bytes) {
 };
 
 void initGFX();
+
 void drawPixel(int16_t x, int16_t y, uint16_t color);
 void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
+
 void drawFastRawHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
 void drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
 void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 void writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
+
 void renderScreenbuffer();
 
 void initGFX() {
@@ -635,6 +639,48 @@ void initGFX() {
 
 void renderScreenbuffer() {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
+}
+
+/**************************************************************************/
+/*!
+   @brief    Draw a circle outline
+    @param    x0   Center-point x coordinate
+    @param    y0   Center-point y coordinate
+    @param    r   Radius of circle
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) {
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
+
+	drawPixel(x0, y0 + r, color);
+	drawPixel(x0, y0 - r, color);
+	drawPixel(x0 + r, y0, color);
+	drawPixel(x0 - r, y0, color);
+
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		drawPixel(x0 + x, y0 + y, color);
+		drawPixel(x0 - x, y0 + y, color);
+		drawPixel(x0 + x, y0 - y, color);
+		drawPixel(x0 - x, y0 - y, color);
+		drawPixel(x0 + y, y0 + x, color);
+		drawPixel(x0 - y, y0 + x, color);
+		drawPixel(x0 + y, y0 - x, color);
+		drawPixel(x0 - y, y0 - x, color);
+	}
 }
 
 /**************************************************************************/
@@ -910,7 +956,7 @@ void app_main() {
 
 	uint16_t c1 = 0xdff7;
 
-	drawRect(10, 10, 150, 130, c1);
+	drawCircle(120, 120, 10, c1);
 
 	renderScreenbuffer();
 }

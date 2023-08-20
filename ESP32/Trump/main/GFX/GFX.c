@@ -12,6 +12,48 @@ void renderScreenbuffer() {
 
 /**************************************************************************/
 /*!
+   @brief    Draw a circle outline
+    @param    x0   Center-point x coordinate
+    @param    y0   Center-point y coordinate
+    @param    r   Radius of circle
+    @param    color 16-bit 5-6-5 Color to draw with
+*/
+/**************************************************************************/
+void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) {
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
+
+	drawPixel(x0, y0 + r, color);
+	drawPixel(x0, y0 - r, color);
+	drawPixel(x0 + r, y0, color);
+	drawPixel(x0 - r, y0, color);
+
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		drawPixel(x0 + x, y0 + y, color);
+		drawPixel(x0 - x, y0 + y, color);
+		drawPixel(x0 + x, y0 - y, color);
+		drawPixel(x0 - x, y0 - y, color);
+		drawPixel(x0 + y, y0 + x, color);
+		drawPixel(x0 - y, y0 + x, color);
+		drawPixel(x0 + y, y0 - x, color);
+		drawPixel(x0 - y, y0 - x, color);
+	}
+}
+
+/**************************************************************************/
+/*!
    @brief   Draw a rectangle with no fill color
     @param    x   Top left corner x coordinate
     @param    y   Top left corner y coordinate
