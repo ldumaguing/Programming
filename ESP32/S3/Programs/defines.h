@@ -1,0 +1,26 @@
+#define GPIO_REG           0x60004000
+
+#define GPIO_OUT_W1TS_REG  (GPIO_REG | 0x0008)
+#define GPIO_OUT_W1TC_REG  (GPIO_REG | 0x000C)
+#define GPIO_ENABLE_REG    (GPIO_REG | 0x0020)
+
+/*
+#define GPIO_OUT1_W1TS_REG (GPIO_REG | 0x0014)
+#define GPIO_OUT1_W1TC_REG (GPIO_REG | 0x0018)
+#define GPIO_ENABLE1_REG   (GPIO_REG | 0x002C)
+*/
+
+#define ILI9341_CS 4
+#define ILI9341_CD 5
+#define ILI9341_WR 6
+#define ILI9341_RD 7
+
+#define ILI9341_D0 8
+#define ILI9341_D1 3
+#define ILI9341_D2 9
+#define ILI9341_D3 10
+#define ILI9341_D4 11
+#define ILI9341_D5 12
+#define ILI9341_D6 13
+#define ILI9341_D7 14
+

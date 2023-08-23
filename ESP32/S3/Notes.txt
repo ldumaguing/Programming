@@ -1,0 +1,48 @@
+sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+
+
+mkdir esp
+cd esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+
+cd esp-idf
+./install.sh all
+
+
+
+*************************************************************************
+. ~/bin/esp-idf/export.sh     // sets up an ESP32 environment
+
+idf.py create-project '00 - Blink'
+
+cd '00 - Blink'     // edit some files (CMakeLists.txt)
+
+idf.py set-target esp32s3     // creates a "build" folder with stuffs
+
+idf.py build
+
+
+
+
+idf.py -p /dev/ttyUSB0 flash
+idf.py monitor
+
+
+// https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
