@@ -41,19 +41,5 @@ void app_main(void) {
 		*gpio_out_w1tc_reg = pads;
 		sleep_ms(500);
 	}
-
-
-/*
-while(1) {
-	uint16_t pin_pads = 0;
-	for(int i=0; i<12; i++) {
-		pin_pads |= (1 << pins[i]);
-		*gpio_out_w1ts_reg = pin_pads;
-		sleep_ms(500);
-	}
-	*gpio_out_w1tc_reg = pads;
-	sleep_ms(500);
-}
-*/
 }
 

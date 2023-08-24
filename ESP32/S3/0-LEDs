@@ -13,7 +13,7 @@ echo '' >> main/X.txt;
 
 
 
-cat Programs/defines.h >> main/X.txt;
+cat Programs/lib/defines.h >> main/X.txt;
 
 
 
