@@ -21,11 +21,11 @@ static inline void init_pins() {
 
 static inline void sio_write(void *src, size_t len) {
 	char *x = (char *)src;
-//	uint32_t datum;
+	uint32_t datum;
 	do {
-//		datum = 0;
+		datum = 0;
 		*gpio_out_w1tc_reg = datumPins;
-
+/*
 		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
 		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
 		if(*x&4) *gpio_out_w1ts_reg = (1 << ILI9341_D2);
@@ -34,18 +34,18 @@ static inline void sio_write(void *src, size_t len) {
 		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
 		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
 		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
-/*
-		datum |= ((*x&1) << ILI9341_D0);         // 17
-		datum |= ((*x&2) << (ILI9341_D1-1));     // 5
-		datum |= ((*x&4) << (ILI9341_D2-2));     // 18
-		datum |= ((*x&8) << (ILI9341_D3-3));     // 19
-		datum |= ((*x&16) << (ILI9341_D4-4));    // 21
-		datum |= ((*x&32) << (ILI9341_D5-5));    // 22
-		datum |= ((*x&64) << (ILI9341_D6-6));    // 23
-		datum |= ((*x&128) << (ILI9341_D7-7));   // 25
+*/
+		datum |= ((*x&1) << ILI9341_D0);
+		datum |= ((*x&2) << (ILI9341_D1-1));
+		datum |= ((*x&4) << (ILI9341_D2-2));
+		datum |= ((*x&8) << (ILI9341_D3-3));
+		datum |= ((*x&16) << (ILI9341_D4-4));
+		datum |= ((*x&32) << (ILI9341_D5-5));
+		datum |= ((*x&64) << (ILI9341_D6-6));
+		datum |= ((*x&128) << (ILI9341_D7-7));
 
 		*gpio_out_w1ts_reg = datum;
-*/
+
 		WR_STROBE;
 
 		len--;
