@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdint.h>
 
+#define SWAP_BYTES(color) ((uint16_t)(color>>8) | (uint16_t)(color<<8))
+
 struct pixel { uint8_t r, g, b; } pix;
 
 void instructions();
@@ -16,7 +18,7 @@ void toR5G6B5() {
 	dot |= ((int)((pix.r/255.0)*31) << 11);
 	dot |= ((int)((pix.g/255.0)*63) << 5);
 	dot |= ((int)((pix.b/255.0)*31) << 0);
-	printf("%04x, ", dot);
+	printf("0x%04x, ", SWAP_BYTES(dot));
 }
 
 // ***************************************************************************************
