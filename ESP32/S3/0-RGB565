@@ -30,9 +30,7 @@ cat Programs/lib/gfx/GFX.c >> main/X.txt;
 
 
 
-
-cat Programs/XBM/Trump.xbm >> main/X.txt;
-cat Programs/XBM/xbm.c >> main/X.txt;
+cat Programs/RGB565.c >> main/X.txt;
 
 
 
@@ -42,7 +40,3 @@ cat Programs/XBM/xbm.c >> main/X.txt;
 
 
 mv main/X.txt main/S3.c
-
-
-
-
