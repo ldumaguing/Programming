@@ -3,7 +3,14 @@
 #include <math.h>
 #include <stdint.h>
 
+struct pixel { uint8_t r, g, b; } pix;
+
 void instructions();
+
+void toR5G6B5() {
+	// printf("%02x%02x%02x ", pix.r, pix.g, pix.b);
+	printf("%02x ", (int)((pix.r/255.0) * 100));
+}
 
 // ***************************************************************************************
 int main (int argc, char *argv[]) {
@@ -21,16 +28,13 @@ int main (int argc, char *argv[]) {
 	int width = atoi(argv[2]);
 	printf("%d\n", width);
 	uint8_t buf;
-	
-	struct pixel { uint8_t r, g, b; };
-	struct pixel pix;
 
 	int counter = 0;
 	while(fread(&pix, sizeof(struct pixel), 1, fptr)) {
 		if(width == 0)
-			printf("%02x%02x%02x ", pix.r, pix.g, pix.b);
+			toR5G6B5();
 		else {
-			printf("%02x%02x%02x ", pix.r, pix.g, pix.b);
+			toR5G6B5();
 			counter++;
 			if(counter>=width) {
 				counter = 0;
