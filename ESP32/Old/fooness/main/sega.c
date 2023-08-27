@@ -1,4 +1,6 @@
+// *************** WO
 #define SEGA_SEL 27
+#define SEGA_UP  17
 
 #define GPIO_OUT_W1TS_REG 0x3FF44008
 #define GPIO_OUT_W1TC_REG 0x3FF4400C
@@ -14,8 +16,14 @@ volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 
+// *************** RO
+#define SEGA_D0 36
+#define SEGA_D1 39
+#define SEGA_D2 34
+#define SEGA_D3 35
+#define SEGA_D4 32
+#define SEGA_D5 33
 
-#define BUTTON 36
 #define GPIO_ENABLE1_REG   0x3FF4402C
 #define GPIO_IN1_REG       0x3FF44040
 
@@ -26,14 +34,19 @@ volatile uint32_t* gpio_in1_reg = (volatile uint32_t*) GPIO_IN1_REG;
 
 
 static inline void init_pins() {
-	*gpio_enable_reg = (1 << SEGA_SEL);
-	*gpio_out_w1tc_reg = (1 << SEGA_SEL);
+	*gpio_enable_reg = ((1 << SEGA_SEL)
+		| (1 << SEGA_UP));
+	*gpio_out_w1ts_reg = (1 << SEGA_SEL);
 
-	gpio_set_direction(BUTTON, GPIO_MODE_INPUT);
+	*gpio_out_w1tc_reg = (1 << SEGA_UP);
+
+	gpio_set_direction(SEGA_D0, GPIO_MODE_INPUT);
 };
 
 void app_main(void) {
 	init_pins();
+
+
 
 	while(1) {
 /*
@@ -44,10 +57,10 @@ void app_main(void) {
 			*gpio_out_w1ts_reg = (1 << LED_1);
 		}
 */
-		if(gpio_get_level(BUTTON) == 1) {
-			*gpio_out_w1tc_reg = (1 << SEGA_SEL);
+		if(gpio_get_level(SEGA_D0) == 1) {
+			*gpio_out_w1tc_reg = (1 << SEGA_UP);
 		} else {
-			*gpio_out_w1ts_reg = (1 << SEGA_SEL);
+			*gpio_out_w1ts_reg = (1 << SEGA_UP);
 		}
 
 	}
