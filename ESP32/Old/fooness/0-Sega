@@ -1,0 +1,23 @@
+echo '// *************** '`date` > main/X.txt;
+echo '// *************************************************************************************************' >> main/X.txt;
+echo '' >> main/X.txt;
+
+echo '#include <stdio.h>' >> main/X.txt;
+echo '#include <stdint.h>' >> main/X.txt;
+echo '#include <string.h>' >> main/X.txt;
+# echo '#include "freertos/FreeRTOS.h"' >> main/X.txt ;
+# echo '#include "freertos/task.h"' >> main/X.txt ;
+echo '#include "driver/gpio.h"' >> main/X.txt ;
+echo '' >> main/X.txt;
+
+
+
+cat main/sega.c >> main/X.txt;
+
+
+
+
+
+mv main/X.txt main/fooness.c
+
+

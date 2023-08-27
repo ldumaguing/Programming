@@ -1,11 +1,3 @@
-// *************** Sat Aug 26 10:03:26 PM EDT 2023
-// *************************************************************************************************
-
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include "driver/gpio.h"
-
 #define SEGA_SEL 27
 
 #define GPIO_OUT_W1TS_REG 0x3FF44008
