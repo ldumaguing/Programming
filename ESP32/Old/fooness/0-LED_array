@@ -1,0 +1,15 @@
+echo '// *************** '`date` > main/X.txt;
+echo '// *************************************************************************************************' >> main/X.txt;
+echo '' >> main/X.txt;
+
+
+
+cat main/led_array.c >> main/X.txt;
+
+
+
+
+
+mv main/X.txt main/fooness.c
+
+
