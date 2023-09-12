@@ -25,7 +25,8 @@ idf.py build
 
 
 idf.py -p /dev/ttyUSB0 flash
-idf.py monitor
+
+idf.py monitor     // You can use "printf"
 
 
 // https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html
