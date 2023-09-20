@@ -1,0 +1,71 @@
+sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+
+
+mkdir esp
+cd esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+
+cd esp-idf
+./install.sh all
+
+
+
+*************************************************************************
+
+
+// https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html
+
+
+
+***************************************************
+mkdir -p components
+cd components
+git clone https://github.com/espressif/arduino-esp32.git arduino
+cd arduino
+git submodule update --init --recursive
+cd ../..
+idf.py menuconfig
+
+
+
+
+
+
+*************************************************************************************************
+. ~/bin/esp-idf/export.sh
+idf.py create-project fooness
+cd fooness
+idf.py set-target esp32
+
+
+
+mkdir -p components
+cd components
+idf.py create-component ps3
+vim ps3/ps3.c
+    --- insert:    printf("Larry was here.\n");
+
+cd ..
+vim main/fooness.c
+    --- insert:    #include "ps3.h"
+    --- insert:    func();
+
+vim CMakeLists.txt
+    --- insert:    set(EXTRA_COMPONENT_DIRS components/ps3)
+
+
+
+idf.py build
+idf.py -p /dev/ttyUSB0 flash monitor
+
+
+
+
+
+
+
+
+
+
+
+
