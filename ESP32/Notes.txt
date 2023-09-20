@@ -47,7 +47,7 @@ vim ps3/ps3.c
 
 cd ..
 vim main/fooness.c
-    --- insert:    #include "ps3.h"
+    --- insert:    #include "ps3.h"      # located in components/ps3/include
     --- insert:    func();
 
 vim CMakeLists.txt
