@@ -12,7 +12,7 @@ int main(int argc, char **argv)
       exit(1);
   }
 
-  if (mysql_real_connect(con, "localhost", "root", "sasamichan[]()",
+  if (mysql_real_connect(con, "localhost", "root", "xxxxx",
           NULL, 0, NULL, 0) == NULL)
   {
       fprintf(stderr, "%s\n", mysql_error(con));
