@@ -6,7 +6,7 @@ git clone -b v5.1.1 --recursive https://github.com/espressif/esp-idf.git  esp-51
 git clone -b v4.4.6 --recursive https://github.com/espressif/esp-idf.git  esp-446
 
 
-
+git clone --recursive https://gitlab.com/ricardoquesada/esp-idf-arduino-bluepad32-template.git my_project
 
 
 mkdir esp
