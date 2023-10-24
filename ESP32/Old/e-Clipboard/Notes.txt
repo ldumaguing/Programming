@@ -6,3 +6,18 @@ git clone --recursive https://gitlab.com/ricardoquesada/esp-idf-arduino-bluepad3
 
 
 
+
+#define ILI9341_CS 15
+#define ILI9341_CD 2
+#define ILI9341_WR 0
+#define ILI9341_RD 4
+
+#define ILI9341_D0 5
+#define ILI9341_D1 18
+#define ILI9341_D2 19
+#define ILI9341_D3 21
+#define ILI9341_D4 3
+#define ILI9341_D5 1
+#define ILI9341_D6 22
+#define ILI9341_D7 23
+
