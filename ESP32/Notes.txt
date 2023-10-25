@@ -2,7 +2,7 @@
 
 > idf.py create-project fooness
 > cd fooness
-> mkdir components
+> mkdir components   // seems this is a required name
 > cd components
 > idf.py create-component fish
 > cd ..
