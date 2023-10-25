@@ -1,3 +1,5 @@
+* https://www.youtube.com/watch?v=COB_vBtTdiY
+
 > idf.py create-project fooness
 > cd fooness
 > mkdir components
