@@ -1,5 +1,23 @@
 * https://www.youtube.com/watch?v=COB_vBtTdiY
 
+> idf.py create-project barness
+> cd barness
+> mkdir craps
+> cd craps
+> idf.py create-component fish
+> cd ..
+
+> vim main/barness.c
+	* add:   #include "fish.h"
+
+> vim CMakeLists.txt
+	* after first line, add: set(EXTRA_COMPONENT_DIRS craps)
+
+
+* Build and flash as usual.
+
+
+*************************************************************************************************
 > idf.py create-project fooness
 > cd fooness
 > mkdir components   // seems this is a required name
