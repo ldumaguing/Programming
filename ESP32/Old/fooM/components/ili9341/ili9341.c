@@ -6,11 +6,6 @@
 
 struct ILI9341 ili;
 
-void func(void)
-{
-
-}
-
 // ************************************************************************************** ILI9341.c
 uint16_t screenbuffer[ILI9341_SIZE];
 
@@ -19,11 +14,11 @@ volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
 volatile uint32_t* gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
 
 static inline void init_pins() {
-	*gpio_enable_reg = datumPins | controlPins;
-	*gpio_out_w1ts_reg = datumPins | controlPins;   // 1111 1111 : 11 11
+	*gpio_enable_reg = ILI9341_DATA_PINS | ILI9341_CMD_PINS;
+	*gpio_out_w1ts_reg = ILI9341_DATA_PINS | ILI9341_CMD_PINS;   // 1111 1111 : 11 11
 	// sleep_ms(250);
-	*gpio_out_w1tc_reg = datumPins;                 // 0000 0000 : 11 11
-	*gpio_out_w1tc_reg = (1 << ILI9341_MISC);
+	*gpio_out_w1tc_reg = ILI9341_DATA_PINS;                 // 0000 0000 : 11 11
+	//*gpio_out_w1tc_reg = (1 << ILI9341_MISC);
 	// sleep_ms(5000);
 };
 
@@ -32,7 +27,7 @@ static inline void sio_write(void *src, size_t len) {
 	uint32_t datum;
 	do {
 		datum = 0;
-		*gpio_out_w1tc_reg = datumPins;
+		*gpio_out_w1tc_reg = ILI9341_DATA_PINS;
 /*
 		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
 		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
@@ -42,6 +37,7 @@ static inline void sio_write(void *src, size_t len) {
 		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
 		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
 		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
+*/
 
 		datum |= ((*x&1) << ILI9341_D0);         // 17
 		datum |= ((*x&2) << (ILI9341_D1-1));     // 5
@@ -51,7 +47,8 @@ static inline void sio_write(void *src, size_t len) {
 		datum |= ((*x&32) << (ILI9341_D5-5));    // 22
 		datum |= ((*x&64) << (ILI9341_D6-6));    // 23
 		datum |= ((*x&128) << (ILI9341_D7-7));   // 25
-*/
+
+/*
 		datum |= ((*x&1) << 17);     // 17 - 0
 		datum |= ((*x&2) << 4);      // 5  - 1
 		datum |= ((*x&4) << 16);     // 18 - 2
@@ -60,7 +57,7 @@ static inline void sio_write(void *src, size_t len) {
 		datum |= ((*x&32) << 17);    // 22 - 5
 		datum |= ((*x&64) << 17);    // 23 - 6
 		datum |= ((*x&128) << 18);   // 25 - 7
-
+*/
 		*gpio_out_w1ts_reg = datum;
 		WR_STROBE;
 
@@ -120,8 +117,8 @@ void ILI9341_init() {
 
 	ILI9341_set_command(ILI9341_RAMWR);
 	
-	*gpio_out_w1tc_reg = datumPins;
-	*gpio_out_w1ts_reg = controlPins;
+	*gpio_out_w1tc_reg = ILI9341_DATA_PINS;
+	*gpio_out_w1ts_reg = ILI9341_CMD_PINS;
 };
 
 void ILI9341_render() {

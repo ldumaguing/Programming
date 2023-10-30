@@ -7,24 +7,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ***************************************************************************************** mode0.h
 // *************************************************************************************************
 // ARNE-16 palette converted to RGB565 -- https://lospec.com/palette-list/arne-16
@@ -404,27 +386,6 @@ void mode0_scroll_vertical(int8_t amount) {
     mode0_end();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void mode0_init() {
     ILI9341_init();
 }
@@ -440,7 +401,7 @@ void app_main() {
     mode0_color_t bg = MODE0_BLACK;
 
     while (1) {
-        mode0_print("Larry was here.\n");
+        mode0_print("Larry was here. v2\n");
         sleep_ms(500);
         fg = (mode0_color_t)((fg+1) % 16);
         if (fg == 0) {
