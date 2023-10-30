@@ -1,6 +1,6 @@
 // *************************************************************************************** defines.h
 // *************************************************************************************************
-#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
+//#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
 
 #define ILI9341_CS  26
 #define ILI9341_CD  2

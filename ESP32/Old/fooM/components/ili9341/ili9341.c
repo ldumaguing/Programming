@@ -1,10 +1,21 @@
 #include <stdio.h>
 #include "defines.h"
 #include "ili9341.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+//#include "freertos/FreeRTOS.h"
+//#include "freertos/task.h"
 
 struct ILI9341 ili;
+
+uint8_t ILI9341_D[] = {
+	ILI9341_D0,
+	(ILI9341_D1-1),
+	(ILI9341_D2-2),
+	(ILI9341_D3-3),
+	(ILI9341_D4-4),
+	(ILI9341_D5-5),
+	(ILI9341_D6-6),
+	(ILI9341_D7-7)
+};
 
 // ************************************************************************************** ILI9341.c
 uint16_t screenbuffer[ILI9341_SIZE];
@@ -28,36 +39,16 @@ static inline void sio_write(void *src, size_t len) {
 	do {
 		datum = 0;
 		*gpio_out_w1tc_reg = ILI9341_DATA_PINS;
-/*
-		if(*x&1) *gpio_out_w1ts_reg = (1 << ILI9341_D0);
-		if(*x&2) *gpio_out_w1ts_reg = (1 << ILI9341_D1);
-		if(*x&4) *gpio_out_w1ts_reg = (1 << ILI9341_D2);
-		if(*x&8) *gpio_out_w1ts_reg = (1 << ILI9341_D3);
-		if(*x&16) *gpio_out_w1ts_reg = (1 << ILI9341_D4);
-		if(*x&32) *gpio_out_w1ts_reg = (1 << ILI9341_D5);
-		if(*x&64) *gpio_out_w1ts_reg = (1 << ILI9341_D6);
-		if(*x&128) *gpio_out_w1ts_reg = (1 << ILI9341_D7);
-*/
 
-		datum |= ((*x&1) << ILI9341_D0);         // 17
-		datum |= ((*x&2) << (ILI9341_D1-1));     // 5
-		datum |= ((*x&4) << (ILI9341_D2-2));     // 18
-		datum |= ((*x&8) << (ILI9341_D3-3));     // 19
-		datum |= ((*x&16) << (ILI9341_D4-4));    // 21
-		datum |= ((*x&32) << (ILI9341_D5-5));    // 22
-		datum |= ((*x&64) << (ILI9341_D6-6));    // 23
-		datum |= ((*x&128) << (ILI9341_D7-7));   // 25
+		datum |= ((*x&1) << ILI9341_D[0]);
+		datum |= ((*x&2) << ILI9341_D[1]);
+		datum |= ((*x&4) << ILI9341_D[2]);
+		datum |= ((*x&8) << ILI9341_D[3]);
+		datum |= ((*x&16) << ILI9341_D[4]);
+		datum |= ((*x&32) << ILI9341_D[5]);
+		datum |= ((*x&64) << ILI9341_D[6]);
+		datum |= ((*x&128) << ILI9341_D[7]);
 
-/*
-		datum |= ((*x&1) << 17);     // 17 - 0
-		datum |= ((*x&2) << 4);      // 5  - 1
-		datum |= ((*x&4) << 16);     // 18 - 2
-		datum |= ((*x&8) << 16);     // 19 - 3
-		datum |= ((*x&16) << 17);    // 21 - 4
-		datum |= ((*x&32) << 17);    // 22 - 5
-		datum |= ((*x&64) << 17);    // 23 - 6
-		datum |= ((*x&128) << 18);   // 25 - 7
-*/
 		*gpio_out_w1ts_reg = datum;
 		WR_STROBE;
 
@@ -77,7 +68,7 @@ void ILI9341_init() {
 	init_pins();
 
 	ILI9341_set_command(0x01); //soft reset
-	sleep_ms(1000);
+	//sleep_ms(1000);
 
 	ILI9341_set_command(ILI9341_GAMMASET);
 	ILI9341_command_param(0x01);

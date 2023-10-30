@@ -4,8 +4,8 @@
 #include "ili9341.h"
 #include "defines.h"
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+//#include "freertos/FreeRTOS.h"
+//#include "freertos/task.h"
 
 // ***************************************************************************************** mode0.h
 // *************************************************************************************************
@@ -401,8 +401,8 @@ void app_main() {
     mode0_color_t bg = MODE0_BLACK;
 
     while (1) {
-        mode0_print("Larry was here. v2\n");
-        sleep_ms(500);
+        mode0_print("Larry was here. v4\n");
+        //sleep_ms(500);
         fg = (mode0_color_t)((fg+1) % 16);
         if (fg == 0) {
             bg = (mode0_color_t)((bg+1) % 16);
