@@ -27,6 +27,60 @@ void GFX_refreshScreen(void) {
 	printf(">>>>>>>>>>>>>>>>>>> \%d\n", lcd->WIDTH);
 }
 
+void GFX_drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
+	// Update in subclasses if desired!
+	if (x0 == x1) {
+		if (y0 > y1)
+			_swap_int16_t(y0, y1);
+		GFX_drawFastVLine(x0, y0, y1 - y0 + 1, color);
+	} else if (y0 == y1) {
+		if (x0 > x1)
+			_swap_int16_t(x0, x1);
+		GFX_drawFastHLine(x0, y0, x1 - x0 + 1, color);
+	} else {
+		GFX_writeLine(x0, y0, x1, y1, color);
+	}
+}
+
+void GFX_writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
+	int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+	if (steep) {
+		_swap_int16_t(x0, y0);
+		_swap_int16_t(x1, y1);
+	}
+
+	if (x0 > x1) {
+		_swap_int16_t(x0, x1);
+		_swap_int16_t(y0, y1);
+	}
+
+	int16_t dx, dy;
+	dx = x1 - x0;
+	dy = abs(y1 - y0);
+
+	int16_t err = dx / 2;
+	int16_t ystep;
+
+	if (y0 < y1) {
+		ystep = 1;
+	} else {
+		ystep = -1;
+	}
+
+	for (; x0 <= x1; x0++) {
+		if (steep) {
+			GFX_drawPixel(y0, x0, color);
+		} else {
+			GFX_drawPixel(x0, y0, color);
+		}
+		err -= dy;
+		if (err < 0) {
+			y0 += ystep;
+			err += dx;
+		}
+	}
+}
+
 void GFX_drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) {
 
 	if (w < 0) { // Convert negative widths to positive equivalent

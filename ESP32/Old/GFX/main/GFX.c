@@ -10,6 +10,11 @@ void app_main(void) {
 
 	GFX_drawPixel(20, 20, 0xFFFF);
 	GFX_drawPixel(30, 30, 0xFFFF);
+	GFX_drawLine(40, 40, 50, 50, 0xFFFF);
+GFX_drawLine(40, 40, 40, 50, 0xFFFF);
+GFX_drawLine(40, 40, 50, 40, 0xFFFF);
+GFX_drawLine(50, 40, 50, 50, 0xFFFF);
+GFX_drawLine(40, 50, 50, 50, 0xFFFF);
 
 	GFX_refreshScreen();
 }

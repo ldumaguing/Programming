@@ -71,7 +71,7 @@ void ILI9341_init() {
 	ili.HEIGHT   = ILI9341_TFTHEIGHT;
 	ili._width   = ILI9341_TFTWIDTH;
 	ili._height  = ILI9341_TFTHEIGHT;
-	ili.rotation = 0;
+	ili.rotation = ILI9341_ROTATION;
 
 	init_pins();
 
