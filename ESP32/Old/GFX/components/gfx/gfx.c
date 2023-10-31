@@ -27,6 +27,46 @@ void GFX_refreshScreen(void) {
 	printf(">>>>>>>>>>>>>>>>>>> \%d\n", lcd->WIDTH);
 }
 
+void GFX_drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) {
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
+
+	GFX_drawPixel(x0, y0 + r, color);
+	GFX_drawPixel(x0, y0 - r, color);
+	GFX_drawPixel(x0 + r, y0, color);
+	GFX_drawPixel(x0 - r, y0, color);
+
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		GFX_drawPixel(x0 + x, y0 + y, color);
+		GFX_drawPixel(x0 - x, y0 + y, color);
+		GFX_drawPixel(x0 + x, y0 - y, color);
+		GFX_drawPixel(x0 - x, y0 - y, color);
+		GFX_drawPixel(x0 + y, y0 + x, color);
+		GFX_drawPixel(x0 - y, y0 + x, color);
+		GFX_drawPixel(x0 + y, y0 - x, color);
+		GFX_drawPixel(x0 - y, y0 - x, color);
+	}
+}
+
+void GFX_drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+	GFX_drawFastHLine(x, y, w, color);
+	GFX_drawFastHLine(x, y + h - 1, w, color);
+	GFX_drawFastVLine(x, y, h, color);
+	GFX_drawFastVLine(x + w - 1, y, h, color);
+}
+
 void GFX_drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
 	// Update in subclasses if desired!
 	if (x0 == x1) {
@@ -82,7 +122,6 @@ void GFX_writeLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t colo
 }
 
 void GFX_drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) {
-
 	if (w < 0) { // Convert negative widths to positive equivalent
 		w *= -1;
 		x -= w - 1;

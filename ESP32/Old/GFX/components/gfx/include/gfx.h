@@ -9,5 +9,8 @@ void GFX_drawFastVLine(int16_t, int16_t, int16_t, uint16_t);
 void GFX_drawFastHLine(int16_t, int16_t, int16_t, uint16_t);
 void GFX_writeLine(int16_t, int16_t, int16_t, int16_t, uint16_t);
 void GFX_drawLine(int16_t, int16_t, int16_t, int16_t, uint16_t);
+void GFX_drawRect(int16_t, int16_t, int16_t, int16_t, uint16_t);
+void GFX_drawCircle(int16_t, int16_t, int16_t, uint16_t);
+
 
  
