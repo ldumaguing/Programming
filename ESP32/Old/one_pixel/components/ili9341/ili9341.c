@@ -6,6 +6,8 @@
 
 struct ILI9341 ili;
 
+uint16_t screenbuffer[ILI9341_SIZE];
+
 uint8_t ILI9341_D[] = {
 	ILI9341_D0,
 	(ILI9341_D1-1),
@@ -18,22 +20,13 @@ uint8_t ILI9341_D[] = {
 };
 
 // ************************************************************************************** ILI9341.c
-uint16_t screenbuffer[ILI9341_SIZE];
-
 uint16_t *ILI9341_get_screenbuffer() {
 	return screenbuffer;
 }
 
-struct ILI9341 ILI9341_get_ili(void) {
-	return ili;
+struct ILI9341 *ILI9341_get_ili(void) {
+	return &ili;
 }
-
-
-
-
-
-
-
 
 volatile uint32_t* gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
 volatile uint32_t* gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;

@@ -15,4 +15,4 @@ void ILI9341_write_data(void *buffer, int bytes);
 void ILI9341_render();
 
 uint16_t *ILI9341_get_screenbuffer(void);
-struct ILI9341 ILI9341_get_ili(void);
+struct ILI9341 *ILI9341_get_ili(void);
