@@ -4,12 +4,11 @@
 #include "ili9341.h"
 #include "defines.h"
 
-uint16_t *screen_buffer;
+uint16_t screen_buffer[ILI9341_SIZE];
 struct ILI9341 *lcd;
 
 void GFX_init(void) {
 	ILI9341_init();
-	screen_buffer = ILI9341_get_screenbuffer();
 	lcd = ILI9341_get_ili();
 }
 
@@ -22,9 +21,8 @@ void GFX_fillScreen(uint16_t color) {
 	}
 }
 
-void GFX_refreshScreen(void) {
-	ILI9341_render();
-	printf(">>>>>>>>>>>>>>>>>>> \%d\n", lcd->WIDTH);
+void GFX_refreshScreen() {
+	ILI9341_render(screen_buffer);
 }
 
 void GFX_fillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) {
@@ -419,7 +417,7 @@ void GFX_drawFastRawVLine(int16_t x, int16_t y, int16_t h, uint16_t color) {
 }
 
 void GFX_drawPixel(int16_t x, int16_t y, uint16_t color) {
-  if (screen_buffer) {
+  if (*screen_buffer) {
     if ((x < 0) || (y < 0) || (x >= lcd->_width) || (y >= lcd->_height))
       return;
 

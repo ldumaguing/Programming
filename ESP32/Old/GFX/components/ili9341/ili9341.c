@@ -6,8 +6,6 @@
 
 struct ILI9341 ili;
 
-uint16_t screenbuffer[ILI9341_SIZE];
-
 uint8_t ILI9341_D[] = {
 	ILI9341_D0,
 	(ILI9341_D1-1),
@@ -20,11 +18,13 @@ uint8_t ILI9341_D[] = {
 };
 
 // ************************************************************************************** ILI9341.c
-uint16_t *ILI9341_get_screenbuffer() {
-	return screenbuffer;
-}
-
 struct ILI9341 *ILI9341_get_ili(void) {
+	ili.WIDTH    = ILI9341_TFTWIDTH;
+	ili.HEIGHT   = ILI9341_TFTHEIGHT;
+	ili._width   = ILI9341_TFTWIDTH;
+	ili._height  = ILI9341_TFTHEIGHT;
+	ili.rotation = ILI9341_ROTATION;
+	
 	return &ili;
 }
 
@@ -67,12 +67,6 @@ static inline void sio_write(void *src, size_t len) {
 
 // ************************************************************************************************
 void ILI9341_init() {
-	ili.WIDTH    = ILI9341_TFTWIDTH;
-	ili.HEIGHT   = ILI9341_TFTHEIGHT;
-	ili._width   = ILI9341_TFTWIDTH;
-	ili._height  = ILI9341_TFTHEIGHT;
-	ili.rotation = ILI9341_ROTATION;
-
 	init_pins();
 
 	ILI9341_set_command(0x01); //soft reset
@@ -121,7 +115,7 @@ void ILI9341_init() {
 };
 
 
-void ILI9341_render() {
+void ILI9341_render(uint16_t *screenbuffer) {
 	ILI9341_write_data(screenbuffer, ILI9341_SIZE*2);
 }
 

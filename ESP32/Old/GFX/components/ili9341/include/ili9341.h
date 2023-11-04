@@ -14,5 +14,4 @@ void ILI9341_command_param(uint8_t data);
 void ILI9341_write_data(void *buffer, int bytes);
 void ILI9341_render();
 
-uint16_t *ILI9341_get_screenbuffer(void);
 struct ILI9341 *ILI9341_get_ili(void);
