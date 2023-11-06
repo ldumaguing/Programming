@@ -3,20 +3,49 @@
 //#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
 /*
 // ********** OLD ESP32
-#define ILI9341_CS  15 //26
+#define ILI9341_CS  26
+#define ILI9341_CD  2
+#define ILI9341_WR  4
+#define ILI9341_RD  16
+
+#define ILI9341_D0 17
+#define ILI9341_D1 5
+#define ILI9341_D2 18
+#define ILI9341_D3 19
+#define ILI9341_D4 21
+#define ILI9341_D5 22
+#define ILI9341_D6 23
+#define ILI9341_D7 25
+*/
+
+/*
+// ********** OLD ESP32 v2
+#define ILI9341_CS  25 //26
 #define ILI9341_CD  2  //2
-#define ILI9341_WR  0  //4
+#define ILI9341_WR  26 //4
 #define ILI9341_RD  4  //16
 
-#define ILI9341_D0 5   //17
+#define ILI9341_D0 5  //17
 #define ILI9341_D1 18  //5
 #define ILI9341_D2 19  //18
 #define ILI9341_D3 21  //19
-#define ILI9341_D4 3   //21
-#define ILI9341_D5 1   //22
+
+#define ILI9341_D4 27  //21
+#define ILI9341_D5 17  //22
 #define ILI9341_D6 22  //23
 #define ILI9341_D7 23  //25
 */
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ********** FOR ESP32-S3
