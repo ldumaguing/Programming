@@ -1,53 +1,25 @@
 // *************************************************************************************** defines.h
 // *************************************************************************************************
 //#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
-/*
-// ********** OLD ESP32
+
+// ********** OLD ESP32   (black clipboard)
 #define ILI9341_CS  26
 #define ILI9341_CD  2
 #define ILI9341_WR  4
 #define ILI9341_RD  16
 
-#define ILI9341_D0 17
-#define ILI9341_D1 5
-#define ILI9341_D2 18
-#define ILI9341_D3 19
-#define ILI9341_D4 21
-#define ILI9341_D5 22
-#define ILI9341_D6 23
-#define ILI9341_D7 25
-*/
+#define ILI9341_D0  17
+#define ILI9341_D1  5
+#define ILI9341_D2  18
+#define ILI9341_D3  19
+
+#define ILI9341_D4  21
+#define ILI9341_D5  22
+#define ILI9341_D6  23
+#define ILI9341_D7  25
+
 
 /*
-// ********** OLD ESP32 v2
-#define ILI9341_CS  25 //26
-#define ILI9341_CD  2  //2
-#define ILI9341_WR  26 //4
-#define ILI9341_RD  4  //16
-
-#define ILI9341_D0 5  //17
-#define ILI9341_D1 18  //5
-#define ILI9341_D2 19  //18
-#define ILI9341_D3 21  //19
-
-#define ILI9341_D4 27  //21
-#define ILI9341_D5 17  //22
-#define ILI9341_D6 22  //23
-#define ILI9341_D7 23  //25
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ********** FOR ESP32-S3
 #define ILI9341_CS 4
 #define ILI9341_CD 5
@@ -62,7 +34,7 @@
 #define ILI9341_D5 12
 #define ILI9341_D6 13
 #define ILI9341_D7 14
-
+*/
 
 
 
@@ -92,21 +64,20 @@
 	1 << ILI9341_D6    |       \
 	1 << ILI9341_D7            \
 )
-/*
+
 // ********** OLD ESP32
 #define GPIO_OUT_W1TS_REG 0x3FF44008
 #define GPIO_OUT_W1TC_REG 0x3FF4400C
 #define GPIO_ENABLE_REG   0x3FF44020
-*/
 
 
+/*
 // ********** FOR ESP32-S3
 #define GPIO_REG           0x60004000
-
 #define GPIO_OUT_W1TS_REG  (GPIO_REG | 0x0008)
 #define GPIO_OUT_W1TC_REG  (GPIO_REG | 0x000C)
 #define GPIO_ENABLE_REG    (GPIO_REG | 0x0020)
-
+*/
 
 
 

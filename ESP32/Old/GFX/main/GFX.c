@@ -6,7 +6,11 @@ void app_main(void) {
 
 	// GFX_clearScreen(0xb2f8);
 	// GFX_clearScreen(0xf8b2);
-	GFX_fillScreen(0);
+	//GFX_fillScreen(0x1f00);   // blue
+	//GFX_fillScreen(0xe007);   // green
+	//GFX_fillScreen(0x00f8);   // red
+	GFX_fillScreen(0x2108);   // black
+
 
 /*
 	GFX_drawPixel(20, 20, 0xFFFF);
@@ -45,17 +49,17 @@ GFX_drawLine(25, 75, 50, 50, 0xA4A4);
 GFX_drawTriangle(50, 50, 50, 75, 25, 75, 0xFFFF);
 
 
-GFX_drawRoundRect(5, 5, 200, 200, 10, 0x8f4f);
+
 */
 
-// GFX_fillCircle(70, 70, 25, 0xFFFF);
+// 
 // GFX_fillRect(30, 30, 60, 60, 0xFFFF);
-// GFX_fillRoundRect(5, 5, 200, 200, 10, 0x8f4f);
+// 
 
-GFX_fillTriangle(50, 50, 50, 75, 25, 75, 0xFFFF);
-
-
-
+GFX_fillTriangle(5, 50, 50, 175, 135, 100, 0x2108);
+// GFX_fillRoundRect(5, 5, 200, 200, 10, 0xffff);
+GFX_drawRoundRect(5, 5, 200, 200, 20, 0x8f4f);
+GFX_fillCircle(70, 70, 25, 0x0300);
 
 
 	GFX_refreshScreen();
