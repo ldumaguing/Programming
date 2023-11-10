@@ -14,7 +14,7 @@
 #include "string.h"
 #include "driver/gpio.h"
 
-static const int RX_BUF_SIZE = 184;
+static const int RX_BUF_SIZE = 1024;
 
 #define TXD_PIN (GPIO_NUM_1)
 #define RXD_PIN (GPIO_NUM_3)
@@ -48,31 +48,37 @@ static void tx_task(void *arg)
     static const char *TX_TASK_TAG = "TX_TASK";
     esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
     while (1) {
-        sendData(TX_TASK_TAG, "Hello world");
+        sendData(TX_TASK_TAG, "Hello from the bottom");
         vTaskDelay(2000 / portTICK_PERIOD_MS);
     }
 }
 */
+
 static void rx_task(void *arg)
 {
-    static const char *RX_TASK_TAG = "RX_TASK";
-    esp_log_level_set(RX_TASK_TAG, ESP_LOG_INFO);
+    // static const char *RX_TASK_TAG = "RX_TASK";
+    // esp_log_level_set(RX_TASK_TAG, ESP_LOG_INFO);
     uint8_t* data = (uint8_t*) malloc(RX_BUF_SIZE+1);
     while (1) {
         const int rxBytes = uart_read_bytes(UART_NUM_0, data, RX_BUF_SIZE, 1000 / portTICK_PERIOD_MS);
         if (rxBytes > 0) {
-            data[rxBytes] = 0;
-	    printf(">>>>> %s <<<<<\n", data);
-//            ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
-//            ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
+            // data[rxBytes] = 0;
+            data[10] = 0;
+            printf("%s\n", data);
+            // ESP_LOGI(RX_TASK_TAG, "Read %d bytes: >>>%s<<<", rxBytes, data);
+            //ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
         }
     }
     free(data);
 }
 
+
+
+
+
 void app_main(void)
 {
     init();
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES, NULL);
-//    xTaskCreate(tx_task, "uart_tx_task", 1024*2, NULL, configMAX_PRIORITIES-1, NULL);
+    //xTaskCreate(tx_task, "uart_tx_task", 1024*2, NULL, configMAX_PRIORITIES-1, NULL);
 }
