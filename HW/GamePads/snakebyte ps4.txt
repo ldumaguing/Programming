@@ -1,0 +1,69 @@
+
+idx=0, dpad: 0x00, buttons: 0x0000, axis L:    4,    4, axis R:    4,    4, brake:    0, throttle:    0, misc: 0x00
+
+
+DPad
+====
+   Up: 0x01  0001
+ Down: 0x02  0010
+ Left: 0x08  1000
+Right: 0x04  0100
+
+
+Buttons
+=======
+Triangle: 0x0008
+  Square: 0x0004
+  Circle: 0x0002
+   Cross: 0x0001
+   Brake: 0x0040
+Throttle: 0x0080
+  Axis L: 0x0100
+  Axis R: 0x0200
+
+
+Misc
+====
+  Left: 0x02
+Center: 0x01
+ Right: 0x04
+
+
+Throttle
+========
+0 to 1020
+
+
+Brake
+=====
+0 to 1020
+
+
+Axis L
+======
+Horizontal: -508 to 512 (left to right; 4 is the center)
+  Vertical: -508 to 512 (up to down; 4 is the center)
+
+
+Axis R
+======
+Horizontal: -508 to 512 (left to right; 4 is the center)
+  Vertical: -508 to 512 (up to down; 4 is the center)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
