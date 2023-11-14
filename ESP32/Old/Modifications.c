@@ -85,7 +85,7 @@ void dumpGamepad(ControllerPtr ctl) {
 }
 
 
-
+vTaskDelay(1);
 
 
 
