@@ -1,54 +1,62 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
-void defineSlice(uint8_t *, uint8_t *, uint8_t, uint8_t);
+int getInt(uint8_t *, int);
 
-struct GameInputs {
-	int index;
-};
+struct PadInputs {
+	int index, dpad, buttons,
+		axisX, axisY, axisRX, axisRY,
+		brake, throttle,
+		miscButtons;
+} padinputs;
 
-void defineSlice(uint8_t *buff, uint8_t *str, uint8_t begin, uint8_t chunk) {
-	printf("\n");
-	int count = 0;
-	if(chunk <= 0) return;
-	if(chunk > (strlen(str)-begin+1)) chunk = strlen(str)-begin+1;
-	for(int i=begin; i<=chunk; i++) {
-		buff[count] = str[i];
-		count++;
+int getInt(uint8_t *str, int loc) {
+	if(str[loc] == ' ') {
+		uint8_t buff[16];
+		int count=0;
+		for(int i=loc; i<loc+4; i++) {
+			buff[count] = str[i];
+			count++;
+		}
+		buff[count] = 0;
+
+		return atoi(buff);
 	}
-	buff[count] = 0;
-	printf(">%s.\n", str);
-	printf(">%s.\n", buff);
+
+	return 0;
 };
- 
 
 
 
 int main() {
-	uint8_t buffer[100];
 	uint8_t X[] = "idx   1;   2;   3;   6, -29;   4,   5;   6;   7;   8";
-	defineSlice(buffer, X, 2, 1);
-	printf(".%s\n", buffer);
+
+	padinputs.index = getInt(X, 3);
+	padinputs.dpad = getInt(X, 8);
+	padinputs.buttons = getInt(X, 13);
+	padinputs.axisX = getInt(X, 18);
+	padinputs.axisY = getInt(X, 23);
+	padinputs.axisRX = getInt(X, 28);
+	padinputs.axisRY = getInt(X, 33);
+	padinputs.brake = getInt(X, 38);
+	padinputs.throttle = getInt(X, 43);
+	padinputs.miscButtons = getInt(X, 48);
+
+	printf(">%d\n", padinputs.index);
+	printf(">%d\n", padinputs.dpad);
+	printf(">%d\n", padinputs.buttons);
+	printf(">%d\n", padinputs.axisX);
+	printf(">%d\n", padinputs.axisY);
+	printf(">%d\n", padinputs.axisRX);
+	printf(">%d\n", padinputs.axisRY);
+	printf(">%d\n", padinputs.brake);
+	printf(">%d\n", padinputs.throttle);
+	printf(">%d\n", padinputs.miscButtons);
+
 	return 0;
 }
 
-/*
-void dumpGamepad(ControllerPtr ctl) {
-    Console.printf(
-        "idx%4d;%4d;%4d;%4d,%4d;%4d,%4d;%4d;%4d;%4d\n",
-        ctl->index(),        // Controller Index
-        ctl->dpad(),         // DPAD
-        ctl->buttons(),      // bitmask of pressed buttons
-        ctl->axisX(),        // (-511 - 512) left X Axis
-        ctl->axisY(),        // (-511 - 512) left Y axis
-        ctl->axisRX(),       // (-511 - 512) right X axis
-        ctl->axisRY(),       // (-511 - 512) right Y axis
-        ctl->brake(),        // (0 - 1023): brake button
-        ctl->throttle(),     // (0 - 1023): throttle (AKA gas) button
-        ctl->miscButtons()  // bitmak of pressed "misc" buttons
-    );
-}
-*/
 
 
