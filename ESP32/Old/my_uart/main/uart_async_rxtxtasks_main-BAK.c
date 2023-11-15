@@ -14,7 +14,7 @@ static const int RX_BUF_SIZE = 128;
 
 #define TXD_PIN    (GPIO_NUM_10)
 #define RXD_PIN    (GPIO_NUM_9)
-#define UART_NUM_x (UART_NUM_1)
+
 
 int getInt(uint8_t *, int);
 
@@ -35,6 +35,9 @@ int getInt(uint8_t *str, int loc) {
 	buff[count] = 0;
 
 	return atoi((char *)buff);
+
+
+	return 0;
 };
 
 void init(void) {
@@ -47,9 +50,9 @@ void init(void) {
         .source_clk = UART_SCLK_DEFAULT,
     };
     // We won't use a buffer for sending data.
-    uart_driver_install(UART_NUM_x, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
-    uart_param_config(UART_NUM_x, &uart_config);
-    uart_set_pin(UART_NUM_x, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_driver_install(UART_NUM_1, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_param_config(UART_NUM_1, &uart_config);
+    uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
 static void GamePad_Phase(uint8_t *data, int len) {
@@ -91,7 +94,7 @@ static void GamePad_Phase(uint8_t *data, int len) {
 static void rx_task(void *arg) {
     uint8_t* data = (uint8_t*) malloc(RX_BUF_SIZE+1);
     while (1) {
-        const int rxBytes = uart_read_bytes(UART_NUM_x, data, RX_BUF_SIZE, 200 / portTICK_PERIOD_MS);
+        const int rxBytes = uart_read_bytes(UART_NUM_1, data, RX_BUF_SIZE, 200 / portTICK_PERIOD_MS);
         if (rxBytes > 0) {
             data[rxBytes] = 0;
             GamePad_Phase(data, rxBytes);
