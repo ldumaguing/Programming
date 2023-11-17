@@ -96,8 +96,6 @@ static void rx_task(void *arg) {
 
 void UART_init(void)
 {
-    printf("UART_init\n");
-
     const uart_config_t uart_config = {
         .baud_rate = 115200,
         .data_bits = UART_DATA_8_BITS,
@@ -111,7 +109,8 @@ void UART_init(void)
     uart_param_config(UART_NUM_x, &uart_config);
     uart_set_pin(UART_NUM_x, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 
-    xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES, NULL);
+    // xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES, NULL);
+    xTaskCreatePinnedToCore(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES, NULL, 0);
 }
 
 
