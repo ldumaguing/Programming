@@ -8,8 +8,8 @@
 
 static const int RX_BUF_SIZE = 1024;
 
-#define TXD_PIN (GPIO_NUM_17)
-#define RXD_PIN (GPIO_NUM_16)
+#define TXD_PIN (GPIO_NUM_10)
+#define RXD_PIN (GPIO_NUM_9)
 
 void init(void) {
 	const uart_config_t uart_config = {
@@ -21,15 +21,15 @@ void init(void) {
 		.source_clk = UART_SCLK_DEFAULT,
 	};
 	// We won't use a buffer for sending data.
-	uart_driver_install(UART_NUM_2, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
-	uart_param_config(UART_NUM_2, &uart_config);
-	uart_set_pin(UART_NUM_2, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+	uart_driver_install(UART_NUM_1, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+	uart_param_config(UART_NUM_1, &uart_config);
+	uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
 static void rx_task(void *arg) {
 	uint8_t* data = (uint8_t*) malloc(RX_BUF_SIZE+1);
 	while (1) {
-		const int rxBytes = uart_read_bytes(UART_NUM_2, data, RX_BUF_SIZE, 20 / portTICK_PERIOD_MS);
+		const int rxBytes = uart_read_bytes(UART_NUM_1, data, RX_BUF_SIZE, 20 / portTICK_PERIOD_MS);
 		if (rxBytes > 0) {
 			data[rxBytes] = 0;
 		}
