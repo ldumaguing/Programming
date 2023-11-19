@@ -24,7 +24,11 @@ struct ILI9341 *ILI9341_get_ili(void) {
 	ili._width   = ILI9341_TFTWIDTH;
 	ili._height  = ILI9341_TFTHEIGHT;
 	ili.rotation = ILI9341_ROTATION;
-	
+	if(ili.rotation % 2) {
+		ili._width   = ILI9341_TFTHEIGHT;
+		ili._height  = ILI9341_TFTWIDTH;
+	}
+
 	return &ili;
 }
 
