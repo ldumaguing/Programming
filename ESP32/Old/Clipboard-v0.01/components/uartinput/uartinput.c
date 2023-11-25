@@ -10,9 +10,15 @@
 #include "driver/gpio.h"
 
 #define RX_BUF_SIZE 128
-#define TXD_PIN     (GPIO_NUM_10)
-#define RXD_PIN     (GPIO_NUM_9)
-#define UART_NUM_x  (UART_NUM_1)
+/*
+#define TXD_PIN    (GPIO_NUM_10)
+#define RXD_PIN    (GPIO_NUM_9)
+#define UART_NUM_x (UART_NUM_1)
+*/
+
+#define TXD_PIN    (GPIO_NUM_17)
+#define RXD_PIN    (GPIO_NUM_16)
+#define UART_NUM_x (UART_NUM_2)
 
 // int getInt(uint8_t *, int);
 
