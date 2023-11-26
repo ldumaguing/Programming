@@ -5,113 +5,120 @@
 #include "esp_log.h"
 #include "driver/gpio.h"
 
-#define LED_1 15
-#define LED_2 2
-#define LED_3 0
-#define LED_4 4
-#define LED_5 5
-#define LED_6 18
-#define LED_7 19
-#define LED_8 21
+#define ILI9341_D0 5
+#define ILI9341_D1 18
+#define ILI9341_D2 19
+#define ILI9341_D3 21
+#define ILI9341_D4 26
+#define ILI9341_D5 25
+#define ILI9341_D6 22
+#define ILI9341_D7 23
 
-#define LEDc_1 3
-#define LEDc_2 1
-#define LEDc_3 22
-#define LEDc_4 23
+#define ILI9341_CS 27   //
+#define ILI9341_CD 
+#define ILI9341_WR 0    //
+#define ILI9341_RD 
 
 void app_main(void) {
 	char *ourTaskName = pcTaskGetName(NULL);
 	ESP_LOGI(ourTaskName, "Yo, starting up.................");
 	
-	gpio_reset_pin(LED_1);
-	gpio_set_direction(LED_1, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D0);
+	gpio_set_direction(ILI9341_D0, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_2);
-	gpio_set_direction(LED_2, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D1);
+	gpio_set_direction(ILI9341_D1, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_3);
-	gpio_set_direction(LED_3, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D2);
+	gpio_set_direction(ILI9341_D2, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_4);
-	gpio_set_direction(LED_4, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D3);
+	gpio_set_direction(ILI9341_D3, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_5);
-	gpio_set_direction(LED_5, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D4);
+	gpio_set_direction(ILI9341_D4, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_6);
-	gpio_set_direction(LED_6, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D5);
+	gpio_set_direction(ILI9341_D5, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_7);
-	gpio_set_direction(LED_7, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D6);
+	gpio_set_direction(ILI9341_D6, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LED_8);
-	gpio_set_direction(LED_8, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_D7);
+	gpio_set_direction(ILI9341_D7, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LEDc_1);
-	gpio_set_direction(LEDc_1, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LEDc_2);
-	gpio_set_direction(LEDc_2, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_CS);
+	gpio_set_direction(ILI9341_CS, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LEDc_3);
-	gpio_set_direction(LEDc_3, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_CD);
+	gpio_set_direction(ILI9341_CD, GPIO_MODE_OUTPUT);
 
-	gpio_reset_pin(LEDc_4);
-	gpio_set_direction(LEDc_4, GPIO_MODE_OUTPUT);
+	gpio_reset_pin(ILI9341_WR);
+	gpio_set_direction(ILI9341_WR, GPIO_MODE_OUTPUT);
+
+	gpio_reset_pin(ILI9341_RD);
+	gpio_set_direction(ILI9341_RD, GPIO_MODE_OUTPUT);
 
 	while(1) {
-		gpio_set_level(LED_1, 1);
+		gpio_set_level(ILI9341_D0, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_2, 1);
+		gpio_set_level(ILI9341_D1, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_3, 1);
+		gpio_set_level(ILI9341_D2, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_4, 1);
+		gpio_set_level(ILI9341_D3, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_5, 1);
+		gpio_set_level(ILI9341_D4, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_6, 1);
+		gpio_set_level(ILI9341_D5, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_7, 1);
+		gpio_set_level(ILI9341_D6, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_8, 1);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-
-		gpio_set_level(LEDc_1, 1);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_2, 1);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_3, 1);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_4, 1);
+		gpio_set_level(ILI9341_D7, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
 
 
 
-		gpio_set_level(LED_1, 0);
+		gpio_set_level(ILI9341_CS, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_2, 0);
+		gpio_set_level(ILI9341_CD, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_3, 0);
+		gpio_set_level(ILI9341_WR, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_4, 0);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_5, 0);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_6, 0);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_7, 0);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LED_8, 0);
+		gpio_set_level(ILI9341_RD, 1);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
 
-		gpio_set_level(LEDc_1, 0);
+
+
+		gpio_set_level(ILI9341_D0, 0);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_2, 0);
+		gpio_set_level(ILI9341_D1, 0);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_3, 0);
+		gpio_set_level(ILI9341_D2, 0);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		gpio_set_level(LEDc_4, 0);
+		gpio_set_level(ILI9341_D3, 0);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_D4, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_D5, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_D6, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_D7, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+
+
+
+	
+		gpio_set_level(ILI9341_CS, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_CD, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_WR, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		gpio_set_level(ILI9341_RD, 0);
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+
 	}
 }
