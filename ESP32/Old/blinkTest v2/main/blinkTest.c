@@ -23,10 +23,9 @@
 #define ILI9341_D6 22
 #define ILI9341_D7 23
 
-#define ILI9341_CS 27
-#define ILI9341_CD (33 - 32)
+#define ILI9341_CS (33 - 32)
+#define ILI9341_CD (32 - 32)
 #define ILI9341_WR 0
-#define ILI9341_RD (32 - 32)
 
 #define ILI9341_DATA_PINS (    \
 	1 << ILI9341_D0    |       \
@@ -39,30 +38,83 @@
 	1 << ILI9341_D7            \
 )
 
-#define ILI9341_CMDa_PINS (     \
-	1 << ILI9341_CS    |        \
-	1 << ILI9341_WR             \
-)
-
+#define ILI9341_CMDa_PINS (1 << ILI9341_WR)
 
 #define ILI9341_CMDb_PINS (     \
-	1 << ILI9341_CD    |        \
-	1 << ILI9341_RD             \
+	1 << ILI9341_CS    |        \
+	1 << ILI9341_CD             \
 )
 
 
-
-
-
-
-
+#define delayMS vTaskDelay(500 / portTICK_PERIOD_MS)
 
 
 
 void app_main(void) {
+	volatile uint32_t *gpio_out_w1ts_reg = (volatile uint32_t*) GPIO_OUT_W1TS_REG;
+	volatile uint32_t *gpio_out_w1tc_reg = (volatile uint32_t*) GPIO_OUT_W1TC_REG;
+	volatile uint32_t *gpio_enable_reg = (volatile uint32_t*) GPIO_ENABLE_REG;
+	*gpio_enable_reg = ILI9341_DATA_PINS | ILI9341_CMDa_PINS;
+	
+	volatile uint32_t *gpio_out1_w1ts_reg = (volatile uint32_t*) GPIO_OUT1_W1TS_REG;
+	volatile uint32_t *gpio_out1_w1tc_reg = (volatile uint32_t*) GPIO_OUT1_W1TC_REG;
+	volatile uint32_t *gpio_enable1_reg = (volatile uint32_t*) GPIO_ENABLE1_REG;
+	*gpio_enable1_reg = ILI9341_CMDb_PINS;
 	
 	
 	
+	
+	while(1) {
+		*gpio_out_w1ts_reg = (1 << ILI9341_D0);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D1);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D2);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D3);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D4);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D5);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D6);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_D7);
+		delayMS;
+		*gpio_out_w1ts_reg = (1 << ILI9341_WR);
+		delayMS;
+		*gpio_out1_w1ts_reg = (1 << ILI9341_CS);
+		delayMS;	
+		*gpio_out1_w1ts_reg = (1 << ILI9341_CD);
+		delayMS;
+
+		
+		
+		
+		*gpio_out_w1tc_reg = (1 << ILI9341_D0);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D1);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D2);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D3);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D4);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D5);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D6);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_D7);
+		delayMS;
+		*gpio_out_w1tc_reg = (1 << ILI9341_WR);
+		delayMS;
+		*gpio_out1_w1tc_reg = (1 << ILI9341_CS);
+		delayMS;
+		*gpio_out1_w1tc_reg = (1 << ILI9341_CD);
+		delayMS;
+
+	}
 	
 	/*
 	char *ourTaskName = pcTaskGetName(NULL);

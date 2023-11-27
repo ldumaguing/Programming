@@ -34,7 +34,7 @@ GFX_fillScreen2(0x1f00, 0xd007);
 
 
 
-GFX_drawImage(20, 20, img_width, img_height, img);
+//GFX_drawImage(20, 20, img_width, img_height, img);
 
 
 
@@ -85,9 +85,9 @@ GFX_drawTriangle(50, 50, 50, 75, 25, 75, 0xFFFF);
 
 GFX_fillTriangle(5, 50, 50, 175, 135, 100, 0x1f00);
 // GFX_fillRoundRect(5, 5, 200, 200, 10, 0xffff);
-
-GFX_fillCircle(70, 70, 25, 0x00f8);
 */
+GFX_fillCircle(70, 70, 25, 0x00f8);
+
 
 GFX_drawRoundRect(5, 5, 200, 200, 20, 0xe007);
 

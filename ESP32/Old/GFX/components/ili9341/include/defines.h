@@ -2,91 +2,40 @@
 // *************************************************************************************************
 //#define sleep_ms(a) vTaskDelay(a / portTICK_PERIOD_MS)
 
-/*
-// ********** OLD ESP32   (black clipboard)
-#define ILI9341_CS  26
-#define ILI9341_CD  2
-#define ILI9341_WR  4
-#define ILI9341_RD  16
+// ********** OLD ESP32
+#define GPIO_OUT_W1TS_REG 0x3FF44008
+#define GPIO_OUT_W1TC_REG 0x3FF4400C
+#define GPIO_ENABLE_REG   0x3FF44020
 
-#define ILI9341_D0  17
-#define ILI9341_D1  5
-#define ILI9341_D2  18
-#define ILI9341_D3  19
+#define GPIO_OUT1_W1TS_REG 0x3FF44014
+#define GPIO_OUT1_W1TC_REG 0x3FF44018
+#define GPIO_ENABLE1_REG   0x3FF4402C
 
-#define ILI9341_D4  21
-#define ILI9341_D5  22
-#define ILI9341_D6  23
-#define ILI9341_D7  25
-*/
+#define ILI9341_D0 26
+#define ILI9341_D1 25
+#define ILI9341_D2 5
+#define ILI9341_D3 18
+#define ILI9341_D4 19
+#define ILI9341_D5 21
+#define ILI9341_D6 22
+#define ILI9341_D7 23
 
-
-
-
-
-
-
-
-// ********** OLD ESP32   (pink clipboard)
-#define ILI9341_CS  2
-#define ILI9341_CD  4
-#define ILI9341_WR  16
-#define ILI9341_RD  17
-
-#define ILI9341_D0  5
-#define ILI9341_D1  18
-#define ILI9341_D2  19
-#define ILI9341_D3  21
-
-#define ILI9341_D4  26
-#define ILI9341_D5  25
-#define ILI9341_D6  22
-#define ILI9341_D7  23
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#define ILI9341_CS (33 - 32)
+#define ILI9341_CD (32 - 32)
+#define ILI9341_WR 0
 
 /*
 // ********** FOR ESP32-S3
-#define ILI9341_CS 4
-#define ILI9341_CD 5
-#define ILI9341_WR 6
-#define ILI9341_RD 7
-
-#define ILI9341_D0 8
-#define ILI9341_D1 3
-#define ILI9341_D2 9
-#define ILI9341_D3 10
-#define ILI9341_D4 11
-#define ILI9341_D5 12
-#define ILI9341_D6 13
-#define ILI9341_D7 14
+#define GPIO_REG           0x60004000
+#define GPIO_OUT_W1TS_REG  (GPIO_REG | 0x0008)
+#define GPIO_OUT_W1TC_REG  (GPIO_REG | 0x000C)
+#define GPIO_ENABLE_REG    (GPIO_REG | 0x0020)
 */
 
 #define ILI9341_TFTWIDTH  240  ///< ILI9341 max TFT width
 #define ILI9341_TFTHEIGHT 320  ///< ILI9341 max TFT height
 #define ILI9341_ROTATION  1
 #define ILI9341_SIZE (ILI9341_TFTHEIGHT * ILI9341_TFTWIDTH)
-
-#define ILI9341_CMD_PINS (     \
-	1 << ILI9341_CS    |       \
-	1 << ILI9341_CD    |       \
-	1 << ILI9341_WR    |       \
-	1 << ILI9341_RD            \
-)
 
 #define ILI9341_DATA_PINS (    \
 	1 << ILI9341_D0    |       \
@@ -99,31 +48,20 @@
 	1 << ILI9341_D7            \
 )
 
-// ********** OLD ESP32
-#define GPIO_OUT_W1TS_REG 0x3FF44008
-#define GPIO_OUT_W1TC_REG 0x3FF4400C
-#define GPIO_ENABLE_REG   0x3FF44020
+#define ILI9341_CMDa_PINS (1 << ILI9341_WR)
+
+#define ILI9341_CMDb_PINS (     \
+	1 << ILI9341_CS    |        \
+	1 << ILI9341_CD             \
+)
 
 
-/*
-// ********** FOR ESP32-S3
-#define GPIO_REG           0x60004000
-#define GPIO_OUT_W1TS_REG  (GPIO_REG | 0x0008)
-#define GPIO_OUT_W1TC_REG  (GPIO_REG | 0x000C)
-#define GPIO_ENABLE_REG    (GPIO_REG | 0x0020)
-*/
-
-
-
-
-
-#define CS_ACTIVE  *gpio_out_w1tc_reg = (1 << ILI9341_CS)
-#define CS_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_CS)
-#define CD_COMMAND *gpio_out_w1tc_reg = (1 << ILI9341_CD)
-#define CD_DATA    *gpio_out_w1ts_reg = (1 << ILI9341_CD)
-#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_IDLE)
+#define CS_ACTIVE  *gpio_out1_w1tc_reg = (1 << ILI9341_CS)
+#define CS_IDLE    *gpio_out1_w1ts_reg = (1 << ILI9341_CS)
+#define CD_COMMAND *gpio_out1_w1tc_reg = (1 << ILI9341_CD)
+#define CD_DATA    *gpio_out1_w1ts_reg = (1 << ILI9341_CD)
+#define WR_IDLE    *gpio_out_w1ts_reg = (1 << ILI9341_WR)
 #define WR_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_WR); *gpio_out_w1ts_reg = (1 << ILI9341_WR)
-#define RD_STROBE  *gpio_out_w1tc_reg = (1 << ILI9341_RD); *gpio_out_w1ts_reg = (1 << ILI9341_RD)
 
 #define _swap_int16_t(a, b)                                                    \
   {                                                                            \
