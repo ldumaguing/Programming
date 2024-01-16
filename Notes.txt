@@ -1,0 +1,1 @@
+sudo mount tmpfs -t tmpfs -o uid=bob -o gid=bob /ram-disk
