@@ -41,7 +41,7 @@ def oddXcol(X, Y, direction):
 			X = X-1;
 			Y = Y+1;
 		case "F":
-			X = X-1;ls
+			X = X-1;
 
 	return str(X).zfill(2) + str(Y).zfill(2);
 
