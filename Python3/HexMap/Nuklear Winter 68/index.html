@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nuklear Winter '68</title>
+<!-- <meta http-equiv="refresh" content="3"> -->
+</head>
+<img id="map" src="images/Map.jpg" hidden>
+<img id="veh01" src="images/1_130 E100 front.png" hidden>
+<img id="veh02" src="images/Blighter front.png" hidden>
+
+<body onload="main()">
+<canvas id="canvas0" width="6372" height="4139"></canvas>
+
+<script>
+var x0 = 292;
+var xScale = 168.8571;
+var y0 = 141;
+var yScale = 195.05;
+var adjustY = -97;
+
+function main() {
+	let canvas0 = document.getElementById("canvas0");
+	let ctx0 = canvas0.getContext("2d");
+
+	let map = document.getElementById("map");
+	let veh01 = document.getElementById("veh01");
+	let veh02 = document.getElementById("veh02");
+
+	ctx0.drawImage(map,0,0);
+	ctx0.drawImage(veh01, x0+(xScale * 1), y0+(yScale * 1) + adjustY);
+	ctx0.drawImage(veh02, x0+(xScale * 6), y0+(yScale * 2));
+}
+</script>
+
+
+
+
+</body>
+
+</html>
