@@ -12,11 +12,13 @@
 <canvas id="canvas0" width="6372" height="4139"></canvas>
 
 <script>
-var x0 = 292;
+var x0 = 368;
 var xScale = 168.8571;
-var y0 = 141;
+var y0 = 215;
 var yScale = 195.05;
 var adjustY = -97;
+var chitAdjustmentX = -75;
+var chitAdjustmentY = -74;
 
 function main() {
 	let canvas0 = document.getElementById("canvas0");
@@ -27,8 +29,45 @@ function main() {
 	let veh02 = document.getElementById("veh02");
 
 	ctx0.drawImage(map,0,0);
-	ctx0.drawImage(veh01, x0+(xScale * 1), y0+(yScale * 1) + adjustY);
-	ctx0.drawImage(veh02, x0+(xScale * 6), y0+(yScale * 2));
+	ctx0.translate(x0, y0);
+
+	ctx0.beginPath();
+	ctx0.arc(0, 0, 98, 0, Math.PI*2);
+	ctx0.stroke();
+
+	ctx0.lineWidth = 5;
+	ctx0.beginPath();
+	ctx0.moveTo(0, 0);
+	ctx0.lineTo(300, 150);
+	ctx0.stroke();
+
+	ctx0.drawImage(veh02, (xScale * 0) + chitAdjustmentX, (yScale * 0) + chitAdjustmentY);
+	ctx0.drawImage(veh01, (xScale * 0) + chitAdjustmentX, (yScale * 1) + chitAdjustmentY);
+
+
+/*
+
+	ctx0.drawImage(veh01, (xScale * 1), (yScale * 1) + adjustY);
+	ctx0.drawImage(veh02, (xScale * 0), (yScale * 0));
+	
+
+	
+	
+	
+	
+	
+	
+	
+	ctx0.save();
+	ctx0.translate(100, 100);
+	ctx0.rotate(45 * Math.PI / 180);
+	ctx0.drawImage(veh01, -75, -75);
+	ctx0.restore();
+	*/
+
+
+	
+	
 }
 </script>
 
