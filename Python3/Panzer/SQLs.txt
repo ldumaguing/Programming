@@ -1,0 +1,34 @@
+create table images (
+	name varchar(80),
+	UNIQUE KEY name (name)
+);
+
+
+
+LOAD DATA LOCAL INFILE '/home/ayeka/xxx/Panzer/images.txt'
+INTO TABLE images;
+
+
+
+
+alter table images add column (
+	type varchar(80)
+);
+
+alter table images add column (
+	country varchar(80)
+);
+
+update images set type = 'map' where name regexp '^Panzer[0-9]';
+
+
+
+
+FrontFiringArc.png
+update images set type = 'marker' where name = 'FrontFiringArc.png';
+
+TurnTrack.jpg
+update images set type = 'tableau' where name = 'TurnTrack.jpg';
+
+
+
