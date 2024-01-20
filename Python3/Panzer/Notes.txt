@@ -19,6 +19,40 @@ alter table images add column (
 	country varchar(80)
 );
 
+alter table images
+	add column 
+	id int
+	first
+;
+
+create sequence s1;
+update images set id = nextval(s1);
+
+
+
+
+
+
+
+
+
+
+
+alter table images add column (
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
 update images set type = 'map' where name regexp '^Panzer[0-9]';
 
 
