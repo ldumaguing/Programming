@@ -154,8 +154,8 @@ INSERT INTO `images` VALUES
 (107,'Combat-icon.png','marker'),
 (108,'Combat.jpg','marker'),
 (109,'Cowboys Chit front.png','marker'),
-(110,'Cowboys Huey back.png','marker'),
-(111,'Cowboys Huey front.png','marker'),
+(110,'Cowboys Huey back.png','vtol'),
+(111,'Cowboys Huey front.png','vtol'),
 (112,'cup-icon.png','marker'),
 (113,'cup.jpg','marker'),
 (114,'Derek Castle.png','marker'),
@@ -181,7 +181,7 @@ INSERT INTO `images` VALUES
 (134,'magnify-minus.png','marker'),
 (135,'magnify-plus.png','marker'),
 (136,'magnify-size.png','marker'),
-(137,'Map.jpg','marker'),
+(137,'Map.jpg','map'),
 (138,'Map-mini-icon.png','marker'),
 (139,'Megrim back.png','ground'),
 (140,'Megrim front.png','ground'),
@@ -251,4 +251,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-20 13:43:18
+-- Dump completed on 2024-01-20 18:47:07

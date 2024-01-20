@@ -15,7 +15,7 @@ mycursor.execute("SELECT * FROM images")
 myresult = mycursor.fetchall()
 
 for x in myresult:
-  print(x)
+  print(x[1])
 
 
 print(mydb)
