@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import mysql.connector
+import sys
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -31,7 +32,7 @@ img1 = """" src="images/"""
 
 
 mycursor = mydb.cursor()
-mycursor.execute("select * from images where type = 'marker'")
+mycursor.execute(sys.argv[1])
 myresult = mycursor.fetchall()
 
 for x in myresult:
