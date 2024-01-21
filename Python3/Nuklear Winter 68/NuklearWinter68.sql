@@ -234,6 +234,78 @@ INSERT INTO `images` VALUES
 (194,'ZSU23 front.png','ground',NULL);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `units`
+--
+
+DROP TABLE IF EXISTS `units`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `units` (
+  `id` int(11) NOT NULL,
+  `name` varchar(80) DEFAULT NULL,
+  `formation` varchar(80) DEFAULT NULL,
+  `front` int(11) DEFAULT NULL,
+  `back` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `units`
+--
+
+LOCK TABLES `units` WRITE;
+/*!40000 ALTER TABLE `units` DISABLE KEYS */;
+INSERT INTO `units` VALUES
+(1,'BRDM-2','',103,102),
+(2,'Hummel','',127,126),
+(3,'M109 Paladin','',131,130),
+(4,'Ostwind','',151,150),
+(5,'Puma','',156,155),
+(6,'SS-1C Scud-B','',168,0),
+(7,'Ju-87G Stuka','',179,0),
+(8,'ZSU-23-4 Shilka','',194,193),
+(9,'E-100','1/130',5,4),
+(10,'Hummel','1/130',7,6),
+(11,'King Tiger','1/130',9,8),
+(12,'Puma','1/130',11,10),
+(13,'E-100','1/501 SS',63,62),
+(14,'SdKfz 250','1/7 SS',13,12),
+(15,'SS-VT','1/7 SS',18,17),
+(16,'M113','1st Ranger',24,23),
+(17,'M60A1','1st Ranger',26,25),
+(18,'US Rangers','1st Ranger',28,27),
+(19,'SdKfz 250','2/130',30,29),
+(20,'E-100','2/130',35,34),
+(21,'Fallschirmjager','2/130',37,36),
+(22,'Jagdtiger','2/130',39,38),
+(23,'SdKfz 250','2/501 SS',65,64),
+(24,'E-100','2/501 SS',70,69),
+(25,'Jagdtiger','2/501 SS',72,71),
+(26,'SS-VT','2/501 SS',74,73),
+(27,'BRDM-2','2nd Ranger',41,40),
+(28,'M113','2nd Ranger',46,45),
+(29,'M60A1','2nd Ranger',48,47),
+(30,'US Rangers','2nd Ranger',50,49),
+(31,'T-64','4th Guards',58,57),
+(32,'M113','58th Rifle',79,78),
+(33,'US Rangers','58th Rifle',81,80),
+(34,'Spetsnaz','58th Rifle',83,82),
+(35,'T-64','58th Rifle',85,84),
+(36,'Blighter','Black Hand',100,99),
+(37,'Megrim','Black Hand',140,139),
+(38,'Pest','Black Hand',153,152),
+(39,'Rancor','Black Hand',159,158),
+(40,'Ravager','Black Hand',161,160),
+(41,'Scourge','Black Hand',166,165),
+(42,'Zealots','Black Hand',192,191),
+(43,'UH-1 Huey','Cowboys',111,110),
+(44,'Haunebu III','SG 2',172,171),
+(45,'Spetsnaz','Vympel',188,187);
+/*!40000 ALTER TABLE `units` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -244,4 +316,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-20 23:26:15
+-- Dump completed on 2024-01-21 13:40:19

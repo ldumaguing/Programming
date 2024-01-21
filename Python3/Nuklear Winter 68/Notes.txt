@@ -1,4 +1,26 @@
-x
+create table units (
+	id INT PRIMARY KEY,
+	name varchar(80),
+	formation varchar(80),
+	front int,
+	back int
+);
+
+
+
+
+LOAD DATA LOCAL INFILE 'Units.csv' INTO TABLE units
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+(id, name, formation, front, back);
+
+
+
+
+
+
+
 
 https://vassalengine.org/wiki/Module:Nuklear_Winter_%2768
 
