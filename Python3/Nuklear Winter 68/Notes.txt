@@ -1,3 +1,37 @@
+drop view v_units;
+create view v_units as
+select a.id, a.name, a.formation, front, back
+from v_unit_front a, v_unit_back b
+where a.id = b.id;
+
+
+
+
+
+
+
+
+
+
+
+create view v_unit_front as
+select b.id, b.name, b.formation, a.name front
+from images a, units b
+where
+a.id = front
+limit 5;
+
+
+create view v_unit_back as
+select b.id, b.name, b.formation, a.name back
+from images a, units b
+where
+a.id = back
+limit 5;
+
+
+
+
 create table units (
 	id INT PRIMARY KEY,
 	name varchar(80),

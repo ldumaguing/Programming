@@ -56,7 +56,7 @@ INSERT INTO `images` VALUES
 (16,'1_7 SS CO front.png','CO/2IC','1/7 SS'),
 (17,'1_7 SS VT back.png','ground','1/7 SS'),
 (18,'1_7 SS VT front.png','ground','1/7 SS'),
-(19,'1.png','die',NULL),
+(19,'1.png','die','-'),
 (20,'1st Ranger Chit front.png','formation','1st Ranger'),
 (21,'1st Ranger CO back.png','CO/2IC','1st Ranger'),
 (22,'1st Ranger CO front.png','CO/2IC','1st Ranger'),
@@ -88,9 +88,9 @@ INSERT INTO `images` VALUES
 (48,'2nd Ranger M60 front.png','ground','2nd Ranger'),
 (49,'2nd Ranger Ranger back.png','ground','2nd Ranger'),
 (50,'2nd Ranger Ranger front.png','ground','2nd Ranger'),
-(51,'2.png','die',NULL),
-(52,'3.png','die',NULL),
-(53,'4.png','die',NULL),
+(51,'2.png','die','-'),
+(52,'3.png','die','-'),
+(53,'4.png','die','-'),
 (54,'4th G Chit front.png','formation','4th Guards'),
 (55,'4th G CO back.png','CO/2IC','4th Guards'),
 (56,'4th G CO front.png','CO/2IC','4th Guards'),
@@ -123,115 +123,115 @@ INSERT INTO `images` VALUES
 (83,'58th Spetsnaz front.png','ground','58th Rifle'),
 (84,'58th T62 back.png','ground','58th Rifle'),
 (85,'58th T62 front.png','ground','58th Rifle'),
-(86,'5.png','die',NULL),
-(87,'6.png','die',NULL),
-(88,'9K32 front.png','weapon',NULL),
-(89,'A6 front.png','air',NULL),
-(90,'Advance.png','marker',NULL),
-(91,'armies-icon.png','-',NULL),
-(92,'Army_Menu.png','-',NULL),
-(93,'assault-icon.png','-',NULL),
-(94,'assault.png','doc',NULL),
-(95,'Barrage 3.png','marker',NULL),
-(96,'Bio 1.png','marker',NULL),
-(97,'Black control.png','marker',NULL),
+(86,'5.png','die','-'),
+(87,'6.png','die','-'),
+(88,'9K32 front.png','weapon','-'),
+(89,'A6 front.png','air','-'),
+(90,'Advance.png','marker','-'),
+(91,'armies-icon.png','-','-'),
+(92,'Army_Menu.png','-','-'),
+(93,'assault-icon.png','-','-'),
+(94,'assault.png','doc','-'),
+(95,'Barrage 3.png','marker','-'),
+(96,'Bio 1.png','marker','-'),
+(97,'Black control.png','marker','-'),
 (98,'Black Hand Chit front.png','formation','Black Hand'),
 (99,'Blighter back.png','ground','Black Hand'),
 (100,'Blighter front.png','ground','Black Hand'),
-(101,'blue control.png','marker',NULL),
-(102,'BRDM back.png','ground',NULL),
-(103,'BRDM front.png','ground',NULL),
-(104,'Chemical 3.png','marker',NULL),
-(105,'Chemical.png','marker',NULL),
-(106,'Chit Back.png','marker',NULL),
-(107,'Combat-icon.png','-',NULL),
-(108,'Combat.jpg','doc',NULL),
+(101,'blue control.png','marker','-'),
+(102,'BRDM back.png','ground','-'),
+(103,'BRDM front.png','ground','-'),
+(104,'Chemical 3.png','marker','-'),
+(105,'Chemical.png','marker','-'),
+(106,'Chit Back.png','marker','-'),
+(107,'Combat-icon.png','-','-'),
+(108,'Combat.jpg','doc','-'),
 (109,'Cowboys Chit front.png','formation','Cowboys'),
 (110,'Cowboys Huey back.png','vtol','Cowboys'),
 (111,'Cowboys Huey front.png','vtol','Cowboys'),
-(112,'cup-icon.png','-',NULL),
-(113,'cup.jpg','-',NULL),
-(114,'Derek Castle.png','marker',NULL),
-(115,'Diskord front.png','weapon',NULL),
-(116,'Event-icon.png','-',NULL),
-(117,'Event.png','marker',NULL),
-(118,'Finished-icon2.png','-',NULL),
-(119,'Finished.png','marker',NULL),
-(120,'fire-icon.png','-',NULL),
-(121,'fire.png','doc',NULL),
-(122,'forward-button.png','-',NULL),
-(123,'globe-dark-icon.png','-',NULL),
-(124,'globe-icon.png','-',NULL),
-(125,'High Morale.png','marker',NULL),
-(126,'Hummel back.png','ground',NULL),
-(127,'Hummel front.png','ground',NULL),
-(128,'los-icon.png','-',NULL),
-(129,'Luftf front.png','weapon',NULL),
-(130,'M109 back.png','ground',NULL),
-(131,'M109 front.png','ground',NULL),
-(132,'M-60 front.png','weapon',NULL),
-(133,'M72Law front.png','weapon',NULL),
-(134,'magnify-minus.png','-',NULL),
-(135,'magnify-plus.png','-',NULL),
-(136,'magnify-size.png','-',NULL),
-(137,'Map.jpg','map',NULL),
-(138,'Map-mini-icon.png','-',NULL),
+(112,'cup-icon.png','-','-'),
+(113,'cup.jpg','-','-'),
+(114,'Derek Castle.png','marker','-'),
+(115,'Diskord front.png','weapon','-'),
+(116,'Event-icon.png','-','-'),
+(117,'Event.png','marker','-'),
+(118,'Finished-icon2.png','-','-'),
+(119,'Finished.png','marker','-'),
+(120,'fire-icon.png','-','-'),
+(121,'fire.png','doc','-'),
+(122,'forward-button.png','-','-'),
+(123,'globe-dark-icon.png','-','-'),
+(124,'globe-icon.png','-','-'),
+(125,'High Morale.png','marker','-'),
+(126,'Hummel back.png','ground','-'),
+(127,'Hummel front.png','ground','-'),
+(128,'los-icon.png','-','-'),
+(129,'Luftf front.png','weapon','-'),
+(130,'M109 back.png','ground','-'),
+(131,'M109 front.png','ground','-'),
+(132,'M-60 front.png','weapon','-'),
+(133,'M72Law front.png','weapon','-'),
+(134,'magnify-minus.png','-','-'),
+(135,'magnify-plus.png','-','-'),
+(136,'magnify-size.png','-','-'),
+(137,'Map.jpg','map','-'),
+(138,'Map-mini-icon.png','-','-'),
 (139,'Megrim back.png','ground','Black Hand'),
 (140,'Megrim front.png','ground','Black Hand'),
-(141,'MG42 front.png','weapon',NULL),
-(142,'Mines.png','marker',NULL),
-(143,'mini-map-icon.png','-',NULL),
-(144,'moved-icon.png','-',NULL),
-(145,'Moved.png','marker',NULL),
-(146,'Nuclear 6.png','marker',NULL),
-(147,'Objective.png','marker',NULL),
-(148,'OOC-icon.png','-',NULL),
-(149,'OOC.png','marker',NULL),
-(150,'Ostwind back.png','ground',NULL),
-(151,'Ostwind front.png','ground',NULL),
+(141,'MG42 front.png','weapon','-'),
+(142,'Mines.png','marker','-'),
+(143,'mini-map-icon.png','-','-'),
+(144,'moved-icon.png','-','-'),
+(145,'Moved.png','marker','-'),
+(146,'Nuclear 6.png','marker','-'),
+(147,'Objective.png','marker','-'),
+(148,'OOC-icon.png','-','-'),
+(149,'OOC.png','marker','-'),
+(150,'Ostwind back.png','ground','-'),
+(151,'Ostwind front.png','ground','-'),
 (152,'Pest back.png','ground','Black Hand'),
 (153,'Pest front.png','ground','Black Hand'),
-(154,'PFT3 front.png','weapon',NULL),
-(155,'Puma back.png','ground',NULL),
-(156,'Puma front.png','ground',NULL),
-(157,'Rad.png','marker',NULL),
+(154,'PFT3 front.png','weapon','-'),
+(155,'Puma back.png','ground','-'),
+(156,'Puma front.png','ground','-'),
+(157,'Rad.png','marker','-'),
 (158,'Rancor back.png','ground','Black Hand'),
 (159,'Rancor front.png','ground','Black Hand'),
 (160,'Ravager back.png','ground','Black Hand'),
 (161,'Ravager front.png','ground','Black Hand'),
-(162,'Red control.png','marker',NULL),
-(163,'retire-button.png','-',NULL),
-(164,'Sandbags.png','marker',NULL),
+(162,'Red control.png','marker','-'),
+(163,'retire-button.png','-','-'),
+(164,'Sandbags.png','marker','-'),
 (165,'Scourge back.png','vtol','Black Hand'),
 (166,'Scourge front.png','vtol','Black Hand'),
-(167,'screenshot-icon.png','-',NULL),
-(168,'Scud front.png','ground',NULL),
-(169,'server-button.png','-',NULL),
+(167,'screenshot-icon.png','-','-'),
+(168,'Scud front.png','ground','-'),
+(169,'server-button.png','-','-'),
 (170,'SG2 Chit front.png','formation','SG 2'),
 (171,'SG2 Saucer back.png','vtol','SG 2'),
 (172,'SG2 Saucer front.png','vtol','SG 2'),
-(173,'Shaken.png','marker',NULL),
-(174,'Shellholes.png','marker',NULL),
-(175,'Smoke 3.png','marker',NULL),
-(176,'Smoke L1.png','marker',NULL),
-(177,'Smoke L2.png','marker',NULL),
-(178,'Splash.gif','-',NULL),
-(179,'Stuka front.png','air',NULL),
-(180,'Turn.png','marker',NULL),
-(181,'undo.png','-',NULL),
-(182,'V2 front.png','rocket',NULL),
-(183,'Vehicle Crew.png','marker',NULL),
+(173,'Shaken.png','marker','-'),
+(174,'Shellholes.png','marker','-'),
+(175,'Smoke 3.png','marker','-'),
+(176,'Smoke L1.png','marker','-'),
+(177,'Smoke L2.png','marker','-'),
+(178,'Splash.gif','-','-'),
+(179,'Stuka front.png','air','-'),
+(180,'Turn.png','marker','-'),
+(181,'undo.png','-','-'),
+(182,'V2 front.png','rocket','-'),
+(183,'Vehicle Crew.png','marker','-'),
 (184,'Vympel Chit front.png','formation','Vympel'),
 (185,'Vympel Co back.png','CO/2IC','Vympel'),
 (186,'Vympel Co front.png','CO/2IC','Vympel'),
 (187,'Vympel Spetsnaz back.png','ground','Vympel'),
 (188,'Vympel Spetsnaz front.png','ground','Vympel'),
-(189,'Wreck.png','marker',NULL),
-(190,'XM134 front.png','weapon',NULL),
+(189,'Wreck.png','marker','-'),
+(190,'XM134 front.png','weapon','-'),
 (191,'Zealots back.png','ground','Black Hand'),
 (192,'Zealots front.png','ground','Black Hand'),
-(193,'ZSU23 back.png','ground',NULL),
-(194,'ZSU23 front.png','ground',NULL);
+(193,'ZSU23 back.png','ground','-'),
+(194,'ZSU23 front.png','ground','-');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,8 +264,8 @@ INSERT INTO `units` VALUES
 (3,'M109 Paladin','',131,130),
 (4,'Ostwind','',151,150),
 (5,'Puma','',156,155),
-(6,'SS-1C Scud-B','',168,0),
-(7,'Ju-87G Stuka','',179,0),
+(6,'SS-1C Scud-B','',168,106),
+(7,'Ju-87G Stuka','',179,106),
 (8,'ZSU-23-4 Shilka','',194,193),
 (9,'E-100','1/130',5,4),
 (10,'Hummel','1/130',7,6),
@@ -306,6 +306,106 @@ INSERT INTO `units` VALUES
 (45,'Spetsnaz','Vympel',188,187);
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `v_unit_back`
+--
+
+DROP TABLE IF EXISTS `v_unit_back`;
+/*!50001 DROP VIEW IF EXISTS `v_unit_back`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_unit_back` AS SELECT
+ 1 AS `id`,
+  1 AS `name`,
+  1 AS `formation`,
+  1 AS `back` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_unit_front`
+--
+
+DROP TABLE IF EXISTS `v_unit_front`;
+/*!50001 DROP VIEW IF EXISTS `v_unit_front`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_unit_front` AS SELECT
+ 1 AS `id`,
+  1 AS `name`,
+  1 AS `formation`,
+  1 AS `front` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_units`
+--
+
+DROP TABLE IF EXISTS `v_units`;
+/*!50001 DROP VIEW IF EXISTS `v_units`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_units` AS SELECT
+ 1 AS `id`,
+  1 AS `name`,
+  1 AS `formation`,
+  1 AS `front`,
+  1 AS `back` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `v_unit_back`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_unit_back`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_unit_back` AS select `b`.`id` AS `id`,`b`.`name` AS `name`,`b`.`formation` AS `formation`,`a`.`name` AS `back` from (`images` `a` join `units` `b`) where `a`.`id` = `b`.`back` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_unit_front`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_unit_front`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_unit_front` AS select `b`.`id` AS `id`,`b`.`name` AS `name`,`b`.`formation` AS `formation`,`a`.`name` AS `front` from (`images` `a` join `units` `b`) where `a`.`id` = `b`.`front` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_units`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_units`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_units` AS select `a`.`id` AS `id`,`a`.`name` AS `name`,`a`.`formation` AS `formation`,`a`.`front` AS `front`,`b`.`back` AS `back` from (`v_unit_front` `a` join `v_unit_back` `b`) where `a`.`id` = `b`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -316,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-21 13:40:19
+-- Dump completed on 2024-01-21 15:56:13
