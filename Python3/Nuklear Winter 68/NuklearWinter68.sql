@@ -236,6 +236,99 @@ INSERT INTO `images` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `unitData`
+--
+
+DROP TABLE IF EXISTS `unitData`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unitData` (
+  `name` varchar(80) DEFAULT NULL,
+  `side` varchar(80) DEFAULT NULL,
+  `Ar` int(11) DEFAULT NULL,
+  `Ab` int(11) DEFAULT NULL,
+  `Br` int(11) DEFAULT NULL,
+  `Bw` int(11) DEFAULT NULL,
+  `C` int(11) DEFAULT NULL,
+  `Dw` int(11) DEFAULT NULL,
+  `Dy` int(11) DEFAULT NULL,
+  `Er` int(11) DEFAULT NULL,
+  `Eb` int(11) DEFAULT NULL,
+  `Ey` int(11) DEFAULT NULL,
+  `F` int(11) DEFAULT NULL,
+  `G` int(11) DEFAULT NULL,
+  `H` int(11) DEFAULT NULL,
+  `I` int(11) DEFAULT NULL,
+  `J` int(11) DEFAULT NULL,
+  `K` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unitData`
+--
+
+LOCK TABLES `unitData` WRITE;
+/*!40000 ALTER TABLE `unitData` DISABLE KEYS */;
+INSERT INTO `unitData` VALUES
+('Blighter','front',10,10,15,0,6,0,15,14,0,0,6,0,0,0,0,0),
+('Blighter','back',9,9,15,0,5,0,15,14,0,0,6,0,0,0,0,0),
+('BRDM-2','front',0,0,0,0,4,3,0,15,0,0,8,0,0,0,0,1),
+('BRDM-2','back',0,0,0,0,3,3,0,15,0,0,8,0,0,0,0,1),
+('E-100','front',11,0,0,9,5,4,0,20,0,0,20,0,0,0,0,0),
+('E-100','back',10,0,0,9,4,4,0,20,0,0,20,0,0,0,0,0),
+('Fallschirmjager','front',6,0,0,3,5,3,0,18,0,0,6,0,0,0,0,0),
+('Fallschirmjager','back',5,0,0,3,6,3,0,18,0,0,6,0,0,0,0,0),
+('Haunebu III','front',12,9,0,0,6,4,0,0,17,0,17,0,1,0,0,0),
+('Haunebu III','back',0,0,0,0,6,4,0,0,17,0,17,0,1,0,1,0),
+('Hummel','front',10,0,18,0,6,0,18,14,0,0,5,0,0,0,0,0),
+('Hummel','back',9,0,18,0,5,0,18,14,0,0,5,0,0,0,0,0),
+('Jagdtiger','front',10,0,0,7,4,4,0,18,0,0,6,0,0,0,0,0),
+('Jagdtiger','back',10,0,0,7,3,4,0,18,0,0,6,0,0,0,0,0),
+('Ju-87G Stuka','front',12,0,0,0,5,0,0,0,17,0,25,3,0,0,0,0),
+('King Tiger','front',10,0,0,6,5,0,0,18,0,0,6,0,0,0,0,0),
+('King Tiger','back',9,0,0,6,4,0,0,18,0,0,6,0,0,0,0,0),
+('M109 Paladin','front',11,0,20,0,7,0,20,15,0,0,5,0,0,0,0,0),
+('M109 Paladin','back',10,0,20,0,6,0,20,15,0,0,5,0,0,0,0,0),
+('M113','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,0),
+('M113','back',0,0,0,0,3,3,0,14,0,0,6,0,0,1,0,0),
+('M60A1','front',10,0,0,7,5,4,0,17,0,0,6,0,0,0,0,0),
+('M60A1','back',9,0,0,7,4,4,0,17,0,0,6,0,0,0,0,0),
+('Megrim','front',10,0,0,6,4,6,0,16,0,0,6,0,0,0,0,0),
+('Megrim','back',9,0,0,6,3,6,0,16,0,0,6,0,0,0,0,0),
+('Ostwind','front',0,8,0,7,6,0,0,14,0,0,5,0,0,0,0,0),
+('Ostwind','back',0,7,0,7,5,0,0,14,0,0,5,0,0,0,0,0),
+('Pest','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,1),
+('Pest','back',0,0,0,0,3,3,0,14,0,0,6,0,0,1,0,1),
+('Puma','front',9,0,0,4,4,0,0,15,0,0,7,0,0,0,0,1),
+('Puma','back',8,0,0,4,3,0,0,15,0,0,7,0,0,0,0,1),
+('Rancor','front',11,0,0,8,5,4,0,19,0,0,6,0,0,0,0,0),
+('Rancor','back',10,0,0,8,4,4,0,19,0,0,6,0,0,0,0,0),
+('Ravager','front',11,11,0,1,7,1,0,0,0,15,3,0,1,0,0,0),
+('Ravager','back',10,10,0,1,6,1,0,0,0,15,3,0,1,0,0,0),
+('Scourge','front',10,0,0,4,5,4,0,0,16,0,18,0,0,0,0,1),
+('Scourge','back',0,0,0,0,5,4,0,0,16,0,18,0,0,0,1,0),
+('SdKfz 250','front',8,0,0,3,4,3,0,14,0,0,6,0,0,1,0,0),
+('SdKfz 250','back',7,0,0,3,3,3,0,14,0,0,6,0,0,1,0,0),
+('Spetsnaz','front',7,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0),
+('Spetsnaz','back',6,0,0,3,4,3,0,0,0,13,3,0,0,0,0,0),
+('SS-1C Scud-B','front',14,0,0,0,8,0,0,13,0,0,4,0,0,0,0,0),
+('SS-VT','front',6,0,0,3,6,3,0,0,0,13,3,0,0,0,0,0),
+('SS-VT','back',5,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0),
+('T-64','front',12,0,0,10,4,5,0,20,0,0,7,0,0,0,0,0),
+('T-64','back',11,0,0,10,3,5,0,20,0,0,7,0,0,0,0,0),
+('UH-1 Huey','front',13,0,8,0,5,4,0,0,16,0,20,0,0,0,0,0),
+('UH-1 Huey','back',0,0,0,0,5,4,0,0,16,0,20,0,0,1,1,0),
+('US Rangers','front',6,0,0,3,5,3,0,0,0,13,4,0,0,0,0,0),
+('US Rangers','back',5,0,0,3,4,3,0,0,0,13,4,0,0,0,0,0),
+('Zealots','front',6,0,0,3,5,0,0,0,0,13,3,0,0,0,0,0),
+('Zealots','back',5,0,0,3,4,0,0,0,0,13,3,0,0,0,0,0),
+('ZSU-23-4 Shilka','front',0,9,0,7,6,5,0,15,0,0,6,0,0,0,0,0),
+('ZSU-23-4 Shilka','back',0,8,0,7,6,5,0,15,0,0,6,0,0,0,0,0);
+/*!40000 ALTER TABLE `unitData` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `units`
 --
 
@@ -323,6 +416,36 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `v_unit_back_data`
+--
+
+DROP TABLE IF EXISTS `v_unit_back_data`;
+/*!50001 DROP VIEW IF EXISTS `v_unit_back_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_unit_back_data` AS SELECT
+ 1 AS `formation`,
+  1 AS `name`,
+  1 AS `Ar`,
+  1 AS `Ab`,
+  1 AS `Br`,
+  1 AS `Bw`,
+  1 AS `C`,
+  1 AS `Dw`,
+  1 AS `Dy`,
+  1 AS `Er`,
+  1 AS `Eb`,
+  1 AS `Ey`,
+  1 AS `F`,
+  1 AS `G`,
+  1 AS `H`,
+  1 AS `I`,
+  1 AS `J`,
+  1 AS `K`,
+  1 AS `back` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `v_unit_front`
 --
 
@@ -334,6 +457,36 @@ SET character_set_client = utf8;
  1 AS `id`,
   1 AS `name`,
   1 AS `formation`,
+  1 AS `front` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_unit_front_data`
+--
+
+DROP TABLE IF EXISTS `v_unit_front_data`;
+/*!50001 DROP VIEW IF EXISTS `v_unit_front_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_unit_front_data` AS SELECT
+ 1 AS `formation`,
+  1 AS `name`,
+  1 AS `Ar`,
+  1 AS `Ab`,
+  1 AS `Br`,
+  1 AS `Bw`,
+  1 AS `C`,
+  1 AS `Dw`,
+  1 AS `Dy`,
+  1 AS `Er`,
+  1 AS `Eb`,
+  1 AS `Ey`,
+  1 AS `F`,
+  1 AS `G`,
+  1 AS `H`,
+  1 AS `I`,
+  1 AS `J`,
+  1 AS `K`,
   1 AS `front` */;
 SET character_set_client = @saved_cs_client;
 
@@ -372,6 +525,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `v_unit_back_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_unit_back_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_unit_back_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`a`.`I` AS `I`,`a`.`J` AS `J`,`a`.`K` AS `K`,`b`.`back` AS `back` from (`unitData` `a` join `v_unit_back` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'back' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `v_unit_front`
 --
 
@@ -385,6 +556,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_unit_front` AS select `b`.`id` AS `id`,`b`.`name` AS `name`,`b`.`formation` AS `formation`,`a`.`name` AS `front` from (`images` `a` join `units` `b`) where `a`.`id` = `b`.`front` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_unit_front_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_unit_front_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_unit_front_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`a`.`I` AS `I`,`a`.`J` AS `J`,`a`.`K` AS `K`,`b`.`front` AS `front` from (`unitData` `a` join `v_unit_front` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'front' */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -416,4 +605,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-21 15:56:13
+-- Dump completed on 2024-01-22 17:12:15

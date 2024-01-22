@@ -1,0 +1,23 @@
+| images                    |
+| unitData                  |
+| units                     |
+| v_unit_back               |
+| v_unit_front              |
+| v_units                   |
+
+
+create view v_unit_front_data as
+select
+formation,
+a.name,
+Ar,Ab,Br,Bw,C,Dw,Dy,Er,Eb,Ey,F,G,H,I,J,K,
+front
+from unitData a, v_unit_front b
+where
+a.name = b.name
+and 
+side = 'front'
+;
+
+
+
