@@ -1,8 +1,8 @@
-Ar	AP damages Er
-Ab	AP damages Eb
+Ar	AP; damages Er
+Ab	AP; damages Eb
 Br	AP range; fix-range; move XOR fire
 Bw	AP range; allow long range; move AND/OR fire
-C	HE damages Eb & Ey
+C	HE; damages Eb & Ey
 Dw	HE range; allow long range; move AND/OR fire
 Dy	HE range; fix-range; move XOR fire
 Er	Armor
