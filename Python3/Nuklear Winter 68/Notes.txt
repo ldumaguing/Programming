@@ -1,3 +1,30 @@
+LOAD DATA LOCAL INFILE 'Unit-data.csv' INTO TABLE unitData
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+(name,side,Ar,Ab,Br,Bw,C,Dw,Dy,Er,Eb,Ey,F,G);
+
+create table unitData (
+	name varchar(80),
+	side varchar(80),
+	Ar int,
+	Ab int,
+	Br int,
+	Bw int,
+	C int,
+	Dw int,
+	Dy int,
+	Er int,
+	Eb int,
+	Ey int,
+	F int,
+	G int
+);
+
+"name","side","Ar","Ab","Br","Bw","C","Dw","Dy","Er","Eb","Ey","F","G"
+
+
+
 drop view v_units;
 create view v_units as
 select a.id, a.name, a.formation, front, back
