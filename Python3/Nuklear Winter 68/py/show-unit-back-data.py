@@ -34,7 +34,7 @@ img1 = """ src="images/"""
 
 
 mycursor = mydb.cursor()
-mycursor.execute("select * from v_unit_front_data order by formation, name")
+mycursor.execute("select * from v_unit_back_data order by formation, name")
 myresult = mycursor.fetchall()
 
 for x in myresult:
