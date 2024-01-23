@@ -1,8 +1,39 @@
+update unitData
+set
+Ar = 10, 
+Ab = 0,
+Br = 0, 
+Bw = 8, 
+C = 3, 
+Dw = 4, 
+Dy = 0, 
+Er = 19, 
+Eb = 0, 
+Ey = 0, 
+F = 7, 
+G = 0, 
+H = 0,
+I = 0,
+J = 0,
+K = 0 
+where
+name = 'T-62'
+and
+side = 'back';
+
+
+
+
+
+
+
+
+
 LOAD DATA LOCAL INFILE 'Unit-data.csv' INTO TABLE unitData
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
-(name,side,Ar,Ab,Br,Bw,C,Dw,Dy,Er,Eb,Ey,F,G);
+(name,side,Ar,Ab,Br,Bw,C,Dw,Dy,Er,Eb,Ey,F,G,H,I,J,K);
 
 create table unitData (
 	name varchar(80),
@@ -18,7 +49,11 @@ create table unitData (
 	Eb int,
 	Ey int,
 	F int,
-	G int
+	G int,
+	H int,
+	I int,
+	J int,
+	K int
 );
 
 "name","side","Ar","Ab","Br","Bw","C","Dw","Dy","Er","Eb","Ey","F","G"
