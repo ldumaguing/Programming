@@ -276,18 +276,18 @@ INSERT INTO `unitData` VALUES
 ('BRDM-2','front',0,0,0,0,4,3,0,15,0,0,8,0,0,0,0,1),
 ('BRDM-2','back',0,0,0,0,3,3,0,15,0,0,8,0,0,0,0,1),
 ('E-100','front',11,0,0,9,5,4,0,20,0,0,20,0,0,0,0,0),
-('E-100','back',10,0,0,9,4,4,0,20,0,0,20,0,0,0,0,0),
+('E-100','back',10,0,0,9,4,4,0,20,0,0,6,0,0,0,0,0),
 ('Fallschirmjager','front',6,0,0,3,5,3,0,18,0,0,6,0,0,0,0,0),
-('Fallschirmjager','back',5,0,0,3,6,3,0,18,0,0,6,0,0,0,0,0),
-('Haunebu III','front',12,9,0,0,6,4,0,0,17,0,17,0,1,0,0,0),
+('Fallschirmjager','back',5,0,0,3,4,3,0,18,0,14,6,0,0,0,0,0),
+('Haunebu III','front',12,0,9,0,6,4,0,0,17,0,17,0,1,0,0,0),
 ('Haunebu III','back',0,0,0,0,6,4,0,0,17,0,17,0,1,0,1,0),
 ('Hummel','front',10,0,18,0,6,0,18,14,0,0,5,0,0,0,0,0),
 ('Hummel','back',9,0,18,0,5,0,18,14,0,0,5,0,0,0,0,0),
 ('Jagdtiger','front',10,0,0,7,4,4,0,18,0,0,6,0,0,0,0,0),
 ('Jagdtiger','back',10,0,0,7,3,4,0,18,0,0,6,0,0,0,0,0),
 ('Ju-87G Stuka','front',12,0,0,0,5,0,0,0,17,0,25,3,0,0,0,0),
-('King Tiger','front',10,0,0,6,5,0,0,18,0,0,6,0,0,0,0,0),
-('King Tiger','back',9,0,0,6,4,0,0,18,0,0,6,0,0,0,0,0),
+('King Tiger','front',10,0,0,6,5,4,0,18,0,0,6,0,0,0,0,0),
+('King Tiger','back',9,0,0,6,4,4,0,18,0,0,6,0,0,0,0,0),
 ('M109 Paladin','front',11,0,20,0,7,0,20,15,0,0,5,0,0,0,0,0),
 ('M109 Paladin','back',10,0,20,0,6,0,20,15,0,0,5,0,0,0,0,0),
 ('M113','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,0),
@@ -296,12 +296,12 @@ INSERT INTO `unitData` VALUES
 ('M60A1','back',9,0,0,7,4,4,0,17,0,0,6,0,0,0,0,0),
 ('Megrim','front',10,0,0,6,4,6,0,16,0,0,6,0,0,0,0,0),
 ('Megrim','back',9,0,0,6,3,6,0,16,0,0,6,0,0,0,0,0),
-('Ostwind','front',0,8,0,7,6,0,0,14,0,0,5,0,0,0,0,0),
-('Ostwind','back',0,7,0,7,5,0,0,14,0,0,5,0,0,0,0,0),
+('Ostwind','front',0,8,0,7,6,5,0,14,0,0,5,0,0,0,0,0),
+('Ostwind','back',0,7,0,7,5,5,0,14,0,0,5,0,0,0,0,0),
 ('Pest','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,1),
 ('Pest','back',0,0,0,0,3,3,0,14,0,0,6,0,0,1,0,1),
-('Puma','front',9,0,0,4,4,0,0,15,0,0,7,0,0,0,0,1),
-('Puma','back',8,0,0,4,3,0,0,15,0,0,7,0,0,0,0,1),
+('Puma','front',9,0,0,4,4,3,0,15,0,0,7,0,0,0,0,1),
+('Puma','back',8,0,0,4,3,3,0,15,0,0,7,0,0,0,0,1),
 ('Rancor','front',11,0,0,8,5,4,0,19,0,0,6,0,0,0,0,0),
 ('Rancor','back',10,0,0,8,4,4,0,19,0,0,6,0,0,0,0,0),
 ('Ravager','front',11,11,0,1,7,1,0,0,0,15,3,0,1,0,0,0),
@@ -321,10 +321,12 @@ INSERT INTO `unitData` VALUES
 ('UH-1 Huey','back',0,0,0,0,5,4,0,0,16,0,20,0,0,1,1,0),
 ('US Rangers','front',6,0,0,3,5,3,0,0,0,13,4,0,0,0,0,0),
 ('US Rangers','back',5,0,0,3,4,3,0,0,0,13,4,0,0,0,0,0),
-('Zealots','front',6,0,0,3,5,0,0,0,0,13,3,0,0,0,0,0),
-('Zealots','back',5,0,0,3,4,0,0,0,0,13,3,0,0,0,0,0),
+('Zealots','front',6,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0),
+('Zealots','back',5,0,0,3,4,3,0,0,0,13,3,0,0,0,0,0),
 ('ZSU-23-4 Shilka','front',0,9,0,7,6,5,0,15,0,0,6,0,0,0,0,0),
-('ZSU-23-4 Shilka','back',0,8,0,7,6,5,0,15,0,0,6,0,0,0,0,0);
+('ZSU-23-4 Shilka','back',0,8,0,7,6,5,0,15,0,0,6,0,0,0,0,0),
+('T-62','front',11,0,0,8,4,4,0,19,0,0,7,0,0,0,0,0),
+('T-62','back',10,0,0,8,3,4,0,19,0,0,7,0,0,0,0,0);
 /*!40000 ALTER TABLE `unitData` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,6 +343,7 @@ CREATE TABLE `units` (
   `formation` varchar(80) DEFAULT NULL,
   `front` int(11) DEFAULT NULL,
   `back` int(11) DEFAULT NULL,
+  `notes` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -352,53 +355,90 @@ CREATE TABLE `units` (
 LOCK TABLES `units` WRITE;
 /*!40000 ALTER TABLE `units` DISABLE KEYS */;
 INSERT INTO `units` VALUES
-(1,'BRDM-2','',103,102),
-(2,'Hummel','',127,126),
-(3,'M109 Paladin','',131,130),
-(4,'Ostwind','',151,150),
-(5,'Puma','',156,155),
-(6,'SS-1C Scud-B','',168,106),
-(7,'Ju-87G Stuka','',179,106),
-(8,'ZSU-23-4 Shilka','',194,193),
-(9,'E-100','1/130',5,4),
-(10,'Hummel','1/130',7,6),
-(11,'King Tiger','1/130',9,8),
-(12,'Puma','1/130',11,10),
-(13,'E-100','1/501 SS',63,62),
-(14,'SdKfz 250','1/7 SS',13,12),
-(15,'SS-VT','1/7 SS',18,17),
-(16,'M113','1st Ranger',24,23),
-(17,'M60A1','1st Ranger',26,25),
-(18,'US Rangers','1st Ranger',28,27),
-(19,'SdKfz 250','2/130',30,29),
-(20,'E-100','2/130',35,34),
-(21,'Fallschirmjager','2/130',37,36),
-(22,'Jagdtiger','2/130',39,38),
-(23,'SdKfz 250','2/501 SS',65,64),
-(24,'E-100','2/501 SS',70,69),
-(25,'Jagdtiger','2/501 SS',72,71),
-(26,'SS-VT','2/501 SS',74,73),
-(27,'BRDM-2','2nd Ranger',41,40),
-(28,'M113','2nd Ranger',46,45),
-(29,'M60A1','2nd Ranger',48,47),
-(30,'US Rangers','2nd Ranger',50,49),
-(31,'T-64','4th Guards',58,57),
-(32,'M113','58th Rifle',79,78),
-(33,'US Rangers','58th Rifle',81,80),
-(34,'Spetsnaz','58th Rifle',83,82),
-(35,'T-64','58th Rifle',85,84),
-(36,'Blighter','Black Hand',100,99),
-(37,'Megrim','Black Hand',140,139),
-(38,'Pest','Black Hand',153,152),
-(39,'Rancor','Black Hand',159,158),
-(40,'Ravager','Black Hand',161,160),
-(41,'Scourge','Black Hand',166,165),
-(42,'Zealots','Black Hand',192,191),
-(43,'UH-1 Huey','Cowboys',111,110),
-(44,'Haunebu III','SG 2',172,171),
-(45,'Spetsnaz','Vympel',188,187);
+(1,'BRDM-2','',103,102,''),
+(2,'Hummel','',127,126,''),
+(3,'M109 Paladin','',131,130,''),
+(4,'Ostwind','',151,150,''),
+(5,'Puma','',156,155,''),
+(6,'SS-1C Scud-B','',168,106,'no back'),
+(7,'Ju-87G Stuka','',179,106,'no back'),
+(8,'ZSU-23-4 Shilka','',194,193,''),
+(9,'E-100','1/130',5,4,''),
+(10,'Hummel','1/130',7,6,''),
+(11,'King Tiger','1/130',9,8,''),
+(12,'Puma','1/130',11,10,''),
+(13,'E-100','1/501 SS',63,62,''),
+(14,'SdKfz 250','1/7 SS',13,12,''),
+(15,'SS-VT','1/7 SS',18,17,''),
+(16,'M113','1st Ranger',24,23,''),
+(17,'M60A1','1st Ranger',26,25,''),
+(18,'US Rangers','1st Ranger',28,27,''),
+(19,'SdKfz 250','2/130',30,29,''),
+(20,'E-100','2/130',35,34,''),
+(21,'Fallschirmjager','2/130',37,36,''),
+(22,'Jagdtiger','2/130',39,38,''),
+(23,'SdKfz 250','2/501 SS',65,64,''),
+(24,'E-100','2/501 SS',70,69,''),
+(25,'Jagdtiger','2/501 SS',72,71,''),
+(26,'SS-VT','2/501 SS',74,73,''),
+(27,'BRDM-2','2nd Ranger',41,40,''),
+(28,'M113','2nd Ranger',46,45,''),
+(29,'M60A1','2nd Ranger',48,47,''),
+(30,'US Rangers','2nd Ranger',50,49,''),
+(31,'T-64','4th Guards',58,57,''),
+(32,'M113','58th Rifle',79,78,''),
+(33,'US Rangers','58th Rifle',81,80,''),
+(34,'Spetsnaz','58th Rifle',83,82,''),
+(35,'T-64','58th Rifle',58,57,''),
+(36,'Blighter','Black Hand',100,99,''),
+(37,'Megrim','Black Hand',140,139,''),
+(38,'Pest','Black Hand',153,152,''),
+(39,'Rancor','Black Hand',159,158,''),
+(40,'Ravager','Black Hand',161,160,''),
+(41,'Scourge','Black Hand',166,165,'no reduced'),
+(42,'Zealots','Black Hand',192,191,''),
+(43,'UH-1 Huey','Cowboys',111,110,'no reduced'),
+(44,'Haunebu III','SG 2',172,171,'no reduced'),
+(45,'Spetsnaz','Vympel',188,187,''),
+(46,'T-62','58th Rifle',85,84,'');
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `v_no_back_units`
+--
+
+DROP TABLE IF EXISTS `v_no_back_units`;
+/*!50001 DROP VIEW IF EXISTS `v_no_back_units`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_no_back_units` AS SELECT
+ 1 AS `name` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_no_reduced_units`
+--
+
+DROP TABLE IF EXISTS `v_no_reduced_units`;
+/*!50001 DROP VIEW IF EXISTS `v_no_reduced_units`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_no_reduced_units` AS SELECT
+ 1 AS `name` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_normal_units`
+--
+
+DROP TABLE IF EXISTS `v_normal_units`;
+/*!50001 DROP VIEW IF EXISTS `v_normal_units`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_normal_units` AS SELECT
+ 1 AS `name` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary table structure for view `v_unit_back`
@@ -507,6 +547,60 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Final view structure for view `v_no_back_units`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_no_back_units`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_no_back_units` AS select distinct `units`.`name` AS `name` from `units` where `units`.`notes` = 'no back' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_no_reduced_units`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_no_reduced_units`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_no_reduced_units` AS select distinct `units`.`name` AS `name` from `units` where `units`.`notes` = 'no reduced' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_normal_units`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_normal_units`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_normal_units` AS select distinct `units`.`name` AS `name` from `units` where `units`.`notes` = '' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `v_unit_back`
 --
 
@@ -605,4 +699,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-22 17:12:15
+-- Dump completed on 2024-01-23 17:02:32
