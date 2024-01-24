@@ -12,6 +12,10 @@ F	Max movement
 G	Min movement; default 0
 
 
+H	Huge
+I	APC
+J	NOE
+K	Recon
 
 
 
