@@ -7,6 +7,7 @@ Map.jpg         // Board name
 20              // hex count (upper/lower)
 5263            // right-most center hex
 30              // hex count X
+.
 >>>>> ORDER OF BATTLE
 DRITTES REICH
 1/130 - 1xKing Tiger, 1xPuma / 2AMs
@@ -14,4 +15,4 @@ DRITTES REICH
 BLACK HAND
 4xZealots, 2xPest, 1xMegrim / 2AMs
 1 Event marker
-
+.
