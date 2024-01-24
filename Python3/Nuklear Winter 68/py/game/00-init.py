@@ -13,7 +13,8 @@ def mode_Board(f):
 			break
 		print("..." + line)
 		if re.search("Board na", line):
-			mapName = line
+			mapName = line[0:line.find(' ')]
+
 
 f = open(sys.argv[1], "r")
 
