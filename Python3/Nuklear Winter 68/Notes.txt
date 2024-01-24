@@ -1,3 +1,17 @@
+
+
+
+
+select * from v_unit_back_data
+union
+select * from v_unit_front_data
+
+
+
+
+
+
+
 update unitData
 set
 Ar = 10, 

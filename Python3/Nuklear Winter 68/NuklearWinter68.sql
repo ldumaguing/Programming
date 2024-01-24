@@ -275,7 +275,7 @@ INSERT INTO `unitData` VALUES
 ('Blighter','back',9,9,15,0,5,0,15,14,0,0,6,0,0,0,0,0),
 ('BRDM-2','front',0,0,0,0,4,3,0,15,0,0,8,0,0,0,0,1),
 ('BRDM-2','back',0,0,0,0,3,3,0,15,0,0,8,0,0,0,0,1),
-('E-100','front',11,0,0,9,5,4,0,20,0,0,20,0,0,0,0,0),
+('E-100','front',11,0,0,9,5,4,0,20,0,0,6,0,0,0,0,0),
 ('E-100','back',10,0,0,9,4,4,0,20,0,0,6,0,0,0,0,0),
 ('Fallschirmjager','front',6,0,0,3,5,3,0,18,0,0,6,0,0,0,0,0),
 ('Fallschirmjager','back',5,0,0,3,4,3,0,18,0,14,6,0,0,0,0,0),
@@ -699,4 +699,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-23 17:02:32
+-- Dump completed on 2024-01-24 11:19:34
