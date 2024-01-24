@@ -1,3 +1,12 @@
+>>>>> BOARD
+UpDown          // Hex type
+Map.jpg         // Board name
+6372x4139       // pixel width X height
+368x216         // upper left center hex
+368x3921        // lower left center hex
+20              // hex count (upper/lower)
+5263            // right-most center hex
+30              // hex count X
 >>>>> ORDER OF BATTLE
 DRITTES REICH
 1/130 - 1xKing Tiger, 1xPuma / 2AMs
