@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nuklear Winter '68</title>
+<!-- <meta http-equiv="refresh" content="3"> -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="foo()">
+<img id="map" src="images/Map.jpg" hidden>
+<img id="i1" src="images/Blighter front.png" hidden>
+<img id="i2" src="images_mine/1_130.png" hidden">
+<br>
+<canvas id="canvas0" width="6372" height="4139"></canvas>
+<script>
+function foo() {
+	let c = document.getElementById("canvas0");
+	let ctx = c.getContext("2d");
+	let i1 = document.getElementById("i1");
+	let i2 = document.getElementById("i2");
+  
+	ctx.drawImage(map, 0, 0);
+	ctx.drawImage(i1, 10, 10);
+	ctx.drawImage(i2, 10, 10);
+
+	let x = 368;
+	let y = 216;
+	ctx.beginPath();
+	ctx.arc(x, y, 97, 0, 2 * Math.PI);
+	ctx.stroke();
+  
+	let Y = 0;
+	let X = 28;
+	ctx.beginPath();
+	ctx.arc(x + (X*168.85), y + (Y*195), 97, 0, 2 * Math.PI);
+	ctx.stroke();
+  
+
+}
+</script>
+</body>
+</html>
