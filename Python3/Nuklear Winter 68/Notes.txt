@@ -1,3 +1,14 @@
+create table gameData (
+	scenario varchar(80),
+	name varchar(80),
+	val varchar(256),
+	html text
+);
+
+
+
+
+
 
 
 
