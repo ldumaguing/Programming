@@ -29,13 +29,25 @@ function foo() {
 	ctx.stroke();
   
 	let Y = 0;
-	let X = 28;
+	let X = 29;
+	let Y_adj = 97.5
 	ctx.beginPath();
-	ctx.arc(x + (X*168.85), y + (Y*195), 97, 0, 2 * Math.PI);
+	ctx.arc(x + (X*168.79310344827587), (y + Y) + (Y_adj * (X%2)), 97, 0, 2 * Math.PI);
 	ctx.stroke();
-  
+
+	X = 28;
+	ctx.beginPath();
+	ctx.arc(x + (X*168.79310344827587), (y + Y) + (Y_adj * (X%2)), 97, 0, 2 * Math.PI);
+	ctx.stroke();
+	
+	X = 27;
+	ctx.beginPath();
+	ctx.arc(x + (X*168.79310344827587), (y + Y) + (Y_adj * (X%2)), 97, 0, 2 * Math.PI);
+	ctx.stroke();
 
 }
 </script>
 </body>
 </html>
+
+
