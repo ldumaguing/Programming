@@ -13,9 +13,17 @@ mydb = mysql.connector.connect(
 def sql_stmt(stmt):
 	global mydb
 
-	mycursor = mydb.cursor()
-	mycursor.execute(stmt)
-	mydb.commit()
+	#mycursor = mydb.cursor()
+	#mycursor.execute(stmt)
+	#mydb.commit()
+
+
+def mode_OOB(f):
+	while True:
+		line = f.readline()
+		if re.search("^\.$", line):
+			break
+		if re.search("DRITTES REICH", line):
 
 def mode_Board(f):
 	scenario = sys.argv[1]
@@ -34,7 +42,6 @@ def mode_Board(f):
 		if re.search("^\.$", line):
 			Ydisp = (height - HexZero_Y) / (hexY_count - 1)
 			Xdisp = (width - HexZero_X) / (hexX_count - 1)
-			print(Xdisp)
 			sql_stmt("insert into gameData (scenario, name, val) values ('"
 				+ scenario + "', " + "'X_multiplier', '"
 				+ str(Xdisp) + "')")
@@ -45,12 +52,17 @@ def mode_Board(f):
 				+ scenario + "', " + "'Y_adjust', '"
 				+ str(Ydisp/2) + "')")
 			break
-		print("..." + line)
 		if re.search("Board na", line):
 			mapName = line[0:line.find(' ')]
 			sql_stmt("delete from gameData")
 			sql_stmt("insert into gameData (scenario, name, val) values ('"
 				+ scenario + "', " + "'map', '" + mapName + "')")
+			html = """<img id="map" src="images/"""
+			html += mapName
+			html += """" hidden>"""
+			stmt = "update gameData set html = '" + html + "' " + "where scenario = '" \
+				+ scenario + "' and name = 'map'"
+			sql_stmt(stmt)
 		if re.search("pixel w", line):
 			mapWidth = int(line[0:line.find(',')])
 			mapHeight = int(line[line.find(',')+1:line.find(' ')])
@@ -80,10 +92,12 @@ while True:
 		break
 	if re.search(">>>>> BOARD", line):
 		mode_Board(f)
-
-
+	if re.search(">>>>> ORDER", line):
+		mode_OOB(f)
 
 
 f.close()
+
+
 
 
