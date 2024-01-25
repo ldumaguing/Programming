@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `gameData`
+--
+
+DROP TABLE IF EXISTS `gameData`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gameData` (
+  `scenario` varchar(80) DEFAULT NULL,
+  `name` varchar(80) DEFAULT NULL,
+  `val` varchar(256) DEFAULT NULL,
+  `html` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gameData`
+--
+
+LOCK TABLES `gameData` WRITE;
+/*!40000 ALTER TABLE `gameData` DISABLE KEYS */;
+INSERT INTO `gameData` VALUES
+('01-Day8','map','Map.jpg','<img id=\"map\" src=\"images/Map.jpg\" hidden>'),
+('01-Day8','HexZero','368,216',NULL),
+('01-Day8','chitDimention','150',NULL),
+('01-Day8','X_multiplier','168.79310344827587',NULL),
+('01-Day8','Y_multiplier','195.0',NULL),
+('01-Day8','Y_adjust','97.5',NULL);
+/*!40000 ALTER TABLE `gameData` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `images`
 --
 
@@ -699,4 +730,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-24 11:19:34
+-- Dump completed on 2024-01-25 16:50:07
