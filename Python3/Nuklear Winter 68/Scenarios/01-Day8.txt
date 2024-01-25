@@ -1,12 +1,11 @@
 >>>>> BOARD
-UpDown          // Hex type
+UpDown          // Hex orientation
 Map.jpg         // Board name
-6372x4139       // pixel width X height
-368x216         // upper left center hex
-368x3921        // lower left center hex
-20              // hex count (upper/lower)
-5263            // right-most center hex
-30              // hex count X
+6372,4139       // pixel width, height
+368,216         // HexZero
+3921,20         // lowest hex, hex count
+5263,30         // right-most hex, hex count
+150             // chit width and heigth
 .
 >>>>> ORDER OF BATTLE
 DRITTES REICH
@@ -16,3 +15,5 @@ BLACK HAND
 4xZealots, 2xPest, 1xMegrim / 2AMs
 1 Event marker
 .
+
+
