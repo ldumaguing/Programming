@@ -417,10 +417,10 @@ INSERT INTO `units` VALUES
 (29,'M60A1','2nd Ranger',48,47,''),
 (30,'US Rangers','2nd Ranger',50,49,''),
 (31,'T-64','4th Guards',58,57,''),
-(32,'M113','58th Rifle',79,78,''),
-(33,'US Rangers','58th Rifle',81,80,''),
-(34,'Spetsnaz','58th Rifle',83,82,''),
-(35,'T-64','58th Rifle',58,57,''),
+(32,'M113','58th Motor Rifle',79,78,''),
+(33,'US Rangers','58th Motor Rifle',81,80,''),
+(34,'Spetsnaz','58th Motor Rifle',83,82,''),
+(35,'T-64','58th Motor Rifle',58,57,''),
 (36,'Blighter','Black Hand',100,99,''),
 (37,'Megrim','Black Hand',140,139,''),
 (38,'Pest','Black Hand',153,152,''),
@@ -431,7 +431,7 @@ INSERT INTO `units` VALUES
 (43,'UH-1 Huey','Cowboys',111,110,'no reduced'),
 (44,'Haunebu III','SG 2',172,171,'no reduced'),
 (45,'Spetsnaz','Vympel',188,187,''),
-(46,'T-62','58th Rifle',85,84,'');
+(46,'T-62','58th Motor Rifle',85,84,'');
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -730,4 +730,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-25 16:50:07
+-- Dump completed on 2024-01-26 15:05:01

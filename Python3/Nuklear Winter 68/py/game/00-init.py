@@ -3,6 +3,9 @@ import sys
 import re
 import mysql.connector
 
+scenario = ""
+unit_id = 0
+
 mydb = mysql.connector.connect(
 	host="localhost",
 	user="ayeka",
@@ -17,43 +20,9 @@ def sql_stmt(stmt):
 	#mycursor.execute(stmt)
 	#mydb.commit()
 
-def formation_BlackHand(f, line):
-	if line == "\n":
-		return
-	print("black" + line)
-	
-def formation_NATO(f, line):
-	if line == "\n":
-		return
-	print("nato" + line)
-
-def formation_Reich(f, line):
-	if line == "\n":
-		return
-	print(line)
-
-def mode_OOB(f):
-	print("OOB")
-	formation = ""
-	while True:
-		line = f.readline()
-		if re.search("^\.$", line):
-			break
-		if re.search("REICH", line):
-			formation = "DRITTES REICH"
-		if re.search("NATO", line):
-			formation = "NATO"
-		if re.search("BLACK", line):
-			formation = "BLACK HAND"
-
-		if formation == "BLACK HAND":
-			formation_BlackHand(f, line)
-		if formation == "NATO":
-			formation_NATO(f, line)
-		if formation == "DRITTES REICH":
-			formation_Reich(f, line)
-
 def mode_Board(f):
+	global scenario
+
 	scenario = sys.argv[1]
 	scenario = scenario[scenario.find('/')+1:scenario.find('.')]
 	mapWidth = 0
@@ -67,7 +36,7 @@ def mode_Board(f):
 
 	while True:
 		line = f.readline()
-		if re.search("^\.$", line):
+		if re.search("^\n$", line):
 			Ydisp = (height - HexZero_Y) / (hexY_count - 1)
 			Xdisp = (width - HexZero_X) / (hexX_count - 1)
 			sql_stmt("insert into gameData (scenario, name, val) values ('"
@@ -111,10 +80,60 @@ def mode_Board(f):
 			width = int(line[0:line.find(',')])
 			hexX_count = int(line[line.find(',')+1:line.find(' ')])
 
+def mk_instance(formation, unit, count):
+	global unit_id
+
+	for x in range(count):
+		unit_id += 1
+		id = "u" + str(unit_id)
+		print(formation + ";" + unit)
+		print(id)
+
+def gen_units(formation, units):
+	print("..")
+	print(formation)
+	unit = ""
+	count = 0
+	
+	while re.search(",", units):
+		unit = units[units.find("x")+1:units.find(",")]
+		count = int(units[0:units.find("x")])
+		mk_instance(formation, unit, count)
+		units = units[units.find(",")+2:]
+
+	unit = units[units.find("x")+1:]
+	count = int(units[0:units.find("x")])
+	mk_instance(formation, unit, count)
+
+def w_formation(faction, line):
+	formation = faction + "," + line[0:line.find(" -")]
+	units = line[line.find("-")+2:line.find(" /")]
+	gen_units(formation, units)
+
+def mode_OOB(f):
+	faction = ""
+
+	while True:
+		line = f.readline()
+		if re.search("Event m", line):
+			break
+		if re.search("REICH", line):
+			faction = "RITTES REICH"
+		if re.search("NATO", line):
+			faction = "NATO"
+		if re.search("BLACK", line):
+			faction = "Black Hand"
+
+		if re.search(" - ", line):
+			w_formation(faction, line)
+
+		#print(line)
+
 # ****************************************************************************************
 f = open(sys.argv[1], "r")
 
 while True:
+	print(".")
 	line = f.readline()
 	if not line:
 		break
