@@ -17,13 +17,41 @@ def sql_stmt(stmt):
 	#mycursor.execute(stmt)
 	#mydb.commit()
 
+def formation_BlackHand(f, line):
+	if line == "\n":
+		return
+	print("black" + line)
+	
+def formation_NATO(f, line):
+	if line == "\n":
+		return
+	print("nato" + line)
+
+def formation_Reich(f, line):
+	if line == "\n":
+		return
+	print(line)
 
 def mode_OOB(f):
+	print("OOB")
+	formation = ""
 	while True:
 		line = f.readline()
 		if re.search("^\.$", line):
 			break
-		if re.search("DRITTES REICH", line):
+		if re.search("REICH", line):
+			formation = "DRITTES REICH"
+		if re.search("NATO", line):
+			formation = "NATO"
+		if re.search("BLACK", line):
+			formation = "BLACK HAND"
+
+		if formation == "BLACK HAND":
+			formation_BlackHand(f, line)
+		if formation == "NATO":
+			formation_NATO(f, line)
+		if formation == "DRITTES REICH":
+			formation_Reich(f, line)
 
 def mode_Board(f):
 	scenario = sys.argv[1]
