@@ -180,7 +180,10 @@ def unit_setup():
 		for y in res0:
 			j = "JSON_INSERT(j,'$.front', 'images/" + y[0] + "',"
 			j += " '$.back', 'images/" + y[1] + "',"
-			j += " '$.flip', 'front')"
+			j += " '$.flip', 'front',"
+			j += " '$.hexLoc', JSON_ARRAY(-1,-1),"
+			j += " '$.pixLoc', JSON_ARRAY(0,0)"
+			j += ")"
 			j = "update gameData set j = " + j
 			j += " where name = '" + uID + "'"
 			sql_stmt(j)
