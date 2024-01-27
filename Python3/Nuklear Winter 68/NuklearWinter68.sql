@@ -26,7 +26,8 @@ CREATE TABLE `gameData` (
   `scenario` varchar(80) DEFAULT NULL,
   `name` varchar(80) DEFAULT NULL,
   `val` varchar(256) DEFAULT NULL,
-  `html` text DEFAULT NULL
+  `html` varchar(512) DEFAULT NULL,
+  `j` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`j`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,12 +38,18 @@ CREATE TABLE `gameData` (
 LOCK TABLES `gameData` WRITE;
 /*!40000 ALTER TABLE `gameData` DISABLE KEYS */;
 INSERT INTO `gameData` VALUES
-('01-Day8','map','Map.jpg','<img id=\"map\" src=\"images/Map.jpg\" hidden>'),
-('01-Day8','HexZero','368,216',NULL),
-('01-Day8','chitDimention','150',NULL),
-('01-Day8','X_multiplier','168.79310344827587',NULL),
-('01-Day8','Y_multiplier','195.0',NULL),
-('01-Day8','Y_adjust','97.5',NULL);
+('01-Day8','map','Map.jpg','<img id=\"map\" src=\"images/Map.jpg\" hidden>',NULL),
+('01-Day8','HexZero','368,216',NULL,NULL),
+('01-Day8','chitDimention','150',NULL,NULL),
+('01-Day8','X_multiplier','168.79310344827587',NULL,NULL),
+('01-Day8','Y_multiplier','195.0',NULL,NULL),
+('01-Day8','Y_adjust','97.5',NULL,NULL),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger',NULL,'{\"fish\": 3, \"foo\": 4, \"nickname\": \"The Bean\"}'),
+('01-Day8','u2','RITTES REICH,1/130;Puma',NULL,'{}'),
+('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager',NULL,'{}'),
+('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager',NULL,'{}'),
+('01-Day8','u5','RITTES REICH,2/130;SdKfz 250',NULL,'{}'),
+('01-Day8','u6','RITTES REICH,2/130;SdKfz 250',NULL,'{}');
 /*!40000 ALTER TABLE `gameData` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,6 +271,30 @@ INSERT INTO `images` VALUES
 (193,'ZSU23 back.png','ground','-'),
 (194,'ZSU23 front.png','ground','-');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t1`
+--
+
+DROP TABLE IF EXISTS `t1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t1` (
+  `c1` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`c1`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t1`
+--
+
+LOCK TABLES `t1` WRITE;
+/*!40000 ALTER TABLE `t1` DISABLE KEYS */;
+INSERT INTO `t1` VALUES
+('{\"x\": 17, \"x\": \"red\"}'),
+('{\"x\": 17, \"x\": \"red\", \"x\": [3, 5, 7]}');
+/*!40000 ALTER TABLE `t1` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -730,4 +761,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-26 15:05:01
+-- Dump completed on 2024-01-26 19:35:03

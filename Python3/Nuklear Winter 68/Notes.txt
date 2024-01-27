@@ -1,8 +1,30 @@
+select * 
+from units
+where
+formation = '2/130'
+and
+name = 'Fallschirmjager'
+
+;
+
+
+
+RITTES REICH,2/130;SdKfz 250
+u6
+
+
+
+
+
+
+
 create table gameData (
 	scenario varchar(80),
 	name varchar(80),
 	val varchar(256),
-	html text
+	html varchar(512),
+	j json
+	CHECK (JSON_VALID(j))
 );
 
 

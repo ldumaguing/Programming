@@ -4,6 +4,8 @@ import re
 import mysql.connector
 
 scenario = ""
+faction = ""
+formation = ""
 unit_id = 0
 
 mydb = mysql.connector.connect(
@@ -16,9 +18,9 @@ mydb = mysql.connector.connect(
 def sql_stmt(stmt):
 	global mydb
 
-	#mycursor = mydb.cursor()
-	#mycursor.execute(stmt)
-	#mydb.commit()
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	mydb.commit()
 
 def mode_Board(f):
 	global scenario
@@ -80,38 +82,42 @@ def mode_Board(f):
 			width = int(line[0:line.find(',')])
 			hexX_count = int(line[line.find(',')+1:line.find(' ')])
 
-def mk_instance(formation, unit, count):
+def mk_instance(unit, count):
 	global unit_id
+	stmt = ""
 
 	for x in range(count):
 		unit_id += 1
 		id = "u" + str(unit_id)
-		print(formation + ";" + unit)
-		print(id)
+		stmt = """insert into gameData(scenario, name, val, j) values ('"""
+		stmt += scenario + "', '" + id + "', '"
+		stmt += faction + "," + formation + ";" + unit + "', '{}')"
+		sql_stmt(stmt)
 
-def gen_units(formation, units):
+def gen_units(units):
 	print("..")
-	print(formation)
 	unit = ""
 	count = 0
 	
 	while re.search(",", units):
 		unit = units[units.find("x")+1:units.find(",")]
 		count = int(units[0:units.find("x")])
-		mk_instance(formation, unit, count)
+		mk_instance(unit, count)
 		units = units[units.find(",")+2:]
 
 	unit = units[units.find("x")+1:]
 	count = int(units[0:units.find("x")])
-	mk_instance(formation, unit, count)
+	mk_instance(unit, count)
 
-def w_formation(faction, line):
-	formation = faction + "," + line[0:line.find(" -")]
+def w_formation(line):
+	global formation
+
+	formation = line[0:line.find(" -")]
 	units = line[line.find("-")+2:line.find(" /")]
-	gen_units(formation, units)
+	gen_units(units)
 
 def mode_OOB(f):
-	faction = ""
+	global faction
 
 	while True:
 		line = f.readline()
@@ -125,7 +131,7 @@ def mode_OOB(f):
 			faction = "Black Hand"
 
 		if re.search(" - ", line):
-			w_formation(faction, line)
+			w_formation(line)
 
 		#print(line)
 
