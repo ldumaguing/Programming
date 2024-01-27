@@ -114,10 +114,16 @@ def wo_formation(line):
 	if line.find("AMs")<=0:
 		return
 
-	formation = ""
+	formation = faction
 	units = line[0:line.find(" /")]
 	gen_units(units)
-	#print(">" + units)
+
+	am = line[line.find("/ ")+2:line.find("AMs")]
+	am = "AM:" + formation + ";" + am
+	stmt = "insert into gameData(name, val, scenario) values ('" + am + "', '" \
+		+ line[line.find("/ ")+2:line.find("AMs")] + "', '" \
+		+ scenario + "')"
+	sql_stmt(stmt)
 
 def w_formation(line):
 	global formation
@@ -168,6 +174,8 @@ while True:
 
 
 f.close()
+
+
 
 
 
