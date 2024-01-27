@@ -44,12 +44,21 @@ INSERT INTO `gameData` VALUES
 ('01-Day8','X_multiplier','168.79310344827587',NULL,NULL),
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger',NULL,'{\"fish\": 3, \"foo\": 4, \"nickname\": \"The Bean\"}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger',NULL,'{}'),
 ('01-Day8','u2','RITTES REICH,1/130;Puma',NULL,'{}'),
+('01-Day8','AM:1/130;2','2',NULL,NULL),
 ('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager',NULL,'{}'),
 ('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager',NULL,'{}'),
 ('01-Day8','u5','RITTES REICH,2/130;SdKfz 250',NULL,'{}'),
-('01-Day8','u6','RITTES REICH,2/130;SdKfz 250',NULL,'{}');
+('01-Day8','u6','RITTES REICH,2/130;SdKfz 250',NULL,'{}'),
+('01-Day8','AM:2/130;2','2',NULL,NULL),
+('01-Day8','u7','Black Hand,;Zealots',NULL,'{}'),
+('01-Day8','u8','Black Hand,;Zealots',NULL,'{}'),
+('01-Day8','u9','Black Hand,;Zealots',NULL,'{}'),
+('01-Day8','u10','Black Hand,;Zealots',NULL,'{}'),
+('01-Day8','u11','Black Hand,;Pest',NULL,'{}'),
+('01-Day8','u12','Black Hand,;Pest',NULL,'{}'),
+('01-Day8','u13','Black Hand,;Megrim',NULL,'{}');
 /*!40000 ALTER TABLE `gameData` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -761,4 +770,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-26 19:35:03
+-- Dump completed on 2024-01-26 21:08:06
