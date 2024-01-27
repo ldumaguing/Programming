@@ -160,6 +160,36 @@ def mode_OOB(f):
 		#print(line)
 
 # ****************************************************************************************
+def select_stmt(stmt):
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	return mycursor.fetchall()
+
+
+def unit_setup():
+	stmt = "select name, val from gameData where name regexp '^u'"
+	results = select_stmt(stmt)
+	for x in results:
+		uID = x[0]
+		val = x[1]
+		formation = val[val.find(",")+1:val.find(";")]
+		unit = val[val.find(";")+1:]
+		stmt = "select front, back from v_units where name = '" + unit + "'"
+		stmt += " and formation = '" + formation + "'"
+		res0 = select_stmt(stmt)
+		for y in res0:
+			j = "JSON_INSERT(j,'$.front', 'images/" + y[0] + "',"
+			j += " '$.back', 'images/" + y[1] + "',"
+			j += " '$.flip', 'front')"
+			j = "update gameData set j = " + j
+			j += " where name = '" + uID + "'"
+			sql_stmt(j)
+			h = "<img id=\"" + uID + "\" src=\"images/" + y[0] + "\" hidden>"
+			h = "update gameData set html = '" + h + "'"
+			h += " where name = '" + uID + "'"
+			sql_stmt(h)
+
+# ****************************************************************************************
 f = open(sys.argv[1], "r")
 
 while True:
@@ -172,11 +202,10 @@ while True:
 	if re.search(">>>>> ORDER", line):
 		mode_OOB(f)
 
-
 f.close()
 
-
-
+# ===========================================
+unit_setup()
 
 
 
