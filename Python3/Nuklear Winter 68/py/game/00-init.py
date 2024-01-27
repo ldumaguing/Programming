@@ -182,7 +182,9 @@ def unit_setup():
 			j += " '$.back', 'images/" + y[1] + "',"
 			j += " '$.flip', 'front',"
 			j += " '$.hexLoc', JSON_ARRAY(-1,-1),"
-			j += " '$.pixLoc', JSON_ARRAY(0,0)"
+			j += " '$.pixLoc', JSON_ARRAY(0,0),"
+			j += " '$.identity', JSON_ARRAY("
+			j += "'" + formation + "'" + ", '" + unit + "')"
 			j += ")"
 			j = "update gameData set j = " + j
 			j += " where name = '" + uID + "'"
@@ -209,6 +211,10 @@ f.close()
 
 # ===========================================
 unit_setup()
+
+
+
+
 
 
 
