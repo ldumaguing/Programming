@@ -22,12 +22,12 @@ else:
 	hexX = ord(hexID[0:1]) - ord('A')
 	hexY = int(hexID[1:])
 	
-print(unitID, hexX, hexY)
+#print(unitID, hexX, hexY)
 
 stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 	+ str(hexX) + ", '$.hexLoc[1]'," + str(hexY) + ") where name = '" + unitID + "'"
 
-print(stmt)
+#print(stmt)
 
 mydb = mysql.connector.connect(
   host="localhost",
