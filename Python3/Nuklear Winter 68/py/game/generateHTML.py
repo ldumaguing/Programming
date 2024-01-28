@@ -80,7 +80,6 @@ for x in myresult:
 	if x[0]=='Y_adjust':
 		Y_adjust = float(x[1])
 
-
 stmt = "select JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]')" \
 	+ ", name" \
 	+ " from gameData where JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" \
