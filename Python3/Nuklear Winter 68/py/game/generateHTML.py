@@ -102,12 +102,8 @@ for x in myresult:
 		+ str(pixel_Y) + ");\n"
 
 # ****************************************************************************************
-f = open("index_A.html", "w")
-f.write(part1 + imgString + part2 + unitScript + unitPlacement)
-f.close()
-
-f = open("index_B.html", "w")
-f.write(part3)
+f = open("index.html", "w")
+f.write(part1 + imgString + part2 + unitScript + unitPlacement + part3)
 f.close()
 
 
