@@ -89,7 +89,7 @@ mycursor.execute(stmt)
 myresult = mycursor.fetchall()
 unitPlacement = ""
 for x in myresult:
-	print(x[0], x[1])
+	#print(x[0], x[1])
 	float_X = float(x[0])
 	float_Y = float(x[1])
 	pixel_X = (float_X*X_multiplier)+hexZero_X
