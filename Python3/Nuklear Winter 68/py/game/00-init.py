@@ -193,6 +193,21 @@ def unit_setup():
 			h = "update gameData set html = '" + h + "'"
 			h += " where name = '" + uID + "'"
 			sql_stmt(h)
+	
+	# ********** front data
+	stmt = "select * from gameData where scenario = '" + scenario + "'" \
+		+ " and name regexp '^u'"
+	results = select_stmt(stmt)
+	for x in results:
+		unitID = x[1]
+		unit = x[2]
+		unit = unit[unit.find(';')+1:]
+		#print(unitID, unit)
+		stmt = "select * from unitData where side = 'front'" \
+			+ " and name = '" + unit + "'"
+		res0 = select_stmt(stmt)
+		for y in res0:
+			
 
 # ****************************************************************************************
 f = open(sys.argv[1], "r")
@@ -211,8 +226,6 @@ f.close()
 
 # ===========================================
 unit_setup()
-
-
 
 
 
