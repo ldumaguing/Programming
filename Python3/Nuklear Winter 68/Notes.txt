@@ -1,3 +1,11 @@
+update gameData
+set j = JSON_REPLACE(j, '$.hexLoc[0]', 69, '$.hexLoc[1]', 70)
+where name = 'u10';
+
+
+
+
+
 select * 
 from units
 where
