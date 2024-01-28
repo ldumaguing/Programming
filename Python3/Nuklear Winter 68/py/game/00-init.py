@@ -157,14 +157,12 @@ def mode_OOB(f):
 			w_formation(line)
 		else:
 			wo_formation(line)
-		#print(line)
 
 # ****************************************************************************************
 def select_stmt(stmt):
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	return mycursor.fetchall()
-
 
 def unit_setup():
 	stmt = "select name, val from gameData where name regexp '^u'"
@@ -207,7 +205,40 @@ def unit_setup():
 			+ " and name = '" + unit + "'"
 		res0 = select_stmt(stmt)
 		for y in res0:
-			
+			unit = y[0]
+			j = "update gameData set j = JSON_INSERT(j, '$.frontData', JSON_ARRAY(" \
+				+ str(y[2]) + "," + str(y[3]) + "," + str(y[4]) + "," \
+				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
+				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
+				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
+				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
+				+ str(y[17]) \
+				+ ")) where val regexp '" + unit + "'"
+			sql_stmt(j)
+
+	# ********** back data
+	stmt = "select * from gameData where scenario = '" + scenario + "'" \
+		+ " and name regexp '^u'"
+	results = select_stmt(stmt)
+	for x in results:
+		unitID = x[1]
+		unit = x[2]
+		unit = unit[unit.find(';')+1:]
+		#print(unitID, unit)
+		stmt = "select * from unitData where side = 'back'" \
+			+ " and name = '" + unit + "'"
+		res0 = select_stmt(stmt)
+		for y in res0:
+			unit = y[0]
+			j = "update gameData set j = JSON_INSERT(j, '$.backData', JSON_ARRAY(" \
+				+ str(y[2]) + "," + str(y[3]) + "," + str(y[4]) + "," \
+				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
+				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
+				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
+				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
+				+ str(y[17]) \
+				+ ")) where val regexp '" + unit + "'"
+			sql_stmt(j)
 
 # ****************************************************************************************
 f = open(sys.argv[1], "r")
@@ -226,6 +257,9 @@ f.close()
 
 # ===========================================
 unit_setup()
+
+
+
 
 
 
