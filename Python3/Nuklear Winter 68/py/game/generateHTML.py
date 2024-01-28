@@ -101,11 +101,6 @@ for x in myresult:
 	unitPlacement += "\tctx.drawImage(" + x[2] + ", " + str(pixel_X) + ", " \
 		+ str(pixel_Y) + ");\n"
 
-
-
-
-
-
 # ****************************************************************************************
 f = open("index_A.html", "w")
 f.write(part1 + imgString + part2 + unitScript + unitPlacement)
