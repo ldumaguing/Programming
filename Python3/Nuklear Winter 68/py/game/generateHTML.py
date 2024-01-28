@@ -84,7 +84,7 @@ stmt = "select JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]')" \
 	+ ", name" \
 	+ " from gameData where JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" \
 	+ scenario + "'"
-print(stmt)
+
 mycursor.execute(stmt)
 myresult = mycursor.fetchall()
 unitPlacement = ""
@@ -96,7 +96,7 @@ for x in myresult:
 	pixel_X -= chitDimention/2.0
 	pixel_Y = (float_Y*Y_multiplier)+hexZero_Y + ((float_X%2)*Y_adjust)
 	pixel_Y -= chitDimention/2.0
-	print(pixel_X, pixel_Y)
+
 	unitPlacement += "\tctx.drawImage(" + x[2] + ", " + str(pixel_X) + ", " \
 		+ str(pixel_Y) + ");\n"
 
