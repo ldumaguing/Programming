@@ -60,11 +60,32 @@ def insert(fields, values):
 	mydb.commit()
 	
 def select(fields, conditions):
-	stmt = "select " + fields + " from gameData where "
+	stmt = "select " + fields + " from gameData where " + conditions
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	return mycursor.fetchall()
 
+def select_v_units(fields, conditions):
+	stmt = "select " + fields + " from v_units where " + conditions
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	return mycursor.fetchall()
+
+def update_j(j, uID):
+	stmt = "update gameData set j = " + j \
+		+ " where name = '" + uID + "'"
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	mydb.commit()
+
+def update_html(h, uID):
+	stmt = "update gameData set html = '" + h \
+		+ "' where name = '" + uID + "'"
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	mydb.commit()
+
+# ****************************************************************************************
 def new_scenario(scenario):
 	stmt = "delete from gameData where scenario = '" + scenario + "'"
 	mycursor = mydb.cursor()
@@ -83,6 +104,8 @@ def get_current_scenario():
 	results = mycursor.fetchall()
 	for x in results:
 		return x[0]
+
+
 
 
 
