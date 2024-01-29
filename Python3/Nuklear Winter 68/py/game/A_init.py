@@ -2,6 +2,7 @@
 import sys
 import re
 import mysql.connector
+import a1_init
 
 scenario = ""
 faction = ""
@@ -95,7 +96,6 @@ def mk_instance(unit, count):
 		sql_stmt(stmt)
 
 def gen_units(units):
-	print("..")
 	unit = ""
 	count = 0
 	
@@ -200,7 +200,7 @@ def unit_setup():
 		unitID = x[1]
 		unit = x[2]
 		unit = unit[unit.find(';')+1:]
-		#print(unitID, unit)
+
 		stmt = "select * from unitData where side = 'front'" \
 			+ " and name = '" + unit + "'"
 		res0 = select_stmt(stmt)
@@ -224,7 +224,7 @@ def unit_setup():
 		unitID = x[1]
 		unit = x[2]
 		unit = unit[unit.find(';')+1:]
-		#print(unitID, unit)
+
 		stmt = "select * from unitData where side = 'back'" \
 			+ " and name = '" + unit + "'"
 		res0 = select_stmt(stmt)
@@ -244,7 +244,6 @@ def unit_setup():
 f = open(sys.argv[1], "r")
 
 while True:
-	print(".")
 	line = f.readline()
 	if not line:
 		break
