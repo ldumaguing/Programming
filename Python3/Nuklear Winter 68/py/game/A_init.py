@@ -252,7 +252,7 @@ while True:
 	if re.search(">>>>> ORDER", line):
 		mode_OOB(f)
 	if re.search(">>>>> OBJEC", line):
-		a1.mode_Objective(f)
+		a1.mode_Objective(f, scenario)
 
 f.close()
 
