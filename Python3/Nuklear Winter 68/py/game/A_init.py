@@ -2,7 +2,7 @@
 import sys
 import re
 import mysql.connector
-import a1_init
+import a1_init as a1
 
 scenario = ""
 faction = ""
@@ -251,6 +251,8 @@ while True:
 		mode_Board(f)
 	if re.search(">>>>> ORDER", line):
 		mode_OOB(f)
+	if re.search(">>>>> OBJEC", line):
+		a1.mode_Objective(f)
 
 f.close()
 

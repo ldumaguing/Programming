@@ -17,5 +17,8 @@ BLACK HAND
 
 1 Event marker
 
+>>>>> SETUP
 
+>>>>> OBJECTIVES
+placeObjectives O18,P17,P18,Q8
 
