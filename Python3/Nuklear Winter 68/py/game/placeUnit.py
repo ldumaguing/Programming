@@ -17,10 +17,10 @@ hexY = 0
 
 if re.search("[A-Z][A-Z]", hexID):
 	hexX = ord(hexID[0:1]) - ord('A') + 26
-	hexY = int(hexID[2:])
+	hexY = int(hexID[2:]) - 1
 else:
 	hexX = ord(hexID[0:1]) - ord('A')
-	hexY = int(hexID[1:])
+	hexY = int(hexID[1:]) - 1
 	
 #print(unitID, hexX, hexY)
 
