@@ -28,17 +28,9 @@ def save_objective(ob):
 		+ "<img id=\"u" + ob + "\" src=\"images/Objective.png\" hidden>', " \
 		+ "'{\"hexLoc\": [" + str(hexX) + ", " + str(hexY) + "]}')"
 
-	print(stmt)
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
-
-
-
-
-
-
-
 
 def place_objectives(ob):
 	while re.search(",", ob):
@@ -58,16 +50,6 @@ def mode_Objective(f, scn):
 		if re.search("placeObjectives", line):
 			place_objectives(line[line.find(" ")+1:])
 
-
-"""
-insert into gameData (scenario,name,val,html,j) values (
-'01-Day8',
-'uOBJ1',
-'Q8',
-'<img id="uOBJ1" src="images/Objective.png" hidden>',
-'{"hexLoc": [16, 7]}'
-);
-"""
 
 
 
