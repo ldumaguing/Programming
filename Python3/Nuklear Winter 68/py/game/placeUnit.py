@@ -1,16 +1,15 @@
 #!/usr/bin/python3
 import sys
 import re
-import mysql.connector
+import mariadb as sql
 
-if len(sys.argv)!=4:
-	print("placeUnit.py [scenario] [unitID] [hexID]\n")
+if len(sys.argv)!=3:
+	print("placeUnit.py [unitID] [hexID]\n")
 	exit()
 
-scenario = sys.argv[1]
-scenario = scenario[scenario.find('/')+1:scenario.find('.')]
-unitID = sys.argv[2]
-hexID = sys.argv[3]
+scenario = sql.get_current_scenario()
+unitID = sys.argv[1]
+hexID = sys.argv[2]
 
 hexX = 0
 hexY = 0
@@ -22,24 +21,13 @@ else:
 	hexX = ord(hexID[0:1]) - ord('A')
 	hexY = int(hexID[1:]) - 1
 	
-#print(unitID, hexX, hexY)
+print(unitID, hexX, hexY)
 
 stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 	+ str(hexX) + ", '$.hexLoc[1]'," + str(hexY) + ") where name = '" + unitID + "'" \
 	+ " and scenario = '" + scenario + "'"
-
-#print(stmt)
-
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="ayeka",
-  password="",
-  database="NuklearWinter68"
-)
-
-mycursor = mydb.cursor()
-mycursor.execute(stmt)
-mydb.commit()
+print(stmt)
+sql.sql(stmt)
 
 
 

@@ -40,11 +40,6 @@ def mode_Board(f):
 			sql.insert(fields, values)
 			h = "<img id=\"map\" src=\"images/" + mapName + "\" hidden>"
 			sql.update_html(h, "map", scenario)
-
-
-
-
-
 		if re.search("pixel w", line):
 			mapWidth = int(line[0:line.find(',')])
 			mapHeight = int(line[line.find(',')+1:line.find(' ')])

@@ -3,8 +3,7 @@ import sys
 import re
 import mariadb as sql
 
-scenario = sys.argv[1]
-scenario = scenario[scenario.find('/')+1:scenario.find('.')]
+scenario = sql.get_current_scenario()
 
 part1 = """<!DOCTYPE html>
 <html>
@@ -32,16 +31,14 @@ part3 = """}
 
 imgString = ""
 
-stmt = "select html from gameData where html regexp '<img' and scenario = '" \
-	+ scenario + "'"
-myresult = sql.get_results(stmt)
+conditions = "html regexp '<img' and scenario = '" + scenario + "'"
+myresult = sql.select("html", conditions, "gameData")
 for x in myresult:
 	imgString += x[0] + "\n"
 
 unitScript = "\n"
-stmt = "select name from gameData where name regexp '^[um]' and scenario = '" \
-	+ scenario + "'"
-myresult = sql.get_results(stmt)
+conditions = "name regexp '^[um]' and scenario = '" + scenario + "'"
+myresult = sql.select("name", conditions, "gameData")
 for x in myresult:
 	unitScript += "\tlet " + x[0] + " = document.getElementById(\"" + x[0]
 	unitScript += "\");"
@@ -80,7 +77,6 @@ stmt = "select JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]')" \
 myresult = sql.get_results(stmt)
 unitPlacement = ""
 for x in myresult:
-	#print(x[0], x[1])
 	float_X = float(x[0])
 	float_Y = float(x[1])
 	pixel_X = (float_X*X_multiplier)+hexZero_X
