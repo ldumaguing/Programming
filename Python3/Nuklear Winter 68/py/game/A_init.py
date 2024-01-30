@@ -38,6 +38,13 @@ def mode_Board(f):
 			values = "'" + scenario + "', " \
 				+ "'map', '" + mapName + "'"
 			sql.insert(fields, values)
+			h = "<img id=\"map\" src=\"images/" + mapName + "\" hidden>"
+			sql.update_html(h, "map", scenario)
+
+
+
+
+
 		if re.search("pixel w", line):
 			mapWidth = int(line[0:line.find(',')])
 			mapHeight = int(line[line.find(',')+1:line.find(' ')])
@@ -194,7 +201,7 @@ def unit_setup():
 				+ str(y[17]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
-			sql.bruteforce(stmt)
+			sql.sql(stmt)
 
 		# ********** back data
 		conditions = "side = 'back' and name = '" + unit + "'"
@@ -210,7 +217,7 @@ def unit_setup():
 				+ str(y[17]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
-			sql.bruteforce(stmt)
+			sql.sql(stmt)
 
 # ****************************************************************************************
 main()

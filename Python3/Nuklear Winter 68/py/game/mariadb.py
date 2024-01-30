@@ -54,7 +54,6 @@ def mode_Objective(f, scn):
 def insert(fields, values):
 	stmt = "insert into gameData (" + fields + ") values (" \
 		+ values + ")"
-
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
@@ -65,7 +64,12 @@ def select(fields, conditions, table):
 	mycursor.execute(stmt)
 	return mycursor.fetchall()
 
-def bruteforce(stmt):
+def get_results(stmt):
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	return mycursor.fetchall()
+
+def sql(stmt):
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
