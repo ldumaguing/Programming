@@ -150,16 +150,15 @@ def unit_setup():
 	scenario = sql.get_current_scenario()
 	fields = "name, val"
 	conditions = "name regexp '^u'"
-	results = sql.select(fields, conditions)
+	results = sql.select(fields, conditions, "gameData")
 	for x in results:
 		uID = x[0]
 		val = x[1]
 		formation = val[val.find(",")+1:val.find(";")]
 		unit = val[val.find(";")+1:]
-		print(uID, val, formation, unit)
 		fields = "front, back"
 		conditions = "name = '" + unit + "' and formation = '" + formation + "'"
-		res0 = sql.select_v_units(fields, conditions)
+		res0 = sql.select(fields, conditions, "v_units")
 		for y in res0:
 			j = "JSON_INSERT(j,'$.front', 'images/" + y[0] + "',"
 			j += " '$.back', 'images/" + y[1] + "',"
@@ -172,10 +171,53 @@ def unit_setup():
 			sql.update_j(j, uID, scenario)
 			h = "<img id=\"" + uID + "\" src=\"images/" + y[0] + "\" hidden>"
 			sql.update_html(h, uID, scenario)
+	
+	fields = "*"
+	conditions = "scenario = '" + scenario + "' and name regexp '^u'"
+	results = sql.select(fields, conditions, "gameData")
+	for x in results:
+		unitID = x[1]
+		unit = x[2]
+		unit = unit[unit.find(';')+1:]
+
+		# ********** front data
+		conditions = "side = 'front' and name = '" + unit + "'"
+		res0 = sql.select(fields, conditions, "unitData")
+		for y in res0:
+			unit = y[0]
+			stmt = "update gameData set j = JSON_INSERT(j, '$.frontData', JSON_ARRAY(" \
+				+ str(y[2]) + "," + str(y[3]) + "," + str(y[4]) + "," \
+				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
+				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
+				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
+				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
+				+ str(y[17]) \
+				+ ")) where val regexp '" + unit + "' and scenario = '" \
+				+ scenario + "'"
+			sql.bruteforce(stmt)
+
+		# ********** back data
+		conditions = "side = 'back' and name = '" + unit + "'"
+		res0 = sql.select(fields, conditions, "unitData")
+		for y in res0:
+			unit = y[0]
+			stmt = "update gameData set j = JSON_INSERT(j, '$.backData', JSON_ARRAY(" \
+				+ str(y[2]) + "," + str(y[3]) + "," + str(y[4]) + "," \
+				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
+				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
+				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
+				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
+				+ str(y[17]) \
+				+ ")) where val regexp '" + unit + "' and scenario = '" \
+				+ scenario + "'"
+			sql.bruteforce(stmt)
 
 # ****************************************************************************************
 main()
 unit_setup()
+
+
+
 
 
 
