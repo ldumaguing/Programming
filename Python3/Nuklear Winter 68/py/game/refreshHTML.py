@@ -52,9 +52,8 @@ chitDimention = 0
 X_multiplier = 0.0
 Y_multiplier = 0.0
 Y_adjust = 0.0
-stmt = "select name, val from gameData where html is null and scenario = '" \
-	+ scenario + "'"
-myresult = sql.get_results(stmt)
+conditions = "html is null and scenario = '" + scenario + "'"
+myresult = sql.select("name, val", conditions, "gameData")
 temp = ""
 for x in myresult:
 	if x[0]=='HexZero':
@@ -70,11 +69,9 @@ for x in myresult:
 	if x[0]=='Y_adjust':
 		Y_adjust = float(x[1])
 
-stmt = "select JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]')" \
-	+ ", name" \
-	+ " from gameData where JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" \
-	+ scenario + "'"
-myresult = sql.get_results(stmt)
+fields = "JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]'), name"
+conditions = "JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" + scenario + "'"
+myresult = sql.select(fields, conditions, "gameData")
 unitPlacement = ""
 for x in myresult:
 	float_X = float(x[0])
