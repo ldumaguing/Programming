@@ -2,6 +2,7 @@
 import sys
 import re
 import mariadb as sql
+import A1_init as a1
 
 unit_id = 0
 
