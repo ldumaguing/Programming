@@ -71,16 +71,16 @@ def select_v_units(fields, conditions):
 	mycursor.execute(stmt)
 	return mycursor.fetchall()
 
-def update_j(j, uID):
+def update_j(j, uID, scenario):
 	stmt = "update gameData set j = " + j \
-		+ " where name = '" + uID + "'"
+		+ " where name = '" + uID + "' and scenario = '" + scenario + "'"
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
 
-def update_html(h, uID):
+def update_html(h, uID, scenario):
 	stmt = "update gameData set html = '" + h \
-		+ "' where name = '" + uID + "'"
+		+ "' where name = '" + uID + "' and scenario = '" + scenario + "'"
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()

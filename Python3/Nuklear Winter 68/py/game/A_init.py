@@ -147,6 +147,7 @@ def main():
 
 # ****************************************************************************************
 def unit_setup():
+	scenario = sql.get_current_scenario()
 	fields = "name, val"
 	conditions = "name regexp '^u'"
 	results = sql.select(fields, conditions)
@@ -168,9 +169,9 @@ def unit_setup():
 			j += " '$.identity', JSON_ARRAY("
 			j += "'" + formation + "'" + ", '" + unit + "')"
 			j += ")"
-			sql.update_j(j, uID)
+			sql.update_j(j, uID, scenario)
 			h = "<img id=\"" + uID + "\" src=\"images/" + y[0] + "\" hidden>"
-			sql.update_html(h, uID)
+			sql.update_html(h, uID, scenario)
 
 # ****************************************************************************************
 main()
