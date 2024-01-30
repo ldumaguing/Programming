@@ -87,15 +87,23 @@ def update_html(h, uID):
 
 # ****************************************************************************************
 def new_scenario(scenario):
-	stmt = "delete from gameData where scenario = '" + scenario + "'"
+	stmt = "select count(*) from gameData"
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
-	mydb.commit()
-	
-	stmt = "insert into gameData (scenario, name) values ('" + scenario + "', '" \
-		+ "current scenario')"
-	mycursor.execute(stmt)
-	mydb.commit()
+	if mycursor.fetchone()[0]==0:
+		print("blank")
+		stmt = "insert into gameData (scenario, name) values ('" + scenario + "', '" \
+			+ "current scenario')"
+		mycursor.execute(stmt)
+		mydb.commit()
+	else:
+		stmt = "update gameData set scenario = '" + scenario + "' where" \
+			+ " name = 'current scenario'"
+		mycursor.execute(stmt)
+		stmt = "delete from gameData where scenario = '" + scenario + "' and name != " \
+			+ "'current scenario'"
+		mycursor.execute(stmt)
+		mydb.commit()
 
 def get_current_scenario():
 	stmt = "select scenario from gameData where name = 'current scenario'"
@@ -104,6 +112,8 @@ def get_current_scenario():
 	results = mycursor.fetchall()
 	for x in results:
 		return x[0]
+
+
 
 
 
