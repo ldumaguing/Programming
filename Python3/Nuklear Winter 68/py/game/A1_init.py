@@ -2,9 +2,9 @@ import sys
 import re
 import mariadb as sql
 
-scenario = sql.get_current_scenario()
+scenario = ""
 
-def save_objective(ob):
+def place_objective(ob):
 	hexX = 0
 	hexY = 0
 	
@@ -17,23 +17,20 @@ def save_objective(ob):
 	
 	ob = ob.strip()
 	stmt = "insert into gameData (scenario,name,val,html,j) values ('" \
-		+ scenario + "', 'u" + ob + "', '" + ob + "', '" \
-		+ "<img id=\"u" + ob + "\" src=\"images/Objective.png\" hidden>', " \
+		+ scenario + "', 'o" + ob + "', '" + ob + "', '" \
+		+ "<img id=\"o" + ob + "\" src=\"images/Objective.png\" hidden>', " \
 		+ "'{\"hexLoc\": [" + str(hexX) + ", " + str(hexY) + "]}')"
-
-	mycursor = mydb.cursor()
-	mycursor.execute(stmt)
-	mydb.commit()
+	sql.sql(stmt)
 
 def place_objectives(ob):
 	while re.search(",", ob):
-		save_objective(ob[0:ob.find(",")])
+		place_objective(ob[0:ob.find(",")])
 		ob = ob[ob.find(",")+1:]
-	save_objective(ob)
+	place_objective(ob)
 
-def mode_Objective(f, scn):
+def mode_Objective(f):
 	global scenario
-	scenario = scn
+	scenario = sql.get_current_scenario()
 
 	while True:
 		line = f.readline()

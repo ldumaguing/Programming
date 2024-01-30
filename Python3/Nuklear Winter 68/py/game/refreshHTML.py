@@ -37,7 +37,7 @@ for x in myresult:
 	imgString += x[0] + "\n"
 
 unitScript = "\n"
-conditions = "name regexp '^[um]' and scenario = '" + scenario + "'"
+conditions = "name regexp '^[umo]' and scenario = '" + scenario + "'"
 myresult = sql.select("name", conditions, "gameData")
 for x in myresult:
 	unitScript += "\tlet " + x[0] + " = document.getElementById(\"" + x[0]
