@@ -59,18 +59,17 @@ def insert(fields, values):
 	mycursor.execute(stmt)
 	mydb.commit()
 	
-def select(fields, conditions):
-	stmt = "select " + fields + " from gameData where " + conditions
+def select(fields, conditions, table):
+	stmt = "select " + fields + " from " + table + " where " + conditions
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	return mycursor.fetchall()
 
-def select_v_units(fields, conditions):
-	stmt = "select " + fields + " from v_units where " + conditions
+def bruteforce(stmt):
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
-	return mycursor.fetchall()
-
+	mydb.commit()
+	
 def update_j(j, uID, scenario):
 	stmt = "update gameData set j = " + j \
 		+ " where name = '" + uID + "' and scenario = '" + scenario + "'"
@@ -112,20 +111,4 @@ def get_current_scenario():
 	results = mycursor.fetchall()
 	for x in results:
 		return x[0]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
