@@ -2,7 +2,8 @@
 import sys
 import re
 import mariadb as sql
-import A1_init as a1
+import A1_objectives as a1
+import A2_placing as a2
 
 unit_id = 0
 
@@ -142,10 +143,8 @@ def main():
 			mode_Board(f)
 		if re.search(">>>>> ORDER", line):
 			mode_OOB(f)
-		"""
 		if re.search(">>>>> OBJEC", line):
-			a1.mode_Objective(f, scenario)
-		"""
+			a1.mode_Objective(f)
 	f.close()
 
 # ****************************************************************************************

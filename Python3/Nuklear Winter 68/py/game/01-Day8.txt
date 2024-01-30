@@ -1,0 +1,29 @@
+>>>>> BOARD
+UpDown          // Hex orientation
+Map.jpg         // Board name
+6372,4139       // pixel width, height
+368,216         // HexZero
+3921,20         // lowest hex, hex count
+5263,30         // right-most hex, hex count
+150             // chit width and heigth
+
+>>>>> ORDER OF BATTLE
+DRITTES REICH
+1/130 - 1xKing Tiger, 1xPuma / 2AMs
+2/130 - 2xFallschirmjager, 2xSdKfz 250 / 2AMs
+
+BLACK HAND
+4xZealots, 2xPest, 1xMegrim / 2AMs
+
+1 Event marker
+
+>>>>> SETUP
+
+>>>>> OBJECTIVES and/or CONTROLS
+placeRedControl O18,P17,P18,Q8
+
+>>>>> PLACING CHITS
+
+
+
+
