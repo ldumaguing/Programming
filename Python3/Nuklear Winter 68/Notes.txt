@@ -1,3 +1,21 @@
+SELECT JSON_SET(Priv, '$.locked', 'true') FROM mysql.global_priv
+
+update gameData set j = JSON_SET(j, '$.carrying', 'u7') where name = 'u12';
+update gameData set j = JSON_SET(j, '$.carried', 'u12') where name = 'u7';
+
+
+select JSON_VALUE(j, '$.frontData[12]') from gameData where name = 'u7';
+
+
+select *
+from gameData where name = 'u12';
+
+
+
+
+
+
+
 alter table unitData add column (
 	L int
 );
