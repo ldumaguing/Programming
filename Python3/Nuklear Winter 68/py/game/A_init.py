@@ -4,6 +4,7 @@ import re
 import mariadb as sql
 import A1_objectives as a1
 import A2_placing as a2
+import A3_actions as a3
 
 unit_id = 0
 
@@ -213,6 +214,8 @@ def main():
 			unit_setup()
 		if re.search(">>>>> PLACE", line):
 			a2.mode_Placement(f)
+		if re.search(">>>>> Actio", line):
+			a3.mode_Actions(f)
 	f.close()
 
 # ****************************************************************************************

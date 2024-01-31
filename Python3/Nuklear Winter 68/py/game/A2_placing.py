@@ -6,7 +6,6 @@ scenario = ""
 
 # ****************************************************************************************
 def mode_Placement(f):
-	print("Placing...")
 	global scenario
 	scenario = sql.get_current_scenario()
 

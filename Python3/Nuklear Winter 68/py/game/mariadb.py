@@ -75,3 +75,26 @@ def get_current_scenario():
 	for x in results:
 		return x[0]
 
+def is_infantry(unit):
+	scenario = get_current_scenario()
+	stmt = "select JSON_VALUE(j, '$.frontData[12]') from gameData where name = '" \
+		+ unit + "' and scenario = '" + scenario + "'"
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+
+	return int(mycursor.fetchone()[0]) & 16
+	
+def is_apc(unit):
+	scenario = get_current_scenario()
+	stmt = "select JSON_VALUE(j, '$.frontData[12]') from gameData where name = '" \
+		+ unit + "' and scenario = '" + scenario + "'"
+
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	
+	return int(mycursor.fetchone()[0]) & 2
+
+
+
+
+
