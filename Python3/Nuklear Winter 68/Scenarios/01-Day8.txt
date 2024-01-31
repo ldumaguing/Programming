@@ -31,3 +31,16 @@ u5 AA5
 u6 BB6
 u7 CC7
 
+>>>>> Actions
+
+
+>>>>> Notes
+u1 > u2   : u1 embarks into u2
+
+
+
+
+
+
+
+
