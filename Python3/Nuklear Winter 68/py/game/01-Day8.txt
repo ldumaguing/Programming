@@ -19,11 +19,17 @@ BLACK HAND
 
 >>>>> SETUP
 
->>>>> OBJECTIVES and/or CONTROLS
+>>>>> OBJECTIVES
 placeRedControl O18,P17,P18,Q8
 
->>>>> PLACING CHITS
-
+>>>>> PLACING
+u1 A1
+u2 B2
+u3 C3
+u4 D4
+u5 E5
+u6 F6
+u7 G7
 
 
 

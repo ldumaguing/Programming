@@ -14,7 +14,7 @@ def place_objective(ob):
 	else:
 		hexX = ord(ob[0:1]) - ord('A')
 		hexY = int(ob[1:]) - 1
-	
+
 	ob = ob.strip()
 	fields = "scenario,name,val,html,j"
 	values = "'" + scenario + "', 'o" + ob + "', '" + ob + "', '" \

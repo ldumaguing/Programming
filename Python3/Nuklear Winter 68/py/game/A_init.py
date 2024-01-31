@@ -128,26 +128,6 @@ def mode_OOB(f):
 		formation(faction, line)
 
 # ****************************************************************************************
-def main():
-	f = open(sys.argv[1], "r")
-
-	scenario = sys.argv[1]
-	scenario = scenario[scenario.find('/')+1:scenario.find('.')]
-	sql.new_scenario(scenario)
-
-	while True:
-		line = f.readline()
-		if not line:
-			break
-		if re.search(">>>>> BOARD", line):
-			mode_Board(f)
-		if re.search(">>>>> ORDER", line):
-			mode_OOB(f)
-		if re.search(">>>>> OBJEC", line):
-			a1.mode_Objective(f)
-	f.close()
-
-# ****************************************************************************************
 def unit_setup():
 	scenario = sql.get_current_scenario()
 	fields = "name, val"
@@ -215,8 +195,34 @@ def unit_setup():
 			sql.sql(stmt)
 
 # ****************************************************************************************
+def main():
+	f = open(sys.argv[1], "r")
+
+	scenario = sys.argv[1]
+	scenario = scenario[scenario.find('/')+1:scenario.find('.')]
+	sql.new_scenario(scenario)
+
+	while True:
+		line = f.readline()
+		if not line:
+			break
+		if re.search(">>>>> BOARD", line):
+			print(1)
+			mode_Board(f)
+		if re.search(">>>>> ORDER", line):
+			print(2)
+			mode_OOB(f)
+		if re.search(">>>>> OBJEC", line):
+			print(3)
+			a1.mode_Objective(f)
+			unit_setup()
+		if re.search(">>>>> PLACI", line):
+			print(4)
+			a2.mode_Placement(f)
+	f.close()
+
+# ****************************************************************************************
 main()
-unit_setup()
 
 
 

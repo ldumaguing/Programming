@@ -2,8 +2,6 @@ import sys
 import re
 import mysql.connector
 
-scenario = ""
-
 mydb = mysql.connector.connect(
 	host="localhost",
 	user="ayeka",
@@ -31,6 +29,7 @@ def get_results(stmt):
 	return mycursor.fetchall()
 
 def sql(stmt):
+	print(stmt)
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
