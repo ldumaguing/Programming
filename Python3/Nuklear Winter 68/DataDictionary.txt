@@ -16,6 +16,8 @@ I	APC
 J	NOE
 K	Recon
 
+L	Unit type; 0 = default, 1 = infantry
+
 
 
 

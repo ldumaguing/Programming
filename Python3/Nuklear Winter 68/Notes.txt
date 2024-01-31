@@ -1,3 +1,7 @@
+alter table unitData add column (
+	L int
+);
+
 update gameData
 set j = JSON_REPLACE(j, '$.hexLoc[0]', 1, '$.hexLoc[1]', 1)
 where name = 'u1';
