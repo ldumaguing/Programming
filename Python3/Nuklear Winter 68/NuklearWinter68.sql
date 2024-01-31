@@ -45,21 +45,21 @@ INSERT INTO `gameData` VALUES
 ('01-Day8','X_multiplier','168.79310344827587',NULL,NULL),
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [14, 9], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0]}'),
-('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [2, 1], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1], \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1]}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [14, 9], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 0]}'),
+('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [2, 1], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1, 0], \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1, 0]}'),
 ('01-Day8','AM:1/130;2','2',NULL,NULL),
-('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 2], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0]}'),
-('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 3], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0]}'),
-('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [26, 4], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0]}'),
-('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [27, 5], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0]}'),
+('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 2], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 3], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [26, 4], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0]}'),
+('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [27, 5], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0]}'),
 ('01-Day8','AM:2/130;2','2',NULL,NULL),
-('01-Day8','u7','Black Hand,Black Hand;Zealots','<img id=\"u7\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [28, 6], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0]}'),
-('01-Day8','u8','Black Hand,Black Hand;Zealots','<img id=\"u8\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0]}'),
-('01-Day8','u9','Black Hand,Black Hand;Zealots','<img id=\"u9\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0]}'),
-('01-Day8','u10','Black Hand,Black Hand;Zealots','<img id=\"u10\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0]}'),
-('01-Day8','u11','Black Hand,Black Hand;Pest','<img id=\"u11\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1]}'),
-('01-Day8','u12','Black Hand,Black Hand;Pest','<img id=\"u12\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1]}'),
-('01-Day8','u13','Black Hand,Black Hand;Megrim','<img id=\"u13\" src=\"images/Megrim front.png\" hidden>','{\"front\": \"images/Megrim front.png\", \"back\": \"images/Megrim back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Megrim\"], \"frontData\": [10, 0, 0, 6, 4, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 3, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0]}'),
+('01-Day8','u7','Black Hand,Black Hand;Zealots','<img id=\"u7\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [28, 6], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u8','Black Hand,Black Hand;Zealots','<img id=\"u8\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u9','Black Hand,Black Hand;Zealots','<img id=\"u9\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u10','Black Hand,Black Hand;Zealots','<img id=\"u10\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
+('01-Day8','u11','Black Hand,Black Hand;Pest','<img id=\"u11\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0]}'),
+('01-Day8','u12','Black Hand,Black Hand;Pest','<img id=\"u12\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0]}'),
+('01-Day8','u13','Black Hand,Black Hand;Megrim','<img id=\"u13\" src=\"images/Megrim front.png\" hidden>','{\"front\": \"images/Megrim front.png\", \"back\": \"images/Megrim back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Megrim\"], \"frontData\": [10, 0, 0, 6, 4, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 3, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0, 0]}'),
 ('01-Day8','AM:Black Hand;2','2',NULL,NULL),
 ('01-Day8','oO18','O18','<img id=\"oO18\" src=\"images/Red control.png\" hidden>','{\"hexLoc\": [14, 17]}'),
 ('01-Day8','oP17','P17','<img id=\"oP17\" src=\"images/Red control.png\" hidden>','{\"hexLoc\": [15, 16]}'),
@@ -334,11 +334,7 @@ CREATE TABLE `unitData` (
   `Ey` int(11) DEFAULT NULL,
   `F` int(11) DEFAULT NULL,
   `G` int(11) DEFAULT NULL,
-  `H` int(11) DEFAULT NULL,
-  `I` int(11) DEFAULT NULL,
-  `J` int(11) DEFAULT NULL,
-  `K` int(11) DEFAULT NULL,
-  `L` int(11) DEFAULT NULL
+  `H` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -349,62 +345,62 @@ CREATE TABLE `unitData` (
 LOCK TABLES `unitData` WRITE;
 /*!40000 ALTER TABLE `unitData` DISABLE KEYS */;
 INSERT INTO `unitData` VALUES
-('Blighter','front',10,10,15,0,6,0,15,14,0,0,6,0,0,0,0,0,0),
-('Blighter','back',9,9,15,0,5,0,15,14,0,0,6,0,0,0,0,0,0),
-('BRDM-2','front',0,0,0,0,4,3,0,15,0,0,8,0,0,0,0,1,0),
-('BRDM-2','back',0,0,0,0,3,3,0,15,0,0,8,0,0,0,0,1,0),
-('E-100','front',11,0,0,9,5,4,0,20,0,0,6,0,0,0,0,0,0),
-('E-100','back',10,0,0,9,4,4,0,20,0,0,6,0,0,0,0,0,0),
-('Fallschirmjager','front',6,0,0,3,5,3,0,18,0,0,6,0,0,0,0,0,1),
-('Fallschirmjager','back',5,0,0,3,4,3,0,18,0,14,6,0,0,0,0,0,1),
-('Haunebu III','front',12,0,9,0,6,4,0,0,17,0,17,0,1,0,0,0,0),
-('Haunebu III','back',0,0,0,0,6,4,0,0,17,0,17,0,1,0,1,0,0),
-('Hummel','front',10,0,18,0,6,0,18,14,0,0,5,0,0,0,0,0,0),
-('Hummel','back',9,0,18,0,5,0,18,14,0,0,5,0,0,0,0,0,0),
-('Jagdtiger','front',10,0,0,7,4,4,0,18,0,0,6,0,0,0,0,0,0),
-('Jagdtiger','back',10,0,0,7,3,4,0,18,0,0,6,0,0,0,0,0,0),
-('Ju-87G Stuka','front',12,0,0,0,5,0,0,0,17,0,25,3,0,0,0,0,0),
-('King Tiger','front',10,0,0,6,5,4,0,18,0,0,6,0,0,0,0,0,0),
-('King Tiger','back',9,0,0,6,4,4,0,18,0,0,6,0,0,0,0,0,0),
-('M109 Paladin','front',11,0,20,0,7,0,20,15,0,0,5,0,0,0,0,0,0),
-('M109 Paladin','back',10,0,20,0,6,0,20,15,0,0,5,0,0,0,0,0,0),
-('M113','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,0,0),
-('M113','back',0,0,0,0,3,3,0,14,0,0,6,0,0,1,0,0,0),
-('M60A1','front',10,0,0,7,5,4,0,17,0,0,6,0,0,0,0,0,0),
-('M60A1','back',9,0,0,7,4,4,0,17,0,0,6,0,0,0,0,0,0),
-('Megrim','front',10,0,0,6,4,6,0,16,0,0,6,0,0,0,0,0,0),
-('Megrim','back',9,0,0,6,3,6,0,16,0,0,6,0,0,0,0,0,0),
-('Ostwind','front',0,8,0,7,6,5,0,14,0,0,5,0,0,0,0,0,0),
-('Ostwind','back',0,7,0,7,5,5,0,14,0,0,5,0,0,0,0,0,0),
-('Pest','front',0,0,0,0,4,3,0,14,0,0,6,0,0,1,0,1,0),
-('Pest','back',0,0,0,0,3,3,0,14,0,0,6,0,0,1,0,1,0),
-('Puma','front',9,0,0,4,4,3,0,15,0,0,7,0,0,0,0,1,0),
-('Puma','back',8,0,0,4,3,3,0,15,0,0,7,0,0,0,0,1,0),
-('Rancor','front',11,0,0,8,5,4,0,19,0,0,6,0,0,0,0,0,0),
-('Rancor','back',10,0,0,8,4,4,0,19,0,0,6,0,0,0,0,0,0),
-('Ravager','front',11,11,0,1,7,1,0,0,0,15,3,0,1,0,0,0,0),
-('Ravager','back',10,10,0,1,6,1,0,0,0,15,3,0,1,0,0,0,0),
-('Scourge','front',10,0,0,4,5,4,0,0,16,0,18,0,0,0,0,1,0),
-('Scourge','back',0,0,0,0,5,4,0,0,16,0,18,0,0,0,1,0,0),
-('SdKfz 250','front',8,0,0,3,4,3,0,14,0,0,6,0,0,1,0,0,0),
-('SdKfz 250','back',7,0,0,3,3,3,0,14,0,0,6,0,0,1,0,0,0),
-('Spetsnaz','front',7,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0,1),
-('Spetsnaz','back',6,0,0,3,4,3,0,0,0,13,3,0,0,0,0,0,1),
-('SS-1C Scud-B','front',14,0,0,0,8,0,0,13,0,0,4,0,0,0,0,0,0),
-('SS-VT','front',6,0,0,3,6,3,0,0,0,13,3,0,0,0,0,0,1),
-('SS-VT','back',5,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0,1),
-('T-64','front',12,0,0,10,4,5,0,20,0,0,7,0,0,0,0,0,0),
-('T-64','back',11,0,0,10,3,5,0,20,0,0,7,0,0,0,0,0,0),
-('UH-1 Huey','front',13,0,8,0,5,4,0,0,16,0,20,0,0,0,0,0,0),
-('UH-1 Huey','back',0,0,0,0,5,4,0,0,16,0,20,0,0,1,1,0,0),
-('US Rangers','front',6,0,0,3,5,3,0,0,0,13,4,0,0,0,0,0,1),
-('US Rangers','back',5,0,0,3,4,3,0,0,0,13,4,0,0,0,0,0,1),
-('Zealots','front',6,0,0,3,5,3,0,0,0,13,3,0,0,0,0,0,1),
-('Zealots','back',5,0,0,3,4,3,0,0,0,13,3,0,0,0,0,0,1),
-('ZSU-23-4 Shilka','front',0,9,0,7,6,5,0,15,0,0,6,0,0,0,0,0,0),
-('ZSU-23-4 Shilka','back',0,8,0,7,6,5,0,15,0,0,6,0,0,0,0,0,0),
-('T-62','front',11,0,0,8,4,4,0,19,0,0,7,0,0,0,0,0,0),
-('T-62','back',10,0,0,8,3,4,0,19,0,0,7,0,0,0,0,0,0);
+('Blighter','front',10,10,15,0,6,0,15,14,0,0,6,0,0),
+('Blighter','back',9,9,15,0,5,0,15,14,0,0,6,0,0),
+('BRDM-2','front',0,0,0,0,4,3,0,15,0,0,8,0,8),
+('BRDM-2','back',0,0,0,0,3,3,0,15,0,0,8,0,8),
+('E-100','front',11,0,0,9,5,4,0,20,0,0,6,0,0),
+('E-100','back',10,0,0,9,4,4,0,20,0,0,6,0,0),
+('Fallschirmjager','front',6,0,0,3,5,3,0,18,0,0,6,0,16),
+('Fallschirmjager','back',5,0,0,3,4,3,0,18,0,14,6,0,16),
+('Haunebu III','front',12,0,9,0,6,4,0,0,17,0,17,0,1),
+('Haunebu III','back',0,0,0,0,6,4,0,0,17,0,17,0,5),
+('Hummel','front',10,0,18,0,6,0,18,14,0,0,5,0,0),
+('Hummel','back',9,0,18,0,5,0,18,14,0,0,5,0,0),
+('Jagdtiger','front',10,0,0,7,4,4,0,18,0,0,6,0,0),
+('Jagdtiger','back',10,0,0,7,3,4,0,18,0,0,6,0,0),
+('Ju-87G Stuka','front',12,0,0,0,5,0,0,0,17,0,25,3,0),
+('King Tiger','front',10,0,0,6,5,4,0,18,0,0,6,0,0),
+('King Tiger','back',9,0,0,6,4,4,0,18,0,0,6,0,0),
+('M109 Paladin','front',11,0,20,0,7,0,20,15,0,0,5,0,0),
+('M109 Paladin','back',10,0,20,0,6,0,20,15,0,0,5,0,0),
+('M113','front',0,0,0,0,4,3,0,14,0,0,6,0,2),
+('M113','back',0,0,0,0,3,3,0,14,0,0,6,0,2),
+('M60A1','front',10,0,0,7,5,4,0,17,0,0,6,0,0),
+('M60A1','back',9,0,0,7,4,4,0,17,0,0,6,0,0),
+('Megrim','front',10,0,0,6,4,6,0,16,0,0,6,0,0),
+('Megrim','back',9,0,0,6,3,6,0,16,0,0,6,0,0),
+('Ostwind','front',0,8,0,7,6,5,0,14,0,0,5,0,0),
+('Ostwind','back',0,7,0,7,5,5,0,14,0,0,5,0,0),
+('Pest','front',0,0,0,0,4,3,0,14,0,0,6,0,10),
+('Pest','back',0,0,0,0,3,3,0,14,0,0,6,0,10),
+('Puma','front',9,0,0,4,4,3,0,15,0,0,7,0,8),
+('Puma','back',8,0,0,4,3,3,0,15,0,0,7,0,8),
+('Rancor','front',11,0,0,8,5,4,0,19,0,0,6,0,0),
+('Rancor','back',10,0,0,8,4,4,0,19,0,0,6,0,0),
+('Ravager','front',11,11,0,1,7,1,0,0,0,15,3,0,1),
+('Ravager','back',10,10,0,1,6,1,0,0,0,15,3,0,1),
+('Scourge','front',10,0,0,4,5,4,0,0,16,0,18,0,8),
+('Scourge','back',0,0,0,0,5,4,0,0,16,0,18,0,4),
+('SdKfz 250','front',8,0,0,3,4,3,0,14,0,0,6,0,2),
+('SdKfz 250','back',7,0,0,3,3,3,0,14,0,0,6,0,2),
+('Spetsnaz','front',7,0,0,3,5,3,0,0,0,13,3,0,16),
+('Spetsnaz','back',6,0,0,3,4,3,0,0,0,13,3,0,16),
+('SS-1C Scud-B','front',14,0,0,0,8,0,0,13,0,0,4,0,0),
+('SS-VT','front',6,0,0,3,6,3,0,0,0,13,3,0,16),
+('SS-VT','back',5,0,0,3,5,3,0,0,0,13,3,0,16),
+('T-64','front',12,0,0,10,4,5,0,20,0,0,7,0,0),
+('T-64','back',11,0,0,10,3,5,0,20,0,0,7,0,0),
+('UH-1 Huey','front',13,0,8,0,5,4,0,0,16,0,20,0,0),
+('UH-1 Huey','back',0,0,0,0,5,4,0,0,16,0,20,0,6),
+('US Rangers','front',6,0,0,3,5,3,0,0,0,13,4,0,16),
+('US Rangers','back',5,0,0,3,4,3,0,0,0,13,4,0,16),
+('Zealots','front',6,0,0,3,5,3,0,0,0,13,3,0,16),
+('Zealots','back',5,0,0,3,4,3,0,0,0,13,3,0,16),
+('ZSU-23-4 Shilka','front',0,9,0,7,6,5,0,15,0,0,6,0,0),
+('ZSU-23-4 Shilka','back',0,8,0,7,6,5,0,15,0,0,6,0,0),
+('T-62','front',11,0,0,8,4,4,0,19,0,0,7,0,0),
+('T-62','back',10,0,0,8,3,4,0,19,0,0,7,0,0);
 /*!40000 ALTER TABLE `unitData` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,9 +553,6 @@ SET character_set_client = utf8;
   1 AS `F`,
   1 AS `G`,
   1 AS `H`,
-  1 AS `I`,
-  1 AS `J`,
-  1 AS `K`,
   1 AS `back` */;
 SET character_set_client = @saved_cs_client;
 
@@ -602,9 +595,6 @@ SET character_set_client = utf8;
   1 AS `F`,
   1 AS `G`,
   1 AS `H`,
-  1 AS `I`,
-  1 AS `J`,
-  1 AS `K`,
   1 AS `front` */;
 SET character_set_client = @saved_cs_client;
 
@@ -709,7 +699,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_unit_back_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`a`.`I` AS `I`,`a`.`J` AS `J`,`a`.`K` AS `K`,`b`.`back` AS `back` from (`unitData` `a` join `v_unit_back` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'back' */;
+/*!50001 VIEW `v_unit_back_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`b`.`back` AS `back` from (`unitData` `a` join `v_unit_back` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'back' */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -745,7 +735,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_unit_front_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`a`.`I` AS `I`,`a`.`J` AS `J`,`a`.`K` AS `K`,`b`.`front` AS `front` from (`unitData` `a` join `v_unit_front` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'front' */;
+/*!50001 VIEW `v_unit_front_data` AS select `b`.`formation` AS `formation`,`a`.`name` AS `name`,`a`.`Ar` AS `Ar`,`a`.`Ab` AS `Ab`,`a`.`Br` AS `Br`,`a`.`Bw` AS `Bw`,`a`.`C` AS `C`,`a`.`Dw` AS `Dw`,`a`.`Dy` AS `Dy`,`a`.`Er` AS `Er`,`a`.`Eb` AS `Eb`,`a`.`Ey` AS `Ey`,`a`.`F` AS `F`,`a`.`G` AS `G`,`a`.`H` AS `H`,`b`.`front` AS `front` from (`unitData` `a` join `v_unit_front` `b`) where `a`.`name` = `b`.`name` and `a`.`side` = 'front' */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -777,4 +767,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-31 12:59:10
+-- Dump completed on 2024-01-31 14:51:02

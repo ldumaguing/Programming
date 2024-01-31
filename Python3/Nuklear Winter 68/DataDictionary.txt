@@ -11,13 +11,12 @@ Ey	Armor
 F	Max movement
 G	Min movement; default 0
 
-H	Huge
-I	APC
-J	NOE
-K	Recon
-
-L	Unit type; 0 = default, 1 = infantry
-
+H	Aspects Flags (int)
+	bit 0: Huge
+	bit 1: APC
+	bit 2: NOE
+	bit 3: Recon
+	bit 4: Infantry
 
 
 
