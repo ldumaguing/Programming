@@ -39,7 +39,7 @@ cur.execute(stmt)
 results = cur.fetchall()
 for x in results:
 	units += "<img src=\"" + x[1] + "\">"
-	units += "<img src=\"" + x[2] + "\">"
+	#units += "<img src=\"" + x[2] + "\">"
 	units += "<span class=\"whitefont\">ID: " + x[0] + "</span>"
 	units += "\n<br>\n"
 

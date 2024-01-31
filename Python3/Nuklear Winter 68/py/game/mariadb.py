@@ -29,7 +29,6 @@ def get_results(stmt):
 	return mycursor.fetchall()
 
 def sql(stmt):
-	print(stmt)
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()

@@ -172,8 +172,7 @@ def unit_setup():
 				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
 				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
 				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
-				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
-				+ str(y[17]) \
+				+ str(y[14]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
 			sql.sql(stmt)
@@ -188,8 +187,7 @@ def unit_setup():
 				+ str(y[5]) + "," + str(y[6]) + "," + str(y[7]) + "," \
 				+ str(y[8]) + "," + str(y[9]) + "," + str(y[10]) + "," \
 				+ str(y[11]) + "," + str(y[12]) + "," + str(y[13]) + "," \
-				+ str(y[14]) + "," + str(y[15]) + "," + str(y[16]) + "," \
-				+ str(y[17]) \
+				+ str(y[14]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
 			sql.sql(stmt)
@@ -207,17 +205,13 @@ def main():
 		if not line:
 			break
 		if re.search(">>>>> BOARD", line):
-			print(1)
 			mode_Board(f)
 		if re.search(">>>>> ORDER", line):
-			print(2)
 			mode_OOB(f)
 		if re.search(">>>>> OBJEC", line):
-			print(3)
 			a1.mode_Objective(f)
 			unit_setup()
-		if re.search(">>>>> PLACI", line):
-			print(4)
+		if re.search(">>>>> PLACE", line):
 			a2.mode_Placement(f)
 	f.close()
 
