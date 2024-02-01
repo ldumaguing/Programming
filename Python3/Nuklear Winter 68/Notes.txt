@@ -1,3 +1,11 @@
+select
+name, html, j
+from gameData where
+name regexp '^[umo]'
+and JSON_VALUE(j, "$.carried") is null
+and scenario = '01-Day8';
+
+
 SELECT JSON_SET(Priv, '$.locked', 'true') FROM mysql.global_priv
 
 update gameData set j = JSON_SET(j, '$.carrying', 'u7') where name = 'u12';
