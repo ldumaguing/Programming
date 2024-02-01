@@ -37,7 +37,9 @@ for x in myresult:
 	imgString += x[0] + "\n"
 
 unitScript = "\n"
-conditions = "name regexp '^[umo]' and scenario = '" + scenario + "'"
+conditions = "name regexp '^[umo]'" \
+	+ " and JSON_VALUE(j, '$.carried') is null" \
+	+ " and scenario = '" + scenario + "'"
 myresult = sql.select("name", conditions, "gameData")
 for x in myresult:
 	unitScript += "\tlet " + x[0] + " = document.getElementById(\"" + x[0]
@@ -70,7 +72,8 @@ for x in myresult:
 		Y_adjust = float(x[1])
 
 fields = "JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]'), name"
-conditions = "JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" + scenario + "'"
+conditions = "JSON_VALUE(j, '$.hexLoc[0]')>=0 and scenario = '" + scenario + "'" \
+	+ " and JSON_VALUE(j, '$.carried') is null"
 myresult = sql.select(fields, conditions, "gameData")
 unitPlacement = ""
 for x in myresult:
