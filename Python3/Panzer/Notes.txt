@@ -1,68 +1,13 @@
 create table images (
-	name varchar(80),
-	UNIQUE KEY name (name)
+	id int,
+	filename varchar(80),
+	constraint id_pk primary key (id)
 );
 
-
-
-LOAD DATA LOCAL INFILE '/home/ayeka/xxx/Panzer/images.txt'
-INTO TABLE images;
-
-
-
-
-alter table images add column (
-	type varchar(80)
-);
-
-alter table images add column (
-	country varchar(80)
-);
-
-alter table images
-	add column 
-	id int
-	first
-;
-
-create sequence s1;
-update images set id = nextval(s1);
-
-
-
-
-
-
-
-
-
-
-
-alter table images add column (
-
-);
-
-
-
-
-
-
-
-
-
-
-
-
-update images set type = 'map' where name regexp '^Panzer[0-9]';
-
-
-
-
-FrontFiringArc.png
-update images set type = 'marker' where name = 'FrontFiringArc.png';
-
-TurnTrack.jpg
-update images set type = 'tableau' where name = 'TurnTrack.jpg';
-
+LOAD DATA LOCAL INFILE 'Panzer_images.csv' INTO TABLE images
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+(id, filename);
 
 

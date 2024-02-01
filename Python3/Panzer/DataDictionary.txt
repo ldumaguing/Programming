@@ -1,0 +1,44 @@
+flags (int)
+===========
+bit 0-2: graphic type values
+   0:   png
+   1:   jpg
+   2:   gif
+   3-7: 
+bit 3-6: characters in the filename
+   0:
+   1: turret
+   2: hull
+   3: terrain
+   4: marker
+   5: button
+   
+   
+   
+select filename, flags, flags | (1 << 3) from images where filename like '%turret%' limit 3;
+
+update images set flags = (flags | (1 << 3)) where filename like '%turret%';
+update images set flags = (flags | (2 << 3)) where filename like '%hull%';
+update images set flags = (flags | (3 << 3)) where filename like '%terrain%';
+update images set flags = (flags | (4 << 3)) where filename like '%marker%';
+update images set flags = (flags | (5 << 3)) where filename like '%button%';
+
+
+create view v_turrets as
+select * from images where flags = flags | 1 << 3;
+
+create view v_hulls as
+select * from images where flags = flags | 2 << 3;
+
+create view v_terrains as
+select * from images where flags = flags | 3 << 3;
+
+create view v_markers as
+select * from images where flags = flags | 4 << 3;
+
+create view v_buttons as
+select * from images where flags = flags | 5 << 3;
+
+
+
+
