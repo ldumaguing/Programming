@@ -16,9 +16,17 @@ def insert(fields, values):
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	mydb.commit()
-	
+
+def select_one(fields, conditions, table):
+	stmt = "select " + fields + " from " + table + " where " + conditions
+	print("...", stmt)
+	mycursor = mydb.cursor()
+	mycursor.execute(stmt)
+	return mycursor.fetchone()
+
 def select(fields, conditions, table):
 	stmt = "select " + fields + " from " + table + " where " + conditions
+	print("...", stmt)
 	mycursor = mydb.cursor()
 	mycursor.execute(stmt)
 	return mycursor.fetchall()

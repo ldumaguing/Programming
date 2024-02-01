@@ -17,6 +17,23 @@ def action_embark(line):
 	sql.update_j(j, unitB, scenario)
 	j = "JSON_SET(j, '$.carried', '" + unitB + "')"
 	sql.update_j(j, unitA, scenario)
+	
+# ****************************************************************************************
+def action_disembark(line):
+	print("disembark", line)
+	unitA = line[0:line.find(" ")]
+	if sql.is_infantry(unitA)==0:
+		return
+	
+	fields = "JSON_VALUE(j, '$.carried')"
+	conditions = "name = '" + unitA + "' and scenario = '" + scenario + "'"
+	table = "gameData"
+	unitB = sql.select_one(fields, conditions, table)[0]
+	
+	j = "JSON_REMOVE(j, '$.carried')"
+	sql.update_j(j, unitA, scenario)
+	j = "JSON_REMOVE(j, '$.carrying')"
+	sql.update_j(j, unitB, scenario)
 
 # ****************************************************************************************
 def mode_Actions(f):
@@ -28,5 +45,16 @@ def mode_Actions(f):
 		line = f.readline()
 		if re.search("^\n$", line):
 			break
-		if line.find(" > "):
+		if re.search(">", line):
 			action_embark(line)
+		if re.search("_$", line):
+			pass
+			action_disembark(line)
+
+
+
+
+
+
+
+
