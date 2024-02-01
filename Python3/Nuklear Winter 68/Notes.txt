@@ -6,6 +6,24 @@ and JSON_VALUE(j, "$.carried") is null
 and scenario = '01-Day8';
 
 
+
+select
+name,
+JSON_VALUE(j, "$.carried")
+from gameData;
+--------
+update gameData
+set j = JSON_REMOVE(j, '$.carried')
+where
+name = 'u7';
+
+
+
+
+
+
+
+
 SELECT JSON_SET(Priv, '$.locked', 'true') FROM mysql.global_priv
 
 update gameData set j = JSON_SET(j, '$.carrying', 'u7') where name = 'u12';
