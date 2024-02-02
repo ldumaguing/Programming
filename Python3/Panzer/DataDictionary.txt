@@ -7,6 +7,9 @@ bit 0: turret
     4: label
     5: marker
     6: fired
+    7: leader
+    8: Data Card
+    9: map
 
 update images set flags = (flags | (1 << 0)) where filename like '%turret%';
 update images set flags = (flags | (1 << 1)) where filename like '%hull%';
@@ -15,10 +18,10 @@ update images set flags = (flags | (1 << 3)) where filename like '%button%';
 update images set flags = (flags | (1 << 4)) where filename like '%label%';
 update images set flags = (flags | (1 << 5)) where filename like '%marker%';
 update images set flags = (flags | (1 << 6)) where filename like '%fired%';
-
-
-
-
+update images set flags = (flags | (1 << 7)) where filename like '%leader%';
+update images set flags = (flags | (1 << 8)) where filename regexp '^DC';
+update images set flags = (flags | (1 << 9)) where filename like '%map%';
+update images set flags = (flags | (1 << 9)) where filename regexp '^panzer[1-9]';
 
 
 
@@ -42,6 +45,18 @@ select * from images where flags = flags | 1 << 5;
 
 create view v_fired as
 select * from images where flags = flags | 1 << 6;
+
+create view v_leaders as
+select * from images where flags = flags | 1 << 7;
+
+create view v_datacards as
+select * from images where flags = flags | 1 << 8;
+
+create view v_maps as
+select * from images where flags = flags | 1 << 9;
+
+
+
 
 1581 | Marker_turret-buttoned.gif       |    41 |
 
