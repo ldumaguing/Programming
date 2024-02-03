@@ -18,17 +18,17 @@ Terrain (unsigned int)
 	bit 7-12: Road
 		 7: A entrance/exit
 		 8: B entrance/exit
-		 9: F entrance/exit
-		10: C entrance/exit
-		11: D entrance/exit
-		12: E entrance/exit
+		 9: C entrance/exit
+		10: D entrance/exit
+		11: E entrance/exit
+		12: F entrance/exit
 	bit 13-18: Water Way*
 		13: A blocked
 		14: B blocked
-		15: F blocked
-		16: C blocked
-		17: D blocked
-		18: E blocked
+		15: C blocked
+		16: D blocked
+		17: E blocked
+		18: F blocked
 * if water way's edges are all blocked, classify the hex as Water.
 
 Notes
