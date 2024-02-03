@@ -1,3 +1,54 @@
+create table map (
+	scenario varchar(80),
+	hexID    varchar(20),
+	flags    int,
+	j        json
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+Updating the H field's bit
+==========================
+// 12th index of the H array
+
+update gameData
+set j =
+JSON_SET(j, '$.frontData[12]',
+json_value(j, '$.frontData[12]') | (1 << 4)
+)
+where name = 'u7' and scenario = '01-Day8';
+
+
+
+
+
+select
+json_value(j, '$.frontData[12]') & (1 << 4)
+from gameData
+where name = 'u7' and scenario = '01-Day8';
+
+
+
+
+
+
+
+
+
+
+
+
+
 SELECT JSON_SET(Priv, '$.locked', 'true') FROM mysql.global_priv
 
 update gameData set j = JSON_SET(j, '$.carrying', 'u7') where name = 'u12';

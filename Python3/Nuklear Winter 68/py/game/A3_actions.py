@@ -6,10 +6,14 @@ scenario = ""
 
 # ****************************************************************************************
 def action_embark(line):
+	print("embark", line)
 	unitA = line[0:line.find(" ")]
+	print("unitA:", unitA)
 	if sql.is_infantry(unitA)==0:
 		return
+
 	unitB = line[line.find(">")+2:].strip()
+	print("unitB:", unitB)
 	if sql.is_apc(unitB)==0:
 		return
 

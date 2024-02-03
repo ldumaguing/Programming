@@ -29,7 +29,7 @@ def mode_Placement(f):
 		stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 			+ str(hexX) + ", '$.hexLoc[1]', " + str(hexY) + ") where name = '" + unitID + "'" \
 			+ " and scenario = '" + scenario + "'"
-
+		print(stmt)
 		sql.sql(stmt)
 
 
