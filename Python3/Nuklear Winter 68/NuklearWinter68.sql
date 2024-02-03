@@ -38,28 +38,28 @@ CREATE TABLE `gameData` (
 LOCK TABLES `gameData` WRITE;
 /*!40000 ALTER TABLE `gameData` DISABLE KEYS */;
 INSERT INTO `gameData` VALUES
-('01-Day8','current scenario',NULL,NULL,NULL),
+('01-Day8 (battlescript)','current scenario',NULL,NULL,NULL),
 ('01-Day8','map','Map.jpg','<img id=\"map\" src=\"images/Map.jpg\" hidden>',NULL),
 ('01-Day8','HexZero','368,216',NULL,NULL),
 ('01-Day8','chitDimention','150',NULL,NULL),
 ('01-Day8','X_multiplier','168.79310344827587',NULL,NULL),
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [14, 9], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 0]}'),
-('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [2, 1], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1, 0], \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 0, 0, 0, 1, 0]}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [14, 9], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0]}'),
+('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [2, 1], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8]}'),
 ('01-Day8','AM:1/130;2','2',NULL,NULL),
-('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 2], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 3], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [26, 4], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0]}'),
-('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [27, 5], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 0, 0]}'),
+('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 2], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 16]}'),
+('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 3], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 6, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 6, 0, 16]}'),
+('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [26, 4], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2]}'),
+('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [27, 5], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2]}'),
 ('01-Day8','AM:2/130;2','2',NULL,NULL),
-('01-Day8','u7','Black Hand,Black Hand;Zealots','<img id=\"u7\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [28, 6], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u8','Black Hand,Black Hand;Zealots','<img id=\"u8\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u9','Black Hand,Black Hand;Zealots','<img id=\"u9\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u10','Black Hand,Black Hand;Zealots','<img id=\"u10\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 0, 0, 0, 0, 1]}'),
-('01-Day8','u11','Black Hand,Black Hand;Pest','<img id=\"u11\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0]}'),
-('01-Day8','u12','Black Hand,Black Hand;Pest','<img id=\"u12\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 0, 1, 0, 1, 0]}'),
-('01-Day8','u13','Black Hand,Black Hand;Megrim','<img id=\"u13\" src=\"images/Megrim front.png\" hidden>','{\"front\": \"images/Megrim front.png\", \"back\": \"images/Megrim back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Megrim\"], \"frontData\": [10, 0, 0, 6, 4, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0, 0], \"backData\": [9, 0, 0, 6, 3, 6, 0, 16, 0, 0, 6, 0, 0, 0, 0, 0, 0]}'),
+('01-Day8','u7','Black Hand,Black Hand;Zealots','<img id=\"u7\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [14, 11], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16], \"carried\": \"u12\"}'),
+('01-Day8','u8','Black Hand,Black Hand;Zealots','<img id=\"u8\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16]}'),
+('01-Day8','u9','Black Hand,Black Hand;Zealots','<img id=\"u9\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16]}'),
+('01-Day8','u10','Black Hand,Black Hand;Zealots','<img id=\"u10\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16]}'),
+('01-Day8','u11','Black Hand,Black Hand;Pest','<img id=\"u11\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 10], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 10]}'),
+('01-Day8','u12','Black Hand,Black Hand;Pest','<img id=\"u12\" src=\"images/Pest front.png\" hidden>','{\"front\": \"images/Pest front.png\", \"back\": \"images/Pest back.png\", \"flip\": \"front\", \"hexLoc\": [13, 11], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Pest\"], \"frontData\": [0, 0, 0, 0, 4, 3, 0, 14, 0, 0, 6, 0, 10], \"backData\": [0, 0, 0, 0, 3, 3, 0, 14, 0, 0, 6, 0, 10], \"carrying\": \"u7\"}'),
+('01-Day8','u13','Black Hand,Black Hand;Megrim','<img id=\"u13\" src=\"images/Megrim front.png\" hidden>','{\"front\": \"images/Megrim front.png\", \"back\": \"images/Megrim back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Megrim\"], \"frontData\": [10, 0, 0, 6, 4, 6, 0, 16, 0, 0, 6, 0, 0], \"backData\": [9, 0, 0, 6, 3, 6, 0, 16, 0, 0, 6, 0, 0]}'),
 ('01-Day8','AM:Black Hand;2','2',NULL,NULL),
 ('01-Day8','oO18','O18','<img id=\"oO18\" src=\"images/Red control.png\" hidden>','{\"hexLoc\": [14, 17]}'),
 ('01-Day8','oP17','P17','<img id=\"oP17\" src=\"images/Red control.png\" hidden>','{\"hexLoc\": [15, 16]}'),
@@ -289,27 +289,28 @@ INSERT INTO `images` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `t1`
+-- Table structure for table `map`
 --
 
-DROP TABLE IF EXISTS `t1`;
+DROP TABLE IF EXISTS `map`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `t1` (
-  `c1` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`c1`))
+CREATE TABLE `map` (
+  `scenario` varchar(80) NOT NULL,
+  `hexID` varchar(20) NOT NULL,
+  `flags` int(10) unsigned DEFAULT 0,
+  `j` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '{}' CHECK (json_valid(`j`)),
+  PRIMARY KEY (`scenario`,`hexID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t1`
+-- Dumping data for table `map`
 --
 
-LOCK TABLES `t1` WRITE;
-/*!40000 ALTER TABLE `t1` DISABLE KEYS */;
-INSERT INTO `t1` VALUES
-('{\"x\": 17, \"x\": \"red\"}'),
-('{\"x\": 17, \"x\": \"red\", \"x\": [3, 5, 7]}');
-/*!40000 ALTER TABLE `t1` ENABLE KEYS */;
+LOCK TABLES `map` WRITE;
+/*!40000 ALTER TABLE `map` DISABLE KEYS */;
+/*!40000 ALTER TABLE `map` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -767,4 +768,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-31 14:51:02
+-- Dump completed on 2024-02-02 22:02:33
