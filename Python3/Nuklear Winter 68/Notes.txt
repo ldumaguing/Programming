@@ -1,13 +1,10 @@
 create table map (
 	scenario varchar(80),
 	hexID    varchar(20),
-	flags    int,
-	j        json
+	flags    int unsigned default 0,
+	j        json default '{}',
+	primary key(scenario, hexID)
 );
-
-
-
-
 
 
 
