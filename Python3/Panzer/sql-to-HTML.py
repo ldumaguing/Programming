@@ -12,13 +12,15 @@ mydb = mysql.connector.connect(
 part1 = """<!DOCTYPE html>
 <html>
 <head>
-<title>Panzer</title>
+<title>Nuklear Winter '68</title>
 <!-- <meta http-equiv="refresh" content="3"> -->
 </head>
 <body onload="">
+<img id="map" src="images/Map.jpg" hidden>
 """
 
-part2 = "<script>"
+part2 = """<canvas id="canvas0" width="6372" height="4139"></canvas>
+<script>"""
 
 part3 = """</script>
 </body>
@@ -35,10 +37,10 @@ mycursor.execute(sys.argv[1])
 myresult = mycursor.fetchall()
 
 for x in myresult:
-	imgString += img0 + str(x[0])
-	imgString += img1 + x[1] + "\">"
-	imgString += str(x[0]) + " - " + x[1] + "<br>"
-	imgString += "\n"
+    imgString += img0 + str(x[0])
+    imgString += img1 + x[1] + "\">"
+    imgString += str(x[0]) + ":" + x[1] + "<br>"
+    imgString += "\n"
 
 
 
