@@ -1,3 +1,19 @@
+select * from gameData where name = 'yellowDot';
+
+
+update gameData
+set j = JSON_SET(j, '$.hexLoc', JSON_ARRAY(13,13))
+where name = 'yellowDot';
+
+
+
+insert into gameData (scenario, name, j) values
+('01-Day8', 'yellowDot', '{"hexLoc": [15,15]}'           );
+
+
+insert into gameData (scenario, name, j) values ('01-Day8', 'yellowDot', '{"hexLoc": [15,15]}'           );
+insert into gameData (scenario, name, j) values ('01-Day8', 'yellowDot', '{"hexLoc": [5,1]}'    )
+
 create table map (
 	scenario varchar(80),
 	hexID    varchar(20),
