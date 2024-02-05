@@ -1,6 +1,21 @@
 #!/usr/bin/python3
 import sys
 import math
+import re
+
+def conver2number(hexID):
+	hex_X = 0
+	hex_Y = 0
+	askey = ord('A')
+	X = re.search("[0-9]", hexID).start()
+	if X<2:
+		hex_X = ord(hexID[0:X]) - askey
+	else:
+		hex_X = ord(hexID[0]) - askey + 26
+
+	hex_Y = hexID[X:]
+	
+	return (str(hex_X).zfill(2) + str(hex_Y).zfill(2))
 
 def get_X(hexID):
 	return int(hexID[0:2]);
@@ -93,6 +108,12 @@ def get_angle(hexID_a, hexID_b):
 
 # ****************************************************************************************
 def create_path(hexID_a, hexID_b):
+	if re.search("^[A-Za-z]", hexID_a):
+		hexID_a = conver2number(hexID_a)
+	
+	if re.search("^[A-Za-z]", hexID_b):
+		hexID_b = conver2number(hexID_b)
+	
 	direction = "";
 
 	while True:
