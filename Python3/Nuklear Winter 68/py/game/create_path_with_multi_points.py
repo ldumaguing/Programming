@@ -172,6 +172,9 @@ def create_paths(starting, pts):
 		create_path(pts[x], pts[x+1])
 
 # ***** MAIN *****************************************************************************
+stmt = "delete from gameData where name = 'yellowDot' and html is null"
+sql.sql(stmt)
+
 starting = "A1   "
 points = "A1,D19,L1,M10,S2"
 scenario = sql.get_current_scenario()
