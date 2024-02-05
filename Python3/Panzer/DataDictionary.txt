@@ -7,9 +7,13 @@ bit 0: turret
     4: label
     5: marker
     6: fired
-    7: leader
-    8: Data Card
-    9: map
+    7: map
+    8: dc (data card)
+    9: leader
+   10: chits with stats
+   11: infantry
+   12: gc (game card)
+   13: chits without stats
 
 update images set flags = (flags | (1 << 0)) where filename like '%turret%';
 update images set flags = (flags | (1 << 1)) where filename like '%hull%';
@@ -18,10 +22,142 @@ update images set flags = (flags | (1 << 3)) where filename like '%button%';
 update images set flags = (flags | (1 << 4)) where filename like '%label%';
 update images set flags = (flags | (1 << 5)) where filename like '%marker%';
 update images set flags = (flags | (1 << 6)) where filename like '%fired%';
-update images set flags = (flags | (1 << 7)) where filename like '%leader%';
+update images set flags = (flags | (1 << 7)) where filename like '%map%';
 update images set flags = (flags | (1 << 8)) where filename regexp '^DC';
-update images set flags = (flags | (1 << 9)) where filename like '%map%';
-update images set flags = (flags | (1 << 9)) where filename regexp '^panzer[1-9]';
+update images set flags = (flags | (1 << 7)) where filename regexp '^panzer[0-9]';
+update images set flags = (flags | (1 << 9)) where flags = 0 and filename like '%leader%';
+update images set flags = (flags | (1 << 10)) where id>=197 and id<=235 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=769 and id<=781 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=787 and id<=796 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=888 and id<=962 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=2142 and id<=2221 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=1932 and id<=2124 and flags = 0;
+update images set flags = (flags | (1 << 10)) where id>=2482 and id<=2515 and flags = 0;
+
+update images set flags = (flags | (1 << 10)) where id=868             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=875             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=876             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=966             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=972             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=974             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=976             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=1034             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=1441             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2126             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2135             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2140             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2243             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2257             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2261             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2264             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2268             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2271             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2300             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2329             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2403             and flags = 0;
+update images set flags = (flags | (1 << 10)) where id=2701             and flags = 0;
+
+update images set flags = (flags | (1 << 11)) where id=127             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=185             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=187             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=239             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=272             and flags = 0;
+
+update images set flags = (flags | (1 << 11)) where id>=782 and id<=786 and flags = 0;
+update images set flags = (flags | (1 << 11)) where id>=877 and id<=882 and flags = 0;
+
+
+update images set flags = (flags | (1 << 11)) where id=885             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=886             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=963             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=964             and flags = 0;
+
+update images set flags = (flags | (1 << 11)) where id=2659             and flags = 0;
+update images set flags = (flags | (1 << 11)) where id=2662             and flags = 0;
+
+
+
+
+update images set flags = (flags | (1 << 11)) where id>=2128 and id<=2134 and flags = 0;
+update images set flags = (flags | (1 << 11)) where id>=2137 and id<=2139 and flags = 0;
+update images set flags = (flags | (1 << 11)) where id>=2517 and id<=2519 and flags = 0;
+
+
+
+
+update images set flags = (flags | (1 << 13)) where id>=1 and id<=5 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=11 and id<=18 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=20 and id<=26 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=241 and id<=243 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=750 and id<=751 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=2636 and id<=2644 and flags = 0;
+
+
+
+update images set flags = (flags | (1 << 13)) where id>=2478 and id<=2481 and flags = 0;
+update images set flags = (flags | (1 << 13)) where id>=862 and id<=863 and flags = 0;
+
+
+update images set flags = (flags | (1 << 1)) where id>=6 and id<=10 and flags = 0;
+
+
+
+
+update images set flags = (flags | (1 << 1)) where id>=864       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=865       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=866       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=867       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=870       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=887       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=965       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=967       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=968       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=969       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=970       and flags = 0;
+
+update images set flags = (flags | (1 << 1)) where id>=77       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=196       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=237       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=238       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=307       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=308       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=317       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=699       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=700       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=701       and flags = 0;
+
+
+
+update images set flags = (flags | (1 << 1)) where id>=       and flags = 0;
+update images set flags = (flags | (1 << 1)) where id>=       and flags = 0;
+
+
+
+
+
+
+
+
+update images set flags = (flags | (1 << 12)) where   filename regexp 'GC';
+
+
+
+
+
+
+
+
+select * from images    where   filename regexp 'GC';
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -46,14 +182,15 @@ select * from images where flags = flags | 1 << 5;
 create view v_fired as
 select * from images where flags = flags | 1 << 6;
 
-create view v_leaders as
+create view v_maps as
 select * from images where flags = flags | 1 << 7;
 
-create view v_datacards as
+create view v_dcs as
 select * from images where flags = flags | 1 << 8;
 
-create view v_maps as
+create view v_leaders as
 select * from images where flags = flags | 1 << 9;
+
 
 
 
@@ -62,12 +199,8 @@ select * from images where flags = flags | 1 << 9;
 
 
 select
-flags,
-flags xor 41
+*
 from images where id = 1581;
-
-
-
 
 
 
