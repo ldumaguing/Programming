@@ -63,7 +63,13 @@ def mode_Board(f):
 			width = int(line[0:line.find(',')])
 			hexX_count = int(line[line.find(',')+1:line.find(' ')])
 
-# ******************************************************************************
+	fields = "scenario, name, html, j"
+	values = "'" + scenario + "', 'yellowDot'," \
+		+ "'<img id=\"yellowDot\" src=\"images_mine/Yellow Dot.png\" hidden>'" \
+		+ ", '{}'"
+	sql.insert(fields, values)
+
+# ****************************************************************************************
 def save_unit(scenario, unit, count, faction, formation):
 	global unit_id
 
