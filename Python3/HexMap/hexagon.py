@@ -169,15 +169,92 @@ def get_neighbor(currLoc, direction):
 
 # ----------------------------------------------------------------------------------------
 def I(hexLoc_a, hexLoc_b, ANGLE):
-	pass
+	print("i")
+	path = []
+	while True:
+		nA = get_neighbor(hexLoc_a, "B")
+		nB = get_neighbor(hexLoc_a, "C")
+		if hexLoc_b==nA:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nB:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		#print(angle_A, angle_B)
+		#print(nA, nB)
+		if angle_A>angle_B:
+			hexLoc_a = nB
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
+		else:
+			hexLoc_a = nA
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
+
+	print(path)
 
 # ----------------------------------------------------------------------------------------
 def II(hexLoc_a, hexLoc_b, ANGLE):
-	pass
+	print("ii")
+	path = []
+	while True:
+		nA = get_neighbor(hexLoc_a, "A")
+		nB = get_neighbor(hexLoc_a, "F")
+		if hexLoc_b==nA:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nB:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		#print(angle_A, angle_B)
+		#print(nA, nB)
+		if angle_A>angle_B:
+			hexLoc_a = nB
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
+		else:
+			hexLoc_a = nA
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
 
+	print(path)
 # ----------------------------------------------------------------------------------------
 def III(hexLoc_a, hexLoc_b, ANGLE):
-	pass
+	print("iii")
+	path = []
+	while True:
+		nA = get_neighbor(hexLoc_a, "E")
+		nB = get_neighbor(hexLoc_a, "D")
+		if hexLoc_b==nA:
+			print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nB:
+			print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		print(angle_A, angle_B)
+		print(nA, nB)
+		if angle_A>angle_B:
+			hexLoc_a = nB
+			print(hexLoc_a)
+			path.append(hexLoc_a)
+		else:
+			hexLoc_a = nA
+			print(hexLoc_a)
+			path.append(hexLoc_a)
+
+	print(path)
 
 # ----------------------------------------------------------------------------------------
 def IV(hexLoc_a, hexLoc_b, ANGLE):
@@ -237,4 +314,4 @@ def get_path(hexLoc_a, hexLoc_b):
 
 
 
-# *****x
+# *****y
