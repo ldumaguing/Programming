@@ -2,7 +2,7 @@ import re
 import math
 
 # ****************************************************************************************
-def get_id2loc(hexID):
+def convert_id2loc(hexID):
 	# returns a coordination in tuple form
 	if re.search("^[A-Z]", hexID):
 		X = int(ord(hexID[0]) - ord("A"))
@@ -167,6 +167,62 @@ def get_hexDist(hexLoc_a, hexLoc_b):
 def get_neighbor(currLoc, direction):
 	return step_to_direction(currLoc, direction)
 
+# ----------------------------------------------------------------------------------------
+def I(hexLoc_a, hexLoc_b, ANGLE):
+	pass
+
+# ----------------------------------------------------------------------------------------
+def II(hexLoc_a, hexLoc_b, ANGLE):
+	pass
+
+# ----------------------------------------------------------------------------------------
+def III(hexLoc_a, hexLoc_b, ANGLE):
+	pass
+
+# ----------------------------------------------------------------------------------------
+def IV(hexLoc_a, hexLoc_b, ANGLE):
+	#print("iv")
+	path = []
+	while True:
+		nA = get_neighbor(hexLoc_a, "D")
+		nB = get_neighbor(hexLoc_a, "C")
+		if hexLoc_b==nA:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nB:
+			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		#print(angle_A, angle_B)
+		#print(nA, nB)
+		if angle_A>angle_B:
+			hexLoc_a = nB
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
+		else:
+			hexLoc_a = nA
+			#print(hexLoc_a)
+			path.append(hexLoc_a)
+
+	print(path)
+
+# ****************************************************************************************
+def get_path(hexLoc_a, hexLoc_b):
+	if hexLoc_a==hexLoc_b:
+		return None
+	ANGLE = get_angle(hexLoc_a, hexLoc_b)
+	print(ANGLE)
+	if ANGLE>=0 and ANGLE<90:
+		I(hexLoc_a, hexLoc_b, ANGLE)
+	if ANGLE>=90 and ANGLE<180:
+		II(hexLoc_a, hexLoc_b, ANGLE)
+	if ANGLE>=180 and ANGLE<270:
+		III(hexLoc_a, hexLoc_b, ANGLE)
+	if ANGLE>=270:
+		IV(hexLoc_a, hexLoc_b, ANGLE)
 
 
 
@@ -179,4 +235,6 @@ def get_neighbor(currLoc, direction):
 
 
 
-# *****
+
+
+# *****x
