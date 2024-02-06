@@ -15,6 +15,9 @@ def get_id2loc(hexID):
 
 # ****************************************************************************************
 def get_cartisianDist(hexLoc_a, hexLoc_b):
+	if hexLoc_a==hexLoc_b:
+		return 0;
+
 	# radius is 1 unit; hex height is 2
 	Xa = hexLoc_a[0];
 	Ya = hexLoc_a[1];
@@ -45,6 +48,8 @@ def get_cartisianDist(hexLoc_a, hexLoc_b):
 
 # ****************************************************************************************
 def get_angle(hexLoc_a, hexLoc_b):
+	if hexLoc_a==hexLoc_b:
+		return 0
 	Xa = hexLoc_a[0];
 	Ya = hexLoc_a[1];
 	Xb = hexLoc_b[0];
@@ -132,6 +137,9 @@ def step_to_direction(hexLoc, direction):
 
 # ****************************************************************************************
 def get_hexDist(hexLoc_a, hexLoc_b):
+	if hexLoc_a==hexLoc_b:
+		return 0
+
 	direction = "";
 	count = 0;
 
@@ -158,3 +166,17 @@ def get_hexDist(hexLoc_a, hexLoc_b):
 # ****************************************************************************************
 def get_neighbor(currLoc, direction):
 	return step_to_direction(currLoc, direction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *****
