@@ -168,6 +168,10 @@ def get_neighbor(currLoc, direction):
 	return step_to_direction(currLoc, direction)
 
 # ----------------------------------------------------------------------------------------
+def II(hexLoc_a, hexLoc_b, ANGLE):
+	print("ii")
+
+# ----------------------------------------------------------------------------------------
 def I(hexLoc_a, hexLoc_b, ANGLE):
 	print("i:", hexLoc_a, hexLoc_b, ANGLE)
 	nA = get_neighbor(hexLoc_a, "A")
@@ -197,16 +201,23 @@ def I(hexLoc_a, hexLoc_b, ANGLE):
 	if ang>angC:
 		currLoc = nC
 	print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", currLoc)
+	return currLoc
 
 # ****************************************************************************************
 def get_path(hexLoc_a, hexLoc_b):
 	if hexLoc_a==hexLoc_b:
 		return None
 	ANGLE = get_angle(hexLoc_a, hexLoc_b)
-	
-	if ANGLE>=0 and ANGLE<90:
-		I(hexLoc_a, hexLoc_b, ANGLE)
-	
+	currLoc = hexLoc_a
+	for x in range(15):
+	#while True:
+		if currLoc==hexLoc_b:
+			break
+		if ANGLE>=0 and ANGLE<90:
+			currLoc = I(currLoc, hexLoc_b, ANGLE)
+		if ANGLE>=90 and ANGLE<180:
+			currLoc = II(currLoc, hexLoc_b, ANGLE)
+		print(currLoc, "<<<<")
 
 
 
