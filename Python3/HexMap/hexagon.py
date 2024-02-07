@@ -9,7 +9,7 @@ def convert_id2loc(hexID):
 		numLocation = re.search("[0-9]", hexID).start()
 		if numLocation==2:
 			X += 26
-		Y = int(hexID[numLocation:])
+		Y = int(hexID[numLocation:]) - 1  # A1 is 0,0
 		return (X,Y)
 	return (int(hexID[0:2]), int(hexID[2:]))
 
@@ -169,6 +169,7 @@ def get_neighbor(currLoc, direction):
 
 # ----------------------------------------------------------------------------------------
 def I(hexLoc_a, hexLoc_b, ANGLE):
+	print("i")
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "A")
@@ -185,7 +186,7 @@ def I(hexLoc_a, hexLoc_b, ANGLE):
 			break
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
-		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
+		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE) + 0  # may need a modification
 		angle = angle_A
 		hexLoc_a = nA
 		if angle>angle_B:
@@ -200,6 +201,7 @@ def I(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def II(hexLoc_a, hexLoc_b, ANGLE):
+	print("ii")
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "A")
@@ -231,6 +233,7 @@ def II(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def III(hexLoc_a, hexLoc_b, ANGLE):
+	print("iii")
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "D")
@@ -262,6 +265,8 @@ def III(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def IV(hexLoc_a, hexLoc_b, ANGLE):
+	print("iv")
+	print(hexLoc_a, hexLoc_b, ANGLE)
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "B")
@@ -276,9 +281,11 @@ def IV(hexLoc_a, hexLoc_b, ANGLE):
 		if hexLoc_b==nC:
 			path.append(hexLoc_b)
 			break
-		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE) + 360.0
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
 		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
+		print(nA, nB, nC)
+		print(angle_A, angle_B, angle_C)
 		angle = angle_A
 		hexLoc_a = nA
 		if angle>angle_B:
@@ -287,6 +294,7 @@ def IV(hexLoc_a, hexLoc_b, ANGLE):
 		if angle>angle_C:
 			angle=angle_C
 			hexLoc_a = nC
+		print("---E", hexLoc_a)
 		path.append(hexLoc_a)
 
 	return path
