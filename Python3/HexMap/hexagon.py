@@ -199,31 +199,23 @@ def I(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def II(hexLoc_a, hexLoc_b, ANGLE):
-	print("ii")
 	path = []
 	while True:
-	#for x in range(25):
 		nA = get_neighbor(hexLoc_a, "A")
 		nB = get_neighbor(hexLoc_a, "F")
 		nC = get_neighbor(hexLoc_a, "E")
-		print(hexLoc_a, ":::::", nA, nB, nC)
 		if hexLoc_b==nA:
-			print(">>>>>>>>>>>>>",hexLoc_b)
 			path.append(hexLoc_b)
 			break
 		if hexLoc_b==nB:
-			print(">>>>>>>>>>>>>",hexLoc_b)
 			path.append(hexLoc_b)
 			break
 		if hexLoc_b==nC:
-			print(">>>>>>>>>>>>>",hexLoc_b)
 			path.append(hexLoc_b)
 			break
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
 		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
-		print("A:", angle_A, "B:", angle_B, "C:", angle_C)
-		print(nA, nB, nC)
 		angle = angle_A
 		hexLoc_a = nA
 		if angle>angle_B:
@@ -270,7 +262,7 @@ def III(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def IV(hexLoc_a, hexLoc_b, ANGLE):
-	#print("iv")
+	print("iv")
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "D")
