@@ -169,21 +169,27 @@ def get_neighbor(currLoc, direction):
 
 # ----------------------------------------------------------------------------------------
 def II(hexLoc_a, hexLoc_b, ANGLE):
-	print("ii", hexLoc_a, hexLoc_b, ANGLE)
+	#print("ii", hexLoc_a, hexLoc_b, ANGLE)
 	nA = get_neighbor(hexLoc_a, "A")
 	nB = get_neighbor(hexLoc_a, "F")
 	nC = get_neighbor(hexLoc_a, "E")
-	print(nA, nB, nC)
+	if nA==hexLoc_b:
+		return hexLoc_b
+	if nB==hexLoc_b:
+		return hexLoc_b
+	if nC==hexLoc_b:
+		return hexLoc_b
+	#print(nA, nB, nC)
 	angle_A = get_angle(nA, hexLoc_b)
 	angle_B = get_angle(nB, hexLoc_b)
 	angle_C = get_angle(nC, hexLoc_b)
-	print(angle_A, angle_B, angle_C)
+	#print(angle_A, angle_B, angle_C)
 	angA = abs(ANGLE - angle_A)
 	angB = abs(ANGLE - angle_B)
 	angC = abs(ANGLE - angle_C)
 	currLoc = nA
 	ang = angA
-	print(angA, angB, angC)
+	#print(angA, angB, angC)
 	if ang>angB:
 		currLoc = nB
 		ang = angB
@@ -195,11 +201,11 @@ def II(hexLoc_a, hexLoc_b, ANGLE):
 
 # ----------------------------------------------------------------------------------------
 def I(hexLoc_a, hexLoc_b, ANGLE):
-	print("i:", hexLoc_a, hexLoc_b, ANGLE)
+	#print("i:", hexLoc_a, hexLoc_b, ANGLE)
 	nA = get_neighbor(hexLoc_a, "A")
 	nB = get_neighbor(hexLoc_a, "B")
 	nC = get_neighbor(hexLoc_a, "C")
-	print(nA, nB, nC)
+	#print(nA, nB, nC)
 	angle_A = get_angle(nA, hexLoc_b)
 	if angle_A>300:
 		angle_A = 360 - angle_A
@@ -209,14 +215,14 @@ def I(hexLoc_a, hexLoc_b, ANGLE):
 	angle_C = get_angle(nC, hexLoc_b)
 	if angle_C>300:
 		angle_C = 360 - angle_C
-	print(angle_A, angle_B, angle_C)
+	#print(angle_A, angle_B, angle_C)
 
 	angA = abs(ANGLE - angle_A)
 	angB = abs(ANGLE - angle_B)
 	angC = abs(ANGLE - angle_C)
 	currLoc = nA
 	ang = angA
-	print(angA, angB, angC)
+	#print(angA, angB, angC)
 	if ang>angB:
 		currLoc = nB
 		ang = angB
@@ -231,7 +237,8 @@ def get_path(hexLoc_a, hexLoc_b):
 		return None
 	ANGLE = get_angle(hexLoc_a, hexLoc_b)
 	currLoc = hexLoc_a
-	for x in range(25):
+	print(currLoc)
+	for x in range(20):
 	#while True:
 		if currLoc==hexLoc_b:
 			break
@@ -239,7 +246,7 @@ def get_path(hexLoc_a, hexLoc_b):
 			currLoc = I(currLoc, hexLoc_b, ANGLE)
 		if ANGLE>=90 and ANGLE<180:
 			currLoc = II(currLoc, hexLoc_b, ANGLE)
-		print(currLoc, "<<<<")
+	print(currLoc, "<<<<")
 
 
 
