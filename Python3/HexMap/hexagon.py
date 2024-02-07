@@ -169,33 +169,34 @@ def get_neighbor(currLoc, direction):
 
 # ----------------------------------------------------------------------------------------
 def I(hexLoc_a, hexLoc_b, ANGLE):
-	print("i")
 	path = []
 	while True:
-		nA = get_neighbor(hexLoc_a, "B")
-		nB = get_neighbor(hexLoc_a, "C")
+		nA = get_neighbor(hexLoc_a, "A")
+		nB = get_neighbor(hexLoc_a, "B")
+		nC = get_neighbor(hexLoc_a, "C")
 		if hexLoc_b==nA:
-			#print(">>>>>>>>>>>>>",hexLoc_b)
 			path.append(hexLoc_b)
 			break
 		if hexLoc_b==nB:
-			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nC:
 			path.append(hexLoc_b)
 			break
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
-		#print(angle_A, angle_B)
-		#print(nA, nB)
-		if angle_A>angle_B:
+		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
+		angle = angle_A
+		hexLoc_a = nA
+		if angle>angle_B:
+			angle=angle_B
 			hexLoc_a = nB
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
-		else:
-			hexLoc_a = nA
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
+		if angle>angle_C:
+			angle=angle_C
+			hexLoc_a = nC
+		path.append(hexLoc_a)
 
-	print(path)
+	return path
 
 # ----------------------------------------------------------------------------------------
 def II(hexLoc_a, hexLoc_b, ANGLE):
@@ -226,84 +227,85 @@ def II(hexLoc_a, hexLoc_b, ANGLE):
 			hexLoc_a = nC
 		path.append(hexLoc_a)
 
-
-	print(path)
-	print(">>>", hexLoc_b)
+	return path
 
 # ----------------------------------------------------------------------------------------
 def III(hexLoc_a, hexLoc_b, ANGLE):
-	print("iii")
-	path = []
-	while True:
-		nA = get_neighbor(hexLoc_a, "E")
-		nB = get_neighbor(hexLoc_a, "D")
-		if hexLoc_b==nA:
-			#print(">>>>>>>>>>>>>",hexLoc_b)
-			path.append(hexLoc_b)
-			break
-		if hexLoc_b==nB:
-			print(">>>>>>>>>>>>>",hexLoc_b)
-			#path.append(hexLoc_b)
-			break
-		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
-		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
-		#print(angle_A, angle_B)
-		#print(nA, nB)
-		if angle_A>angle_B:
-			hexLoc_a = nB
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
-		else:
-			hexLoc_a = nA
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
-
-	print(path)
-
-# ----------------------------------------------------------------------------------------
-def IV(hexLoc_a, hexLoc_b, ANGLE):
-	print("iv")
 	path = []
 	while True:
 		nA = get_neighbor(hexLoc_a, "D")
-		nB = get_neighbor(hexLoc_a, "C")
+		nB = get_neighbor(hexLoc_a, "E")
+		nC = get_neighbor(hexLoc_a, "F")
 		if hexLoc_b==nA:
-			#print(">>>>>>>>>>>>>",hexLoc_b)
 			path.append(hexLoc_b)
 			break
 		if hexLoc_b==nB:
-			#print(">>>>>>>>>>>>>",hexLoc_b)
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nC:
 			path.append(hexLoc_b)
 			break
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
-		#print(angle_A, angle_B)
-		#print(nA, nB)
-		if angle_A>angle_B:
+		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
+		angle = angle_A
+		hexLoc_a = nA
+		if angle>angle_B:
+			angle=angle_B
 			hexLoc_a = nB
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
-		else:
-			hexLoc_a = nA
-			#print(hexLoc_a)
-			path.append(hexLoc_a)
+		if angle>angle_C:
+			angle=angle_C
+			hexLoc_a = nC
+		path.append(hexLoc_a)
 
-	print(path)
+	return path
+
+# ----------------------------------------------------------------------------------------
+def IV(hexLoc_a, hexLoc_b, ANGLE):
+	path = []
+	while True:
+		nA = get_neighbor(hexLoc_a, "B")
+		nB = get_neighbor(hexLoc_a, "C")
+		nC = get_neighbor(hexLoc_a, "D")
+		if hexLoc_b==nA:
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nB:
+			path.append(hexLoc_b)
+			break
+		if hexLoc_b==nC:
+			path.append(hexLoc_b)
+			break
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		angle_C = abs(get_angle(nC, hexLoc_b) - ANGLE)
+		angle = angle_A
+		hexLoc_a = nA
+		if angle>angle_B:
+			angle=angle_B
+			hexLoc_a = nB
+		if angle>angle_C:
+			angle=angle_C
+			hexLoc_a = nC
+		path.append(hexLoc_a)
+
+	return path
 
 # ****************************************************************************************
 def get_path(hexLoc_a, hexLoc_b):
 	if hexLoc_a==hexLoc_b:
 		return None
+
 	ANGLE = get_angle(hexLoc_a, hexLoc_b)
-	print(ANGLE)
+
 	if ANGLE>=0 and ANGLE<90:
-		I(hexLoc_a, hexLoc_b, ANGLE)
+		return I(hexLoc_a, hexLoc_b, ANGLE)
 	if ANGLE>=90 and ANGLE<180:
-		II(hexLoc_a, hexLoc_b, ANGLE)
+		return II(hexLoc_a, hexLoc_b, ANGLE)
 	if ANGLE>=180 and ANGLE<270:
-		III(hexLoc_a, hexLoc_b, ANGLE)
+		return III(hexLoc_a, hexLoc_b, ANGLE)
 	if ANGLE>=270:
-		IV(hexLoc_a, hexLoc_b, ANGLE)
+		return IV(hexLoc_a, hexLoc_b, ANGLE)
 
 
 
