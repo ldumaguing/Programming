@@ -166,6 +166,38 @@ def get_hexDist(hexLoc_a, hexLoc_b):
 # ****************************************************************************************
 def get_neighbor(currLoc, direction):
 	return step_to_direction(currLoc, direction)
+	
+# ----------------------------------------------------------------------------------------
+def IV(hexLoc_a, hexLoc_b, ANGLE):
+	print("iv", hexLoc_a, hexLoc_b, ANGLE)
+	nA = get_neighbor(hexLoc_a, "B")
+	nB = get_neighbor(hexLoc_a, "C")
+	nC = get_neighbor(hexLoc_a, "D")
+	if nA==hexLoc_b:
+		return hexLoc_b
+	if nB==hexLoc_b:
+		return hexLoc_b
+	if nC==hexLoc_b:
+		return hexLoc_b
+	print(nA, nB, nC)
+	angle_A = get_angle(nA, hexLoc_b)
+	angle_B = get_angle(nB, hexLoc_b)
+	angle_C = get_angle(nC, hexLoc_b)
+	print(angle_A, angle_B, angle_C)
+	angA = abs(ANGLE - angle_A)
+	angB = abs(ANGLE - angle_B)
+	angC = abs(ANGLE - angle_C)
+	currLoc = nA
+	ang = angA
+	print(angA, angB, angC)
+	if ang>angB:
+		currLoc = nB
+		ang = angB
+	if ang>angC:
+		currLoc = nC
+	print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", currLoc)
+
+	return currLoc
 
 # ----------------------------------------------------------------------------------------
 def III(hexLoc_a, hexLoc_b, ANGLE):
@@ -280,6 +312,8 @@ def get_path(hexLoc_a, hexLoc_b):
 			currLoc = II(currLoc, hexLoc_b, ANGLE)
 		if ANGLE>=180 and ANGLE<270:
 			currLoc = III(currLoc, hexLoc_b, ANGLE)
+		if ANGLE>=270:
+			currLoc = IV(currLoc, hexLoc_b, ANGLE)
 	print(currLoc, "<<<<")
 
 

@@ -7,8 +7,8 @@ import hexagon as hx
 #B = "CC5"
 #A = "Y5"
 #B = "CC5"
-A = "M2"
-B = "A12"
+A = "B2"
+B = "M13"
 
 A_loc = hx.convert_id2loc(A)
 B_loc = hx.convert_id2loc(B)
