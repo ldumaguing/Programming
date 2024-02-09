@@ -3,7 +3,7 @@ import sys
 import math
 import re
 import mariadb as sql
-import hexagon as hx
+import hexagon_v2 as hx
 
 scenario = ""
 
@@ -11,9 +11,9 @@ scenario = ""
 def put_dot(hexDot):
 	# insert into gameData (scenario, name, j) values
 	# ('01-Day8', 'yellowDot', '{"hexLoc": [15,15]}' );
-	X = int(hexDot[0:2])
-	Y = int(hexDot[2:])
-	print("...", X, Y)
+	X = hexDot[0]
+	Y = hexDot[1]
+	print(">>>", X, Y)
 	stmt = "insert into gameData (scenario, name, j) values " \
 		+ "('" + scenario + "', 'yellowDot', '{\"hexLoc\": [" + str(X) + "," \
 		+ str(Y) + "]}' )"
@@ -23,7 +23,9 @@ def create_path(hexID_a, hexID_b):
 	hexLoc_a = hx.convert_id2loc(hexID_a)
 	hexLoc_b = hx.convert_id2loc(hexID_b)
 	path = hx.get_path(hexLoc_a, hexLoc_b)
-	print("...", path)
+	for x in path:
+		print(x)
+		put_dot(x)
 
 def remove_redundance(pts):
 	pts = re.split(",", pts)
@@ -49,8 +51,8 @@ def create_paths(starting, pts):
 stmt = "delete from gameData where name = 'yellowDot' and html is null"
 sql.sql(stmt)
 
-starting = "A1   "
-points = "A1,D19,DD15"
+starting = "A10   "
+points = "A10,CC5"
 scenario = sql.get_current_scenario()
 create_paths(starting, points)
 
