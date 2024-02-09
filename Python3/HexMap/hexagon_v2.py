@@ -305,6 +305,51 @@ def SW(hexLoc_a, hexLoc_b, ANGLE):
 	#print(path)
 	return path
 
+# ----------------------------------------------------------------------------------------
+def SE(hexLoc_a, hexLoc_b, ANGLE):
+	#print("SE:", hexLoc_a, hexLoc_b, ANGLE)
+	path = []
+	currLoc = hexLoc_a
+	#for x in range(20):
+	while True:
+		nA = get_neighbor(currLoc, "C")
+		nB = get_neighbor(currLoc, "D")
+		if nA==hexLoc_b or nB==hexLoc_b:
+			break
+		#print(nA, nB)
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		#print(">>>", angle_A, angle_B, "<<<")
+		currLoc = nA
+		if angle_A>angle_B:
+			currLoc = nB
+		path.append(currLoc)
+	path.append(hexLoc_b)
+	#print(path)
+	return path
+
+# ----------------------------------------------------------------------------------------
+def ES(hexLoc_a, hexLoc_b, ANGLE):
+	#print("ES:", hexLoc_a, hexLoc_b, ANGLE)
+	path = []
+	currLoc = hexLoc_a
+	#for x in range(20):
+	while True:
+		nA = get_neighbor(currLoc, "C")
+		nB = get_neighbor(currLoc, "B")
+		if nA==hexLoc_b or nB==hexLoc_b:
+			break
+		#print(nA, nB)
+		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
+		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		#print(">>>", angle_A, angle_B, "<<<")
+		currLoc = nA
+		if angle_A>angle_B:
+			currLoc = nB
+		path.append(currLoc)
+	path.append(hexLoc_b)
+	#print(path)
+	return path
 # ****************************************************************************************
 def get_path(hexLoc_a, hexLoc_b):
 	if hexLoc_a==hexLoc_b:
@@ -323,6 +368,10 @@ def get_path(hexLoc_a, hexLoc_b):
 		path = WS(hexLoc_a, hexLoc_b, ANGLE)
 	if ANGLE>210 and ANGLE<=270:
 		path = SW(hexLoc_a, hexLoc_b, ANGLE)
+	if ANGLE>270 and ANGLE<330:
+		path = SE(hexLoc_a, hexLoc_b, ANGLE)
+	if ANGLE>=330 and ANGLE<360:
+		path = ES(hexLoc_a, hexLoc_b, ANGLE)
 	return path
 
 

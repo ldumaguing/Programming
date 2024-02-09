@@ -51,7 +51,7 @@ stmt = "delete from gameData where name = 'yellowDot' and html is null"
 sql.sql(stmt)
 
 starting = "   "
-points = "D1,A20"
+points = "A1,CC5"
 scenario = sql.get_current_scenario()
 create_paths(starting, points)
 
