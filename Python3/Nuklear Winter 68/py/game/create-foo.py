@@ -13,7 +13,6 @@ def put_dot(hexDot):
 	# ('01-Day8', 'yellowDot', '{"hexLoc": [15,15]}' );
 	X = hexDot[0]
 	Y = hexDot[1]
-	print(">>>", X, Y)
 	stmt = "insert into gameData (scenario, name, j) values " \
 		+ "('" + scenario + "', 'yellowDot', '{\"hexLoc\": [" + str(X) + "," \
 		+ str(Y) + "]}' )"
@@ -24,7 +23,7 @@ def create_path(hexID_a, hexID_b):
 	hexLoc_b = hx.convert_id2loc(hexID_b)
 	path = hx.get_path(hexLoc_a, hexLoc_b)
 	for x in path:
-		print(x)
+		#print(x)
 		put_dot(x)
 
 def remove_redundance(pts):
@@ -43,7 +42,7 @@ def create_paths(starting, pts):
 	pts = starting + "," + re.sub("\s", "", pts)
 	pts = remove_redundance(pts)
 	pts = re.split(",", pts)
-	print(pts, len(pts))
+	#print(pts, len(pts))
 	for x in range(len(pts)-1):
 		create_path(pts[x], pts[x+1])
 
@@ -51,8 +50,8 @@ def create_paths(starting, pts):
 stmt = "delete from gameData where name = 'yellowDot' and html is null"
 sql.sql(stmt)
 
-starting = "A10   "
-points = "A10,CC5"
+starting = "   "
+points = "A1,CC5"
 scenario = sql.get_current_scenario()
 create_paths(starting, points)
 
