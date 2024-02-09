@@ -3,7 +3,7 @@ import sys
 import math
 import re
 import mariadb as sql
-import hexagon_v2 as hx
+import hexagon as hx
 
 scenario = ""
 
@@ -51,7 +51,7 @@ stmt = "delete from gameData where name = 'yellowDot' and html is null"
 sql.sql(stmt)
 
 starting = "   "
-points = "A1,CC5"
+points = "A1,CC5,O10"
 scenario = sql.get_current_scenario()
 create_paths(starting, points)
 
