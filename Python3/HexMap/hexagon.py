@@ -273,6 +273,8 @@ def WS(hexLoc_a, hexLoc_b, ANGLE):
 		#print(nA, nB)
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+		if angle_B==ANGLE:
+			angle_B=0
 		#print(">>>", angle_A, angle_B, "<<<")
 		currLoc = nA
 		if angle_A>angle_B:
@@ -335,21 +337,28 @@ def ES(hexLoc_a, hexLoc_b, ANGLE):
 	currLoc = hexLoc_a
 	#for x in range(20):
 	while True:
-		nA = get_neighbor(currLoc, "C")
-		nB = get_neighbor(currLoc, "B")
+		nA = get_neighbor(currLoc, "B")
+		nB = get_neighbor(currLoc, "C")
 		if nA==hexLoc_b or nB==hexLoc_b:
 			break
-		#print(nA, nB)
+		#print(">", nA, nB)
 		angle_A = abs(get_angle(nA, hexLoc_b) - ANGLE)
 		angle_B = abs(get_angle(nB, hexLoc_b) - ANGLE)
+
+
+		#print(".>>", get_angle(nA, hexLoc_b), get_angle(nB, hexLoc_b), "<<<")
 		#print(">>>", angle_A, angle_B, "<<<")
-		currLoc = nA
-		if angle_A>angle_B:
-			currLoc = nB
+		if angle_B==ANGLE:
+			angle_B=0
+		currLoc = nB
+		if angle_B>angle_A:
+			currLoc = nA
+		#print("---------------------", currLoc)
 		path.append(currLoc)
 	path.append(hexLoc_b)
 	#print(path)
 	return path
+
 # ****************************************************************************************
 def get_path(hexLoc_a, hexLoc_b):
 	if hexLoc_a==hexLoc_b:
