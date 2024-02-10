@@ -1,8 +1,8 @@
-#!/usr/bin/python3
 import sys
 import re
 import mariadb as sql
 import hexagon as hx
+import mechanics as mek
 
 def move(subject, obj, scenario):
 	print("moving...")
@@ -23,6 +23,11 @@ def move(subject, obj, scenario):
 	if obj=="F":
 		n = hx.get_neighbor(currLoc, "F")
 
+	if mek.not_enough_movement(subject, obj, scenario):
+		print("***** Not enough movement points.")
+		return
+
+	print("Roger that.")
 	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 		+ str(n[0]) + ", '$.hexLoc[1]'," + str(n[1]) + ") where name = '" + subject + "'" \
 		+ " and scenario = '" + scenario + "'"
