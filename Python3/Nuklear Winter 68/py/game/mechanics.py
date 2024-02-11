@@ -3,7 +3,14 @@ import re
 import mariadb as sql
 import hexagon as hx
 
-
+def is_on_hill(subject, scenario):
+	print(">>>", get_hexID(subject, scenario))
+	fields = "flags & (1<<1)"
+	conditions = "hexID = '" + get_hexID(subject, scenario) + "'"
+	table = "map"
+	if sql.select_one(fields, conditions, table)[0]:
+		return True
+	return False
 
 def get_flip_status(subject, scenario):
 	fields = "JSON_VALUE(j, '$.flip')"
@@ -40,6 +47,8 @@ def get_terrain_cost(hexID, scenario, subject):
 		return 1
 	flags = r[0]
 	cost = 0
+	print("...........", is_on_hill(subject, scenario))
+
 	if sql.is_infantry(subject):
 		if flags & (1<<0):   # crop fields
 			cost += 2

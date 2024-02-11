@@ -100,7 +100,12 @@ def is_apc(unit):
 	
 	return int(mycursor.fetchone()[0]) & 2
 
-
-
-
+def get_hexLoc(unitA):
+	fields = "JSON_VALUE(j, '$.hexLoc[0]')"
+	table = "gameData"
+	conditions = "name = '" + unitA + "'"
+	hexX = select_one(fields, conditions, table)[0]
+	fields = "JSON_VALUE(j, '$.hexLoc[1]')"
+	hexY = select_one(fields, conditions, table)[0]
+	return (int(hexX), int(hexY))
 
