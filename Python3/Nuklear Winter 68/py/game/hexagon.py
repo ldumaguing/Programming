@@ -14,6 +14,18 @@ def convert_id2loc(hexID):
 	return (int(hexID[0:2]), int(hexID[2:]))
 
 # ****************************************************************************************
+def convert_loc2id(hexLoc):
+	id = ""
+	if int(hexLoc[0])<26:
+		id = chr(int(hexLoc[0]) + ord("A"))
+	else:
+		id = chr(int(hexLoc[0])-26 + ord("A"))
+		id += id
+	y = int(hexLoc[1]) + 1
+
+	return id + str(y)
+
+# ****************************************************************************************
 def get_cartisianDist(hexLoc_a, hexLoc_b):
 	if hexLoc_a==hexLoc_b:
 		return 0;
