@@ -1,0 +1,12 @@
+create table images (
+	id INT PRIMARY KEY,
+	filename varchar(80)
+);
+
+
+
+LOAD DATA LOCAL INFILE 'fish.csv' INTO TABLE images
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+(id, filename);
