@@ -1,0 +1,63 @@
+************************************************************************************ MAP
+A: N
+B: NE
+C: SE
+D: S
+E: SW
+F: NW
+
+Terrain (unsigned int)
+======================
+	bit 0: Crop Field
+	bit 1: Hill
+	bit 2: Sand
+	bit 3: Shellholes
+	bit 4: Urban
+	bit 5: Water
+	bit 6: Woods
+	bit 7-12: Road
+		 7: A entrance/exit
+		 8: B entrance/exit
+		 9: C entrance/exit
+		10: D entrance/exit
+		11: E entrance/exit
+		12: F entrance/exit
+	bit 13-18: Water Way*
+		13: A blocked
+		14: B blocked
+		15: C blocked
+		16: D blocked
+		17: E blocked
+		18: F blocked
+* if water way's edges are all blocked, classify the hex as Water.
+
+Notes
+=====
+- Treat hex A7 and B7 as Water.
+- Treat C8 as Water with Road.
+- E9 has edges D, E, and F blocked.
+
+************************************************************************************ UNITS
+Ar	AP; damages Er
+Ab	AP; damages Eb
+Br	AP range; fix-range; move XOR fire
+Bw	AP range; allow long range; move AND/OR fire
+C	HE; damages Eb & Ey
+Dw	HE range; allow long range; move AND/OR fire
+Dy	HE range; fix-range; move XOR fire
+Er	Armor
+Eb	Armor
+Ey	Armor
+F	Max movement
+G	Min movement; default 0
+
+H	Aspects Flags (int)
+	bit 0: Huge
+	bit 1: APC
+	bit 2: NOE
+	bit 3: Recon
+	bit 4: Infantry
+
+
+
+
