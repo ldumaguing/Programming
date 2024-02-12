@@ -1,6 +1,7 @@
 import sys
 import re
-import mariadb as sql
+import mariadb as my
+import chits as chit
 
 scenario = ""
 
@@ -9,41 +10,45 @@ def action_embark(line):
 	print("embark", line)
 	unitA = line[0:line.find(" ")]
 	print("unitA:", unitA)
-	if sql.is_infantry(unitA)==0:
+	if chit.is_infantry(unitA):
 		return
 
 	unitB = line[line.find(">")+2:].strip()
 	print("unitB:", unitB)
-	if sql.is_apc(unitB)==0:
+	if chit.is_apc(unitB):
 		return
 
 	j = "JSON_SET(j, '$.carrying', '" + unitA + "')"
-	sql.update_j(j, unitB, scenario)
+	stmt = "update gameData set j = " + j \
+		+ " where name = '" + unitB + "' and scenario = '" + scenario + "'"
+	my.sql_insert_update(stmt)
 	j = "JSON_SET(j, '$.carried', '" + unitB + "')"
-	sql.update_j(j, unitA, scenario)
+	stmt = "update gameData set j = " + j \
+		+ " where name = '" + unitA + "' and scenario = '" + scenario + "'"
+	my.sql_insert_update(stmt)
 	
 # ****************************************************************************************
 def action_disembark(line):
 	print("disembark", line)
 	unitA = line[0:line.find(" ")]
-	if sql.is_infantry(unitA)==0:
+	if my.is_infantry(unitA):
 		return
 	
 	fields = "JSON_VALUE(j, '$.carried')"
 	conditions = "name = '" + unitA + "' and scenario = '" + scenario + "'"
 	table = "gameData"
-	unitB = sql.select_one(fields, conditions, table)[0]
+	unitB = my.select_one(fields, conditions, table)[0]
 	
 	j = "JSON_REMOVE(j, '$.carried')"
-	sql.update_j(j, unitA, scenario)
+	my.update_j(j, unitA, scenario)
 	j = "JSON_REMOVE(j, '$.carrying')"
-	sql.update_j(j, unitB, scenario)
+	my.update_j(j, unitB, scenario)
 
 # ****************************************************************************************
 def mode_Actions(f):
 	print("Actions...")
 	global scenario
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 
 	while True:
 		line = f.readline()

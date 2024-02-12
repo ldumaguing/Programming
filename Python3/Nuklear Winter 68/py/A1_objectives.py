@@ -1,6 +1,6 @@
 import sys
 import re
-import mariadb as sql
+import mariadb as my
 
 scenario = ""
 
@@ -21,7 +21,7 @@ def place_objective(ob):
 		+ "<img id=\"o" + ob + "\" src=\"images/Red control.png\" hidden>', " \
 		+ "'{\"hexLoc\": [" + str(hexX) + ", " + str(hexY) + "]}'"
 	stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-	sql.sql_insert_update(stmt)
+	my.sql_insert_update(stmt)
 
 def place_objectives(ob):
 	while re.search(",", ob):
@@ -31,7 +31,7 @@ def place_objectives(ob):
 
 def mode_Objective(f):
 	global scenario
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 
 	while True:
 		line = f.readline()

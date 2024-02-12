@@ -1,13 +1,13 @@
 import sys
 import re
-import mariadb as sql
+import mariadb as my
 
 scenario = ""
 
 # ****************************************************************************************
 def mode_Placement(f):
 	global scenario
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 
 	while True:
 		line = f.readline()
@@ -30,6 +30,6 @@ def mode_Placement(f):
 			+ str(hexX) + ", '$.hexLoc[1]', " + str(hexY) + ") where name = '" + unitID + "'" \
 			+ " and scenario = '" + scenario + "'"
 		print(stmt)
-		sql.sql(stmt)
+		my.sql_insert_update(stmt)
 
 

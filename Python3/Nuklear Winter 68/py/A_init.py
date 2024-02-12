@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys
 import re
-import mariadb as sql
+import mariadb as my
 import A1_objectives as a1
 import A2_placing as a2
 import A3_actions as a3
@@ -18,7 +18,7 @@ def mode_Board(f):
 	hexY_count = 0
 	width = 0
 	hexX_count = 0
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 	fields = "scenario, name, val"
 
 	while True:
@@ -29,27 +29,27 @@ def mode_Board(f):
 			values = "'" + scenario + "', " \
 				+ "'X_multiplier', '" + str(Xdisp) + "'"
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 			values = "'" + scenario + "', " \
 				+ "'Y_multiplier', '" + str(Ydisp) + "'"
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 			values = "'" + scenario + "', " \
 				+ "'Y_adjust', '" + str(Ydisp/2) + "'"
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 			break
 		if re.search("Board na", line):
 			mapName = line[0:line.find(' ')]
 			values = "'" + scenario + "', " \
 				+ "'map', '" + mapName + "'"	
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 
 			h = "<img id=\"map\" src=\"images/" + mapName + "\" hidden>"
 			stmt = "update gameData set html = '" + h + "' where name = 'map' and " \
 				+ "scenario = '" + scenario + "'"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 		if re.search("pixel w", line):
 			mapWidth = int(line[0:line.find(',')])
 			mapHeight = int(line[line.find(',')+1:line.find(' ')])
@@ -59,12 +59,12 @@ def mode_Board(f):
 			values = "'" + scenario + "', " \
 				+ "'HexZero', '" + line[0:line.find(' ')] + "'"
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 		if re.search("chit w", line):
 			values = "'" + scenario + "', " \
 				+ "'chitDimention', '" + line[0:line.find(' ')] + "'"
 			stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-			sql.sql_insert_update(stmt)
+			my.sql_insert_update(stmt)
 		if re.search("lowest h", line):
 			height = int(line[0:line.find(',')])
 			hexY_count = int(line[line.find(',')+1:line.find(' ')])
@@ -77,7 +77,7 @@ def mode_Board(f):
 		+ "'<img id=\"yellowDot\" src=\"images_mine/Yellow Dot.png\" hidden>'" \
 		+ ", '{}'"
 	stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-	sql.sql_insert_update(stmt)
+	my.sql_insert_update(stmt)
 
 # ****************************************************************************************
 def save_unit(scenario, unit, count, faction, formation):
@@ -91,7 +91,7 @@ def save_unit(scenario, unit, count, faction, formation):
 		values = "'" + scenario + "', '" + id + "', '" \
 			+ faction + "," + formation + ";" + unit + "'" + ", '{}'"
 		stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-		sql.sql_insert_update(stmt)
+		my.sql_insert_update(stmt)
 
 def save_units(scenario, units, faction, formation):
 	unit = ""
@@ -110,7 +110,7 @@ def formation(faction, line):
 	if line.find("AMs")<=0:
 		return
 
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 
 	if line.find(" -")>0:
 		formation = line[0:line.find(" -")]
@@ -128,7 +128,7 @@ def formation(faction, line):
 		+ line[line.find("/ ")+2:line.find("AMs")] + "', '" \
 		+ scenario + "'"
 	stmt = "insert into gameData(" + fields + ") values (" + values + ")"
-	sql.sql_insert_update(stmt)
+	my.sql_insert_update(stmt)
 
 def mode_OOB(f):
 	faction = ""
@@ -148,11 +148,11 @@ def mode_OOB(f):
 
 # ****************************************************************************************
 def unit_setup():
-	scenario = sql.get_current_scenario()
+	scenario = my.get_current_scenario()
 	fields = "name, val"
 	conditions = "name regexp '^u'"
 	stmt = "select " + fields + " from gameData where " + conditions
-	results = sql.sql_fetchall(stmt)
+	results = my.sql_fetchall(stmt)
 	for x in results:
 		uID = x[0]
 		val = x[1]
@@ -160,8 +160,8 @@ def unit_setup():
 		unit = val[val.find(";")+1:]
 		fields = "front, back"
 		conditions = "name = '" + unit + "' and formation = '" + formation + "'"
-		stmt = "select " + fields + " from gameData where " + conditions
-		res0 = sql.sql_fetchall(stmt)
+		stmt = "select " + fields + " from v_units where " + conditions
+		res0 = my.sql_fetchall(stmt)
 		for y in res0:
 			j = "JSON_INSERT(j,'$.front', 'images/" + y[0] + "',"
 			j += " '$.back', 'images/" + y[1] + "',"
@@ -171,13 +171,18 @@ def unit_setup():
 			j += " '$.identity', JSON_ARRAY("
 			j += "'" + formation + "'" + ", '" + unit + "')"
 			j += ")"
-			sql.update_j(j, uID, scenario)
+			stmt = "update gameData set j = " + j + " where name = '" + uID + "' " \
+				+ "and scenario = '" + scenario + "'"
+			my.sql_insert_update(stmt)
+
 			h = "<img id=\"" + uID + "\" src=\"images/" + y[0] + "\" hidden>"
-			sql.update_html(h, uID, scenario)
-	
+			stmt = "update gameData set html = '" + h + "' where name = '" + uID \
+				+ "' and scenario = '" + scenario + "'"
+			my.sql_insert_update(stmt)
 	fields = "*"
 	conditions = "scenario = '" + scenario + "' and name regexp '^u'"
-	results = sql.select(fields, conditions, "gameData")
+	stmt = "select " + fields + " from gameData where " + conditions
+	results = my.sql_fetchall(stmt)
 	for x in results:
 		unitID = x[1]
 		unit = x[2]
@@ -185,7 +190,8 @@ def unit_setup():
 
 		# ********** front data
 		conditions = "side = 'front' and name = '" + unit + "'"
-		res0 = sql.select(fields, conditions, "unitData")
+		stmt = "select " + fields + " from unitData where " + conditions
+		res0 = my.sql_fetchall(stmt)
 		for y in res0:
 			unit = y[0]
 			stmt = "update gameData set j = JSON_INSERT(j, '$.frontData', JSON_ARRAY(" \
@@ -196,11 +202,12 @@ def unit_setup():
 				+ str(y[14]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
-			sql.sql(stmt)
+			my.sql_insert_update(stmt)
 
 		# ********** back data
 		conditions = "side = 'back' and name = '" + unit + "'"
-		res0 = sql.select(fields, conditions, "unitData")
+		stmt = "select " + fields + " from unitData where " + conditions
+		res0 = my.sql_fetchall(stmt)
 		for y in res0:
 			unit = y[0]
 			stmt = "update gameData set j = JSON_INSERT(j, '$.backData', JSON_ARRAY(" \
@@ -211,7 +218,7 @@ def unit_setup():
 				+ str(y[14]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
-			sql.sql(stmt)
+			my.sql_insert_update(stmt)
 
 # ****************************************************************************************
 def main():
@@ -219,7 +226,7 @@ def main():
 
 	scenario = sys.argv[1]
 	scenario = scenario[scenario.find('/')+1:scenario.find('.')]
-	sql.new_scenario(scenario)
+	my.new_scenario(scenario)
 
 	while True:
 		line = f.readline()
