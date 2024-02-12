@@ -241,8 +241,8 @@ def main():
 			unit_setup()
 		if re.search(">>>>> PLACE", line):
 			a2.mode_Placement(f)
-		if re.search(">>>>> Actio", line):
-			a3.mode_Actions(f)
+		#if re.search(">>>>> Actio", line):
+		#	a3.mode_Actions(f)
 	f.close()
 
 # ****************************************************************************************
