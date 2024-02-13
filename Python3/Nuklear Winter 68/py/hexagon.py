@@ -98,6 +98,41 @@ def get_angle(hexLoc_a, hexLoc_b):
 
 	return abs(angle)%360;
 
+# ****************************************************************************************
+def get_spineID(hexLoc, spine):
+	if hexLoc[0]%2==0:
+		if spine=="D":
+			spineID = convert_loc2id((hexLoc[0],hexLoc[1]+1))
+			spineID += "-A"
+			return spineID
+		spineID = convert_loc2id(hexLoc)
+		spineID += "-" + spine
+		return spineID
+	# ********************
+	if spine=="A":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]))
+		spineID += "-D"
+		return spineID
+	if spine=="B":
+		spineID = convert_loc2id((hexLoc[0]+1,hexLoc[1]))
+		spineID += "-E"
+		return spineID
+	if spine=="C":
+		spineID = convert_loc2id((hexLoc[0]+1,hexLoc[1]+1))
+		spineID += "-F"
+		return spineID
+	if spine=="D":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]+1))
+		spineID += "-D"
+		return spineID
+	if spine=="E":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]+1))
+		spineID += "-B"
+		return spineID
+	spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]))
+	spineID += "-C"
+	return spineID
+
 # ----------------------------------------------------------------------------------------
 def evenXcol(X, Y, direction):
 	match direction:
