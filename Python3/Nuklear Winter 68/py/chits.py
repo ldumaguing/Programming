@@ -1,6 +1,7 @@
 import sys
 import re
 import mariadb as my
+import hexagon as hx
 
 def get_currLoc(subject, scenario):
 	# returning a tuple
@@ -8,6 +9,13 @@ def get_currLoc(subject, scenario):
 		+ "' and scenario = '" + scenario + "'"
 	result = my.sql_fetchone(stmt)
 	return (int(result[0]), int(result[1]))
+
+def get_currHexID(subject, scenario):
+	#currLoc = get_currLoc(subject, scenario)
+	#print("currLoc:", currLoc)
+	#print("hexID", hx.convert_loc2id(currLoc))
+	#return "AA10"
+	return hx.convert_loc2id(get_currLoc(subject, scenario))
 
 def get_movement(subject, scenario, flip):
 	# unit's current movement "money"
@@ -17,23 +25,27 @@ def get_movement(subject, scenario, flip):
 	conditions = "scenario = '" + scenario + "' and name = '" \
 		+ subject + "'"
 	table = "gameData"
-	return sql.select_one(fields, conditions, table)[0]
+	stmt = "select " + fields + " from gameData where " + conditions
+
+	return my.sql_fetchone(stmt)[0]
 
 def is_on_hill(subject, scenario):
 	fields = "flags & (1<<1)"
-	conditions = "hexID = '" + get_hexID(subject, scenario) + "'"
+	conditions = "hexID = '" + get_currHexID(subject, scenario) + "'"
 	table = "map"
-	if sql.select_one(fields, conditions, table)==None:
+	stmt = "select " + fields + " from map where " + conditions
+	if my.sql_fetchone(stmt)==None:
 		return False
 	return True
 
 def get_flip_status(subject, scenario):
-	fields = "JSON_VALUE(j, '$.flip')"
-	conditions = "scenario = '" + scenario + "' and name = '" \
-		+ subject + "'"
-	table = "gameData"
-	stmt = "select JSON_VALUE(j, '$.flip') from gameData where name = '" + subject
-	return sql.select_one(fields, conditions, table)[0]
+	#fields = "JSON_VALUE(j, '$.flip')"
+	#conditions = "scenario = '" + scenario + "' and name = '" \
+	#	+ subject + "'"
+	#table = "gameData"
+	stmt = "select JSON_VALUE(j, '$.flip') from gameData where name = '" + subject \
+		+ "' and scenario = '" + scenario + "'"
+	return my.sql_fetchone(stmt)[0]
 
 def is_infantry(unit, scenario):
 	stmt = "select JSON_VALUE(j, '$.frontData[12]') from gameData where name = '" \
