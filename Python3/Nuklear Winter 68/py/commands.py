@@ -6,9 +6,9 @@ import mechanics as mek
 import chits as chit
 
 def move(subject, obj, scenario):
-	print("moving...")
+	#print("moving...")
 	currLoc = chit.get_currLoc(subject, scenario)
-	print(currLoc)
+	#print(currLoc)
 
 	n = ()
 	if obj=="A":

@@ -183,6 +183,7 @@ def unit_setup():
 	conditions = "scenario = '" + scenario + "' and name regexp '^u'"
 	stmt = "select " + fields + " from gameData where " + conditions
 	results = my.sql_fetchall(stmt)
+	# select all units
 	for x in results:
 		unitID = x[1]
 		unit = x[2]
@@ -192,6 +193,7 @@ def unit_setup():
 		conditions = "side = 'front' and name = '" + unit + "'"
 		stmt = "select " + fields + " from unitData where " + conditions
 		res0 = my.sql_fetchall(stmt)
+		# each unit
 		for y in res0:
 			unit = y[0]
 			stmt = "update gameData set j = JSON_INSERT(j, '$.frontData', JSON_ARRAY(" \
@@ -202,9 +204,16 @@ def unit_setup():
 				+ str(y[14]) \
 				+ ")) where val regexp '" + unit + "' and scenario = '" \
 				+ scenario + "'"
+			#print(">>>>>>>>>>>>>>>>>>>>>>>>>", stmt)
+			my.sql_insert_update(stmt)
+			stmt = "update gameData set j = JSON_INSERT(j, '$.currMove', " + str(y[12]) \
+				+ ") where val regexp '" + unit + "' and scenario = '" \
+				+ scenario + "'"
+			#print(">>>>>>>>>>>>>>>>>>>>>>...", stmt)
 			my.sql_insert_update(stmt)
 
 		# ********** back data
+		# each unit
 		conditions = "side = 'back' and name = '" + unit + "'"
 		stmt = "select " + fields + " from unitData where " + conditions
 		res0 = my.sql_fetchall(stmt)

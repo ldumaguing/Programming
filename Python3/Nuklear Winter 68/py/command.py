@@ -15,9 +15,9 @@ if len(sys.argv)<2:
 	exit()
 
 cmd = sys.argv[1].split()
-print(cmd)
+#print(cmd)
 scenario = my.get_current_scenario()
-print(scenario)
+#print(scenario)
 
 obj = ""
 subject = cmd[0]

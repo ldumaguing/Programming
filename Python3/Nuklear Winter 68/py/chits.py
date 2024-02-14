@@ -26,7 +26,7 @@ def get_movement(subject, scenario, flip):
 		+ subject + "'"
 	table = "gameData"
 	stmt = "select " + fields + " from gameData where " + conditions
-
+	#print("stmt:     ", stmt)
 	return my.sql_fetchone(stmt)[0]
 
 def is_on_hill(subject, scenario):

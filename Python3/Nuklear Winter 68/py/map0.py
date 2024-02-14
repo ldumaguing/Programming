@@ -6,7 +6,7 @@ import chits as chit
 
 def is_hill(hexID):
 	stmt = "select flags & (1<<1) from map where hexID = '" + hexID + "'"
-	print(stmt)
+	#print(stmt)
 	result = my.sql_fetchone(stmt)
 	if result==None:
 		return False
@@ -15,11 +15,11 @@ def is_hill(hexID):
 	return True
 
 def get_terrain_cost(hexID, subject, hexAhead, scenario):
-	print("terrain cost")
+	#print("terrain cost")
 	stmt = "select flags from map where hexID = '" + hexAhead + "'"
-	print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", stmt)
+	#print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", stmt)
 	r = my.sql_fetchone(stmt)
-	print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", r)
+	#print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", r)
 	if r==None:
 		return 1
 	flags = r[0]
@@ -41,7 +41,7 @@ def get_terrain_cost(hexID, subject, hexAhead, scenario):
 
 	onHill = chit.is_on_hill(subject, scenario)
 	hillAhead = is_hill(hexAhead)
-	print("onHill, hillAhead",onHill, hillAhead)
+	#print("onHill, hillAhead",onHill, hillAhead)
 	if hillAhead & (not onHill):
 		print("pay hill")
 		cost += 1
