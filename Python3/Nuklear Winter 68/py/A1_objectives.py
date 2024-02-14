@@ -37,7 +37,7 @@ def mode_Objective(f):
 		line = f.readline()
 		if re.search("^\n$", line):
 			break
-		print(line)
+		#print(line)
 		if re.search("placeRedControl", line):
 			place_objectives(line[line.find(" ")+1:])
 
