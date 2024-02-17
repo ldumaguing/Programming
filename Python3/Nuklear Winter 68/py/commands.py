@@ -26,7 +26,14 @@ def move(subject, obj, scenario):
 
 	#print("n:", n)
 	hexAhead_ID = hx.convert_loc2id(n)
-	print(">>>>>>>>>>>", currLoc, n, subject, obj, hexAhead_ID)
+	# print(">>>>>>>>>>>", currLoc, n, subject, obj, hexAhead_ID)
+	"""
+	currLoc      (20, 8)
+	n            (20, 7)
+	subject      u1
+	obj          A
+	hexAhead_ID  U8
+	"""
 	if mek.is_not_enough_movement(subject, obj, scenario, hexAhead_ID):
 		print("***** Not enough movement points.")
 		return

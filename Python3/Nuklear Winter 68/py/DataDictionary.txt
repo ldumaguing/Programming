@@ -1,3 +1,35 @@
+********************************************************************************** RIVER
+river (unsigned int)
+	Placement bits
+	==============
+	bit  0: Fb
+	bit  1: Fa
+	bit  2: Eb
+	bit  3: Ea
+	bit  4: Db
+	bit  5: Da
+	bit  6: Cb
+	bit  7: Ca
+	bit  8: Bb
+	bit  9: Ba
+	bit 10: Ab
+	bit 11: Aa
+
+	Blocking bits
+	=============
+	bit 12: Fb-Aa
+	bit 13: Fa-Fb
+	bit 14: Eb-Fa
+	bit 15: Ea-Eb
+	bit 16: Db-Ea
+	bit 17: Da-Db
+	bit 18: Cb-Da
+	bit 19: Ca-Cb
+	bit 20: Bb-Ca
+	bit 21: Ba-Bb
+	bit 22: Ab-Ba
+	bit 23: Aa-Ab
+
 ************************************************************************************ MAP
 A: N
 B: NE
@@ -15,27 +47,6 @@ Terrain (unsigned int)
 	bit 4: Urban
 	bit 5: Water
 	bit 6: Woods
-	bit 7-12: Road
-		 7: A entrance/exit
-		 8: B entrance/exit
-		 9: C entrance/exit
-		10: D entrance/exit
-		11: E entrance/exit
-		12: F entrance/exit
-	bit 13-18: Water Way*
-		13: A blocked
-		14: B blocked
-		15: C blocked
-		16: D blocked
-		17: E blocked
-		18: F blocked
-* if water way's edges are all blocked, classify the hex as Water.
-
-Notes
-=====
-- Treat hex A7 and B7 as Water.
-- Treat C8 as Water with Road.
-- E9 has edges D, E, and F blocked.
 
 ************************************************************************************ UNITS
 Ar	AP; damages Er
