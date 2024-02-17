@@ -25,9 +25,9 @@ def move(subject, obj, scenario):
 		n = hx.get_neighbor(currLoc, "F")
 
 	#print("n:", n)
-	hexAhead = hx.convert_loc2id(n)
-
-	if mek.is_not_enough_movement(subject, obj, scenario, hexAhead):
+	hexAhead_ID = hx.convert_loc2id(n)
+	print(">>>>>>>>>>>", currLoc, n, subject, obj, hexAhead_ID)
+	if mek.is_not_enough_movement(subject, obj, scenario, hexAhead_ID):
 		print("***** Not enough movement points.")
 		return
 
