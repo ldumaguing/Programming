@@ -36,17 +36,45 @@ c.addEventListener("mousedown", (e) => {
 		place(136, 88, 0);
 	
 	if ((x>225) & (x<285) & (y>40) & (y<50))
-		blockin(240, 32);
+		blockin(256, 45, 11);
+	if ((x>335) & (x<354) & (y>56) & (y<80))
+		blockin(346, 66, 10);
+	if ((x>382) & (x<422) & (y>116) & (y<156))
+		blockin(403, 135, 9);
+	if ((x>423) & (x<443) & (y>210) & (y<230))
+		blockin(433, 220, 8);
+	if ((x>398) & (x<418) & (y>297) & (y<317))
+		blockin(408, 307, 7);
+	if ((x>339) & (x<359) & (y>368) & (y<388))
+		blockin(349, 378, 6);
+	if ((x>248) & (x<268) & (y>392) & (y<412))
+		blockin(258, 402, 5);
+	if ((x>159) & (x<179) & (y>368) & (y<388))
+		blockin(169, 378, 4);
+	if ((x>91) & (x<111) & (y>303) & (y<323))
+		blockin(101, 313, 3);
+	if ((x>71) & (x<91) & (y>210) & (y<230))
+		blockin(81, 220, 2);
+	if ((x>104) & (x<124) & (y>125) & (y<145))
+		blockin(114, 135, 1);
+	if ((x>158) & (x<178) & (y>54) & (y<74))
+		blockin(168, 64, 0);
 });
 
 function blockin(X, Y, Z) {
 	blocking = blocking ^ (1<<Z);
 	
 	if (blocking & (1<<Z)) {
-		ctx.drawImage(block, X, Y);
+		ctx.beginPath();
+		ctx.fillStyle = "#ffffff";
+		ctx.arc(X, Y, 12, 0, 2 * Math.PI);
+		ctx.fill();
 	}
 	else {
-		location.reload()
+		ctx.beginPath();
+		ctx.fillStyle = "#1a5fb4";
+		ctx.arc(X, Y, 12, 0, 2 * Math.PI);
+		ctx.fill();
 	}
 }
 
