@@ -22,15 +22,7 @@ c.addEventListener("mousedown", (e) => {
 		place(111, 306, 4);
 	if ((x>93) & (x<133) & (y>123) & (y<163))
 		place(113, 143, 5);
-
-
-
-
-
-
 	slot.innerHTML = placement;
-
-
 });
 
 function place(X, Y, Z) {
