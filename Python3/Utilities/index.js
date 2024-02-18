@@ -1,7 +1,8 @@
 var c = document.getElementById("canvas0");
 var ctx = c.getContext("2d");
 var hex = document.getElementById("hex");
-var block = document.getElementById("block");
+var slot = document.getElementById("slot")
+var hinder = document.getElementById("hinder")
 ctx.drawImage(hex, 0, 0);
 
 var placement = 0;
@@ -34,7 +35,8 @@ c.addEventListener("mousedown", (e) => {
 		place(80, 180, 1);
 	if ((x>113) & (x<160) & (y>65) & (y<110))
 		place(136, 88, 0);
-	
+	slot.innerHTML = placement;
+
 	if ((x>225) & (x<285) & (y>40) & (y<50))
 		blockin(256, 45, 11);
 	if ((x>335) & (x<354) & (y>56) & (y<80))
@@ -59,6 +61,7 @@ c.addEventListener("mousedown", (e) => {
 		blockin(114, 135, 1);
 	if ((x>158) & (x<178) & (y>54) & (y<74))
 		blockin(168, 64, 0);
+	hinder.innerHTML = blocking;
 });
 
 function blockin(X, Y, Z) {
