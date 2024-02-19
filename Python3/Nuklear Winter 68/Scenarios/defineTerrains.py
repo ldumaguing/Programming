@@ -3,7 +3,8 @@ import sys
 import re
 import mysql.connector
 
-flag = (1 << 1)
+hill = (1 << 1)
+water = (1 << 5)
 
 mydb = mysql.connector.connect(
 	host="localhost",
@@ -29,7 +30,7 @@ def is_hex_exist(hexID):
 		return 1
 
 # ****************************************************************************************
-def mode_hills(f):
+def define_hills(f):
 	while True:
 		line = f.readline()
 		if re.search("^\n$", line):
@@ -37,39 +38,43 @@ def mode_hills(f):
 		line = line.strip()
 
 		stmt = "insert into map (scenario, hexID, flags) values ('map0', '" \
-			+ line + "', " + str(flag) + ")"
+			+ line + "', " + str(hill) + ")"
 		sql(stmt)
 
-def save_road(hexID, edges):
-	roads = 0
-	for x in edges:
-		num_shift = ord(x) - ord('A')
-		val = 1 << num_shift
-		roads |= val
-	
-	roads = roads << 7
-	stmt = ""
-	if is_hex_exist(hexID):
-		stmt = "update map set flags = flags | " + str(roads) + " where hexID = '" \
-			+ hexID + "'"
-	else:
-		stmt = "insert into map (flags, hexID, scenario) values (flags | " + str(roads) \
-			+ ", '" + hexID + "', 'map0'" + ")"
-
-	mycursor = mydb.cursor()
-	mycursor.execute(stmt)
-	mydb.commit()
-
 # ****************************************************************************************
-def mode_roads(f):
+def define_water(f):
 	while True:
 		line = f.readline()
 		if re.search("^\n$", line):
 			break
 		line = line.strip()
-		hexID = line[0:line.find(" ")].strip()
-		edges = line[line.find(" "):].strip()
-		save_road(hexID, edges)
+		
+		stmt = "insert into map (scenario, hexID, flags) values ('map0', '" \
+			+ line + "', " + str(water) + ")"
+		sql(stmt)
+
+# ****************************************************************************************
+def define_river(f):
+	while True:
+		line = f.readline()
+		if re.search("^\n$", line):
+			break
+		line = line.strip()
+		hexID = line.split()[0].strip()
+		blocking = int(line.split()[1])
+		slot = int(line.split()[2])
+		bridge = int(line.split()[3])
+		river = (blocking<<14)
+		river = river + (slot<<2)
+		river = river + bridge
+		stmt = ""
+		if is_hex_exist(hexID):
+			stmt = "update map set river = " + str(river) + " where scenario = " \
+				+ "'map0' and hexID = '" + hexID + "'"
+		else:
+			stmt = "insert into map (scenario, hexID, river) values ('map0', '" \
+			+ hexID + "', " + str(river) + ")"
+		sql(stmt)
 
 # ****************************************************************************************
 def main():
@@ -83,9 +88,12 @@ def main():
 		if not line:
 			break
 		if re.search(">>>>> HILLS", line):
-			mode_hills(f)
-		if re.search(">>>>> ROADS", line):
-			mode_roads(f)
+			define_hills(f)
+		if re.search(">>>>> WATER", line):
+			define_water(f)
+		if re.search(">>>>> RIVER", line):
+			define_river(f)
+
 	f.close()
 
 # ****************************************************************************************
