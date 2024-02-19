@@ -17,6 +17,16 @@ def get_currHexID(subject, scenario):
 	#return "AA10"
 	return hx.convert_loc2id(get_currLoc(subject, scenario))
 
+def get_curr_movement(subject, scenario):
+	# select json_value(j, '$.currMove') from gameData where scenario = '01-day8' and name = 'u1';
+	stmt = "select json_value(j, '$.currMove') from gameData where scenario = '" \
+		+ scenario + "' and name = '" + subject + "'"
+	return int(my.sql_fetchone(stmt)[0])
+
+
+
+
+'''
 def get_movement(subject, scenario, flip):
 	# unit's current movement "money"
 	fields = "JSON_VALUE(j, '$.frontData[10]')"
@@ -28,6 +38,11 @@ def get_movement(subject, scenario, flip):
 	stmt = "select " + fields + " from gameData where " + conditions
 	#print("stmt:     ", stmt)
 	return my.sql_fetchone(stmt)[0]
+'''
+
+
+
+
 
 def is_on_hill(subject, scenario):
 	fields = "flags & (1<<1)"

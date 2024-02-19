@@ -6,9 +6,15 @@ import mechanics as mek
 import chits as chit
 
 def move(subject, obj, scenario):
-	#print("moving...")
+	# move u1 A
+	if mek.is_not_enough_movement(subject, scenario, obj):
+		print("***** Not enough movement points.")
+		return
+
+
+
+'''
 	currLoc = chit.get_currLoc(subject, scenario)
-	#print(currLoc)
 
 	n = ()
 	if obj=="A":
@@ -24,17 +30,18 @@ def move(subject, obj, scenario):
 	if obj=="F":
 		n = hx.get_neighbor(currLoc, "F")
 
-	#print("n:", n)
+	print("%%%%%", currLoc, n)
 	hexAhead_ID = hx.convert_loc2id(n)
 	# print(">>>>>>>>>>>", currLoc, n, subject, obj, hexAhead_ID)
 	"""
 	currLoc      (20, 8)
 	n            (20, 7)
 	subject      u1
-	obj          A
 	hexAhead_ID  U8
 	"""
-	if mek.is_not_enough_movement(subject, obj, scenario, hexAhead_ID):
+
+
+	if mek.is_not_enough_movement(subject, scenario, hexAhead_ID):
 		print("***** Not enough movement points.")
 		return
 
@@ -43,6 +50,8 @@ def move(subject, obj, scenario):
 		+ str(n[0]) + ", '$.hexLoc[1]'," + str(n[1]) + ") where name = '" + subject + "'" \
 		+ " and scenario = '" + scenario + "'"
 	sql.sql(stmt)
+
+
 
 def embark(subject, obj, scenario):
 	print(subject, "embark", obj)
@@ -74,3 +83,7 @@ def disembark(subject, scenario):
 	sql.update_j(j, unitA, scenario)
 	j = "JSON_REMOVE(j, '$.carrying')"
 	sql.update_j(j, unitB, scenario)
+
+'''
+
+

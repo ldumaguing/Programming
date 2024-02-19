@@ -14,9 +14,9 @@ def is_hill(hexID):
 		return False
 	return True
 
-def get_terrain_cost(hexID, subject, hexAhead, scenario):
+def get_terrain_cost(hexID, subject, hexAhead_ID, scenario):
 	#print("terrain cost")
-	stmt = "select flags from map where hexID = '" + hexAhead + "'"
+	stmt = "select flags from map where hexID = '" + hexAhead_ID + "'"
 	#print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", stmt)
 	r = my.sql_fetchone(stmt)
 	#print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", r)
@@ -40,7 +40,7 @@ def get_terrain_cost(hexID, subject, hexAhead, scenario):
 			cost += 2
 
 	onHill = chit.is_on_hill(subject, scenario)
-	hillAhead = is_hill(hexAhead)
+	hillAhead = is_hill(hexAhead_ID)
 	#print("onHill, hillAhead",onHill, hillAhead)
 	if hillAhead & (not onHill):
 		print("pay hill")
