@@ -37,6 +37,7 @@ CREATE TABLE `images` (
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
 INSERT INTO `images` VALUES
+(0,'blank.png',0),
 (1,'Arrow-3.gif',0),
 (2,'Arrow-4.png',0),
 (3,'CentralFront-f.png',0),
@@ -994,4 +995,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-20 15:53:22
+-- Dump completed on 2024-02-20 15:58:58
