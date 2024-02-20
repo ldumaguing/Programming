@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.11.4-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.11.6-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: Ukraine43
 -- ------------------------------------------------------
--- Server version	10.11.4-MariaDB-1~deb12u1
+-- Server version	10.11.6-MariaDB-0+deb12u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -527,6 +527,463 @@ INSERT INTO `images` VALUES
 (488,'YellowSmallBox Flipped.png',0);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `units`
+--
+
+DROP TABLE IF EXISTS `units`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `units` (
+  `id` int(11) NOT NULL,
+  `name` varchar(80) DEFAULT NULL,
+  `front` int(11) DEFAULT NULL,
+  `rear` int(11) DEFAULT NULL,
+  `rem` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `units`
+--
+
+LOCK TABLES `units` WRITE;
+/*!40000 ALTER TABLE `units` DISABLE KEYS */;
+INSERT INTO `units` VALUES
+(1,'Central-RH',4,5,0),
+(2,'CentralFront',3,0,0),
+(3,'CZ-17-1Czech',10,0,0),
+(4,'Disrupted-1',15,16,0),
+(5,'EmergencySupply-1',17,18,0),
+(6,'GameTurn',19,20,0),
+(7,'GE-10S-101Jaeg',21,22,0),
+(8,'GE-11S-79',23,24,0),
+(9,'GE-12N-20Pzg',25,27,26),
+(10,'GE-13W-389',28,29,0),
+(11,'GE-14N-123_293',30,31,0),
+(12,'GE-14W-24Pz',32,34,33),
+(13,'GE-15S-97Jaeg',35,36,0),
+(14,'GE-17S-14Pz',37,39,38),
+(15,'GE-18W-509Tiger',40,0,0),
+(16,'GE-19W-2Para',41,42,0),
+(17,'GE-1N-221SEC',43,0,0),
+(18,'GE-1P-5W',44,46,45),
+(19,'GE-1Pz-15',47,48,0),
+(20,'GE-1Pz-17Pz',49,51,50),
+(21,'GE-1Pz-198',52,53,0),
+(22,'GE-1Pz-257',54,55,0),
+(23,'GE-1Pz-328',56,57,0),
+(24,'GE-1Pz-333',58,59,0),
+(25,'GE-1Pz-387',62,63,0),
+(26,'GE-1Pz-38_62',60,61,0),
+(27,'GE-1Pz-3Pz',64,66,65),
+(28,'GE-1Pz-46',67,68,0),
+(29,'GE-20W-25Pz',69,71,70),
+(30,'GE-21W-1LAH',72,74,73),
+(31,'GE-2A-327',75,76,0),
+(32,'GE-2A-340',77,78,0),
+(33,'GE-2A-68',79,80,0),
+(34,'GE-2A-75',81,82,0),
+(35,'GE-2A-88',83,84,0),
+(36,'GE-2N-34',85,86,0),
+(37,'GE-3N-GD',87,88,0),
+(38,'GE-4N-4Pz_9Pz',89,91,90),
+(39,'GE-4N-82',92,93,0),
+(40,'GE-4Pz-11Pz',94,96,95),
+(41,'GE-4Pz-167',97,98,0),
+(42,'GE-4Pz-19Pz',99,101,100),
+(43,'GE-4Pz-255',102,103,0),
+(44,'GE-4Pz-332',104,105,0),
+(45,'GE-4Pz-57',106,107,0),
+(46,'GE-4Pz-7Pz',108,110,109),
+(47,'GE-5N-10Pzg',111,113,112),
+(48,'GE-5N-183_208',114,115,0),
+(49,'GE-6A-111',116,117,0),
+(50,'GE-6A-16Pzg',118,120,119),
+(51,'GE-6A-17',121,122,0),
+(52,'GE-6A-23Pz',123,125,124),
+(53,'GE-6A-294_335',126,127,0),
+(54,'GE-6A-2DR',128,130,129),
+(55,'GE-6A-302',131,132,0),
+(56,'GE-6A-304_306',133,134,0),
+(57,'GE-6A-336',135,136,0),
+(58,'GE-6A-3Mo',137,138,0),
+(59,'GE-6A-3T',139,141,140),
+(60,'GE-6N-112_251',142,143,0),
+(61,'GE-6W-8Cav',144,145,0),
+(62,'GE-7S-13Pz',146,148,147),
+(63,'GE-8A-106',149,150,0),
+(64,'GE-8A-161',151,152,0),
+(65,'GE-8A-168',153,154,0),
+(66,'GE-8A-282',155,156,0),
+(67,'GE-8A-320',157,158,0),
+(68,'GE-8A-39',159,160,0),
+(69,'GE-8A-6Pz',161,163,162),
+(70,'GE-8N-8Pz',164,166,165),
+(71,'GE-8S-125',167,168,0),
+(72,'GE-Air1',169,170,0),
+(73,'GE-Air2',171,172,0),
+(74,'GE-Dn-444SEC',173,0,0),
+(75,'GE-E-228Stug',174,0,0),
+(76,'GE-E-239StugA',175,0,0),
+(77,'GE-E-239StugB',176,0,0),
+(78,'GE-E-243Stug',177,0,0),
+(79,'GE-Fort-1',178,179,0),
+(80,'GE-K-503Tiger',181,0,0),
+(81,'GE-K-911Stug',182,0,0),
+(82,'GE-Kv-218SEC',183,0,0),
+(83,'GE-Leader-Manstein',184,185,0),
+(84,'GE-Po-213SEC',186,0,0),
+(85,'GE-REM-GD',187,0,0),
+(86,'GE-REM-Para',188,0,0),
+(87,'GE-Za-454SEC',189,0,0),
+(88,'HUN-2A-1H',190,191,0),
+(89,'OutOfSupply-1',193,194,0),
+(90,'RailMove-1',195,0,0),
+(91,'ReplMarker-1',197,0,0),
+(92,'RiverAssault-1',198,199,0),
+(93,'RO-18S-4R',200,201,0),
+(94,'RO-9Odessa-24R',202,203,0),
+(95,'SLO-16S-1Slov',204,205,0),
+(96,'South1-RH',206,207,0),
+(97,'South2-RH',208,209,0),
+(98,'SOV-10-19Tank',210,211,0),
+(99,'SOV-10-20Tank',212,213,0),
+(100,'SOV-11-3GdsTankHQ',214,0,0),
+(101,'SOV-11-6GdsTank',215,216,0),
+(102,'SOV-11-7GdsTank',217,218,0),
+(103,'SOV-11-7Mech',219,221,220),
+(104,'SOV-12-108_109Gds',222,223,0),
+(105,'SOV-13-6_70Gds',224,225,0),
+(106,'SOV-16-9Mech',226,228,227),
+(107,'SOV-2-136_254',229,230,0),
+(108,'SOV-3-294_295',231,232,0),
+(109,'SOV-4-3GdsTank',233,234,0),
+(110,'SOV-4-5A_7AGds',235,236,0),
+(111,'SOV-4-8A_80Gds',237,238,0),
+(112,'SOV-5-11Tank',239,240,0),
+(113,'SOV-6-373_417',241,242,0),
+(114,'SOV-7-301_328',243,244,0),
+(115,'SOV-8-216_257',245,246,0),
+(116,'SOV-9-5GdsCav',247,248,0),
+(117,'SOV-A-1GdsAbne',249,0,0),
+(118,'SOV-A-2GdsAbne',250,0,0),
+(119,'SOV-A-5GdsAbne',251,0,0),
+(120,'SOV-Air1',252,253,0),
+(121,'SOV-Air2',254,255,0),
+(122,'SOV-E-140',258,0,0),
+(123,'SOV-E-173T34',259,0,0),
+(124,'SOV-E-266_279',260,261,0),
+(125,'SOV-E-27GdsT34',262,0,0),
+(126,'SOV-E-68_69Gds',263,264,0),
+(127,'SOV-E-6T34Gds',265,0,0),
+(128,'SOV-Fort-1',266,267,0),
+(129,'SOV-Ku-K-3GdsArty',269,270,0),
+(130,'SOV-Leader-Zhukov',271,272,0),
+(131,'SOV-S-118_127',273,274,0),
+(132,'SOV-S-126_221',275,276,0),
+(133,'SOV-S-130_151',277,278,0),
+(134,'SOV-S-248_416',281,282,0),
+(135,'SOV-S-24_33Gds',279,280,0),
+(136,'SOV-S-2GdsMech',283,285,284),
+(137,'SOV-S-315_271',286,287,0),
+(138,'SOV-S-32T34Gds',288,0,0),
+(139,'SOV-S-347_387',289,290,0),
+(140,'SOV-S-3Arty',291,292,0),
+(141,'SOV-S-40_96Gds',293,294,0),
+(142,'SOV-S-43S',297,0,0),
+(143,'SOV-S-49_87Gds',298,299,0),
+(144,'SOV-S-4GdsCav',300,301,0),
+(145,'SOV-S-4GdsMech',302,304,303),
+(146,'SOV-S-4_34Gds',295,296,0),
+(147,'SOV-S-50_54Gds',305,306,0),
+(148,'SOV-S-5ShockHQ',307,0,0),
+(149,'SOV-S-78_116',308,309,0),
+(150,'SOV-S-86_3Gds',310,311,0),
+(151,'SOV-S-91_87',312,313,0),
+(152,'SOV-S-99_346',314,315,0),
+(153,'SOV-S-KV-3Gds',316,0,0),
+(154,'SOV-St-107_183',317,318,0),
+(155,'SOV-St-111_213',319,320,0),
+(156,'SOV-St-15_28Gds',321,322,0),
+(157,'SOV-St-16Arty',323,324,0),
+(158,'SOV-St-1Mech',325,327,326),
+(159,'SOV-St-201T34',328,0,0),
+(160,'SOV-St-214_233',329,330,0),
+(161,'SOV-St-252_299',331,332,0),
+(162,'SOV-St-305_375',333,334,0),
+(163,'SOV-St-36_72Gds',335,336,0),
+(164,'SOV-St-73_89Gds',337,338,0),
+(165,'SOV-St-80_81Gds',339,340,0),
+(166,'SOV-St-84_116',341,342,0),
+(167,'SOV-St-SU-3',343,0,0),
+(168,'SOV-SW-11T34',344,0,0),
+(169,'SOV-SW-14_35Gds',345,346,0),
+(170,'SOV-SW-152_263',347,348,0),
+(171,'SOV-SW-172_333',349,350,0),
+(172,'SOV-SW-195_259',351,352,0),
+(173,'SOV-SW-1GdsMech',353,355,354),
+(174,'SOV-SW-20_38Gds',356,357,0),
+(175,'SOV-SW-23Tank',358,359,0),
+(176,'SOV-SW-243_279',362,363,0),
+(177,'SOV-SW-244_350',364,365,0),
+(178,'SOV-SW-24_203',360,361,0),
+(179,'SOV-SW-267_288',366,367,0),
+(180,'SOV-SW-41_47Gds',368,369,0),
+(181,'SOV-SW-44_57Gds',370,371,0),
+(182,'SOV-SW-50_78',372,373,0),
+(183,'SOV-SW-58_59Gds',374,375,0),
+(184,'SOV-SW-5GdsMot',376,0,0),
+(185,'SOV-SW-60_61Gds',377,378,0),
+(186,'SOV-SW-78_79Gds',379,380,0),
+(187,'SOV-SW-7_9_11Arty',381,382,0),
+(188,'SOV-SW-IGdsCav',383,384,0),
+(189,'SOV-SW-KV-BGds',385,0,0),
+(190,'SOV-SW-T34-3',386,0,0),
+(191,'SOV-V-100_161',387,388,0),
+(192,'SOV-V-10Tank',389,390,0),
+(193,'SOV-V-13Arty',393,394,0),
+(194,'SOV-V-13_9AGds',391,392,0),
+(195,'SOV-V-147_155',395,396,0),
+(196,'SOV-V-163_166',397,398,0),
+(197,'SOV-V-167_232',399,400,0),
+(198,'SOV-V-17Arty',401,402,0),
+(199,'SOV-V-180_240',403,404,0),
+(200,'SOV-V-18Tank',405,406,0),
+(201,'SOV-V-1TankHQ',407,0,0),
+(202,'SOV-V-206_237',408,409,0),
+(203,'SOV-V-218_337',410,411,0),
+(204,'SOV-V-23_29',412,413,0),
+(205,'SOV-V-241_340',414,415,0),
+(206,'SOV-V-29Tank',416,417,0),
+(207,'SOV-V-2Tank',418,419,0),
+(208,'SOV-V-30_38',420,421,0),
+(209,'SOV-V-31Tank',422,423,0),
+(210,'SOV-V-3GdsMArty',424,425,0),
+(211,'SOV-V-3GdsMech',426,428,427),
+(212,'SOV-V-3Mech',429,431,430),
+(213,'SOV-V-42_71Gds',432,433,0),
+(214,'SOV-V-4GdsTank',434,435,0),
+(215,'SOV-V-51_52Gds',436,437,0),
+(216,'SOV-V-5GdsMech',438,440,439),
+(217,'SOV-V-5GdsTank',441,443,0),
+(218,'SOV-V-5GdsTankHQ',442,0,0),
+(219,'SOV-V-65',444,0,0),
+(220,'SOV-V-66_67Gds',445,446,0),
+(221,'SOV-V-6Tank',447,448,0),
+(222,'SOV-V-71_375',449,450,0),
+(223,'SOV-V-75',451,0,0),
+(224,'SOV-V-86',452,0,0),
+(225,'SOV-V-90_47Gds',453,454,0),
+(226,'SOV-V-95_97Gds',455,456,0),
+(227,'SOV-V-96T34',457,0,0),
+(228,'SOV-V-K-1GdsArty',458,459,0),
+(229,'SOV-V-K-2GdsArty',460,461,0),
+(230,'SOV-V-KV-AGds',462,0,0),
+(231,'SOV-V-SU-1',463,0,0),
+(232,'SOV-V-SU-2',464,0,0),
+(233,'SOV-V-T34-1',465,0,0),
+(234,'SovControl-1',256,257,0),
+(235,'SoWest-RH',466,467,0),
+(236,'Steppe-RH',468,469,0),
+(237,'TU-Ko-Turk',470,0,0),
+(238,'Voronezh-RH',480,481,0),
+(239,'VPs_x1',484,485,0),
+(240,'VPs_x10',482,483,0),
+(241,'Weather',487,0,0);
+/*!40000 ALTER TABLE `units` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `v_double`
+--
+
+DROP TABLE IF EXISTS `v_double`;
+/*!50001 DROP VIEW IF EXISTS `v_double`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_double` AS SELECT
+ 1 AS `name`,
+  1 AS `front`,
+  1 AS `back` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_front`
+--
+
+DROP TABLE IF EXISTS `v_front`;
+/*!50001 DROP VIEW IF EXISTS `v_front`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_front` AS SELECT
+ 1 AS `id`,
+  1 AS `front` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_rear`
+--
+
+DROP TABLE IF EXISTS `v_rear`;
+/*!50001 DROP VIEW IF EXISTS `v_rear`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_rear` AS SELECT
+ 1 AS `id`,
+  1 AS `rear` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_rem`
+--
+
+DROP TABLE IF EXISTS `v_rem`;
+/*!50001 DROP VIEW IF EXISTS `v_rem`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_rem` AS SELECT
+ 1 AS `id`,
+  1 AS `rem` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_tristate`
+--
+
+DROP TABLE IF EXISTS `v_tristate`;
+/*!50001 DROP VIEW IF EXISTS `v_tristate`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_tristate` AS SELECT
+ 1 AS `name`,
+  1 AS `front`,
+  1 AS `back`,
+  1 AS `rem` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_units`
+--
+
+DROP TABLE IF EXISTS `v_units`;
+/*!50001 DROP VIEW IF EXISTS `v_units`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `v_units` AS SELECT
+ 1 AS `id`,
+  1 AS `filename` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `v_double`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_double`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_double` AS select `a`.`front` AS `name`,`a`.`id` AS `front`,`b`.`id` AS `back` from (`v_front` `a` join `v_rear` `b`) where `a`.`front` = `b`.`rear` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_front`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_front`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_front` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-f',1) AS `front` from `images` where `images`.`filename` regexp '-f\\.' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_rear`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_rear`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_rear` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-r',1) AS `rear` from `images` where `images`.`filename` regexp '-r\\.' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_rem`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_rem`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_rem` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-REM',1) AS `rem` from `images` where `images`.`filename` regexp '-rem\\.' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_tristate`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_tristate`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_tristate` AS select `a`.`front` AS `name`,`a`.`id` AS `front`,`b`.`id` AS `back`,`c`.`id` AS `rem` from ((`v_front` `a` join `v_rear` `b`) join `v_rem` `c`) where `a`.`front` = `b`.`rear` and `a`.`front` = `c`.`rem` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_units`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_units`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_units` AS select `images`.`id` AS `id`,`images`.`filename` AS `filename` from `images` where `images`.`unit` > 0 */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -537,4 +994,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-11 21:57:46
+-- Dump completed on 2024-02-20 15:53:22
