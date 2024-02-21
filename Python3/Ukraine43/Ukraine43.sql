@@ -556,12 +556,6 @@ CREATE TABLE `units` (
 LOCK TABLES `units` WRITE;
 /*!40000 ALTER TABLE `units` DISABLE KEYS */;
 INSERT INTO `units` VALUES
-(1,'Central-RH',4,5,0,'Central-RH-f.png','Central-RH-r.png','blank.png'),
-(2,'CentralFront',3,0,0,'CentralFront-f.png','blank.png','blank.png'),
-(3,'CZ-17-1Czech',10,0,0,'CZ-17-1Czech-f.png','blank.png','blank.png'),
-(4,'Disrupted-1',15,16,0,'Disrupted-1-f.png','Disrupted-1-r.png','blank.png'),
-(5,'EmergencySupply-1',17,18,0,'EmergencySupply-1-f.png','EmergencySupply-1-r.png','blank.png'),
-(6,'GameTurn',19,20,0,'GameTurn-f.png','GameTurn-r.png','blank.png'),
 (7,'GE-10S-101Jaeg',21,22,0,'GE-10S-101Jaeg-f.png','GE-10S-101Jaeg-r.png','blank.png'),
 (8,'GE-11S-79',23,24,0,'GE-11S-79-f.png','GE-11S-79-r.png','blank.png'),
 (9,'GE-12N-20Pzg',25,27,26,'GE-12N-20Pzg-f.png','GE-12N-20Pzg-r.png','GE-12N-20Pzg-REM.png'),
@@ -634,7 +628,6 @@ INSERT INTO `units` VALUES
 (76,'GE-E-239StugA',175,0,0,'GE-E-239StugA-f.png','blank.png','blank.png'),
 (77,'GE-E-239StugB',176,0,0,'GE-E-239StugB-f.png','blank.png','blank.png'),
 (78,'GE-E-243Stug',177,0,0,'GE-E-243Stug-f.png','blank.png','blank.png'),
-(79,'GE-Fort-1',178,179,0,'GE-Fort-1-f.png','GE-Fort-1-r.png','blank.png'),
 (80,'GE-K-503Tiger',181,0,0,'GE-K-503Tiger-f.png','blank.png','blank.png'),
 (81,'GE-K-911Stug',182,0,0,'GE-K-911Stug-f.png','blank.png','blank.png'),
 (82,'GE-Kv-218SEC',183,0,0,'GE-Kv-218SEC-f.png','blank.png','blank.png'),
@@ -644,15 +637,9 @@ INSERT INTO `units` VALUES
 (86,'GE-REM-Para',188,0,0,'GE-REM-Para-f.png','blank.png','blank.png'),
 (87,'GE-Za-454SEC',189,0,0,'GE-Za-454SEC-f.png','blank.png','blank.png'),
 (88,'HUN-2A-1H',190,191,0,'HUN-2A-1H-f.png','HUN-2A-1H-r.png','blank.png'),
-(89,'OutOfSupply-1',193,194,0,'OutOfSupply-1-f.png','OutOfSupply-1-r.png','blank.png'),
-(90,'RailMove-1',195,0,0,'RailMove-1-f.png','blank.png','blank.png'),
-(91,'ReplMarker-1',197,0,0,'ReplMarker-1-f.png','blank.png','blank.png'),
-(92,'RiverAssault-1',198,199,0,'RiverAssault-1-f.png','RiverAssault-1-r.png','blank.png'),
 (93,'RO-18S-4R',200,201,0,'RO-18S-4R-f.png','RO-18S-4R-r.png','blank.png'),
 (94,'RO-9Odessa-24R',202,203,0,'RO-9Odessa-24R-f.png','RO-9Odessa-24R-r.png','blank.png'),
 (95,'SLO-16S-1Slov',204,205,0,'SLO-16S-1Slov-f.png','SLO-16S-1Slov-r.png','blank.png'),
-(96,'South1-RH',206,207,0,'South1-RH-f.png','South1-RH-r.png','blank.png'),
-(97,'South2-RH',208,209,0,'South2-RH-f.png','South2-RH-r.png','blank.png'),
 (98,'SOV-10-19Tank',210,211,0,'SOV-10-19Tank-f.png','SOV-10-19Tank-r.png','blank.png'),
 (99,'SOV-10-20Tank',212,213,0,'SOV-10-20Tank-f.png','SOV-10-20Tank-r.png','blank.png'),
 (100,'SOV-11-3GdsTankHQ',214,0,0,'SOV-11-3GdsTankHQ-f.png','blank.png','blank.png'),
@@ -683,7 +670,6 @@ INSERT INTO `units` VALUES
 (125,'SOV-E-27GdsT34',262,0,0,'SOV-E-27GdsT34-f.png','blank.png','blank.png'),
 (126,'SOV-E-68_69Gds',263,264,0,'SOV-E-68_69Gds-f.png','SOV-E-68_69Gds-r.png','blank.png'),
 (127,'SOV-E-6T34Gds',265,0,0,'SOV-E-6T34Gds-f.png','blank.png','blank.png'),
-(128,'SOV-Fort-1',266,267,0,'SOV-Fort-1-f.png','SOV-Fort-1-r.png','blank.png'),
 (129,'SOV-Ku-K-3GdsArty',269,270,0,'SOV-Ku-K-3GdsArty-f.png','SOV-Ku-K-3GdsArty-r.png','blank.png'),
 (130,'SOV-Leader-Zhukov',271,272,0,'SOV-Leader-Zhukov-f.png','SOV-Leader-Zhukov-r.png','blank.png'),
 (131,'SOV-S-118_127',273,274,0,'SOV-S-118_127-f.png','SOV-S-118_127-r.png','blank.png'),
@@ -789,205 +775,9 @@ INSERT INTO `units` VALUES
 (231,'SOV-V-SU-1',463,0,0,'SOV-V-SU-1-f.png','blank.png','blank.png'),
 (232,'SOV-V-SU-2',464,0,0,'SOV-V-SU-2-f.png','blank.png','blank.png'),
 (233,'SOV-V-T34-1',465,0,0,'SOV-V-T34-1-f.png','blank.png','blank.png'),
-(234,'SovControl-1',256,257,0,'SovControl-1-f.png','SovControl-1-r.png','blank.png'),
-(235,'SoWest-RH',466,467,0,'SoWest-RH-f.png','SoWest-RH-r.png','blank.png'),
-(236,'Steppe-RH',468,469,0,'Steppe-RH-f.png','Steppe-RH-r.png','blank.png'),
-(237,'TU-Ko-Turk',470,0,0,'TU-Ko-Turk-f.png','blank.png','blank.png'),
-(238,'Voronezh-RH',480,481,0,'Voronezh-RH-f.png','Voronezh-RH-r.png','blank.png'),
-(239,'VPs_x1',484,485,0,'VPs_x1-f.png','VPs_x1-r.png','blank.png'),
-(240,'VPs_x10',482,483,0,'VPs_x10-f.png','VPs_x10-r.png','blank.png'),
-(241,'Weather',487,0,0,'Weather-f.png','blank.png','blank.png');
+(237,'TU-Ko-Turk',470,0,0,'TU-Ko-Turk-f.png','blank.png','blank.png');
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Temporary table structure for view `v_double`
---
-
-DROP TABLE IF EXISTS `v_double`;
-/*!50001 DROP VIEW IF EXISTS `v_double`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_double` AS SELECT
- 1 AS `name`,
-  1 AS `front`,
-  1 AS `back` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_front`
---
-
-DROP TABLE IF EXISTS `v_front`;
-/*!50001 DROP VIEW IF EXISTS `v_front`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_front` AS SELECT
- 1 AS `id`,
-  1 AS `front` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_rear`
---
-
-DROP TABLE IF EXISTS `v_rear`;
-/*!50001 DROP VIEW IF EXISTS `v_rear`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_rear` AS SELECT
- 1 AS `id`,
-  1 AS `rear` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_rem`
---
-
-DROP TABLE IF EXISTS `v_rem`;
-/*!50001 DROP VIEW IF EXISTS `v_rem`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_rem` AS SELECT
- 1 AS `id`,
-  1 AS `rem` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_tristate`
---
-
-DROP TABLE IF EXISTS `v_tristate`;
-/*!50001 DROP VIEW IF EXISTS `v_tristate`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_tristate` AS SELECT
- 1 AS `name`,
-  1 AS `front`,
-  1 AS `back`,
-  1 AS `rem` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_units`
---
-
-DROP TABLE IF EXISTS `v_units`;
-/*!50001 DROP VIEW IF EXISTS `v_units`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_units` AS SELECT
- 1 AS `id`,
-  1 AS `filename` */;
-SET character_set_client = @saved_cs_client;
-
---
--- Final view structure for view `v_double`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_double`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_double` AS select `a`.`front` AS `name`,`a`.`id` AS `front`,`b`.`id` AS `back` from (`v_front` `a` join `v_rear` `b`) where `a`.`front` = `b`.`rear` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_front`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_front`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_front` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-f',1) AS `front` from `images` where `images`.`filename` regexp '-f\\.' */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_rear`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_rear`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_rear` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-r',1) AS `rear` from `images` where `images`.`filename` regexp '-r\\.' */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_rem`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_rem`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_rem` AS select `images`.`id` AS `id`,substring_index(`images`.`filename`,'-REM',1) AS `rem` from `images` where `images`.`filename` regexp '-rem\\.' */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_tristate`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_tristate`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_tristate` AS select `a`.`front` AS `name`,`a`.`id` AS `front`,`b`.`id` AS `back`,`c`.`id` AS `rem` from ((`v_front` `a` join `v_rear` `b`) join `v_rem` `c`) where `a`.`front` = `b`.`rear` and `a`.`front` = `c`.`rem` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_units`
---
-
-/*!50001 DROP VIEW IF EXISTS `v_units`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`ayeka`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_units` AS select `images`.`id` AS `id`,`images`.`filename` AS `filename` from `images` where `images`.`unit` > 0 */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -998,4 +788,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-20 16:44:50
+-- Dump completed on 2024-02-21 11:44:37
