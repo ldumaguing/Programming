@@ -70,7 +70,6 @@ for x in result:
 		placement = get_placement(river, entering_from)
 		if placement==0:
 			print("No room.")
-			continue
 		# update gameData set j = json_set(j, '$.riverHexPlace', 8)
 		# where name = 'u1';
 		stmt = "update gameData set j = json_set(j, '$.riverHexPlace', " + str(placement) \
