@@ -4,6 +4,11 @@ import mariadb as my
 import hexagon as hx
 import chits as chit
 
+def get_riverStat(hexID):
+	stmt = "select river from map where hexID = '" + hexID + "'"
+	result = my.sql_fetchone(stmt)[0]
+	return int(result)
+
 def is_hill(hexID):
 	stmt = "select flags & (1<<1) from map where hexID = '" + hexID + "'"
 	#print(stmt)
