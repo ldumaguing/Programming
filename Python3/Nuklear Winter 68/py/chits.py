@@ -40,9 +40,17 @@ def get_movement(subject, scenario, flip):
 	return my.sql_fetchone(stmt)[0]
 '''
 
-
-
-
+def is_on_riverHex(subject, scenario):
+	# select JSON_VALUE(j, '$.riverHexPlace') from gameData
+	# where name regexp '^u' and scenario = '01-Day8'
+	# and name = 'u1'
+	stmt = "select JSON_VALUE(j, '$.riverHexPlace') from gameData" \
+		+ " where name regexp '^u' and scenario = '" + scenario + "'" \
+		+ " and name = '" + subject + "'"
+	X = int(my.sql_fetchone(stmt)[0])
+	if X>0:
+		return True
+	return False
 
 def is_on_hill(subject, scenario):
 	fields = "flags & (1<<1)"
