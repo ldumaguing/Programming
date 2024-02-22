@@ -6,28 +6,53 @@ import hexagon as hx
 
 def get_placement(river, frm):
 	riv = (river&16383)
-	print(river, riv&(1<<13))
 	if frm=="A":
 		if riv&(1<<13):
 			if riv&(1<<12)==0:
 				return (1<<12)
 			return 0
 		return (1<<13)
+
 	if frm=="B":
-		return 66
+		if riv&(1<<11):
+			if riv&(1<<10)==0:
+				return (1<<10)
+			return 0
+		return (1<<11)
+
 	if frm=="C":
-		return 66
+		if riv&(1<<9):
+			if riv&(1<<8)==0:
+				return (1<<8)
+			return 0
+		return (1<<9)
+
 	if frm=="D":
-		return 66
+		if riv&(1<<7):
+			if riv&(1<<6)==0:
+				return (1<<6)
+			return 0
+		return (1<<7)
+
 	if frm=="E":
-		return 66
+		if riv&(1<<5):
+			if riv&(1<<4)==0:
+				return (1<<4)
+			return 0
+		return (1<<5)
+		
 	if frm=="F":
-		return 66
+		if riv&(1<<3):
+			if riv&(1<<2)==0:
+				return (1<<2)
+			return 0
+		return (1<<3)
+		
 	return 0
 
 
 
-entering_from = "A"
+entering_from = "F"
 
 # select
 # json_value(j, '$.hexLoc[0]'),
