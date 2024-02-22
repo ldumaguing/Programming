@@ -229,6 +229,12 @@ def unit_setup():
 				+ scenario + "'"
 			my.sql_insert_update(stmt)
 
+	# update gameData set j = JSON_INSERT(j, '$.riverHexPlace', 0)
+	# where name regexp '^u' and scenario = '01-Day8';
+	stmt = "update gameData set j = JSON_INSERT(j, '$.riverHexPlace', 0)" \
+		+ " where name regexp '^u' and scenario = '" + scenario + "'"
+	my.sql_insert_update(stmt)
+
 # ****************************************************************************************
 def main():
 	f = open(sys.argv[1], "r")
