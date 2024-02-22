@@ -6,8 +6,10 @@ import chits as chit
 
 def get_riverStat(hexID):
 	stmt = "select river from map where hexID = '" + hexID + "'"
-	result = my.sql_fetchone(stmt)[0]
-	return int(result)
+	result = my.sql_fetchone(stmt)
+	if result==None:
+		return 0
+	return int(result[0])
 
 def is_hill(hexID):
 	stmt = "select flags & (1<<1) from map where hexID = '" + hexID + "'"
