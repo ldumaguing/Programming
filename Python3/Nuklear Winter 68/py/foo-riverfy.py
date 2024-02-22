@@ -52,15 +52,14 @@ def get_placement(river, frm):
 
 
 
-entering_from = "F"
+entering_from = "A"
 
 # select
 # json_value(j, '$.hexLoc[0]'),
-# json_value(j, '$.hexLoc[1]')
+# json_value(j, '$.hexLoc[1]'), name
 # from gameData where name regexp '^u';
-stmt = "select json_value(j, '$.hexLoc[0]'), json_value(j, '$.hexLoc[1]')" \
+stmt = "select json_value(j, '$.hexLoc[0]'), json_value(j, '$.hexLoc[1]'), name" \
 	+ " from gameData where name regexp '^u'"
-
 result = my.sql_fetchall(stmt)
 for x in result:
 	if int(x[0])<0:   # is unit not in play
@@ -68,5 +67,19 @@ for x in result:
 	hexID = hx.convert_loc2id(  (int(x[0]), int(x[1]))  )
 	river = map0.get_riverStat(hexID)
 	if river>0:  # is unit on a rivered hex
-		print(hexID, river)
-		print(">>>", get_placement(river, entering_from))
+		placement = get_placement(river, entering_from)
+		if placement==0:
+			print("No room.")
+			continue
+		# update gameData set j = json_set(j, '$.riverHexPlace', 8)
+		# where name = 'u1';
+		stmt = "update gameData set j = json_set(j, '$.riverHexPlace', " + str(placement) \
+			+ ") where name = '" + x[2] + "'"
+		print(stmt)
+	my.sql_insert_update(stmt)
+
+
+
+
+
+
