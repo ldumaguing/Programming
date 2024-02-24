@@ -5,22 +5,43 @@ import hexagon as hx
 import chits as chit
 import map0
 
-def is_block_right(riverStat, want, currPlace):
-	print(riverStat, want, currPlace)
+def oneBitShiftRotateRight(position):
+	x = position>>1
+	if x==0:
+		return 2048   # 12 bits position
+	return x
+
+def oneBitShiftRotateLeft(position):
+	x = position<<1
+	if x>2048:
+		return 1   # 12 bits position
+	return x
+
+
+def is_block_left(riverStat, want, currPlace):
 	blocking = riverStat>>14
-	# exitType = 0   # 1: reached want; 2: reached block
-	while currPlace>0:
+	print(">>>", riverStat, want, currPlace, blocking)
+	for x in range(12):
+		print(currPlace)
+		if currPlace&blocking:
+			return True
+		if currPlace&want:
+			return False
+		currPlace = oneBitShiftRotateLeft(currPlace)
+
+	return False
+
+def is_block_right(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	print(">>>", riverStat, want, currPlace, blocking)
+	for x in range(12):
 		print(currPlace)
 		if currPlace&want:
-			# exitType=1
 			return False
-			break
 		if currPlace&blocking:
-			# exitType=2
 			return True
-			break
-		currPlace = currPlace>>1
-	# print("exit type:", exitType)
+		currPlace = oneBitShiftRotateRight(currPlace)
+
 	return False
 
 def is_my_river_blocking(unit, scenario, direction):
@@ -44,7 +65,8 @@ def is_my_river_blocking(unit, scenario, direction):
 
 	currPlace = chit.get_riverPlace(unit, scenario)>>2
 	# print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
-	print(is_block_right(riverStat, exitEdge, currPlace))
+	print("right blocked:", is_block_right(riverStat, exitEdge, currPlace))
+	print("left blocked:", is_block_left(riverStat, exitEdge, currPlace))
 	return True
 
 def is_not_enough_movement(subject, scenario, obj):
