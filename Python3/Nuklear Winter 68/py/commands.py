@@ -10,8 +10,9 @@ def move(subject, obj, scenario):
 	if mek.is_not_enough_movement(subject, scenario, obj):
 		print("***** Not enough movement points.")
 		return
-
-
+	if mek.is_my_river_blocking(subject, scenario, obj):
+		print("***** My river is blocking.")
+		return
 
 '''
 	currLoc = chit.get_currLoc(subject, scenario)

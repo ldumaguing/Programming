@@ -5,6 +5,29 @@ import hexagon as hx
 import chits as chit
 import map0
 
+def is_my_river_blocking(unit, scenario, direction):
+	riverStat = map0.get_riverStat(chit.get_currHexID(unit, scenario))
+	if riverStat==0:  # there is no river
+		print("There is no river")
+		return False
+	exitEdge = 0
+	if direction=="A":
+		exitEdge=(3<<10)
+	if direction=="B":
+		exitEdge=(3<<8)
+	if direction=="C":
+		exitEdge=(3<<6)
+	if direction=="D":
+		exitEdge=(3<<4)
+	if direction=="E":
+		exitEdge=(3<<2)
+	if direction=="F":
+		exitEdge=(3<<0)
+
+	currPlace = chit.get_riverPlace(unit, scenario)>>2
+	print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
+	return True
+
 def is_not_enough_movement(subject, scenario, obj):
 	currLoc = chit.get_currLoc(subject, scenario)
 	

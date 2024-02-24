@@ -3,6 +3,12 @@ import re
 import mariadb as my
 import hexagon as hx
 
+def get_riverPlace(subject, scenario):
+	stmt = "select json_value(j, '$.riverHexPlace') from gameData where name = '" + subject \
+		+ "' and scenario = '" + scenario + "'"
+	result = my.sql_fetchone(stmt)
+	return int(result[0])
+
 def get_currLoc(subject, scenario):
 	# returning a tuple
 	stmt = "select JSON_VALUE(j, '$.hexLoc[0]'), JSON_VALUE(j, '$.hexLoc[1]') from gameData where name = '" + subject \
