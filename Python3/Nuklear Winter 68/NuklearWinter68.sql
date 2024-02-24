@@ -46,10 +46,10 @@ INSERT INTO `gameData` VALUES
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
 ('01-Day8','yellowDot',NULL,'<img id=\"yellowDot\" src=\"images_mine/Yellow Dot.png\" hidden>','{}'),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [5, 10], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 0}'),
-('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [0, 6], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"currMove\": 7, \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8], \"riverHexPlace\": 0}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [5, 10], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 4096}'),
+('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [0, 6], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"currMove\": 7, \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8], \"riverHexPlace\": 8192}'),
 ('01-Day8','AM:1/130;2','2',NULL,NULL),
-('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 7], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
+('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 7], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 8192}'),
 ('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 3], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
 ('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [26, 4], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"currMove\": 6, \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2], \"riverHexPlace\": 0}'),
 ('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [27, 5], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"currMove\": 6, \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2], \"riverHexPlace\": 0}'),
@@ -313,19 +313,29 @@ CREATE TABLE `map` (
 LOCK TABLES `map` WRITE;
 /*!40000 ALTER TABLE `map` DISABLE KEYS */;
 INSERT INTO `map` VALUES
+('map0','A7',0,'{}',2129920),
 ('map0','AA14',2,'{}',0),
 ('map0','AA15',2,'{}',0),
-('map0','AA2',2304,'{}',0),
-('map0','AA6',5120,'{}',0),
 ('map0','B16',2,'{}',0),
 ('map0','B17',2,'{}',0),
-('map0','BB1',2304,'{}',0),
+('map0','B7',0,'{}',2129920),
 ('map0','BB13',2,'{}',0),
 ('map0','BB14',2,'{}',0),
 ('map0','C17',2,'{}',0),
-('map0','CC1',2304,'{}',0),
+('map0','C8',0,'{}',2129921),
 ('map0','CC14',2,'{}',0),
 ('map0','CC15',2,'{}',0),
+('map0','D8',0,'{}',2132992),
+('map0','E3',32,'{}',0),
+('map0','E7',32,'{}',0),
+('map0','E9',0,'{}',524412),
+('map0','F10',0,'{}',557152),
+('map0','F11',0,'{}',34349123),
+('map0','F12',0,'{}',35651842),
+('map0','F2',32,'{}',0),
+('map0','F3',32,'{}',0),
+('map0','G3',32,'{}',0),
+('map0','G4',32,'{}',0),
 ('map0','H6',2,'{}',0),
 ('map0','H7',2,'{}',0),
 ('map0','I6',2,'{}',0),
@@ -375,19 +385,14 @@ INSERT INTO `map` VALUES
 ('map0','U9',2,'{}',0),
 ('map0','V10',2,'{}',0),
 ('map0','V11',2,'{}',0),
+('map0','V13',32,'{}',0),
 ('map0','V4',2,'{}',0),
 ('map0','V5',2,'{}',0),
 ('map0','V6',2,'{}',0),
 ('map0','V9',2,'{}',0),
 ('map0','W10',2,'{}',0),
 ('map0','W11',2,'{}',0),
-('map0','Y5',4608,'{}',0),
-('map0','Y6',2304,'{}',0),
-('map0','Z14',2,'{}',0),
-('map0','Z2',1280,'{}',0),
-('map0','Z3',1152,'{}',0),
-('map0','Z4',1152,'{}',0),
-('map0','Z5',6784,'{}',0);
+('map0','Z14',2,'{}',0);
 /*!40000 ALTER TABLE `map` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -870,4 +875,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-23 18:43:20
+-- Dump completed on 2024-02-23 19:15:19
