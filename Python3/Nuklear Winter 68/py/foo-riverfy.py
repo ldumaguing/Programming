@@ -66,6 +66,7 @@ for x in result:
 		continue
 	hexID = hx.convert_loc2id(  (int(x[0]), int(x[1]))  )
 	river = map0.get_riverStat(hexID)
+	# print(hexID, river)
 	if river>0:  # is unit on a rivered hex
 		placement = get_placement(river, entering_from)
 		if placement==0:
@@ -74,8 +75,8 @@ for x in result:
 		# where name = 'u1';
 		stmt = "update gameData set j = json_set(j, '$.riverHexPlace', " + str(placement) \
 			+ ") where name = '" + x[2] + "'"
-		print(stmt)
-	my.sql_insert_update(stmt)
+		# print(stmt)
+		my.sql_insert_update(stmt)
 
 
 
