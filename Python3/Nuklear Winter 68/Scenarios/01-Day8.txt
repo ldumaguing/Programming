@@ -23,7 +23,7 @@ BLACK HAND
 placeRedControl O18,P17,P18,Q8
 
 >>>>> PLACEMENT
-u1 F11
+u1 G11
 u2 A7
 u3 D8
 u4 E4
