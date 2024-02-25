@@ -13,7 +13,9 @@ def move(subject, obj, scenario):
 	if mek.is_my_river_blocking(subject, scenario, obj):
 		print("***** My river is blocking.")
 		return
-
+	if mek.is_adjay_river_blocking(unit, scenario, direction):
+		print("***** Adjacent river is blocking.")
+		return
 '''
 	currLoc = chit.get_currLoc(subject, scenario)
 
