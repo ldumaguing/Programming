@@ -51,16 +51,18 @@ def is_adjay_river_blocking(unit, scenario, direction):
 	# print(unit, currLoc, hexID)
 	river = map0.get_riverStat(hexID)
 	if river==0:
-		print(">>> There is no river ahead.")
-		return 0
+		print(">>> There is no river there.")
+		return False
 	placement = map0.get_placement(river, direction)
 	print("is adjay river blocking?", river, placement, direction)
-	return placement
+	if placement>0:
+		return False
+	return True
 
 def is_my_river_blocking(unit, scenario, direction):
 	riverStat = map0.get_riverStat(chit.get_currHexID(unit, scenario))
 	if riverStat==0:  # there is no river
-		print("There is no river")
+		print("There is no river here")
 		return False
 	exitEdge = 0
 	if direction=="A":
