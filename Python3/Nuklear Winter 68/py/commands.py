@@ -32,10 +32,13 @@ def move(subject, obj, scenario):
 		)
 
 	print(movement, cost, nID, nLoc)
+	river = map0.get_riverStat(nID)
+	print("river:", river)
+	print(map0.get_placement(river, obj))
 	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 		+ str(nLoc[0]) + ", '$.hexLoc[1]'," + str(nLoc[1]) + ") where name = '" + subject + "'" \
 		+ " and scenario = '" + scenario + "'"
-	my.sql_insert_update(stmt)
+	# my.sql_insert_update(stmt)
 
 '''
 	currLoc = chit.get_currLoc(subject, scenario)
