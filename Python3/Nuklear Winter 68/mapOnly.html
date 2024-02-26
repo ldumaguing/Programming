@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nuklear Winter '68</title>
+<!-- <meta http-equiv="refresh" content="3"> -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="populateCanvas()">
+<canvas id="canvas0" width="6372" height="4139"></canvas>
+<img id="map" src="images/Map.jpg" hidden>
+
+<script>
+function populateCanvas() {
+	let c = document.getElementById("canvas0");
+	let ctx = c.getContext("2d");
+
+	let map = document.getElementById("map");
+
+	ctx.drawImage(map, 0, 0);
+}
+</script>
+</body>
+</html>
