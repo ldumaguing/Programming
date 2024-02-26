@@ -211,9 +211,13 @@ def get_hexDist(hexLoc_a, hexLoc_b):
 		count = count+1;
 
 # ****************************************************************************************
-def get_neighbor(currLoc, direction):
-	return step_to_direction(currLoc, direction)
-	
+def get_neighborLoc(currLoc, direction):
+	return step_to_direction(currLoc, direction)  # a tuple
+
+# ****************************************************************************************
+def get_neighborHexID(hexID, direction):
+	return convert_loc2id(get_neighborLoc(convert_id2loc(hexID), direction))
+
 # ----------------------------------------------------------------------------------------
 def EN(hexLoc_a, hexLoc_b, ANGLE):
 	#print("EN:", hexLoc_a, hexLoc_b, ANGLE)

@@ -4,21 +4,38 @@ import mariadb as my
 import hexagon as hx
 import mechanics as mek
 import chits as chit
+import map0
+import mariadb as my
 
 def move(subject, obj, scenario):
 	# move u1 A
+	if mek.is_my_river_blocking(subject, scenario, obj):
+		print("***** My river is blocking.")
+		return
 	if mek.is_adjay_river_blocking(subject, scenario, obj):
 		print("***** Adjacent river is blocking.")
 		return
 	if mek.is_not_enough_movement(subject, scenario, obj):
 		print("***** Not enough movement points.")
 		return
-	if mek.is_my_river_blocking(subject, scenario, obj):
-		print("***** My river is blocking.")
-		return
-	
 
 
+	print("Roger that.")
+	nID = hx.get_neighborHexID(chit.get_currHexID(subject, scenario), obj)
+	nLoc = hx.convert_id2loc(nID)
+	movement = chit.get_curr_movement(subject, scenario)
+	cost = map0.get_terrain_cost(
+		chit.get_currHexID(subject, scenario),
+		subject,
+		nID,
+		scenario
+		)
+
+	print(movement, cost, nID, nLoc)
+	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
+		+ str(nLoc[0]) + ", '$.hexLoc[1]'," + str(nLoc[1]) + ") where name = '" + subject + "'" \
+		+ " and scenario = '" + scenario + "'"
+	my.sql_insert_update(stmt)
 
 '''
 	currLoc = chit.get_currLoc(subject, scenario)

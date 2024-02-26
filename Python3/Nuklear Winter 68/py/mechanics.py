@@ -47,14 +47,14 @@ def is_block_right(riverStat, want, currPlace):
 def is_adjay_river_blocking(unit, scenario, direction):
 	# print("test adjay")
 	currLoc = chit.get_currLoc(unit, scenario)
-	hexID = hx.convert_loc2id(hx.get_neighbor(currLoc, direction))
+	hexID = hx.convert_loc2id(hx.get_neighborLoc(currLoc, direction))
 	# print(unit, currLoc, hexID)
 	river = map0.get_riverStat(hexID)
 	if river==0:
-		print(">>> There is no river there.")
+		# print(">>> There is no river there.")
 		return False
 	placement = map0.get_placement(river, direction)
-	print("is adjay river blocking?", river, placement, direction)
+	# print("is adjay river blocking?", river, placement, direction)
 	if placement>0:
 		return False
 	return True
@@ -62,7 +62,7 @@ def is_adjay_river_blocking(unit, scenario, direction):
 def is_my_river_blocking(unit, scenario, direction):
 	riverStat = map0.get_riverStat(chit.get_currHexID(unit, scenario))
 	if riverStat==0:  # there is no river
-		print("There is no river here")
+		# print("There is no river here")
 		return False
 	exitEdge = 0
 	if direction=="A":
@@ -90,17 +90,17 @@ def is_not_enough_movement(subject, scenario, obj):
 	
 	n = ()
 	if obj=="A":
-		n = hx.get_neighbor(currLoc, "A")
+		n = hx.get_neighborLoc(currLoc, "A")
 	if obj=="B":
-		n = hx.get_neighbor(currLoc, "B")
+		n = hx.get_neighborLoc(currLoc, "B")
 	if obj=="C":
-		n = hx.get_neighbor(currLoc, "C")
+		n = hx.get_neighborLoc(currLoc, "C")
 	if obj=="D":
-		n = hx.get_neighbor(currLoc, "D")
+		n = hx.get_neighborLoc(currLoc, "D")
 	if obj=="E":
-		n = hx.get_neighbor(currLoc, "E")
+		n = hx.get_neighborLoc(currLoc, "E")
 	if obj=="F":
-		n = hx.get_neighbor(currLoc, "F")
+		n = hx.get_neighborLoc(currLoc, "F")
 	
 	movement = chit.get_curr_movement(subject, scenario)
 	cost = map0.get_terrain_cost(
