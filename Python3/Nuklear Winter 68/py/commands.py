@@ -22,6 +22,7 @@ def move(subject, obj, scenario):
 
 	print("Roger that.")
 	nID = hx.get_neighborHexID(chit.get_currHexID(subject, scenario), obj)
+	nRiver = map0.get_riverStat(nID)
 	nLoc = hx.convert_id2loc(nID)
 	movement = chit.get_curr_movement(subject, scenario)
 	cost = map0.get_terrain_cost(
@@ -30,56 +31,32 @@ def move(subject, obj, scenario):
 		nID,
 		scenario
 		)
-
-	print(movement, cost, nID, nLoc)
-	river = map0.get_riverStat(nID)
-	print("river:", river)
-	print(map0.get_placement(river, obj))
+	# print(nID, nLoc, nRiver, movement, cost, subject)
 	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 		+ str(nLoc[0]) + ", '$.hexLoc[1]'," + str(nLoc[1]) + ") where name = '" + subject + "'" \
 		+ " and scenario = '" + scenario + "'"
-	# my.sql_insert_update(stmt)
-
-'''
-	currLoc = chit.get_currLoc(subject, scenario)
-
-	n = ()
-	if obj=="A":
-		n = hx.get_neighbor(currLoc, "A")
-	if obj=="B":
-		n = hx.get_neighbor(currLoc, "B")
-	if obj=="C":
-		n = hx.get_neighbor(currLoc, "C")
-	if obj=="D":
-		n = hx.get_neighbor(currLoc, "D")
-	if obj=="E":
-		n = hx.get_neighbor(currLoc, "E")
-	if obj=="F":
-		n = hx.get_neighbor(currLoc, "F")
-
-	print("%%%%%", currLoc, n)
-	hexAhead_ID = hx.convert_loc2id(n)
-	# print(">>>>>>>>>>>", currLoc, n, subject, obj, hexAhead_ID)
-	"""
-	currLoc      (20, 8)
-	n            (20, 7)
-	subject      u1
-	hexAhead_ID  U8
-	"""
-
-
-	if mek.is_not_enough_movement(subject, scenario, hexAhead_ID):
-		print("***** Not enough movement points.")
+	my.sql_insert_update(stmt)
+	if nRiver==0:
+		stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', 0)"   \
+			+ " where name = '" + subject + "' and scenario = '" + scenario + "'"
+		my.sql_insert_update(stmt)
 		return
 
-	print("Roger that.")
-	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
-		+ str(n[0]) + ", '$.hexLoc[1]'," + str(n[1]) + ") where name = '" + subject + "'" \
-		+ " and scenario = '" + scenario + "'"
-	sql.sql(stmt)
+	slot = map0.get_slot(nRiver, obj)
+	# print("---", slot, nRiver, obj, "---", slot>>2)
+	# print(nID, nLoc, nRiver, movement, cost)
+	# update gameData set j = JSON_SET(j, '$.riverHexPlace', 333)
+	# where name = 'u2' and scenario = '01-Day8';
+	stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', " + str(slot) \
+		+ ") where name = '" + subject + "' and scenario = '" + scenario + "'"
+	my.sql_insert_update(stmt)
 
 
 
+
+
+
+'''
 def embark(subject, obj, scenario):
 	print(subject, "embark", obj)
 
