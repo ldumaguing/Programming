@@ -12,16 +12,35 @@ def oneBitShiftRotateLeft(position):
 		return 1   # 12 bits position
 	return x
 
+def is_block_right(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	print("is_block_right>>>", riverStat, want, currPlace, blocking)
+	for x in range(12):
+		print(".", currPlace)
+		if currPlace&want:
+			return False
+		if currPlace&blocking:
+			return True
+		currPlace = oneBitShiftRotateRight(currPlace)
 
+	return False
 
+def is_block_left(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	print(">>>", riverStat, want, currPlace, blocking)
+	currPlace = oneBitShiftRotateLeft(currPlace)
+	for x in range(12):
+		print(".", currPlace)
+		if currPlace&blocking:
+			return True
+		if currPlace&want:
+			return False
+		currPlace = oneBitShiftRotateLeft(currPlace)
 
+	return False
 
-num = 256
-#for x in range(12):
-#	num = oneBitShiftRotateRight(num)
-#	print(num)
+print("***")
+print(is_block_right(35659776, 12, 128))
+print(is_block_left(35659776, 12, 128))
 
-for x in range(12):
-	num = oneBitShiftRotateLeft(num)
-	print(num)
 

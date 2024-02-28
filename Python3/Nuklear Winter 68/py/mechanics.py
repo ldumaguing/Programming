@@ -17,12 +17,25 @@ def oneBitShiftRotateLeft(position):
 		return 1   # 12 bits position
 	return x
 
+def is_block_right(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	print("is_block_right>>>", riverStat, want, currPlace, blocking)
+	for x in range(12):
+		print(".", currPlace)
+		if currPlace&want:
+			return False
+		if currPlace&blocking:
+			return True
+		currPlace = oneBitShiftRotateRight(currPlace)
+
+	return False
 
 def is_block_left(riverStat, want, currPlace):
 	blocking = riverStat>>14
-	# print(">>>", riverStat, want, currPlace, blocking)
+	print(">>>", riverStat, want, currPlace, blocking)
+	currPlace = oneBitShiftRotateLeft(currPlace)
 	for x in range(12):
-		# print(currPlace)
+		print(".", currPlace)
 		if currPlace&blocking:
 			return True
 		if currPlace&want:
@@ -31,18 +44,8 @@ def is_block_left(riverStat, want, currPlace):
 
 	return False
 
-def is_block_right(riverStat, want, currPlace):
-	blocking = riverStat>>14
-	# print(">>>", riverStat, want, currPlace, blocking)
-	for x in range(12):
-		# print(currPlace)
-		if currPlace&want:
-			return False
-		if currPlace&blocking:
-			return True
-		currPlace = oneBitShiftRotateRight(currPlace)
 
-	return False
+
 
 def is_adjay_river_blocking(unit, scenario, direction):
 	# print("test adjay")
@@ -78,10 +81,11 @@ def is_my_river_blocking(unit, scenario, direction):
 	if direction=="F":
 		exitEdge=(3<<0)
 
-	currPlace = chit.get_riverPlace(unit, scenario)>>2
-	# print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
+	currPlace = chit.get_riverPlace(unit, scenario)>>2  # removing bridge
+	print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
 	print("right blocked:", is_block_right(riverStat, exitEdge, currPlace))
 	print("left blocked:", is_block_left(riverStat, exitEdge, currPlace))
+	print("***")
 	return is_block_right(riverStat, exitEdge, currPlace) \
 		and is_block_left(riverStat, exitEdge, currPlace)
 
