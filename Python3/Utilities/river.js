@@ -1,12 +1,14 @@
 var c = document.getElementById("canvas0");
 var ctx = c.getContext("2d");
 var hex = document.getElementById("hex");
-var slot = document.getElementById("slot")
-var hinder = document.getElementById("hinder")
+var slot = document.getElementById("slot");
+var hinder = document.getElementById("hinder");
+var river = document.getElementById("river");
 ctx.drawImage(hex, 0, 0);
 
 var placement = 0;
 var blocking = 0;
+var riv = 0;
 
 c.addEventListener("mousedown", (e) => {
 	x = e.offsetX;
@@ -62,6 +64,9 @@ c.addEventListener("mousedown", (e) => {
 	if ((x>158) & (x<178) & (y>54) & (y<74))
 		blockin(168, 64, 0);
 	hinder.innerHTML = blocking;
+	riv = blocking<<14;
+	riv = riv | (placement<<2);
+	river.innerHTML = riv;
 });
 
 function blockin(X, Y, Z) {
