@@ -8,7 +8,9 @@ import map0
 import mariadb as my
 
 def move(subject, obj, scenario):
-	# move u1 A
+	# u1 move A
+	#    subject: u1
+	#    obj:     A
 	if mek.is_my_river_blocking(subject, scenario, obj):
 		print("***** My river is blocking.")
 		return
@@ -44,7 +46,8 @@ def move(subject, obj, scenario):
 		my.sql_insert_update(stmt)
 		return
 
-	slot = map0.get_slot(nRiver, obj)
+	rivPlace = chit.get_riverPlace(subject, scenario)
+	slot = map0.get_placement(nRiver, obj, rivPlace)
 	print("---", slot, nRiver, obj, "---", slot>>2)
 	print(nID, nLoc, nRiver, movement, cost)
 	# update gameData set j = JSON_SET(j, '$.riverHexPlace', 333)

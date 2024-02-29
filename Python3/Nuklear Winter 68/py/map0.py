@@ -4,8 +4,14 @@ import mariadb as my
 import hexagon as hx
 import chits as chit
 
+def get_placement_p2(riv, frm, frmPlace):
+	print("<part 2>", riv, frm, frmPlace)
 
-def get_slot(riv, frm):
+def get_placement(riv, frm, frmPlace):
+	if frmPlace>0:
+		get_placement_p2(riv, frm, frmPlace)
+		return 0
+
 	# 16380 : 11111111111100
 	slots = riv&16380
 	print(">>>", riv, frm, slots)
@@ -52,6 +58,7 @@ def get_slot(riv, frm):
 		return (1<<3)
 	return 0
 
+'''
 def get_placement(river, frm):
 	# Relative to the adjacent hex
 	if frm=="A":
@@ -110,6 +117,7 @@ def get_placement(river, frm):
 		return (1<<3)
 		
 	return 0
+'''
 
 def get_riverStat(hexID):
 	stmt = "select river from map where hexID = '" + hexID + "'"
