@@ -3,12 +3,63 @@ import re
 import mariadb as my
 import hexagon as hx
 import chits as chit
+import mechanics as mek
+
+def get_opening_from_left(blocker, want, frmPlace):
+	for x in range(12):
+		print(want, ".", frmPlace, x)
+		if frmPlace&want:
+			return frmPlace
+		if frmPlace&blocker:
+			return -1
+		frmPlace = mek.oneBitShiftRotateLeft(frmPlace)
+	return -2
+
+def get_opening_from_right(blocker, want, frmPlace):
+	for x in range(12):
+		print(want, ".", frmPlace, x)
+		if frmPlace&want:
+			return frmPlace
+		if frmPlace&blocker:
+			return -1
+		frmPlace = mek.oneBitShiftRotateRight(frmPlace)
+	return -2
+
 
 def get_placement_p2(riv, frm, frmPlace):
 	print("<part 2>", riv, frm, frmPlace)
+	riv = riv>>2
+	a = riv>>12
+	b = riv & 4095
+	blocker = a | b
+	print(blocker)
+	want = 0
+	if frm=="A":
+		want=48
+	if frm=="B":
+		want=12
+	if frm=="C":
+		want=3
+	if frm=="D":
+		want=3072
+	if frm=="E":
+		want=768
+	if frm=="F":
+		want=192
 
+	place = get_opening_from_right(blocker, want, frmPlace)
+	p = get_opening_from_left(blocker, want, frmPlace)
+	if p>place:
+		place = p
+	print("placement:", place)
+	# print("bla1:", get_opening_from_right(blocker, want, frmPlace))
+	# print("bla2:", get_opening_from_left(blocker, want, frmPlace))
+
+# placement base on riv
+# frm: direction from
 def get_placement(riv, frm, frmPlace):
-	if frmPlace>0:
+	print("<part 1>", riv, frm, frmPlace)
+	if frmPlace>0:   # coming in from another river hex
 		get_placement_p2(riv, frm, frmPlace)
 		return 0
 

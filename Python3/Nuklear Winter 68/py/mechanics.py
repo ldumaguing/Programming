@@ -52,8 +52,8 @@ def is_adjay_river_blocking(unit, scenario, direction):
 	currLoc = chit.get_currLoc(unit, scenario)
 	hexID = hx.convert_loc2id(hx.get_neighborLoc(currLoc, direction))
 	rivPlace = chit.get_riverPlace(unit, scenario)
-	print("<fish>", unit, currLoc, hexID, rivPlace)
 	river = map0.get_riverStat(hexID)
+	print("<fish>", unit, currLoc, hexID, rivPlace, river)
 	if river==0:
 		# print(">>> There is no river there.")
 		return False
