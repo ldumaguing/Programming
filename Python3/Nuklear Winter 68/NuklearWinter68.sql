@@ -46,7 +46,7 @@ INSERT INTO `gameData` VALUES
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
 ('01-Day8','yellowDot',NULL,'<img id=\"yellowDot\" src=\"images_mine/Yellow Dot.png\" hidden>','{}'),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [4, 9], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 512}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [5, 10], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 2048}'),
 ('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [0, 6], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"currMove\": 7, \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8], \"riverHexPlace\": 0}'),
 ('01-Day8','AM:1/130;2','2',NULL,NULL),
 ('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 7], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
@@ -886,4 +886,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-28 16:24:34
+-- Dump completed on 2024-02-29 13:08:06
