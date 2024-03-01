@@ -3,111 +3,48 @@ import re
 import mariadb as my
 import hexagon as hx
 import chits as chit
-import mechanics as mek
 
-def get_opening_from_left(blocker, want, frmPlace):
-	for x in range(12):
-		print(want, ".", frmPlace, x)
-		if frmPlace&want:
-			return frmPlace
-		if frmPlace&blocker:
-			return -1
-		frmPlace = mek.oneBitShiftRotateLeft(frmPlace)
-	return -2
+def get_slot_p2():
+	print("<part 2>")
+	return 2
 
-def get_opening_from_right(blocker, want, frmPlace):
-	for x in range(12):
-		print(want, ".", frmPlace, x)
-		if frmPlace&want:
-			return frmPlace
-		if frmPlace&blocker:
-			return -1
-		frmPlace = mek.oneBitShiftRotateRight(frmPlace)
-	return -2
-
-
-def get_placement_p2(riv, frm, frmPlace):
-	print("<part 2>", riv, frm, frmPlace)
-	riv = riv>>2
-	a = riv>>12
-	b = riv & 4095
-	blocker = a | b
-	print(blocker)
-	want = 0
-	if frm=="A":
-		want=48
-	if frm=="B":
-		want=12
-	if frm=="C":
-		want=3
-	if frm=="D":
-		want=3072
-	if frm=="E":
-		want=768
-	if frm=="F":
-		want=192
-
-	place = get_opening_from_right(blocker, want, frmPlace)
-	p = get_opening_from_left(blocker, want, frmPlace)
-	if p>place:
-		place = p
-	print("placement:", place)
-	# print("bla1:", get_opening_from_right(blocker, want, frmPlace))
-	# print("bla2:", get_opening_from_left(blocker, want, frmPlace))
-
-# placement base on riv
-# frm: direction from
-def get_placement(riv, frm, frmPlace):
-	print("<part 1>", riv, frm, frmPlace)
-	if frmPlace>0:   # coming in from another river hex
-		get_placement_p2(riv, frm, frmPlace)
-		return 0
+def get_slot(riv, frm, frmSlot):
+	if frmSlot>0:    # unit is from a river hex
+		return get_slot_p2()
 
 	# 16380 : 11111111111100
-	slots = riv&16380
+	print("riv, frm, frmSlot:", riv, frm, frmSlot)
+	slots = (riv&16380)>>2
 	print(">>>", riv, frm, slots)
-	if frm=="D":
-		if riv&(1<<13):
-			if riv&(1<<12)==0:
-				return (1<<12)
-			return 0
-		return (1<<13)
-
-	if frm=="E":
-		if riv&(1<<11):
-			if riv&(1<<10)==0:
-				return (1<<10)
-			return 0
-		return (1<<11)
-
-	if frm=="F":
-		if riv&(1<<9):
-			if riv&(1<<8)==0:
-				return (1<<8)
-			return 0
-		return (1<<9)
-
+	want = 0
+	w = 0
 	if frm=="A":
-		if riv&(1<<7):
-			if riv&(1<<6)==0:
-				return (1<<6)
-			return 0
-		return (1<<7)
-
+		want=3<<4
+		w=2<<4
 	if frm=="B":
-		if riv&(1<<5):
-			if riv&(1<<4)==0:
-				return (1<<4)
-			return 0
-		return (1<<5)
-		
+		want=3<<2
+		w=2<<2
 	if frm=="C":
-		if riv&(1<<3):
-			if riv&(1<<2)==0:
-				return (1<<2)
-			return 0
-		return (1<<3)
-	return 0
+		want=3<<0
+		w=2<<0
+	if frm=="D":
+		want=3<<10
+		w=2<<10
+	if frm=="E":
+		want=3<<8
+		w=2<<8
+	if frm=="F":
+		want=3<<6
+		w=2<<6
+
+	print("want, slots, (want&slots)", want, slots, want&slots)
+	if (want&slots)==0:
+		print("0 slot:", want&w)
+		return (want&w)
+
+	A = want&slots
+	print("1 slot:", A^want)
+	return A^want
 
 '''
 def get_placement(river, frm):

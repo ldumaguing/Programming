@@ -48,26 +48,32 @@ def is_block_left(riverStat, want, currPlace):
 
 
 def is_adjay_river_blocking(unit, scenario, direction):
-	# print("test adjay")
+	print("????????????? adjay river")
 	currLoc = chit.get_currLoc(unit, scenario)
 	hexID = hx.convert_loc2id(hx.get_neighborLoc(currLoc, direction))
-	rivPlace = chit.get_riverPlace(unit, scenario)
-	river = map0.get_riverStat(hexID)
-	print("<fish>", unit, currLoc, hexID, rivPlace, river)
-	if river==0:
-		# print(">>> There is no river there.")
+	print(unit, currLoc, hexID)
+	riverStat = map0.get_riverStat(hexID)
+	print("riverStat:", riverStat)
+	if riverStat==0:
+		print("There is no river there.")
 		return False
-	placement = map0.get_placement(river, direction, rivPlace)
-	# print("is adjay river blocking?", river, placement, direction)
-	if placement>0:
+	rivPlace = chit.get_riverPlace(unit, scenario)
+	print("direction, rivPlace", direction, rivPlace)
+	slot = map0.get_slot(riverStat, direction, rivPlace)
+	print("slot:", slot)
+	
+	if slot>0:
 		return False
 	return True
 
 def is_my_river_blocking(unit, scenario, direction):
+	print("????????????? my river")
 	riverStat = map0.get_riverStat(chit.get_currHexID(unit, scenario))
+	print("riverStat:", riverStat)
 	if riverStat==0:  # there is no river
-		print("There is no river here")
+		print("There is no river here.")
 		return False
+
 	exitEdge = 0
 	if direction=="A":
 		exitEdge=(3<<10)
@@ -82,13 +88,16 @@ def is_my_river_blocking(unit, scenario, direction):
 	if direction=="F":
 		exitEdge=(3<<0)
 
-	currPlace = chit.get_riverPlace(unit, scenario)>>2  # removing bridge
+	currPlace = chit.get_riverPlace(unit, scenario)
+	print(">>> unit, scenario, direction, riverStat, exitEdge, currPlace")
 	print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
 	print("right blocked:", is_block_right(riverStat, exitEdge, currPlace))
 	print("left blocked:", is_block_left(riverStat, exitEdge, currPlace))
-	print("***")
-	return is_block_right(riverStat, exitEdge, currPlace) \
-		and is_block_left(riverStat, exitEdge, currPlace)
+	r_riv = is_block_right(riverStat, exitEdge, currPlace)
+	l_riv = is_block_left(riverStat, exitEdge, currPlace)
+
+	print("***", r_riv & l_riv)
+	return r_riv & l_riv
 
 def is_not_enough_movement(subject, scenario, obj):
 	currLoc = chit.get_currLoc(subject, scenario)
@@ -116,3 +125,27 @@ def is_not_enough_movement(subject, scenario, obj):
 		)
 	#print(currLoc, n, movement, cost)
 	return (movement<cost)
+
+'''
+def is_not_enough_movement(subject, scenario, hexAhead_ID):
+	# get current movement points
+	#print(chit.get_flip_status(subject, scenario))
+	movement = chit.get_movement(subject, scenario,
+		chit.get_flip_status(subject, scenario))
+	"""
+	print("subject:  ", subject)
+	print("flip:     ", chit.get_flip_status(subject, scenario))
+	print("move:     ", movement)
+	print("hexAhead: ", hexAhead)
+	print("currHexID:", chit.get_currHexID(subject, scenario))
+	"""
+	#print(get_hexID(subject, scenario), hexAhead, "<<<")
+	#print(      get_terrain_cost(get_hexID(subject, scenario), scenario, subject, hexAhead)                        )
+	cost = map0.get_terrain_cost(chit.get_currHexID(subject, scenario), subject, hexAhead_ID, scenario)
+	#print("cost:", map0.get_terrain_cost(chit.get_currHexID(subject, scenario), subject, hexAhead, scenario))
+	print("-----", movement, cost)
+	return True
+'''
+
+
+
