@@ -46,6 +46,8 @@ def move(subject, obj, scenario):
 		my.sql_insert_update(stmt)
 		return
 
+
+	'''
 	riverPlace = chit.get_riverPlace(subject, scenario)
 	slot = map0.get_slot(nRiver, obj, riverPlace)
 	print("riverPlace, slot:", riverPlace, slot)
@@ -57,8 +59,8 @@ def move(subject, obj, scenario):
 	stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', " + str(slot) \
 		+ ") where name = '" + subject + "' and scenario = '" + scenario + "'"
 	print("3:", stmt)
-	my.sql_insert_update(stmt)
-
+	# my.sql_insert_update(stmt)
+	'''
 
 
 

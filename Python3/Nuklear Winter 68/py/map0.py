@@ -3,14 +3,58 @@ import re
 import mariadb as my
 import hexagon as hx
 import chits as chit
+import mechanics as mek
 
-def get_slot_p2():
-	print("<part 2>")
+def get_slot_p2(riv, frm, frmSlot):
+	print("***************** <part 2>")
+	print("riv, frm, frmSlot:", riv, frm, frmSlot)
+	negW = 0
+	if frm=="A":
+		negW=3<<10
+	if frm=="B":
+		negW=3<<8
+	if frm=="C":
+		negW=3<<6
+	if frm=="D":
+		negW=3<<4
+	if frm=="E":
+		negW=3<<2
+	if frm=="F":
+		negW=3<<0
+
+	blocking = riv>>14
+	print("frmSlot, negW, blocking:", frmSlot, negW, blocking)
+	cursor = frmSlot
+	for x in range(12):
+		cursor = mek.oneBitShiftRotateRight(cursor)
+		print(cursor)
+		if cursor&blocking:
+			break
+		if cursor&negW:
+			print("1--->", cursor)
+			break
+	
+	for x in range(12):
+		cursor = mek.oneBitShiftRotateLeft(cursor)
+		print(cursor)
+		if cursor&blocking:
+			break
+		if cursor&negW:
+			print("cursor, negW:", cursor, negW)
+			want = negW
+			for y in range(6):
+				want = mek.oneBitShiftRotateLeft(want)
+			print("2--->", cursor, negW, want)
+			print("2a--->", want&negW)
+			print("2b--->", want^negW)
+			break
+
+	print("***************** <part 2>.")
 	return 2
 
 def get_slot(riv, frm, frmSlot):
 	if frmSlot>0:    # unit is from a river hex
-		return get_slot_p2()
+		return get_slot_p2(riv, frm, frmSlot)
 
 	# 16380 : 11111111111100
 	print("riv, frm, frmSlot:", riv, frm, frmSlot)
