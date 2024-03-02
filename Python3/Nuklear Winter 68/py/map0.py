@@ -31,8 +31,16 @@ def get_slot_p2(riv, frm, frmSlot):
 		if cursor&blocking:
 			break
 		if cursor&negW:
-			print("1--->", cursor)
-			break
+			print("1) cursor, negW:", cursor, negW)
+			if cursor>=64:
+				cursor = cursor>>6
+				negW = negW>>6
+			else:
+				cursor = cursor<<6
+				negW = negW<<6
+			print("new cursor, negW:", cursor, negW)
+			print(cursor^negW)  # this one
+			return cursor^negW
 	
 	for x in range(12):
 		cursor = mek.oneBitShiftRotateLeft(cursor)
@@ -40,17 +48,19 @@ def get_slot_p2(riv, frm, frmSlot):
 		if cursor&blocking:
 			break
 		if cursor&negW:
-			print("cursor, negW:", cursor, negW)
-			want = negW
-			for y in range(6):
-				want = mek.oneBitShiftRotateLeft(want)
-			print("2--->", cursor, negW, want)
-			print("2a--->", want&negW)
-			print("2b--->", want^negW)
-			break
+			print("2) cursor, negW:", cursor, negW)
+			if cursor>=64:
+				cursor = cursor>>6
+				negW = negW>>6
+			else:
+				cursor = cursor<<6
+				negW = negW<<6
+			print("new cursor, negW:", cursor, negW)
+			print(cursor^negW)  # this one
+			return cursor^negW
 
 	print("***************** <part 2>.")
-	return 2
+	return 0
 
 def get_slot(riv, frm, frmSlot):
 	if frmSlot>0:    # unit is from a river hex
