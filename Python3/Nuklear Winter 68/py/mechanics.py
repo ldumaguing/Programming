@@ -53,7 +53,7 @@ def is_adjay_river_blocking(unit, scenario, direction):
 	hexID = hx.convert_loc2id(hx.get_neighborLoc(currLoc, direction))
 	print(unit, currLoc, hexID)
 	riverStat = map0.get_riverStat(hexID)
-	print("riverStat:", riverStat)
+	print("riverStat:", riverStat, bin(riverStat))
 	if riverStat==0:
 		print("There is no river there.")
 		return False

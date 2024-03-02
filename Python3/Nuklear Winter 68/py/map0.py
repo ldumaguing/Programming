@@ -39,9 +39,9 @@ def get_slot_p2(riv, frm, frmSlot):
 				cursor = cursor<<6
 				negW = negW<<6
 			print("new cursor, negW:", cursor, negW)
-			print(cursor^negW)  # this one
-			return cursor^negW
-	
+			print(cursor&negW)
+			return cursor&negW
+
 	for x in range(12):
 		cursor = mek.oneBitShiftRotateLeft(cursor)
 		print(cursor)
