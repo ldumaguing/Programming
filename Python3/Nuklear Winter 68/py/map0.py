@@ -38,13 +38,13 @@ def get_slot(riv, frm, frmSlot):
 		w=2<<6
 
 	print("want, slots, (want&slots)", want, slots, want&slots)
-	if (want&slots)==0:
+	if (want&slots)==0:  # if all free, return 1 slot
 		print("0 slot:", want&w)
 		return (want&w)
 
 	A = want&slots
 	print("1 slot:", A^want)
-	return A^want
+	return A^want  # return a free slot
 
 '''
 def get_placement(river, frm):

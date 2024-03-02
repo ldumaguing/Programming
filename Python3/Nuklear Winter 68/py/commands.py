@@ -21,7 +21,6 @@ def move(subject, obj, scenario):
 
 
 	print("Moving...\n")
-	'''
 	nID = hx.get_neighborHexID(chit.get_currHexID(subject, scenario), obj)
 	nRiver = map0.get_riverStat(nID)
 	nLoc = hx.convert_id2loc(nID)
@@ -32,12 +31,14 @@ def move(subject, obj, scenario):
 		nID,
 		scenario
 		)
-	print("0:", nID, nLoc, nRiver, movement, cost, subject)
+	print("0 --- nID, nLoc, nRiver, movement, cost, subject:", nID, nLoc, nRiver, movement, cost, subject)
 	stmt = "update gameData set j = JSON_REPLACE(j, '$.hexLoc[0]', " \
 		+ str(nLoc[0]) + ", '$.hexLoc[1]'," + str(nLoc[1]) + ") where name = '" + subject + "'" \
 		+ " and scenario = '" + scenario + "'"
 	print("1:", stmt)
 	my.sql_insert_update(stmt)
+
+	
 	if nRiver==0:
 		stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', 0)"   \
 			+ " where name = '" + subject + "' and scenario = '" + scenario + "'"
@@ -45,16 +46,19 @@ def move(subject, obj, scenario):
 		my.sql_insert_update(stmt)
 		return
 
-	slot = map0.get_slot(nRiver, obj)
-	print("---", slot, nRiver, obj, "---", slot>>2)
-	print(nID, nLoc, nRiver, movement, cost)
+	riverPlace = chit.get_riverPlace(subject, scenario)
+	slot = map0.get_slot(nRiver, obj, riverPlace)
+	print("riverPlace, slot:", riverPlace, slot)
+
+	# print("---", slot, nRiver, obj, "---", slot>>2)
+	#print(nID, nLoc, nRiver, movement, cost)
 	# update gameData set j = JSON_SET(j, '$.riverHexPlace', 333)
 	# where name = 'u2' and scenario = '01-Day8';
 	stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', " + str(slot) \
 		+ ") where name = '" + subject + "' and scenario = '" + scenario + "'"
 	print("3:", stmt)
 	my.sql_insert_update(stmt)
-	'''
+
 
 
 
