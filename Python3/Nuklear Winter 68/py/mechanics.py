@@ -17,6 +17,30 @@ def oneBitShiftRotateLeft(position):
 		return 1   # 12 bits position
 	return x
 
+def get_exitPlace_ccw(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	for x in range(12):
+		if currPlace&want:
+			return currPlace
+		if (currPlace<<1)&blocking:
+			return 0
+
+		currPlace = oneBitShiftRotateLeft(currPlace)
+
+	return 0
+
+def get_exitPlace_cw(riverStat, want, currPlace):
+	blocking = riverStat>>14
+	for x in range(12):
+		if currPlace&want:
+			return currPlace
+		if currPlace&blocking:
+			return 0
+			
+		currPlace = oneBitShiftRotateRight(currPlace)
+
+	return 0
+
 def is_block_right(riverStat, want, currPlace):
 	blocking = riverStat>>14
 	print("is_block_right>>>", riverStat, want, currPlace, blocking)
