@@ -1,15 +1,13 @@
 #!/usr/bin/python3
 import mechanics as mek
-
-# slot = map0.get_slot(riverStat, direction, rivPlace)
+import map0
 
 rivStat = 2129920  # destination hex
 direction = "C"    # unit's desired edge exit
-# rivPlace = 8192    # unit's current river-place
-# rivPlace = 8
 
+#get_slot_p2(riv, frm, frmSlot):
 
-def get_slot(rivStat, direction, rivPlace):
+def get_slot_p2(rivStat, direction, rivPlace):
 	rivPlace = rivPlace>>2   # remove the bridge bits
 	exitEdge = 0
 	if direction=="A":
@@ -25,9 +23,16 @@ def get_slot(rivStat, direction, rivPlace):
 	if direction=="F":
 		exitEdge = 3<<0
 
-	print("-->", rivPlace)
-	print("...cw exit:", mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace))
-	print("...ccw exit:", mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace))
+	#print("-->", rivPlace)
+	#print("...cw exit:", mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace))
+	#print("...ccw exit:", mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace))
+	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
+	CCW =mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	if CW>0:
+		return map0.convert_exit2entrancePlace(CW)
+	if CCW>0:
+		return map0.convert_exit2entrancePlace(CCW)
+
 	return 0
 
 # ****************************************************************************************
@@ -35,5 +40,5 @@ print("\n*******************************")
 currSlot = 1<<2
 for i in range(12):
 	#print(currSlot<<i)
-	print(get_slot(rivStat, direction, currSlot<<i))
+	print(get_slot_p2(rivStat, direction, currSlot<<i))
 

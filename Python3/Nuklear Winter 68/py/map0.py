@@ -5,61 +5,57 @@ import hexagon as hx
 import chits as chit
 import mechanics as mek
 
-def get_slot_p2(riv, frm, frmSlot):
-	print("***************** <part 2>")
-	print("riv, frm, frmSlot:", riv, frm, frmSlot, bin(riv))
-	negW = 0
-	if frm=="A":
-		negW=3<<10
-	if frm=="B":
-		negW=3<<8
-	if frm=="C":
-		negW=3<<6
-	if frm=="D":
-		negW=3<<4
-	if frm=="E":
-		negW=3<<2
-	if frm=="F":
-		negW=3<<0
+def convert_exit2entrancePlace(exitPlace):
+	if exitPlace==1:
+		return 128
+	if exitPlace==2:
+		return 64
+	if exitPlace==4:
+		return 512
+	if exitPlace==8:
+		return 256
+	if exitPlace==16:
+		return 2048
+	if exitPlace==32:
+		return 1024
+	if exitPlace==64:
+		return 2
+	if exitPlace==128:
+		return 1
+	if exitPlace==256:
+		return 8
+	if exitPlace==512:
+		return 4
+	if exitPlace==1024:
+		return 32
+	return 16
 
-	blocking = riv>>14
-	print("frmSlot, negW, blocking:", frmSlot, negW, blocking)
-	cursor = frmSlot
-	for x in range(12):
-		cursor = mek.oneBitShiftRotateRight(cursor)
-		print(cursor)
-		if cursor&blocking:
-			break
-		if cursor&negW:
-			print("1) cursor, negW:", cursor, negW)
-			if cursor>=64:
-				cursor = cursor>>6
-				negW = negW>>6
-			else:
-				cursor = cursor<<6
-				negW = negW<<6
-			print("new cursor, negW:", cursor, negW)
-			print(cursor&negW)
-			return cursor&negW
+def get_slot_p2(rivStat, direction, rivPlace):
+	rivPlace = rivPlace>>2   # remove the bridge bits
+	exitEdge = 0
+	if direction=="A":
+		exitEdge = 3<<10
+	if direction=="B":
+		exitEdge = 3<<8
+	if direction=="C":
+		exitEdge = 3<<6
+	if direction=="D":
+		exitEdge = 3<<4
+	if direction=="E":
+		exitEdge = 3<<2
+	if direction=="F":
+		exitEdge = 3<<0
 
-	for x in range(12):
-		cursor = mek.oneBitShiftRotateLeft(cursor)
-		print(cursor)
-		if cursor&blocking:
-			break
-		if cursor&negW:
-			print("2) cursor, negW:", cursor, negW)
-			if cursor>=64:
-				cursor = cursor>>6
-				negW = negW>>6
-			else:
-				cursor = cursor<<6
-				negW = negW<<6
-			print("new cursor, negW:", cursor, negW)
-			print(cursor^negW)  # this one
-			return cursor^negW
+	#print("-->", rivPlace)
+	#print("...cw exit:", mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace))
+	#print("...ccw exit:", mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace))
+	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
+	CCW =mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	if CW>0:
+		return map0.convert_exit2entrancePlace(CW)
+	if CCW>0:
+		return map0.convert_exit2entrancePlace(CCW)
 
-	print("***************** <part 2>.")
 	return 0
 
 def get_slot(riv, frm, frmSlot):

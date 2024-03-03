@@ -41,6 +41,7 @@ def get_exitPlace_cw(riverStat, want, currPlace):
 
 	return 0
 
+'''
 def is_block_right(riverStat, want, currPlace):
 	blocking = riverStat>>14
 	print("is_block_right>>>", riverStat, want, currPlace, blocking)
@@ -67,7 +68,7 @@ def is_block_left(riverStat, want, currPlace):
 		currPlace = oneBitShiftRotateLeft(currPlace)
 
 	return False
-
+'''
 
 
 
