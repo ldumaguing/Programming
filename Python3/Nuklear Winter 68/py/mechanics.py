@@ -41,37 +41,6 @@ def get_exitPlace_cw(riverStat, want, currPlace):
 
 	return 0
 
-'''
-def is_block_right(riverStat, want, currPlace):
-	blocking = riverStat>>14
-	print("is_block_right>>>", riverStat, want, currPlace, blocking)
-	for x in range(12):
-		print(".", currPlace)
-		if currPlace&want:
-			return False
-		if currPlace&blocking:
-			return True
-		currPlace = oneBitShiftRotateRight(currPlace)
-
-	return False
-
-def is_block_left(riverStat, want, currPlace):
-	blocking = riverStat>>14
-	print(">>>", riverStat, want, currPlace, blocking)
-	currPlace = oneBitShiftRotateLeft(currPlace)
-	for x in range(12):
-		print(".", currPlace)
-		if currPlace&blocking:
-			return True
-		if currPlace&want:
-			return False
-		currPlace = oneBitShiftRotateLeft(currPlace)
-
-	return False
-'''
-
-
-
 def is_adjay_river_blocking(unit, scenario, direction):
 	print("????????????? adjay river")
 	currLoc = chit.get_currLoc(unit, scenario)
@@ -116,13 +85,12 @@ def is_my_river_blocking(unit, scenario, direction):
 	currPlace = chit.get_riverPlace(unit, scenario)
 	print(">>> unit, scenario, direction, riverStat, exitEdge, currPlace")
 	print(">>>", unit, scenario, direction, riverStat, exitEdge, currPlace)
-	print("right blocked:", is_block_right(riverStat, exitEdge, currPlace))
-	print("left blocked:", is_block_left(riverStat, exitEdge, currPlace))
-	r_riv = is_block_right(riverStat, exitEdge, currPlace)
-	l_riv = is_block_left(riverStat, exitEdge, currPlace)
-
-	print("***", r_riv & l_riv)
-	return r_riv & l_riv
+	r_riv = get_exitPlace_cw(riverStat, exitEdge, currPlace)
+	l_riv = get_exitPlace_ccw(riverStat, exitEdge, currPlace)
+	print("right blocked:", r_riv)
+	print("left blocked:", l_riv)
+	print("***", r_riv | l_riv)
+	return not (r_riv | l_riv)
 
 def is_not_enough_movement(subject, scenario, obj):
 	currLoc = chit.get_currLoc(subject, scenario)

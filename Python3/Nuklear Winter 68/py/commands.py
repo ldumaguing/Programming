@@ -50,7 +50,6 @@ def move(subject, obj, scenario):
 	riverPlace = chit.get_riverPlace(subject, scenario)
 	slot = map0.get_slot(nRiver, obj, riverPlace)
 	print("riverPlace, slot:", riverPlace, slot)
-	slot = slot<<2   # shift to leave room for bridge info
 	stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', " + str(slot) \
 		+ ") where name = '" + subject + "' and scenario = '" + scenario + "'"
 	print("3:", stmt)

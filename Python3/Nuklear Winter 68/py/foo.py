@@ -29,9 +29,9 @@ def get_slot_p2(rivStat, direction, rivPlace):
 	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
 	CCW =mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
 	if CW>0:
-		return map0.convert_exit2entrancePlace(CW)
+		return map0.convert_exit2entrancePlace(CW)<<2
 	if CCW>0:
-		return map0.convert_exit2entrancePlace(CCW)
+		return map0.convert_exit2entrancePlace(CCW)<<2
 
 	return 0
 

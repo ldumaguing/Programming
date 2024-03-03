@@ -50,11 +50,12 @@ def get_slot_p2(rivStat, direction, rivPlace):
 	#print("...cw exit:", mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace))
 	#print("...ccw exit:", mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace))
 	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
-	CCW =mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	CCW = mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	print(">>>>>>>>>>>>>>>>>>", CW, CCW)
 	if CW>0:
-		return map0.convert_exit2entrancePlace(CW)
+		return convert_exit2entrancePlace(CW)<<2   # restore the bridge bits
 	if CCW>0:
-		return map0.convert_exit2entrancePlace(CCW)
+		return convert_exit2entrancePlace(CCW)<<2   # restore the bridge bits
 
 	return 0
 
