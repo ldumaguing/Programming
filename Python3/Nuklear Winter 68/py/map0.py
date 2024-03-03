@@ -7,7 +7,7 @@ import mechanics as mek
 
 def get_slot_p2(riv, frm, frmSlot):
 	print("***************** <part 2>")
-	print("riv, frm, frmSlot:", riv, frm, frmSlot)
+	print("riv, frm, frmSlot:", riv, frm, frmSlot, bin(riv))
 	negW = 0
 	if frm=="A":
 		negW=3<<10
