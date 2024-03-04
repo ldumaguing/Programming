@@ -2,8 +2,9 @@
 import mechanics as mek
 import map0
 
-rivStat = 2129920  # destination hex
-direction = "C"    # unit's desired edge exit
+# rivStat = 2129920  # destination hex
+rivStatFrom = 557152
+direction = "F"    # unit's desired edge exit
 
 #get_slot_p2(riv, frm, frmSlot):
 
@@ -28,6 +29,8 @@ def get_slot_p2(rivStat, direction, rivPlace):
 	#print("...ccw exit:", mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace))
 	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
 	CCW =mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	print("... exitEdgeFrom:", exitEdge)
+	print("...", CW, CCW, rivPlace, "< CW, CCW, rivPlace")
 	if CW>0:
 		return map0.convert_exit2entrancePlace(CW)<<2
 	if CCW>0:
@@ -39,6 +42,7 @@ def get_slot_p2(rivStat, direction, rivPlace):
 print("\n*******************************")
 currSlot = 1<<2
 for i in range(12):
-	#print(currSlot<<i)
-	print(get_slot_p2(rivStat, direction, currSlot<<i))
+	print("currSlot<<i:", currSlot<<i)
+	print("got slot:", get_slot_p2(rivStatFrom, direction, currSlot<<i))
+	print()
 

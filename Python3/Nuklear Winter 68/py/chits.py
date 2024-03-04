@@ -7,7 +7,7 @@ def get_riverPlace(subject, scenario):
 	stmt = "select json_value(j, '$.riverHexPlace') from gameData where name = '" + subject \
 		+ "' and scenario = '" + scenario + "'"
 	result = my.sql_fetchone(stmt)
-	return int(result[0])
+	return int(result[0])    # includes bridge data
 
 def get_currLoc(subject, scenario):
 	# returning a tuple

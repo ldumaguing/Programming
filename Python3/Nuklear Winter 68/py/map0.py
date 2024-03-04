@@ -31,6 +31,7 @@ def convert_exit2entrancePlace(exitPlace):
 	return 16
 
 def get_slot_p2(rivStat, direction, rivPlace):
+	print("get_slot_p2:", rivStat, direction, rivPlace)
 	rivPlace = rivPlace>>2   # remove the bridge bits
 	exitEdge = 0
 	if direction=="A":

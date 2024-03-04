@@ -30,13 +30,14 @@ def get_exitPlace_ccw(riverStat, want, currPlace):
 	return 0
 
 def get_exitPlace_cw(riverStat, want, currPlace):
+	print(".....want, riverStat:", want, riverStat)
 	blocking = riverStat>>14
 	for x in range(12):
 		if currPlace&want:
 			return currPlace
 		if currPlace&blocking:
 			return 0
-			
+
 		currPlace = oneBitShiftRotateRight(currPlace)
 
 	return 0
