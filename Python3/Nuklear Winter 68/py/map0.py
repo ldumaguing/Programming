@@ -62,6 +62,7 @@ def get_slot_p2(rivStat, direction, rivPlace):
 
 def get_slot(riv, frm, frmSlot):
 	if frmSlot>0:    # unit is from a river hex
+		print("frmSlot>0: riv, frm, frmSlot ---", riv, frm, frmSlot)
 		return get_slot_p2(riv, frm, frmSlot)
 
 	# 16380 : 11111111111100
@@ -95,8 +96,8 @@ def get_slot(riv, frm, frmSlot):
 		return (want&w)
 
 	A = want&slots
-	print("1 slot:", A^want)
-	return A^want  # return a free slot
+	print("(A^want), A, want:", A^want, A, want)
+	return (A^want)  # return a free slot
 
 '''
 def get_placement(river, frm):

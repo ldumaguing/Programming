@@ -53,6 +53,8 @@ def move(subject, obj, scenario):
 	slot = map0.get_slot(nRiver, obj, riverPlace)
 	slot2 = map0.get_slot(oRiver, obj, rivPlaceFrom)
 	print("riverPlace, slot, slot2:", riverPlace, slot, slot2)
+	slot2 = slot2<<2
+	print("riverPlace, slot, slot2:", riverPlace, slot, slot2)
 	stmt = "update gameData set j = JSON_SET(j, '$.riverHexPlace', " + str(slot2) \
 		+ ") where name = '" + subject + "' and scenario = '" + scenario + "'"
 	print("3:", stmt)
