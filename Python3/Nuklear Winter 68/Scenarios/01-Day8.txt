@@ -24,13 +24,13 @@ placeRedControl O18,P17,P18,Q8
 
 >>>>> PLACEMENT
 u1 A6
-u2 B6
-u3 C7
-u4 E4
-u5 AA5
-u6 BB6
-u12 N12
-u7 O12
+u2 B8
+u3 D10
+u4 G10
+u5 F14
+u6 H12
+u12 F1
+u7 F4
 
 >>>>> Actions
 u7 > u12
