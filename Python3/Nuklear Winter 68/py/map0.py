@@ -51,8 +51,12 @@ def get_placement_p2(entrancePlace, hexID, direction):
 	print("p2) entrancePlace, hexID:", entrancePlace, hexID, direction, n_hexID, n_rivStat)
 	placements = (n_rivStat&16380)>>2
 	print("p2) placements:", placements)
-	print("p2) placements^entrancePlace", placements^entrancePlace)
-	return placements^entrancePlace
+	print("p2) placements&entrancePlace", placements&entrancePlace)
+	print("p2) (placements&entrancePlace)^entrancePlace", (placements&entrancePlace)^entrancePlace)
+	placement = (placements&entrancePlace)^entrancePlace
+	if placement==0:
+		return -1
+	return placement
 
 def get_placement(subject, scenario, direction):
 	rivPlace = chit.get_riverPlace(subject, scenario)

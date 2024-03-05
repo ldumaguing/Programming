@@ -22,8 +22,9 @@ def get_exitPlace_ccw(riverStat, want, currPlace):
 	blocking = riverStat>>14
 	print("ccw blocking:", blocking)
 	currPlace = currPlace>>2
+	currPlace = oneBitShiftRotateLeft(currPlace)
 	for x in range(12):
-		print("??? currPlace, blocking, want", currPlace, blocking, want)
+		print("ccw-??? currPlace, blocking, want", currPlace, blocking, want)
 		if currPlace&blocking:
 			return -1
 		if currPlace&want:
@@ -38,7 +39,9 @@ def get_exitPlace_cw(riverStat, want, currPlace):
 	blocking = riverStat>>14
 	print("cw blocking:", blocking)
 	currPlace = currPlace>>2
+	#currPlace = oneBitShiftRotateRight(currPlace)
 	for x in range(12):
+		print("cw-??? currPlace, blocking, want", currPlace, blocking, want)
 		if currPlace&want:
 			return currPlace
 		if currPlace&blocking:
