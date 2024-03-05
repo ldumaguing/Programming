@@ -25,6 +25,11 @@ def move(subject, direction, scenario):
 
 
 	print("Moving...\n")
+	print("placement fish:", placement)
+	if placement<0:
+		print("a river is blocking.")
+		return
+
 	nID = hx.get_neighborHexID(chit.get_currHexID(subject, scenario), direction)
 	nRiver = map0.get_riverStat(nID)
 	nLoc = hx.convert_id2loc(nID)

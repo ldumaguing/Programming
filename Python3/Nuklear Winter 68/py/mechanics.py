@@ -18,29 +18,35 @@ def oneBitShiftRotateLeft(position):
 	return x
 
 def get_exitPlace_ccw(riverStat, want, currPlace):
+	print("ccw.....want, riverStat, currPlace:", want, riverStat, currPlace)
 	blocking = riverStat>>14
+	print("ccw blocking:", blocking)
+	currPlace = currPlace>>2
 	for x in range(12):
+		print("??? currPlace, blocking, want", currPlace, blocking, want)
+		if currPlace&blocking:
+			return -1
 		if currPlace&want:
 			return currPlace
-		if (currPlace<<1)&blocking:
-			return 0
 
 		currPlace = oneBitShiftRotateLeft(currPlace)
 
-	return 0
+	return -1
 
 def get_exitPlace_cw(riverStat, want, currPlace):
-	print(".....want, riverStat:", want, riverStat)
+	print("cw.....want, riverStat, currPlace:", want, riverStat, currPlace)
 	blocking = riverStat>>14
+	print("cw blocking:", blocking)
+	currPlace = currPlace>>2
 	for x in range(12):
 		if currPlace&want:
 			return currPlace
 		if currPlace&blocking:
-			return 0
+			return -1
 
 		currPlace = oneBitShiftRotateRight(currPlace)
 
-	return 0
+	return -1
 
 def is_adjay_river_blocking(unit, scenario, direction):
 	print("????????????? adjay river")

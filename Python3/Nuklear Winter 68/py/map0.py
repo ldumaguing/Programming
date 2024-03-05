@@ -73,6 +73,9 @@ def get_placement(subject, scenario, direction):
 
 	if exitPlace==0:
 		return 0
+	if exitPlace<0:
+		return -1
+
 
 
 	print("exitPlace", exitPlace)
