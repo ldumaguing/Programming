@@ -30,6 +30,74 @@ def convert_exit2entrancePlace(exitPlace):
 		return 32
 	return 16
 
+def get_exitEdge(direction):
+	print("direction:", direction)
+	if direction=="A":
+		return 3072
+	if direction=="B":
+		return 768
+	if direction=="C":
+		return 192
+	if direction=="D":
+		return 48
+	if direction=="E":
+		return 12
+	return 3
+
+def get_placement_p2(entrancePlace, hexID, direction):
+	# 16380 : 11111111111100
+	n_hexID = hx.get_neighborHexID(hexID, direction)
+	n_rivStat = get_riverStat(n_hexID)
+	print("p2) entrancePlace, hexID:", entrancePlace, hexID, direction, n_hexID, n_rivStat)
+	placements = (n_rivStat&16380)>>2
+	print("p2) placements:", placements)
+	print("p2) placements^entrancePlace", placements^entrancePlace)
+	return placements^entrancePlace
+
+def get_placement(subject, scenario, direction):
+	rivPlace = chit.get_riverPlace(subject, scenario)
+	if rivPlace==0:
+		rivPlace=1
+	exitEdge = get_exitEdge(direction)
+	hexID = chit.get_currHexID(subject, scenario)
+	rivStat = get_riverStat(hexID)
+	print("rivPlace, exitEdge, hexID, rivStat:", rivPlace, exitEdge, hexID, rivStat)
+	CW = mek.get_exitPlace_cw(rivStat, exitEdge, rivPlace)
+	CCW = mek.get_exitPlace_ccw(rivStat, exitEdge, rivPlace)
+	print(">>>>>>>>>>>>>>>>>>", CW, CCW)
+	exitPlace = 0
+	if CW>0:
+		exitPlace = CW
+	else:
+		exitPlace = CCW
+
+	if exitPlace==0:
+		return 0
+
+
+	print("exitPlace", exitPlace)
+	entrancePlace = convert_exit2entrancePlace(exitPlace)
+	print("entrancePlace:", entrancePlace)
+
+
+
+
+	placement = get_placement_p2(entrancePlace, hexID, direction)
+	print("1) placement:", placement)
+	print(">>>>>>>>>>>>>>>>>>>>>", placement)
+	return placement<<2
+
+
+
+
+
+
+
+
+
+
+
+'''
 def get_slot_p2(rivStat, direction, rivPlace):
 	print("get_slot_p2:", rivStat, direction, rivPlace)
 	rivPlace = rivPlace>>2   # remove the bridge bits
@@ -99,7 +167,7 @@ def get_slot(riv, frm, frmSlot):
 	print("(A^want), A, want:", A^want, A, want)
 	return (A^want)  # return a free slot
 
-'''
+
 def get_placement(river, frm):
 	# Relative to the adjacent hex
 	if frm=="A":
@@ -162,6 +230,7 @@ def get_placement(river, frm):
 
 def get_riverStat(hexID):
 	stmt = "select river from map where hexID = '" + hexID + "'"
+	print(stmt)
 	result = my.sql_fetchone(stmt)
 	if result==None:
 		return 0
