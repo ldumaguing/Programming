@@ -1,9 +1,0 @@
->>>>> BATTLE SCRIPTS
-u1 --> C
-
-
-
->>>>> Notes
--->   move to direction
-
-
