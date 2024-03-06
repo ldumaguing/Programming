@@ -46,13 +46,13 @@ INSERT INTO `gameData` VALUES
 ('01-Day8','Y_multiplier','195.0',NULL,NULL),
 ('01-Day8','Y_adjust','97.5',NULL,NULL),
 ('01-Day8','yellowDot',NULL,'<img id=\"yellowDot\" src=\"images_mine/Yellow Dot.png\" hidden>','{}'),
-('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [2, 7], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 4}'),
-('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [1, 7], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"currMove\": 7, \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8], \"riverHexPlace\": 0}'),
+('01-Day8','u1','RITTES REICH,1/130;King Tiger','<img id=\"u1\" src=\"images/1_130 KT front.png\" hidden>','{\"front\": \"images/1_130 KT front.png\", \"back\": \"images/1_130 KT back.png\", \"flip\": \"front\", \"hexLoc\": [2, 6], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"King Tiger\"], \"frontData\": [10, 0, 0, 6, 5, 4, 0, 18, 0, 0, 6, 0, 0], \"currMove\": 6, \"backData\": [9, 0, 0, 6, 4, 4, 0, 18, 0, 0, 6, 0, 0], \"riverHexPlace\": 0}'),
+('01-Day8','u2','RITTES REICH,1/130;Puma','<img id=\"u2\" src=\"images/1_130 Puma front.png\" hidden>','{\"front\": \"images/1_130 Puma front.png\", \"back\": \"images/1_130 Puma back.png\", \"flip\": \"front\", \"hexLoc\": [2, 8], \"pixLoc\": [0, 0], \"identity\": [\"1/130\", \"Puma\"], \"frontData\": [9, 0, 0, 4, 4, 3, 0, 15, 0, 0, 7, 0, 8], \"currMove\": 7, \"backData\": [8, 0, 0, 4, 3, 3, 0, 15, 0, 0, 7, 0, 8], \"riverHexPlace\": 0}'),
 ('01-Day8','AM:1/130;2','2',NULL,NULL),
-('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [3, 9], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
-('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [6, 9], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
+('01-Day8','u3','RITTES REICH,2/130;Fallschirmjager','<img id=\"u3\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [4, 10], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
+('01-Day8','u4','RITTES REICH,2/130;Fallschirmjager','<img id=\"u4\" src=\"images/2_130 Fall front.png\" hidden>','{\"front\": \"images/2_130 Fall front.png\", \"back\": \"images/2_130 Fall back.png\", \"flip\": \"front\", \"hexLoc\": [5, 8], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"Fallschirmjager\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 18, 0, 0, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 18, 0, 14, 3, 0, 16], \"riverHexPlace\": 0}'),
 ('01-Day8','u5','RITTES REICH,2/130;SdKfz 250','<img id=\"u5\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [5, 13], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"currMove\": 6, \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2], \"riverHexPlace\": 0}'),
-('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [7, 11], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"currMove\": 6, \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2], \"riverHexPlace\": 0}'),
+('01-Day8','u6','RITTES REICH,2/130;SdKfz 250','<img id=\"u6\" src=\"images/2_130 250 front.png\" hidden>','{\"front\": \"images/2_130 250 front.png\", \"back\": \"images/2_130 250 back.png\", \"flip\": \"front\", \"hexLoc\": [7, 13], \"pixLoc\": [0, 0], \"identity\": [\"2/130\", \"SdKfz 250\"], \"frontData\": [8, 0, 0, 3, 4, 3, 0, 14, 0, 0, 6, 0, 2], \"currMove\": 6, \"backData\": [7, 0, 0, 3, 3, 3, 0, 14, 0, 0, 6, 0, 2], \"riverHexPlace\": 0}'),
 ('01-Day8','AM:2/130;2','2',NULL,NULL),
 ('01-Day8','u7','Black Hand,Black Hand;Zealots','<img id=\"u7\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [5, 3], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16], \"riverHexPlace\": 0}'),
 ('01-Day8','u8','Black Hand,Black Hand;Zealots','<img id=\"u8\" src=\"images/Zealots front.png\" hidden>','{\"front\": \"images/Zealots front.png\", \"back\": \"images/Zealots back.png\", \"flip\": \"front\", \"hexLoc\": [-1, -1], \"pixLoc\": [0, 0], \"identity\": [\"Black Hand\", \"Zealots\"], \"frontData\": [6, 0, 0, 3, 5, 3, 0, 0, 0, 13, 3, 0, 16], \"currMove\": 3, \"backData\": [5, 0, 0, 3, 4, 3, 0, 0, 0, 13, 3, 0, 16], \"riverHexPlace\": 0}'),
@@ -331,7 +331,7 @@ INSERT INTO `map` VALUES
 ('map0','E7',32,'{}',0),
 ('map0','E8',0,'{}',507964),
 ('map0','E9',0,'{}',557180),
-('map0','F10',0,'{}',557152),
+('map0','F10',0,'{}',557176),
 ('map0','F11',0,'{}',34349123),
 ('map0','F12',0,'{}',35651842),
 ('map0','F16',0,'{}',8914944),
@@ -340,7 +340,7 @@ INSERT INTO `map` VALUES
 ('map0','F19',0,'{}',35651584),
 ('map0','F2',32,'{}',0),
 ('map0','F3',32,'{}',0),
-('map0','G13',0,'{}',524408),
+('map0','G13',0,'{}',557176),
 ('map0','G14',0,'{}',34086976),
 ('map0','G15',0,'{}',33824864),
 ('map0','G16',0,'{}',24604),
@@ -886,4 +886,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-05 14:52:30
+-- Dump completed on 2024-03-06 12:14:35
