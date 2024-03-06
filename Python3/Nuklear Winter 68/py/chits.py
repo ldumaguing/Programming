@@ -29,23 +29,6 @@ def get_curr_movement(subject, scenario):
 		+ scenario + "' and name = '" + subject + "'"
 	return int(my.sql_fetchone(stmt)[0])
 
-
-
-
-'''
-def get_movement(subject, scenario, flip):
-	# unit's current movement "money"
-	fields = "JSON_VALUE(j, '$.frontData[10]')"
-	if flip=="back":
-		fields = "JSON_VALUE(j, '$.backData[10]')"
-	conditions = "scenario = '" + scenario + "' and name = '" \
-		+ subject + "'"
-	table = "gameData"
-	stmt = "select " + fields + " from gameData where " + conditions
-	#print("stmt:     ", stmt)
-	return my.sql_fetchone(stmt)[0]
-'''
-
 def is_on_riverHex(subject, scenario):
 	# select JSON_VALUE(j, '$.riverHexPlace') from gameData
 	# where name regexp '^u' and scenario = '01-Day8'
