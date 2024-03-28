@@ -18,7 +18,7 @@ create table images (
 
 .import --csv --skip 1  images.csv images
 
-
+alter table images add stats json;
 
 
 
