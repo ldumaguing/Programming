@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 import sqlite_wrapper as sql
+import json
 
 # ****************************************************************************************
 def instructions():
@@ -8,10 +9,25 @@ def instructions():
 
 # ****************************************************************************************
 # ***** MAIN *****************************************************************************
+schema = ''
+
+
 if len(sys.argv)<2:
 	instructions()
 	exit()
 
+f = open(sys.argv[1], "r")
+
+data = json.loads(f.read())
+
+schema = data['schema']
+
+print(schema)
+
+
+f.close()
+
+'''
 f = open(sys.argv[1], "r")
 
 while True:
@@ -20,8 +36,8 @@ while True:
 		sql.foo()
 		exit()
 	print(">>>", line)
+'''
 
 
 
-
-
+ 
