@@ -1,8 +1,10 @@
 {
-"screen_w": 1024,
-"screen_h": 640,
+"screen_w": 960,
+"screen_h": 600,
 "isFullscreen": false,
 "gameName": "Nuklear Winter '68",
-"board_map": "../../IMAGES/Nuklear Winter 68/Map.jpg"
+"board_map": "../../IMAGES/Nuklear Winter 68/Map.jpg",
+"board_map_w": 6372,
+"board_map_h": 4139
 }
 
