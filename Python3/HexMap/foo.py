@@ -1,17 +1,12 @@
 #!/usr/bin/python3
 import hexagon as hx
 
-#A = "A1"
-#B = "D19"
-#A = "G15"
-#B = "CC5"
-#A = "Y5"
-#B = "CC5"
-A = "A10"
-B = "M9"
-
-A_loc = hx.convert_id2loc(A)
-B_loc = hx.convert_id2loc(B)
-
-hx.get_path(A_loc, B_loc)
+pixels = 100
+hx.convert_hex2cartisian( (0,0), pixels )
+hx.convert_hex2cartisian( (1,0), pixels )
+hx.convert_hex2cartisian( (2,0), pixels )
+hx.convert_hex2cartisian( (3,0), pixels )
+hx.convert_hex2cartisian( (4,0), pixels )
+hx.convert_hex2cartisian( (1,1), pixels )
+hx.convert_hex2cartisian(3)
 

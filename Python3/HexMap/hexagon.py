@@ -1,5 +1,19 @@
 import re
 import math
+from multipledispatch import dispatch
+# pip3 install multipledispatch
+
+@dispatch(int)
+def convert_hex2cartisian(x):
+	print("fish")
+
+# ****************************************************************************************
+@dispatch(tuple, int)
+def convert_hex2cartisian(hex_XY, pixels):
+	cos30 = 0.86602540378
+	x = hex_XY[0] * pixels * cos30
+	y = (hex_XY[1] * pixels) + ( abs(int(hex_XY[0]%2)) * (pixels/2.0) )
+	print((x,y))
 
 # ****************************************************************************************
 def convert_id2loc(hexID):
@@ -12,6 +26,18 @@ def convert_id2loc(hexID):
 		Y = int(hexID[numLocation:]) - 1  # A1 is 0,0
 		return (X,Y)
 	return (int(hexID[0:2]), int(hexID[2:]))
+
+# ****************************************************************************************
+def convert_loc2id(hexLoc):
+	id = ""
+	if int(hexLoc[0])<26:
+		id = chr(int(hexLoc[0]) + ord("A"))
+	else:
+		id = chr(int(hexLoc[0])-26 + ord("A"))
+		id += id
+	y = int(hexLoc[1]) + 1
+
+	return id + str(y)
 
 # ****************************************************************************************
 def get_cartisianDist(hexLoc_a, hexLoc_b):
@@ -85,6 +111,41 @@ def get_angle(hexLoc_a, hexLoc_b):
 		return (360 - angle)%360;
 
 	return abs(angle)%360;
+
+# ****************************************************************************************
+def get_spineID(hexLoc, spine):
+	if hexLoc[0]%2==0:
+		if spine=="D":
+			spineID = convert_loc2id((hexLoc[0],hexLoc[1]+1))
+			spineID += "-A"
+			return spineID
+		spineID = convert_loc2id(hexLoc)
+		spineID += "-" + spine
+		return spineID
+	# ********************
+	if spine=="A":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]))
+		spineID += "-D"
+		return spineID
+	if spine=="B":
+		spineID = convert_loc2id((hexLoc[0]+1,hexLoc[1]))
+		spineID += "-E"
+		return spineID
+	if spine=="C":
+		spineID = convert_loc2id((hexLoc[0]+1,hexLoc[1]+1))
+		spineID += "-F"
+		return spineID
+	if spine=="D":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]+1))
+		spineID += "-D"
+		return spineID
+	if spine=="E":
+		spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]+1))
+		spineID += "-B"
+		return spineID
+	spineID = convert_loc2id((hexLoc[0]-1,hexLoc[1]))
+	spineID += "-C"
+	return spineID
 
 # ----------------------------------------------------------------------------------------
 def evenXcol(X, Y, direction):
@@ -164,9 +225,13 @@ def get_hexDist(hexLoc_a, hexLoc_b):
 		count = count+1;
 
 # ****************************************************************************************
-def get_neighbor(currLoc, direction):
-	return step_to_direction(currLoc, direction)
-	
+def get_neighborLoc(currLoc, direction):
+	return step_to_direction(currLoc, direction)  # a tuple
+
+# ****************************************************************************************
+def get_neighborHexID(hexID, direction):
+	return convert_loc2id(get_neighborLoc(convert_id2loc(hexID), direction))
+
 # ----------------------------------------------------------------------------------------
 def EN(hexLoc_a, hexLoc_b, ANGLE):
 	#print("EN:", hexLoc_a, hexLoc_b, ANGLE)
