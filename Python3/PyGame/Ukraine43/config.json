@@ -1,0 +1,21 @@
+{
+"c64": [320, 200],
+"amigaPAL": [736, 567],
+"amigaNTSC": [736, 483],
+"720": [1280, 720],
+"ega": [640, 350],
+"vga": [640, 480],
+"gameboy": [160, 144],
+"gameboyadv": [240, 160],
+"nintendoDS1": [256, 192],
+"nintendoDS2": [256, 384],
+"nintendo3DS": [800, 240],
+"wqvga": [400, 240],
+"qvga": [320, 240],
+"playstation": [256, 224],
+"gameName": "Ukraine '43",
+"board_map": "../../IMAGES/Ukraine43/UK43-MAP-2015.jpg",
+"board_map_w": 5475,
+"board_map_h": 5100
+}
+
