@@ -2,6 +2,8 @@
 import json
 import pygame
 import sys
+import os
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (10,10)
 
 scrn_w = 0
 scrn_h = 0
