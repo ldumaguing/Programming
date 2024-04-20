@@ -45,58 +45,9 @@ pygame.display.set_caption(data["gameName"])
 if isFullScreen:
 	screen = pygame.display.set_mode((settings[0], settings[1]), pygame.FULLSCREEN)
 else:
-	screen = pygame.display.set_mode((settings[0], settings[1]))
+	screen = pygame.display.set_mode((settings[0], settings[1]), pygame.NOFRAME)
 
 f.close()
-
-
-'''
-f = open('config.json')
-data = json.load(f)
-
-
-
-
-
-scale = data["scale"]
-if scale>1.0:
-	print("1.0 scale is max")
-	exit()
-
-board_map_w = data["board_map_w"]
-board_map_h = data["board_map_h"]
-
-board_map = pygame.image.load(data["board_map"])
-
-pygame.display.set_caption(data["gameName"])
-
-screen = pygame.display.set_mode((0,0))
-x, y = screen.get_size()
-x = x * scale
-y = y * scale
-
-if y<200:
-	print("Too small scale")
-	exit()
-
-
-if data["isFullscreen"]:
-	screen = pygame.display.set_mode((x, y), pygame.FULLSCREEN)
-else:
-	screen = pygame.display.set_mode((x, y))
-
-
-screen = pygame.display.set_mode((736, 483))
-
-
-
-f.close()
-'''
-
-
-
-
-
 
 
 pygame.init()
