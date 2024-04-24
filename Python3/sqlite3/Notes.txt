@@ -1,3 +1,145 @@
+sqlite3 NuklearWinter68.db "select * from foo"
+sqlite3 NuklearWinter68.db ".schema foo"
+.tables
+
+select json_extract(j, '$.body.head.neck.torso') from stuff;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============================
+update stuff
+set j = JSON_REMOVE(j, '$.body')
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.upper', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.upper.armLeft', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.upper.armRight', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.lower', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.lower.legLeft', json('{}'))
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.body.head.neck.torso.lower.legRight', json('{}'))
+where id = 1;
+
+
+
+update stuff set j = (select j from stuff where id = 1);
+update stuff set j = JSON_INSERT(j, '$.type', 'humanoid');
+update stuff set j = JSON_INSERT(j, '$.location', json_array(0.0, 0.0, 0.0));
+update stuff set j = JSON_INSERT(j, '$.name', '');
+
+update stuff set j =
+JSON_REPLACE(j, '$.name', 'Larry')
+where id = 1;
+
+select
+JSON_EXTRACT(j, '$.location[1]')
+from stuff where id = 1;
+
+
+
+
+
+update stuff set j =
+JSON_REPLACE(j, '$.location', json_array(1,2,3))
+where id = 1;
+
+update stuff set j =
+JSON_REPLACE(j, '$.location[2]', 4.5)
+where id = 1;
+
+
+==============================
+update stuff
+set j = JSON_REMOVE(j, '$.alias')
+where id = 1;
+
+update stuff
+set j = JSON_REPLACE(j, '$.alias', 'Lurk')
+where id = 1;
+
+update stuff
+set j = JSON_SET(j, '$.alias', 'Twilight Struggler')
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.alias', 'Redner')
+where id = 1;
+
+update stuff
+set j = JSON_INSERT(j, '$.name', 'Larry')
+where id = 1;
+
+insert into stuff (id, j) values (1, json('{}'));
+insert into stuff (id, j) values (2, json('{}'));
+insert into stuff (id, j) values (3, json('{}'));
+
+create table stuff (
+	id int,
+	j json
+);
+
+
+
+
+
+
+
+******************************************************************************************
 sudo apt install sqlite3 sqlite3-doc sqlite3-pcre sqlite3-tools
+
+
+create table foo(
+	id int,
+	name text,
+	stuff json
+)
+
+insert into foo (id, name, stuff) values (1, 'Larry', json('{}'));
 
 
