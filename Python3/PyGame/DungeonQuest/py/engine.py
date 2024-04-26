@@ -1,8 +1,94 @@
 import sqlite3
 import json
 
+def sql_set(stmt):
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		conn.commit()
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+			print('Done.')
+
+def is_character_exists(charName):
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	stmt = "select * from characters where name = '" + charName + "'"
+
+	is_exists = False
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		res = cur.fetchall()
+		if len(res)>0: is_exists = True
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+			print('Done.')
+
+	return is_exists
+
 def createCharacter():
-	print("Name")
+	charName = input("Character's name: ")
+	print()
+	print("Class:")
+	print("   1: Fighter")
+	print("   2: Magic User")
+	print("   3: Cleric")
+	print("   4: Theif")
+	X = input("   ?: ")
+	charClass = "Theif"
+	if int(X)==1: charClass = "Fighter"
+	if int(X)==2: charClass = "Magic User"
+	if int(X)==3: charClass = "Cleric"
+	print()
+
+	print("Starting location:")
+	print("   1: NW corner")
+	print("   2: NE corner")
+	print("   3: SE corner")
+	print("   4: SW corner")
+	X = input("   ?: ")
+	charLoc = (0, 12)
+	if int(X)==1: charLoc = (0, 0)
+	if int(X)==2: charLoc = (9, 0)
+	if int(X)==3: charLoc = (9, 12)
+	print()
+
+	print(charName, charClass, charLoc)
+	if is_character_exists(charName):
+		# update
+		stmt = "update characters set class = '" + charClass + "'"
+		stmt += " where name = '" + charName + "'"
+		sql_set(stmt)
+		stmt = "update characters set x = " + str(charLoc[0])
+		stmt += " where name = '" + charName + "'"
+		sql_set(stmt)
+		stmt = "update characters set y = " + str(charLoc[1])
+		stmt += " where name = '" + charName + "'"
+		sql_set(stmt)
+	else:
+		# insert
+		stmt = "insert into characters (name, class, x, y, j) values ("
+		stmt += "'" + charName + "', '" + charClass + "',"
+		stmt += " " + str(charLoc[0]) + ", " + str(charLoc[1]) + ","
+		stmt += " " + "json('{}'))"
+		sql_set(stmt)
 
 def init():
 	print("Initializing...")
@@ -39,37 +125,4 @@ def init():
 		if conn:
 			conn.close()
 			print('Done.')
-
-
-'''
-try:
-
-	# Connect to DB and create a cursor
-	sqliteConnection = sqlite3.connect('sql.db')
-	cursor = sqliteConnection.cursor()
-	print('DB Init')
-
-	# Write a query and execute it with cursor
-	query = 'select sqlite_version();'
-	cursor.execute(query)
-
-	# Fetch and output result
-	result = cursor.fetchall()
-	print('SQLite Version is {}'.format(result))
-
-	# Close the cursor
-	cursor.close()
-
-# Handle errors
-except sqlite3.Error as error:
-	print('Error occurred - ', error)
-
-# Close DB Connection irrespective of success
-# or failure
-finally:
-
-	if sqliteConnection:
-		sqliteConnection.close()
-		print('SQLite Connection closed')
-'''
 

@@ -14,12 +14,28 @@ create table board (
 );
 
 create table characters (
-	id   int,
-	name text,
-	x    int,
-	y    int,
-	j    json
+	id    INTEGER PRIMARY KEY AUTOINCREMENT,
+	name  text,
+	class text,
+	x     int,
+	y     int,
+	j     json
 );
+
+
+insert into characters (name) values ("larry");
+
+
+update characters
+set j = json('{}')
+where name = 'Larry';
+
+
+
+
+
+
+
 
 
 
