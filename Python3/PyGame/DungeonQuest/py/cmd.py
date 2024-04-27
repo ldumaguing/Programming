@@ -6,8 +6,12 @@ def list_cmds():
 	print("Options:")
 	print("   init")
 	print("   createCharacter")
-	print("   setCharacterActive")
+	print("   setActiveCharacter")
 	print("   deleteCharacter")
+	print("   whoIsActive")
+	print()
+	print("   whereAmI")
+	print("   move [wasd]")
 
 if len(sys.argv) == 1:
 	list_cmds()
@@ -15,6 +19,22 @@ if len(sys.argv) == 1:
 
 if sys.argv[1]=='init':
 	e.init()
+	exit()
+
+if sys.argv[1]=='whereAmI':
+	e.whereAmI()
+	exit()
+
+if sys.argv[1]=='move':
+	e.move(sys.argv)
+	exit()
+
+if sys.argv[1]=='whoIsActive':
+	e.whoIsActive()
+	exit()
+
+if sys.argv[1]=='setActiveCharacter':
+	e.setActiveCharacter()
 	exit()
 
 if sys.argv[1]=='deleteCharacter':
