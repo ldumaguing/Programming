@@ -70,7 +70,7 @@ def is_character_exists(charName):
 	stmt = "select * from characters where name = '" + charName + "'"
 	return is_Any(stmt)
 
-def deleteCharacter():
+def listCharacters():
 	f = open('configs.json')
 	configs = json.load(f)
 	f.close()
@@ -82,7 +82,6 @@ def deleteCharacter():
 		cur = conn.cursor()
 		cur.execute(stmt)
 		res = cur.fetchall()
-		print("Remove by ID:")
 		for row in res:
 			print("   "+str(row[0])+":", row[1])
 		cur.close()
@@ -91,6 +90,11 @@ def deleteCharacter():
 	finally:
 		if conn:
 			conn.close()
+
+def deleteCharacter():
+	print("Enter ID to remove a character.")
+	print("===============================")
+	listCharacters()
 
 	ID = input("   ?: ")
 	if is_not_deleted(ID):
@@ -103,7 +107,8 @@ def deleteCharacter():
 def createCharacter():
 	charName = input("Character's name: ")
 	print()
-	print("Class:")
+	print("Enter the number which corresponds the class.")
+	print("=============================================")
 	print("   1: Fighter")
 	print("   2: Magic User")
 	print("   3: Cleric")
