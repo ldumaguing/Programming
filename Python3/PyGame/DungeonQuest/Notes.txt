@@ -28,6 +28,12 @@ create table characters (
 
 
 (~(a&b))&(a|b)   <--- substitute for XOR
+select (~(flags&2))&(flags|2) from characters;
+create view v_chars as
+   select * from characters where ((~(flags&2))&(flags|2))&2;
+
+update characters set flags=(~(flags&2))&(flags|2) where id=1;
+update characters set flags=4 where id=1;
 
 
 insert into characters (name) values ("larry");

@@ -41,38 +41,41 @@ def sql_set(stmt):
 			conn.close()
 			print('Done.')
 
-def is_character_exists(charName):
+def is_Any(stmt):
 	f = open('configs.json')
 	configs = json.load(f)
 	f.close()
 
-	stmt = "select * from characters where name = '" + charName + "'"
-
-	is_exists = False
+	is_any = False
 	try:
 		conn = sqlite3.connect(configs["database"])
 		cur = conn.cursor()
 		cur.execute(stmt)
 		res = cur.fetchall()
-		if len(res)>0: is_exists = True
+		if len(res)>0: is_any = True
 		cur.close()
 	except sqlite3.Error as error:
 		print('Error occurred - ', error)
 	finally:
 		if conn:
 			conn.close()
-			print('Done.')
 
-	return is_exists
+	return is_any
 
+def is_not_deleted(ID):
+	stmt = "select * from v_chars where id=" + str(ID)
+	return is_Any(stmt)
 
+def is_character_exists(charName):
+	stmt = "select * from characters where name = '" + charName + "'"
+	return is_Any(stmt)
 
 def deleteCharacter():
 	f = open('configs.json')
 	configs = json.load(f)
 	f.close()
 
-	stmt = "select id, name from characters order by name"
+	stmt = "select id, name from v_chars order by name"
 
 	try:
 		conn = sqlite3.connect(configs["database"])
@@ -90,16 +93,12 @@ def deleteCharacter():
 			conn.close()
 
 	ID = input("   ?: ")
-	flags = sql_get("flags", "id="+ID)
-	flags |= 2
-	print(">>>", flags)
-	stmt = "update characters set flags="+str(flags)
-	stmt += " where id="+str(ID)
-	print(">>>", stmt)
-
-
-
-
+	if is_not_deleted(ID):
+		stmt = "update characters set flags=(~(flags&2))&(flags|2) where id="
+		stmt += str(ID)
+		sql_set(stmt)
+	else:
+		print("Already deleted or doesn't exists.")
 
 def createCharacter():
 	charName = input("Character's name: ")
@@ -128,7 +127,6 @@ def createCharacter():
 	if int(X)==3: charLoc = (9, 12)
 	print()
 
-	print(charName, charClass, charLoc)
 	if is_character_exists(charName):
 		# update
 		stmt = "update characters set class = '" + charClass + "'"
