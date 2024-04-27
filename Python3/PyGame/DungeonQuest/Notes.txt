@@ -19,8 +19,15 @@ create table characters (
 	class text,
 	x     int,
 	y     int,
+	flags int default 0 not null,
 	j     json
 );
+********** flags
+01 active; in focus
+10 deleted
+
+
+(~(a&b))&(a|b)   <--- substitute for XOR
 
 
 insert into characters (name) values ("larry");

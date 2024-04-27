@@ -6,6 +6,8 @@ def list_cmds():
 	print("Options:")
 	print("   init")
 	print("   createCharacter")
+	print("   setCharacterActive")
+	print("   deleteCharacter")
 
 if len(sys.argv) == 1:
 	list_cmds()
@@ -13,6 +15,10 @@ if len(sys.argv) == 1:
 
 if sys.argv[1]=='init':
 	e.init()
+	exit()
+
+if sys.argv[1]=='deleteCharacter':
+	e.deleteCharacter()
 	exit()
 
 if sys.argv[1]=='createCharacter':

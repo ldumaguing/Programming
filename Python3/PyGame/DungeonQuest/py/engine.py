@@ -1,6 +1,28 @@
 import sqlite3
 import json
 
+def sql_get(col, conditions):
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	stmt = "select " + col + " from characters where " + conditions
+	val = 0
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		res = cur.fetchone()
+		val = res[0]
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+
+	return val
+
 def sql_set(stmt):
 	f = open('configs.json')
 	configs = json.load(f)
@@ -42,6 +64,42 @@ def is_character_exists(charName):
 			print('Done.')
 
 	return is_exists
+
+
+
+def deleteCharacter():
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	stmt = "select id, name from characters order by name"
+
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		res = cur.fetchall()
+		print("Remove by ID:")
+		for row in res:
+			print("   "+str(row[0])+":", row[1])
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+
+	ID = input("   ?: ")
+	flags = sql_get("flags", "id="+ID)
+	flags |= 2
+	print(">>>", flags)
+	stmt = "update characters set flags="+str(flags)
+	stmt += " where id="+str(ID)
+	print(">>>", stmt)
+
+
+
+
 
 def createCharacter():
 	charName = input("Character's name: ")
