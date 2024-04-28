@@ -11,10 +11,14 @@ def list_cmds():
 	print("   whoIsActive")
 	print()
 	print("   whereAmI")
-	print("   move [wasd]")
+	print("   move [nesw]")
 
 if len(sys.argv) == 1:
 	list_cmds()
+	exit()
+
+if sys.argv[1]=='foo':
+	print(e.sql_select("id, name, class", "id=3", "characters"))
 	exit()
 
 if sys.argv[1]=='init':

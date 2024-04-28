@@ -1,5 +1,31 @@
 import sqlite3
 import json
+import movement as m
+
+def sql_select(cols, conditions, tbl):
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	stmt = "select " + cols
+	stmt += " from " + tbl + " where " + conditions
+
+	selected = ()
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		res = cur.fetchone()
+		for x in res:
+			selected += (x,)
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+
+	return selected
 
 def sql_get(col, conditions):
 	f = open('configs.json')
@@ -70,55 +96,22 @@ def is_character_exists(charName):
 	return is_Any(stmt)
 	
 # ****************************************************************************************
-def whereAmI():
-	f = open('configs.json')
-	configs = json.load(f)
-	f.close()
-
-	stmt = "select x, y from v_chars where flags & 1"
-
-	try:
-		conn = sqlite3.connect(configs["database"])
-		cur = conn.cursor()
-		cur.execute(stmt)
-		res = cur.fetchall()
-		for row in res:
-			print("(" + str(row[0]) + ", " + str(row[1]) + ")")
-		cur.close()
-	except sqlite3.Error as error:
-		print('Error occurred - ', error)
-	finally:
-		if conn:
-			conn.close()
-
 def move(argv):
-	if len(argv)<3:
-		print("Please supply a direction.")
-		return
+	m.move(argv)
 
-	print(">>> ", len(argv))
-	print(argv[2])
+def whereAmI():
+	cols = "name, x, y"
+	conditions = "flags & 1"
+	tbl = "v_chars"
+	selected = sql_select(cols, conditions, tbl)
+	print(selected[0] + " is in (" + str(selected[1]) + ", " + str(selected[2]) + ").")
 
 def whoIsActive():
-	f = open('configs.json')
-	configs = json.load(f)
-	f.close()
-
-	stmt = "select id, name from v_chars where flags & 1"
-
-	try:
-		conn = sqlite3.connect(configs["database"])
-		cur = conn.cursor()
-		cur.execute(stmt)
-		res = cur.fetchall()
-		for row in res:
-			print("   "+str(row[0])+":", row[1])
-		cur.close()
-	except sqlite3.Error as error:
-		print('Error occurred - ', error)
-	finally:
-		if conn:
-			conn.close()
+	cols = "id, name"
+	conditions = "flags & 1"
+	tbl = "v_chars"
+	selected = sql_select(cols, conditions, tbl)
+	print(selected[1]+" ("+str(selected[0])+")")
 
 def listCharacters():
 	f = open('configs.json')
