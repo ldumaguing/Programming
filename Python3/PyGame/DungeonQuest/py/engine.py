@@ -26,30 +26,6 @@ def sql_select(cols, conditions, tbl):
 
 	return selected
 
-'''
-def sql_get(col, conditions):
-	f = open('configs.json')
-	configs = json.load(f)
-	f.close()
-
-	stmt = "select " + col + " from characters where " + conditions
-	val = 0
-	try:
-		conn = sqlite3.connect(configs["database"])
-		cur = conn.cursor()
-		cur.execute(stmt)
-		res = cur.fetchone()
-		val = res[0]
-		cur.close()
-	except sqlite3.Error as error:
-		print('Error occurred - ', error)
-	finally:
-		if conn:
-			conn.close()
-
-	return val
-'''
-
 def sql_set(stmt):
 	f = open('configs.json')
 	configs = json.load(f)
