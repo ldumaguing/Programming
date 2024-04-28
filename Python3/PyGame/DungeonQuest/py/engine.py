@@ -1,6 +1,5 @@
 import sqlite3
 import json
-import movement as m
 
 def sql_select(cols, conditions, tbl):
 	f = open('configs.json')
@@ -94,11 +93,13 @@ def is_not_deleted(ID):
 def is_character_exists(charName):
 	stmt = "select * from characters where name = '" + charName + "'"
 	return is_Any(stmt)
-	
-# ****************************************************************************************
-def move(argv):
-	m.move(argv)
 
+def is_tile_exists(X, Y):
+	stmt = "select * from board where "
+	stmt += "x="+str(X) + " and y="+str(Y)
+	return is_Any(stmt)
+
+# ****************************************************************************************
 def whereAmI():
 	cols = "name, x, y"
 	conditions = "flags & 1"

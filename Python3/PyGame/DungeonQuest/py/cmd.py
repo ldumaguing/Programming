@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 import engine as e
+import movement as m
 
 def list_cmds():
 	print("Options:")
@@ -30,7 +31,7 @@ if sys.argv[1]=='whereAmI':
 	exit()
 
 if sys.argv[1]=='move':
-	e.move(sys.argv)
+	m.move(sys.argv)
 	exit()
 
 if sys.argv[1]=='whoIsActive':

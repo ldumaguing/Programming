@@ -3,22 +3,62 @@ import json
 import engine as e
 import misc
 
-tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
-
 def placeTile(X, Y, From):
+	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
-	if From=="n": rotations=2
-	if From=="e": rotations=3
-	if From=="w": rotations=1
+	if From=="n":
+		rotations=2
+		Y += 1
+	if From=="e":
+		rotations=3
+		X -= 1
+	if From=="w":
+		rotations=1
+		X += 1
+	if From=="s":
+		Y -= 1
+
+	if X<0 or X>9 or Y<0 or Y>12:
+		print("Reached board's limit.")
+		return
+
+	if e.is_tile_exists(X, Y):
+		print("Tile already exists.")
+		stmt = "update characters set x=" + str(X)
+		stmt += " where flags & 1"
+		e.sql_set(stmt)
+		stmt = "update characters set y=" + str(Y)
+		stmt += " where flags & 1"
+		e.sql_set(stmt)
+		return
+
+
+
+
+
+
 	print(From, rotations)
 	tile = tiles[misc.roll_d8()]
 	print(tile)
 
-	rot = tile
+
 	for i in range(rotations):
 		print("i:", i)
-		rot = ((rot & 1)<<3) | (rot>>1)
-	print("rot:", rot)
+		tile = ((tile & 1)<<3) | (tile>>1)
+	print("tile:", tile)
+
+	stmt = "insert into board (x, y, openings) values ("
+	stmt += str(X)+", "
+	stmt += str(Y)+", "
+	stmt += str(tile)+")"
+	e.sql_set(stmt)
+
+	stmt = "update characters set x=" + str(X)
+	stmt += " where flags & 1"
+	e.sql_set(stmt)
+	stmt = "update characters set y=" + str(Y)
+	stmt += " where flags & 1"
+	e.sql_set(stmt)
 
 def move(argv):
 	if len(argv)<3:
