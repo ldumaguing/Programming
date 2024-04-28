@@ -24,6 +24,7 @@ def placeTile(X, Y, From):
 
 	if e.is_tile_exists(X, Y):
 		print("Tile already exists.")
+		# TODO: should you pass the threshold?
 		stmt = "update characters set x=" + str(X)
 		stmt += " where flags & 1"
 		e.sql_set(stmt)
