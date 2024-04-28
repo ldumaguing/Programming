@@ -26,6 +26,7 @@ def sql_select(cols, conditions, tbl):
 
 	return selected
 
+'''
 def sql_get(col, conditions):
 	f = open('configs.json')
 	configs = json.load(f)
@@ -47,6 +48,7 @@ def sql_get(col, conditions):
 			conn.close()
 
 	return val
+'''
 
 def sql_set(stmt):
 	f = open('configs.json')
@@ -98,6 +100,16 @@ def is_tile_exists(X, Y):
 	stmt = "select * from board where "
 	stmt += "x="+str(X) + " and y="+str(Y)
 	return is_Any(stmt)
+
+def is_threshold(X, Y, Side):
+	mask = 8
+	if Side=="e": mask=4
+	if Side=="s": mask=2
+	if Side=="w": mask=1
+	stmt = "select * from board where "
+	stmt += "x="+str(X) + " and y="+str(Y)
+	stmt += " and (openings & " + str(mask) + ") = " + str(mask)
+	return not is_Any(stmt)
 
 # ****************************************************************************************
 def whereAmI():
@@ -223,8 +235,8 @@ def init():
 
 		stmt = "delete from board"
 		cur.execute(stmt)
-		stmt = "delete from characters"
-		cur.execute(stmt)
+		# stmt = "delete from characters"
+		# cur.execute(stmt)
 		stmt = "insert into board (x, y, openings) values (0, 0, 9)"
 		cur.execute(stmt)
 		stmt = "insert into board (x, y, openings) values (9, 0, 12)"
@@ -237,6 +249,9 @@ def init():
 		cur.execute(stmt)
 		stmt = "insert into board (x, y, openings) values (5, 6, 0)"
 		cur.execute(stmt)
+		stmt = "update characters set x=-1, y=-1"
+		cur.execute(stmt)
+
 
 		conn.commit()
 		cur.close()

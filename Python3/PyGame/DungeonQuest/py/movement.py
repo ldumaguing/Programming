@@ -24,25 +24,18 @@ def placeTile(X, Y, From):
 
 	if e.is_tile_exists(X, Y):
 		print("Tile already exists.")
-		# TODO: should you pass the threshold?
-		stmt = "update characters set x=" + str(X)
-		stmt += " where flags & 1"
-		e.sql_set(stmt)
-		stmt = "update characters set y=" + str(Y)
-		stmt += " where flags & 1"
-		e.sql_set(stmt)
+		if e.is_threshold(X, Y, From):
+			print("There is a threshold.")
+			stmt = "update characters set x=" + str(X)
+			stmt += " where flags & 1"
+			e.sql_set(stmt)
+			stmt = "update characters set y=" + str(Y)
+			stmt += " where flags & 1"
+			e.sql_set(stmt)
 		return
 
-
-
-
-
-
-	print(From, rotations)
+	# Placing new tile
 	tile = tiles[misc.roll_d8()]
-	print(tile)
-
-
 	for i in range(rotations):
 		print("i:", i)
 		tile = ((tile & 1)<<3) | (tile>>1)
