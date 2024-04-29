@@ -6,7 +6,9 @@ import os
 
 board_w = 10*18
 board_h = 13*18
-foo = pygame.image.load('images/t0.png')
+foo = (pygame.image.load('images/t0.png'),
+	pygame.image.load('images/t1.png'))
+
 screen = pygame.display.set_mode((board_w, board_h))
 
 pygame.init()
@@ -18,8 +20,10 @@ while running:
 		if event.type == pygame.QUIT: running = False
 
 	screen.fill("black")
+	x = 0
 	for i in range(10):
-		screen.blit(foo, (8*i, 8*i))
+		screen.blit(foo[x%2], (8*i, 0))
+		x += 1
 	'''
 	screen.blit(foo, (0, 0))
 	screen.blit(foo, (8, 8))
