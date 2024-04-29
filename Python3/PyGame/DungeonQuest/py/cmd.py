@@ -2,6 +2,7 @@
 import sys
 import engine as e
 import movement as m
+import META as t
 
 def list_cmds():
 	print("Options:")
@@ -13,9 +14,15 @@ def list_cmds():
 	print()
 	print("   whereAmI")
 	print("   move [nesw]")
+	print()
+	print("   v :view map")
 
 if len(sys.argv) == 1:
 	list_cmds()
+	exit()
+
+if sys.argv[1]=='v':
+	t.view_map()
 	exit()
 
 if sys.argv[1]=='foo':

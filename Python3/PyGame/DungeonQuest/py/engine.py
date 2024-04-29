@@ -191,6 +191,9 @@ def createCharacter():
 		stmt = "update characters set y = " + str(charLoc[1])
 		stmt += " where name = '" + charName + "'"
 		sql_set(stmt)
+		stmt = "update characters set flags=0"
+		stmt += " where name = '" + charName + "'"
+		sql_set(stmt)
 	else:
 		# insert
 		stmt = "insert into characters (name, class, x, y, j) values ("

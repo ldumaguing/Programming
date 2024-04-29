@@ -1,0 +1,100 @@
+#!/usr/bin/python3
+import json
+import pygame
+import sys
+import os
+import engine as e
+
+def get_tile(x, y):
+	cols = "openings"
+	conditions = " x="+str(x) + " and y="+str(y)
+	tbl = "board"
+	try:
+		val = e.sql_select(cols, conditions, tbl)[0]
+	except:
+		val = -1
+
+	return val
+
+def view_map():
+	board_w = 640
+	board_h = 400
+	tiles = (pygame.image.load('images/t0.png'),
+		pygame.image.load('images/t1.png'),
+		pygame.image.load('images/t2.png'),
+		pygame.image.load('images/t3.png'),
+		pygame.image.load('images/t4.png'),
+		pygame.image.load('images/t5.png'),
+		pygame.image.load('images/t6.png'),
+		pygame.image.load('images/t7.png'),
+		pygame.image.load('images/t8.png'),
+		pygame.image.load('images/t9.png'),
+		pygame.image.load('images/t10.png'),
+		pygame.image.load('images/t11.png'),
+		pygame.image.load('images/t12.png'),
+		pygame.image.load('images/t13.png'),
+		pygame.image.load('images/t14.png'),
+		)
+	meeple = pygame.image.load('images/meeple.png')
+	meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
+	print(meeple_pos)
+	screen = pygame.display.set_mode((board_w, board_h))
+
+	pygame.init()
+	clock = pygame.time.Clock()
+
+	board = [
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[3, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+	]
+
+	for x in range(10):
+		for y in range(13):
+			board[y][x] = get_tile(x, y)
+
+
+
+
+
+
+
+	running = True
+	while running:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT: running = False
+
+		screen.fill("brown")
+		for x in range(10):
+			for y in range(13):
+				tile = board[y][x]
+				if tile<0: continue
+				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
+		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )
+		'''
+		x = 0
+		for i in range(10):
+			screen.blit(tiles[x%2], (16*i, 0))
+			x += 1
+		'''
+
+		pygame.display.flip()
+		clock.tick(5)
+
+
+
+
+
+	pygame.quit()
+
+

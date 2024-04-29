@@ -8,6 +8,8 @@ def cleanTile(tile, X, Y):
 		tile |= 8
 	if X==0:
 		tile |= 1
+	if Y==12:
+		tile |= 2
 	return tile
 
 def placeTile(X, Y, From):
