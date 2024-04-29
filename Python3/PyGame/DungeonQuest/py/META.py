@@ -70,9 +70,22 @@ def view_map():
 
 
 	running = True
+	counter=0
 	while running:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: running = False
+
+		if counter>50:
+			print(counter)
+			screen.fill("brown")
+			for x in range(10):
+				for y in range(13):
+					board[y][x] = get_tile(x, y)
+			meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
+			screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )
+			
+			
+			counter = 0
 
 		screen.fill("brown")
 		for x in range(10):
@@ -89,9 +102,8 @@ def view_map():
 		'''
 
 		pygame.display.flip()
-		clock.tick(5)
-
-
+		clock.tick(30)
+		counter += 1
 
 
 
