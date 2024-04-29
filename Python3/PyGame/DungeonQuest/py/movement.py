@@ -3,6 +3,13 @@ import json
 import engine as e
 import misc
 
+def cleanTile(tile, X, Y):
+	if Y==0:
+		tile |= 8
+	if X==0:
+		tile |= 1
+	return tile
+
 def placeTile(X, Y, From):
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
@@ -39,6 +46,8 @@ def placeTile(X, Y, From):
 	for i in range(rotations):
 		print("i:", i)
 		tile = ((tile & 1)<<3) | (tile>>1)
+	print("tile:", tile)
+	tile = cleanTile(tile, X, Y)
 	print("tile:", tile)
 
 	stmt = "insert into board (x, y, openings) values ("
