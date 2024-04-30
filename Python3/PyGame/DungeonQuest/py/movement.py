@@ -43,6 +43,7 @@ def placeTile(X, Y, From):
 			stmt = "update characters set y=" + str(Y)
 			stmt += " where flags & 1"
 			e.sql_set(stmt)
+		print("No threshold.")
 		return
 
 	# Placing new tile

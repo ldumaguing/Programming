@@ -63,12 +63,6 @@ def view_map():
 		for y in range(13):
 			board[y][x] = get_tile(x, y)
 
-
-
-
-
-
-
 	running = True
 	counter=0
 	while running:
@@ -80,26 +74,14 @@ def view_map():
 			if keys[pygame.K_LALT]:
 				if keys[pygame.K_q]: running = False
 
-
-
-
-
-
-
-
-
-
-
-
-		if counter>50:
+		
+		# update board
+		if counter>30:
 			print(counter)
-			screen.fill("brown")
 			for x in range(10):
 				for y in range(13):
 					board[y][x] = get_tile(x, y)
 			meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
-			screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )
-			
 			
 			counter = 0
 
@@ -109,7 +91,9 @@ def view_map():
 				tile = board[y][x]
 				if tile<0: continue
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
-		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )
+		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )		
+		
+		
 		'''
 		x = 0
 		for i in range(10):
@@ -124,5 +108,7 @@ def view_map():
 
 
 	pygame.quit()
+
+view_map()
 
 
