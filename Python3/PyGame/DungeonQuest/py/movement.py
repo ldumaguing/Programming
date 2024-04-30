@@ -47,9 +47,10 @@ def placeTile(X, Y, From):
 		return
 
 	# Placing new tile
-	tile = tiles[misc.roll_d8()]
+	rolled = misc.roll_d8()
+	if rolled==1: rolled = misc.roll_d8()  # re-roll once
+	tile = tiles[rolled]
 	for i in range(rotations):
-		print("i:", i)
 		tile = ((tile & 1)<<3) | (tile>>1)
 	print("tile:", tile)
 	tile = cleanTile(tile, X, Y)

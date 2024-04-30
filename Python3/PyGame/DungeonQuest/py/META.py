@@ -73,7 +73,6 @@ def view_map():
 		if keys[pygame.K_LCTRL]:
 			if keys[pygame.K_LALT]:
 				if keys[pygame.K_q]: running = False
-
 		
 		# update board
 		if counter>30:
@@ -85,27 +84,18 @@ def view_map():
 			
 			counter = 0
 
-		screen.fill("brown")
+		# draw screen
+		screen.fill((64,64,64))
 		for x in range(10):
 			for y in range(13):
 				tile = board[y][x]
 				if tile<0: continue
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
 		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )		
-		
-		
-		'''
-		x = 0
-		for i in range(10):
-			screen.blit(tiles[x%2], (16*i, 0))
-			x += 1
-		'''
 
 		pygame.display.flip()
 		clock.tick(30)
 		counter += 1
-
-
 
 	pygame.quit()
 
