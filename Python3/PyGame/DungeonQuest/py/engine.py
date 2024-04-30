@@ -152,6 +152,21 @@ def deleteCharacter():
 	else:
 		print("Already deleted or doesn't exists.")
 
+def placeCharacter():
+	print("Starting location:")
+	print("   1: NW corner")
+	print("   2: NE corner")
+	print("   3: SE corner")
+	print("   4: SW corner")
+	X = input("   ?: ")
+	charLoc = (0, 12)
+	if int(X)==1: charLoc = (0, 0)
+	if int(X)==2: charLoc = (9, 0)
+	if int(X)==3: charLoc = (9, 12)
+	stmt = "update characters set x="+str(charLoc[0]) + ", "
+	stmt += "y="+str(charLoc[1]) + " where flags & 1"
+	sql_set(stmt)
+
 def createCharacter():
 	charName = input("Character's name: ")
 	print()
@@ -230,7 +245,6 @@ def init():
 		cur.execute(stmt)
 		stmt = "update characters set x=-1, y=-1"
 		cur.execute(stmt)
-
 
 		conn.commit()
 		cur.close()

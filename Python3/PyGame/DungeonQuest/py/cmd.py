@@ -11,6 +11,7 @@ def list_cmds():
 	print("   setActiveCharacter")
 	print("   deleteCharacter")
 	print("   whoIsActive")
+	print("   placeCharacter")
 	print()
 	print("   whereAmI")
 	print("   move [nesw]")
@@ -27,6 +28,10 @@ if sys.argv[1]=='v':
 
 if sys.argv[1]=='foo':
 	print(e.sql_select("id, name, class", "id=3", "characters"))
+	exit()
+
+if sys.argv[1]=='placeCharacter':
+	e.placeCharacter()
 	exit()
 
 if sys.argv[1]=='init':
