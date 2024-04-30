@@ -3,7 +3,19 @@ import json
 import engine as e
 import misc
 
-def cleanTile(tile, X, Y):
+def add_doors(tile, From):
+	if tile==1: return tile
+	dont = 2
+	if From=="n": dont = 8
+	if From=="e": dont = 4
+	if From=="w": dont = 1
+
+	should = tile | dont
+	door = (misc.get_random(16) | should)^should
+	tile = tile | (door<<4)
+	return tile
+
+def cleanTile(tile, X, Y, From):
 	if Y==0:
 		tile |= 8
 	if X==0:
@@ -12,7 +24,8 @@ def cleanTile(tile, X, Y):
 		tile |= 2
 	if X==9:
 		tile |= 4
-	return tile
+
+	return add_doors(tile, From)
 
 def placeTile(X, Y, From):
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
@@ -53,7 +66,7 @@ def placeTile(X, Y, From):
 	for i in range(rotations):
 		tile = ((tile & 1)<<3) | (tile>>1)
 	print("tile:", tile)
-	tile = cleanTile(tile, X, Y)
+	tile = cleanTile(tile, X, Y, From)
 	print("tile:", tile)
 
 	stmt = "insert into board (x, y, openings) values ("

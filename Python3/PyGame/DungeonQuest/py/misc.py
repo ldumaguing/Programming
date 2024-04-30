@@ -1,5 +1,9 @@
 import random
 
+def get_random(x):
+	num  = (random.random() * 1000)
+	return int(num%x)
+
 def roll_d8():
 	num  = (random.random() * 100)
 	return int(num%8) + 1
