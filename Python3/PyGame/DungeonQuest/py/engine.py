@@ -87,6 +87,16 @@ def is_threshold(X, Y, Side):
 	stmt += " and (openings & " + str(mask) + ") = " + str(mask)
 	return not is_Any(stmt)
 
+def is_door_blocking(X, Y, Side):
+	side = 2
+	if Side=="e": side=1
+	if Side=="s": side=8
+	if Side=="w": side=4
+	stmt = "select * from board where "
+	stmt += "x="+str(X) + " and y="+str(Y)
+	stmt += " and (doors & "+str(side)+")"
+	return is_Any(stmt)
+
 # ****************************************************************************************
 def whereAmI():
 	cols = "name, x, y"

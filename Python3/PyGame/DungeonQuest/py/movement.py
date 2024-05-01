@@ -29,6 +29,17 @@ def cleanTile(tile, X, Y, From):
 	return tile
 
 def placeTile(X, Y, From):
+	if e.is_door_blocking(X, Y, From):
+		print("door")
+		d_event = misc.door_event()
+		if d_event==1:
+			print("trap")
+			return
+		if d_event==2:
+			print("stuck")
+			return
+		print("open")
+	
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
 	if From=="n":
@@ -52,9 +63,7 @@ def placeTile(X, Y, From):
 		if e.is_threshold(X, Y, From):
 			print("There is a threshold.")
 			stmt = "update characters set x=" + str(X)
-			stmt += " where flags & 1"
-			e.sql_set(stmt)
-			stmt = "update characters set y=" + str(Y)
+			stmt += ", y=" + str(Y)
 			stmt += " where flags & 1"
 			e.sql_set(stmt)
 		print("No threshold.")
@@ -85,12 +94,9 @@ def placeTile(X, Y, From):
 	stmt += " and y="+str(Y)
 	e.sql_set(stmt)
 
-
 	# place character
 	stmt = "update characters set x=" + str(X)
-	stmt += " where flags & 1"
-	e.sql_set(stmt)
-	stmt = "update characters set y=" + str(Y)
+	stmt += ", y=" + str(Y)
 	stmt += " where flags & 1"
 	e.sql_set(stmt)
 
