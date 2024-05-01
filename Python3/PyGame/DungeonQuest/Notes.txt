@@ -4,12 +4,20 @@
 *    E = 1011
 *    S = 1101
 *    W = 1110
+*
+* 8421
+* door (N, E, S, W)
+*    N = 1000
+*    E = 0100
+*    S = 0010
+*    W = 0001
+
 
 create table board (
 	x        int,
 	y        int,
 	openings int,
-	doors    int,
+	doors    int default 0,
 	j        json
 );
 

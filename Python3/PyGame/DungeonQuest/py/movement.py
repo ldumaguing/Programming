@@ -4,16 +4,17 @@ import engine as e
 import misc
 
 def add_doors(tile, From):
-	if tile==1: return tile
+	doors = 0
+
 	dont = 2
 	if From=="n": dont = 8
 	if From=="e": dont = 4
 	if From=="w": dont = 1
 
 	should = tile | dont
-	door = (misc.get_random(16) | should)^should
-	tile = tile | (door<<4)
-	return tile
+	doors = (misc.get_random(16) | should)^should
+
+	return doors
 
 def cleanTile(tile, X, Y, From):
 	if Y==0:
@@ -59,7 +60,7 @@ def placeTile(X, Y, From):
 		print("No threshold.")
 		return
 
-	# Placing new tile
+	# create tile
 	rolled = misc.roll_d8()
 	if rolled==1: rolled = misc.roll_d8()  # re-roll once
 	tile = tiles[rolled]
@@ -69,12 +70,23 @@ def placeTile(X, Y, From):
 	tile = cleanTile(tile, X, Y, From)
 	print("tile:", tile)
 
+	# place tile
 	stmt = "insert into board (x, y, openings) values ("
 	stmt += str(X)+", "
 	stmt += str(Y)+", "
 	stmt += str(tile)+")"
 	e.sql_set(stmt)
 
+	# add doors
+	doors = add_doors(tile, From)
+	print(doors)
+	stmt = "update board set doors="+str(doors)
+	stmt += " where x="+str(X)
+	stmt += " and y="+str(Y)
+	e.sql_set(stmt)
+
+
+	# place character
 	stmt = "update characters set x=" + str(X)
 	stmt += " where flags & 1"
 	e.sql_set(stmt)
