@@ -12,13 +12,13 @@
 *    S = 0010
 *    W = 0001
 
-
+drop table if exists board;
 create table board (
 	x        int,
 	y        int,
 	openings int,
 	doors    int default 0,
-	j        json
+	j        json default '{}'
 );
 
 create table characters (
