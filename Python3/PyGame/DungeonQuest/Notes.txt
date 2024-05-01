@@ -9,6 +9,7 @@ create table board (
 	x        int,
 	y        int,
 	openings int,
+	doors    int,
 	j        json
 );
 

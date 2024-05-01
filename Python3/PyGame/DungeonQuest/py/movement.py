@@ -25,7 +25,7 @@ def cleanTile(tile, X, Y, From):
 	if X==9:
 		tile |= 4
 
-	return add_doors(tile, From)
+	return tile
 
 def placeTile(X, Y, From):
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
