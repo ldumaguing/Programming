@@ -29,6 +29,10 @@ def cleanTile(tile, X, Y, From):
 	return tile
 
 def placeTile(X, Y, From):
+	if X<0 or X>9 or Y<0 or Y>12:
+		print("Reached board's limit.")
+		return
+
 	if e.is_door_blocking(X, Y, From):
 		print("door")
 		d_event = misc.door_event()
@@ -39,10 +43,6 @@ def placeTile(X, Y, From):
 			print("stuck")
 			return
 		print("open")
-
-	if X<0 or X>9 or Y<0 or Y>12:
-		print("Reached board's limit.")
-		return	
 
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
