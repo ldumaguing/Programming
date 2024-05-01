@@ -39,7 +39,11 @@ def placeTile(X, Y, From):
 			print("stuck")
 			return
 		print("open")
-	
+
+	if X<0 or X>9 or Y<0 or Y>12:
+		print("Reached board's limit.")
+		return	
+
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
 	if From=="n":
@@ -53,10 +57,6 @@ def placeTile(X, Y, From):
 		X += 1
 	if From=="s":
 		Y -= 1
-
-	if X<0 or X>9 or Y<0 or Y>12:
-		print("Reached board's limit.")
-		return
 
 	if e.is_tile_exists(X, Y):
 		print("Tile already exists.")
