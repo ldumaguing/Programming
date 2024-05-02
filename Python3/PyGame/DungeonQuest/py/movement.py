@@ -91,7 +91,6 @@ def placeTile(X, Y, From):
 
 	# add doors
 	doors = add_doors(tile, From)
-	print(doors)
 	stmt = "update board set doors="+str(doors)
 	stmt += " where x="+str(X)
 	stmt += " and y="+str(Y)
