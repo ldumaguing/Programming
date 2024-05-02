@@ -16,6 +16,17 @@ def get_doors(x, y):
 
 	return val
 
+def get_portcullis(x, y):
+	cols = "portcullis"
+	conditions = " x="+str(x) + " and y="+str(y)
+	tbl = "board"
+	try:
+		val = e.sql_select(cols, conditions, tbl)[0]
+	except:
+		val = 0
+
+	return val
+
 def get_tile(x, y):
 	cols = "openings"
 	conditions = " x="+str(x) + " and y="+str(y)
@@ -30,6 +41,12 @@ def get_tile(x, y):
 def view_map():
 	board_w = 320
 	board_h = 240
+	portcullis = (pygame.image.load('images/d0.png'),
+		pygame.image.load('images/pN.png'),
+		pygame.image.load('images/pE.png'),
+		pygame.image.load('images/pS.png'),
+		pygame.image.load('images/pW.png'),
+		)
 	doors = (pygame.image.load('images/d0.png'),
 		pygame.image.load('images/d1.png'),
 		pygame.image.load('images/d2.png'),
@@ -94,7 +111,9 @@ def view_map():
 				board[y][x] = t
 				continue
 			d = get_doors(x, y)
+			p = get_portcullis(x, y)
 			d_t = t | (d<<4)
+			p_d_t = d_t | (p<<8)
 			board[y][x] = d_t
 
 	running = True
@@ -118,8 +137,10 @@ def view_map():
 						board[y][x] = t
 						continue
 					d = get_doors(x, y)
+					p = get_portcullis(x, y)
 					d_t = t | (d<<4)
-					board[y][x] = d_t
+					p_d_t = d_t | (p<<8)
+					board[y][x] = p_d_t
 			meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
 			
 			counter = 0
@@ -128,11 +149,14 @@ def view_map():
 		screen.fill((64,64,64))
 		for x in range(10):
 			for y in range(13):
-				brd = board[y][x]
-				tile = brd & 15
+				raw = board[y][x]
+				tile = raw & 15
+				door = (raw & (15<<4))>>4
+				portcul = (raw & (15<<8))>>8
 				if tile>14: continue
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
-				screen.blit(doors[brd>>4], ((x*16)+5, (y*16)+5))
+				screen.blit(doors[door], ((x*16)+5, (y*16)+5))
+				screen.blit(portcullis[portcul], ((x*16)+5, (y*16)+5))
 		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )		
 
 		pygame.display.flip()
