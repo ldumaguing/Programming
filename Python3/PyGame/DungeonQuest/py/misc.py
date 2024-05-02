@@ -1,5 +1,26 @@
 import random
 
+def get_random_1(x):
+	num  = (random.random() * 1000)
+	return int(num%x) + 1
+
+def get_fixed_roll(lk):
+	# lk: (1,1,1,1,1,1,1,1,1,1)
+	# Higher number increases the likelyhood of the appearance of the face.
+	# Don't assign any faces to be lower than 1.
+	faces = len(lk)
+	counter = 0
+	for i in range(faces):
+		counter += lk[i]
+
+	rolled = get_random_1(counter)
+
+	c = 0
+	for i in range(faces):
+		c += lk[i]
+		if c>=rolled:
+			return i+1
+
 def get_random(x):
 	num  = (random.random() * 1000)
 	return int(num%x)

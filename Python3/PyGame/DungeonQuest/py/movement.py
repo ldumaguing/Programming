@@ -44,7 +44,6 @@ def placeTile(X, Y, From):
 			return
 		print("open")
 
-	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
 	rotations = 0
 	if From=="n":
 		rotations=2
@@ -71,8 +70,11 @@ def placeTile(X, Y, From):
 		return
 
 	# create tile
-	rolled = misc.roll_d8()
-	if rolled==1: rolled = misc.roll_d8()  # re-roll once
+	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
+	# likelyHood = (1,1,1,1,1,1,1,1)    # even
+	# likelyHood = (1,1,1,1,2,2,2,4)    # easy
+	likelyHood = (3,1,1,1,1,1,1,1)    # hard
+	rolled = misc.get_fixed_roll(likelyHood)
 	tile = tiles[rolled]
 	for i in range(rotations):
 		tile = ((tile & 1)<<3) | (tile>>1)
