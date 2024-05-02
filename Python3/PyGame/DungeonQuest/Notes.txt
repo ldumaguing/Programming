@@ -14,12 +14,12 @@
 
 drop table if exists board;
 create table board (
-	x            int,
-	y            int,
-	openings     int,
-	doors        int default 0,
-	portcullises int default 0,
-	j            json default '{}'
+	x           int,
+	y           int,
+	openings    int,
+	doors       int default 0,
+	portcullise int default 0,
+	j           json default '{}'
 );
 
 create table characters (
@@ -44,22 +44,11 @@ create view v_chars as
 update characters set flags=(~(flags&2))&(flags|2) where id=1;
 update characters set flags=4 where id=1;
 
-
 insert into characters (name) values ("larry");
-
 
 update characters
 set j = json('{}')
 where name = 'Larry';
-
-
-
-
-
-
-
-
-
 
 delete from board;
 insert into board (x, y, openings) values (0, 0, 9);  # 1001
