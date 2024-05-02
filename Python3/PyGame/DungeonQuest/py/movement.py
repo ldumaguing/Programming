@@ -66,6 +66,7 @@ def placeTile(X, Y, From):
 			stmt += ", y=" + str(Y)
 			stmt += " where flags & 1"
 			e.sql_set(stmt)
+			return
 		print("No threshold.")
 		return
 
