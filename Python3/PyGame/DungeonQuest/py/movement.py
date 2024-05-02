@@ -66,8 +66,8 @@ def placeTile(X, Y, From):
 			stmt += ", y=" + str(Y)
 			stmt += " where flags & 1"
 			e.sql_set(stmt)
-		print("No threshold.")
 		return
+		print("No threshold.")
 
 	# create tile
 	rolled = misc.roll_d8()
@@ -134,7 +134,6 @@ def move(argv):
 		if (openings & 1)==0:
 			placeTile(x, y, "e")
 			return
-
 
 	print("The wall is blocking you.")
 
