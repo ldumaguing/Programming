@@ -96,6 +96,7 @@ def placeTile(X, Y, From):
 	stmt += " and y="+str(Y)
 	e.sql_set(stmt)
 
+	# add portcullis
 	p = misc.get_random_1(15)
 	A = tile ^ 15
 	p = p & A
