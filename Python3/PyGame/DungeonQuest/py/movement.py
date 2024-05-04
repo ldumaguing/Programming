@@ -82,24 +82,23 @@ def placeTile(X, Y, From):
 	tile = cleanTile(tile, X, Y, From)
 	print("tile:", tile)
 
-	is_portcullis = False
-	if (tile==7) | (tile==11) | (tile==13) | (tile==14):
-		# add portcullis?
-		if misc.roll_d10>5:
-			is_portcullis = True
-			p = tile ^ 15
-			stmt = "insert into board (x, y, portcullis) values ("
-			stmt += str(X)+", "
-			stmt += str(Y)+", "
-			stmt += str(p)+")"
-			e.sql_set(stmt)
-
 	# place tile
 	stmt = "insert into board (x, y, openings) values ("
 	stmt += str(X)+", "
 	stmt += str(Y)+", "
 	stmt += str(tile)+")"
 	e.sql_set(stmt)
+
+	is_portcullis = False
+	# add portcullis?
+	if misc.roll_d10()>5:
+		print("add portcullis")
+		is_portcullis = True
+		p = tile ^ misc.get_random_1(15)
+		stmt = "update board set portcullis="+str(p)
+		stmt += " where x="+str(X)
+		stmt += " and y="+str(Y)
+		e.sql_set(stmt)
 
 	# add doors
 	if not is_portcullis:

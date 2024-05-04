@@ -42,10 +42,21 @@ def view_map():
 	board_w = 320
 	board_h = 240
 	portcullis = (pygame.image.load('images/d0.png'),
-		pygame.image.load('images/pN.png'),
-		pygame.image.load('images/pE.png'),
-		pygame.image.load('images/pS.png'),
-		pygame.image.load('images/pW.png'),
+		pygame.image.load('images/p1.png'),
+		pygame.image.load('images/p2.png'),
+		pygame.image.load('images/p3.png'),
+		pygame.image.load('images/p4.png'),
+		pygame.image.load('images/p5.png'),
+		pygame.image.load('images/p6.png'),
+		pygame.image.load('images/p7.png'),
+		pygame.image.load('images/p8.png'),
+		pygame.image.load('images/p9.png'),
+		pygame.image.load('images/p10.png'),
+		pygame.image.load('images/p11.png'),
+		pygame.image.load('images/p12.png'),
+		pygame.image.load('images/p13.png'),
+		pygame.image.load('images/p14.png'),
+		pygame.image.load('images/p15.png'),
 		)
 	doors = (pygame.image.load('images/d0.png'),
 		pygame.image.load('images/d1.png'),
@@ -107,6 +118,7 @@ def view_map():
 	for x in range(10):
 		for y in range(13):
 			t = get_tile(x, y)
+			#print(">", x, y, t)
 			if t<0:
 				board[y][x] = t
 				continue
@@ -153,6 +165,7 @@ def view_map():
 				tile = raw & 15
 				door = (raw & (15<<4))>>4
 				portcul = (raw & (15<<8))>>8
+				print(">", x, y, ":", raw, tile, door, portcul)
 				if tile>14: continue
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
 				screen.blit(doors[door], ((x*16)+5, (y*16)+5))

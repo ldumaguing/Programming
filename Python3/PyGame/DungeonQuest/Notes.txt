@@ -14,12 +14,12 @@
 
 drop table if exists board;
 create table board (
-	x           int,
-	y           int,
-	openings    int,
-	doors       int default 0,
-	portcullise int default 0,
-	j           json default '{}'
+	x          int,
+	y          int,
+	openings   int,
+	doors      int default 0,
+	portcullis int default 0,
+	j          json default '{}'
 );
 
 create table characters (
