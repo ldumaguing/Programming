@@ -90,22 +90,25 @@ def placeTile(X, Y, From):
 	e.sql_set(stmt)
 
 	# add doors
-	doors = add_doors(tile, From)
-	stmt = "update board set doors="+str(doors)
-	stmt += " where x="+str(X)
-	stmt += " and y="+str(Y)
-	e.sql_set(stmt)
+	doors = 0
+	if misc.roll_d10()<=5:
+		doors = add_doors(tile, From)
+		stmt = "update board set doors="+str(doors)
+		stmt += " where x="+str(X)
+		stmt += " and y="+str(Y)
+		e.sql_set(stmt)
 
 	# add portcullis
-	p = misc.get_random_1(15)
-	A = tile ^ 15
-	p = p & A
-	A = doors ^ 15
-	p = p & A
-	stmt = "update board set portcullis="+str(p)
-	stmt += " where x="+str(X)
-	stmt += " and y="+str(Y)
-	e.sql_set(stmt)
+	if misc.roll_d10()<=5:
+		p = misc.get_random_1(15)
+		A = tile ^ 15
+		p = p & A
+		A = doors ^ 15
+		p = p & A
+		stmt = "update board set portcullis="+str(p)
+		stmt += " where x="+str(X)
+		stmt += " and y="+str(Y)
+		e.sql_set(stmt)
 
 	# place character
 	stmt = "update characters set x=" + str(X)
