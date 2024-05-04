@@ -165,7 +165,7 @@ def view_map():
 				tile = raw & 15
 				door = (raw & (15<<4))>>4
 				portcul = (raw & (15<<8))>>8
-				print(">", x, y, ":", raw, tile, door, portcul)
+				# print(">", x, y, ":", raw, tile, door, portcul)
 				if tile>14: continue
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
 				screen.blit(doors[door], ((x*16)+5, (y*16)+5))

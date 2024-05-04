@@ -71,8 +71,8 @@ def placeTile(X, Y, From):
 
 	# create tile
 	tiles = (-1, 13, 5, 9, 12, 8, 4, 1, 0)
-	likelyHood = (1,1,1,1,1,1,1,1)    # even
-	# likelyHood = (1,1,1,1,2,2,2,4)    # easy
+	# likelyHood = (1,1,1,1,1,1,1,1)    # even
+	likelyHood = (1,1,1,1,2,2,2,4)    # easy
 	# likelyHood = (3,1,1,1,1,1,1,1)    # hard
 	rolled = misc.get_fixed_roll(likelyHood)
 	tile = tiles[rolled]
@@ -89,24 +89,22 @@ def placeTile(X, Y, From):
 	stmt += str(tile)+")"
 	e.sql_set(stmt)
 
-	is_portcullis = False
-	# add portcullis?
-	if misc.roll_d10()>5:
-		print("add portcullis")
-		is_portcullis = True
-		p = tile ^ misc.get_random_1(15)
-		stmt = "update board set portcullis="+str(p)
-		stmt += " where x="+str(X)
-		stmt += " and y="+str(Y)
-		e.sql_set(stmt)
-
 	# add doors
-	if not is_portcullis:
-		doors = add_doors(tile, From)
-		stmt = "update board set doors="+str(doors)
-		stmt += " where x="+str(X)
-		stmt += " and y="+str(Y)
-		e.sql_set(stmt)
+	doors = add_doors(tile, From)
+	stmt = "update board set doors="+str(doors)
+	stmt += " where x="+str(X)
+	stmt += " and y="+str(Y)
+	e.sql_set(stmt)
+
+	p = misc.get_random_1(15)
+	A = tile ^ 15
+	p = p & A
+	A = doors ^ 15
+	p = p & A
+	stmt = "update board set portcullis="+str(p)
+	stmt += " where x="+str(X)
+	stmt += " and y="+str(Y)
+	e.sql_set(stmt)
 
 	# place character
 	stmt = "update characters set x=" + str(X)
