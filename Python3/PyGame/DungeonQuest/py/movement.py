@@ -89,6 +89,13 @@ def placeTile(X, Y, From):
 	stmt += str(tile)+")"
 	e.sql_set(stmt)
 
+	# convert to corridor
+	if misc.roll_d10()<=5:
+		stmt = "update board set is_corridor=1"
+		stmt += " where x="+str(X)
+		stmt += " and y="+str(Y)
+		e.sql_set(stmt)
+
 	# add doors
 	doors = 0
 	if misc.roll_d10()<=5:

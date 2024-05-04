@@ -5,6 +5,17 @@ import sys
 import os
 import engine as e
 
+def get_corridor(x, y):
+	cols = "is_corridor"
+	conditions = " x="+str(x) + " and y="+str(y)
+	tbl = "board"
+	try:
+		val = e.sql_select(cols, conditions, tbl)[0]
+	except:
+		val = 0
+
+	return val
+
 def get_doors(x, y):
 	cols = "doors"
 	conditions = " x="+str(x) + " and y="+str(y)
@@ -41,6 +52,23 @@ def get_tile(x, y):
 def view_map():
 	board_w = 320
 	board_h = 240
+	floorTile = pygame.image.load('images/floor.png')
+	corridors = (pygame.image.load('images/d0.png'),
+		pygame.image.load('images/c1.png'),
+		pygame.image.load('images/c2.png'),
+		pygame.image.load('images/c3.png'),
+		pygame.image.load('images/c4.png'),
+		pygame.image.load('images/c5.png'),
+		pygame.image.load('images/c6.png'),
+		pygame.image.load('images/c7.png'),
+		pygame.image.load('images/c8.png'),
+		pygame.image.load('images/c9.png'),
+		pygame.image.load('images/c10.png'),
+		pygame.image.load('images/c11.png'),
+		pygame.image.load('images/c12.png'),
+		pygame.image.load('images/c13.png'),
+		pygame.image.load('images/c14.png'),
+		)
 	portcullis = (pygame.image.load('images/d0.png'),
 		pygame.image.load('images/p1.png'),
 		pygame.image.load('images/p2.png'),
@@ -93,7 +121,7 @@ def view_map():
 		)
 	meeple = pygame.image.load('images/meeple.png')
 	meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
-	print(meeple_pos)
+	# print(meeple_pos)
 	screen = pygame.display.set_mode((board_w, board_h))
 
 	pygame.init()
@@ -124,9 +152,11 @@ def view_map():
 				continue
 			d = get_doors(x, y)
 			p = get_portcullis(x, y)
+			c = get_corridor(x, y)
 			d_t = t | (d<<4)
 			p_d_t = d_t | (p<<8)
-			board[y][x] = d_t
+			c_p_d_t = p_d_t | (c<<12)
+			board[y][x] = c_p_d_t
 
 	running = True
 	counter=0
@@ -141,7 +171,7 @@ def view_map():
 		
 		# update board
 		if counter>30:
-			print(counter)
+			#print(counter)
 			for x in range(10):
 				for y in range(13):
 					t = get_tile(x, y)
@@ -150,26 +180,34 @@ def view_map():
 						continue
 					d = get_doors(x, y)
 					p = get_portcullis(x, y)
+					c = get_corridor(x, y)
 					d_t = t | (d<<4)
 					p_d_t = d_t | (p<<8)
-					board[y][x] = p_d_t
+					c_p_d_t = p_d_t | (c<<12)
+					board[y][x] = c_p_d_t
 			meeple_pos = e.sql_select("x, y", "flags & 1", "characters")
 			
 			counter = 0
 
 		# draw screen
-		screen.fill((64,64,64))
+		# screen.fill((64,64,64))
+		screen.fill("black")
 		for x in range(10):
 			for y in range(13):
 				raw = board[y][x]
 				tile = raw & 15
 				door = (raw & (15<<4))>>4
 				portcul = (raw & (15<<8))>>8
+				corrid = (raw & (15<<12))>>12
 				# print(">", x, y, ":", raw, tile, door, portcul)
 				if tile>14: continue
+				screen.blit(floorTile, ((x*16)+5, (y*16)+5))
 				screen.blit(tiles[tile], ((x*16)+5, (y*16)+5))
 				screen.blit(doors[door], ((x*16)+5, (y*16)+5))
 				screen.blit(portcullis[portcul], ((x*16)+5, (y*16)+5))
+				if corrid>0:
+					screen.blit(corridors[tile], ((x*16)+5, (y*16)+5))
+				#print(">", raw, corrid, tile)
 		screen.blit(meeple, ((meeple_pos[0]*16)+5, (meeple_pos[1]*16)+5   )  )		
 
 		pygame.display.flip()
