@@ -53,7 +53,7 @@ def view_map():
 	board_w = 320
 	board_h = 240
 	floorTile = pygame.image.load('images/floor.png')
-	corridors = (pygame.image.load('images/d0.png'),
+	corridors = (pygame.image.load('images/c0.png'),
 		pygame.image.load('images/c1.png'),
 		pygame.image.load('images/c2.png'),
 		pygame.image.load('images/c3.png'),
