@@ -61,6 +61,14 @@ insert into board (x, y, openings) values (5, 6, 0);
 
 
 
+
+update characters
+set j = json_set(j, '$.attribute.MUS', 10)
+where name = 'Larry';
+
+
+
+
 ******************
 .tables
 .schema <table>
