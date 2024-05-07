@@ -1,3 +1,39 @@
+drop table if exists tilepile;
+create table tilepile (
+	id       int,
+	notes    text,
+	num      int,
+	openings int,
+	flags    int
+);
+
+.mode csv
+.import fish.csv tilepile
+
+select * from tilepile where notes regexp '^X';
+update tilepile set openings=0 where notes regexp '^X';
+
+select * from tilepile where notes regexp '^T';
+update tilepile set openings=8 where notes regexp '^T';
+update tilepile set openings=1 where notes regexp 'T-left';
+update tilepile set openings=4 where notes regexp 'T-right';
+
+select * from tilepile where notes regexp '^L';
+update tilepile set openings=9 where notes regexp 'L-right';
+update tilepile set openings=12 where notes regexp 'L-left';
+
+select * from tilepile where notes regexp '^I';
+update tilepile set openings=5 where notes regexp '^I';
+
+update tilepile set openings=0 where notes regexp 'chasm';
+update tilepile set flags=4 where notes regexp 'chasm-right';
+update tilepile set flags=2 where notes regexp 'chasm-left';
+
+
+
+
+
+
 * 10x13 grid board
 * square room (N, E, S, W)
 *    N = 0111
