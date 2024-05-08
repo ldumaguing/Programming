@@ -29,6 +29,18 @@ update tilepile set openings=0 where notes regexp 'chasm';
 update tilepile set flags=4 where notes regexp 'chasm-right';
 update tilepile set flags=2 where notes regexp 'chasm-left';
 
+update tilepile set flags = flags | 1 where notes regexp 'corr';
+update tilepile set flags = flags | (1<<3) where notes regexp 'web';
+update tilepile set flags = flags | (1<<4) where notes regexp 'trap';
+update tilepile set flags = flags | (1<<5) where notes regexp 'aval';
+update tilepile set flags = flags | (1<<6) where notes regexp 'stai';
+update tilepile set flags = flags | (1<<7) where notes regexp 'dark';
+
+update tilepile set openings=13 where notes regexp 'dead';
+
+
+
+
 
 
 
