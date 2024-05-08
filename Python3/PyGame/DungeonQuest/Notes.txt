@@ -5,8 +5,8 @@ CREATE TABLE tilepile (
 	openings   int,
 	doors      int default 0,
 	portcullis int default 0,
-	flags      int,
-	num        int,
+	flags      int default 0,
+	num        int default 0,
 	bag        int default 0
 );
 
