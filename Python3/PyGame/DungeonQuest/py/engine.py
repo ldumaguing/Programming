@@ -112,6 +112,34 @@ def whoIsActive():
 	selected = sql_select(cols, conditions, tbl)
 	print(selected[1]+" ("+str(selected[0])+")")
 
+def get_tile_row(aNum):
+	f = open('configs.json')
+	configs = json.load(f)
+	f.close()
+
+	stmt = "select id from tilepile where bag>0"
+	
+	tileID = 0
+	try:
+		conn = sqlite3.connect(configs["database"])
+		cur = conn.cursor()
+		cur.execute(stmt)
+		res = cur.fetchall()
+		count=0
+		for row in res:
+			count += 1
+			if count==aNum:
+				tileID = row[0]
+				break
+		cur.close()
+	except sqlite3.Error as error:
+		print('Error occurred - ', error)
+	finally:
+		if conn:
+			conn.close()
+
+	return tileID
+
 def listCharacters():
 	f = open('configs.json')
 	configs = json.load(f)
