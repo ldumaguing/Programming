@@ -1,1 +1,2 @@
-rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+Commodor 64 TV: 480x384
+Character: 12x16 (2 colors and a background color)
