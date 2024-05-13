@@ -1,2 +1,44 @@
 Commodor 64 TV: 480x400
 Character: 12x16 (2 colors and a background color)
+
+
+
+
+Character: 12x16 (2 colors and a background color)
+40x25
+
+(40x25)*(8x8)
+320x200
+
+(40x25)*(12x16)
+480x400 px screen
+
+
+480   320
+--- = ---
+400    x
+
+480x = 128000
+x = 266.66.....
+
+
+How about: 40x33 characters
+320x264
+
+720x480 pixels for NTSC DVDs 
+720x576 pixels for PAL ones
+
+
+
+720   320
+--- = ---
+576    x
+
+x = 256
+
+40x32
+
+
+
+
+
