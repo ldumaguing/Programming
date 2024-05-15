@@ -1,0 +1,5 @@
+cl65 -C c64-asm.cfg test.s
+c1541 -format "larry,0" d64 disk.d64
+c1541 -attach disk.d64  -write test fishing
+c1541 -attach disk.d64  -list
+
