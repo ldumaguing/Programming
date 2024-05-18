@@ -10,7 +10,7 @@ scrn_center_x, scrn_center_y = (scrn_x/2, scrn_y/2)
 
 
 
-lcd_x, lcd_y = (480, 320)
+lcd_x, lcd_y = (320,240)
 print("lcd:", lcd_x, lcd_y)
 scale = 0.99
 if (scrn_x/lcd_x)<(scrn_y/lcd_y):
