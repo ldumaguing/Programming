@@ -6,16 +6,27 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
+
+
+
+
+
+
+
 # Draw stuff on the LCD surface
-lcd_dim = (320, 240)
+lcd_dim = (400, 240)
 lcd_surface = pygame.Surface(lcd_dim)
 lcd_surface.fill((255, 255, 255))
 pygame.draw.rect(lcd_surface, (128, 128, 128), pygame.Rect(0, 0, 10, 10))
 pygame.draw.rect(lcd_surface, (255, 0, 255), pygame.Rect(1, 1, 10, 10))
 pygame.draw.rect(lcd_surface, (0, 0, 255), pygame.Rect(2, 2, 10, 10))
 
+
+
+
+
 scale = min(screen_dim[0]/lcd_dim[0], screen_dim[1]/lcd_dim[1])
-scale *= .98
+scale *= 0.99
 
 scale_lcd_dim = (lcd_dim[0]*scale, lcd_dim[1]*scale)
 

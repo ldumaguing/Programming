@@ -6,32 +6,33 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
+# Map surface
 board_map = pygame.image.load("../../../IMAGES/Nuklear Winter 68/Map.jpg")
-chunk = (400, 240)
+chunk = (400*5, 240*5) # chunk of the board
 map_surface = pygame.Surface(chunk)
-map_surface.blit(board_map, (-100,-100))
+map_surface.blit(board_map, (-200,-200))
 
 
 
 
 
-# Draw stuff on the LCD surface
+# LCD surface
 lcd_dim = (400, 240)
 lcd_surface = pygame.Surface(lcd_dim)
 
-pygame.transform.scale(
+pygame.transform.scale(  # scale the map to the LCD
 	map_surface,
-	(400, 240),
+	lcd_dim,
 	lcd_surface)
-#lcd_surface.fill((255, 255, 255))
-#pygame.draw.rect(lcd_surface, (128, 128, 128), pygame.Rect(0, 0, 10, 10))
-#pygame.draw.rect(lcd_surface, (255, 0, 255), pygame.Rect(1, 1, 10, 10))
-#pygame.draw.rect(lcd_surface, (0, 0, 255), pygame.Rect(2, 2, 10, 10))
+
+pygame.draw.rect(lcd_surface, (128, 128, 128), pygame.Rect(0, 0, 10, 10))
+pygame.draw.rect(lcd_surface, (255, 0, 255), pygame.Rect(1, 1, 10, 10))
+pygame.draw.rect(lcd_surface, (0, 0, 255), pygame.Rect(2, 2, 10, 10))
 
 
 
 
-
+# Scaling surface based on LCD and Screen
 scale = min(screen_dim[0]/lcd_dim[0], screen_dim[1]/lcd_dim[1])
 scale *= 0.99
 
@@ -48,10 +49,22 @@ upper_left_loc = (
 	(screen_dim[0] - scale_lcd_dim[0]) - ((screen_dim[0] - scale_lcd_dim[0])/2),
 	(screen_dim[1] - scale_lcd_dim[1]) - ((screen_dim[1] - scale_lcd_dim[1])/2)
 	)
+
+# Finally Screen gets Scaling surface data
 screen.blit(
 	scale_surface,
 	upper_left_loc
 	)
+
+
+
+
+
+
+
+
+
+
 
 pygame.display.flip()
 
