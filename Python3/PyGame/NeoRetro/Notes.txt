@@ -1,0 +1,7 @@
+NeoRetro Defined
+================
+
+Resolution: 640,480 (VGA)
+
+
+
