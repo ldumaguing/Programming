@@ -8,7 +8,7 @@ screen_dim = screen.get_size()
 
 # Map surface
 board_map = pygame.image.load("../../../IMAGES/Nuklear Winter 68/Map.jpg")
-chunk = (400*5, 240*5) # chunk of the board
+chunk = (640*2, 400*2) # chunk of the board
 map_surface = pygame.Surface(chunk)
 map_surface.blit(board_map, (-200,-200))
 
@@ -17,7 +17,7 @@ map_surface.blit(board_map, (-200,-200))
 
 
 # LCD surface
-lcd_dim = (400, 240)
+lcd_dim = (640, 400)
 lcd_surface = pygame.Surface(lcd_dim)
 
 pygame.transform.scale(  # scale the map to the LCD
