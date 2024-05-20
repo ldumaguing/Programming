@@ -2,6 +2,8 @@ NeoRetro Defined
 ================
 
 * Resolution: 640,480 (VGA)
+* RGB colors ($FF,$FF,$FF)
 * Transparency layer
 
 
+.
