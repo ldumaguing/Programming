@@ -3,62 +3,70 @@ import pygame
 pygame.init()
 clock = pygame.time.Clock()
 
+# NeoRetro aspect
+#rez = (640, 480)    # VGA 
+#rez = (800, 600)    # SVGA
+#rez = (800, 480)    # WVGA
+rez = (854, 480)    # FWVGA
+#rez = (320, 200)    # Commodore 64
+#rez = (640, 400)    # C= x2
+#rez = (640, 350)    # EGA
+
+# Screen Surface
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
+# Load a map
+board_map = pygame.image.load("../../../IMAGES/Nuklear Winter 68/Map.jpg")
+scoop = 2   # size of the spoon
+chunk = (rez[0]*scoop, rez[1]*scoop) # rez*scoop
+
+# Map Surface (a place to draw)
+map_surface = pygame.Surface(chunk)
+#    Draw stuff on Map surface
+map_surface.blit(board_map, (0,0))
+pygame.draw.rect(map_surface, (128, 128, 128), pygame.Rect(0, 0, 10, 10))
+pygame.draw.rect(map_surface, (255, 0, 255), pygame.Rect(1, 1, 10, 10))
+pygame.draw.rect(map_surface, (0, 0, 255), pygame.Rect(2, 2, 10, 10))
 
 
-
-
-
-
-
-# Draw stuff on the LCD surface
-lcd_dim = (400, 240)
-lcd_surface = pygame.Surface(lcd_dim)
-lcd_surface.fill((255, 255, 255))
-pygame.draw.rect(lcd_surface, (128, 128, 128), pygame.Rect(0, 0, 10, 10))
-pygame.draw.rect(lcd_surface, (255, 0, 255), pygame.Rect(1, 1, 10, 10))
-pygame.draw.rect(lcd_surface, (0, 0, 255), pygame.Rect(2, 2, 10, 10))
-
-
-
-
-
-scale = min(screen_dim[0]/lcd_dim[0], screen_dim[1]/lcd_dim[1])
-scale *= 0.99
-
-scale_lcd_dim = (lcd_dim[0]*scale, lcd_dim[1]*scale)
-
-scale_surface = pygame.Surface(scale_lcd_dim)
+# Rez Surface
+rez_surface = pygame.Surface(rez)
+#    Shove the map onto the Rez surface
 pygame.transform.scale(
-	lcd_surface,
-	scale_lcd_dim,
-	scale_surface)
+	map_surface,
+	rez,
+	rez_surface)
+
+# Scaled surface
+scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1]) # * 0.99
+scaled_rez = (rez[0]*scale, rez[1]*scale)
+scaled_surface = pygame.Surface(scaled_rez)
 
 
+pygame.draw.rect(rez_surface, (128, 128, 128), pygame.Rect(10, 10, 10, 10))
+pygame.draw.rect(rez_surface, (255, 0, 255), pygame.Rect(11, 11, 10, 10))
+pygame.draw.rect(rez_surface, (0, 0, 255), pygame.Rect(12, 12, 10, 10))
+
+
+
+pygame.transform.scale(
+	rez_surface,
+	scaled_rez,
+	scaled_surface)
+
+# Shove the Scaled surface onto the Screen surface
 upper_left_loc = (
-	(screen_dim[0] - scale_lcd_dim[0]) - ((screen_dim[0] - scale_lcd_dim[0])/2),
-	(screen_dim[1] - scale_lcd_dim[1]) - ((screen_dim[1] - scale_lcd_dim[1])/2)
+	(screen_dim[0] - scaled_rez[0]) - ((screen_dim[0] - scaled_rez[0])/2),
+	(screen_dim[1] - scaled_rez[1]) - ((screen_dim[1] - scaled_rez[1])/2)
 	)
+
 screen.blit(
-	scale_surface,
+	scaled_surface,
 	upper_left_loc
 	)
 
 pygame.display.flip()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 running = True
@@ -73,4 +81,7 @@ while running:
 
 pygame.quit()
 
+
+
+# ---
 
