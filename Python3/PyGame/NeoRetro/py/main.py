@@ -3,17 +3,23 @@ import pygame
 pygame.init()
 clock = pygame.time.Clock()
 
+wantFullScreen = True
+
 # NeoRetro aspect
 #rez = (640, 480)    # VGA 
 #rez = (800, 600)    # SVGA
 #rez = (800, 480)    # WVGA
-rez = (854, 480)    # FWVGA
+#rez = (854, 480)    # FWVGA
 #rez = (320, 200)    # Commodore 64
 #rez = (640, 400)    # C= x2
 #rez = (640, 350)    # EGA
+rez = (1024, 600)   # WSVGA
+#rez = (1280, 720)   # HD 720
+#rez = (1280, 800)   # WXGA
 
 # Screen Surface
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+if wantFullScreen: screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+else: screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load a map
@@ -39,10 +45,12 @@ pygame.transform.scale(
 	rez_surface)
 
 # Scaled surface
-scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1]) # * 0.99
+if wantFullScreen: scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1]) # * 0.99
+else: scale = 1
 scaled_rez = (rez[0]*scale, rez[1]*scale)
 scaled_surface = pygame.Surface(scaled_rez)
 
+	
 
 pygame.draw.rect(rez_surface, (128, 128, 128), pygame.Rect(10, 10, 10, 10))
 pygame.draw.rect(rez_surface, (255, 0, 255), pygame.Rect(11, 11, 10, 10))
