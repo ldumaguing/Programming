@@ -31,8 +31,6 @@ while running:
 			if pygame.joystick.Joystick(0).get_button(11): print("right button")
 		if event.type == pygame.JOYAXISMOTION:
 			print("Axis", event)
-		if event.type == pygame.JOYBALLMOTION:
-			print("Ball", event)
 		if event.type == pygame.JOYHATMOTION:
 			print("Hat", event)
 
