@@ -11,8 +11,8 @@ screen = pygame.display.set_mode((320,200))  # required for focusing on the prog
 
 running = True
 while running:
-	keys = pygame.key.get_pressed()
 	for event in pygame.event.get():
+		keys = pygame.key.get_pressed()
 		if keys[pygame.K_LCTRL]:
 			if keys[pygame.K_LALT]:
 				if keys[pygame.K_q]: running = False
