@@ -2,6 +2,8 @@ import pygame
 
 pygame.init()
 clock = pygame.time.Clock()
+pygame.joystick.init()
+joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
 rez = (1024, 600)   # WSVGA
 # screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
@@ -64,6 +66,11 @@ while running:
 		if keys[pygame.K_LCTRL]:
 			if keys[pygame.K_LALT]:
 				if keys[pygame.K_q]: running = False
+		if event.type == pygame.JOYBUTTONDOWN:
+			print(event)
+			if pygame.joystick.Joystick(0).get_button(9): print("Menu Toggle")
+
+
 
 
 	clock.tick(24)
