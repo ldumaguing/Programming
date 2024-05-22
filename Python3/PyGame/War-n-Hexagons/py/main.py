@@ -1,0 +1,77 @@
+import pygame
+
+pygame.init()
+clock = pygame.time.Clock()
+
+rez = (1024, 600)   # WSVGA
+# screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(rez)
+screen_dim = screen.get_size()
+
+# Load images
+map_img = pygame.image.load("./img/Map.png")
+frame_img = pygame.image.load("./img/Frame.png")
+menu_img = pygame.image.load("./img/Menu.png")
+
+# Map Surface (a place to draw)
+map_surface = pygame.Surface(rez)
+#    Draw stuff on Map surface
+map_surface.blit(map_img, (0,0))
+map_surface.blit(frame_img, (0,0))
+map_surface.blit(menu_img, (0,0))
+
+# Rez Surface
+rez_surface = pygame.Surface(rez)
+#    Shove the map onto the Rez surface
+pygame.transform.scale(
+	map_surface,
+	rez,
+	rez_surface)
+
+# Scaled surface
+#scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1])   # * 0.85
+scale = 1
+scaled_rez = (rez[0]*scale, rez[1]*scale)
+scaled_surface = pygame.Surface(scaled_rez)
+pygame.transform.scale(
+	rez_surface,
+	scaled_rez,
+	scaled_surface)
+
+# Shove the Scaled surface onto the Screen surface
+upper_left_loc = (
+	(screen_dim[0] - scaled_rez[0]) - ((screen_dim[0] - scaled_rez[0])/2),
+	(screen_dim[1] - scaled_rez[1]) - ((screen_dim[1] - scaled_rez[1])/2)
+	)
+
+screen.blit(
+	scaled_surface,
+	upper_left_loc
+	)
+
+pygame.display.flip()
+
+
+
+
+
+
+
+running = True
+while running:
+	for event in pygame.event.get():
+		keys = pygame.key.get_pressed()
+		if keys[pygame.K_LCTRL]:
+			if keys[pygame.K_LALT]:
+				if keys[pygame.K_q]: running = False
+
+
+	clock.tick(24)
+
+
+
+
+
+pygame.quit()
+
+
