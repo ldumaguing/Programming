@@ -5,5 +5,12 @@ NeoRetro Defined
 * RGB colors ($FF,$FF,$FF)
 * Transparency layer
 
+Hexagon
+/\
+\/
+48x52
 
+
+(0,0)   (48,0)
+   (24,39)
 .
