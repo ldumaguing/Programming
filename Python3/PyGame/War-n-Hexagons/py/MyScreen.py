@@ -1,10 +1,6 @@
 import pygame
 
-def drawMenu(s, rez):
-	drawFrame(s, rez)
-
-
-def drawFrame(s, rez):
+def drawFrame(s, rez, withMenu):
 	light_grey = (153,153,153)
 	black = (0,0,0)
 	white = (255,255,255)
@@ -28,20 +24,17 @@ def drawFrame(s, rez):
 	pygame.draw.line(s, white, (8, y-8), (x-8, y-8), 1)
 	pygame.draw.line(s, white, (8, y-8), (8, y-2), 1)
 	pygame.draw.line(s, grey, (x-9, y-7), (x-9, y-2), 1)
+	
+	if withMenu:
+		pygame.draw.line(s, white, (0, 0), (x, y), 8)
 
-def show_Screen(showMenu, screen, map_surface, rez_surface, rez,
-		scaled_surface, scaled_rez, upper_left_loc,
-		map_img):
+def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
+		scaled_rez, upper_left_loc, map_img):
 	if show_Screen.showMenu == showMenu: return
 
-	if showMenu:
-		map_surface.blit(map_img, (0,0))
-		drawMenu(screen, rez)
-		#map_surface.blit(frame_img, (0,0))
-		#              map_surface.blit(menu_img, (0,0))
-	else:
-		map_surface.blit(map_img, (0,0))
-
+	map_surface.blit(map_img, (0,0))
+	drawFrame(map_surface, rez, showMenu)
+	
 	pygame.transform.scale(
 		map_surface,
 		rez,

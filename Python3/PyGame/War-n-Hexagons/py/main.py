@@ -17,15 +17,12 @@ screen_dim = screen.get_size()
 
 # Load images
 map_img = pygame.image.load("./img/Map.png")
-#frame_img = pygame.image.load("./img/Frame.png")
-#menu_img = pygame.image.load("./img/Menu.png")
 
 # Map Surface (a place to draw)
 map_surface = pygame.Surface(rez)
 #    Draw stuff on Map surface
 map_surface.blit(map_img, (0,0))
-scrn.drawFrame(map_surface, rez)
-#map_surface.blit(frame_img, (0,0))
+scrn.drawFrame(map_surface, rez, False)
 
 # Rez Surface
 rez_surface = pygame.Surface(rez)
@@ -81,11 +78,6 @@ while running:
 		scaled_surface, scaled_rez, upper_left_loc,
 		map_img)
 
-	'''
-	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
-		scaled_surface, scaled_rez, upper_left_loc,
-		map_img, frame_img, menu_img)
-	'''
 	pygame.display.flip()
 
 	clock.tick(24)
