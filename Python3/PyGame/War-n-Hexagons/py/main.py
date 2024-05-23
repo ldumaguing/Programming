@@ -33,7 +33,7 @@ pygame.transform.scale(
 	rez_surface)
 
 # Scaled surface
-scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1])   # * 0.85
+scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1]) * 0.99
 #scale = 1
 scaled_rez = (rez[0]*scale, rez[1]*scale)
 scaled_surface = pygame.Surface(scaled_rez)
