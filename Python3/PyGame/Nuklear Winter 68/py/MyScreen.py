@@ -36,10 +36,11 @@ def drawFrame(s, rez, withMenu):
 		pygame.draw.rect(s, light_grey, pygame.Rect(x-328, 8, 320, y-17))
 
 def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
-		scaled_rez, upper_left_loc, map_img):
-	if show_Screen.showMenu == showMenu: return
+		scaled_rez, upper_left_loc, map_img, board_loc):
+	if showMenu:
+		if show_Screen.showMenu == showMenu: return
 
-	map_surface.blit(map_img, (8,8))
+	map_surface.blit(map_img, board_loc)
 	drawFrame(map_surface, rez, showMenu)
 	
 	pygame.transform.scale(

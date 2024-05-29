@@ -5,6 +5,7 @@ pygame.init()
 clock = pygame.time.Clock()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
+board_loc = [8,8]
 
 #rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
@@ -21,7 +22,7 @@ map_img = pygame.image.load("./img/Map-third.png")
 # Map Surface (a place to draw)
 map_surface = pygame.Surface(rez)
 #    Draw stuff on Map surface
-map_surface.blit(map_img, (8,8))
+map_surface.blit(map_img, board_loc)
 scrn.drawFrame(map_surface, rez, False)
 
 # Rez Surface
@@ -69,14 +70,38 @@ while running:
 				if showMenu: showMenu = False
 				else: showMenu = True
 
-		# Gamepad signals
+		# Gamepad signals for toggling (SEGA)
 		if event.type == pygame.JOYBUTTONDOWN:
-			print(event)
-			if pygame.joystick.Joystick(0).get_button(9): print("Menu Toggle")
+			if pygame.joystick.Joystick(0).get_button(8):   # SELECT
+				if showMenu: showMenu = False
+				else: showMenu = True
+
+	# Gamepad signals for continuous pressing (SEGA)
+	if event.type == pygame.JOYAXISMOTION:
+		X = round(pygame.joystick.Joystick(0).get_axis(0))
+		Y = round(pygame.joystick.Joystick(0).get_axis(1))
+		if showMenu==False:
+			if X>0:
+				board_loc[0]-=1
+				if pygame.joystick.Joystick(0).get_button(7): board_loc[0]-=29
+			if X<0:
+				board_loc[0]+=1
+				if pygame.joystick.Joystick(0).get_button(7): board_loc[0]+=29
+			if Y>0:
+				board_loc[1]-=1
+				if pygame.joystick.Joystick(0).get_button(7): board_loc[1]-=29
+			if Y<0:
+				board_loc[1]+=1
+				if pygame.joystick.Joystick(0).get_button(7): board_loc[1]+=29
+		if board_loc[0]>8: board_loc[0]=8
+		if board_loc[0]<-439: board_loc[0]=-439
+		if board_loc[1]>8: board_loc[1]=8
+		if board_loc[1]<-591: board_loc[1]=-591
+		print(board_loc)
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
 		scaled_surface, scaled_rez, upper_left_loc,
-		map_img)
+		map_img, board_loc)
 
 	pygame.display.flip()
 
