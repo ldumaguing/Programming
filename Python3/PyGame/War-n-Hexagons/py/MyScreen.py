@@ -39,7 +39,7 @@ def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
 		scaled_rez, upper_left_loc, map_img):
 	if show_Screen.showMenu == showMenu: return
 
-	map_surface.blit(map_img, (0,0))
+	map_surface.blit(map_img, (8,8))
 	drawFrame(map_surface, rez, showMenu)
 	
 	pygame.transform.scale(

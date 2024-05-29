@@ -6,9 +6,9 @@ clock = pygame.time.Clock()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
-rez = (1024, 600)   # WSVGA
+#rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
-#rez = (1280, 720)   # HD 720
+rez = (1280, 720)   # HD 720
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
@@ -16,12 +16,14 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
 # Load images
-map_img = pygame.image.load("./img/Map.png")
+#map_img = pygame.image.load("./img/Map.png")
+#map_img = pygame.image.load("../../../../IMAGES/Nuklear Winter 68/Map.jpg")
+map_img = pygame.image.load("../../../../IMAGES/Nuklear Winter 68/Map-third.png")
 
 # Map Surface (a place to draw)
 map_surface = pygame.Surface(rez)
 #    Draw stuff on Map surface
-map_surface.blit(map_img, (0,0))
+map_surface.blit(map_img, (8,8))
 scrn.drawFrame(map_surface, rez, False)
 
 # Rez Surface
@@ -33,7 +35,7 @@ pygame.transform.scale(
 	rez_surface)
 
 # Scaled surface
-scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1]) * 0.99
+scale = min(screen_dim[0]/rez[0], screen_dim[1]/rez[1])   # * 0.99
 #scale = 1
 scaled_rez = (rez[0]*scale, rez[1]*scale)
 scaled_surface = pygame.Surface(scaled_rez)
