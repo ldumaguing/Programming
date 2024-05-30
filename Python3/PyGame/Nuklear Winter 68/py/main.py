@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
 # Load images
-map_img = pygame.image.load("./img/Map-third.png")
+map_img = pygame.image.load("./img/JustMap-div2.5.png")
 
 # Map Surface (a place to draw)
 map_surface = pygame.Surface(rez)
@@ -77,26 +77,27 @@ while running:
 				else: showMenu = True
 
 	# Gamepad signals for continuous pressing (SEGA)
-	if event.type == pygame.JOYAXISMOTION:
+	if showMenu==False:
 		X = round(pygame.joystick.Joystick(0).get_axis(0))
 		Y = round(pygame.joystick.Joystick(0).get_axis(1))
-		if showMenu==False:
-			if X>0:
-				board_loc[0]-=1
-				if pygame.joystick.Joystick(0).get_button(7): board_loc[0]-=29
-			if X<0:
-				board_loc[0]+=1
-				if pygame.joystick.Joystick(0).get_button(7): board_loc[0]+=29
-			if Y>0:
-				board_loc[1]-=1
-				if pygame.joystick.Joystick(0).get_button(7): board_loc[1]-=29
-			if Y<0:
-				board_loc[1]+=1
-				if pygame.joystick.Joystick(0).get_button(7): board_loc[1]+=29
+		if event.type == pygame.JOYAXISMOTION:
+			if X>0: board_loc[0]-=1
+			if X<0: board_loc[0]+=1
+			if Y>0: board_loc[1]-=1
+			if Y<0: board_loc[1]+=1
+		if pygame.joystick.Joystick(0).get_button(7):
+			if X>0: board_loc[0]-=19
+			if X<0: board_loc[0]+=19
+			if Y>0: board_loc[1]-=19
+			if Y<0: board_loc[1]+=19
+		if pygame.joystick.Joystick(0).get_button(9):
+			board_loc[0] = -387
+			board_loc[1] = -423
+
 		if board_loc[0]>8: board_loc[0]=8
-		if board_loc[0]<-439: board_loc[0]=-439
+		if board_loc[0]<-782: board_loc[0]=-782
 		if board_loc[1]>8: board_loc[1]=8
-		if board_loc[1]<-591: board_loc[1]=-591
+		if board_loc[1]<-853: board_loc[1]=-853
 		print(board_loc)
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
@@ -105,7 +106,7 @@ while running:
 
 	pygame.display.flip()
 
-	clock.tick(24)
+	clock.tick(30)
 
 
 
