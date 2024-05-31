@@ -15,7 +15,9 @@ hex_cursor_ID = [0, 0]
 
 #rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
-rez = (1280, 720)   # HD 720
+#rez = (1280, 800)   # WXGA
+#rez = (1280, 720)   # HD 720
+rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 #screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
