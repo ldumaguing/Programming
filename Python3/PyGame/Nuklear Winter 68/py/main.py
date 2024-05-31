@@ -82,24 +82,25 @@ while running:
 		if event.type == pygame.JOYBUTTONDOWN:
 			if pygame.joystick.Joystick(0).get_button(8):   # SELECT
 				if showMenu: showMenu = False
-				else: showMenu = True
+				else:
+					showMenu = True
+					showMapCursor = False
 		if pygame.joystick.Joystick(0).get_button(9):
 			if showMapCursor: showMapCursor = False
 			else:
 				showMapCursor = True
 				if board_loc[0]==8: hex_cursor_ID[0]=0
-				x_loc = abs(board_loc[0]-8)
 				hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_loc[0])
-			# print(">>>", board_loc, showMapCursor, hex_cursor_ID, x_loc)
-			print(">>>", hex_cursor_ID)
 
 	# Gamepad signals for continuous pressing (SEGA)
 	if showMenu==False:
+		X = round(pygame.joystick.Joystick(0).get_axis(0))
+		Y = round(pygame.joystick.Joystick(0).get_axis(1))
 		if showMapCursor:
-			print("hex cursor mode:", board_loc, hex_cursor_loc[0])
+			print("hex cursor mode:", board_loc, ":", hex_cursor_ID)
+			if event.type == pygame.JOYAXISMOTION:
+				print(hex_cursor_ID)
 		else:
-			X = round(pygame.joystick.Joystick(0).get_axis(0))
-			Y = round(pygame.joystick.Joystick(0).get_axis(1))
 			if event.type == pygame.JOYAXISMOTION:
 				if X>0: board_loc[0]-=1
 				if X<0: board_loc[0]+=1
@@ -119,7 +120,8 @@ while running:
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
 		scaled_surface, scaled_rez, upper_left_loc,
-		map_img, board_loc)
+		map_img, board_loc,
+		showMapCursor, cursor_hex_img, hex_cursor_ID, hex_cursor_loc)
 
 	pygame.display.flip()
 

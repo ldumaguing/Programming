@@ -36,11 +36,16 @@ def drawFrame(s, rez, withMenu):
 		pygame.draw.rect(s, light_grey, pygame.Rect(x-328, 8, 320, y-17))
 
 def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
-		scaled_rez, upper_left_loc, map_img, board_loc):
+		scaled_rez, upper_left_loc, map_img, board_loc,
+		showMapCursor, cursor_hex_img, hex_cursor_ID, hex_cursor_loc):
 	if showMenu:
 		if show_Screen.showMenu == showMenu: return
 
 	map_surface.blit(map_img, board_loc)
+	if showMapCursor:
+		x = (hex_cursor_ID[0]*hex_cursor_loc[0])+12
+		y = 12
+		map_surface.blit(cursor_hex_img, (x, y))
 	drawFrame(map_surface, rez, showMenu)
 	
 	pygame.transform.scale(
