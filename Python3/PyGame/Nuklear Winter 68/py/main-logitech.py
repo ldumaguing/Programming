@@ -96,14 +96,36 @@ while running:
 		hat = pygame.joystick.Joystick(0).get_hat(0)
 		print(board_loc)
 		if showMapCursor:
-			print("hex cursor mode:", board_loc, ":", hex_cursor_ID)
+			map_loc = [board_loc[0]-8, board_loc[1]-8]
+			print("hex cursor mode:", board_loc, ":", hex_cursor_ID, ": dim", hex_cursor_dim, map_loc)
+			fish = (hex_cursor_ID[0]*hex_cursor_dim[0])+map_loc[0]
+			hex_cursor_loc[0] = round(fish)
+			print("fish", fish, hex_cursor_loc)
+			'''
+			
 			print("dim", hex_cursor_dim)
-			hex_cursor_loc[0] = (hex_cursor_dim[0]*hex_cursor_ID[0])+board_loc[0]-8
-			print(
-				hex_cursor_loc[0]
-			)
-			#if event.type == pygame.JOYAXISMOTION:
-			#	print(hex_cursor_ID)
+			x = hex_cursor_dim[0]*hex_cursor_ID[0]
+			print("x", x, x + board_loc[0])
+			hex_cursor_loc[0] = 57
+			print(">>", hex_cursor_loc[0])
+			
+			hex_tolerance_X = hex_cursor_ID[0]+(board_loc[0]/hex_cursor_dim[0])
+			print("tolerate", hex_tolerance_X)
+			if (hex_tolerance_X<0.95)&(hex_tolerance_X>0.0):
+				print("shift")
+			else:
+				print("stay")
+			
+			if hex_cursor_ID[0]%2:
+				print("odd")
+				
+				hex_cursor_loc[0] =
+				print(
+					hex_cursor_loc[0]
+				)
+			else:
+				print("even")
+			'''
 		else:
 			if event.type == pygame.JOYHATMOTION:
 				if hat[0]>0: board_loc[0]-=1
