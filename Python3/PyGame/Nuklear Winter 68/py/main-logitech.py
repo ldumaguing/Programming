@@ -7,7 +7,7 @@ clock = pygame.time.Clock()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 board_loc = [8,8]
-hex_cursor_dim = (2054.0/30.0, 1483.0/19.0)
+hex_cursor_dim = (1892.0/28.0, 1483.0/19.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
