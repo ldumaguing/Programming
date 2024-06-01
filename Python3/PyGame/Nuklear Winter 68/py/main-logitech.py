@@ -7,10 +7,8 @@ clock = pygame.time.Clock()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 board_loc = [8,8]
-hex_cursor_loc = (
-	(1892.0/28.0),
-	(1483.0/19.0)
-)
+hex_cursor_dim = (2054.0/30.0, 1483.0/19.0)
+hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
 #rez = (1024, 600)   # WSVGA
@@ -20,8 +18,8 @@ hex_cursor_ID = [0, 0]
 rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-#screen = pygame.display.set_mode(rez)
+#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load images
@@ -91,14 +89,21 @@ while running:
 			else:
 				showMapCursor = True
 				if board_loc[0]==8: hex_cursor_ID[0]=0
-				hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_loc[0])
+				hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_dim[0])
+				#hex_cursor_ID[1] = math.ceil(abs(board_loc[1]-8) / hex_cursor_dim[1])
 
 	if showMenu==False:
 		hat = pygame.joystick.Joystick(0).get_hat(0)
+		print(board_loc)
 		if showMapCursor:
 			print("hex cursor mode:", board_loc, ":", hex_cursor_ID)
-			if event.type == pygame.JOYAXISMOTION:
-				print(hex_cursor_ID)
+			print("dim", hex_cursor_dim)
+			hex_cursor_loc[0] = (hex_cursor_dim[0]*hex_cursor_ID[0])+board_loc[0]-8
+			print(
+				hex_cursor_loc[0]
+			)
+			#if event.type == pygame.JOYAXISMOTION:
+			#	print(hex_cursor_ID)
 		else:
 			if event.type == pygame.JOYHATMOTION:
 				if hat[0]>0: board_loc[0]-=1
@@ -112,10 +117,10 @@ while running:
 				if hat[1]<0: board_loc[1]-=19
 
 			if board_loc[0]>8: board_loc[0]=8
-			if board_loc[0]<-782: board_loc[0]=-782
+			if board_loc[0]<-696: board_loc[0]=-696
 			if board_loc[1]>8: board_loc[1]=8
-			if board_loc[1]<-853: board_loc[1]=-853
-			# print(board_loc)
+			if board_loc[1]<-804: board_loc[1]=-804
+			#print(board_loc)
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
 		scaled_surface, scaled_rez, upper_left_loc,
