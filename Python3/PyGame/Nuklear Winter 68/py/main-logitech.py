@@ -96,9 +96,8 @@ while running:
 		hat = pygame.joystick.Joystick(0).get_hat(0)
 		print(board_loc)
 		if showMapCursor:
-			map_loc = [board_loc[0]-8, board_loc[1]-8]
-			print("hex cursor mode:", board_loc, ":", hex_cursor_ID, ": dim", hex_cursor_dim, map_loc)
-			fish = (hex_cursor_ID[0]*hex_cursor_dim[0])+map_loc[0]
+			print("hex cursor mode:", board_loc, ":", hex_cursor_ID, ": dim", hex_cursor_dim)
+			fish = (hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0]
 			hex_cursor_loc[0] = round(fish)
 			print("fish", fish, hex_cursor_loc)
 			'''
