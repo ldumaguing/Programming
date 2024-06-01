@@ -18,6 +18,7 @@ hex_cursor_ID = [0, 0]
 rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
+
 #screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
