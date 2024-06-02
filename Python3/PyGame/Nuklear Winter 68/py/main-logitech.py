@@ -79,12 +79,15 @@ while running:
 				if showMenu: showMenu = False
 				else: showMenu = True
 
+		# Toggle menu screen
 		if event.type == pygame.JOYBUTTONDOWN:
 			if pygame.joystick.Joystick(0).get_button(9):
 				if showMenu: showMenu = False
 				else:
 					showMenu = True
 					showMapCursor = False
+
+		# Toggle map cursor
 		if pygame.joystick.Joystick(0).get_button(8):
 			if showMapCursor: showMapCursor = False
 			else:

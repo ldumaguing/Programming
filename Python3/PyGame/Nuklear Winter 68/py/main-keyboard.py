@@ -65,10 +65,24 @@ while running:
 		if keys[pygame.K_LCTRL]:
 			if keys[pygame.K_LALT]:
 				if keys[pygame.K_q]: running = False
+
+		# Toggle menu screen
 		if event.type == pygame.KEYDOWN:
 			if keys[pygame.K_m]:
 				if showMenu: showMenu = False
 				else: showMenu = True
+
+		# Toggle map cursor
+		if event.type == pygame.KEYDOWN:
+			if keys[pygame.K_c]:
+				if showMapCursor: showMapCursor = False
+				else:
+					showMapCursor = True
+					if board_loc[0]==8: hex_cursor_ID[0]=0
+					hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_dim[0])
+					hex_cursor_ID[1] = math.ceil(abs(board_loc[1]-8) / hex_cursor_dim[1])
+					hex_cursor_ID[0]+=8
+					hex_cursor_ID[1]+=4
 
 		if showMenu==False:
 			if keys[pygame.K_a]: board_loc[0]+=1
@@ -82,6 +96,19 @@ while running:
 			if keys[pygame.K_x]:
 				board_loc[0] = -387
 				board_loc[1] = -423	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	if board_loc[0]>8: board_loc[0]=8
 	if board_loc[0]<-782: board_loc[0]=-782
