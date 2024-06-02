@@ -26,6 +26,7 @@ while running:
 			if pygame.joystick.Joystick(0).get_button(9): print("9: Options")
 			if pygame.joystick.Joystick(0).get_button(10): print("10: Left Axis as Button")
 			if pygame.joystick.Joystick(0).get_button(11): print("11: Right Axis as Button")
+			if pygame.joystick.Joystick(0).get_button(12): print("12: Home")
 		if event.type == pygame.JOYAXISMOTION:
 			print ("Left Axis X:", pygame.joystick.Joystick(0).get_axis(0))   # X: -1, 0, 1; left/right
 			print ("Left Axis Y:", pygame.joystick.Joystick(0).get_axis(1))   # Y: -1, 0, 1; up/down
