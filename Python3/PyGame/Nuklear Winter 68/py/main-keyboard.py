@@ -1,15 +1,19 @@
 import pygame
+import math
 import MyScreen as scrn
 
 pygame.init()
 clock = pygame.time.Clock()
 pygame.joystick.init()
-joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 board_loc = [8,8]
+hex_cursor_dim = (1892.0/28.0, 1483.0/19.0)
+hex_cursor_loc = [0, 0]
+hex_cursor_ID = [0, 0]
 
 #rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
-rez = (1280, 720)   # HD 720
+rez = (1366, 768)   # FWXGA
+#rez = (1280, 720)   # HD 720
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
@@ -18,6 +22,7 @@ screen_dim = screen.get_size()
 
 # Load images
 map_img = pygame.image.load("./img/JustMap-div2.5.png")
+cursor_hex_img = pygame.image.load("./img/cursor-hex.png")
 
 # Map Surface (a place to draw)
 map_surface = pygame.Surface(rez)
@@ -58,6 +63,7 @@ pygame.display.flip()
 running = True
 showMenu = False
 scrn.show_Screen.showMenu = False
+showMapCursor = False
 while running:
 	for event in pygame.event.get():
 		# Keystrokes
@@ -120,7 +126,8 @@ while running:
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
 		scaled_surface, scaled_rez, upper_left_loc,
-		map_img, board_loc)
+		map_img, board_loc,
+		showMapCursor, cursor_hex_img, hex_cursor_ID, hex_cursor_loc)
 
 	pygame.display.flip()
 
