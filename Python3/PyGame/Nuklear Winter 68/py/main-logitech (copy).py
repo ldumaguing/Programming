@@ -19,8 +19,8 @@ rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 
-#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-screen = pygame.display.set_mode(rez)
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load images
@@ -92,15 +92,34 @@ while running:
 				if board_loc[0]==8: hex_cursor_ID[0]=0
 				hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_dim[0])
 				hex_cursor_ID[1] = math.ceil(abs(board_loc[1]-8) / hex_cursor_dim[1])
+				hex_cursor_ID[0]+=8
+				hex_cursor_ID[1]+=4
 
 	if showMenu==False:
 		hat = pygame.joystick.Joystick(0).get_hat(0)
-		print(board_loc)
+		print(hex_cursor_ID)
 		if showMapCursor:
+			if event.type == pygame.JOYHATMOTION:   # moving hex cursor
+				if hat[0]>0: hex_cursor_ID[0]+=1
+				if hat[0]<0: hex_cursor_ID[0]-=1
+				if hat[1]>0: hex_cursor_ID[1]-=1
+				if hat[1]<0: hex_cursor_ID[1]+=1
 			hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 			hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
 			if hex_cursor_ID[0]%2:
 				hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+			while hex_cursor_loc[0]<-30:
+				hex_cursor_ID[0] = hex_cursor_ID[0]+1
+				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
+			while hex_cursor_loc[0]>1300:
+				hex_cursor_ID[0] = hex_cursor_ID[0]-1
+				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
+			while hex_cursor_loc[1]<-40:
+				hex_cursor_ID[1] = hex_cursor_ID[1]+1
+				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+			while hex_cursor_loc[1]>720:
+				hex_cursor_ID[1] = hex_cursor_ID[1]-1
+				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
 		else:
 			if event.type == pygame.JOYHATMOTION:
 				if hat[0]>0: board_loc[0]-=1
