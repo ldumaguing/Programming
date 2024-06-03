@@ -19,8 +19,8 @@ rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 
-#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-screen = pygame.display.set_mode(rez)
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load images
@@ -97,6 +97,7 @@ while running:
 				if hex_cursor_ID[0]%2:
 					hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
 
+				# Horizontal
 				if (hex_cursor_ID[0]==19) & (board_loc[0]==0):
 					board_loc[0] = -704
 					hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
@@ -104,23 +105,31 @@ while running:
 					board_loc[0] = 0
 					hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 
-		
-			'''
-			if keys[pygame.K_w]: board_loc[1]+=1
-			if keys[pygame.K_s]: board_loc[1]-=1
-			if keys[pygame.K_a] & keys[pygame.K_RSHIFT]: board_loc[0]+=20
-			if keys[pygame.K_d] & keys[pygame.K_RSHIFT]: board_loc[0]-=20
-			if keys[pygame.K_w] & keys[pygame.K_RSHIFT]: board_loc[1]+=20
-			if keys[pygame.K_s] & keys[pygame.K_RSHIFT]: board_loc[1]-=20
-			if keys[pygame.K_x]:
-				board_loc[0] = -387
-				board_loc[1] = -423	
-	
-			if board_loc[0]>8: board_loc[0]=8
-			if board_loc[0]<-696: board_loc[0]=-696
-			if board_loc[1]>8: board_loc[1]=8
-			if board_loc[1]<-804: board_loc[1]=-804
-			'''
+				# Vertical 1
+				if (hex_cursor_ID[1]==9) & (board_loc[1]==0):
+					board_loc[1] = -704
+					hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+					if hex_cursor_ID[0]%2:
+						hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+				# Vertical 2
+				if (hex_cursor_ID[1]==18) & (board_loc[1]==-704):
+					board_loc[1] = -812
+					hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+					if hex_cursor_ID[0]%2:
+						hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+				# Vertical 3
+				if (hex_cursor_ID[1]==10) & (board_loc[1]==-812):
+					board_loc[1] = -704
+					hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+					if hex_cursor_ID[0]%2:
+						hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+				if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
+					board_loc[1] = 0
+					hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+					if hex_cursor_ID[0]%2:
+						hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+
+
 			print(hex_cursor_ID)
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
