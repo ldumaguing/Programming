@@ -5,19 +5,22 @@ import MyScreen as scrn
 pygame.init()
 clock = pygame.time.Clock()
 pygame.joystick.init()
-board_loc = [8,8]
+
+board_loc = [0,0]
 hex_cursor_dim = (1892.0/28.0, 1483.0/19.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
 #rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
-rez = (1366, 768)   # FWXGA
+#rez = (1280, 800)   # WXGA
 #rez = (1280, 720)   # HD 720
+rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-#screen = pygame.display.set_mode(rez)
+
+#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load images
@@ -63,7 +66,7 @@ pygame.display.flip()
 running = True
 showMenu = False
 scrn.show_Screen.showMenu = False
-showMapCursor = False
+showMapCursor = True
 while running:
 	for event in pygame.event.get():
 		# Keystrokes
@@ -78,21 +81,31 @@ while running:
 				if showMenu: showMenu = False
 				else: showMenu = True
 
-		# Toggle map cursor
-		if event.type == pygame.KEYDOWN:
-			if keys[pygame.K_c]:
-				if showMapCursor: showMapCursor = False
-				else:
-					showMapCursor = True
-					if board_loc[0]==8: hex_cursor_ID[0]=0
-					hex_cursor_ID[0] = math.ceil(abs(board_loc[0]-8) / hex_cursor_dim[0])
-					hex_cursor_ID[1] = math.ceil(abs(board_loc[1]-8) / hex_cursor_dim[1])
-					hex_cursor_ID[0]+=8
-					hex_cursor_ID[1]+=4
+			if showMenu==False:
+				if keys[pygame.K_d]: hex_cursor_ID[0]+=1
+				if keys[pygame.K_a]: hex_cursor_ID[0]-=1
+				if keys[pygame.K_w]: hex_cursor_ID[1]-=1
+				if keys[pygame.K_s]: hex_cursor_ID[1]+=1
 
-		if showMenu==False:
-			if keys[pygame.K_a]: board_loc[0]+=1
-			if keys[pygame.K_d]: board_loc[0]-=1
+				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
+				if hex_cursor_ID[0]>29: hex_cursor_ID[0]=29
+				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
+				if hex_cursor_ID[1]>19: hex_cursor_ID[1]=19
+
+				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
+				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
+				if hex_cursor_ID[0]%2:
+					hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+
+				if (hex_cursor_ID[0]==19) & (board_loc[0]==0):
+					board_loc[0] = -704
+					hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
+				if (hex_cursor_ID[0]==10) & (board_loc[0]==-704):
+					board_loc[0] = 0
+					hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
+
+		
+			'''
 			if keys[pygame.K_w]: board_loc[1]+=1
 			if keys[pygame.K_s]: board_loc[1]-=1
 			if keys[pygame.K_a] & keys[pygame.K_RSHIFT]: board_loc[0]+=20
@@ -103,26 +116,12 @@ while running:
 				board_loc[0] = -387
 				board_loc[1] = -423	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	if board_loc[0]>8: board_loc[0]=8
-	if board_loc[0]<-782: board_loc[0]=-782
-	if board_loc[1]>8: board_loc[1]=8
-	if board_loc[1]<-853: board_loc[1]=-853
-		
-	print(board_loc)
-
+			if board_loc[0]>8: board_loc[0]=8
+			if board_loc[0]<-696: board_loc[0]=-696
+			if board_loc[1]>8: board_loc[1]=8
+			if board_loc[1]<-804: board_loc[1]=-804
+			'''
+			print(hex_cursor_ID)
 
 	scrn.show_Screen(showMenu, screen, map_surface, rez_surface, rez,
 		scaled_surface, scaled_rez, upper_left_loc,
@@ -131,7 +130,7 @@ while running:
 
 	pygame.display.flip()
 
-	clock.tick(30)
+	clock.tick(60)
 
 
 

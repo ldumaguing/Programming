@@ -41,10 +41,10 @@ def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
 	if showMenu:
 		if show_Screen.showMenu == showMenu: return
 
-	map_surface.blit(map_img, board_loc)
+	map_surface.blit(map_img, (board_loc[0]+8, board_loc[1]+8))
 	if showMapCursor:
-		x = hex_cursor_loc[0]+4
-		y = hex_cursor_loc[1]+4
+		x = hex_cursor_loc[0]+12
+		y = hex_cursor_loc[1]+12
 		map_surface.blit(cursor_hex_img, (x, y))
 	drawFrame(map_surface, rez, showMenu)
 	
