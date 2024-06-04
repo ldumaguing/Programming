@@ -6,7 +6,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 board_loc = [0,0]
-hex_cursor_dim = (1892.0/28.0, 1483.0/19.0)
+hex_cursor_dim = (2386.0/36.0, 1530.0/20.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
@@ -87,16 +87,16 @@ while running:
 				if keys[pygame.K_s]: hex_cursor_ID[1]+=1
 
 				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
-				if hex_cursor_ID[0]>29: hex_cursor_ID[0]=29
+				if hex_cursor_ID[0]>37: hex_cursor_ID[0]=37
 				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
-				if hex_cursor_ID[1]>19: hex_cursor_ID[1]=19
-				if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]==19):
-					hex_cursor_ID[1]=18
+				if hex_cursor_ID[1]>20: hex_cursor_ID[1]=20
+				#if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]==19):
+				#	hex_cursor_ID[1]=18
 
 				# Horizontal
 				if (hex_cursor_ID[0]==19) & (board_loc[0]==0):
-					board_loc[0] = -704
-				if (hex_cursor_ID[0]==10) & (board_loc[0]==-704):
+					board_loc[0] = -1235
+				if (hex_cursor_ID[0]==18) & (board_loc[0]==-1235):
 					board_loc[0] = 0
 
 				# Vertical 1
@@ -104,12 +104,14 @@ while running:
 					board_loc[1] = -704
 				# Vertical 2
 				if (hex_cursor_ID[1]==18) & (board_loc[1]==-704):
-					board_loc[1] = -812
+					board_loc[1] = -914
 				# Vertical 3
-				if (hex_cursor_ID[1]==10) & (board_loc[1]==-812):
+				if (hex_cursor_ID[1]==11) & (board_loc[1]==-914):
 					board_loc[1] = -704
 				if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
 					board_loc[1] = 0
+				#if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
+				#	board_loc[1] = 0
 
 				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
