@@ -1,7 +1,7 @@
 NeoRetro Defined
 ================
 
-* Resolution: 1024, 600   (WSVGA)
+* Resolution: 1366, 768   (FWXGA)
 * RGB colors ($FF,$FF,$FF)
 * Transparency layer
 

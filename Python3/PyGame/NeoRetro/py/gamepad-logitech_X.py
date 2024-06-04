@@ -6,7 +6,6 @@ clock = pygame.time.Clock()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
-
 screen = pygame.display.set_mode((320,200))  # required for focusing on the program
 
 running = True
