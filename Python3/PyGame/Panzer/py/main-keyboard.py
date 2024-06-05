@@ -6,7 +6,8 @@ pygame.init()
 clock = pygame.time.Clock()
 
 board_loc = [0,0]
-hex_cursor_dim = (2386.0/36.0, 1530.0/20.0)
+#hex_cursor_dim = (2386.0/36.0, 1530.0/20.0)
+hex_cursor_dim = (2394.0/36.0, 1536.0/20.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
@@ -23,7 +24,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
 # Load images
-map_img = pygame.image.load("./img/BaseMap-p51.png")
+map_img = pygame.image.load("./img/map-scaled.png")
 cursor_hex_img = pygame.image.load("./img/cursor-hex.png")
 
 # Map Surface (a place to draw)
