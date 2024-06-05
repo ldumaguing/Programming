@@ -89,9 +89,8 @@ while running:
 				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
 				if hex_cursor_ID[0]>50: hex_cursor_ID[0]=50
 				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
-				if hex_cursor_ID[1]>20: hex_cursor_ID[1]=20
-				#if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]==19):
-				#	hex_cursor_ID[1]=18
+				if hex_cursor_ID[1]>40: hex_cursor_ID[1]=40
+
 
 				# Horizontal
 				if (hex_cursor_ID[0]==19) & (board_loc[0]==0):
@@ -103,25 +102,25 @@ while running:
 				if (hex_cursor_ID[0]==18) & (board_loc[0]==-1300):
 					board_loc[0] = 0
 
+				# Vertical
+				if (hex_cursor_ID[1]==8) & (board_loc[1]==0):
+					board_loc[1] = -670
+				if (hex_cursor_ID[1]==17) & (board_loc[1]==-670):
+					board_loc[1] = -1360
+				if (hex_cursor_ID[1]==26) & (board_loc[1]==-1360):
+					board_loc[1] = -2050
+				if (hex_cursor_ID[1]==35) & (board_loc[1]==-2050):
+					board_loc[1] = -2515
 
-
-
-
-
-
-				# Vertical 1
-				if (hex_cursor_ID[1]==9) & (board_loc[1]==0):
-					board_loc[1] = -704
-				# Vertical 2
-				if (hex_cursor_ID[1]==18) & (board_loc[1]==-704):
-					board_loc[1] = -914
-				# Vertical 3
-				if (hex_cursor_ID[1]==11) & (board_loc[1]==-914):
-					board_loc[1] = -704
-				if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
+				if (hex_cursor_ID[1]==31) & (board_loc[1]==-2515):
+					board_loc[1] = -2050
+				if (hex_cursor_ID[1]==25) & (board_loc[1]==-2050):
+					board_loc[1] = -1360
+				if (hex_cursor_ID[1]==16) & (board_loc[1]==-1360):
+					board_loc[1] = -670
+				if (hex_cursor_ID[1]==7) & (board_loc[1]==-670):
 					board_loc[1] = 0
-				#if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
-				#	board_loc[1] = 0
+
 
 				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
