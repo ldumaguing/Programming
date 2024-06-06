@@ -6,7 +6,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 board_loc = [0,0]
-hex_cursor_dim = (1862.0/28.0, 1460.0/19.0)
+hex_cursor_dim = (2188.0/28.0, 1715.0/19.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
@@ -87,37 +87,35 @@ while running:
 				if keys[pygame.K_s]: hex_cursor_ID[1]+=1
 
 				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
-				if hex_cursor_ID[0]>50: hex_cursor_ID[0]=50
+				if hex_cursor_ID[0]>29: hex_cursor_ID[0]=29
 				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
-				if hex_cursor_ID[1]>40: hex_cursor_ID[1]=40
-
+				if hex_cursor_ID[1]>19: hex_cursor_ID[1]=19
 
 				# Horizontal
-				if (hex_cursor_ID[0]==18) & (board_loc[0]==0):
-					board_loc[0] = -1151
-				if (hex_cursor_ID[0]==15) & (board_loc[0]==-1151):
+				if (hex_cursor_ID[0]==15) & (board_loc[0]==0):
+					board_loc[0] = -1140
+				if (hex_cursor_ID[0]==29) & (board_loc[0]==-1140):
+					board_loc[0] = -1598
+				if (hex_cursor_ID[0]==18) & (board_loc[0]==-1598):
+					board_loc[0] = -1140
+				if (hex_cursor_ID[0]==13) & (board_loc[0]==-1140):
 					board_loc[0] = 0
-				if hex_cursor_ID[0]>29: hex_cursor_ID[0] = 29
 
 				# Vertical
-				if (hex_cursor_ID[1]==8) & (board_loc[1]==0):
-					board_loc[1] = -660
-				if (hex_cursor_ID[1]==17) & (board_loc[1]==-660):
-					board_loc[1] = -864
-				if (hex_cursor_ID[1]==10) & (board_loc[1]==-864):
-					board_loc[1] = -660
-				if (hex_cursor_ID[1]==7) & (board_loc[1]==-660):
+				if (hex_cursor_ID[1]==7) & (board_loc[1]==0):
+					board_loc[1] = -686
+				if (hex_cursor_ID[1]==15) & (board_loc[1]==-686):
+					board_loc[1] = -1163
+				if (hex_cursor_ID[1]==12) & (board_loc[1]==-1163):
+					board_loc[1] = -686
+				if (hex_cursor_ID[1]==6) & (board_loc[1]==-686):
 					board_loc[1] = 0
-				if hex_cursor_ID[1]>19: hex_cursor_ID[1] = 19
-
 
 				if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]>18): hex_cursor_ID[1]=18
 				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
 				if hex_cursor_ID[0]%2:
 					hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
-					
-
 
 			print(hex_cursor_ID)
 
