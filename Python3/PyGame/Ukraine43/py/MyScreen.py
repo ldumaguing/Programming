@@ -43,8 +43,8 @@ def show_Screen(showMenu, screen, map_surface, rez_surface, rez, scaled_surface,
 
 	map_surface.blit(map_img, (board_loc[0]+8, board_loc[1]+8))
 	if showMapCursor:
-		x = hex_cursor_loc[0]+62
-		y = hex_cursor_loc[1]+64
+		x = hex_cursor_loc[0]+73
+		y = hex_cursor_loc[1]+75
 		map_surface.blit(cursor_hex_img, (x, y))
 	drawFrame(map_surface, rez, showMenu)
 	
