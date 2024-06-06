@@ -6,7 +6,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 board_loc = [0,0]
-hex_cursor_dim = (1892.0/28.0, 1483.0/19.0)
+hex_cursor_dim = (1862.0/28.0, 1460.0/19.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
@@ -23,7 +23,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 screen_dim = screen.get_size()
 
 # Load images
-map_img = pygame.image.load("./img/JustMap-div2.5.png")
+map_img = pygame.image.load("./img/map-scaled.png")
 cursor_hex_img = pygame.image.load("./img/cursor-hex.png")
 
 # Map Surface (a place to draw)
@@ -87,35 +87,36 @@ while running:
 				if keys[pygame.K_s]: hex_cursor_ID[1]+=1
 
 				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
-				if hex_cursor_ID[0]>29: hex_cursor_ID[0]=29
+				if hex_cursor_ID[0]>50: hex_cursor_ID[0]=50
 				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
-				if hex_cursor_ID[1]>19: hex_cursor_ID[1]=19
-				if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]==19):
-					hex_cursor_ID[1]=18
+				if hex_cursor_ID[1]>40: hex_cursor_ID[1]=40
+
 
 				# Horizontal
-				if (hex_cursor_ID[0]==19) & (board_loc[0]==0):
-					board_loc[0] = -704
-				if (hex_cursor_ID[0]==10) & (board_loc[0]==-704):
+				if (hex_cursor_ID[0]==18) & (board_loc[0]==0):
+					board_loc[0] = -1151
+				if (hex_cursor_ID[0]==15) & (board_loc[0]==-1151):
 					board_loc[0] = 0
+				if hex_cursor_ID[0]>29: hex_cursor_ID[0] = 29
 
-				# Vertical 1
-				if (hex_cursor_ID[1]==9) & (board_loc[1]==0):
-					board_loc[1] = -704
-				# Vertical 2
-				if (hex_cursor_ID[1]==18) & (board_loc[1]==-704):
-					board_loc[1] = -812
-				# Vertical 3
-				if (hex_cursor_ID[1]==10) & (board_loc[1]==-812):
-					board_loc[1] = -704
-				if (hex_cursor_ID[1]==8) & (board_loc[1]==-704):
+				# Vertical
+				if (hex_cursor_ID[1]==8) & (board_loc[1]==0):
+					board_loc[1] = -660
+				if (hex_cursor_ID[1]==17) & (board_loc[1]==-660):
+					board_loc[1] = -864
+				if (hex_cursor_ID[1]==10) & (board_loc[1]==-864):
+					board_loc[1] = -660
+				if (hex_cursor_ID[1]==7) & (board_loc[1]==-660):
 					board_loc[1] = 0
+				if hex_cursor_ID[1]>19: hex_cursor_ID[1] = 19
 
+
+				if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]>18): hex_cursor_ID[1]=18
 				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
 				if hex_cursor_ID[0]%2:
 					hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
-
+					
 
 
 			print(hex_cursor_ID)
