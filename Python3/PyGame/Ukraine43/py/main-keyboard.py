@@ -97,13 +97,22 @@ while running:
 					board_loc[0] = -1238
 				if (hex_cursor_ID[0]==31) & (board_loc[0]==-1238):
 					board_loc[0] = -2414
+				if (hex_cursor_ID[0]==46) & (board_loc[0]==-2414):
+					board_loc[0] = -2772
+				if (hex_cursor_ID[0]==34) & (board_loc[0]==-2772):
+					board_loc[0] = -2414
+				if (hex_cursor_ID[0]==29) & (board_loc[0]==-2414):
+					board_loc[0] = -1238
+				if (hex_cursor_ID[0]==14) & (board_loc[0]==-1238):
+					board_loc[0] = 0
 
 				# Vertical
 				if (hex_cursor_ID[1]==7) & (board_loc[1]==0):
 					board_loc[1] = -695
 				if (hex_cursor_ID[1]==15) & (board_loc[1]==-695):
 					board_loc[1] = -1418
-
+				if (hex_cursor_ID[1]==22) & (board_loc[1]==-1418):
+					board_loc[1] = -2049
 
 				'''
 				if (hex_cursor_ID[0]==38) & (board_loc[0]==-1300):
