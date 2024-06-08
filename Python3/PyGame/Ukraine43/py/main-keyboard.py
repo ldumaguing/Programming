@@ -6,16 +6,15 @@ pygame.init()
 clock = pygame.time.Clock()
 
 board_loc = [0,0]
-hex_cursor_dim = (2188.0/28.0, 1715.0/19.0)
+hex_cursor_dim = (3921.0/50.0, 3610.0/40.0)
 hex_cursor_loc = [0, 0]
 hex_cursor_ID = [0, 0]
 
 #rez = (1024, 600)   # WSVGA
 #rez = (1280, 768)   # WXGA
 #rez = (1280, 800)   # WXGA
-#rez = (1600, 900)   # WSXGA
-rez = (1366, 768)   # FWXGA
 #rez = (1280, 720)   # HD 720
+rez = (1366, 768)   # FWXGA
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 
@@ -88,35 +87,80 @@ while running:
 				if keys[pygame.K_s]: hex_cursor_ID[1]+=1
 
 				if hex_cursor_ID[0]<0: hex_cursor_ID[0]=0
-				if hex_cursor_ID[0]>29: hex_cursor_ID[0]=29
+				if hex_cursor_ID[0]>50: hex_cursor_ID[0]=50
 				if hex_cursor_ID[1]<0: hex_cursor_ID[1]=0
-				if hex_cursor_ID[1]>19: hex_cursor_ID[1]=19
+				if hex_cursor_ID[1]>40: hex_cursor_ID[1]=40
+
 
 				# Horizontal
-				if (hex_cursor_ID[0]==15) & (board_loc[0]==0):
-					board_loc[0] = -1140
-				if (hex_cursor_ID[0]==29) & (board_loc[0]==-1140):
-					board_loc[0] = -1598
-				if (hex_cursor_ID[0]==18) & (board_loc[0]==-1598):
-					board_loc[0] = -1140
-				if (hex_cursor_ID[0]==13) & (board_loc[0]==-1140):
+				if (hex_cursor_ID[0]==16) & (board_loc[0]==0):
+					board_loc[0] = -1238
+				if (hex_cursor_ID[0]==31) & (board_loc[0]==-1238):
+					board_loc[0] = -2414
+				if (hex_cursor_ID[0]==46) & (board_loc[0]==-2414):
+					board_loc[0] = -2772
+				if (hex_cursor_ID[0]==34) & (board_loc[0]==-2772):
+					board_loc[0] = -2414
+				if (hex_cursor_ID[0]==29) & (board_loc[0]==-2414):
+					board_loc[0] = -1238
+				if (hex_cursor_ID[0]==14) & (board_loc[0]==-1238):
 					board_loc[0] = 0
 
 				# Vertical
 				if (hex_cursor_ID[1]==7) & (board_loc[1]==0):
-					board_loc[1] = -686
-				if (hex_cursor_ID[1]==15) & (board_loc[1]==-686):
-					board_loc[1] = -1163
-				if (hex_cursor_ID[1]==12) & (board_loc[1]==-1163):
-					board_loc[1] = -686
-				if (hex_cursor_ID[1]==6) & (board_loc[1]==-686):
+					board_loc[1] = -695
+				if (hex_cursor_ID[1]==15) & (board_loc[1]==-695):
+					board_loc[1] = -1418
+				if (hex_cursor_ID[1]==23) & (board_loc[1]==-1418):
+					board_loc[1] = -2139
+				if (hex_cursor_ID[1]==31) & (board_loc[1]==-2139):
+					board_loc[1] = -2861
+				if (hex_cursor_ID[1]==37) & (board_loc[1]==-2861):
+					board_loc[1] = -3088
+				if (hex_cursor_ID[1]==33) & (board_loc[1]==-3088):
+					board_loc[1] = -2861
+				if (hex_cursor_ID[1]==30) & (board_loc[1]==-2861):
+					board_loc[1] = -2139
+				if (hex_cursor_ID[1]==22) & (board_loc[1]==-2139):
+					board_loc[1] = -1418
+				if (hex_cursor_ID[1]==14) & (board_loc[1]==-1418):
+					board_loc[1] = -695
+				if (hex_cursor_ID[1]==6) & (board_loc[1]==-695):
 					board_loc[1] = 0
+				'''
+				if (hex_cursor_ID[0]==38) & (board_loc[0]==-1300):
+					board_loc[0] = -2157
+				if (hex_cursor_ID[0]==31) & (board_loc[0]==-2157):
+					board_loc[0] = -1300
+				if (hex_cursor_ID[0]==18) & (board_loc[0]==-1300):
+					board_loc[0] = 0
 
-				if (hex_cursor_ID[0]%2) & (hex_cursor_ID[1]>18): hex_cursor_ID[1]=18
+				# Vertical
+				if (hex_cursor_ID[1]==8) & (board_loc[1]==0):
+					board_loc[1] = -670
+				if (hex_cursor_ID[1]==17) & (board_loc[1]==-670):
+					board_loc[1] = -1360
+				if (hex_cursor_ID[1]==26) & (board_loc[1]==-1360):
+					board_loc[1] = -2050
+				if (hex_cursor_ID[1]==35) & (board_loc[1]==-2050):
+					board_loc[1] = -2515
+
+				if (hex_cursor_ID[1]==31) & (board_loc[1]==-2515):
+					board_loc[1] = -2050
+				if (hex_cursor_ID[1]==25) & (board_loc[1]==-2050):
+					board_loc[1] = -1360
+				if (hex_cursor_ID[1]==16) & (board_loc[1]==-1360):
+					board_loc[1] = -670
+				if (hex_cursor_ID[1]==7) & (board_loc[1]==-670):
+					board_loc[1] = 0
+				'''
+
 				hex_cursor_loc[0] = round((hex_cursor_ID[0]*hex_cursor_dim[0])+board_loc[0])
 				hex_cursor_loc[1] = round((hex_cursor_ID[1]*hex_cursor_dim[1])+board_loc[1])
 				if hex_cursor_ID[0]%2:
 					hex_cursor_loc[1] += (hex_cursor_dim[1]/2.0)
+
+
 
 			print(hex_cursor_ID)
 
