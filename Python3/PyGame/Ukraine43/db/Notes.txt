@@ -6,3 +6,12 @@ create table ukraine43 (
 
 sqlite> .mode csv
 sqlite> .import test.csv ukraine43
+
+
+
+create table chits (
+	name text not null
+);
+
+
+
