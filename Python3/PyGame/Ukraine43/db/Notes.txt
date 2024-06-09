@@ -1,4 +1,8 @@
 create table ukraine43 (
+	id integer primary key,
+	name text not null
+);
 
-)
 
+sqlite> .mode csv
+sqlite> .import test.csv ukraine43
