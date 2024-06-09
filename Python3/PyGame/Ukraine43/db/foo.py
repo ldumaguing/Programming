@@ -3,7 +3,7 @@ a1 = """
 <!DOCTYPE html>
 <html>
 <head>
-<title>Nuklear Winter '68</title>
+<title>Ukraine '43</title>
 <!-- <meta http-equiv="refresh" content="3"> -->
 </head>
 <body onload="">
@@ -29,7 +29,7 @@ cur = con.cursor()
 # res = cur.execute("SELECT * from ukraine43")
 # print(res.fetchone())
 
-for row in cur.execute("SELECT * from ukraine43"):
-	print("<img id=\"i" + str(row[0]) + "\" src=\"" + b1 + row[1] + "\"><br>")
+for row in cur.execute("SELECT * from ukraine43 where flags = 1 order by name"):
+	print("<img id=\"i" + str(row[0]) + "\" src=\"" + b1 + row[1] + "\">" + str(row[0]) + "; " + row[1] + "<br>")
 
 print(a2)
