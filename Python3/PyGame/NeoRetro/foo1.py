@@ -29,7 +29,7 @@ cur = con.cursor()
 # res = cur.execute("SELECT * from ukraine43")
 # print(res.fetchone())
 
-for row in cur.execute("SELECT * from images where flags = 1 order by name"):
+for row in cur.execute("SELECT * from ukraine43 where flags = 1 order by name"):
 	print("<img id=\"i" + str(row[0]) + "\" src=\"" + b1 + row[1] + "\">" + str(row[0]) + "; " + row[1] + "<br>")
 
 print(a2)
