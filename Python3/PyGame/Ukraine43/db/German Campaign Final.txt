@@ -3,23 +3,24 @@ create table board (
 	chitID int
 );
 
-insert into board (hexID, chitID) values ('', );
 
 2nd Army
 ========
-insert into board (hexID, chitID) values ('3401', 42);
-insert into board (hexID, chitID) values ('3403', 41);
-insert into board (hexID, chitID) values ('3405', 45);
-insert into board (hexID, chitID) values ('3506', 44);
-insert into board (hexID, chitID) values ('3507', 43);
+3401,42
+3403,41
+3405,45
+3506,44
+3507,43
 
 4th PzA
 =======
-insert into board (hexID, chitID) values ('3908', 55);
-insert into board (hexID, chitID) values ('4108', 53);
-insert into board (hexID, chitID) values ('4308', 54);
-insert into board (hexID, chitID) values ('4409', 51);
-insert into board (hexID, chitID) values ('4210', 56);
-insert into board (hexID, chitID) values ('3708', 50);
-insert into board (hexID, chitID) values ('3910', 52);
+3908,55
+4108,53
+4308,54
+4409,51
+4210,56
+3708,50
+3910,52
 
+
+ss
