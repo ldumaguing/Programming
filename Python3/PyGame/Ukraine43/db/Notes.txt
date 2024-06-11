@@ -4,14 +4,10 @@ sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
 
 
 
-sqlite3 ukraine43.sqlite "update chits set front = 25 where name = 'GE-12N-20Pzg'"
-sqlite3 ukraine43.sqlite "update chits set rear = 27 where name = 'GE-12N-20Pzg'"
-sqlite3 ukraine43.sqlite "update chits set rem = 26 where name = 'GE-12N-20Pzg'"
 
-
-
-
-
+sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
+sqlite3 ukraine43.sqlite "update chits set rear =  where name = ''"
+sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
 
 
 
