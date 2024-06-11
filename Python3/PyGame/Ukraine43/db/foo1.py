@@ -36,14 +36,14 @@ for row in cur.execute("SELECT * from chits order by name"):
 	front = blank_img
 	rear = blank_img
 	rem = blank_img
-	if row[1]!=0:
-		res = cur1.execute("select name from images where id = " + str(row[1]))
-		front = b1 + res.fetchone()[0]
 	if row[2]!=0:
 		res = cur1.execute("select name from images where id = " + str(row[2]))
-		rear = b1 + res.fetchone()[0]
+		front = b1 + res.fetchone()[0]
 	if row[3]!=0:
 		res = cur1.execute("select name from images where id = " + str(row[3]))
+		rear = b1 + res.fetchone()[0]
+	if row[4]!=0:
+		res = cur1.execute("select name from images where id = " + str(row[4]))
 		rem = b1 + res.fetchone()[0]
 
 
@@ -51,7 +51,7 @@ for row in cur.execute("SELECT * from chits order by name"):
 	print('<img src="' + front + '">')
 	print('<img src="' + rear + '">')
 	print('<img src="' + rem + '">')
-	print(row[0])
+	print(row[1], "---", row[0])
 	print('<br>')
 	#print(front, rear)
 
