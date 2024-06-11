@@ -1,6 +1,21 @@
-sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rear =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
+create view v_front as
+select id, name from images where name regexp '-f.';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8,6 +23,13 @@ sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
 sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
 sqlite3 ukraine43.sqlite "update chits set rear =  where name = ''"
 sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
+
+
+
+
+sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
+sqlite3 ukraine43.sqlite "update chits set rear  =  where name = ''"
+sqlite3 ukraine43.sqlite "update chits set rem   =  where name = ''"
 
 
 
