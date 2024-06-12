@@ -1,19 +1,19 @@
-create table board (
-	hexID  text,
-	chitID int
-);
+# create table board (
+# 	hexID  text,
+# 	chitID int
+# );
 
 
-2nd Army
-========
+# 2nd Army
+# ========
 3401,42
 3403,41
 3405,45
 3506,44
 3507,43
 
-4th PzA
-=======
+# 4th PzA
+# =======
 3908,55
 4108,53
 4308,54
@@ -22,5 +22,17 @@ create table board (
 3708,50
 3910,52
 
+# 8th Army
+# ========
+4509,75
+4510,73
+4512,77
+4614,76
+4414,78
+4315,74
+4412,79
 
-ss
+
+
+
+

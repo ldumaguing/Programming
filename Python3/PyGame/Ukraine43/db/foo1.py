@@ -31,7 +31,7 @@ cur1 = con.cursor()
 # res = cur.execute("SELECT * from ukraine43")
 # print(res.fetchone())
 
-for row in cur.execute("SELECT * from chits order by name"):
+for row in cur.execute("SELECT * from chits order by id, name"):
 	#print("<img id=\"i" + str(row[0]) + "\" src=\"" + b1 + row[1] + "\">" + str(row[0]) + "; " + row[1] + "<br>")
 	front = blank_img
 	rear = blank_img
