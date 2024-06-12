@@ -1,43 +1,24 @@
-1502 (5,1)
-1503 (5,2)
-1602 (6,1)
-1702 (7,1)
-1007 (0,6)
-
-
-create view v_front as
-select id, name from images where name regexp '-f.';
+FLAGS
+=====
+bit 0:   0: Non-Unit; 1: Unit
+bit 1:   0: Mechanized; 1: Non-Mechanized
 
 
 
 
 
+select flags, ((flags | 1) & ~(flags & 1))  from chits;
+
+update chits set flags = ((flags | 1) & ~(flags & 1)) where id < 9;
+
+update chits set currState=rear where id=30;
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rear =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rem =  where name = ''"
-
-
-
-
-sqlite3 ukraine43.sqlite "update chits set front =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rear  =  where name = ''"
-sqlite3 ukraine43.sqlite "update chits set rem   =  where name = ''"
-
+alter table chits add column unitID text;
+alter table chits add column currState int;
+alter table chits add column flags int;
 
 
 
@@ -57,6 +38,10 @@ create table images (
 
 sqlite> .mode csv
 sqlite> .import test.csv images
+
+
+
+
 
 
 
