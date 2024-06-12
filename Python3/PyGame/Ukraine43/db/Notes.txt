@@ -1,10 +1,18 @@
 FLAGS
 =====
 bit 0:   0: Non-Unit; 1: Unit
-bit 1:   0: Mechanized; 1: Non-Mechanized
-
-
-
+bit 1:   0: Non-Mechanized; 1: Mechanized
+bit 2-5: Nationality or branch
+			0: N/A
+			1: Soviet Regular Army and Air Force
+			2: Soviet Guards
+			3: German Wehrmacht
+			4: German SS
+			5: German 
+			6: Hungarian
+			7: Romanian
+			8: Slovakian
+			9: Czechoslovakian
 
 
 select flags, ((flags | 1) & ~(flags & 1))  from chits;
@@ -12,6 +20,11 @@ select flags, ((flags | 1) & ~(flags & 1))  from chits;
 update chits set flags = ((flags | 1) & ~(flags & 1)) where id < 9;
 
 update chits set currState=rear where id=30;
+
+update chits set flags=(flags | (1<<2)) where id=111;
+
+
+
 
 
 
