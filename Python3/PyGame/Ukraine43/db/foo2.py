@@ -65,6 +65,7 @@ for row in cur.execute("SELECT * from chits order by id, name"):
 	if ((row[7]^3)>>2)==7: print("Romanian")
 	if ((row[7]^3)>>2)==8: print("Slovakian")
 	if ((row[7]^3)>>2)==9: print("Czechoslovakian")
+	if ((row[7]^3)>>2)==10: print("Turks")
 	print('<br>')
 	#print(front, rear)
 
@@ -72,6 +73,6 @@ print(HTML_b)
 
 
 
-
+# update chits set flags=(flags | (1<<2)) where id=158;
 
 
