@@ -31,7 +31,7 @@ cur1 = con.cursor()
 # res = cur.execute("SELECT * from ukraine43")
 # print(res.fetchone())
 
-for row in cur.execute("SELECT * from chits order by unitID, id, name"):
+for row in cur.execute("SELECT * from chits order by id, name"):
 # for row in cur.execute("SELECT * from chits where flags = 1 order by unitID, name"):   # non-mech
 # for row in cur.execute("SELECT * from chits where flags = 3 order by id, name"):
 # for row in cur.execute("SELECT * from chits where flags = 0 order by unitID, name"):
@@ -52,14 +52,16 @@ for row in cur.execute("SELECT * from chits order by unitID, id, name"):
 
 	if row[7]&1:   # units
 		a = row[7]>>1
+		b = row[7]>>2
 		# if a&1:   # mech
-		if a&1==0:   # non-mech
+		if (a&1) & ((b==3) | (b==4) | (b==5)   ):   # mech
+		# if a&1==0:   # non-mech
 			print('<img src="' + front + '">')
 			print('<img src="' + rear + '">')
 			print('<img src="' + rem + '">')
 			# print(row[1], "---", row[0], ';', row[5])
 			print(row[0], ';', row[5], ';')
-			
+			'''
 			if ((row[7]^3)>>2)==1: print("Soviet Regular Army and Air Force")
 			if ((row[7]^3)>>2)==2: print("Soviet Guards")
 			if ((row[7]^3)>>2)==3: print("German Wehrmacht")
@@ -70,7 +72,7 @@ for row in cur.execute("SELECT * from chits order by unitID, id, name"):
 			if ((row[7]^3)>>2)==8: print("Slovakian")
 			if ((row[7]^3)>>2)==9: print("Czechoslovakian")
 			if ((row[7]^3)>>2)==10: print("Turks")
-			
+			'''
 			print('<br>')
 			#print(front, rear)
 

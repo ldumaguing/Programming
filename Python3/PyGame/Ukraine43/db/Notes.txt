@@ -8,7 +8,7 @@ bit 2-5: Nationality or branch
 			2:  Soviet Guards
 			3:  German Wehrmacht
 			4:  German SS
-			5:  German 
+			5:  German Luftwaffe
 			6:  Hungarian
 			7:  Romanian
 			8:  Slovakian

@@ -31,8 +31,8 @@ cur1 = con.cursor()
 # res = cur.execute("SELECT * from ukraine43")
 # print(res.fetchone())
 
-# for row in cur.execute("SELECT * from chits order by unitID, name"):
-for row in cur.execute("SELECT * from chits where flags = 1 order by unitID, name"):   # non-mech
+for row in cur.execute("SELECT * from chits where        (flags & 16) = 16              order by unitID, name"):
+# for row in cur.execute("SELECT * from chits where flags = 1 order by unitID, name"):   # non-mech
 # for row in cur.execute("SELECT * from chits where flags = 3 order by id, name"):
 # for row in cur.execute("SELECT * from chits where flags = 0 order by unitID, name"):
 	#print("<img id=\"i" + str(row[0]) + "\" src=\"" + b1 + row[1] + "\">" + str(row[0]) + "; " + row[1] + "<br>")
