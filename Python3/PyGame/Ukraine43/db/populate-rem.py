@@ -4,7 +4,7 @@ import sqlite3
 con = sqlite3.connect("ukraine43.sqlite")
 con.enable_load_extension(True)
 con.execute("select load_extension('/usr/lib/sqlite3/pcre.so')")
-
+# con.execute("select load_extension('/usr/local/libexec/sqlite-ext/pcre.so')")
 
 
 cur0 = con.cursor()
