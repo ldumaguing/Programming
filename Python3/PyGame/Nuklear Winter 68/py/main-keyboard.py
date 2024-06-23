@@ -14,10 +14,19 @@ hex_cursor_ID = [0, 0]
 #rez = (1280, 768)   # WXGA
 #rez = (1280, 800)   # WXGA
 #rez = (1600, 900)   # WSXGA
-rez = (1366, 768)   # FWXGA
+#rez = (1366, 768)   # FWXGA
 #rez = (1280, 720)   # HD 720
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
+rez = (853, 480)    # mine
+#rez = (320, 240)    # ILI9341
+#rez = (480, 320)    # HX8357D
+#rez = (1024, 768)   # Agon Lite 2
+
+# Agon Lite 2
+# 320x200; 64 colors
+# 512x384; 16 colors
+# 1024x768; 2 colors
 
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 #screen = pygame.display.set_mode(rez)
