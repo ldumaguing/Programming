@@ -19,6 +19,9 @@ hex_cursor_ID = [0, 0]
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
 rez = (853, 480)    # mine
+#rez = (356, 200)    # mine2
+#rez = (426, 240)    # mine3
+#rez = (712, 400)    # mine4
 #rez = (320, 240)    # ILI9341
 #rez = (480, 320)    # HX8357D
 #rez = (1024, 768)   # Agon Lite 2
@@ -28,12 +31,12 @@ rez = (853, 480)    # mine
 # 512x384; 16 colors
 # 1024x768; 2 colors
 
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-#screen = pygame.display.set_mode(rez)
+#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(rez)
 screen_dim = screen.get_size()
 
 # Load images
-map_img = pygame.image.load("./img/map-scaled.png")
+map_img = pygame.image.load("./img/Map.png")
 cursor_hex_img = pygame.image.load("./img/cursor-hex.png")
 
 # Map Surface (a place to draw)
