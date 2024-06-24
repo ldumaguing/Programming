@@ -18,7 +18,7 @@ hex_cursor_ID = [0, 0]
 #rez = (1280, 720)   # HD 720
 #rez = (320, 200)    # C=64
 #rez = (640, 480)    # VGA
-rez = (853, 480)    # mine
+rez = (853, 480)    # my VGA 16:9
 #rez = (356, 200)    # mine2
 #rez = (426, 240)    # mine3
 #rez = (712, 400)    # mine4
