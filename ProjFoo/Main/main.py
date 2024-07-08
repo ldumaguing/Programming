@@ -10,6 +10,8 @@ print("   Calling subprocess...")
 X = subprocess.run(["python3", "SubFoo1/main2.py"], capture_output=True, text=True)
 print(">>>", X.stdout)
 
+subprocess.run(["pwd"]) 
+
 print("The End")
 
 
