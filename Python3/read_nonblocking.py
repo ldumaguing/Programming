@@ -39,6 +39,7 @@ def read_nonblocking(path, bufferSize=100, timeout=.100):
 			pipe = None
 		else:
 			raise e
+
 	os.close(pipe)
 	return result
 	
