@@ -1,0 +1,11 @@
+create table foo (
+	id   int,
+	name text
+)
+
+insert into foo (id, name) values
+(1, 'Moe'),
+(2, 'Curly'),
+(3, 'Larry');
+
+
