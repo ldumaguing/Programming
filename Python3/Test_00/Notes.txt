@@ -1,12 +1,12 @@
 create table units (
-	id         int,
-	initiative int,
+	id         int  default 0,
+	initiative int  default 0,
 	charSheet  json default '{}',
 	status     json default '{}',
 	reguCode   text default null,
-	reguArgs   text default null,
+	reguArgs   json default '{}',
 	overCode   text default null,
-	overArgs   text default null
+	overArgs   json default '{}'
 );
 
 insert into units (id) values (1000);
@@ -14,8 +14,8 @@ update units set initiative = 1                                       where id =
 update units set charSheet = json_insert(charSheet, '$.name', 'Tank') where id = 1000;
 update units set charSheet = json_insert(charSheet, '$.move', 12)     where id = 1000;
 update units set reguCode = 'move_vector'                             where id = 1000;
-update units set reguArgs = '0,0-10,10'                               where id = 1000;
-
+update units set reguArgs = json_insert(reguArgs, '$.from', '0,0')    where id = 1000;
+update units set reguArgs = json_insert(reguArgs, '$.to', '10,10')    where id = 1000;
 
 
 
