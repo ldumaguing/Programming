@@ -39,7 +39,13 @@ update units set charSheet = json_insert(charSheet, '$.move', 5)          where 
 update units set reguCode = 'shoot'                                       where id = 5001;
 update units set reguArgs = json_set(reguArgs, '$.target', 5000)          where id = 5001;
 
-
+delete from units where id=5002;
+insert into units (id) values (5002);
+update units set initiative = 1                                           where id = 5002;
+update units set charSheet = json_insert(charSheet, '$.name', 'Infantry') where id = 5002;
+update units set charSheet = json_insert(charSheet, '$.move', 5)          where id = 5002;
+update units set overCode = 'shoot'                                       where id = 5002;
+update units set overArgs = json_set(overArgs, '$.target', 1000)          where id = 5002;
 
 *****************************************************************************************
 create table foo (
