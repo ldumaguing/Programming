@@ -22,8 +22,17 @@ update units set initiative = 2                                           where 
 update units set charSheet = json_insert(charSheet, '$.name', 'Infantry') where id = 5000;
 update units set charSheet = json_insert(charSheet, '$.move', 5)          where id = 5000;
 update units set reguCode = 'move_array'                                  where id = 5000;
-update units set reguArgs = json_insert(reguArgs, '$.from', '0,0')    where id = 1000;
+update units set reguArgs = json_insert(reguArgs, '$.directions',
+	json_array('a', 'b', 'c', 'd', 'e', 'f'))                             where id = 5000;
+update units set reguArgs = json_set(reguArgs, '$.directions',
+	json_array('a', 'b', 'c', 'd', 'd', 'f'))                             where id = 5000;
+update units set reguArgs = json_insert(reguArgs, '$.directions[#]',
+	'a')                                                                  where id = 5000;
 
+insert into units (id) values (5001);
+update units set initiative = 2                                           where id = 5001;
+update units set charSheet = json_insert(charSheet, '$.name', 'Infantry') where id = 5001;
+update units set charSheet = json_insert(charSheet, '$.move', 5)          where id = 5001;
 
 
 
