@@ -17,6 +17,15 @@ update units set reguCode = 'move_vector'                             where id =
 update units set reguArgs = json_insert(reguArgs, '$.from', '0,0')    where id = 1000;
 update units set reguArgs = json_insert(reguArgs, '$.to', '10,10')    where id = 1000;
 
+insert into units (id) values (5000);
+update units set initiative = 2                                           where id = 5000;
+update units set charSheet = json_insert(charSheet, '$.name', 'Infantry') where id = 5000;
+update units set charSheet = json_insert(charSheet, '$.move', 5)          where id = 5000;
+update units set reguCode = 'move_array'                                  where id = 5000;
+update units set reguArgs = json_insert(reguArgs, '$.from', '0,0')    where id = 1000;
+
+
+
 
 
 
