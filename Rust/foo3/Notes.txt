@@ -1,0 +1,12 @@
+> cargo new foo3
+> cd foo3
+> cd src
+> cargo new bar --lib
+
+
+
+
+
+
+
+
