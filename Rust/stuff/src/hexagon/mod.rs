@@ -1,3 +1,15 @@
+pub enum Direction {
+    N,
+    S,
+    NW,
+    NE,
+    SW,
+    SE,
+}
+
+pub struct HexID(pub i32, pub i32);
+pub struct HexLoc(pub f32, pub f32);
+
 pub fn hello() {
     println!("yo");
 }
