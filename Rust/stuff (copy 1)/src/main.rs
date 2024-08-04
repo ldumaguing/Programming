@@ -33,17 +33,4 @@ fn main() {
 
     let hexID = hexagon::HexID(3, 4);
     println!("...{},{}", hexID.0, hexID.1);
-    
-    let X: hexagon::HexID = hexagon::get_HexID();
-    println!("...{},{}", X.0, X.1);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

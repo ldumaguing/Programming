@@ -10,18 +10,6 @@ pub enum Direction {
 pub struct HexID(pub i32, pub i32);
 pub struct HexLoc(pub f32, pub f32);
 
-
-
-pub fn get_HexID() -> HexID {
-    let x: HexID = HexID(5,6);
-    x
-}
-
-
-
-
-
-
 pub fn hello() {
     println!("yo");
 }
