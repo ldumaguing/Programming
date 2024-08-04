@@ -14,10 +14,16 @@ const COS30: f64 = 0.8660254037844387;
 
 
 // **************************************************************************************
-pub fn foo(hex_id: &HexID) {
+pub fn convert_hex_id_2_loc(id: &HexID) {
     println!("in foo");
-    let x: f32 = COS30 as f32;
-    println!("   {}", x);
+    //let x: f32 = COS30 as f32;
+    //println!("   {}", x);
+    let is_odd = &id.0 % 2;
+    if is_odd > 0 {
+        println!("    even {},{}", &id.0, &id.1);
+    } else {
+        println!("    odd  {},{}", &id.0, &id.1);
+    }
 }
 
 
