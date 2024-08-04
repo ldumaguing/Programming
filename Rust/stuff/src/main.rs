@@ -19,4 +19,8 @@ fn main() {
     // HexLoc
     let hex_loc: HexLoc = convert_hex_id_2_loc(&curr_hex);
     println!("    {},{}", hex_loc.0, hex_loc.1);
+
+    // anger
+    let targ_hex: HexID = HexID(13, 10);
+    get_angle(&curr_hex, &targ_hex);
 }

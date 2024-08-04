@@ -13,6 +13,27 @@ pub struct HexLoc(pub f32, pub f32);
 const COS30: f64 = 0.8660254037844387;
 
 // **************************************************************************************
+pub fn get_angle(from: &HexID, to: &HexID) {
+    println!("    from {},{}", &from.0, &from.1);
+    println!("    to   {},{}", &to.0, &to.1);
+    let fromHex: HexLoc = convert_hex_id_2_loc(from);
+
+    println!("    from {},{}", &fromHex.0, &fromHex.1);
+    let toHex: HexLoc = convert_hex_id_2_loc(to);
+    println!("    to   {},{}", &toHex.0, &toHex.1);
+
+    let delta_x: f32 = &toHex.0 - &fromHex.0;
+    println!("    dX   {}", delta_x);
+    let delta_y: f32 = &fromHex.1 - &toHex.1;
+    println!("    dY   {}", delta_y);
+
+    if delta_x == 0.0 {
+        if 
+    } else {
+    }
+}
+
+
 pub fn convert_hex_id_2_loc(id: &HexID) -> HexLoc {
     let is_odd = &id.0 % 2;
     let x: f64 = id.0 as f64 * COS30;
