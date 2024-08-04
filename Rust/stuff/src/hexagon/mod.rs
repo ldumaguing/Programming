@@ -12,20 +12,18 @@ pub struct HexLoc(pub f32, pub f32);
 
 const COS30: f64 = 0.8660254037844387;
 
-
 // **************************************************************************************
-pub fn convert_hex_id_2_loc(id: &HexID) {
-    println!("in foo");
-    //let x: f32 = COS30 as f32;
-    //println!("   {}", x);
+pub fn convert_hex_id_2_loc(id: &HexID) -> HexLoc {
     let is_odd = &id.0 % 2;
+    let x: f64 = id.0 as f64 * COS30;
+    let x: f32 = x as f32;
+    let y: f32 = id.1 as f32;
     if is_odd > 0 {
-        println!("    even {},{}", &id.0, &id.1);
+        HexLoc(x, y + 0.5)
     } else {
-        println!("    odd  {},{}", &id.0, &id.1);
+        HexLoc(x, y)
     }
 }
-
 
 pub fn get_adjacent_hex_id(curr_hex: &HexID, dir: Direction) -> HexID {
     let is_odd = curr_hex.0 % 2;
