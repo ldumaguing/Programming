@@ -57,26 +57,16 @@ pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
     );
 
     let mut curr_hex = HexID(from.0, from.1);
+    println!(
+        "................................................ {},{} -- {},{}",
+        curr_hex.0, curr_hex.1, to.0, to.1
+    );
 
-	loop {
-    	// angle
-	    // quad
-	    // curr_hex
-	    // to
-	    curr_hex = get_closer(angle, &quad, curr_hex, to);
-	    println!("................................................ {},{} -- {},{}", curr_hex.0, curr_hex.1, to.0, to.1);
-	    if curr_hex.0 == to.0 {
-	    	if curr_hex.1 == to.1 {
-	    		break;
-	    	}
-	    }
-	}
-
-
-
-	
-
-
+    curr_hex = get_closer(angle, &quad, curr_hex, to);
+    println!(
+        "................................................ {},{} -- {},{}",
+        curr_hex.0, curr_hex.1, to.0, to.1
+    );
 
     println!("\n******************************");
     1000
@@ -84,14 +74,11 @@ pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
 
 // --------------------------------------------------------------------------------------
 fn get_closer(angle: f32, quad: &Quadrant, curr_hex: HexID, to: &HexID) -> HexID {
-	if curr_hex.0 == to.0 {
-		if curr_hex.1 == to.1 {
-			return curr_hex;
-		}
-	}
-
-
-
+    if curr_hex.0 == to.0 {
+        if curr_hex.1 == to.1 {
+            return curr_hex;
+        }
+    }
 
     println!(". . . . . .  {},{} curr_hex", curr_hex.0, curr_hex.1);
     println!(". . . . . .  {},{} to", to.0, to.1);
@@ -143,7 +130,7 @@ fn get_closer_from_I(angle: f32, curr_hex: HexID, to: &HexID) -> HexID {
     */
     //let mut hex: HexID = get_adjacent_hex_id(curr_hex, Direction::N);
 
-    HexID(14, 14)
+    HexID(new_hex.0, new_hex.1)
 }
 
 fn get_closer_from_II() -> HexID {
