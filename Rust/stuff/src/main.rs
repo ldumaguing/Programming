@@ -6,7 +6,7 @@ fn main() {
     println!("Hello, world!");
 
     // Adjacent HexID
-    let curr_hex: HexID = HexID(0, 0);
+    let curr_hex: HexID = HexID(2, 1);
     println!("{},{}", curr_hex.0, curr_hex.1);
     let adjacent_hex_id: HexID = get_adjacent_hex_id(&curr_hex, Direction::SE);
     println!(

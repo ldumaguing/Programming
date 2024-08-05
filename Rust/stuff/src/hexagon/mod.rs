@@ -17,18 +17,10 @@ const COS30: f64 = 0.8660254037844387;
 
 // **************************************************************************************
 pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
-    let sameX: i8 = match from.0.cmp(&to.0) {
-        Ordering::Less => 1,
-        Ordering::Greater => 1,
-        Ordering::Equal => 0,
-    };
-    let sameY: i8 = match from.1.cmp(&to.1) {
-        Ordering::Less => 1,
-        Ordering::Greater => 1,
-        Ordering::Equal => 0,
-    };
-    if (sameX + sameY) == 0 {
-        return -1.0;
+    if from.0 == to.0 {
+        if from.1 == to.1 {
+            return -1.0;
+        }
     }
 
     let fromHex: HexLoc = convert_hex_id_2_loc(from);
