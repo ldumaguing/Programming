@@ -21,7 +21,7 @@ fn main() {
     println!("    {},{}", hex_loc.0, hex_loc.1);
 
     // degrees
-    let targ_hex: HexID = HexID(2, 0);
+    let targ_hex: HexID = HexID(2, 1);
     let x: f32 = get_degrees(&curr_hex, &targ_hex);
     println!(">>> {x} degrees");
 }

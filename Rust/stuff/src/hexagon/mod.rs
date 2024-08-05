@@ -1,4 +1,3 @@
-use std::cmp::Ordering;
 use std::f32::consts::PI;
 
 pub enum Direction {
@@ -16,6 +15,35 @@ pub struct HexLoc(pub f32, pub f32);
 const COS30: f64 = 0.8660254037844387;
 
 // **************************************************************************************
+pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
+    if from.0 == to.0 {
+        if from.1 == to.1 {
+            return 0;
+        }
+    }
+
+    let mut curr_hex = HexID(from.0, from.1);
+    println!("............ {},{}", curr_hex.0, curr_hex.1);
+    curr_hex.0 = 3;
+    println!("............ {},{}", curr_hex.0, curr_hex.1);
+    0
+}
+
+pub fn get_distance(from: &HexID, to: &HexID) -> f32 {
+    if from.0 == to.0 {
+        if from.1 == to.1 {
+            return 0.0;
+        }
+    }
+
+    let from_hex: HexLoc = convert_hex_id_2_loc(from);
+    let to_hex: HexLoc = convert_hex_id_2_loc(to);
+    let delta_x: f32 = &to_hex.0 - &from_hex.0;
+    let delta_y: f32 = &to_hex.1 - &from_hex.1;
+
+    ((delta_x * delta_x) + (delta_y * delta_y)).sqrt()
+}
+
 pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
     if from.0 == to.0 {
         if from.1 == to.1 {
@@ -23,10 +51,10 @@ pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
         }
     }
 
-    let fromHex: HexLoc = convert_hex_id_2_loc(from);
-    let toHex: HexLoc = convert_hex_id_2_loc(to);
-    let delta_x: f32 = &toHex.0 - &fromHex.0;
-    let delta_y: f32 = &toHex.1 - &fromHex.1;
+    let from_hex: HexLoc = convert_hex_id_2_loc(from);
+    let to_hex: HexLoc = convert_hex_id_2_loc(to);
+    let delta_x: f32 = &to_hex.0 - &from_hex.0;
+    let delta_y: f32 = &to_hex.1 - &from_hex.1;
 
     if delta_x == 0.0 {
         if delta_y < 0.0 {
