@@ -87,12 +87,38 @@ fn get_closer(angle: f32, quad: Quadrant, curr_hex: HexID, to: &HexID) -> HexID 
 
 // --------------------------------------------------
 fn get_closer_from_I(angle: f32, curr_hex: HexID, to: &HexID) -> HexID {
+    let mut theta: f32 = 360.0;
+
+    let mut new_hex: HexID = HexID(0, 0);
+    let mut alpha: f32 = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::N), to);
+    if theta > alpha {
+        theta = alpha;
+        let x: HexID = get_adjacent_hex_id(&curr_hex, Direction::N);
+        new_hex = HexID(x.0, x.1);
+    }
+    alpha = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::NE), to);
+    if theta > alpha {
+        theta = alpha;
+        let x: HexID = get_adjacent_hex_id(&curr_hex, Direction::NE);
+        new_hex = HexID(x.0, x.1);
+    }
+    alpha = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::SE), to);
+    if theta > alpha {
+        theta = alpha;
+        let x: HexID = get_adjacent_hex_id(&curr_hex, Direction::SE);
+        new_hex = HexID(x.0, x.1);
+    }
+    println!(". . . . . .  {} theta", theta);
+    println!(". . . . . .  {}, {} new hex", new_hex.0, new_hex.1);
+
+    /*
     let mut theta: f32 = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::N), to);
     println!(". . . . . .  {} N", theta);
     theta = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::NE), to);
     println!(". . . . . .  {} NE", theta);
     theta = get_degrees(&get_adjacent_hex_id(&curr_hex, Direction::SE), to);
     println!(". . . . . .  {} SE", theta);
+    */
     //let mut hex: HexID = get_adjacent_hex_id(curr_hex, Direction::N);
 
     HexID(14, 14)
