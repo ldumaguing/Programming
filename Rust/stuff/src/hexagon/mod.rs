@@ -23,13 +23,12 @@ const COS30: f64 = 0.8660254037844387;
 
 // **************************************************************************************
 pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
-    println!("\n****************************** get_hex_distance");
     if from.0 == to.0 {
         if from.1 == to.1 {
             return 0;
         }
     }
-
+    println!("\n****************************** get_hex_distance");
     //let mut curr_hex = HexID(from.0, from.1);
     //println!("............ {},{}", curr_hex.0, curr_hex.1);
     //curr_hex.0 = 3;
@@ -56,21 +55,44 @@ pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
             Quadrant::IV => "IV",
         }
     );
-    println!("\n******************************");
+
     let mut curr_hex = HexID(from.0, from.1);
 
-    // angle
-    // quad
-    // curr_hex
-    // to
-    curr_hex = get_closer(angle, quad, curr_hex, to);
-    println!("............ {},{} closer", curr_hex.0, curr_hex.1);
+	loop {
+    	// angle
+	    // quad
+	    // curr_hex
+	    // to
+	    curr_hex = get_closer(angle, &quad, curr_hex, to);
+	    println!("................................................ {},{} -- {},{}", curr_hex.0, curr_hex.1, to.0, to.1);
+	    if curr_hex.0 == to.0 {
+	    	if curr_hex.1 == to.1 {
+	    		break;
+	    	}
+	    }
+	}
 
-    0
+
+
+	
+
+
+
+    println!("\n******************************");
+    1000
 }
 
 // --------------------------------------------------------------------------------------
-fn get_closer(angle: f32, quad: Quadrant, curr_hex: HexID, to: &HexID) -> HexID {
+fn get_closer(angle: f32, quad: &Quadrant, curr_hex: HexID, to: &HexID) -> HexID {
+	if curr_hex.0 == to.0 {
+		if curr_hex.1 == to.1 {
+			return curr_hex;
+		}
+	}
+
+
+
+
     println!(". . . . . .  {},{} curr_hex", curr_hex.0, curr_hex.1);
     println!(". . . . . .  {},{} to", to.0, to.1);
 
@@ -82,7 +104,7 @@ fn get_closer(angle: f32, quad: Quadrant, curr_hex: HexID, to: &HexID) -> HexID 
     };
     println!(". . . . . .  {},{} quad", fish.0, fish.1);
 
-    HexID(13, 13)
+    HexID(fish.0, fish.1)
 }
 
 // --------------------------------------------------
