@@ -28,52 +28,31 @@ pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
         Ordering::Equal => 0,
     };
     if (sameX + sameY) == 0 {
-        //println!("******************** same hex ********************");
         return -1.0;
     }
 
-    println!("    from {},{}", &from.0, &from.1);
-    println!("    to   {},{}", &to.0, &to.1);
     let fromHex: HexLoc = convert_hex_id_2_loc(from);
-
-    println!("    from {},{}", &fromHex.0, &fromHex.1);
     let toHex: HexLoc = convert_hex_id_2_loc(to);
-    println!("    to   {},{}", &toHex.0, &toHex.1);
-
     let delta_x: f32 = &toHex.0 - &fromHex.0;
-    println!("    dX   {}", delta_x);
     let delta_y: f32 = &toHex.1 - &fromHex.1;
-    println!("    dY   {}", delta_y);
 
     if delta_x == 0.0 {
         if delta_y < 0.0 {
-            //println!("    90 degrees");
-            //return; // 90
             return 90.0;
         } else {
-            //return; // 270
             return 270.0;
         }
     }
 
     let deg: f32 = ((delta_y / delta_x).atan() * 180.0 / PI).abs();
-    println!("    ...  {}", deg);
     if (delta_x > 0.0) & (delta_y > 0.0) {
-        // + +
-        //println!("    {} degrees", 360.0-deg);
         return 360.0 - deg;
     } else if (delta_x < 0.0) & (delta_y < 0.0) {
-        // - -
-        //println!("    {} degrees", 180.0-deg);
         return 180.0 - deg;
     } else if (delta_x < 0.0) & (delta_y > 0.0) {
-        // - +
-        //println!("    {} degrees", deg+180.0);
         return deg + 180.0;
     } else {
-        // + -
-        //println!("    {} degrees", deg);
-        return deg * 1.0;
+        return deg;
     }
 }
 
