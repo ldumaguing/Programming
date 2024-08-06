@@ -7,7 +7,7 @@ fn main() {
 
     // Adjacent HexID
     //let curr_hex: HexID = HexID(28,12);
-    let curr_hex: HexID = HexID(40,3);
+    let curr_hex: HexID = HexID(48,25);
     println!("{},{}", curr_hex.0, curr_hex.1);
     let adjacent_hex_id: HexID = get_adjacent_hex_id(&curr_hex, Direction::SE);
     println!(
@@ -23,7 +23,7 @@ fn main() {
 
     // degrees
     //let targ_hex: HexID = HexID(40,3);
-    let targ_hex: HexID = HexID(28,12);
+    let targ_hex: HexID = HexID(39,21);
     let x: f32 = get_degrees(&curr_hex, &targ_hex);
     println!(">>> {x} degrees");
 
