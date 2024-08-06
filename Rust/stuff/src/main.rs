@@ -22,7 +22,7 @@ fn main() {
 
     // degrees
     //let targ_hex: HexID = HexID(29,11);
-    let targ_hex: HexID = HexID(30,11);
+    let targ_hex: HexID = HexID(34,7);
     let x: f32 = get_degrees(&curr_hex, &targ_hex);
     println!(">>> {x} degrees");
 

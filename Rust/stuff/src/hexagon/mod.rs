@@ -54,15 +54,25 @@ pub fn get_hex_distance(from: &HexID, to: &HexID) -> i32 {
     );
 
     let mut curr_hex = HexID(from.0, from.1);
-    println!("1 >>> {},{}", curr_hex.0, curr_hex.1);
-    curr_hex = get_closer(angle, quad, curr_hex, to);
-    println!("2 >>> {},{}", curr_hex.0, curr_hex.1);
-
-    1000
+    let mut counter = 0;
+    println!("...{},{}", curr_hex.0, curr_hex.1);
+    //curr_hex = get_closer(angle, quad, curr_hex, to);
+    //println!("2 >>> {},{}", curr_hex.0, curr_hex.1);
+    loop {
+        if curr_hex.0 == to.0 {
+            if curr_hex.1 == to.1 {
+                break;
+            }
+        }
+        curr_hex = get_closer(angle, &quad, curr_hex, to);
+        println!("...{},{}", curr_hex.0, curr_hex.1);
+        counter += 1;
+    }
+    counter
 }
 
 // --------------------------------------------------------------------------------------
-fn get_closer(angle: f32, quad: Quadrant, curr_hex: HexID, to: &HexID) -> HexID {
+fn get_closer(angle: f32, quad: &Quadrant, curr_hex: HexID, to: &HexID) -> HexID {
     let fish: HexID = match quad {
         Quadrant::I => get_closer_from_i(angle, curr_hex, to),
         Quadrant::II => get_closer_from_ii(),
@@ -75,24 +85,35 @@ fn get_closer(angle: f32, quad: Quadrant, curr_hex: HexID, to: &HexID) -> HexID 
 
 // --------------------------------------------------
 fn get_closer_from_i(angle: f32, curr_hex: HexID, to: &HexID) -> HexID {
-    println!("/// get_closer_from_i");
+    let mut delta: f32 = 360.0;
+    let mut X: i32 = 0;
+    let mut Y: i32 = 0;
+
     let x: HexID = get_adjacent_hex_id(&curr_hex, Direction::N);
-    println!("{},{}", x.0, x.1);
     let x_ang: f32 = get_degrees(&x, to);
-    println!("{} deg", x_ang - angle);
+    if delta > (x_ang - angle).abs() {
+        delta = (x_ang - angle).abs();
+        X = x.0;
+        Y = x.1;
+    }
 
     let y: HexID = get_adjacent_hex_id(&curr_hex, Direction::NE);
-    println!("{},{}", y.0, y.1);
     let y_ang: f32 = get_degrees(&y, to);
-    println!("{} deg", y_ang - angle);
+    if delta > (y_ang - angle).abs() {
+        delta = (y_ang - angle).abs();
+        X = y.0;
+        Y = y.1;
+    }
 
     let z: HexID = get_adjacent_hex_id(&curr_hex, Direction::SE);
-    println!("{},{}", z.0, z.1);
     let z_ang: f32 = get_degrees(&z, to);
-    println!("{} deg", z_ang - angle);
+    if delta > (z_ang - angle).abs() {
+        delta = (z_ang - angle).abs();
+        X = z.0;
+        Y = z.1;
+    }
 
-    println!("\\\\\\ get_closer_from_i");
-    HexID(14, 14)
+    HexID(X, Y)
 }
 
 fn get_closer_from_ii() -> HexID {
