@@ -75,7 +75,7 @@ fn get_closer(angle: f32, quad: &Quadrant, curr_hex: HexID, to: &HexID) -> HexID
         Quadrant::I => get_closer_from_i(angle, curr_hex, to),
         Quadrant::II => get_closer_from_ii(angle, curr_hex, to),
         Quadrant::III => get_closer_from_iii(angle, curr_hex, to),
-        Quadrant::IV => get_closer_from_iv(),
+        Quadrant::IV => get_closer_from_iv(angle, curr_hex, to),
     };
     fish
     //HexID(13, 13)
@@ -241,8 +241,57 @@ fn get_closer_from_iii(angle: f32, curr_hex: HexID, to: &HexID) -> HexID {
     HexID(X, Y)
 }
 
-fn get_closer_from_iv() -> HexID {
-    HexID(17, 17)
+fn get_closer_from_iv(angle: f32, curr_hex: HexID, to: &HexID) -> HexID {
+    let mut delta: f32 = 360.0;
+    let mut X: i32 = 0;
+    let mut Y: i32 = 0;
+
+    let x: HexID = get_adjacent_hex_id(&curr_hex, Direction::S);
+    if x.0 == to.0 {
+        if x.1 == to.1 {
+            X = x.0;
+            Y = x.1;
+            return HexID(X, Y);
+        }
+    }
+    let x_ang: f32 = get_degrees(&x, to);
+    if delta > (x_ang - angle).abs() {
+        delta = (x_ang - angle).abs();
+        X = x.0;
+        Y = x.1;
+    }
+
+    let y: HexID = get_adjacent_hex_id(&curr_hex, Direction::SE);
+    if y.0 == to.0 {
+        if y.1 == to.1 {
+            X = y.0;
+            Y = y.1;
+            return HexID(X, Y);
+        }
+    }
+    let y_ang: f32 = get_degrees(&y, to);
+    if delta > (y_ang - angle).abs() {
+        delta = (y_ang - angle).abs();
+        X = y.0;
+        Y = y.1;
+    }
+
+    let z: HexID = get_adjacent_hex_id(&curr_hex, Direction::NE);
+    if z.0 == to.0 {
+        if x.1 == to.1 {
+            X = z.0;
+            Y = z.1;
+            return HexID(X, Y);
+        }
+    }
+    let z_ang: f32 = get_degrees(&z, to);
+    if delta > (z_ang - angle).abs() {
+        //delta = (z_ang - angle).abs();
+        X = z.0;
+        Y = z.1;
+    }
+
+    HexID(X, Y)
 }
 
 // **************************************************************************************
