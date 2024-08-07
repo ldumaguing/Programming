@@ -9,7 +9,7 @@ fn main() {
     println!("> push( HexID(1, 1) )");
     println!("> push( HexID(2, 2) )");
 
-    // let x: &HexID = &v[1];
+/*
     let x: &HexID = v.get(10).expect("***** Out of range. *****");
     println!("> ({}, {})", x.0, x.1);
     println!("> {} len", v.len());
@@ -17,4 +17,14 @@ fn main() {
     println!("> pop");
     println!("> {} len", v.len());
     println!("> LIFO; i.e., HexID(2, 2) is gone.");
+*/
+
+    println!("> {} len", v.len());
+    let p = v.pop().unwrap();
+    println!("> {} len", v.len());
+    println!("> {},{}", p.0, p.1);
+
+    let p = v.pop().unwrap();
+    println!("> {} len", v.len());
+    println!("> {},{}", p.0, p.1);
 }
