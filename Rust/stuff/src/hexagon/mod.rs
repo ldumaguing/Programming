@@ -196,6 +196,14 @@ pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
         }
     }
 
+    if delta_y == 0.0 {
+        if delta_x < 0.0 {
+            return 180.0;
+        } else {
+            return 0.0;
+        }
+    }
+
     let deg: f32 = ((delta_y / delta_x).atan() * 180.0 / PI).abs();
     if (delta_x > 0.0) & (delta_y > 0.0) {
         return 360.0 - deg;
