@@ -249,7 +249,7 @@ pub fn get_degrees(from: &HexID, to: &HexID) -> f32 {
 
 // **************************************************************************************
 pub fn convert_hex_id_2_loc(id: &HexID) -> HexLoc {
-    let is_odd = &id.0 % 2;
+    let is_odd = id.0 % 2;
     let x: f64 = id.0 as f64 * COS30;
     let x: f32 = x as f32;
     let y: f32 = id.1 as f32;
