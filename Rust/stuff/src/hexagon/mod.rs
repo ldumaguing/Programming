@@ -24,7 +24,95 @@ pub struct Hexagon {
 impl Hexagon {
     fn get_closer(&self, angle: f64, quad: &Quadrant, to: &Hexagon) -> (i64, i64) {
         println!("foo************");
-        (13, 13)
+        let closest = match quad {
+            Quadrant::I => self.get_closest_hex(angle, to, quad),
+            Quadrant::II => self.get_closest_hex(angle, to, quad),
+            Quadrant::III => self.get_closest_hex(angle, to, quad),
+            Quadrant::IV => self.get_closest_hex(angle, to, quad),
+        };
+        closest
+    }
+
+    fn get_closest_hex(&self, angle: f64, to: &Hexagon, quad: &Quadrant) -> (i64, i64) {
+        let mut h1: Direction = Direction::N;
+        let mut h2: Direction = Direction::N;
+        let mut h3: Direction = Direction::N;
+
+        match quad {
+            Quadrant::I => {
+                h1 = Direction::SE;
+                h2 = Direction::NE;
+                h3 = Direction::N;
+            }
+            Quadrant::II => {
+                h1 = Direction::N;
+                h2 = Direction::NW;
+                h3 = Direction::SW;
+            }
+            Quadrant::III => {
+                h1 = Direction::NW;
+                h2 = Direction::SW;
+                h3 = Direction::S;
+            }
+            Quadrant::IV => {
+                h1 = Direction::S;
+                h2 = Direction::SE;
+                h3 = Direction::NE;
+            }
+        };
+
+        let mut delta = 360.0;
+        let mut X = 0;
+        let mut Y = 0;
+
+        let x = self.get_adjacent_id(h1);
+        if x.0 == to.id.0 {
+            if x.1 == to.id.1 {
+                X = x.0;
+                Y = x.1;
+                return (X, Y);
+            }
+        }
+        let new_hex = Hexagon { id: (x.0, x.1) };
+        let x_ang = new_hex.get_degrees(to);
+        if delta > (x_ang - angle).abs() {
+            delta = (x_ang - angle).abs();
+            X = x.0;
+            Y = x.1;
+        }
+
+        let y = self.get_adjacent_id(h2);
+        if y.0 == to.id.0 {
+            if y.1 == to.id.1 {
+                X = y.0;
+                Y = y.1;
+                return (X, Y);
+            }
+        }
+        let new_hex = Hexagon { id: (y.0, y.1) };
+        let y_ang = new_hex.get_degrees(to);
+        if delta > (y_ang - angle).abs() {
+            delta = (y_ang - angle).abs();
+            X = y.0;
+            Y = y.1;
+        }
+
+        let z = self.get_adjacent_id(h3);
+        if z.0 == to.id.0 {
+            if x.1 == to.id.1 {
+                X = z.0;
+                Y = z.1;
+                return (X, Y);
+            }
+        }
+        let new_hex = Hexagon { id: (z.0, z.1) };
+        let z_ang: f64 = new_hex.get_degrees(to);
+        if delta > (z_ang - angle).abs() {
+            X = z.0;
+            Y = z.1;
+        }
+
+        (X, Y)
     }
 }
 
@@ -52,7 +140,10 @@ impl Hexagon {
         let mut counter = 0;
 
         curr_hex = self.get_closer(angle, &quad, to);
-
+        counter += 1;
+        counter += 1;
+        counter += 1;
+        counter += 1;
         counter
     }
 
