@@ -5,7 +5,7 @@ use hexagon::*;
 fn main() {
     println!("Hello, world!");
     let hex0 = Hexagon { id: (4, 5) };
-    let hex1 = Hexagon { id: (14, 15) };
+    let hex1 = Hexagon { id: (7, 8) };
 
     //println!("{},{}", hex0.id.0, hex0.id.1);
     //hex0.foo();

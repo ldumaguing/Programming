@@ -22,18 +22,19 @@ pub struct Hexagon {
 }
 
 impl Hexagon {
-    fn get_closer(&self, angle: f64, quad: &Quadrant, to: &Hexagon) -> (i64, i64) {
+    fn get_closer(from: (i64, i64), angle: f64, quad: &Quadrant, to: &Hexagon) -> (i64, i64) {
         println!("foo************");
         let closest = match quad {
-            Quadrant::I => self.get_closest_hex(angle, to, quad),
-            Quadrant::II => self.get_closest_hex(angle, to, quad),
-            Quadrant::III => self.get_closest_hex(angle, to, quad),
-            Quadrant::IV => self.get_closest_hex(angle, to, quad),
+            Quadrant::I => Self::get_closest_hex(angle, from, to, quad),
+            Quadrant::II => Self::get_closest_hex(angle, from, to, quad),
+            Quadrant::III => Self::get_closest_hex(angle, from, to, quad),
+            Quadrant::IV => Self::get_closest_hex(angle, from, to, quad),
         };
         closest
     }
 
-    fn get_closest_hex(&self, angle: f64, to: &Hexagon, quad: &Quadrant) -> (i64, i64) {
+    fn get_closest_hex(angle: f64, from: (i64, i64), to: &Hexagon, quad: &Quadrant) -> (i64, i64) {
+        println!("bar************");
         let mut h1: Direction = Direction::N;
         let mut h2: Direction = Direction::N;
         let mut h3: Direction = Direction::N;
@@ -64,8 +65,11 @@ impl Hexagon {
         let mut delta = 360.0;
         let mut X = 0;
         let mut Y = 0;
+        let from_hex = Hexagon {
+            id: (from.0, from.1),
+        };
 
-        let x = self.get_adjacent_id(h1);
+        let x = from_hex.get_adjacent_id(h1);
         if x.0 == to.id.0 {
             if x.1 == to.id.1 {
                 X = x.0;
@@ -81,7 +85,7 @@ impl Hexagon {
             Y = x.1;
         }
 
-        let y = self.get_adjacent_id(h2);
+        let y = from_hex.get_adjacent_id(h2);
         if y.0 == to.id.0 {
             if y.1 == to.id.1 {
                 X = y.0;
@@ -97,7 +101,7 @@ impl Hexagon {
             Y = y.1;
         }
 
-        let z = self.get_adjacent_id(h3);
+        let z = from_hex.get_adjacent_id(h3);
         if z.0 == to.id.0 {
             if x.1 == to.id.1 {
                 X = z.0;
@@ -126,7 +130,7 @@ impl Hexagon {
         }
 
         let angle = self.get_degrees(to);
-
+        println!("............ {} degrees", angle);
         let mut quad: Quadrant = Quadrant::IV;
         if (angle >= 0.0) & (angle < 90.0) {
             quad = Quadrant::I;
@@ -135,15 +139,29 @@ impl Hexagon {
         } else if (angle >= 180.0) & (angle < 270.0) {
             quad = Quadrant::III;
         }
-
+        println!(
+            "............ {} quadrant",
+            match quad {
+                Quadrant::I => "I",
+                Quadrant::II => "II",
+                Quadrant::III => "III",
+                Quadrant::IV => "IV",
+            }
+        );
         let mut curr_hex = (self.id.0, self.id.1);
         let mut counter = 0;
+        println!("....{},{}", curr_hex.0, curr_hex.1);
+        loop {
+            if curr_hex.0 == to.id.0 {
+                if curr_hex.1 == to.id.1 {
+                    break;
+                }
+            }
+            curr_hex = Self::get_closer(curr_hex, angle, &quad, to);
+            println!("...{},{}", curr_hex.0, curr_hex.1);
+            counter += 1;
+        }
 
-        curr_hex = self.get_closer(angle, &quad, to);
-        counter += 1;
-        counter += 1;
-        counter += 1;
-        counter += 1;
         counter
     }
 
