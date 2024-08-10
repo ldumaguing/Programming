@@ -32,5 +32,5 @@ fn main() {
     m.call();   // >>> Hello, Fish.
     
     let m = Message::Quit;
-    m.call();   // >>> Quit
+    m.call();   // >>> I Quit
 }
