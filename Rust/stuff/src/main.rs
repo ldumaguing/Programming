@@ -5,7 +5,7 @@ use hexagon::*;
 fn main() {
     println!("Hello, world!");
     let hex0 = Hexagon { id: (4, 5) };
-    let hex1 = Hexagon { id: (4, 5) };
+    let hex1 = Hexagon { id: (13, 15) };
 
     let loc: (f64, f64) = hex0.get_loc();
     println!("hex0 location: {},{}", loc.0, loc.1);
@@ -34,4 +34,9 @@ fn main() {
     for hx in path.iter() {
         println!("({},{})", hx.0, hx.1);
     }
+
+    let s = hex0.get_spine_id(Direction::S);
+    println!(">>> ({},{},{})", s.0, s.1, s.2);
+    let s = hex1.get_spine_id(Direction::S);
+    println!(">>> ({},{},{})", s.0, s.1, s.2);
 }

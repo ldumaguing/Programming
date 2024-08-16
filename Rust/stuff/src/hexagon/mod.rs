@@ -120,6 +120,18 @@ impl Hexagon {
 
 // ************************* public methods
 impl Hexagon {
+    pub fn get_spine_id(&self, dir: Direction) -> (i64, i64, i8) {
+        if (self.id.0 % 2) == 0 {
+            println!("even");
+        } else {
+            println!("odd");
+        }
+
+        println!("spine: ({},{}),{}", self.id.0, self.id.1, dir as i8);
+
+        (0, 0, 0)
+    }
+
     pub fn get_path(&self, to: &Hexagon) -> Vec<(i64, i64)> {
         let mut path: Vec<(i64, i64)> = Vec::new();
 
