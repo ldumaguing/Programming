@@ -187,7 +187,6 @@ impl Hexagon {
 					x -= 1;
                     s = HexSpine::C as i8;
                 }
-                _ => {}
 			}
         }
 
