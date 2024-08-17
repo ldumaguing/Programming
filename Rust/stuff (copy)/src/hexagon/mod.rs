@@ -17,6 +17,15 @@ pub enum Direction {
     SE,
 }
 
+pub enum HexSpine {
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+}
+
 pub struct Hexagon {
     pub id: (i64, i64),
 }
@@ -120,6 +129,71 @@ impl Hexagon {
 
 // ************************* public methods
 impl Hexagon {
+    pub fn get_spine_id(&self, dir: Direction) -> (i64, i64, i8) {
+        let mut s: i8 = 0;
+        let mut x: i64 = self.id.0;
+        let mut y: i64 = self.id.1;
+
+        if (self.id.0 % 2) == 0 {
+            // even x
+            match dir {
+                Direction::N => {
+                    s = HexSpine::A as i8;
+                }
+                Direction::NE => {
+                    s = HexSpine::B as i8;
+                }
+                Direction::SE => {
+                    s = HexSpine::C as i8;
+                }
+                Direction::S => {
+                    y += 1;
+                    s = HexSpine::A as i8;
+                }
+                Direction::SW => {
+                    s = HexSpine::E as i8;
+                }
+                Direction::NW => {
+                    s = HexSpine::F as i8;
+                }
+            }
+        } else {
+            // odd x
+            match dir {
+                Direction::N => {
+					x -= 1;
+                    s = HexSpine::D as i8;
+                }
+                Direction::NE => {
+					x += 1;
+                    s = HexSpine::E as i8;
+                }
+                Direction::SE => {
+					x += 1;
+					y += 1;
+                    s = HexSpine::F as i8;
+                }
+                Direction::S => {
+					x -= 1;
+					y += 1;
+                    s = HexSpine::D as i8;
+                }
+                Direction::SW => {
+					x -= 1;
+					y += 1;
+                    s = HexSpine::B as i8;
+                }
+                Direction::NW => {
+					x -= 1;
+                    s = HexSpine::C as i8;
+                }
+                _ => {}
+			}
+        }
+
+        (x, y, s)
+    }
+
     pub fn get_path(&self, to: &Hexagon) -> Vec<(i64, i64)> {
         let mut path: Vec<(i64, i64)> = Vec::new();
 
