@@ -4,8 +4,8 @@ use hexagon::*;
 
 fn main() {
     println!("Hello, world!");
-    let hex0 = Hexagon { id: (2, 2) };
-    let hex1 = Hexagon { id: (1, 0) };
+    let hex0 = Hexagon { id: (2, 2), placement: -1 };
+    let hex1 = Hexagon { id: (1, 0), placement: -1 };
 
     let loc: (f64, f64) = hex0.get_loc();
     println!("hex0 location: {},{}", loc.0, loc.1);

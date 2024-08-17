@@ -18,16 +18,17 @@ pub enum Direction {
 }
 
 pub enum HexSpine {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
+    A = 0,
+    B = 1,
+    C = 2,
+    D = 3,
+    E = 4,
+    F = 5,
 }
 
 pub struct Hexagon {
     pub id: (i64, i64),
+    pub placement: i32,
 }
 
 impl Hexagon {
@@ -74,6 +75,7 @@ impl Hexagon {
         let mut Y = 0;
         let from_hex = Hexagon {
             id: (from.0, from.1),
+            placement: -1,
         };
 
         let x = from_hex.get_adjacent_id(h1);
@@ -84,7 +86,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon { id: (x.0, x.1) };
+        let new_hex = Hexagon { id: (x.0, x.1), placement: -1 };
         let x_ang = new_hex.get_degrees(to);
         if delta > (x_ang - angle).abs() {
             delta = (x_ang - angle).abs();
@@ -100,7 +102,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon { id: (y.0, y.1) };
+        let new_hex = Hexagon { id: (y.0, y.1), placement: -1 };
         let y_ang = new_hex.get_degrees(to);
         if delta > (y_ang - angle).abs() {
             delta = (y_ang - angle).abs();
@@ -116,7 +118,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon { id: (z.0, z.1) };
+        let new_hex = Hexagon { id: (z.0, z.1), placement: -1 };
         let z_ang: f64 = new_hex.get_degrees(to);
         if delta > (z_ang - angle).abs() {
             X = z.0;
