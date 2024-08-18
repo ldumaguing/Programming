@@ -1,19 +1,11 @@
 mod hexagon;
-mod unit;
 
 use hexagon::*;
-use unit::*;
 
 fn main() {
     println!("Hello, world!");
-    let hex0 = Hexagon {
-        id: (2, 2),
-        placement: -1,
-    };
-    let hex1 = Hexagon {
-        id: (1, 0),
-        placement: -1,
-    };
+    let hex0 = Hexagon { id: (2, 2), placement: -1 };
+    let hex1 = Hexagon { id: (1, 0), placement: -1 };
 
     let loc: (f64, f64) = hex0.get_loc();
     println!("hex0 location: {},{}", loc.0, loc.1);
@@ -79,18 +71,6 @@ fn main() {
 
     let s = hex1.get_spine_id(Direction::NW);
     println!(".>>> ({},{},{})", s.0, s.1, s.2);
-
-    println!("************************* Unit");
-    let hex3 = Hexagon {
-        id: (13, 13),
-        placement: -1,
-    };
-    let unit0 = Unit {
-        id: 0,
-        hex_location: hex3,
-        facing: Direction::N,
-    };
-    let loc: (f64, f64) = unit0.hex_location.get_loc();
-    println!("unit0 location: {},{}", loc.0, loc.1);
-    unit0.foo();
+    //let s = hex1.get_spine_id(Direction::S);
+    //println!(">>> ({},{},{})", s.0, s.1, s.2);
 }

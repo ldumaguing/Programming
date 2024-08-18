@@ -86,10 +86,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon {
-            id: (x.0, x.1),
-            placement: -1,
-        };
+        let new_hex = Hexagon { id: (x.0, x.1), placement: -1 };
         let x_ang = new_hex.get_degrees(to);
         if delta > (x_ang - angle).abs() {
             delta = (x_ang - angle).abs();
@@ -105,10 +102,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon {
-            id: (y.0, y.1),
-            placement: -1,
-        };
+        let new_hex = Hexagon { id: (y.0, y.1), placement: -1 };
         let y_ang = new_hex.get_degrees(to);
         if delta > (y_ang - angle).abs() {
             delta = (y_ang - angle).abs();
@@ -124,10 +118,7 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon {
-            id: (z.0, z.1),
-            placement: -1,
-        };
+        let new_hex = Hexagon { id: (z.0, z.1), placement: -1 };
         let z_ang: f64 = new_hex.get_degrees(to);
         if delta > (z_ang - angle).abs() {
             X = z.0;
@@ -172,33 +163,33 @@ impl Hexagon {
             // odd x
             match dir {
                 Direction::N => {
-                    x -= 1;
+					x -= 1;
                     s = HexSpine::D as i8;
                 }
                 Direction::NE => {
-                    x += 1;
+					x += 1;
                     s = HexSpine::E as i8;
                 }
                 Direction::SE => {
-                    x += 1;
-                    y += 1;
+					x += 1;
+					y += 1;
                     s = HexSpine::F as i8;
                 }
                 Direction::S => {
-                    x -= 1;
-                    y += 1;
+					x -= 1;
+					y += 1;
                     s = HexSpine::D as i8;
                 }
                 Direction::SW => {
-                    x -= 1;
-                    y += 1;
+					x -= 1;
+					y += 1;
                     s = HexSpine::B as i8;
                 }
                 Direction::NW => {
-                    x -= 1;
+					x -= 1;
                     s = HexSpine::C as i8;
                 }
-            }
+			}
         }
 
         (x, y, s)
