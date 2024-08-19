@@ -73,11 +73,15 @@ impl Hexagon {
             placement: -1,
         };
 
+        println!("from: ({},{})", from_hex.id.0, from_hex.id.1);
         let x = from_hex.get_adjacent_id(h1);
+        println!("   h1 adj: ({},{})", x.0, x.1);
         if x.0 == to.id.0 {
+            println!("equal x; h1");
             if x.1 == to.id.1 {
                 X = x.0;
                 Y = x.1;
+                println!("returning ({},{})", X, Y);
                 return (X, Y);
             }
         }
@@ -93,10 +97,13 @@ impl Hexagon {
         }
 
         let y = from_hex.get_adjacent_id(h2);
+        println!("   h2 adj: ({},{})", y.0, y.1);
         if y.0 == to.id.0 {
             if y.1 == to.id.1 {
+                println!("equal x; h2");
                 X = y.0;
                 Y = y.1;
+                println!("returning ({},{})", X, Y);
                 return (X, Y);
             }
         }
@@ -110,7 +117,7 @@ impl Hexagon {
             X = y.0;
             Y = y.1;
         }
-
+        println!("---> ({},{})", X, Y);
         (X, Y)
     }
 }
