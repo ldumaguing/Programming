@@ -45,28 +45,23 @@ impl Hexagon {
     fn get_closest_hex(angle: f64, from: (i64, i64), to: &Hexagon, quad: &Quadrant) -> (i64, i64) {
         let h1: Direction;
         let h2: Direction;
-        let h3: Direction;
 
         match quad {
             Quadrant::I => {
-                h1 = Direction::SE;
-                h2 = Direction::NE;
-                h3 = Direction::N;
+                h1 = Direction::NE;
+                h2 = Direction::N;
             }
             Quadrant::II => {
                 h1 = Direction::N;
                 h2 = Direction::NW;
-                h3 = Direction::SW;
             }
             Quadrant::III => {
-                h1 = Direction::NW;
-                h2 = Direction::SW;
-                h3 = Direction::S;
+                h1 = Direction::SW;
+                h2 = Direction::S;
             }
             Quadrant::IV => {
                 h1 = Direction::S;
                 h2 = Direction::SE;
-                h3 = Direction::NE;
             }
         };
 
@@ -86,7 +81,10 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon { id: (x.0, x.1), placement: -1 };
+        let new_hex = Hexagon {
+            id: (x.0, x.1),
+            placement: -1,
+        };
         let x_ang = new_hex.get_degrees(to);
         if delta > (x_ang - angle).abs() {
             delta = (x_ang - angle).abs();
@@ -102,27 +100,15 @@ impl Hexagon {
                 return (X, Y);
             }
         }
-        let new_hex = Hexagon { id: (y.0, y.1), placement: -1 };
+        let new_hex = Hexagon {
+            id: (y.0, y.1),
+            placement: -1,
+        };
         let y_ang = new_hex.get_degrees(to);
         if delta > (y_ang - angle).abs() {
             delta = (y_ang - angle).abs();
             X = y.0;
             Y = y.1;
-        }
-
-        let z = from_hex.get_adjacent_id(h3);
-        if z.0 == to.id.0 {
-            if x.1 == to.id.1 {
-                X = z.0;
-                Y = z.1;
-                return (X, Y);
-            }
-        }
-        let new_hex = Hexagon { id: (z.0, z.1), placement: -1 };
-        let z_ang: f64 = new_hex.get_degrees(to);
-        if delta > (z_ang - angle).abs() {
-            X = z.0;
-            Y = z.1;
         }
 
         (X, Y)
@@ -163,33 +149,33 @@ impl Hexagon {
             // odd x
             match dir {
                 Direction::N => {
-					x -= 1;
+                    x -= 1;
                     s = HexSpine::D as i8;
                 }
                 Direction::NE => {
-					x += 1;
+                    x += 1;
                     s = HexSpine::E as i8;
                 }
                 Direction::SE => {
-					x += 1;
-					y += 1;
+                    x += 1;
+                    y += 1;
                     s = HexSpine::F as i8;
                 }
                 Direction::S => {
-					x -= 1;
-					y += 1;
+                    x -= 1;
+                    y += 1;
                     s = HexSpine::D as i8;
                 }
                 Direction::SW => {
-					x -= 1;
-					y += 1;
+                    x -= 1;
+                    y += 1;
                     s = HexSpine::B as i8;
                 }
                 Direction::NW => {
-					x -= 1;
+                    x -= 1;
                     s = HexSpine::C as i8;
                 }
-			}
+            }
         }
 
         (x, y, s)
