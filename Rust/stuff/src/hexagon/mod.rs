@@ -77,16 +77,12 @@ impl Hexagon {
             placement: -1,
         };
 
-        println!("from: ({},{})", from_hex.id.0, from_hex.id.1);
         // ************************* h1
         let x = from_hex.get_adjacent_id(h1);
-        println!("   h1 adj: ({},{})", x.0, x.1);
         if x.0 == to.id.0 {
-            println!("equal x; h1");
             if x.1 == to.id.1 {
                 X = x.0;
                 Y = x.1;
-                println!("returning ({},{})", X, Y);
                 return (X, Y);
             }
         }
@@ -95,17 +91,13 @@ impl Hexagon {
             placement: -1,
         };
         let x_ang = new_hex.get_degrees(to);
-        println!("          x_ang: {}", x_ang);
 
         // ************************* h2
         let y = from_hex.get_adjacent_id(h2);
-        println!("   h2 adj: ({},{})", y.0, y.1);
         if y.0 == to.id.0 {
             if y.1 == to.id.1 {
-                println!("equal x; h2");
                 X = y.0;
                 Y = y.1;
-                println!("returning ({},{})", X, Y);
                 return (X, Y);
             }
         }
@@ -114,16 +106,13 @@ impl Hexagon {
             placement: -1,
         };
         let y_ang = new_hex.get_degrees(to);
-        println!("          y_ang: {}", y_ang);
+
         // ************************* h3
         let z = from_hex.get_adjacent_id(h3);
-        println!("   h3 adj: ({},{})", z.0, z.1);
         if z.0 == to.id.0 {
             if z.1 == to.id.1 {
-                println!("equal x; h3");
                 X = z.0;
                 Y = z.1;
-                println!("returning ({},{})", X, Y);
                 return (X, Y);
             }
         }
@@ -132,7 +121,6 @@ impl Hexagon {
             placement: -1,
         };
         let z_ang = new_hex.get_degrees(to);
-        println!("          z_ang: {}", z_ang);
 
         let mut low_ang = (x_ang - angle).abs();
         X = x.0;
@@ -386,3 +374,4 @@ impl Hexagon {
         }
     }
 }
+
