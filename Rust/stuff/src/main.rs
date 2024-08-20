@@ -9,7 +9,7 @@ fn main() {
         placement: -1,
     };
     let hex0 = Hexagon {
-        id: (12, 2),
+        id: (12, 12),
         placement: -1,
     };
 

@@ -134,15 +134,15 @@ impl Hexagon {
         let z_ang = new_hex.get_degrees(to);
         println!("          z_ang: {}", z_ang);
 
-        let mut low_ang = x_ang;
+        let mut low_ang = (x_ang - angle).abs();
         X = x.0;
         Y = x.1;
-        if low_ang > y_ang {
-            low_ang = y_ang;
+        if low_ang > (y_ang - angle).abs() {
+            low_ang = (y_ang - angle).abs();
             X = y.0;
             Y = y.1;
         }
-        if low_ang > z_ang {
+        if low_ang > (z_ang - angle).abs() {
             X = z.0;
             Y = z.1;
         }
