@@ -65,7 +65,6 @@ impl Hexagon {
             }
         };
 
-        let mut delta = 360.0;
         let mut X = 0;
         let mut Y = 0;
         let from_hex = Hexagon {
@@ -74,6 +73,7 @@ impl Hexagon {
         };
 
         println!("from: ({},{})", from_hex.id.0, from_hex.id.1);
+        // ************************* h1
         let x = from_hex.get_adjacent_id(h1);
         println!("   h1 adj: ({},{})", x.0, x.1);
         if x.0 == to.id.0 {
@@ -90,12 +90,8 @@ impl Hexagon {
             placement: -1,
         };
         let x_ang = new_hex.get_degrees(to);
-        if delta > (x_ang - angle).abs() {
-            delta = (x_ang - angle).abs();
-            X = x.0;
-            Y = x.1;
-        }
 
+        // ************************* h2
         let y = from_hex.get_adjacent_id(h2);
         println!("   h2 adj: ({},{})", y.0, y.1);
         if y.0 == to.id.0 {
@@ -112,11 +108,41 @@ impl Hexagon {
             placement: -1,
         };
         let y_ang = new_hex.get_degrees(to);
-        if delta > (y_ang - angle).abs() {
-            delta = (y_ang - angle).abs();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let h1_ang = 360.0 - x_ang;
+        let h2_ang = 360.0 - y_ang;
+
+        X = x.0;
+        Y = x.1;
+        if h2_ang < h1_ang {
             X = y.0;
             Y = y.1;
         }
+
         println!("---> ({},{})", X, Y);
         (X, Y)
     }
