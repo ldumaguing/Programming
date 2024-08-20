@@ -4,11 +4,11 @@ use hexagon::*;
 
 fn main() {
     println!("Hello, world!");
-    let hex0 = Hexagon {
+    let hex1 = Hexagon {
         id: (2, 2),
         placement: -1,
     };
-    let hex1 = Hexagon {
+    let hex0 = Hexagon {
         id: (12, 2),
         placement: -1,
     };
