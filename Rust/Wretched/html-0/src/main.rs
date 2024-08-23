@@ -9,9 +9,11 @@ struct Species {
 
 // ***************************************************************************************
 fn main() -> Result<()> {
-	let conn = Connection::open("../wretched.db")?;
-	let mut stmt = conn.prepare("SELECT id, name, descript FROM species")?;
+    let conn = Connection::open("../wretched.db")?;
+    let mut stmt = conn.prepare("SELECT id, name, descript FROM species")?;
+
     boiler_plate_1();
+
     let species_iter = stmt.query_map([], |row| {
         Ok(Species {
             id: row.get(0)?,
@@ -19,12 +21,13 @@ fn main() -> Result<()> {
             descript: row.get(2)?,
         })
     })?;
-    
+
     for x in species_iter {
-		let y = x.unwrap();
-		println!("<b><h1>{}</h1></b><p>{}", y.name, y.descript);
-		println!("<p>");
-	}
+        let y = x.unwrap();
+        println!("<b><h1>{}</h1></b><p>{}", y.name, y.descript);
+        println!("<p>");
+    }
+
     boiler_plate_2();
 
     Ok(())
