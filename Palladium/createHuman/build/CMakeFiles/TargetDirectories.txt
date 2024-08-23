@@ -1,8 +1,0 @@
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/install/strip.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/install/local.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/install.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/list_install_components.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/rebuild_cache.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/myne.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/edit_cache.dir
-/usr/home/ayeka/Programming/Palladium/createHuman/build/CMakeFiles/createHuman.dir

@@ -1,7 +1,0 @@
-/home/ayeka/Programming/myLS/build/CMakeFiles/install/strip.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/install/local.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/install.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/list_install_components.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/rebuild_cache.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/edit_cache.dir
-/home/ayeka/Programming/myLS/build/CMakeFiles/myLS.dir
