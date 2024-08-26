@@ -1,7 +1,0 @@
-[package]
-name = "test-rat0"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-ratatui = "0.28.0"
