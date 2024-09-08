@@ -11,7 +11,7 @@ impl Vehicle for Truck {
 }
 
 fn main() {
-    let t: Box<dyn Vehicle>; // seems this defines a pointer
+    let t: Box<Vehicle>; // seems this defines a pointer
     t = Box::new(Truck); // this assigns the pointer to point to a heap
     t.drive();
 }
