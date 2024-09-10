@@ -1,3 +1,21 @@
+#[derive(Debug)]
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+
+fn main() {
+    let list: List = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    println!("{:?}", list);
+    let list2: List = Nil;
+    println!("{:?}", list2);
+    let list3: List = Cons(4, Box::new(Nil));
+    println!("{:?}", list3);
+}
+
+/* ***********************************************************************
 use std::ops::Deref;
 
 struct MyBox<T>(T);
@@ -23,6 +41,7 @@ fn main() {
     assert_eq!(5, x);
     assert_eq!(5, *y);
 }
+*/
 
 /* ***********************************************************************
 fn main() {
