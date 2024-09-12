@@ -4,11 +4,11 @@ use hexagon::*;
 
 fn main() {
     println!("Hello, world!");
-    let hex1 = Hexagon {
-        id: (2, 2),
+    let hex0 = Hexagon {
+        id: (10, 20),
         placement: -1,
     };
-    let hex0 = Hexagon {
+    let hex1 = Hexagon {
         id: (12, 12),
         placement: -1,
     };
@@ -79,4 +79,8 @@ fn main() {
     println!(".>>> ({},{},{})", s.0, s.1, s.2);
     //let s = hex1.get_spine_id(Direction::S);
     //println!(">>> ({},{},{})", s.0, s.1, s.2);
+
+    println!("\n***********************************");
+    let s = hex0.get_course(1);
+    println!(">>> ({},{})", s.0, s.1);
 }
