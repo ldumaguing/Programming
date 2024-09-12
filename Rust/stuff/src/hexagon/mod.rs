@@ -142,6 +142,21 @@ impl Hexagon {
 
 // ************************* public methods
 impl Hexagon {
+    pub fn get_course(&self, deg: i64) -> (i64, i64) {
+        let deg = 360 - (deg % 360);
+
+        // hypotenuse = 60.0
+        // x = h * cos(deg)
+        // y = h * sin(deg)
+        // output: hex_id
+        let h = 60.0;
+        let x = (deg as f64 * PI / 180.0).cos() * h;
+        let y = (deg as f64 * PI / 180.0).sin() * h;
+        let x = ((x / COS30) as i64 + self.id.0);
+        let y = y as i64 + self.id.1;
+        (x, y)
+    }
+
     pub fn get_spine_id(&self, dir: Direction) -> (i64, i64, i8) {
         let mut s: i8 = 0;
         let mut x: i64 = self.id.0;
@@ -374,4 +389,3 @@ impl Hexagon {
         }
     }
 }
-
