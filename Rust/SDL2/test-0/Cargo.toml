@@ -1,0 +1,9 @@
+[package]
+name = "test-0"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dependencies.sdl2]
+version = "*"

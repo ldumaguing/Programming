@@ -1,12 +1,9 @@
-// SDL2 Library Imports
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 
 use std::time::Duration;
 
-fn main() -> Result<(), String> {
-    println!("Starting Rusteroids");
-
+pub fn main() -> Result<(), String> {
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
 
