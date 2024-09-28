@@ -1,0 +1,78 @@
+"Logitech F710 Gamepad (XInput)"
+
+Button A down
+Button A up
+Button B down
+Button B up
+Button X down
+Button X up
+Button Y down
+Button Y up
+
+Button Start down
+Button Start up
+Button Back down
+Button Back up
+
+Button DPadLeft down
+Button DPadLeft up
+Button DPadRight down
+Button DPadRight up
+Button DPadDown down
+Button DPadDown up
+Button DPadUp down
+Button DPadUp up
+
+Button LeftShoulder down
+Button LeftShoulder up
+Button RightShoulder down
+Button RightShoulder up
+
+Set rumble to (65534, 65534)
+
+Axis LeftY moved to -15549
+Axis LeftX moved to 11693
+
+Axis RightY moved to -31483
+Axis RightY moved to 13492
+
+**********************************************************************************
+"Retrolink SNES Controller"
+
+
+Button A down
+Button A up
+Button B down
+Button B up
+Button LeftShoulder down
+Button LeftShoulder up
+Button X down
+Button X up
+Button Y down
+Button Y up
+Button RightShoulder down
+Button RightShoulder up
+
+Button Start down
+Button Start up
+Button Back down
+Button Back up
+
+
+Button DPadDown up
+Button DPadUp down
+Button DPadUp up
+Button DPadDown up
+---
+Button DPadDown down
+Button DPadDown up
+---
+Button DPadRight up
+Button DPadLeft down
+Button DPadLeft up
+Button DPadRight up
+---
+Button DPadRight down
+Button DPadRight up
+
+
