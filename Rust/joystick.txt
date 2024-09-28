@@ -39,7 +39,6 @@ Axis RightY moved to 13492
 **********************************************************************************
 "Retrolink SNES Controller"
 
-
 Button A down
 Button A up
 Button B down
