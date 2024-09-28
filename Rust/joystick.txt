@@ -28,6 +28,11 @@ Button LeftShoulder up
 Button RightShoulder down
 Button RightShoulder up
 
+Button LeftStick down
+Button LeftStick up
+Button RightStick down
+Button RightStick up
+
 Set rumble to (65534, 65534)
 
 Axis LeftY moved to -15549
