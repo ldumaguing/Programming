@@ -6,10 +6,16 @@ use vector2d::Vector2D;
 use crate::components;
 use crate::utils;
 
+use sdl2::controller::Button; // ************************* LARRY
+
 const ROTATION_SPEED: f64 = 1.5;
 const PLAYER_SPEED: f64 = 4.5;
 
-pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
+pub fn update(
+    ecs: &mut World,
+    key_manager: &mut HashMap<String, bool>,
+    joystick_manager: &mut u16,
+) {
     // Check status of game world
     let mut must_reload_world = false;
     let mut current_player_position = components::Position {
@@ -32,9 +38,7 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
     }
 
     if must_reload_world {
-        // Remove all of the previous entities so we can start again
         ecs.delete_all();
-        // Reset the world to first state
         load_world(ecs);
     }
 
@@ -94,10 +98,22 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
             if crate::utils::is_key_pressed(&key_manager, "D") {
                 pos.rot += ROTATION_SPEED;
             }
+
+            // ************************* LARRY
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                pos.rot += ROTATION_SPEED;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                pos.rot -= ROTATION_SPEED;
+            }
+            // ************************* larry
+
             if crate::utils::is_key_pressed(&key_manager, "A") {
                 pos.rot -= ROTATION_SPEED;
             }
+
             update_movement(pos, player);
+
             if crate::utils::is_key_pressed(&key_manager, "W") {
                 let radians = pos.rot.to_radians();
 
@@ -107,6 +123,18 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
 
                 player.impulse += move_vec;
             }
+
+            // ************************* LARRY
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                let radians = pos.rot.to_radians();
+
+                let move_x = PLAYER_SPEED * radians.sin();
+                let move_y = PLAYER_SPEED * radians.cos();
+                let move_vec = Vector2D::<f64>::new(move_x, move_y);
+
+                player.impulse += move_vec;
+            }
+            // ************************* larry
 
             if pos.rot > 360.0 {
                 pos.rot -= 360.0;
@@ -135,6 +163,16 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
                 player_pos.y = pos.y;
                 player_pos.rot = pos.rot;
             }
+
+            // ************************* LARRY
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::A) {
+                crate::joystick::button_up(joystick_manager, Button::A);
+                must_fire_missile = true;
+                player_pos.x = pos.x;
+                player_pos.y = pos.y;
+                player_pos.rot = pos.rot;
+            }
+            // ************************* larry
 
             // Update the graphic to reflect the rotation
             renderable.rot = pos.rot;

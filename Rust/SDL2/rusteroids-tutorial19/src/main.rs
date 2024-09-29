@@ -287,10 +287,10 @@ fn main() -> Result<(), String> {
             match event {
                 // ************************* LARRY
                 Event::ControllerButtonDown { button, .. } => {
-                    joystick::joystick_down(&mut joystick_manager, button)
+                    joystick::button_down(&mut joystick_manager, button)
                 }
                 Event::ControllerButtonUp { button, .. } => {
-                    joystick::joystick_up(&mut joystick_manager, button)
+                    joystick::button_up(&mut joystick_manager, button)
                 }
                 // ************************* larry
                 Event::Quit { .. } => {
@@ -330,7 +330,7 @@ fn main() -> Result<(), String> {
             }
         }
 
-        game::update(&mut gs.ecs, &mut key_manager);
+        game::update(&mut gs.ecs, &mut key_manager, &mut joystick_manager);
         dispatcher.dispatch(&gs.ecs);
         gs.ecs.maintain();
 
