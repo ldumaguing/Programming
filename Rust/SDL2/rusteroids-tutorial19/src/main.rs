@@ -19,6 +19,7 @@ use once_cell::sync::Lazy;
 pub mod asteroid;
 pub mod components;
 pub mod game;
+pub mod joystick;
 pub mod missile;
 pub mod sound_manager;
 pub mod texture_manager;
@@ -259,6 +260,7 @@ fn main() -> Result<(), String> {
 
     let mut event_pump = sdl_context.event_pump()?;
     let mut key_manager: HashMap<String, bool> = HashMap::new();
+    let mut joystick_manager: u16 = 0;
 
     let mut gs = State { ecs: World::new() };
     gs.ecs.register::<components::Position>();
@@ -280,12 +282,16 @@ fn main() -> Result<(), String> {
     game::load_world(&mut gs.ecs);
 
     'running: loop {
-        // Handle events
+        println!("joystick: {}", joystick_manager);
         for event in event_pump.poll_iter() {
             match event {
                 // ************************* LARRY
-                Event::ControllerButtonDown { button, .. } => println!("Button {:?} down", button),
-                Event::ControllerButtonUp { button, .. } => println!("Button {:?} up", button),
+                Event::ControllerButtonDown { button, .. } => {
+                    joystick::joystick_down(&mut joystick_manager, button)
+                }
+                Event::ControllerButtonUp { button, .. } => {
+                    joystick::joystick_up(&mut joystick_manager, button)
+                }
                 // ************************* larry
                 Event::Quit { .. } => {
                     break 'running;
