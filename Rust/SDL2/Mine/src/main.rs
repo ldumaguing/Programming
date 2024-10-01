@@ -40,6 +40,7 @@ fn main() -> Result<(), String> {
 
     let mut event_pump = sdl_context.event_pump()?;
 
+    let mut counter: i64 = 0;
     'running: loop {
         for event in event_pump.poll_iter() {
             match event {
@@ -56,7 +57,13 @@ fn main() -> Result<(), String> {
             }
         }
 
-        renderer::render(&mut canvas, &mut tex_man, &texture_creator, &font)?;
+        renderer::render(
+            &mut canvas,
+            &mut tex_man,
+            &texture_creator,
+            &font,
+            &mut counter,
+        )?;
 
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }

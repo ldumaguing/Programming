@@ -19,6 +19,7 @@ pub fn render(
     texture_manager: &mut texture_manager::TextureManager<WindowContext>,
     _texture_creator: &TextureCreator<WindowContext>,
     _font: &sdl2::ttf::Font,
+    counter: &mut i64,
 ) -> Result<(), String> {
     //
     let color = Color::RGB(150, 50, 150);
@@ -40,14 +41,18 @@ pub fn render(
 
     let texture = texture_manager.load("img/space_ship.png")?;
 
+    *counter += 5;
+    if *counter >= 360 {
+        *counter = 0;
+    }
     canvas.copy_ex(
-        &texture, // Texture object
-        src,      // source rect
-        dest,     // destination rect
-        279.0,    // angle (degrees)
-        center,   // center
-        false,    // flip horizontal
-        false,    // flip vertical
+        &texture,        // Texture object
+        src,             // source rect
+        dest,            // destination rect
+        *counter as f64, // angle (degrees)
+        center,          // center
+        false,           // flip horizontal
+        false,           // flip vertical
     )?;
 
     canvas.present();
