@@ -24,16 +24,16 @@ pub fn render(
     canvas.set_draw_color(color);
     //canvas.clear();
 
-    // clip an image
-    let src = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
-    // stretch or shrink it
-    let mut dest = Rect::new(0, 0, IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2);
-    // define a point to pivot on (usually center mass of the image)
-    let center = Point::new(IMAGE_WIDTH as i32 / 2 / 2, IMAGE_HEIGHT as i32 / 2 / 2);
-    // move the pivot point to the x,y coordination
-    dest.center_on(Point::new(100, 100));
+    // ******************************************* Sprite placement
+    // ***** using center_on() function
+    let src = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // define sprite
+
+    let mut dest = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // stretch/shrink sprite.
+    dest.center_on(Point::new(100, 100)); // x,y screen location. Modifies dest.
+    let center = Point::new(50, 50); // should be center of sprite.
 
     let texture = texture_manager.load("img/space_ship.png")?;
+    // *******************************************
 
     *counter += 5;
     if *counter >= 360 {
