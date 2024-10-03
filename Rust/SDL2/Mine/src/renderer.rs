@@ -24,16 +24,23 @@ pub fn render(
     canvas.set_draw_color(color);
     //canvas.clear();
 
-    // ******************************************* Sprite placement
-    // ***** using center_on() function
     let src = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // define sprite
 
-    let mut dest = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // stretch/shrink sprite.
-    dest.center_on(Point::new(100, 100)); // x,y screen location. Modifies dest.
-    let center = Point::new(50, 50); // should be center mass of sprite.
+    // ************************************************ Sprite placement
+    // ******************************************* using center_on() function
+    // let mut dest = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // stretch/shrink sprite.
+    // dest.center_on(Point::new(100, 100)); // x,y screen location. Modifies dest.
+    // let center = Point::new(50, 50); // should be center mass of sprite.
+    //
+    // ******************************************* not using center_on() function
+    let pp_x = 50; // pivot point x
+    let pp_y = 50; // pivot point y
+    let x = 100; // screen x
+    let y = 100; // screen y
+    let dest = Rect::new(x - pp_x, y - pp_y, IMAGE_WIDTH, IMAGE_HEIGHT);
+    let center = Point::new(pp_x, pp_y); // relative to sprite's upper-left corner
 
     let texture = texture_manager.load("img/space_ship.png")?;
-    // *******************************************
 
     *counter += 5;
     if *counter >= 360 {
