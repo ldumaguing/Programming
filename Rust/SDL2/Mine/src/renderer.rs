@@ -30,7 +30,7 @@ pub fn render(
 
     let mut dest = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT); // stretch/shrink sprite.
     dest.center_on(Point::new(100, 100)); // x,y screen location. Modifies dest.
-    let center = Point::new(50, 50); // should be center of sprite.
+    let center = Point::new(50, 50); // should be center mass of sprite.
 
     let texture = texture_manager.load("img/space_ship.png")?;
     // *******************************************
