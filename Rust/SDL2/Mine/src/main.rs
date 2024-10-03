@@ -7,8 +7,8 @@ use std::time::Duration;
 pub mod renderer;
 pub mod texture_manager;
 
-const SCREEN_WIDTH: i32 = 1366;
-const SCREEN_HEIGHT: i32 = 768;
+const SCREEN_WIDTH: i32 = 853;
+const SCREEN_HEIGHT: i32 = 480;
 
 fn main() -> Result<(), String> {
     println!("Starting Rusteroids");
@@ -18,8 +18,8 @@ fn main() -> Result<(), String> {
 
     let window = video_subsystem
         .window("Mine", SCREEN_WIDTH as u32, SCREEN_HEIGHT as u32)
-        .position_centered()
-        //.fullscreen()
+        //.position_centered()
+        .fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
