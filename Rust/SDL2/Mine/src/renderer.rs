@@ -28,7 +28,7 @@ pub fn render(
     let src = Rect::new(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
     // stretch or shrink it
     let mut dest = Rect::new(0, 0, IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2);
-    // assign a point to pivot on (usually center mass)
+    // define a point to pivot on (usually center mass of the image)
     let center = Point::new(IMAGE_WIDTH as i32 / 2 / 2, IMAGE_HEIGHT as i32 / 2 / 2);
     // move the pivot point to the x,y coordination
     dest.center_on(Point::new(100, 100));
