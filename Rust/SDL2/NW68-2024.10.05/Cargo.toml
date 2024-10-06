@@ -4,8 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-specs = { version = "*" }
-specs-derive = { version = "*" }
+resolution = "*"
 
 [dependencies.sdl2]
 version = "*"
