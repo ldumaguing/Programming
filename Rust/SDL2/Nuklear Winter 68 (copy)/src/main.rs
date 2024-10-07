@@ -40,6 +40,7 @@ fn main() -> Result<(), String> {
 
     // Load the images before the main loop so we don't try and load during gameplay
     tex_man.load("img/space_ship.png")?;
+    tex_man.load("images/Map.jpg")?;
 
     // Prepare fonts
     let ttf_context = sdl2::ttf::init().map_err(|e| e.to_string())?;
@@ -54,6 +55,7 @@ fn main() -> Result<(), String> {
     gs.ecs.register::<components::Position>();
     gs.ecs.register::<components::Renderable>();
     gs.ecs.register::<components::Player>();
+    gs.ecs.register::<components::GameBoard>();
 
     game::load_world(&mut gs.ecs);
 

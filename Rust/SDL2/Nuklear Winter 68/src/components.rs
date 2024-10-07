@@ -21,10 +21,7 @@ pub struct Renderable {
 }
 
 #[derive(Component)]
-pub struct GameBoard {
-    pub width: u32,
-    pub height: u32,
-}
+pub struct GameBoard {}
 
 #[derive(Component)]
 pub struct Player {}

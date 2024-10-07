@@ -61,12 +61,13 @@ pub fn render(
         let center = Point::new((renderable.o_w / 2) as i32, (renderable.o_h / 2) as i32);
         let texture = texture_manager.load(&renderable.tex_name)?;
         canvas.copy_ex(
-            &texture, src,     //source rect
-            dest,    // dest rect
-            pos.rot, // angle
-            center,  // center
-            false,   // flip horizontal
-            false,   // flip vertical
+            &texture, //
+            src,      //source rect
+            dest,     // dest rect
+            pos.rot,  // angle
+            center,   // center
+            false,    // flip horizontal
+            false,    // flip vertical
         )?;
     }
 

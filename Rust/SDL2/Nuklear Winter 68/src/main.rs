@@ -18,15 +18,17 @@ struct State {
     ecs: World,
 }
 
-fn main() -> Result<(), String> {
-    println!("Starting Rusteroids");
+pub const SCREEN_WIDTH: u32 = 800;
+pub const SCREEN_HEIGHT: u32 = 600;
 
+fn main() -> Result<(), String> {
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
 
     let window = video_subsystem
-        .window("Rusteroids", 800, 600)
+        .window("Nuklear Winter '68", SCREEN_WIDTH, SCREEN_HEIGHT)
         .position_centered()
+        //.fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
@@ -60,7 +62,6 @@ fn main() -> Result<(), String> {
     game::load_world(&mut gs.ecs);
 
     'running: loop {
-        // Handle events
         for event in event_pump.poll_iter() {
             match event {
                 Event::Quit { .. } => {
