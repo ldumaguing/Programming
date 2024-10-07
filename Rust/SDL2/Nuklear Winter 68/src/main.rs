@@ -57,6 +57,7 @@ fn main() -> Result<(), String> {
 
     // Load the images before the main loop so we don't try and load during gameplay
     tex_man.load("img/space_ship.png")?;
+    tex_man.load("img/cursor.png")?;
     tex_man.load("images/Map.jpg")?;
 
     // Prepare fonts
@@ -73,6 +74,7 @@ fn main() -> Result<(), String> {
     gs.ecs.register::<components::Renderable>();
     gs.ecs.register::<components::Player>();
     gs.ecs.register::<components::GameBoard>();
+    gs.ecs.register::<components::Cursor>();
 
     game::load_world(&mut gs.ecs);
 

@@ -26,4 +26,7 @@ pub struct GameBoard {
 }
 
 #[derive(Component)]
+pub struct Cursor {}
+
+#[derive(Component)]
 pub struct Player {}
