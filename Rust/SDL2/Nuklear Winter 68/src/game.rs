@@ -27,8 +27,8 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
 pub fn load_world(ecs: &mut World) {
     ecs.create_entity()
         .with(crate::components::Position {
-            x: 0.0,
-            y: 0.0,
+            x: 5000.0,
+            y: 3000.0,
             rot: 0.0,
         })
         .with(crate::components::Renderable {
@@ -41,7 +41,10 @@ pub fn load_world(ecs: &mut World) {
             total_frames: 1,
             rot: 0.0,
         })
-        .with(crate::components::GameBoard {})
+        .with(crate::components::GameBoard {
+            width: 6372,
+            height: 4139,
+        })
         .build();
 
     ecs.create_entity()

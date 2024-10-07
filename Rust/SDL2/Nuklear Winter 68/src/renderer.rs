@@ -18,7 +18,7 @@ pub fn render(
     ecs: &World,
 ) -> Result<(), String> {
     //
-    let color = Color::RGB(0, 0, 0);
+    let color = Color::RGB(255, 0, 255);
     canvas.set_draw_color(color);
     canvas.clear();
 
@@ -27,11 +27,12 @@ pub fn render(
     let players = ecs.read_storage::<components::Player>();
     let gameboards = ecs.read_storage::<components::GameBoard>();
 
+    // ***** Game Board
     for (renderable, pos, _) in (&renderables, &positions, &gameboards).join() {
-        let src = Rect::new(0, 0, renderable.i_w, renderable.i_h);
         let x: i32 = pos.x as i32;
         let y: i32 = pos.y as i32;
-        let dest = Rect::new(x, y, renderable.o_w, renderable.o_h);
+        let src = Rect::new(x, y, renderable.i_w, renderable.i_h);
+        let dest = Rect::new(0, 0, renderable.o_w, renderable.o_h);
 
         let texture = texture_manager.load(&renderable.tex_name)?;
         canvas.copy_ex(
@@ -45,6 +46,7 @@ pub fn render(
         )?;
     }
 
+    // ***** Sprite
     for (renderable, pos, _) in (&renderables, &positions, &players).join() {
         let src = Rect::new(0, 0, renderable.i_w, renderable.i_h);
         let x: i32 = pos.x as i32;
