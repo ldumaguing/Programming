@@ -18,15 +18,32 @@ struct State {
     ecs: World,
 }
 
-fn main() -> Result<(), String> {
-    println!("Starting Rusteroids");
+// 2048x1152
 
+// ***** 720p
+pub const SCREEN_WIDTH: u32 = 1280;
+pub const SCREEN_HEIGHT: u32 = 720;
+
+// ***** Board Map
+pub const MAP_DIM: (u32, u32) = (6372, 4139);
+pub const HEX_0X0: (u32, u32) = (367, 215);
+const X_HEX_COUNT: i32 = 28;
+const Y_HEX_COUNT: i32 = 19;
+const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
+pub const HEXAGON: (f32, f32) = (
+    (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
+    (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
+);
+
+fn main() -> Result<(), String> {
+    println!("({}, {})", HEXAGON.0 * 10.0, HEXAGON.1 * 10.0);
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
 
     let window = video_subsystem
-        .window("Rusteroids", 800, 600)
+        .window("Nuklear Winter '68", SCREEN_WIDTH, SCREEN_HEIGHT)
         .position_centered()
+        //.fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
@@ -40,6 +57,7 @@ fn main() -> Result<(), String> {
 
     // Load the images before the main loop so we don't try and load during gameplay
     tex_man.load("img/space_ship.png")?;
+    tex_man.load("img/cursor.png")?;
     tex_man.load("images/Map.jpg")?;
 
     // Prepare fonts
@@ -56,11 +74,11 @@ fn main() -> Result<(), String> {
     gs.ecs.register::<components::Renderable>();
     gs.ecs.register::<components::Player>();
     gs.ecs.register::<components::GameBoard>();
+    gs.ecs.register::<components::Cursor>();
 
     game::load_world(&mut gs.ecs);
 
     'running: loop {
-        // Handle events
         for event in event_pump.poll_iter() {
             match event {
                 Event::Quit { .. } => {

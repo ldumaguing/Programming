@@ -26,6 +26,7 @@ pub fn render(
     let renderables = ecs.read_storage::<components::Renderable>();
     let players = ecs.read_storage::<components::Player>();
     let gameboards = ecs.read_storage::<components::GameBoard>();
+    let cursors = ecs.read_storage::<components::Cursor>();
 
     // ***** Game Board
     for (renderable, pos, _) in (&renderables, &positions, &gameboards).join() {
@@ -33,6 +34,25 @@ pub fn render(
         let y: i32 = pos.y as i32;
         let src = Rect::new(x, y, renderable.i_w, renderable.i_h);
         let dest = Rect::new(0, 0, renderable.o_w, renderable.o_h);
+
+        let texture = texture_manager.load(&renderable.tex_name)?;
+        canvas.copy_ex(
+            &texture, //
+            src,      //source rect
+            dest,     // dest rect
+            pos.rot,  // angle
+            Point::new(0, 0),
+            false, // flip horizontal
+            false, // flip vertical
+        )?;
+    }
+
+    // ***** Cursor
+    for (renderable, pos, _) in (&renderables, &positions, &cursors).join() {
+        let x: i32 = pos.x as i32;
+        let y: i32 = pos.y as i32;
+        let src = Rect::new(0, 0, renderable.i_w, renderable.i_h);
+        let dest = Rect::new(x, y, renderable.o_w, renderable.o_h);
 
         let texture = texture_manager.load(&renderable.tex_name)?;
         canvas.copy_ex(
@@ -61,12 +81,13 @@ pub fn render(
         let center = Point::new((renderable.o_w / 2) as i32, (renderable.o_h / 2) as i32);
         let texture = texture_manager.load(&renderable.tex_name)?;
         canvas.copy_ex(
-            &texture, src,     //source rect
-            dest,    // dest rect
-            pos.rot, // angle
-            center,  // center
-            false,   // flip horizontal
-            false,   // flip vertical
+            &texture, //
+            src,      //source rect
+            dest,     // dest rect
+            pos.rot,  // angle
+            center,   // center
+            false,    // flip horizontal
+            false,    // flip vertical
         )?;
     }
 

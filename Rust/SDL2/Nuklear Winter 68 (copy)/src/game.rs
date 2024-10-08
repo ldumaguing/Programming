@@ -2,11 +2,18 @@ use specs::Join;
 use specs::{Builder, World, WorldExt};
 use std::collections::HashMap;
 
+use crate::HEX_0X0;
+use crate::SCREEN_HEIGHT;
+use crate::SCREEN_WIDTH;
+
 const ROTATION_SPEED: f64 = 1.5;
 
 pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
     let mut positions = ecs.write_storage::<crate::components::Position>();
     let players = ecs.read_storage::<crate::components::Player>();
+    let cursors = ecs.read_storage::<crate::components::Cursor>();
+
+    for (_, pos) in (&cursors, &mut positions).join() {}
 
     for (_, pos) in (&players, &mut positions).join() {
         if crate::utils::is_key_pressed(&key_manager, "D") {
@@ -25,28 +32,47 @@ pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
 }
 
 pub fn load_world(ecs: &mut World) {
+    // *****************************************************************
     ecs.create_entity()
         .with(crate::components::Position {
-            x: 5000.0,
-            y: 3000.0,
+            x: 248.0,
+            y: 113.0,
             rot: 0.0,
         })
         .with(crate::components::Renderable {
-            tex_name: String::from("images/Map.jpg"),
-            i_w: 800,
-            i_h: 600,
-            o_w: 800,
-            o_h: 600,
+            tex_name: String::from("img/cursor.png"),
+            i_w: 235,
+            i_h: 206,
+            o_w: 235,
+            o_h: 206,
             frame: 0,
             total_frames: 1,
             rot: 0.0,
         })
-        .with(crate::components::GameBoard {
-            width: 6372,
-            height: 4139,
-        })
+        .with(crate::components::Cursor {})
         .build();
 
+    // *****************************************************************
+    ecs.create_entity()
+        .with(crate::components::Position {
+            x: 0.0,
+            y: 0.0,
+            rot: 0.0,
+        })
+        .with(crate::components::Renderable {
+            tex_name: String::from("images/Map.jpg"),
+            i_w: SCREEN_WIDTH,
+            i_h: SCREEN_HEIGHT,
+            o_w: SCREEN_WIDTH,
+            o_h: SCREEN_HEIGHT,
+            frame: 0,
+            total_frames: 1,
+            rot: 0.0,
+        })
+        .with(crate::components::GameBoard { scale: 1.0 })
+        .build();
+
+    // *****************************************************************
     ecs.create_entity()
         .with(crate::components::Position {
             x: 350.0,
