@@ -123,7 +123,8 @@ fn main() -> Result<(), String> {
     game::load_world(&mut gs.ecs);
 
     'running: loop {
-        // println!("joystick: {}", joystick_manager);
+        println!("joystick: {}", joystick_manager);
+        // println!("mode: {}", mode_manager);
         for event in event_pump.poll_iter() {
             match event {
                 // ************************* JOYSTICK

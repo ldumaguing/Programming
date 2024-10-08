@@ -21,49 +21,54 @@ pub fn update(
     let players = ecs.read_storage::<crate::components::Player>();
     let cursors = ecs.read_storage::<crate::components::Cursor>();
 
-    // ***** Cursor
-    for (_, pos) in (&cursors, &mut positions).join() {
-        if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                pos.x += 15.0;
+    // ***** Mode
+    if (*joystick_manager & 1 << 10) != 0 {
+        println!("not zero");
+    } else {
+        // ***** Cursor
+        for (_, pos) in (&cursors, &mut positions).join() {
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                    pos.x += 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                    pos.x -= 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                    pos.y += 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                    pos.y -= 15.0;
+                }
+            } else {
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                    pos.x += 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                    pos.x -= 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                    pos.y += 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                    pos.y -= 1.0;
+                }
             }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                pos.x -= 15.0;
+            if pos.x < 0.0 {
+                pos.x = 0.0;
             }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                pos.y += 15.0;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                pos.y -= 15.0;
-            }
-        } else {
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                pos.x += 1.0;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                pos.x -= 1.0;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                pos.y += 1.0;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                pos.y -= 1.0;
-            }
-        }
-        if pos.x < 0.0 {
-            pos.x = 0.0;
-        }
 
-        if pos.y < 0.0 {
-            pos.y = 0.0;
-        }
-        let x: f64 = SCREEN_WIDTH as f64 - CURSOR_DIM.0 as f64;
-        if pos.x > x {
-            pos.x = x;
-        }
-        let y: f64 = SCREEN_HEIGHT as f64 - CURSOR_DIM.1 as f64;
-        if pos.y > y {
-            pos.y = y;
+            if pos.y < 0.0 {
+                pos.y = 0.0;
+            }
+            let x: f64 = SCREEN_WIDTH as f64 - CURSOR_DIM.0 as f64;
+            if pos.x > x {
+                pos.x = x;
+            }
+            let y: f64 = SCREEN_HEIGHT as f64 - CURSOR_DIM.1 as f64;
+            if pos.y > y {
+                pos.y = y;
+            }
         }
     }
 
@@ -109,8 +114,8 @@ pub fn load_world(ecs: &mut World) {
     // *****************************************************************
     ecs.create_entity()
         .with(crate::components::Position {
-            x: 0.0,
-            y: 0.0,
+            x: 100.0,
+            y: 100.0,
             rot: 0.0,
         })
         .with(crate::components::Renderable {
