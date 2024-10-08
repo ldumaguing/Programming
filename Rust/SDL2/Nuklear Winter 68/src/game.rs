@@ -14,14 +14,44 @@ const ROTATION_SPEED: f64 = 1.5;
 pub fn update(
     ecs: &mut World,
     key_manager: &mut HashMap<String, bool>,
-    _joystick_manager: &mut u16,
+    joystick_manager: &mut u16,
 ) {
     let mut positions = ecs.write_storage::<crate::components::Position>();
     let players = ecs.read_storage::<crate::components::Player>();
     let cursors = ecs.read_storage::<crate::components::Cursor>();
 
-    for (_, pos) in (&cursors, &mut positions).join() {}
+    // ***** Cursor
+    for (_, pos) in (&cursors, &mut positions).join() {
+        if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                pos.x += 15.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                pos.x -= 15.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                pos.y += 15.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                pos.y -= 15.0;
+            }
+        } else {
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                pos.x += 1.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                pos.x -= 1.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                pos.y += 1.0;
+            }
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                pos.y -= 1.0;
+            }
+        }
+    }
 
+    // ***** ship
     for (_, pos) in (&players, &mut positions).join() {
         if crate::utils::is_key_pressed(&key_manager, "D") {
             pos.rot += ROTATION_SPEED;
