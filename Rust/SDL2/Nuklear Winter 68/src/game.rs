@@ -7,6 +7,7 @@ use sdl2::controller::Button;
 use crate::CURSOR_DIM;
 use crate::CURSOR_HEX_0X0;
 use crate::HEX_0X0;
+use crate::MAP_DIM;
 use crate::SCREEN_HEIGHT;
 use crate::SCREEN_WIDTH;
 
@@ -20,10 +21,54 @@ pub fn update(
     let mut positions = ecs.write_storage::<crate::components::Position>();
     let players = ecs.read_storage::<crate::components::Player>();
     let cursors = ecs.read_storage::<crate::components::Cursor>();
+    let gameboards = ecs.read_storage::<crate::components::GameBoard>();
 
     // ***** Mode
     if (*joystick_manager & 1 << 10) != 0 {
         println!("not zero");
+        for (_, pos) in (&gameboards, &mut positions).join() {
+            if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                    pos.x += 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                    pos.x -= 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                    pos.y += 15.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                    pos.y -= 15.0;
+                }
+            } else {
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
+                    pos.x += 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
+                    pos.x -= 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+                    pos.y += 1.0;
+                }
+                if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
+                    pos.y -= 1.0;
+                }
+            }
+            if pos.x < 0.0 {
+                pos.x = 0.0;
+            }
+            if pos.y < 0.0 {
+                pos.y = 0.0;
+            }
+            let x: f64 = MAP_DIM.0 as f64 - SCREEN_WIDTH as f64;
+            if pos.x > x {
+                pos.x = x;
+            }
+            let y: f64 = MAP_DIM.1 as f64 - SCREEN_HEIGHT as f64;
+            if pos.y > y {
+                pos.y = y;
+            }
+        }
     } else {
         // ***** Cursor
         for (_, pos) in (&cursors, &mut positions).join() {
@@ -57,7 +102,6 @@ pub fn update(
             if pos.x < 0.0 {
                 pos.x = 0.0;
             }
-
             if pos.y < 0.0 {
                 pos.y = 0.0;
             }

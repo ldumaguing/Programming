@@ -12,7 +12,7 @@ pub fn button_down(joystick_manager: &mut u16, button: Button) {
         Button::Y => *joystick_manager |= 1 << 7,
         Button::Back => *joystick_manager |= 1 << 8,
         Button::Guide => *joystick_manager |= 1 << 9,
-        Button::Start => *joystick_manager ^= 1 << 10,
+        Button::Start => *joystick_manager ^= 1 << 10, // ***** toggle
         Button::LeftStick => *joystick_manager |= 1 << 11,
         Button::RightStick => *joystick_manager |= 1 << 12,
         Button::LeftShoulder => *joystick_manager |= 1 << 13,
