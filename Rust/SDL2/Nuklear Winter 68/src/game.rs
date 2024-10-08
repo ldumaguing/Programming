@@ -2,13 +2,20 @@ use specs::Join;
 use specs::{Builder, World, WorldExt};
 use std::collections::HashMap;
 
+use sdl2::controller::Button;
+
+use crate::CURSOR_HEX_0X0;
 use crate::HEX_0X0;
 use crate::SCREEN_HEIGHT;
 use crate::SCREEN_WIDTH;
 
 const ROTATION_SPEED: f64 = 1.5;
 
-pub fn update(ecs: &mut World, key_manager: &mut HashMap<String, bool>) {
+pub fn update(
+    ecs: &mut World,
+    key_manager: &mut HashMap<String, bool>,
+    _joystick_manager: &mut u16,
+) {
     let mut positions = ecs.write_storage::<crate::components::Position>();
     let players = ecs.read_storage::<crate::components::Player>();
     let cursors = ecs.read_storage::<crate::components::Cursor>();
@@ -35,8 +42,8 @@ pub fn load_world(ecs: &mut World) {
     // *****************************************************************
     ecs.create_entity()
         .with(crate::components::Position {
-            x: 248.0,
-            y: 113.0,
+            x: 0.0,
+            y: 0.0,
             rot: 0.0,
         })
         .with(crate::components::Renderable {

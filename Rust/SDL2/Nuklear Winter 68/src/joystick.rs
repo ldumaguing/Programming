@@ -1,4 +1,3 @@
-// ***** tutorial19-mine - joystick
 use sdl2::controller::Button;
 
 pub fn button_down(joystick_manager: &mut u16, button: Button) {
