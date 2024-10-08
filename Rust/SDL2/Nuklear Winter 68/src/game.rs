@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 use sdl2::controller::Button;
 
+use crate::CURSOR_DIM;
 use crate::CURSOR_HEX_0X0;
 use crate::HEX_0X0;
 use crate::SCREEN_HEIGHT;
@@ -49,6 +50,21 @@ pub fn update(
                 pos.y -= 1.0;
             }
         }
+        if pos.x < 0.0 {
+            pos.x = 0.0;
+        }
+
+        if pos.y < 0.0 {
+            pos.y = 0.0;
+        }
+        let x: f64 = SCREEN_WIDTH as f64 - CURSOR_DIM.0 as f64;
+        if pos.x > x {
+            pos.x = x;
+        }
+        let y: f64 = SCREEN_HEIGHT as f64 - CURSOR_DIM.1 as f64;
+        if pos.y > y {
+            pos.y = y;
+        }
     }
 
     // ***** ship
@@ -68,6 +84,7 @@ pub fn update(
     }
 }
 
+// *************************************************************************************************
 pub fn load_world(ecs: &mut World) {
     // *****************************************************************
     ecs.create_entity()
