@@ -4,9 +4,9 @@ use sdl2::keyboard::Keycode;
 use std::time::Duration;
 use std::collections::HashMap;
 
-pub mod joystick;
-pub mod texture_manager;
-pub mod utils;
+pub mod joystick;        // Joystick input
+pub mod texture_manager; // graphics database
+pub mod utils;           // Mouse & keyboard inputs
 
 fn main() -> Result<(), String> {
     sdl2::hint::set("SDL_JOYSTICK_THREAD", "1");
