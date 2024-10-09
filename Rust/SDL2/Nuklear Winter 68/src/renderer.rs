@@ -9,6 +9,7 @@ use specs::{Join, World, WorldExt};
 
 use crate::components;
 use crate::texture_manager;
+use crate::GlobalVariables;
 
 pub fn render(
     canvas: &mut WindowCanvas,
@@ -16,6 +17,7 @@ pub fn render(
     _texture_creator: &TextureCreator<WindowContext>,
     _font: &sdl2::ttf::Font,
     ecs: &World,
+    _gv: &mut GlobalVariables,
 ) -> Result<(), String> {
     //
     let color = Color::RGB(255, 0, 255);

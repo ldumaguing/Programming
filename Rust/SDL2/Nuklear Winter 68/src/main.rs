@@ -18,6 +18,14 @@ struct State {
     ecs: World,
 }
 
+pub struct GlobalVariables {
+    hex_0x0: (u32, u32),
+    hex_low_right: (u32, u32),
+    hexagon: (f32, f32),
+    cursor_hex_0x0: (u32, u32),
+    cursor_dim: (u32, u32),
+}
+
 // ***** 2048x1152
 // pub const SCREEN_WIDTH: u32 = 2040;
 // pub const SCREEN_HEIGHT: u32 = 1074;
@@ -99,9 +107,17 @@ fn main() -> Result<(), String> {
         .build()
         .expect("could not make a canvas");
 
+    // **** managers
     let texture_creator = canvas.texture_creator();
     let mut tex_man = texture_manager::TextureManager::new(&texture_creator);
     let mut joystick_manager: u16 = 0;
+    let mut gv = GlobalVariables {
+        hex_0x0: HEX_0X0,
+        hex_low_right: HEX_LOW_RIGHT,
+        hexagon: HEXAGON,
+        cursor_hex_0x0: CURSOR_HEX_0X0,
+        cursor_dim: CURSOR_DIM,
+    };
 
     // Load the images before the main loop so we don't try and load during gameplay
     tex_man.load("img/space_ship.png")?;
@@ -162,8 +178,20 @@ fn main() -> Result<(), String> {
                 _ => {}
             }
         }
-        game::update(&mut gs.ecs, &mut key_manager, &mut joystick_manager);
-        renderer::render(&mut canvas, &mut tex_man, &texture_creator, &font, &gs.ecs)?;
+        game::update(
+            &mut gs.ecs,
+            &mut key_manager,
+            &mut joystick_manager,
+            &mut gv,
+        );
+        renderer::render(
+            &mut canvas,
+            &mut tex_man,
+            &texture_creator,
+            &font,
+            &gs.ecs,
+            &mut gv,
+        )?;
 
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }

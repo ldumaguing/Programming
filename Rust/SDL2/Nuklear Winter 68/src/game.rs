@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 use sdl2::controller::Button;
 
+use crate::GlobalVariables;
 use crate::CURSOR_DIM;
 use crate::CURSOR_HEX_0X0;
 use crate::HEX_0X0;
@@ -13,11 +14,26 @@ use crate::SCREEN_WIDTH;
 
 const ROTATION_SPEED: f64 = 1.5;
 
+/*
+struct GlobalVariables {
+    hex_0x0: (u32, u32),
+    hex_low_right: (u32, u32),
+    hexagon: (f32, f32),
+    cursor_hex_0x0: (u32, u32),
+    cursor_dim: (u32, u32),
+}
+*/
 pub fn update(
     ecs: &mut World,
     key_manager: &mut HashMap<String, bool>,
     joystick_manager: &mut u16,
+    gv: &mut GlobalVariables,
 ) {
+    println!("({},{})", gv.hex_0x0.0, gv.hex_0x0.1);
+    println!("({},{})", gv.hex_low_right.0, gv.hex_low_right.1);
+    println!("({},{})", gv.hexagon.0, gv.hexagon.1);
+    println!("({},{})", gv.cursor_hex_0x0.0, gv.cursor_hex_0x0.1);
+    println!("({},{})", gv.cursor_dim.0, gv.cursor_dim.1);
     let mut positions = ecs.write_storage::<crate::components::Position>();
     let mut gameboards = ecs.write_storage::<crate::components::GameBoard>();
     let players = ecs.read_storage::<crate::components::Player>();
@@ -47,6 +63,7 @@ pub fn update(
 
     // ***** Mode
     if (*joystick_manager & 1 << 10) != 0 {
+        // ***** Map
         for (_, pos) in (&gameboards, &mut positions).join() {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
                 if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
@@ -155,6 +172,15 @@ pub fn update(
 }
 
 // *************************************************************************************************
+/*
+struct GlobalVariables {
+    hex_0x0: (u32, u32),
+    hex_low_right: (u32, u32),
+    hexagon: (f32, f32),
+    cursor_hex_0x0: (u32, u32),
+    cursor_dim: (u32, u32),
+}
+*/
 pub fn load_world(ecs: &mut World) {
     // *****************************************************************
     ecs.create_entity()
