@@ -27,7 +27,21 @@ pub fn update(
     if (*joystick_manager & 1 << 13) != 0 {
         println!("shrink");
         for (gameboard, _) in (&mut gameboards, &positions).join() {
-            gameboard.scale = 2.0;
+            gameboard.scale += 0.1;
+            if gameboard.scale > 4.0 {
+                gameboard.scale = 4.0;
+            }
+        }
+    }
+
+    // ***** Zoom
+    if (*joystick_manager & 1 << 14) != 0 {
+        println!("zoom");
+        for (gameboard, _) in (&mut gameboards, &positions).join() {
+            gameboard.scale -= 0.1;
+            if gameboard.scale < 1.0 {
+                gameboard.scale = 1.0;
+            }
         }
     }
 
