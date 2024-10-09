@@ -5,8 +5,8 @@ use std::time::Duration;
 use std::collections::HashMap;
 
 pub mod joystick;        // Joystick input
-pub mod texture_manager; // graphics database
 pub mod utils;           // Mouse & keyboard inputs
+pub mod texture_manager; // graphics database
 
 fn main() -> Result<(), String> {
     sdl2::hint::set("SDL_JOYSTICK_THREAD", "1");
