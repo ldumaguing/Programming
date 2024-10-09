@@ -2,8 +2,11 @@ use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 
 use std::time::Duration;
+use std::collections::HashMap;
 
 pub mod joystick;
+pub mod texture_manager;
+pub mod utils;
 
 fn main() -> Result<(), String> {
     sdl2::hint::set("SDL_JOYSTICK_THREAD", "1");
@@ -18,10 +21,10 @@ fn main() -> Result<(), String> {
         .num_joysticks()
         .map_err(|e| format!("can't enumerate joysticks: {}", e))?;
 
-    println!("{} joysticks available", available);
+    //println!("{} joysticks available", available);
 
     // Iterate over all available joysticks and look for game controllers.
-    let controller = (0..available)
+    let _controller = (0..available)
         .find_map(|id| {
             if !game_controller_subsystem.is_game_controller(id) {
                 println!("{} is not a game controller", id);
@@ -43,22 +46,31 @@ fn main() -> Result<(), String> {
         })
         .expect("Couldn't open any controller");
 
-    println!("Controller mapping: {}", controller.mapping());
+    //println!("Controller mapping: {}", controller.mapping());
     // ------------------------- joystick
 
-    let _window = video_subsystem
+    let window = video_subsystem
         .window("Nuklear Winter '68", 800, 600)
         .position_centered()
+        // .fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
+    let mut canvas = window
+        .into_canvas()
+        .build()
+        .expect("could not make a canvas");
+
     // **** managers
+    let texture_creator = canvas.texture_creator();
+    let mut tex_man = texture_manager::TextureManager::new(&texture_creator);
     let mut joystick_manager: u16 = 0;
+    let mut key_manager: HashMap<String, bool> = HashMap::new();
 
     let mut event_pump = sdl_context.event_pump()?;
 
     'running: loop {
-        println!("joystick: {}", joystick_manager);
+        // println!("joystick: {}", joystick_manager);
         for event in event_pump.poll_iter() {
             match event {
                 // ************************* JOYSTICK
@@ -78,6 +90,18 @@ fn main() -> Result<(), String> {
                 } => {
                     break 'running;
                 }
+                Event::KeyDown { keycode, .. } => match keycode {
+                    None => {}
+                    Some(key) => {
+                        utils::key_down(&mut key_manager, key.to_string());
+                    }
+                },
+                Event::KeyUp { keycode, .. } => match keycode {
+                    None => {}
+                    Some(key) => {
+                        utils::key_up(&mut key_manager, key.to_string());
+                    }
+                },
                 _ => {}
             }
         }
