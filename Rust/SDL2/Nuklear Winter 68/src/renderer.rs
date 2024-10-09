@@ -29,10 +29,12 @@ pub fn render(
     let cursors = ecs.read_storage::<components::Cursor>();
 
     // ***** Game Board
-    for (renderable, pos, _) in (&renderables, &positions, &gameboards).join() {
+    for (renderable, pos, gameboard) in (&renderables, &positions, &gameboards).join() {
         let x: i32 = pos.x as i32;
         let y: i32 = pos.y as i32;
-        let src = Rect::new(x, y, renderable.i_w, renderable.i_h);
+        let scale_x: f64 = renderable.i_w as f64 * gameboard.scale as f64;
+        let scale_y: f64 = renderable.i_h as f64 * gameboard.scale as f64;
+        let src = Rect::new(x, y, scale_x as u32, scale_y as u32);
         let dest = Rect::new(0, 0, renderable.o_w, renderable.o_h);
 
         let texture = texture_manager.load(&renderable.tex_name)?;

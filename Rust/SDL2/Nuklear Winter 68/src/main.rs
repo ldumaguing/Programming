@@ -19,12 +19,16 @@ struct State {
 }
 
 // ***** 2048x1152
-pub const SCREEN_WIDTH: u32 = 2040;
-pub const SCREEN_HEIGHT: u32 = 1074;
+// pub const SCREEN_WIDTH: u32 = 2040;
+// pub const SCREEN_HEIGHT: u32 = 1074;
 
 // ***** 720p
 // pub const SCREEN_WIDTH: u32 = 1280;
 // pub const SCREEN_HEIGHT: u32 = 720;
+
+// ***** low laptop
+pub const SCREEN_WIDTH: u32 = 1360;
+pub const SCREEN_HEIGHT: u32 = 686;
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);

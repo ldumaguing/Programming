@@ -19,13 +19,20 @@ pub fn update(
     joystick_manager: &mut u16,
 ) {
     let mut positions = ecs.write_storage::<crate::components::Position>();
+    let mut gameboards = ecs.write_storage::<crate::components::GameBoard>();
     let players = ecs.read_storage::<crate::components::Player>();
     let cursors = ecs.read_storage::<crate::components::Cursor>();
-    let gameboards = ecs.read_storage::<crate::components::GameBoard>();
+
+    // ***** Shrink
+    if (*joystick_manager & 1 << 13) != 0 {
+        println!("shrink");
+        for (gameboard, _) in (&mut gameboards, &positions).join() {
+            gameboard.scale = 2.0;
+        }
+    }
 
     // ***** Mode
     if (*joystick_manager & 1 << 10) != 0 {
-        println!("not zero");
         for (_, pos) in (&gameboards, &mut positions).join() {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
                 if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
