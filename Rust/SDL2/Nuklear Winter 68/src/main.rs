@@ -19,8 +19,7 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_HEIGHT: u32 = 720;
 
 // ***** low laptop
-pub const SCREEN_WIDTH: u32 = 1360;
-pub const SCREEN_HEIGHT: u32 = 686;
+pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
@@ -43,6 +42,8 @@ pub struct GlobalVariables {
     hexagon: (f32, f32),
     cursor_hex_0x0: (u32, u32),
     cursor_dim: (u32, u32),
+    map_loc: (i32, i32),
+    cursor_loc: (i32, i32),
 }
 
 // ***************************************************************************************
@@ -88,7 +89,7 @@ fn main() -> Result<(), String> {
     // ------------------------- joystick
 
     let window = video_subsystem
-        .window("Nuklear Winter '68", 800, 600)
+        .window("Nuklear Winter '68", SCREEN_DIM.0, SCREEN_DIM.1)
         .position_centered()
         // .fullscreen()
         .build()
@@ -110,6 +111,8 @@ fn main() -> Result<(), String> {
         hexagon: HEXAGON,
         cursor_hex_0x0: CURSOR_HEX_0X0,
         cursor_dim: CURSOR_DIM,
+        map_loc: (0, 0),
+        cursor_loc: (0, 0),
     };
 
     tex_man.load("img/cursor.png")?;
