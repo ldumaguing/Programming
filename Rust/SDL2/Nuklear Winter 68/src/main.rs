@@ -4,10 +4,48 @@ use sdl2::keyboard::Keycode;
 use std::collections::HashMap;
 use std::time::Duration;
 
+pub mod game; // Game logic
 pub mod joystick; // Joystick input
-pub mod texture_manager;
-pub mod utils; // Mouse & keyboard inputs // graphics database
+pub mod renderer; // blit
+pub mod texture_manager; // graphics database
+pub mod utils; // Mouse & keyboard inputs
 
+// ***** 2048x1152
+// pub const SCREEN_WIDTH: u32 = 2040;
+// pub const SCREEN_HEIGHT: u32 = 1074;
+
+// ***** 720p
+// pub const SCREEN_WIDTH: u32 = 1280;
+// pub const SCREEN_HEIGHT: u32 = 720;
+
+// ***** low laptop
+pub const SCREEN_WIDTH: u32 = 1360;
+pub const SCREEN_HEIGHT: u32 = 686;
+
+// ***** Board Map
+pub const MAP_DIM: (u32, u32) = (6372, 4139);
+pub const HEX_0X0: (u32, u32) = (367, 215);
+const X_HEX_COUNT: i32 = 28;
+const Y_HEX_COUNT: i32 = 19;
+const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
+pub const HEXAGON: (f32, f32) = (
+    (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
+    (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
+);
+
+// ***** Cursor
+pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
+pub const CURSOR_DIM: (u32, u32) = (235, 206);
+
+pub struct GlobalVariables {
+    hex_0x0: (u32, u32),
+    hex_low_right: (u32, u32),
+    hexagon: (f32, f32),
+    cursor_hex_0x0: (u32, u32),
+    cursor_dim: (u32, u32),
+}
+
+// ***************************************************************************************
 fn main() -> Result<(), String> {
     sdl2::hint::set("SDL_JOYSTICK_THREAD", "1");
 
@@ -66,6 +104,16 @@ fn main() -> Result<(), String> {
     let mut tex_man = texture_manager::TextureManager::new(&texture_creator);
     let mut joystick_manager: u16 = 0;
     let mut key_manager: HashMap<String, bool> = HashMap::new();
+    let mut gv = GlobalVariables {
+        hex_0x0: HEX_0X0,
+        hex_low_right: HEX_LOW_RIGHT,
+        hexagon: HEXAGON,
+        cursor_hex_0x0: CURSOR_HEX_0X0,
+        cursor_dim: CURSOR_DIM,
+    };
+
+    tex_man.load("img/cursor.png")?;
+    tex_man.load("images/Map.jpg")?;
 
     let mut event_pump = sdl_context.event_pump()?;
 
@@ -108,6 +156,8 @@ fn main() -> Result<(), String> {
             }
         }
 
+        game::update(&mut joystick_manager, &mut gv);
+        renderer::render(&mut canvas, &mut tex_man, &texture_creator, &mut gv)?;
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }
 
