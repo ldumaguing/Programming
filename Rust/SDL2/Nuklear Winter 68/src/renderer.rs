@@ -1,3 +1,4 @@
+// ***** renderer.rs
 use sdl2::pixels::Color;
 use sdl2::render::{TextureCreator, WindowCanvas};
 use sdl2::video::WindowContext;
@@ -14,6 +15,7 @@ pub fn render(
     texture_manager: &mut texture_manager::TextureManager<WindowContext>,
     _texture_creator: &TextureCreator<WindowContext>,
     gv: &mut GlobalVariables,
+    joy: &u16,
 ) -> Result<(), String> {
     // Step 1: paint the canvas red
     let color = Color::RGB(255, 0, 0);
@@ -29,17 +31,19 @@ pub fn render(
     )?;
 
     // Step 3: put cursor
-    let texture = texture_manager.load("img/cursor.png")?;
-    canvas.copy(
-        &texture,
-        Rect::new(0, 0, gv.cursor_dim.0, gv.cursor_dim.1), // source
-        Rect::new(
-            gv.cursor_loc.0 as i32,
-            gv.cursor_loc.1 as i32,
-            gv.cursor_dim.0,
-            gv.cursor_dim.1,
-        ), // destination
-    )?;
+    if *joy & (1 << 10) == 0 {
+        let texture = texture_manager.load("img/cursor.png")?;
+        canvas.copy(
+            &texture,
+            Rect::new(0, 0, gv.cursor_dim.0, gv.cursor_dim.1), // source
+            Rect::new(
+                gv.cursor_loc.0 as i32,
+                gv.cursor_loc.1 as i32,
+                gv.cursor_dim.0,
+                gv.cursor_dim.1,
+            ), // destination
+        )?;
+    }
 
     canvas.present();
     Ok(())

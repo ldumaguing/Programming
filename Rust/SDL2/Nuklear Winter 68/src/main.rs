@@ -1,3 +1,4 @@
+// ***** main.rs
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 
@@ -11,12 +12,10 @@ pub mod texture_manager; // graphics database
 pub mod utils; // Mouse & keyboard inputs
 
 // ***** 2048x1152
-// pub const SCREEN_WIDTH: u32 = 2040;
-// pub const SCREEN_HEIGHT: u32 = 1074;
+// pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-// pub const SCREEN_WIDTH: u32 = 1280;
-// pub const SCREEN_HEIGHT: u32 = 720;
+// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 pub const SCREEN_DIM: (u32, u32) = (1360, 686);
@@ -44,6 +43,7 @@ pub struct GlobalVariables {
     cursor_dim: (u32, u32),
     map_loc: (i32, i32),
     cursor_loc: (i32, i32),
+    map_dim: (i32, i32),
 }
 
 // ***************************************************************************************
@@ -113,6 +113,7 @@ fn main() -> Result<(), String> {
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
         cursor_loc: (0, 0),
+        map_dim: (MAP_DIM.0 as i32, MAP_DIM.1 as i32),
     };
 
     tex_man.load("img/cursor.png")?;
@@ -121,7 +122,7 @@ fn main() -> Result<(), String> {
     let mut event_pump = sdl_context.event_pump()?;
 
     'running: loop {
-        println!("joystick: {}", joystick_manager);
+        // println!("joystick: {}", joystick_manager);
         for event in event_pump.poll_iter() {
             match event {
                 // ************************* Joystick
@@ -160,7 +161,13 @@ fn main() -> Result<(), String> {
         }
 
         game::update(&mut joystick_manager, &mut gv);
-        renderer::render(&mut canvas, &mut tex_man, &texture_creator, &mut gv)?;
+        renderer::render(
+            &mut canvas,
+            &mut tex_man,
+            &texture_creator,
+            &mut gv,
+            &joystick_manager,
+        )?;
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }
 
