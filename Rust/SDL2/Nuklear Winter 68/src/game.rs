@@ -109,16 +109,13 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         if gv.map_loc.1 < 0 {
             gv.map_loc.1 = 0;
         }
-println!("{},{}", gv.map_screen_dim.0, gv.map_screen_dim.1);
-        /*
-        let x: i32 = gv.map_dim.0 as i32 - SCREEN_DIM.0 as i32;
-        if gv.map_loc.0 > x {
-            gv.map_loc.0 = x;
+        let x: i32 = gv.map_loc.0 + gv.map_screen_dim.0 as i32;
+        if MAP_DIM.0 < x as u32 {
+            gv.map_loc.0 = MAP_DIM.0 as i32 - gv.map_screen_dim.0 as i32;
         }
-        let y: i32 = gv.map_dim.1 as i32 - SCREEN_DIM.1 as i32;
-        if gv.map_loc.1 > y {
-            gv.map_loc.1 = y;
+        let y: i32 = gv.map_loc.1 + gv.map_screen_dim.1 as i32;
+        if MAP_DIM.1 < y as u32 {
+            gv.map_loc.1 = MAP_DIM.1 as i32 - gv.map_screen_dim.1 as i32;
         }
-        */
     }
 }
