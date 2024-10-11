@@ -15,12 +15,6 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         let y: f64 = SCREEN_DIM.1 as f64 * gv.map_scale as f64;
         gv.map_screen_dim.0 = x as u32;
         gv.map_screen_dim.1 = y as u32;
-        
-        let x: f64 = MAP_DIM.0 as f64 / gv.map_scale as f64;
-        gv.map_dim.0 = x as u32;
-        let y: f64 = MAP_DIM.1 as f64 / gv.map_scale as f64;
-        gv.map_dim.1 = y as u32;
-        println!("{},{}", gv.map_dim.0, gv.map_dim.1);
 
         crate::joystick::button_up(joystick_manager, Button::LeftShoulder);
     }
@@ -33,12 +27,6 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         let y: f64 = SCREEN_DIM.1 as f64 * gv.map_scale as f64;
         gv.map_screen_dim.0 = x as u32;
         gv.map_screen_dim.1 = y as u32;
-        
-        let x: f64 = MAP_DIM.0 as f64 / gv.map_scale as f64;
-        gv.map_dim.0 = x as u32;
-        let y: f64 = MAP_DIM.1 as f64 / gv.map_scale as f64;
-        gv.map_dim.1 = y as u32;
-        println!("{},{}", gv.map_dim.0, gv.map_dim.1);
 
         crate::joystick::button_up(joystick_manager, Button::RightShoulder);
     }
@@ -121,11 +109,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         if gv.map_loc.1 < 0 {
             gv.map_loc.1 = 0;
         }
-		let x: i32 = gv.map_dim.0 as i32 - SCREEN_DIM.0 as i32;
-		println!("{}", x);
-		  if gv.map_loc.0 > x {
-            gv.map_loc.0 = x;
-        }
+println!("{},{}", gv.map_screen_dim.0, gv.map_screen_dim.1);
         /*
         let x: i32 = gv.map_dim.0 as i32 - SCREEN_DIM.0 as i32;
         if gv.map_loc.0 > x {
