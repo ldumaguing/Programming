@@ -45,8 +45,9 @@ pub struct GlobalVariables {
     cursor_dim: (u32, u32),
     map_loc: (i32, i32),
     cursor_loc: (i32, i32),
-    map_dim: (i32, i32),
+    map_screen_dim: (u32, u32),
     map_scale: f32,
+    map_dim: (u32, u32),
 }
 
 // ***************************************************************************************
@@ -116,8 +117,9 @@ fn main() -> Result<(), String> {
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
         cursor_loc: (0, 0),
-        map_dim: (MAP_DIM.0 as i32, MAP_DIM.1 as i32),
+        map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
+        map_dim: MAP_DIM,
     };
 
     tex_man.load("img/cursor.png")?;
