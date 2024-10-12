@@ -15,19 +15,20 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 
-// pub const SCREEN_DIM: (u32, u32) = (800, 600);
+// pub const SCREEN_DIM: (u32, u32) = (1920, 1080);
+pub const SCREEN_DIM: (u32, u32) = (1366, 768);
 
 // ***** Board Map
-pub const MAP_DIM: (u32, u32) = (6372, 4139);
-pub const HEX_0X0: (u32, u32) = (367, 215);
-const X_HEX_COUNT: i32 = 28; // 29 - 1
-const Y_HEX_COUNT: i32 = 19; // 20 - 1
-const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
+pub const MAP_DIM: (u32, u32) = (5475, 5100);
+pub const HEX_0X0: (u32, u32) = (151, 145);
+const X_HEX_COUNT: i32 = 50;
+const Y_HEX_COUNT: i32 = 39;
+const HEX_LOW_RIGHT: (u32, u32) = (5358, 4819);
 pub const HEXAGON: (f32, f32) = (
     (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
     (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
@@ -94,7 +95,7 @@ fn main() -> Result<(), String> {
     let window = video_subsystem
         .window("Nuklear Winter '68", SCREEN_DIM.0, SCREEN_DIM.1)
         .position_centered()
-        // .fullscreen()
+        //.fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
@@ -121,7 +122,7 @@ fn main() -> Result<(), String> {
     };
 
     tex_man.load("img/cursor.png")?;
-    tex_man.load("images/Map.jpg")?;
+    tex_man.load("images/UK43-MAP-2015.jpg")?;
 
     let mut event_pump = sdl_context.event_pump()?;
 

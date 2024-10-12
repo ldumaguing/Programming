@@ -23,7 +23,7 @@ pub fn render(
     canvas.clear();
 
     // Step 2: put the game board
-    let texture = texture_manager.load("images/Map.jpg")?;
+    let texture = texture_manager.load("images/UK43-MAP-2015.jpg")?;
     canvas.copy(
         &texture,
         // Rect::new(gv.map_loc.0, gv.map_loc.1, SCREEN_DIM.0, SCREEN_DIM.1), // source
