@@ -15,18 +15,18 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 
-pub const SCREEN_DIM: (u32, u32) = (800, 600);
+// pub const SCREEN_DIM: (u32, u32) = (800, 600);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
 pub const HEX_0X0: (u32, u32) = (367, 215);
-const X_HEX_COUNT: i32 = 28;
-const Y_HEX_COUNT: i32 = 19;
+const X_HEX_COUNT: i32 = 28; // 29 - 1
+const Y_HEX_COUNT: i32 = 19; // 20 - 1
 const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
 pub const HEXAGON: (f32, f32) = (
     (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,

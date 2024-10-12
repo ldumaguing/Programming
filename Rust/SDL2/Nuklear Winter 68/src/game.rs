@@ -7,7 +7,7 @@ use crate::SCREEN_DIM;
 
 pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     if crate::joystick::is_button_pressed(joystick_manager, &Button::LeftShoulder) {
-        gv.map_scale += 0.1;
+        gv.map_scale += 0.2;
         if gv.map_scale > 3.0 {
             gv.map_scale = 3.0;
         }
@@ -19,7 +19,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         crate::joystick::button_up(joystick_manager, Button::LeftShoulder);
     }
     if crate::joystick::is_button_pressed(joystick_manager, &Button::RightShoulder) {
-        gv.map_scale -= 0.1;
+        gv.map_scale -= 0.2;
         if gv.map_scale < 0.4 {
             gv.map_scale = 0.4;
         }
