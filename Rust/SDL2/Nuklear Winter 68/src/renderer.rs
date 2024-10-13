@@ -36,6 +36,18 @@ pub fn render(
         Rect::new(0, 0, SCREEN_DIM.0, SCREEN_DIM.1), // destination
     )?;
 
+    // ******************* test
+    println!("map_loc: {:?}", gv.map_loc);
+    let texture = texture_manager.load("images/1_130 E100 front.png")?;
+    let x: f32 = (gv.chit_0x0.0 as f32 / gv.map_scale) - (gv.map_loc.0 as f32 / gv.map_scale);
+    let y: f32 = (gv.chit_0x0.1 as f32 / gv.map_scale) - (gv.map_loc.1 as f32 / gv.map_scale);
+    let s: f32 = gv.chit_sqr as f32 / gv.map_scale;
+    canvas.copy(
+        &texture,
+        Rect::new(0, 0, 150, 150),                         // source
+        Rect::new(x as i32, y as i32, s as u32, s as u32), // destination
+    )?;
+
     // Step 3: put cursor
     if *joy & (1 << 10) == 0 {
         let texture = texture_manager.load("img/cursor.png")?;

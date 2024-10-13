@@ -47,6 +47,8 @@ pub struct GlobalVariables {
     cursor_loc: (i32, i32),
     map_screen_dim: (u32, u32),
     map_scale: f32,
+    chit_0x0: (u32, u32),
+    chit_sqr: u32,
 }
 
 // ***************************************************************************************
@@ -118,10 +120,13 @@ fn main() -> Result<(), String> {
         cursor_loc: (0, 0),
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
+        chit_0x0: (293, 141),
+        chit_sqr: 150,
     };
 
     tex_man.load("img/cursor.png")?;
     tex_man.load("images/Map.jpg")?;
+    tex_man.load("images/1_130 E100 front.png")?;
 
     let mut event_pump = sdl_context.event_pump()?;
 
