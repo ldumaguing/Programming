@@ -39,6 +39,10 @@ pub const HEXAGON: (f32, f32) = (
     (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
     (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
 );
+const SHIFTS: (f32, f32) = (
+    (HEXAGON.0 / 2.0) + HEX_0X0.0 as f32,
+    (HEXAGON.1 / 2.0) + HEX_0X0.1 as f32,
+);
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
@@ -56,6 +60,7 @@ pub struct GlobalVariables {
     map_scale: f32,
     chit_0x0: (u32, u32),
     chit_sqr: u32,
+    shifts: (f32, f32),
 }
 
 // ***************************************************************************************
@@ -124,11 +129,12 @@ fn main() -> Result<(), String> {
         cursor_hex_0x0: CURSOR_HEX_0X0,
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
-        cursor_loc: (0, 0),
+        cursor_loc: (HEX_0X0.0 as i32, HEX_0X0.1 as i32),
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
         chit_0x0: (293, 141),
         chit_sqr: 150,
+        shifts: SHIFTS,
     };
 
     tex_man.load("img/cursor.png")?;
