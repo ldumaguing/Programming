@@ -35,7 +35,7 @@ pub const HEXAGON: (f32, f32) = (
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
-pub const CURSOR_DIM: (u32, u32) = (235, 206);
+pub const CURSOR_DIM: (u32, u32) = (21, 30);
 
 pub struct GlobalVariables {
     hex_0x0: (u32, u32),
