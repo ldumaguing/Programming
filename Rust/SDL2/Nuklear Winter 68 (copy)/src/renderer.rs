@@ -43,7 +43,7 @@ pub fn render(
     let s: f32 = gv.chit_sqr as f32 / gv.map_scale;
     canvas.copy(
         &texture,
-        Rect::new(0, 0, gv.chit_sqr, gv.chit_sqr),                         // source
+        Rect::new(0, 0, gv.chit_sqr, gv.chit_sqr), // source
         Rect::new(x as i32, y as i32, s as u32, s as u32), // destination
     )?;
 

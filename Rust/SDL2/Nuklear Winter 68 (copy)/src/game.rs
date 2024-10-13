@@ -48,61 +48,54 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
             }
         } else {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                gv.cursor_loc.0 += 1;
+                gv.cursor_loc.0 += 6;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                gv.cursor_loc.0 -= 1;
+                gv.cursor_loc.0 -= 6;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                gv.cursor_loc.1 += 1;
+                gv.cursor_loc.1 += 6;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                gv.cursor_loc.1 -= 1;
+                gv.cursor_loc.1 -= 6;
             }
         }
+        // *****
         if gv.cursor_loc.0 < 0 {
             gv.cursor_loc.0 = 0;
+            if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+                gv.map_loc.0 -= 25;
+            } else {
+                gv.map_loc.0 -= 6;
+            }
         }
         if gv.cursor_loc.1 < 0 {
             gv.cursor_loc.1 = 0;
+            if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+                gv.map_loc.1 -= 25;
+            } else {
+                gv.map_loc.1 -= 6;
+            }
         }
         let x: i32 = SCREEN_DIM.0 as i32 - gv.cursor_dim.0 as i32;
         if gv.cursor_loc.0 > x {
             gv.cursor_loc.0 = x;
+            if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+                gv.map_loc.0 += 25;
+            } else {
+                gv.map_loc.0 += 6;
+            }
         }
         let y: i32 = SCREEN_DIM.1 as i32 - gv.cursor_dim.1 as i32;
         if gv.cursor_loc.1 > y {
             gv.cursor_loc.1 = y;
-        }
-    } else {
-        // ***** map mode
-        if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                gv.map_loc.0 += 25;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                gv.map_loc.0 -= 25;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
+            if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
                 gv.map_loc.1 += 25;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                gv.map_loc.1 -= 25;
-            }
-        } else {
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                gv.map_loc.0 += 1;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                gv.map_loc.0 -= 1;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                gv.map_loc.1 += 1;
-            }
-            if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                gv.map_loc.1 -= 1;
+            } else {
+                gv.map_loc.1 += 6;
             }
         }
+        // ******************************
         if gv.map_loc.0 < 0 {
             gv.map_loc.0 = 0;
         }
