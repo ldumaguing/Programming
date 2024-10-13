@@ -15,12 +15,15 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
+
+// ***** WXGA
+pub const SCREEN_DIM: (u32, u32) = (1280, 800);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
