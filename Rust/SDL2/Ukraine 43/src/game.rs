@@ -8,8 +8,8 @@ use crate::SCREEN_DIM;
 pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     if crate::joystick::is_button_pressed(joystick_manager, &Button::LeftShoulder) {
         gv.map_scale += 0.2;
-        if gv.map_scale > 3.0 {
-            gv.map_scale = 3.0;
+        if gv.map_scale > 4.0 {
+            gv.map_scale = 4.0;
         }
         let x: f64 = SCREEN_DIM.0 as f64 * gv.map_scale as f64;
         let y: f64 = SCREEN_DIM.1 as f64 * gv.map_scale as f64;
@@ -33,18 +33,18 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
 
     if *joystick_manager & (1 << 10) == 0 {
         // ***** cursor mode
-        if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+        if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                gv.cursor_loc.0 += 15;
+                gv.cursor_loc.0 += 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                gv.cursor_loc.0 -= 15;
+                gv.cursor_loc.0 -= 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                gv.cursor_loc.1 += 15;
+                gv.cursor_loc.1 += 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                gv.cursor_loc.1 -= 15;
+                gv.cursor_loc.1 -= 30;
             }
         } else {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
@@ -76,18 +76,18 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         }
     } else {
         // ***** map mode
-        if crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
+        if !crate::joystick::is_button_pressed(joystick_manager, &Button::RightStick) {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
-                gv.map_loc.0 += 15;
+                gv.map_loc.0 += 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadLeft) {
-                gv.map_loc.0 -= 15;
+                gv.map_loc.0 -= 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadDown) {
-                gv.map_loc.1 += 15;
+                gv.map_loc.1 += 30;
             }
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadUp) {
-                gv.map_loc.1 -= 15;
+                gv.map_loc.1 -= 30;
             }
         } else {
             if crate::joystick::is_button_pressed(joystick_manager, &Button::DPadRight) {
