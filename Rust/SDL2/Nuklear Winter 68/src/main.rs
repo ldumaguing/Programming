@@ -39,7 +39,7 @@ pub const HEXAGON: (f32, f32) = (
     (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
     (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
 );
-const SHIFTS: (f32, f32) = (
+const BORDERS: (f32, f32) = (
     (HEXAGON.0 / 2.0) + HEX_0X0.0 as f32,
     (HEXAGON.1 / 2.0) + HEX_0X0.1 as f32,
 );
@@ -60,7 +60,7 @@ pub struct GlobalVariables {
     map_scale: f32,
     chit_0x0: (u32, u32),
     chit_sqr: u32,
-    shifts: (f32, f32),
+    borders: (f32, f32),
 }
 
 // ***************************************************************************************
@@ -134,7 +134,7 @@ fn main() -> Result<(), String> {
         map_scale: 1.0,
         chit_0x0: (293, 141),
         chit_sqr: 150,
-        shifts: SHIFTS,
+        borders: BORDERS,
     };
 
     tex_man.load("img/cursor.png")?;
