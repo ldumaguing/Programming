@@ -3,7 +3,7 @@ use sdl2::pixels::Color;
 use sdl2::render::{TextureCreator, WindowCanvas};
 use sdl2::video::WindowContext;
 
-use sdl2::rect::Point;
+// use sdl2::rect::Point;
 use sdl2::rect::Rect;
 
 use crate::texture_manager;
@@ -38,7 +38,7 @@ pub fn render(
         Rect::new(0, 0, SCREEN_DIM.0, SCREEN_DIM.1), // destination
     )?;
 
-    // ******************* test
+    // ******************* scaling chit
     let texture = texture_manager.load("images/1_130 E100 front.png")?;
     let s: f32 = CHIT_SQR as f32 / gv.map_scale;
 

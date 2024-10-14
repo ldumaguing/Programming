@@ -15,13 +15,14 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 // pub const SCREEN_DIM: (u32, u32) = (1366, 768);  // fullscreen
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
+pub const SCREEN_DIM: (u32, u32) = (1067, 600);
 // pub const SCREEN_DIM: (u32, u32) = (320, 200);
 // pub const SCREEN_DIM: (u32, u32) = (320, 240);
 // pub const SCREEN_DIM: (u32, u32) = (640, 480);
@@ -57,6 +58,8 @@ pub struct GlobalVariables {
     map_screen_dim: (u32, u32),
     map_scale: f32,
     // quart_grid: (u32, u32),
+    chit_sqr: f32,
+    x_min_max: (u32, u32),
 }
 
 // ***************************************************************************************
@@ -129,6 +132,8 @@ fn main() -> Result<(), String> {
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
         // quart_grid: QUART_GRID,
+        chit_sqr: CHIT_SQR as f32,
+        x_min_max: (0, 0),
     };
 
     tex_man.load("img/cursor.png")?;

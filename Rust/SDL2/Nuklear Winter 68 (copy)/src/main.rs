@@ -15,13 +15,14 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 // pub const SCREEN_DIM: (u32, u32) = (1366, 768);  // fullscreen
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
+pub const SCREEN_DIM: (u32, u32) = (1067, 600);
 // pub const SCREEN_DIM: (u32, u32) = (320, 200);
 // pub const SCREEN_DIM: (u32, u32) = (320, 240);
 // pub const SCREEN_DIM: (u32, u32) = (640, 480);
@@ -48,15 +49,15 @@ pub const CURSOR_DIM: (u32, u32) = (21, 30);
 
 pub struct GlobalVariables {
     hex_0x0: (u32, u32),
-    hex_low_right: (u32, u32),
+    // hex_low_right: (u32, u32),
     hexagon: (f32, f32),
-    cursor_hex_0x0: (u32, u32),
+    // cursor_hex_0x0: (u32, u32),
     cursor_dim: (u32, u32),
     map_loc: (i32, i32),
     cursor_loc: (i32, i32),
     map_screen_dim: (u32, u32),
     map_scale: f32,
-    quart_grid: (u32, u32),
+    // quart_grid: (u32, u32),
 }
 
 // ***************************************************************************************
@@ -120,15 +121,15 @@ fn main() -> Result<(), String> {
     let mut key_manager: HashMap<String, bool> = HashMap::new();
     let mut gv = GlobalVariables {
         hex_0x0: HEX_0X0,
-        hex_low_right: HEX_LOW_RIGHT,
+        // hex_low_right: HEX_LOW_RIGHT,
         hexagon: HEXAGON,
-        cursor_hex_0x0: CURSOR_HEX_0X0,
+        // cursor_hex_0x0: CURSOR_HEX_0X0,
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
         cursor_loc: (HEX_0X0.0 as i32, HEX_0X0.1 as i32),
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
-        quart_grid: QUART_GRID,
+        // quart_grid: QUART_GRID,
     };
 
     tex_man.load("img/cursor.png")?;

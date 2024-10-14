@@ -2,6 +2,7 @@
 use sdl2::controller::Button;
 
 use crate::GlobalVariables;
+use crate::CHIT_SQR;
 use crate::HEXAGON;
 use crate::HEX_0X0;
 use crate::MAP_DIM;
@@ -128,9 +129,11 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         }
     }
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
-    println!("map({},{}): ", gv.map_loc.0, gv.map_loc.1);
+    println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
     println!("scale {}: ", gv.map_scale);
     println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
     println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
     println!();
+
+    gv.chit_sqr = CHIT_SQR as f32 / gv.map_scale;
 }

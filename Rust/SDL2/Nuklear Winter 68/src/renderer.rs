@@ -40,12 +40,12 @@ pub fn render(
 
     // ******************* scaling chit
     let texture = texture_manager.load("images/1_130 E100 front.png")?;
-    let s: f32 = CHIT_SQR as f32 / gv.map_scale;
+    let s: f32 = gv.chit_sqr;
 
-    let x: f32 = (HEX_0X0.0 as f32 / gv.map_scale) - (gv.map_loc.0 as f32 / gv.map_scale);
+    let x: f32 = gv.hex_0x0.0 as f32 - (gv.map_loc.0 as f32 / gv.map_scale);
     let x: f32 = x - (s / 2.0);
 
-    let y: f32 = (HEX_0X0.1 as f32 / gv.map_scale) - (gv.map_loc.1 as f32 / gv.map_scale);
+    let y: f32 = gv.hex_0x0.1 as f32 - (gv.map_loc.1 as f32 / gv.map_scale);
     let y: f32 = y - (s / 2.0);
 
     canvas.copy(
