@@ -41,23 +41,23 @@ pub const HEXAGON: (f64, f64) = (
     (HEX_LOW_RIGHT.0 as f64 - HEX_0X0.0 as f64) / X_HEX_COUNT as f64,
     (HEX_LOW_RIGHT.1 as f64 - HEX_0X0.1 as f64) / Y_HEX_COUNT as f64,
 );
-pub const CHIT_SQR: u32 = 150;
+pub const CHIT_SQR: u32 = 166;
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
 pub const CURSOR_DIM: (u32, u32) = (21, 30);
 
 pub struct GlobalVariables {
-    hex_0x0: (u32, u32),
+    hex_0x0: (f64, f64),
     hexagon: (f64, f64),
-    cursor_dim: (u32, u32),
-    map_loc: (i32, i32),
-    cursor_loc: (i32, i32),
-    map_screen_dim: (u32, u32),
-    map_scale: f32,
-    chit_sqr: f32,
-    x_min_max: (u32, u32),
-    chit_0x0: (f32, f32), // corner (upper-left)
+    cursor_dim: (f64, f64),
+    map_loc: (f64, f64),
+    cursor_loc: (f64, f64),
+    map_screen_dim: (f64, f64),
+    map_scale: f64,
+    chit_sqr: f64,
+    x_min_max: (f64, f64),
+    chit_0x0: (f64, f64), // corner (upper-left)
 }
 
 // ***************************************************************************************
@@ -120,15 +120,15 @@ fn main() -> Result<(), String> {
     let mut joystick_manager: u16 = 0;
     let mut key_manager: HashMap<String, bool> = HashMap::new();
     let mut gv = GlobalVariables {
-        hex_0x0: HEX_0X0,
+        hex_0x0: (HEX_0X0.0 as f64, HEX_0X0.1 as f64),
         hexagon: HEXAGON,
-        cursor_dim: CURSOR_DIM,
-        map_loc: (0, 0),
-        cursor_loc: (HEX_0X0.0 as i32, HEX_0X0.1 as i32),
-        map_screen_dim: SCREEN_DIM,
+        cursor_dim: (CURSOR_DIM.0 as f64, CURSOR_DIM.1 as f64),
+        map_loc: (0.0, 0.0),
+        cursor_loc: (HEX_0X0.0 as f64, HEX_0X0.1 as f64),
+        map_screen_dim: (SCREEN_DIM.0 as f64, SCREEN_DIM.1 as f64),
         map_scale: 1.0,
-        chit_sqr: CHIT_SQR as f32,
-        x_min_max: (0, 0),
+        chit_sqr: CHIT_SQR as f64,
+        x_min_max: (0.0, 0.0),
         chit_0x0: (0.0, 0.0),
     };
 
