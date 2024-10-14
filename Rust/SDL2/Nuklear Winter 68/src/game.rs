@@ -21,7 +21,7 @@ fn scaling(gv: &mut GlobalVariables) {
 
     let hx: f64 = HEX_0X0.0 as f64 / gv.map_scale as f64;
     let hy: f64 = HEX_0X0.1 as f64 / gv.map_scale as f64;
-    gv.hex_0x0 = (hx as u32, hy as u32);
+    gv.hex_0x0 = (hx as u32 + 3, hy as u32 + 3);
 }
 
 pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
