@@ -8,6 +8,8 @@ use sdl2::rect::Rect;
 
 use crate::texture_manager;
 use crate::GlobalVariables;
+use crate::CHIT_SQR;
+use crate::HEX_0X0;
 use crate::SCREEN_DIM;
 
 pub fn render(
@@ -38,12 +40,17 @@ pub fn render(
 
     // ******************* test
     let texture = texture_manager.load("images/1_130 E100 front.png")?;
-    let x: f32 = (gv.chit_0x0.0 as f32 / gv.map_scale) - (gv.map_loc.0 as f32 / gv.map_scale);
-    let y: f32 = (gv.chit_0x0.1 as f32 / gv.map_scale) - (gv.map_loc.1 as f32 / gv.map_scale);
-    let s: f32 = gv.chit_sqr as f32 / gv.map_scale;
+    let s: f32 = CHIT_SQR as f32 / gv.map_scale;
+
+    let x: f32 = (HEX_0X0.0 as f32 / gv.map_scale) - (gv.map_loc.0 as f32 / gv.map_scale);
+    let x: f32 = x - (s / 2.0);
+
+    let y: f32 = (HEX_0X0.1 as f32 / gv.map_scale) - (gv.map_loc.1 as f32 / gv.map_scale);
+    let y: f32 = y - (s / 2.0);
+
     canvas.copy(
         &texture,
-        Rect::new(0, 0, gv.chit_sqr, gv.chit_sqr), // source
+        Rect::new(0, 0, CHIT_SQR, CHIT_SQR), // source
         Rect::new(x as i32, y as i32, s as u32, s as u32), // destination
     )?;
 

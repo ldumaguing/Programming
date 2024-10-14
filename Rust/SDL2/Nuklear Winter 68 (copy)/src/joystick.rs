@@ -54,6 +54,7 @@ pub fn is_button_pressed(joystick_manager: &mut u16, button: &Button) -> bool {
         Button::RightStick => (*joystick_manager & 1 << 12) != 0,
         Button::LeftShoulder => (*joystick_manager & 1 << 13) != 0,
         Button::RightShoulder => (*joystick_manager & 1 << 14) != 0,
+        Button::Back => (*joystick_manager & 1 << 8) != 0,
         _ => false,
     }
 }

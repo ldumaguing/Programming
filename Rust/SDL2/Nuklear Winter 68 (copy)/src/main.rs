@@ -19,12 +19,20 @@ pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
+// pub const SCREEN_DIM: (u32, u32) = (1366, 768);  // fullscreen
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
+// pub const SCREEN_DIM: (u32, u32) = (320, 200);
+// pub const SCREEN_DIM: (u32, u32) = (320, 240);
+// pub const SCREEN_DIM: (u32, u32) = (640, 480);
+
+// ***** WXGA
+// pub const SCREEN_DIM: (u32, u32) = (1280, 800);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
 pub const HEX_0X0: (u32, u32) = (367, 215);
+pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
 const X_HEX_COUNT: i32 = 28; // 29 - 1
 const Y_HEX_COUNT: i32 = 19; // 20 - 1
 const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
@@ -32,6 +40,7 @@ pub const HEXAGON: (f32, f32) = (
     (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
     (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
 );
+pub const CHIT_SQR: u32 = 150;
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
@@ -47,8 +56,7 @@ pub struct GlobalVariables {
     cursor_loc: (i32, i32),
     map_screen_dim: (u32, u32),
     map_scale: f32,
-    chit_0x0: (u32, u32),
-    chit_sqr: u32,
+    quart_grid: (u32, u32),
 }
 
 // ***************************************************************************************
@@ -117,11 +125,10 @@ fn main() -> Result<(), String> {
         cursor_hex_0x0: CURSOR_HEX_0X0,
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
-        cursor_loc: (0, 0),
+        cursor_loc: (HEX_0X0.0 as i32, HEX_0X0.1 as i32),
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
-        chit_0x0: (293, 141),
-        chit_sqr: 150,
+        quart_grid: QUART_GRID,
     };
 
     tex_man.load("img/cursor.png")?;
