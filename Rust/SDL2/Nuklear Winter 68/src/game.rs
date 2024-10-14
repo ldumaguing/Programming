@@ -24,9 +24,7 @@ fn scaling(gv: &mut GlobalVariables) {
 }
 
 pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
-    if crate::joystick::is_button_pressed(joystick_manager, &Button::Back) {
-
-    }
+    if crate::joystick::is_button_pressed(joystick_manager, &Button::Back) {}
     // *****
     if crate::joystick::is_button_pressed(joystick_manager, &Button::LeftShoulder) {
         gv.map_scale += 0.2;
@@ -129,7 +127,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
             gv.map_loc.1 = MAP_DIM.1 as i32 - gv.map_screen_dim.1 as i32;
         }
     }
-        println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
+    println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map({},{}): ", gv.map_loc.0, gv.map_loc.1);
     println!("scale {}: ", gv.map_scale);
     println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
