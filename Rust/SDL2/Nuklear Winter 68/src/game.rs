@@ -17,7 +17,7 @@ fn scaling(gv: &mut GlobalVariables) {
 
     let hx: f64 = HEXAGON.0 as f64 / gv.map_scale as f64;
     let hy: f64 = HEXAGON.1 as f64 / gv.map_scale as f64;
-    gv.hexagon = (hx as f32, hy as f32);
+    gv.hexagon = (hx as f64, hy as f64);
 
     let hx: f64 = HEX_0X0.0 as f64 / gv.map_scale as f64;
     let hy: f64 = HEX_0X0.1 as f64 / gv.map_scale as f64;
@@ -128,12 +128,32 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
             gv.map_loc.1 = MAP_DIM.1 as i32 - gv.map_screen_dim.1 as i32;
         }
     }
+
+    gv.chit_sqr = CHIT_SQR as f32 / gv.map_scale;
+
+    let x: f32 = gv.hex_0x0.0 as f32 - (gv.map_loc.0 as f32 / gv.map_scale);
+    let x: f32 = x - (gv.chit_sqr / 2.0);
+
+    let y: f32 = gv.hex_0x0.1 as f32 - (gv.map_loc.1 as f32 / gv.map_scale);
+    let y: f32 = y - (gv.chit_sqr / 2.0);
+
+    gv.chit_0x0 = (x, y);
+
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
     println!("scale {}: ", gv.map_scale);
     println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
     println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
+    println!("chit_sqr {}: ", gv.chit_sqr);
+    println!("chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
     println!();
+}
 
-    gv.chit_sqr = CHIT_SQR as f32 / gv.map_scale;
+pub fn load_game(gv: &mut GlobalVariables) {
+    println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
+    println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
+    println!("scale {}: ", gv.map_scale);
+    println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
+    println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
+    println!("chit_sqr {}: ", gv.chit_sqr);
 }
