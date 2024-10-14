@@ -28,7 +28,6 @@ pub fn render(
     let texture = texture_manager.load("images/Map.jpg")?;
     canvas.copy(
         &texture,
-        // Rect::new(gv.map_loc.0, gv.map_loc.1, SCREEN_DIM.0, SCREEN_DIM.1), // source
         Rect::new(
             gv.map_loc.0,
             gv.map_loc.1,
@@ -38,21 +37,32 @@ pub fn render(
         Rect::new(0, 0, SCREEN_DIM.0, SCREEN_DIM.1), // destination
     )?;
 
-    // ******************* scaling chit
-    let texture = texture_manager.load("images/1_130 E100 front.png")?;
-    let s: f32 = CHIT_SQR as f32 / gv.map_scale;
-
-    let x: f32 = (HEX_0X0.0 as f32 / gv.map_scale) - (gv.map_loc.0 as f32 / gv.map_scale);
-    let x: f32 = x - (s / 2.0);
-
-    let y: f32 = (HEX_0X0.1 as f32 / gv.map_scale) - (gv.map_loc.1 as f32 / gv.map_scale);
-    let y: f32 = y - (s / 2.0);
+    // ******************* Reference chit
+    let texture = texture_manager.load("img/ref.png")?;
 
     canvas.copy(
         &texture,
         Rect::new(0, 0, CHIT_SQR, CHIT_SQR), // source
-        Rect::new(x as i32, y as i32, s as u32, s as u32), // destination
+        Rect::new(
+            gv.chit_0x0.0 as i32,
+            gv.chit_0x0.1 as i32,
+            gv.chit_sqr as u32,
+            gv.chit_sqr as u32,
+        ), // destination
     )?;
+    
+    canvas.copy(
+        &texture,
+        Rect::new(0, 0, CHIT_SQR, CHIT_SQR), // source
+        Rect::new(
+            gv.chit_0x0.0 as i32 + (gv.hexagon.0 * 26.0) as i32,
+            gv.chit_0x0.1 as i32,
+            gv.chit_sqr as u32,
+            gv.chit_sqr as u32,
+        ), // destination
+    )?;
+
+
 
     // Step 3: put cursor
     if *joy & (1 << 10) == 0 {

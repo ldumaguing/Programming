@@ -34,12 +34,12 @@ pub const SCREEN_DIM: (u32, u32) = (1067, 600);
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
 pub const HEX_0X0: (u32, u32) = (367, 215);
 pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
-const X_HEX_COUNT: i32 = 28; // 29 - 1
-const Y_HEX_COUNT: i32 = 19; // 20 - 1
+const X_HEX_COUNT: u32 = 28; // 29 - 1
+const Y_HEX_COUNT: u32 = 19; // 20 - 1
 const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
-pub const HEXAGON: (f32, f32) = (
-    (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
-    (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
+pub const HEXAGON: (f64, f64) = (
+    (HEX_LOW_RIGHT.0 as f64 - HEX_0X0.0 as f64) / X_HEX_COUNT as f64,
+    (HEX_LOW_RIGHT.1 as f64 - HEX_0X0.1 as f64) / Y_HEX_COUNT as f64,
 );
 pub const CHIT_SQR: u32 = 150;
 
@@ -49,15 +49,15 @@ pub const CURSOR_DIM: (u32, u32) = (21, 30);
 
 pub struct GlobalVariables {
     hex_0x0: (u32, u32),
-    // hex_low_right: (u32, u32),
-    hexagon: (f32, f32),
-    // cursor_hex_0x0: (u32, u32),
+    hexagon: (f64, f64),
     cursor_dim: (u32, u32),
     map_loc: (i32, i32),
     cursor_loc: (i32, i32),
     map_screen_dim: (u32, u32),
     map_scale: f32,
-    // quart_grid: (u32, u32),
+    chit_sqr: f32,
+    x_min_max: (u32, u32),
+    chit_0x0: (f32, f32), // corner (upper-left)
 }
 
 // ***************************************************************************************
@@ -121,20 +121,22 @@ fn main() -> Result<(), String> {
     let mut key_manager: HashMap<String, bool> = HashMap::new();
     let mut gv = GlobalVariables {
         hex_0x0: HEX_0X0,
-        // hex_low_right: HEX_LOW_RIGHT,
         hexagon: HEXAGON,
-        // cursor_hex_0x0: CURSOR_HEX_0X0,
         cursor_dim: CURSOR_DIM,
         map_loc: (0, 0),
         cursor_loc: (HEX_0X0.0 as i32, HEX_0X0.1 as i32),
         map_screen_dim: SCREEN_DIM,
         map_scale: 1.0,
-        // quart_grid: QUART_GRID,
+        chit_sqr: CHIT_SQR as f32,
+        x_min_max: (0, 0),
+        chit_0x0: (0.0, 0.0),
     };
+
+    game::load_game(&mut gv);
 
     tex_man.load("img/cursor.png")?;
     tex_man.load("images/Map.jpg")?;
-    tex_man.load("images/1_130 E100 front.png")?;
+    tex_man.load("img/ref.png")?;
 
     let mut event_pump = sdl_context.event_pump()?;
 
