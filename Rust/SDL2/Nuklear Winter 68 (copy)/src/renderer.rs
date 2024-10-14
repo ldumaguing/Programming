@@ -61,7 +61,7 @@ pub fn render(
             gv.chit_sqr as u32,
         ), // destination
     )?;
-    
+
     canvas.copy(
         &texture,
         Rect::new(0, 0, CHIT_SQR, CHIT_SQR), // source
@@ -83,7 +83,6 @@ pub fn render(
             gv.chit_sqr as u32,
         ), // destination
     )?;
-
 
     // Step 3: put cursor
     if *joy & (1 << 10) == 0 {

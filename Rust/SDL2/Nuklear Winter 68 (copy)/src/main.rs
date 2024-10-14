@@ -58,6 +58,7 @@ pub struct GlobalVariables {
     chit_sqr: f64,
     x_min_max: (f64, f64),
     chit_0x0: (f64, f64), // corner (upper-left)
+    hex_id: (i32, i32),
 }
 
 // ***************************************************************************************
@@ -130,6 +131,7 @@ fn main() -> Result<(), String> {
         chit_sqr: CHIT_SQR as f64,
         x_min_max: (0.0, 0.0),
         chit_0x0: (0.0, 0.0),
+        hex_id: (0, 0),
     };
 
     game::load_game(&mut gv);
