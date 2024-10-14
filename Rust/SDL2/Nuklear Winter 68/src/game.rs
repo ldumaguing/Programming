@@ -146,6 +146,11 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
     println!("chit_sqr {}: ", gv.chit_sqr);
     println!("chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
+    
+
+    let foo = (gv.cursor_loc.0 - gv.chit_0x0.0) / gv.hexagon.0;
+    println!("X: {}", foo);
+    println!("X: {}", foo as i32);
     println!();
 }
 
