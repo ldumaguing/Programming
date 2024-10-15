@@ -139,9 +139,15 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
 
     gv.chit_0x0 = (x, y);
 
-    let x = (gv.cursor_loc.0 - gv.chit_0x0.0) / gv.hexagon.0;
-    let y = (gv.cursor_loc.1 - gv.chit_0x0.1) / gv.hexagon.1;
-    gv.hex_id = (x as i32, y as i32);
+    let x = ((gv.cursor_loc.0 - gv.chit_0x0.0) / gv.hexagon.0) as i32;
+    let mut y = 0;
+    if (x % 2) == 0 {
+        y = ((gv.cursor_loc.1 - gv.chit_0x0.1) / gv.hexagon.1) as i32;
+    } else {
+        let z: f64 = gv.chit_0x0.1 + (gv.chit_sqr / 2.0);
+        y = ((gv.cursor_loc.1 - z) / gv.hexagon.1) as i32;
+    }
+    gv.hex_id = (x, y);
 
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
