@@ -9,7 +9,6 @@ use sdl2::rect::Rect;
 use crate::texture_manager;
 use crate::GlobalVariables;
 use crate::CHIT_SQR;
-use crate::HEX_0X0;
 use crate::SCREEN_DIM;
 
 pub fn render(
@@ -37,6 +36,7 @@ pub fn render(
         Rect::new(0, 0, SCREEN_DIM.0, SCREEN_DIM.1), // destination
     )?;
 
+    /*
     // ******************* Reference chit
     let texture = texture_manager.load("img/ref.png")?;
 
@@ -83,6 +83,7 @@ pub fn render(
             gv.chit_sqr as u32,
         ), // destination
     )?;
+    */
 
     // Step 3: put cursor
     if *joy & (1 << 10) == 0 {

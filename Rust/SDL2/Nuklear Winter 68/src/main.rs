@@ -15,17 +15,18 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 // pub const SCREEN_DIM: (u32, u32) = (1366, 768);  // fullscreen
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
-pub const SCREEN_DIM: (u32, u32) = (1067, 600);
+// pub const SCREEN_DIM: (u32, u32) = (1067, 600);
 // pub const SCREEN_DIM: (u32, u32) = (320, 200);
 // pub const SCREEN_DIM: (u32, u32) = (320, 240);
 // pub const SCREEN_DIM: (u32, u32) = (640, 480);
+// pub const SCREEN_DIM: (u32, u32) = (1920, 1080);
 
 // ***** WXGA
 // pub const SCREEN_DIM: (u32, u32) = (1280, 800);
@@ -56,7 +57,6 @@ pub struct GlobalVariables {
     map_screen_dim: (f64, f64),
     map_scale: f64,
     chit_sqr: f64,
-    x_min_max: (f64, f64),
     chit_0x0: (f64, f64), // corner (upper-left)
     hex_id: (i32, i32),
 }
@@ -129,7 +129,6 @@ fn main() -> Result<(), String> {
         map_screen_dim: (SCREEN_DIM.0 as f64, SCREEN_DIM.1 as f64),
         map_scale: 1.0,
         chit_sqr: CHIT_SQR as f64,
-        x_min_max: (0.0, 0.0),
         chit_0x0: (0.0, 0.0),
         hex_id: (0, 0),
     };
