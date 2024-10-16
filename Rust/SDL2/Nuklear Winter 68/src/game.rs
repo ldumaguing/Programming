@@ -152,17 +152,15 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
         y = ((gv.cursor_loc.1 - z) / gv.hexagon.1) as i32;
     }
     // negative X location correction
-    if (gv.cursor_loc.0 < gv.chit_0x0.0) {
+    if gv.cursor_loc.0 < gv.chit_0x0.0 {
         x -= 1;
     }
-    if (gv.cursor_loc.1 < gv.hex_0x0.1) {
-        println!("-y");
+    if gv.cursor_loc.1 < gv.chit_0x0.1 {
         y -= 1;
     }
-    // negative Y location correction
-    //if (gv.cursor_loc.1 < gv.hex_0x0.1) {
-    //    y -= 1;
-    //}
+    if (x >= 0) & (gv.cursor_loc.1 < gv.chit_0x0.1) {
+        println!("foo");
+    }
     gv.hex_id = (x, y);
 
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
