@@ -153,7 +153,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     let mut y: i32 = ((gv.cursor_loc.1 + gv.map_loc.1 - hexagon_top_left.1) / gv.hexagon.1) as i32;
 
     if (x % 2) != 0 {
-		y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
+        y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
         println!("--- odd {}", y);
     }
 
