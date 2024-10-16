@@ -140,6 +140,9 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
 
     gv.chit_0x0 = (x, y);
 
+    gv.cursor_loc_real.0 = gv.cursor_loc.0 as u32 + gv.map_loc.0 as u32;
+    gv.cursor_loc_real.1 = gv.cursor_loc.1 as u32 + gv.map_loc.1 as u32;
+
     // ***** define hex_id
     let hexagon_top_left: (f64, f64) = (
         (gv.hex_0x0.0 - gv.hexagon_half.0),
@@ -152,15 +155,21 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     let mut x = ((gv.cursor_loc.0 + gv.map_loc.0 - hexagon_top_left.0) / gv.hexagon.0) as i32;
     let mut y: i32 = ((gv.cursor_loc.1 + gv.map_loc.1 - hexagon_top_left.1) / gv.hexagon.1) as i32;
 
-    if (x % 2) != 0 {
-        y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
-        println!("--- odd {}", y);
+    if (gv.cursor_loc.0 >= hexagon_top_left.0) {
+        // positive X
+        if (x % 2) != 0 {
+            y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
+        }
+    } else {
+        // negative X
+        x -= 1;
+        if (x % 2) != 0 {
+            println!("boo");
+            y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
+        }
     }
 
     gv.hex_id = (x, y);
-
-    gv.cursor_loc_real.0 = gv.cursor_loc.0 as u32 + gv.map_loc.0 as u32;
-    gv.cursor_loc_real.1 = gv.cursor_loc.1 as u32 + gv.map_loc.1 as u32;
 
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
