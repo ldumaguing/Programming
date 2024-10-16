@@ -140,15 +140,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     gv.chit_0x0 = (x, y);
 
     // ***** define hex_id
-    // if (gv.cursor_loc.0 >= gv.chit_0x0.0) {
-    //let mut x: i32 = ((gv.cursor_loc.0 - gv.chit_0x0.0) / gv.chit_sqr) as i32;
     let mut cursor_x: f64 = gv.cursor_loc.0 + gv.map_loc.0;
-    //println!("X: {}", cursor_x);
-    //println!("X: {}", cursor_x - gv.hex_0x0.0);
-    //println!("X: {}", cursor_x - gv.hex_0x0.0 - (gv.chit_sqr / 2.0));
-    //println!("X: {}", (cursor_x - gv.hex_0x0.0 - (gv.chit_sqr / 2.0)) / gv.hexagon.0);
-    //println!("X: {}", (1.0 + (cursor_x - gv.hex_0x0.0 - (gv.chit_sqr / 2.0)) / gv.hexagon.0) as i32);
-    //gv.hex_id = (x, y);
     cursor_x = 1.0 + (cursor_x - gv.hex_0x0.0 - (gv.chit_sqr / 2.0)) / gv.hexagon.0;
     gv.hex_id.0 = cursor_x as i32;
 
