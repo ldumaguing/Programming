@@ -1,0 +1,13 @@
+[package]
+name = "nw68"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+specs = { version = "*" }
+specs-derive = { version = "*" }
+
+[dependencies.sdl2]
+version = "*"
+features = ["image","ttf","gfx"]
+

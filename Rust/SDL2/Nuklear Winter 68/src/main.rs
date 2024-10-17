@@ -59,6 +59,8 @@ pub struct GlobalVariables {
     x_min_max: (f64, f64),
     chit_0x0: (f64, f64), // corner (upper-left)
     hex_id: (i32, i32),
+    cursor_loc_real: (u32, u32),
+    hexagon_half: (f64, f64),
 }
 
 // ***************************************************************************************
@@ -132,6 +134,8 @@ fn main() -> Result<(), String> {
         x_min_max: (0.0, 0.0),
         chit_0x0: (0.0, 0.0),
         hex_id: (0, 0),
+        cursor_loc_real: (0, 0),
+        hexagon_half: (HEXAGON.0 / 2.0, HEXAGON.1 / 2.0),
     };
 
     game::load_game(&mut gv);
