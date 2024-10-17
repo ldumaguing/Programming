@@ -39,7 +39,6 @@ pub fn button_up(joystick_manager: &mut u16, button: Button) {
         Button::RightStick => *joystick_manager &= !(1 << 12),
         Button::LeftShoulder => *joystick_manager &= !(1 << 13),
         Button::RightShoulder => *joystick_manager &= !(1 << 14),
-
         _ => {}
     }
 }

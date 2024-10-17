@@ -150,10 +150,16 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     }
 
     if gv.cursor_loc.0 < gv.chit_0x0.0 {
-        x = 0;
+        x = -1;
     }
-    if gv.cursor_loc.1 < gv.chit_0x0.1 {
-        y = 0;
+    if (x % 2) == 0 {
+        if gv.cursor_loc.1 < gv.chit_0x0.1 {
+            y = -1;
+        }
+    } else {
+        if gv.cursor_loc.1 < gv.hex_0x0.1 {
+            y = -1;
+        }
     }
     gv.hex_id = (x, y);
 
