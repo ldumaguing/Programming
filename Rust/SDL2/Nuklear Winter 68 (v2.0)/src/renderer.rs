@@ -9,7 +9,6 @@ use sdl2::rect::Rect;
 use crate::texture_manager;
 use crate::GlobalVariables;
 use crate::CHIT_SQR;
-use crate::HEX_0X0;
 use crate::SCREEN_DIM;
 
 pub fn render(
@@ -25,7 +24,7 @@ pub fn render(
     canvas.clear();
 
     // Step 2: put the game board
-    let texture = texture_manager.load("images/Map.jpg")?;
+    let texture = texture_manager.load("img/Map.jpg")?;
     canvas.copy(
         &texture,
         Rect::new(

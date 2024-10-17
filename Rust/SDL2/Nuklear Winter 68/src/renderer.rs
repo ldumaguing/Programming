@@ -9,7 +9,6 @@ use sdl2::rect::Rect;
 use crate::texture_manager;
 use crate::GlobalVariables;
 use crate::CHIT_SQR;
-use crate::HEX_0X0;
 use crate::SCREEN_DIM;
 
 pub fn render(
