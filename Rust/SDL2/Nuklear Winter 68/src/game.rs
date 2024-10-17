@@ -18,7 +18,6 @@ fn scaling(gv: &mut GlobalVariables) {
     let hx: f64 = HEXAGON.0 as f64 / gv.map_scale as f64;
     let hy: f64 = HEXAGON.1 as f64 / gv.map_scale as f64;
     gv.hexagon = (hx, hy);
-    gv.hexagon_half = (hx / 2.0, hy / 2.0);
 
     let hx: f64 = HEX_0X0.0 as f64 / gv.map_scale as f64;
     let hy: f64 = HEX_0X0.1 as f64 / gv.map_scale as f64;
@@ -141,26 +140,23 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     gv.chit_0x0 = (x, y);
 
     // ***** define hex_id
-    let hexagon_top_left: (f64, f64) = (
-        (gv.hex_0x0.0 - gv.hexagon_half.0),
-        (gv.hex_0x0.1 - gv.hexagon_half.1),
-    );
-    println!(
-        "hexagon_top_left({}, {})",
-        hexagon_top_left.0, hexagon_top_left.1
-    );
-    let mut x = ((gv.cursor_loc.0 + gv.map_loc.0 - hexagon_top_left.0) / gv.hexagon.0) as i32;
-    let mut y: i32 = ((gv.cursor_loc.1 + gv.map_loc.1 - hexagon_top_left.1) / gv.hexagon.1) as i32;
-
-    if (x % 2) != 0 {
-		y = ((gv.cursor_loc_real.1 as f64 - gv.hex_0x0.1) / gv.hexagon.1) as i32;
-        println!("--- odd {}", y);
+    let mut x = ((gv.cursor_loc.0 - gv.chit_0x0.0) / gv.hexagon.0) as i32;
+    let mut y: i32;
+    if (x % 2) == 0 {
+        y = ((gv.cursor_loc.1 - gv.chit_0x0.1) / gv.hexagon.1) as i32;
+    } else {
+        let z: f64 = gv.chit_0x0.1 + (gv.chit_sqr / 2.0);
+        y = ((gv.cursor_loc.1 - z) / gv.hexagon.1) as i32;
     }
 
-    gv.hex_id = (x, y);
+    if (gv.cursor_loc.0 < gv.chit_0x0.0) {
+        x -= 1;
+    }
+    if (gv.cursor_loc.1 < gv.chit_0x0.1) {
+        println!("boo");
 
-    gv.cursor_loc_real.0 = gv.cursor_loc.0 as u32 + gv.map_loc.0 as u32;
-    gv.cursor_loc_real.1 = gv.cursor_loc.1 as u32 + gv.map_loc.1 as u32;
+    }
+    gv.hex_id = (x, y);
 
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
@@ -170,15 +166,6 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     println!("chit_sqr {}: ", gv.chit_sqr);
     println!("chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
     println!("hex_id({},{}): ", gv.hex_id.0, gv.hex_id.1);
-    println!("cursor_loc({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
-    println!(
-        "cursor_loc_real({},{}): ",
-        gv.cursor_loc_real.0, gv.cursor_loc_real.1
-    );
-    println!(
-        "hexagon_half({},{}): ",
-        gv.hexagon_half.0, gv.hexagon_half.1
-    );
     println!();
 }
 
