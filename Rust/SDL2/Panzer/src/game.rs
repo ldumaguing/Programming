@@ -21,23 +21,23 @@ fn define_hex_id(gv: &mut GlobalVariables) {
     if gv.cursor_loc.0 < gv.chit_0x0.0 {
         x = -1;
     }
-    if (x % 2) == 0 {
-        if gv.cursor_loc.1 < gv.chit_0x0.1 {
-            y = -1;
-        }
-    } else {
+    if gv.cursor_loc.1 < gv.chit_0x0.1 {
+        y = -1;
+    }
+    if (x % 2) != 0 {
         if gv.cursor_loc.1 < gv.hex_0x0.1 {
             y = -1;
         }
     }
+
     gv.hex_id = (x, y);
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
     println!("scale {}: ", gv.map_scale);
     println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
-    println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
+    println!("********** hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
     println!("chit_sqr {}: ", gv.chit_sqr);
-    println!("***** chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
+    println!("********** chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
     println!("hex_id({},{}): ", gv.hex_id.0, gv.hex_id.1);
     println!();
 }
@@ -65,9 +65,16 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     }
     // *****
     if crate::joystick::is_button_pressed(joystick_manager, &Button::LeftShoulder) {
+		let scl_x: f64 = MAP_DIM.0 as f64 / SCREEN_DIM.0 as f64;
+		let scl_y: f64 = MAP_DIM.1 as f64 / SCREEN_DIM.1 as f64;
+		println!("......... {}, {}", scl_x, scl_y);
+		let old = gv.map_scale;
         gv.map_scale += 0.2;
-        if gv.map_scale > 3.0 {
-            gv.map_scale = 3.0;
+        if gv.map_scale > scl_x {
+            gv.map_scale = old;
+        }
+        if gv.map_scale > scl_y {
+            gv.map_scale = old;
         }
 
         scaling(gv);
