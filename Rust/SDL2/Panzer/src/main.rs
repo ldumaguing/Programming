@@ -31,17 +31,16 @@ pub const SCREEN_DIM: (u32, u32) = (1366, 768); // fullscreen
 // pub const SCREEN_DIM: (u32, u32) = (1280, 800);
 
 // ***** Board Map
-pub const MAP_DIM: (u32, u32) = (6372, 4139);
-pub const HEX_0X0: (u32, u32) = (367, 215);
-pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
-const X_HEX_COUNT: u32 = 28; // 29 - 1
-const Y_HEX_COUNT: u32 = 19; // 20 - 1
-const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
+pub const MAP_DIM: (u32, u32) = (5100, 3300);
+pub const HEX_0X0: (u32, u32) = (149, 115);
+const X_HEX_COUNT: u32 = 36;
+const Y_HEX_COUNT: u32 = 20;
+const HEX_LOW_RIGHT: (u32, u32) = (4826, 3116);
 pub const HEXAGON: (f64, f64) = (
     (HEX_LOW_RIGHT.0 as f64 - HEX_0X0.0 as f64) / X_HEX_COUNT as f64,
     (HEX_LOW_RIGHT.1 as f64 - HEX_0X0.1 as f64) / Y_HEX_COUNT as f64,
 );
-pub const CHIT_SQR: u32 = 166;
+pub const CHIT_SQR: u32 = 126;
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
@@ -135,7 +134,7 @@ fn main() -> Result<(), String> {
     game::load_game(&mut gv);
 
     tex_man.load("img/cursor.png")?;
-    tex_man.load("img/Map.jpg")?;
+    tex_man.load("images/BaseMap.jpg")?;
     tex_man.load("img/ref.png")?;
 
     let mut event_pump = sdl_context.event_pump()?;

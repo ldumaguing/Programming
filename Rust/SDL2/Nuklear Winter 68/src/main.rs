@@ -33,7 +33,7 @@ pub const SCREEN_DIM: (u32, u32) = (1366, 768); // fullscreen
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
 pub const HEX_0X0: (u32, u32) = (367, 215);
-pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
+// pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
 const X_HEX_COUNT: u32 = 28; // 29 - 1
 const Y_HEX_COUNT: u32 = 19; // 20 - 1
 const HEX_LOW_RIGHT: (u32, u32) = (5095, 3920);
