@@ -31,6 +31,13 @@ fn define_hex_id(gv: &mut GlobalVariables) {
         }
     }
     gv.hex_id = (x, y);
+    println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
+    println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);
+    println!("scale {}: ", gv.map_scale);
+    println!("hexagon({},{}): ", gv.hexagon.0, gv.hexagon.1);
+    println!("hex_0x0({},{}): ", gv.hex_0x0.0, gv.hex_0x0.1);
+    println!("chit_sqr {}: ", gv.chit_sqr);
+    println!("chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
     println!("hex_id({},{}): ", gv.hex_id.0, gv.hex_id.1);
     println!();
 }
@@ -166,7 +173,7 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     let y = y - (gv.chit_sqr / 2.0);
 
     gv.chit_0x0 = (x, y);
-    println!("chit_0x0({},{}): ", gv.chit_0x0.0, gv.chit_0x0.1);
+
     /*
     println!("cursor({},{}): ", gv.cursor_loc.0, gv.cursor_loc.1);
     println!("map_loc({},{}): ", gv.map_loc.0, gv.map_loc.1);

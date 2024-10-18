@@ -102,7 +102,7 @@ fn main() -> Result<(), String> {
     // ------------------------- joystick
 
     let window = video_subsystem
-        .window("Nuklear Winter '68", SCREEN_DIM.0, SCREEN_DIM.1)
+        .window("Panzer", SCREEN_DIM.0, SCREEN_DIM.1)
         .position_centered()
         // .fullscreen()
         .build()
