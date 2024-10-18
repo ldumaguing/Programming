@@ -76,9 +76,16 @@ pub fn update(joystick_manager: &mut u16, gv: &mut GlobalVariables) {
     }
     // *****
     if crate::joystick::is_button_pressed(joystick_manager, &Button::LeftShoulder) {
+        let scl_x: f64 = MAP_DIM.0 as f64 / SCREEN_DIM.0 as f64;
+        let scl_y: f64 = MAP_DIM.1 as f64 / SCREEN_DIM.1 as f64;
+        println!("......... {}, {}", scl_x, scl_y);
+        let old = gv.map_scale;
         gv.map_scale += 0.2;
-        if gv.map_scale > 3.0 {
-            gv.map_scale = 3.0;
+        if gv.map_scale > scl_x {
+            gv.map_scale = old;
+        }
+        if gv.map_scale > scl_y {
+            gv.map_scale = old;
         }
 
         scaling(gv);
