@@ -135,7 +135,7 @@ fn main() -> Result<(), String> {
     game::load_game(&mut gv);
 
     tex_man.load("img/cursor.png")?;
-    tex_man.load("img/Map.jpg")?;
+    tex_man.load("images/Map.jpg")?;
     tex_man.load("img/ref.png")?;
 
     let mut event_pump = sdl_context.event_pump()?;

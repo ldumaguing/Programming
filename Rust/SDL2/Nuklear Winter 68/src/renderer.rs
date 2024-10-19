@@ -24,7 +24,7 @@ pub fn render(
     canvas.clear();
 
     // Step 2: put the game board
-    let texture = texture_manager.load("img/Map.jpg")?;
+    let texture = texture_manager.load("images/Map.jpg")?;
     canvas.copy(
         &texture,
         Rect::new(
