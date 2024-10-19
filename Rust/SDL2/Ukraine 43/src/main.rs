@@ -19,35 +19,46 @@ pub mod utils; // Mouse & keyboard inputs
 
 // ***** low laptop
 // pub const SCREEN_DIM: (u32, u32) = (1360, 686);
+// pub const SCREEN_DIM: (u32, u32) = (1366, 768); // fullscreen
 
-// pub const SCREEN_DIM: (u32, u32) = (1920, 1080);
-pub const SCREEN_DIM: (u32, u32) = (1366, 768);
+// pub const SCREEN_DIM: (u32, u32) = (800, 600);
+// pub const SCREEN_DIM: (u32, u32) = (1067, 600);
+// pub const SCREEN_DIM: (u32, u32) = (320, 200);
+// pub const SCREEN_DIM: (u32, u32) = (320, 240);
+// pub const SCREEN_DIM: (u32, u32) = (640, 480);
+
+// ***** WXGA
+pub const SCREEN_DIM: (u32, u32) = (1280, 800);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (5475, 5100);
-pub const HEX_0X0: (u32, u32) = (151, 145);
-const X_HEX_COUNT: i32 = 50;
-const Y_HEX_COUNT: i32 = 39;
-const HEX_LOW_RIGHT: (u32, u32) = (5358, 4819);
-pub const HEXAGON: (f32, f32) = (
-    (HEX_LOW_RIGHT.0 as f32 - HEX_0X0.0 as f32) / X_HEX_COUNT as f32,
-    (HEX_LOW_RIGHT.1 as f32 - HEX_0X0.1 as f32) / Y_HEX_COUNT as f32,
+pub const HEX_0X0: (u32, u32) = (152, 145);
+// pub const QUART_GRID: (u32, u32) = (56, 99); // left right up down
+const X_HEX_COUNT: u32 = 50;
+const Y_HEX_COUNT: u32 = 41;
+const HEX_LOW_RIGHT: (u32, u32) = (5359, 5059);
+pub const HEXAGON: (f64, f64) = (
+    (HEX_LOW_RIGHT.0 as f64 - HEX_0X0.0 as f64) / X_HEX_COUNT as f64,
+    (HEX_LOW_RIGHT.1 as f64 - HEX_0X0.1 as f64) / Y_HEX_COUNT as f64,
 );
+pub const CHIT_SQR: u32 = 96;
+
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
-pub const CURSOR_DIM: (u32, u32) = (235, 206);
+pub const CURSOR_DIM: (u32, u32) = (21, 30);
 
 pub struct GlobalVariables {
-    hex_0x0: (u32, u32),
-    hex_low_right: (u32, u32),
-    hexagon: (f32, f32),
-    cursor_hex_0x0: (u32, u32),
-    cursor_dim: (u32, u32),
-    map_loc: (i32, i32),
-    cursor_loc: (i32, i32),
-    map_screen_dim: (u32, u32),
-    map_scale: f32,
+    hex_0x0: (f64, f64),
+    hexagon: (f64, f64),
+    cursor_dim: (f64, f64),
+    map_loc: (f64, f64),
+    cursor_loc: (f64, f64),
+    map_screen_dim: (f64, f64),
+    map_scale: f64,
+    chit_sqr: f64,
+    chit_0x0: (f64, f64), // corner (upper-left)
+    hex_id: (i32, i32),
 }
 
 // ***************************************************************************************
@@ -95,7 +106,7 @@ fn main() -> Result<(), String> {
     let window = video_subsystem
         .window("Nuklear Winter '68", SCREEN_DIM.0, SCREEN_DIM.1)
         .position_centered()
-        //.fullscreen()
+        // .fullscreen()
         .build()
         .expect("could not initialize video subsystem");
 
@@ -110,19 +121,23 @@ fn main() -> Result<(), String> {
     let mut joystick_manager: u16 = 0;
     let mut key_manager: HashMap<String, bool> = HashMap::new();
     let mut gv = GlobalVariables {
-        hex_0x0: HEX_0X0,
-        hex_low_right: HEX_LOW_RIGHT,
+        hex_0x0: (HEX_0X0.0 as f64, HEX_0X0.1 as f64),
         hexagon: HEXAGON,
-        cursor_hex_0x0: CURSOR_HEX_0X0,
-        cursor_dim: CURSOR_DIM,
-        map_loc: (0, 0),
-        cursor_loc: (0, 0),
-        map_screen_dim: SCREEN_DIM,
+        cursor_dim: (CURSOR_DIM.0 as f64, CURSOR_DIM.1 as f64),
+        map_loc: (0.0, 0.0),
+        cursor_loc: (HEX_0X0.0 as f64, HEX_0X0.1 as f64),
+        map_screen_dim: (SCREEN_DIM.0 as f64, SCREEN_DIM.1 as f64),
         map_scale: 1.0,
+        chit_sqr: CHIT_SQR as f64,
+        chit_0x0: (0.0, 0.0),
+        hex_id: (0, 0),
     };
+
+    game::load_game(&mut gv);
 
     tex_man.load("img/cursor.png")?;
     tex_man.load("images/UK43-MAP-2015.jpg")?;
+    tex_man.load("img/ref.png")?;
 
     let mut event_pump = sdl_context.event_pump()?;
 
