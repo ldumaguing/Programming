@@ -15,10 +15,10 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (2040, 1074);
 
 // ***** 720p
-// pub const SCREEN_DIM: (u32, u32) = (1280, 720);
+pub const SCREEN_DIM: (u32, u32) = (1280, 720);
 
 // ***** low laptop
-pub const SCREEN_DIM: (u32, u32) = (1360, 686);
+// pub const SCREEN_DIM: (u32, u32) = (1360, 686);
 // pub const SCREEN_DIM: (u32, u32) = (1366, 768); // fullscreen
 
 // pub const SCREEN_DIM: (u32, u32) = (800, 600);
@@ -41,7 +41,6 @@ pub const HEXAGON: (f64, f64) = (
     (HEX_LOW_RIGHT.1 as f64 - HEX_0X0.1 as f64) / Y_HEX_COUNT as f64,
 );
 pub const CHIT_SQR: u32 = 96;
-
 
 // ***** Cursor
 pub const CURSOR_HEX_0X0: (u32, u32) = (248, 113);
