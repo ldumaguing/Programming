@@ -1,0 +1,14 @@
+
+CREATE TABLE chits (
+   id integer not null,
+   name varchar(255)
+);
+
+.import --csv --skip 1 --schema temp C:/work/somedata.csv tab1
+
+
+
+
+.import --csv --skip 1 chits.csv chits
+
+
