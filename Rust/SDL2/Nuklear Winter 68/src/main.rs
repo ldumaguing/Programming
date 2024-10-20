@@ -26,9 +26,10 @@ pub mod utils; // Mouse & keyboard inputs
 // pub const SCREEN_DIM: (u32, u32) = (320, 200);
 // pub const SCREEN_DIM: (u32, u32) = (320, 240);
 // pub const SCREEN_DIM: (u32, u32) = (640, 480);
+pub const SCREEN_DIM: (u32, u32) = (1340, 800); // Nook
 
 // ***** WXGA
-pub const SCREEN_DIM: (u32, u32) = (1280, 800);
+// pub const SCREEN_DIM: (u32, u32) = (1280, 800);
 
 // ***** Board Map
 pub const MAP_DIM: (u32, u32) = (6372, 4139);
