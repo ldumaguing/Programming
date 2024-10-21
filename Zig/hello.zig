@@ -12,6 +12,10 @@ pub fn main() void {
     print("{u}\n", .{9889});
     print("{u}\n", .{"\x64"});
     print("{u}\n", .{65});
+    print("{u}\n", .{177});
+    print("{u}\n", .{300});
+    print("{u}\n", .{'\u{2592}'});
+    print("{u}\n", .{'\u{2721}'});
 
 
 }
