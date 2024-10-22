@@ -1,8 +1,7 @@
-const std = @import("std");
-// const SDL = @import("SDL2"); // Add this package by using sdk.getNativeModule
 const SDL = @cImport({
     @cInclude("SDL2/SDL.h");
 });
+const std = @import("std");
 
 pub fn main() !void {
     if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO | SDL.SDL_INIT_EVENTS | SDL.SDL_INIT_AUDIO) < 0)
@@ -11,10 +10,8 @@ pub fn main() !void {
 
     const window = SDL.SDL_CreateWindow(
         "SDL2 Native Demo",
-        SDL.SDL_WINDOWPOS_CENTERED,
-        SDL.SDL_WINDOWPOS_CENTERED,
-        640,
-        480,
+        SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
+        640, 480,
         SDL.SDL_WINDOW_SHOWN,
     ) orelse sdlPanic();
     defer _ = SDL.SDL_DestroyWindow(window);
@@ -25,7 +22,7 @@ pub fn main() !void {
     mainLoop: while (true) {
         var ev: SDL.SDL_Event = undefined;
         while (SDL.SDL_PollEvent(&ev) != 0) {
-            if (ev.type == SDL.SDL_QUIT)
+            if(ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
         }
 
