@@ -18,6 +18,7 @@ pub fn main() !void {
         SDL.SDL_WINDOW_SHOWN,
     ) orelse sdlPanic();
 
+    // ********** get Window's surface
     const screenSurface = SDL.SDL_GetWindowSurface(window);
 
     // ********** load image
