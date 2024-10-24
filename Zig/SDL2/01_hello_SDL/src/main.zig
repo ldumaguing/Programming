@@ -4,10 +4,12 @@ const SDL = @cImport({
 const std = @import("std");
 
 pub fn main() !void {
+    // ********** init SDL
     if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO) < 0)
         sdlPanic();
     defer SDL.SDL_Quit();
 
+    // ********** create Window
     const window = SDL.SDL_CreateWindow(
         "SDL2 Native Demo",
         SDL.SDL_WINDOWPOS_UNDEFINED,
@@ -18,9 +20,11 @@ pub fn main() !void {
     ) orelse sdlPanic();
     defer _ = SDL.SDL_DestroyWindow(window);
 
+    // ********** create Renderer
     const renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
     defer _ = SDL.SDL_DestroyRenderer(renderer);
 
+    // ********** The game loop
     mainLoop: while (true) {
         const screenSurface = SDL.SDL_GetWindowSurface(window);
         defer _ = SDL.SDL_FillRect(screenSurface, null, SDL.SDL_MapRGB(screenSurface.*.format, 255, 0, 255));
@@ -37,6 +41,7 @@ pub fn main() !void {
     SDL.SDL_Quit();
 }
 
+// ***********************************************************************************
 fn sdlPanic() noreturn {
     const str = @as(?[*:0]const u8, SDL.SDL_GetError()) orelse "unknown error";
     @panic(std.mem.sliceTo(str, 0));
