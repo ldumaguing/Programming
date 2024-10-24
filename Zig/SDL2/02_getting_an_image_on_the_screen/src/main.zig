@@ -18,10 +18,6 @@ pub fn main() !void {
         SDL.SDL_WINDOW_SHOWN,
     ) orelse sdlPanic();
 
-    // ********** create Renderer
-    const renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
-    defer _ = SDL.SDL_DestroyRenderer(renderer);
-
     const screenSurface = SDL.SDL_GetWindowSurface(window);
 
     // ********** load image
