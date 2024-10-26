@@ -1,0 +1,3 @@
+https://zigistry.dev/packages/karlseguin/zqlite.zig
+
+
