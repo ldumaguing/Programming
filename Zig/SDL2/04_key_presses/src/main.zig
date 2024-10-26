@@ -16,6 +16,7 @@ const KeyPressSurfaces = enum {
 const SCREEN_DIM = [_]i32{ 640, 480 };
 
 var images: [5][*c]SDL.SDL_Surface = undefined;
+var gCurrentSurface: [*c]SDL.SDL_Surface = undefined;
 
 // ***********************************************************************************
 pub fn main() !void {
@@ -35,7 +36,7 @@ pub fn main() !void {
 
     // ********** get Window's surface
     const screenSurface = SDL.SDL_GetWindowSurface(window);
-    _ = screenSurface;
+    // _ = screenSurface;
 
     // ********** load images
     images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_DEFAULT)] = SDL.SDL_LoadBMP("press.bmp");
@@ -45,25 +46,35 @@ pub fn main() !void {
     images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_LEFT)] = SDL.SDL_LoadBMP("left.bmp");
     images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_RIGHT)] = SDL.SDL_LoadBMP("right.bmp");
 
-    // ********** The game loop
+    // ********** game loop
     var ev: SDL.SDL_Event = undefined;
+    gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_DEFAULT)];
     mainLoop: while (true) {
         while (SDL.SDL_PollEvent(&ev) != 0) {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
             if (ev.type == SDL.SDL_KEYDOWN) {
-                print("Keydown\n", .{});
                 switch (ev.key.keysym.sym) {
                     SDL.SDLK_UP => {
-                        print("...UP\n", .{});
+                        gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_UP)];
                     },
                     SDL.SDLK_DOWN => {
-                        print("...DOWN\n", .{});
+                        gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_DOWN)];
                     },
-                    else => {},
+                    SDL.SDLK_LEFT => {
+                        gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_LEFT)];
+                    },
+                    SDL.SDLK_RIGHT => {
+                        gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_RIGHT)];
+                    },
+                    else => {
+                        gCurrentSurface = images[@intFromEnum(KeyPressSurfaces.KEY_PRESS_SURFACE_DEFAULT)];
+                    },
                 }
             }
         }
+        _ = SDL.SDL_BlitSurface(gCurrentSurface, null, screenSurface, null);
+        _ = SDL.SDL_UpdateWindowSurface(window);
     }
 
     SDL.SDL_DestroyWindow(window);
