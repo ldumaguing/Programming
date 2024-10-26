@@ -48,10 +48,6 @@ pub fn main() !void {
     // ********** The game loop
     var ev: SDL.SDL_Event = undefined;
     mainLoop: while (true) {
-        // defer _ = SDL.SDL_BlitSurface(gHelloWorld, null, screenSurface, null);
-        // defer _ = SDL.SDL_UpdateWindowSurface(window);
-
-        // var ev: SDL.SDL_Event = undefined;
         while (SDL.SDL_PollEvent(&ev) != 0) {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
