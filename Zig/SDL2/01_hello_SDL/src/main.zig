@@ -3,6 +3,8 @@ const SDL = @cImport({
 });
 const std = @import("std");
 
+const WINDOW_DIM = [_]i32{ 800, 600 };
+
 pub fn main() !void {
     // ********** init SDL
     if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO) < 0)
@@ -14,8 +16,8 @@ pub fn main() !void {
         "SDL2 Native Demo",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
-        640,
-        480,
+        WINDOW_DIM[0],
+        WINDOW_DIM[1],
         SDL.SDL_WINDOW_SHOWN,
     ) orelse sdlPanic();
     defer _ = SDL.SDL_DestroyWindow(window);
