@@ -25,7 +25,6 @@ pub fn main() !void {
 
     // ********** get Window's surface
     const gScreenSurface = SDL.SDL_GetWindowSurface(window);
-    // _ = screenSurface;`i`
 
     // ********** load image and apply stretching
     const loadedSurface = SDL.SDL_LoadBMP("stretch.bmp");
@@ -33,11 +32,12 @@ pub fn main() !void {
     SDL.SDL_FreeSurface(loadedSurface);
 
     // ********** game loop
-    var stretchRect: SDL.SDL_Rect = undefined;
-    stretchRect.x = 0;
-    stretchRect.y = 0;
-    stretchRect.w = SCREEN_DIM[0];
-    stretchRect.h = SCREEN_DIM[1];
+    // defining a rect
+    var myRect: SDL.SDL_Rect = undefined;
+    myRect.x = 50; // anchoring to window's X coordinate
+    myRect.y = 50; // anchoring to window's Y coordinate
+    myRect.w = SCREEN_DIM[0] / 3;
+    myRect.h = SCREEN_DIM[1] / 3;
 
     var ev: SDL.SDL_Event = undefined;
     mainLoop: while (true) {
@@ -45,7 +45,8 @@ pub fn main() !void {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
         }
-        _ = SDL.SDL_BlitScaled(gStretchedSurface, null, gScreenSurface, &stretchRect);
+        // use the rect as a basis for scaling the image.
+        _ = SDL.SDL_BlitScaled(gStretchedSurface, null, gScreenSurface, &myRect);
         _ = SDL.SDL_UpdateWindowSurface(window);
     }
 
