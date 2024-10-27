@@ -33,11 +33,6 @@ pub fn main() !void {
     // ********** init PNG loading
     _ = SDL.IMG_Init(SDL.IMG_INIT_PNG);
 
-    // ********** load PNG image & create texture from surface
-    // const loadedSurface = SDL.IMG_Load("texture.png");
-    // const gTexture = SDL.SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-    // SDL.SDL_FreeSurface(loadedSurface);
-
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
     mainLoop: while (true) {
