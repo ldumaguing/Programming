@@ -10,6 +10,8 @@ const Global_Variables = struct {
     renderer: *SDL.SDL_Renderer,
 };
 
+var texture: *SDL.SDL_Texture = undefined;
+
 const SCREEN_DIM = [_]i32{ 640, 480 };
 
 // **************************************************************************************
@@ -32,6 +34,9 @@ fn init(gv: *Global_Variables) void {
 
     // ********** create renderer
     gv.renderer = SDL.SDL_CreateRenderer(gv.window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
+
+    // ********** init PNG loading
+    _ = SDL.IMG_Init(SDL.IMG_INIT_PNG);
 }
 
 // **************************************************************************************
@@ -51,33 +56,49 @@ pub fn main() !void {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
         }
-
-        // ********** Clear screen
-        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0xF0, 0x00, 0xF0, 0xFF);
+        // clear screen
+        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(gv.renderer);
 
-        // ********** Render red filled quad
-        const fillRect = SDL.SDL_Rect{ .x = SCREEN_DIM[0] / 4, .y = SCREEN_DIM[1] / 4, .w = SCREEN_DIM[0] / 2, .h = SCREEN_DIM[1] / 2 };
-        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0xFF, 0x00, 0x00, 0xFF);
-        _ = SDL.SDL_RenderFillRect(gv.renderer, &fillRect);
+        // ********** load PNG image & create texture from surface
+        const loadedSurface = SDL.IMG_Load("viewport.png");
+        texture = SDL.SDL_CreateTextureFromSurface(gv.renderer, loadedSurface) orelse sdlPanic();
+        SDL.SDL_FreeSurface(loadedSurface);
 
-        // ********** Render green outlined quad
-        const outlineRect = SDL.SDL_Rect{ .x = SCREEN_DIM[0] / 6, .y = SCREEN_DIM[1] / 6, .w = SCREEN_DIM[0] * 2 / 3, .h = SCREEN_DIM[1] * 2 / 3 };
-        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0x00, 0xFF, 0x00, 0xFF);
-        _ = SDL.SDL_RenderDrawRect(gv.renderer, &outlineRect);
+        // top-left corner viewport
+        var topLeftViewport: SDL.SDL_Rect = undefined;
+        topLeftViewport.x = 0;
+        topLeftViewport.y = 0;
+        topLeftViewport.w = SCREEN_DIM[0] / 2;
+        topLeftViewport.h = SCREEN_DIM[1] / 2;
+        _ = SDL.SDL_RenderSetViewport(gv.renderer, &topLeftViewport);
 
-        // ********** Draw blue horizontal line
-        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0x00, 0x00, 0xFF, 0xFF);
-        _ = SDL.SDL_RenderDrawLine(gv.renderer, 0, SCREEN_DIM[1] / 2, SCREEN_DIM[0], SCREEN_DIM[1] / 2);
+        // render texture to screen
+        _ = SDL.SDL_RenderCopy(gv.renderer, texture, null, null);
 
-        //Draw vertical line of yellow dots
-        _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0xFF, 0xFF, 0x00, 0xFF);
-        for (0..SCREEN_DIM[1]) |i| {
-            if ((i % 4) == 0) {
-                _ = SDL.SDL_RenderDrawPoint(gv.renderer, SCREEN_DIM[0] / 2, @intCast(i));
-            }
-        }
+        // top-right viewport
+        var topRightViewport: SDL.SDL_Rect = undefined;
+        topRightViewport.x = SCREEN_DIM[0] / 2;
+        topRightViewport.y = 0;
+        topRightViewport.w = SCREEN_DIM[0] / 2;
+        topRightViewport.h = SCREEN_DIM[1] / 2;
+        _ = SDL.SDL_RenderSetViewport(gv.renderer, &topRightViewport);
 
+        // render texture to screen
+        _ = SDL.SDL_RenderCopy(gv.renderer, texture, null, null);
+
+        // bottom viewport
+        var bottomViewport: SDL.SDL_Rect = undefined;
+        bottomViewport.x = 0;
+        bottomViewport.y = SCREEN_DIM[1] / 2;
+        bottomViewport.w = SCREEN_DIM[0];
+        bottomViewport.h = SCREEN_DIM[1] / 2;
+        _ = SDL.SDL_RenderSetViewport(gv.renderer, &bottomViewport);
+
+        // render texture to screen
+        _ = SDL.SDL_RenderCopy(gv.renderer, texture, null, null);
+
+        // *************** present renderer
         SDL.SDL_RenderPresent(gv.renderer);
     }
 }
