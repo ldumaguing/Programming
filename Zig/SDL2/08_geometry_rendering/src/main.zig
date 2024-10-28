@@ -28,10 +28,7 @@ pub fn main() !void {
     );
 
     // ********** create renderer
-    const gRenderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RENDERER_ACCELERATED);
-
-    // ********** init PNG loading
-    _ = SDL.IMG_Init(SDL.IMG_INIT_PNG);
+    const Renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RENDERER_ACCELERATED);
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
@@ -42,32 +39,32 @@ pub fn main() !void {
         }
 
         // ********** Clear screen
-        _ = SDL.SDL_SetRenderDrawColor(gRenderer, 0xF0, 0x00, 0xF0, 0xFF);
-        _ = SDL.SDL_RenderClear(gRenderer);
+        _ = SDL.SDL_SetRenderDrawColor(Renderer, 0xF0, 0x00, 0xF0, 0xFF);
+        _ = SDL.SDL_RenderClear(Renderer);
 
         // ********** Render red filled quad
         const fillRect = SDL.SDL_Rect{ .x = SCREEN_DIM[0] / 4, .y = SCREEN_DIM[1] / 4, .w = SCREEN_DIM[0] / 2, .h = SCREEN_DIM[1] / 2 };
-        _ = SDL.SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
-        _ = SDL.SDL_RenderFillRect(gRenderer, &fillRect);
+        _ = SDL.SDL_SetRenderDrawColor(Renderer, 0xFF, 0x00, 0x00, 0xFF);
+        _ = SDL.SDL_RenderFillRect(Renderer, &fillRect);
 
         // ********** Render green outlined quad
         const outlineRect = SDL.SDL_Rect{ .x = SCREEN_DIM[0] / 6, .y = SCREEN_DIM[1] / 6, .w = SCREEN_DIM[0] * 2 / 3, .h = SCREEN_DIM[1] * 2 / 3 };
-        _ = SDL.SDL_SetRenderDrawColor(gRenderer, 0x00, 0xFF, 0x00, 0xFF);
-        _ = SDL.SDL_RenderDrawRect(gRenderer, &outlineRect);
+        _ = SDL.SDL_SetRenderDrawColor(Renderer, 0x00, 0xFF, 0x00, 0xFF);
+        _ = SDL.SDL_RenderDrawRect(Renderer, &outlineRect);
 
         // ********** Draw blue horizontal line
-        _ = SDL.SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0xFF, 0xFF);
-        _ = SDL.SDL_RenderDrawLine(gRenderer, 0, SCREEN_DIM[1] / 2, SCREEN_DIM[0], SCREEN_DIM[1] / 2);
+        _ = SDL.SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0xFF, 0xFF);
+        _ = SDL.SDL_RenderDrawLine(Renderer, 0, SCREEN_DIM[1] / 2, SCREEN_DIM[0], SCREEN_DIM[1] / 2);
 
         //Draw vertical line of yellow dots
-        _ = SDL.SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0x00, 0xFF);
+        _ = SDL.SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0x00, 0xFF);
         for (0..SCREEN_DIM[1]) |i| {
             if ((i % 4) == 0) {
-                _ = SDL.SDL_RenderDrawPoint(gRenderer, SCREEN_DIM[0] / 2, @intCast(i));
+                _ = SDL.SDL_RenderDrawPoint(Renderer, SCREEN_DIM[0] / 2, @intCast(i));
             }
         }
 
-        SDL.SDL_RenderPresent(gRenderer);
+        SDL.SDL_RenderPresent(Renderer);
     }
 
     SDL.SDL_DestroyWindow(window);
