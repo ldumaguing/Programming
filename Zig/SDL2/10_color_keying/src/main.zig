@@ -4,30 +4,18 @@ const SDL = @cImport({
 });
 const std = @import("std");
 const print = @import("std").debug.print;
+const other = @import("other.zig");
 
-const Global_Variables = struct {
-    window: *SDL.SDL_Window,
-    renderer: *SDL.SDL_Renderer,
+pub const GV = struct { // Global Variables
+    pub const desc = "Global Variables";
+    var window: *SDL.SDL_Window = undefined;
+    var renderer: *SDL.SDL_Renderer = undefined;
 };
 
-const Texture = struct {
-    img_w: i32,
-    img_h: i32,
-    img_texture: *SDL.SDL_Texture,
-    pub fn loadFromFile(imgFile: []const u8) void {
-        print(">>> {s}\n", .{imgFile});
-    }
-};
-
-// ********** textures
-var gFooTexture: Texture = undefined;
-var gBackgroundTexture: Texture = undefined;
-
-// **********
 const SCREEN_DIM = [_]i32{ 640, 480 };
 
 // **************************************************************************************
-fn init(gv: *Global_Variables) void {
+fn init() void {
     // ********** init SDL
     _ = SDL.SDL_Init(SDL.SDL_INIT_VIDEO);
 
@@ -35,8 +23,8 @@ fn init(gv: *Global_Variables) void {
     _ = SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
     // ********** create window
-    gv.window = SDL.SDL_CreateWindow(
-        "09",
+    GV.window = SDL.SDL_CreateWindow(
+        "10",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SCREEN_DIM[0],
@@ -45,24 +33,18 @@ fn init(gv: *Global_Variables) void {
     ) orelse sdlPanic();
 
     // ********** create renderer
-    gv.renderer = SDL.SDL_CreateRenderer(gv.window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
+    GV.renderer = SDL.SDL_CreateRenderer(GV.window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
 
     // ********** init PNG loading
     _ = SDL.IMG_Init(SDL.IMG_INIT_PNG);
 }
 
-fn crap(x: []const u8) void {
-    print("yo {s}\n", .{x});
-}
-
-// **************************************************************************************
 // **************************************************************************************
 pub fn main() !void {
-    gFooTexture.img_w = 30;
-    gFooTexture.img_h = 40;
-    print("{}, {}\n", .{ gFooTexture.img_h, gFooTexture.img_w });
-
-    crap("Hello World");
+    other.bar();
+    other.fum("discord");
+    other.fum(GV.desc);
+    other.fum1();
 }
 
 // ***********************************************************************************
