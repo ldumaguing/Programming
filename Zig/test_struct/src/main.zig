@@ -10,6 +10,10 @@ const Texture = struct {
         print("foo1\n", .{});
     }
 
+    fn foo2(self: Texture) void {
+        print("foo2 {}\n", .{self.img_w});
+    }
+
     fn new(x: i32, y: i32) Texture {
         return Texture{
             .img_w = x,
@@ -29,5 +33,5 @@ pub fn main() !void {
 
     textureFish.loadFromFile("fish");
     textureFish.foo1();
+    textureFish.foo2();
 }
-
