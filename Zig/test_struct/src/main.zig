@@ -5,6 +5,13 @@ const Texture = struct {
     img_w: i32,
     img_h: i32,
 
+    fn new(x: i32, y: i32) Texture { // note: no self attribute
+        return Texture{
+            .img_w = x,
+            .img_h = y,
+        };
+    }
+
     fn foo1(self: Texture) void {
         _ = self;
         print("foo1\n", .{});
@@ -12,13 +19,6 @@ const Texture = struct {
 
     fn foo2(self: Texture) void {
         print("foo2 {}\n", .{self.img_w});
-    }
-
-    fn new(x: i32, y: i32) Texture {
-        return Texture{
-            .img_w = x,
-            .img_h = y,
-        };
     }
 
     fn loadFromFile(self: Texture, imgFile: []const u8) void {
