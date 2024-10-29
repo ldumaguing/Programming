@@ -14,6 +14,9 @@ const Texture = struct {
     img_w: i32,
     img_h: i32,
     img_texture: *SDL.SDL_Texture,
+    pub fn loadFromFile(imgFile: []const u8) void {
+        print(">>> {s}\n", .{imgFile});
+    }
 };
 
 // ********** textures
