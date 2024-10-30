@@ -23,7 +23,6 @@ const Texture = struct {
         const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
         const w = pngSurface.*.w;
         const h = pngSurface.*.h;
-        _ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
         SDL.SDL_FreeSurface(pngSurface);
         return Texture{
             .w = w,
