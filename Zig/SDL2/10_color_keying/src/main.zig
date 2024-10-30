@@ -74,6 +74,7 @@ fn init() void {
 pub fn main() !void {
     init();
 
+    // ********** load PNGs ang convert to texture
     const gFooTexture = Texture.new("foo1.png");
     const gBackgroundTexture = Texture.new("background.png");
 
@@ -88,6 +89,7 @@ pub fn main() !void {
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
 
+        // upload textures to renderer
         gBackgroundTexture.render(0, 0);
         gFooTexture.render(240, 190);
 
