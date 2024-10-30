@@ -11,43 +11,36 @@ pub const GV = struct { // Global Variables
     var renderer: *SDL.SDL_Renderer = undefined;
 };
 
-const SCREEN_DIM = [_]i32{ 640, 480 };
-
 const Texture = struct {
-    img_w: i32,
-    img_h: i32,
-    img_texture: *SDL.SDL_Texture,
-
-    fn new() Texture {
-        const loadedSurface = SDL.IMG_Load("foo.png");
-        const w = loadedSurface.*.w;
-        const h = loadedSurface.*.h;
-        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, loadedSurface) orelse sdlPanic();
+    w: i32,
+    h: i32,
+    t: *SDL.SDL_Texture,
+    pub fn new(pngFile: [*c]const u8) Texture {
+        const pngSurface = SDL.IMG_Load(pngFile);
+        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
+        const w = pngSurface.*.w;
+        const h = pngSurface.*.h;
+        SDL.SDL_FreeSurface(pngSurface);
         return Texture{
-            .img_w = w,
-            .img_h = h,
-            .img_texture = t,
+            .w = w,
+            .h = h,
+            .t = t,
         };
     }
-    //pub fn loadFromFile(self: Texture, imgFile: [*c]const u8) void {
-    //    print(">>> {s}\n", .{imgFile});
-    //    const loadedSurface = SDL.IMG_Load(imgFile);
-    //    self.img_w = loadedSurface.*.w;
-    //    self.img_h = loadedSurface.*.h;
-    //    self.img_texture = SDL.SDL_CreateTextureFromSurface(GV.renderer, loadedSurface) orelse sdlPanic();
-    //    SDL.SDL_FreeSurface(loadedSurface);
-    // }
-
     pub fn render(self: Texture, x: i32, y: i32) void {
-        var aRect: SDL.SDL_Rect = undefined;
-        aRect.x = x;
-        aRect.y = y;
-        aRect.w = self.img_w;
-        aRect.h = self.img_h;
-        _ = SDL.SDL_RenderSetViewport(GV.renderer, &aRect);
-        _ = SDL.SDL_RenderCopy(GV.renderer, self.img_texture, null, null);
+        var viewport: SDL.SDL_Rect = undefined;
+        viewport.x = x;
+        viewport.y = y;
+        viewport.w = self.w;
+        viewport.h = self.h;
+        _ = SDL.SDL_RenderSetViewport(GV.renderer, &viewport);
+        _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, null);
     }
 };
+
+// var texture: *SDL.SDL_Texture = undefined;
+
+const SCREEN_DIM = [_]i32{ 800, 600 };
 
 // **************************************************************************************
 fn init() void {
@@ -75,10 +68,9 @@ fn init() void {
 }
 
 // **************************************************************************************
+// **************************************************************************************
 pub fn main() !void {
-    var gFooTexture = Texture.new();
-    //gFooTexture.loadFromFile("foo.png");
-    gFooTexture.render(10, 10);
+    init();
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
@@ -87,6 +79,22 @@ pub fn main() !void {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
         }
+        // clear screen
+        _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
+        _ = SDL.SDL_RenderClear(GV.renderer);
+
+        const texture = Texture.new("viewport.png");
+        texture.render(10, 10);
+        // top-left corner viewport
+        //var topLeftViewport: SDL.SDL_Rect = undefined;
+        //topLeftViewport.x = 10;
+        //topLeftViewport.y = 10;
+        //topLeftViewport.w = SCREEN_DIM[0] / 2;
+        //topLeftViewport.h = SCREEN_DIM[1] / 2;
+        //_ = SDL.SDL_RenderSetViewport(GV.renderer, &topLeftViewport);
+        //_ = SDL.SDL_RenderCopy(GV.renderer, texture.t, null, null);
+
+        // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
     }
 }
