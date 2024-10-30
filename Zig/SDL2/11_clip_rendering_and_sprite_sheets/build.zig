@@ -35,9 +35,10 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     exe.linkSystemLibrary("SDL2");
     exe.linkSystemLibrary("c");
+    exe.linkSystemLibrary("sdl2_image");
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
