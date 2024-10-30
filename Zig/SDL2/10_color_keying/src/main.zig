@@ -18,9 +18,12 @@ const Texture = struct {
 
     pub fn new(pngFile: [*c]const u8) Texture {
         const pngSurface = SDL.IMG_Load(pngFile);
+        // *** define a color to be transparent.
+        _ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
         const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
         const w = pngSurface.*.w;
         const h = pngSurface.*.h;
+        _ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
         SDL.SDL_FreeSurface(pngSurface);
         return Texture{
             .w = w,
@@ -72,7 +75,7 @@ fn init() void {
 pub fn main() !void {
     init();
 
-    const gFooTexture = Texture.new("foo.png");
+    const gFooTexture = Texture.new("foo1.png");
     const gBackgroundTexture = Texture.new("background.png");
 
     // ********** game loop
