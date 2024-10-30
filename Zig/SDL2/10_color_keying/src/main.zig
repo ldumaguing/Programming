@@ -15,6 +15,7 @@ const Texture = struct {
     w: i32,
     h: i32,
     t: *SDL.SDL_Texture,
+
     pub fn new(pngFile: [*c]const u8) Texture {
         const pngSurface = SDL.IMG_Load(pngFile);
         const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
@@ -27,6 +28,7 @@ const Texture = struct {
             .t = t,
         };
     }
+
     pub fn render(self: Texture, x: i32, y: i32) void {
         var viewport: SDL.SDL_Rect = undefined;
         viewport.x = x;
@@ -38,9 +40,7 @@ const Texture = struct {
     }
 };
 
-// var texture: *SDL.SDL_Texture = undefined;
-
-const SCREEN_DIM = [_]i32{ 800, 600 };
+const SCREEN_DIM = [_]i32{ 640, 480 };
 
 // **************************************************************************************
 fn init() void {
@@ -72,6 +72,9 @@ fn init() void {
 pub fn main() !void {
     init();
 
+    const gFooTexture = Texture.new("foo.png");
+    const gBackgroundTexture = Texture.new("background.png");
+
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
     mainLoop: while (true) {
@@ -83,16 +86,8 @@ pub fn main() !void {
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
 
-        const texture = Texture.new("viewport.png");
-        texture.render(10, 10);
-        // top-left corner viewport
-        //var topLeftViewport: SDL.SDL_Rect = undefined;
-        //topLeftViewport.x = 10;
-        //topLeftViewport.y = 10;
-        //topLeftViewport.w = SCREEN_DIM[0] / 2;
-        //topLeftViewport.h = SCREEN_DIM[1] / 2;
-        //_ = SDL.SDL_RenderSetViewport(GV.renderer, &topLeftViewport);
-        //_ = SDL.SDL_RenderCopy(GV.renderer, texture.t, null, null);
+        gBackgroundTexture.render(0, 0);
+        gFooTexture.render(240, 190);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
