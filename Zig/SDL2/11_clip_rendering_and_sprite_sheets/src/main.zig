@@ -25,29 +25,35 @@ const Texture = struct {
         };
     }
 
-    pub fn render(self: Texture, x: i32, y: i32) void {
-        var viewport: SDL.SDL_Rect = undefined;
-        viewport.x = x;
-        viewport.y = y;
-        viewport.w = self.w;
-        viewport.h = self.h;
-        _ = SDL.SDL_RenderSetViewport(GV.renderer, &viewport);
-        _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, null);
-    }
+    pub fn render(self: Texture, x: i32, y: i32, clip: ?*SDL.SDL_Rect, viewport: ?*SDL.SDL_Rect) void {
+        if ((clip == null) and (viewport == null)) {
+            var vwp: SDL.SDL_Rect = undefined;
+            vwp.x = x;
+            vwp.y = y;
+            vwp.w = self.w;
+            vwp.h = self.h;
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, &vwp);
+            return;
+        }
 
-    pub fn render_w_clip(self: Texture, x: i32, y: i32, clip: *SDL.SDL_Rect) void {
-        var viewport: SDL.SDL_Rect = undefined;
-        print("{}, {}\n", .{ x, y });
-        viewport.x = 50;
-        viewport.y = 50;
-        viewport.w = 200;
-        viewport.h = 100;
-        _ = SDL.SDL_RenderSetViewport(GV.renderer, &viewport);
-        _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &viewport);
+        if (clip == null) {
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, viewport);
+            return;
+        }
+
+        if (viewport == null) {
+            var vwp: SDL.SDL_Rect = undefined;
+            vwp.x = x;
+            vwp.y = y;
+            vwp.w = self.w;
+            vwp.h = self.h;
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &vwp);
+            return;
+        }
+
+        _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, viewport);
     }
 };
-
-// var gSpriteClip: SDL.SDL_Rect = undefined;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
@@ -107,21 +113,39 @@ pub fn main() !void {
         _ = SDL.SDL_RenderClear(GV.renderer);
 
         // upload textures to renderer
-        GV.gBackgroundTexture.render(0, 0);
-        GV.gFooTexture.render(240, 190);
+        GV.gBackgroundTexture.render(-50, -50, null, null);
+        //GV.gFooTexture.render(240, 190);
 
         var gSpriteClip: SDL.SDL_Rect = undefined;
         gSpriteClip.x = 0;
         gSpriteClip.y = 0;
         gSpriteClip.w = 100;
         gSpriteClip.h = 100;
-        GV.gSpriteSheetTexture.render_w_clip(50, 50, &gSpriteClip);
+        GV.gSpriteSheetTexture.render(0, 0, &gSpriteClip, null);
 
-        //gSpriteClip.x = 100;
-        //gSpriteClip.y = 0;
-        //gSpriteClip.w = 100;
-        //gSpriteClip.h = 100;
-        //GV.gSpriteSheetTexture.render_w_clip(50, 50, &gSpriteClip);
+        gSpriteClip.x = 100;
+        gSpriteClip.y = 0;
+        gSpriteClip.w = 100;
+        gSpriteClip.h = 100;
+        GV.gSpriteSheetTexture.render(320, 0, &gSpriteClip, null);
+
+        gSpriteClip.x = 0;
+        gSpriteClip.y = 100;
+        gSpriteClip.w = 100;
+        gSpriteClip.h = 100;
+        GV.gSpriteSheetTexture.render(0, 320, &gSpriteClip, null);
+
+        gSpriteClip.x = 100;
+        gSpriteClip.y = 100;
+        gSpriteClip.w = 100;
+        gSpriteClip.h = 100;
+        var gScale: SDL.SDL_Rect = undefined;
+        gScale.x = 320;
+        gScale.y = 240;
+        gScale.w = 50;
+        gScale.h = 50;
+        GV.gSpriteSheetTexture.render(0, 0, &gSpriteClip, &gScale);
+
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
     }
