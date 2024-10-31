@@ -110,7 +110,6 @@ pub fn main() !void {
 
         // upload textures to renderer
         GV.gBackgroundTexture.render(-50, -50, null, null);
-        //GV.gFooTexture.render(240, 190);
 
         var gSpriteClip: SDL.SDL_Rect = undefined;
         gSpriteClip.x = 0;
