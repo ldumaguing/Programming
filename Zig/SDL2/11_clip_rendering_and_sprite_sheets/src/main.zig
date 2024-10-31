@@ -34,22 +34,20 @@ const Texture = struct {
         default_viewport.h = self.h;
 
         if (clip == null) {
-            if (viewport == null) {
-                _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, &default_viewport);
-            } else {
-                _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, viewport);
+            if (viewport != null) {
+                default_viewport.w = viewport.?.w;
+                default_viewport.h = viewport.?.h;
             }
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, &default_viewport);
             return;
         }
 
         if (viewport == null) {
-            default_viewport.x = x;
-            default_viewport.y = y;
-            default_viewport.w = self.w;
-            default_viewport.h = self.h;
             _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &default_viewport);
         } else {
-            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, viewport);
+            default_viewport.w = viewport.?.w;
+            default_viewport.h = viewport.?.h;
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &default_viewport);
         }
     }
 };
@@ -124,22 +122,18 @@ pub fn main() !void {
         GV.gSpriteSheetTexture.render(10, 10, &gSpriteClip, null);
 
         gSpriteClip.x = 100;
-        gSpriteClip.y = 0;
+        gSpriteClip.y = 100;
         gSpriteClip.w = 100;
         gSpriteClip.h = 100;
-        gViewPort.x = 320;
-        gViewPort.y = 0;
-        gViewPort.w = 50;
+        gViewPort.w = 150;
         gViewPort.h = 50;
-        GV.gSpriteSheetTexture.render(0, 0, &gSpriteClip, &gViewPort);
+        GV.gSpriteSheetTexture.render(200, 200, &gSpriteClip, &gViewPort);
 
         GV.gSpriteSheetTexture.render(320, 240, null, null);
 
-        gViewPort.x = 320;
-        gViewPort.y = 240;
         gViewPort.w = 90;
         gViewPort.h = 100;
-        GV.gSpriteSheetTexture.render(0, 0, null, &gViewPort);
+        GV.gSpriteSheetTexture.render(320, 240, null, &gViewPort);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
