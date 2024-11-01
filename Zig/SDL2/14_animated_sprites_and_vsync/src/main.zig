@@ -142,6 +142,18 @@ pub fn main() !void {
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
 
+        var currentClip: SDL.SDL_Rect = undefined;
+        currentClip.x = GV.gSpriteClips[@intCast(frame)].x;
+        currentClip.y = GV.gSpriteClips[@intCast(frame)].y;
+        currentClip.w = GV.gSpriteClips[@intCast(frame)].w;
+        currentClip.h = GV.gSpriteClips[@intCast(frame)].h;
+        var viewport: SDL.SDL_Rect = undefined;
+        viewport.w = 64;
+        viewport.h = 205;
+        GV.gSpriteSheetTexture.render(320, 100, &currentClip, &viewport);
+
+        frame += 1;
+        if (frame >= GV.WALKING_ANIMATION_FRAMES) frame = 0;
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
     }
