@@ -13,7 +13,7 @@ const Texture = struct {
     pub fn new(pngFile: [*c]const u8) Texture {
         const pngSurface = SDL.IMG_Load(pngFile);
         // *** define a color to be transparent.
-        // _ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
+        _ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
         const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
         const w = pngSurface.*.w;
         const h = pngSurface.*.h;
@@ -68,8 +68,10 @@ pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     var window: *SDL.SDL_Window = undefined;
     var renderer: *SDL.SDL_Renderer = undefined;
-    var gModulatedTexture: Texture = undefined;
     var gBackgroundTexture: Texture = undefined;
+    var gSpriteSheetTexture: Texture = undefined;
+    const WALKING_ANIMATION_FRAMES: i32 = 4;
+    var gSpriteClips: [WALKING_ANIMATION_FRAMES]SDL.SDL_Rect = undefined;
 };
 
 const SCREEN_DIM = [_]i32{ 640, 480 };
@@ -84,7 +86,7 @@ fn init() void {
 
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
-        "13",
+        "14",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SCREEN_DIM[0],
@@ -105,40 +107,40 @@ pub fn main() !void {
     init();
 
     // ********** load PNGs ang convert to texture
-    GV.gModulatedTexture = Texture.new("fadeout.png");
-    GV.gModulatedTexture.setBlendMode(SDL.SDL_BLENDMODE_BLEND);
-    GV.gBackgroundTexture = Texture.new("fadein.png");
+    GV.gSpriteSheetTexture = Texture.new("foo.png");
+
+    // ********** Set sprite clips
+    GV.gSpriteClips[0].x = 0;
+    GV.gSpriteClips[0].y = 0;
+    GV.gSpriteClips[0].w = 64;
+    GV.gSpriteClips[0].h = 205;
+
+    GV.gSpriteClips[1].x = 64;
+    GV.gSpriteClips[1].y = 0;
+    GV.gSpriteClips[1].w = 64;
+    GV.gSpriteClips[1].h = 205;
+
+    GV.gSpriteClips[2].x = 128;
+    GV.gSpriteClips[2].y = 0;
+    GV.gSpriteClips[2].w = 64;
+    GV.gSpriteClips[2].h = 205;
+
+    GV.gSpriteClips[3].x = 192;
+    GV.gSpriteClips[3].y = 0;
+    GV.gSpriteClips[3].w = 64;
+    GV.gSpriteClips[3].h = 205;
+
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
-    var a: u8 = 0;
+    var frame: i32 = 0;
     mainLoop: while (true) {
         while (SDL.SDL_PollEvent(&ev) != 0) {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
-            if (ev.type == SDL.SDL_KEYDOWN) {
-                switch (ev.key.keysym.sym) {
-                    SDL.SDLK_w => {
-                        const old = a;
-                        a +%= 32;
-                        if (old > a) a = 255;
-                    },
-                    SDL.SDLK_s => {
-                        const old = a;
-                        a -%= 32;
-                        if (a > old) a = 0;
-                    },
-                    else => {},
-                }
-            }
         }
         // clear screen
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
-
-        GV.gBackgroundTexture.render(0, 0, null, null);
-
-        GV.gModulatedTexture.setAlpha(a);
-        GV.gModulatedTexture.render(10, 10, null, null);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
