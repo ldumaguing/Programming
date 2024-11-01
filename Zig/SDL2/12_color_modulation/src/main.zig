@@ -26,32 +26,33 @@ const Texture = struct {
     }
 
     pub fn render(self: Texture, x: i32, y: i32, clip: ?*SDL.SDL_Rect, viewport: ?*SDL.SDL_Rect) void {
-        if ((clip == null) and (viewport == null)) {
-            var vwp: SDL.SDL_Rect = undefined;
-            vwp.x = x;
-            vwp.y = y;
-            vwp.w = self.w;
-            vwp.h = self.h;
-            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, &vwp);
-            return;
-        }
+        // default viewport
+        var default_viewport: SDL.SDL_Rect = undefined;
+        default_viewport.x = x;
+        default_viewport.y = y;
+        default_viewport.w = self.w;
+        default_viewport.h = self.h;
 
         if (clip == null) {
-            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, viewport);
+            if (viewport != null) {
+                default_viewport.w = viewport.?.w;
+                default_viewport.h = viewport.?.h;
+            }
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, null, &default_viewport);
             return;
         }
 
         if (viewport == null) {
-            var vwp: SDL.SDL_Rect = undefined;
-            vwp.x = x;
-            vwp.y = y;
-            vwp.w = self.w;
-            vwp.h = self.h;
-            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &vwp);
-            return;
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &default_viewport);
+        } else {
+            default_viewport.w = viewport.?.w;
+            default_viewport.h = viewport.?.h;
+            _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, &default_viewport);
         }
+    }
 
-        _ = SDL.SDL_RenderCopy(GV.renderer, self.t, clip, viewport);
+    pub fn setColor(self: Texture, r: u8, g: u8, b: u8) void {
+        _ = SDL.SDL_SetTextureColorMod(self.t, r, g, b);
     }
 };
 
@@ -59,9 +60,7 @@ pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     var window: *SDL.SDL_Window = undefined;
     var renderer: *SDL.SDL_Renderer = undefined;
-    var gFooTexture: Texture = undefined;
-    var gBackgroundTexture: Texture = undefined;
-    var gSpriteSheetTexture: Texture = undefined;
+    var gModulatedTexture: Texture = undefined;
 };
 
 const SCREEN_DIM = [_]i32{ 640, 480 };
@@ -76,7 +75,7 @@ fn init() void {
 
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
-        "10",
+        "12",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SCREEN_DIM[0],
@@ -97,54 +96,49 @@ pub fn main() !void {
     init();
 
     // ********** load PNGs ang convert to texture
-    GV.gFooTexture = Texture.new("foo1.png");
-    GV.gBackgroundTexture = Texture.new("background.png");
-    GV.gSpriteSheetTexture = Texture.new("dots.png");
+    GV.gModulatedTexture = Texture.new("colors.png");
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
+    var r: u8 = 255;
+    var g: u8 = 255;
+    var b: u8 = 255;
     mainLoop: while (true) {
         while (SDL.SDL_PollEvent(&ev) != 0) {
             if (ev.type == SDL.SDL_QUIT)
                 break :mainLoop;
+            if (ev.type == SDL.SDL_KEYDOWN) {
+                switch (ev.key.keysym.sym) {
+                    SDL.SDLK_q => {
+                        r +%= 32;
+                    },
+                    SDL.SDLK_w => {
+                        g +%= 32;
+                    },
+                    SDL.SDLK_e => {
+                        b +%= 32;
+                    },
+                    SDL.SDLK_a => {
+                        r -%= 32;
+                    },
+                    SDL.SDLK_s => {
+                        g -%= 32;
+                    },
+                    SDL.SDLK_d => {
+                        b -%= 32;
+                    },
+                    else => {},
+                }
+            }
         }
         // clear screen
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
 
-        // upload textures to renderer
-        GV.gBackgroundTexture.render(-50, -50, null, null);
-        //GV.gFooTexture.render(240, 190);
+        GV.gModulatedTexture.setColor(r, g, b);
+        GV.gModulatedTexture.render(0, 0, null, null);
 
-        //var gSpriteClip: SDL.SDL_Rect = undefined;
-        //gSpriteClip.x = 0;
-        //gSpriteClip.y = 0;
-        //gSpriteClip.w = 100;
-        //gSpriteClip.h = 100;
-        //GV.gSpriteSheetTexture.render(0, 0, &gSpriteClip, null);
-
-        //gSpriteClip.x = 100;
-        //gSpriteClip.y = 0;
-        //gSpriteClip.w = 100;
-        //gSpriteClip.h = 100;
-        //GV.gSpriteSheetTexture.render(320, 0, &gSpriteClip, null);
-
-        //gSpriteClip.x = 0;
-        //gSpriteClip.y = 100;
-        //gSpriteClip.w = 100;
-        //gSpriteClip.h = 100;
-        //GV.gSpriteSheetTexture.render(0, 320, &gSpriteClip, null);
-
-        //gSpriteClip.x = 100;
-        //gSpriteClip.y = 100;
-        //gSpriteClip.w = 100;
-        //gSpriteClip.h = 100;
-        //var gScale: SDL.SDL_Rect = undefined;
-        //gScale.x = 320;
-        //gScale.y = 240;
-        //gScale.w = 50;
-        //gScale.h = 50;
-        //GV.gSpriteSheetTexture.render(0, 0, &gSpriteClip, &gScale);
+        print("{}, {}, {}\n", .{ r, g, b });
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
