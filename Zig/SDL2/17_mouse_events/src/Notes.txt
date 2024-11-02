@@ -1,0 +1,1 @@
+Created a link, main.c, to main.zig.  I'm too lazy to setup an IDE to recognize a zig file as c.
