@@ -178,6 +178,18 @@ pub fn main() !void {
                     SDL.SDL_BUTTON_LEFT => {
                         print("   left\n", .{});
                     },
+                    SDL.SDL_BUTTON_X1 => {
+                        print("   x1\n", .{});
+                    },
+                    SDL.SDL_BUTTON_X2 => {
+                        print("   x2\n", .{});
+                    },
+                    SDL.SDL_BUTTON_RIGHT => {
+                        print("   right\n", .{});
+                    },
+                    SDL.SDL_BUTTON_MIDDLE => {
+                        print("   middle\n", .{});
+                    },
                     else => {},
                 }
             }
