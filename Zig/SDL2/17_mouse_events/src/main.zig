@@ -193,6 +193,9 @@ pub fn main() !void {
                     else => {},
                 }
             }
+            if (ev.type == SDL.SDL_MOUSEWHEEL) {
+                print("wheel {},{}\n", .{ ev.wheel.x, ev.wheel.y });
+            }
         }
 
         // ********** clear screen
