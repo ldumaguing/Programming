@@ -90,7 +90,12 @@ pub const GV = struct { // Global Variables
     var degrees: f64 = 0.0;
     // ***
     var gGameController: *SDL.SDL_Joystick = undefined;
-    pub var gcButtons: u32 = 0;
+    pub var gcButtons: u32 = 0; // Buttons and Hat
+    pub var gcAxis_0: i32 = 0;
+    pub var gcAxis_1: i32 = 0;
+    pub var gcAxis_2: i32 = 0;
+    pub var gcAxis_3: i32 = 0;
+    pub var gcHat: u8 = 0;
 };
 
 const SCREEN_DIM = [_]i32{ 640, 480 };
@@ -215,7 +220,10 @@ pub fn main() !void {
 
             // ********** Gamepad
             qPad(ev);
-            print("--- {}\n", .{GV.gcButtons});
+            print("--- {}\n", .{GV.gcHat});
+            //print("L-- {},{}\n", .{ GV.gcAxis_0, GV.gcAxis_1 });
+            //print("R-- {},{}\n", .{ GV.gcAxis_2, GV.gcAxis_3 });
+
             //if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
             //    print("button down {}, {}\n", .{ ev.type, counter });
             //    counter += 1;
