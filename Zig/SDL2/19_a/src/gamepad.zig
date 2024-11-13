@@ -6,16 +6,50 @@ const SDL = @cImport({
     @cInclude("SDL2/SDL_ttf.h");
 });
 
+const GV = @import("main.zig").GV;
+
 pub fn query_gamepad(ev: SDL.SDL_Event) void {
-    //if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
-    //    print("button down 1-12 {}, {}\n", .{ ev.type, ev.jbutton.button });
-    //}
+    if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
+        _ = switch (ev.jbutton.button) {
+            0 => GV.gcButtons |= (1 << 0),
+            1 => GV.gcButtons |= (1 << 1),
+            2 => GV.gcButtons |= (1 << 2),
+            3 => GV.gcButtons |= (1 << 3),
+            4 => GV.gcButtons |= (1 << 4),
+            5 => GV.gcButtons |= (1 << 5),
+            6 => GV.gcButtons |= (1 << 6),
+            7 => GV.gcButtons |= (1 << 7),
+            8 => GV.gcButtons |= (1 << 8),
+            9 => GV.gcButtons |= (1 << 9),
+            10 => GV.gcButtons |= (1 << 10),
+            11 => GV.gcButtons |= (1 << 11),
+            else => {},
+        };
+    }
+    if (ev.type == SDL.SDL_JOYBUTTONUP) {
+        _ = switch (ev.jbutton.button) {
+            0 => GV.gcButtons ^= (1 << 0),
+            1 => GV.gcButtons ^= (1 << 1),
+            2 => GV.gcButtons ^= (1 << 2),
+            3 => GV.gcButtons ^= (1 << 3),
+            4 => GV.gcButtons ^= (1 << 4),
+            5 => GV.gcButtons ^= (1 << 5),
+            6 => GV.gcButtons ^= (1 << 6),
+            7 => GV.gcButtons ^= (1 << 7),
+            8 => GV.gcButtons ^= (1 << 8),
+            9 => GV.gcButtons ^= (1 << 9),
+            10 => GV.gcButtons ^= (1 << 10),
+            11 => GV.gcButtons ^= (1 << 11),
+            else => {},
+        };
+    }
+
     //if (ev.type == SDL.SDL_JOYAXISMOTION) {
     //    print("axis motion {}\n", .{ev.type});
     //    print("     {}, {}\n", .{ ev.jaxis.value, ev.jaxis.axis });
     //}
     //print("............. {}\n", .{ev.type});
-    if (ev.type == SDL.SDL_JOYHATMOTION) {
-        print("bo\n", .{});
-    }
+    //if (ev.type == SDL.SDL_JOYHATMOTION) {
+    //    print("bo\n", .{});
+    //}
 }

@@ -90,6 +90,7 @@ pub const GV = struct { // Global Variables
     var degrees: f64 = 0.0;
     // ***
     var gGameController: *SDL.SDL_Joystick = undefined;
+    pub var gcButtons: u32 = 0;
 };
 
 const SCREEN_DIM = [_]i32{ 640, 480 };
@@ -214,6 +215,7 @@ pub fn main() !void {
 
             // ********** Gamepad
             qPad(ev);
+            print("--- {}\n", .{GV.gcButtons});
             //if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
             //    print("button down {}, {}\n", .{ ev.type, counter });
             //    counter += 1;
