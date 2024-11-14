@@ -95,6 +95,8 @@ pub const GV = struct { // Global Variables
     pub var gcAxis_1: i32 = 0;
     pub var gcAxis_2: i32 = 0;
     pub var gcAxis_3: i32 = 0;
+    pub var gcAxis_4: i32 = 0;
+    pub var gcAxis_5: i32 = 0;
     pub var gcHat: u8 = 0;
 };
 

@@ -50,6 +50,8 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
     //         1 => GV.gcAxis_1 = ev.jaxis.value,
     //         2 => GV.gcAxis_2 = ev.jaxis.value,
     //         3 => GV.gcAxis_3 = ev.jaxis.value,
+    //         4 => GV.gcAxis_4 = ev.jaxis.value,
+    //         5 => GV.gcAxis_5 = ev.jaxis.value,
     //         else => {},
     //     };
     // }
