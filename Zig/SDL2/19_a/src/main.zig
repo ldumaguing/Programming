@@ -113,7 +113,7 @@ fn init() void {
 
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
-        "17",
+        "19",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SCREEN_DIM[0],
