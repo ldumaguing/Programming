@@ -90,14 +90,14 @@ pub const GV = struct { // Global Variables
     var degrees: f64 = 0.0;
     // ***
     var gGameController: *SDL.SDL_Joystick = undefined;
-    pub var gcButtons: u32 = 0; // Buttons and Hat
-    pub var gcAxis_0: i32 = 0;
+    pub var gcButtons: u32 = 0; // 12 bits
+    pub var gcAxis_0: i32 = 0; // analog
     pub var gcAxis_1: i32 = 0;
     pub var gcAxis_2: i32 = 0;
     pub var gcAxis_3: i32 = 0;
     pub var gcAxis_4: i32 = 0;
     pub var gcAxis_5: i32 = 0;
-    pub var gcHat: u8 = 0;
+    pub var gcHat: u8 = 0; // 4 "bits"
 };
 
 const SCREEN_DIM = [_]i32{ 640, 480 };
