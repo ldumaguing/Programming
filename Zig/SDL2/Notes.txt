@@ -1,15 +1,68 @@
-Logitech Gamepad F310
-A          000000000001
-B          000000000010
-X          000000000100
-Y          000000001000
-RB         000000100000
-LB         000000010000
-Back       000001000000
-Start      000010000000
-Left Axis  010000000000
-Right Axis 001000000000
-logo       000100000000
+Logitech Gamepad F310 (X mode)
+Logitech Gamepad F710 (X mode)
+******************************
+A           000000000001
+B           000000000010
+X           000000000100
+Y           000000001000
+RB          000000100000
+LB          000000010000
+Back        000001000000
+Start       000010000000
+Left Stick  001000000000
+Right Stick 010000000000
+logo        000100000000
+
+Hat up      1  0001
+Hat right   2  0010
+Hat down    4  0100
+Hat left    8  1000
+
+Left Stick H    axis 0 (left to right): -32768 to 32767
+Left Stick V    axis 1 (top to bottom)
+Right Stick H   axis 3 (left to right)
+Right Stick V   axis 4 (top to buttom)
+
+LT   axis 2 (release to pressed): -32768 to 32767
+RT   axis 5 (release to pressed)
+
+
+
+SWITCH CO.,LTD. USB Gamepad (SEGA)
+**********************************
+A   000000000010
+B   000000000100
+C   000000010000
+X   000000000001
+Y   000000001000
+Z   000000100000
+
+Shoulder L   000001000000
+Shoulder R   000010000000
+Select       000100000000
+Start        001000000000
+
+Hat up      1  0001
+Hat right   2  0010
+Hat down    4  0100
+Hat left    8  1000
+
+
+
+Xbox One S Controller
+*********************
+B
+A
+Y
+X
+
+R2
+R
+L2
+L
+
+-
++
 
 
 
