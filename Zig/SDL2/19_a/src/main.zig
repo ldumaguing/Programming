@@ -222,10 +222,13 @@ pub fn main() !void {
 
             // ********** Gamepad
             qPad(ev);
-            print("--- {}\n", .{GV.gcHat});
-            //print("L-- {},{}\n", .{ GV.gcAxis_0, GV.gcAxis_1 });
-            //print("R-- {},{}\n", .{ GV.gcAxis_2, GV.gcAxis_3 });
-
+            print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
+            print("hat      {}\n", .{GV.gcHat});
+            print("axis 0,1 {},{}\n", .{ GV.gcAxis_0, GV.gcAxis_1 });
+            print("axis 2,3 {},{}\n", .{ GV.gcAxis_2, GV.gcAxis_3 });
+            print("axis 4,5 {},{}\n", .{ GV.gcAxis_4, GV.gcAxis_5 });
+            print("{b:0>12}\n", .{GV.gcButtons});
+            print("\n", .{});
             //if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
             //    print("button down {}, {}\n", .{ ev.type, counter });
             //    counter += 1;
