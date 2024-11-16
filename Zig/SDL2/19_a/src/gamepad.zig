@@ -10,6 +10,7 @@ const GV = @import("main.zig").GV;
 
 pub fn query_gamepad(ev: SDL.SDL_Event) void {
     if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
+        print("......{}\n", .{ev.jbutton.button});
         _ = switch (ev.jbutton.button) {
             0 => GV.gcButtons |= (1 << 0),
             1 => GV.gcButtons |= (1 << 1),
@@ -23,6 +24,7 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
             9 => GV.gcButtons |= (1 << 9),
             10 => GV.gcButtons |= (1 << 10),
             11 => GV.gcButtons |= (1 << 11),
+            12 => GV.gcButtons |= (1 << 12),
             else => {},
         };
     }
@@ -40,6 +42,7 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
             9 => GV.gcButtons ^= (1 << 9),
             10 => GV.gcButtons ^= (1 << 10),
             11 => GV.gcButtons ^= (1 << 11),
+            12 => GV.gcButtons ^= (1 << 12),
             else => {},
         };
     }

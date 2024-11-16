@@ -83,11 +83,34 @@ left    8  1000
 
 
 
+ZEROPLUS GAMEPAD4-WIRED-V1.2
+****************************
+square       000000000001
+ex           000000000010
+circle       000000000100
+triangle     000000001000
+RB           000000100000
+LB           000000010000
+options      001000000000
+left stick   010000000000
+right stick  100000000000
+home        1000000000000
+
+Hat up      1  0001
+Hat right   2  0010
+Hat down    4  0100
+Hat left    8  1000
+
+Left Stick H    axis 0 (left to right): -32768 to 32767
+Left Stick V    axis 1 (top to bottom)
+Right Stick H   axis 2 (left to right)
+Right Stick V   axis 5 (top to buttom)
+
+LT   axis 3 and 000001000000
+RT   axis 4 and 000010000000
 
 
 
-
-
-
+0000 0000 0000
 
 
