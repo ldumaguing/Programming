@@ -49,20 +49,45 @@ Hat left    8  1000
 
 
 
-Xbox One S Controller
-*********************
-B
-A
-Y
-X
+Xbox One S Controller (X mode)
+******************************
+B   000000000001
+A   000000000010
+Y   000000000100
+X   000000001000
 
-R2
-R
-L2
-L
+R2   axis 5 (release to pressed)
+R    000000100000
+L2   axis 2
+L    000000010000
 
--
-+
+minus   000001000000
+plus    000010000000
+heart   010000000000
+
+cross R up      axis 4 (-)
+cross R right   axis 3 (+)
+cross R down    axis 4 (+)
+cross R left    axis 3 (-)
+
+cross L up      axis 1 (-)
+cross L right   axis 0 (+)
+cross L down    axis 1 (+)
+cross L left    axis 0 (-)
+
+up      1  0001
+right   2  0010
+down    4  0100
+left    8  1000
+
+
+
+
+
+
+
+
+
 
 
 
