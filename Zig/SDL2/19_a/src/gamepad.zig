@@ -26,6 +26,7 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
             11 => GV.gcButtons |= (1 << 11),
             12 => GV.gcButtons |= (1 << 12),
             13 => GV.gcButtons |= (1 << 13),
+            14 => GV.gcButtons |= (1 << 14),
             else => {},
         };
     }
@@ -45,6 +46,7 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
             11 => GV.gcButtons ^= (1 << 11),
             12 => GV.gcButtons ^= (1 << 12),
             13 => GV.gcButtons ^= (1 << 13),
+            14 => GV.gcButtons ^= (1 << 14),
             else => {},
         };
     }

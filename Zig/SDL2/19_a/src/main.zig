@@ -227,8 +227,8 @@ pub fn main() !void {
             print("axis 0,1 {},{}\n", .{ GV.gcAxis_0, GV.gcAxis_1 });
             print("axis 2,3 {},{}\n", .{ GV.gcAxis_2, GV.gcAxis_3 });
             print("axis 4,5 {},{}\n", .{ GV.gcAxis_4, GV.gcAxis_5 });
-            print("{b:0>14}\n", .{GV.gcButtons});
-            print("..|...|...|...\n", .{});
+            print("{b:0>15}\n", .{GV.gcButtons});
+            print("...|...|...|...\n", .{});
             print("\n", .{});
             //if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
             //    print("button down {}, {}\n", .{ ev.type, counter });
