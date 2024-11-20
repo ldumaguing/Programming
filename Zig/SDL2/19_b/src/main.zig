@@ -6,90 +6,20 @@ const SDL = @cImport({
 const std = @import("std");
 const print = @import("std").debug.print;
 const qPad = @import("gamepad.zig").query_gamepad;
-
-const Texture = struct {
-    w: i32,
-    h: i32,
-    t: *SDL.SDL_Texture,
-
-    pub fn newText(txt: [*c]const u8, textColor: SDL.SDL_Color) Texture {
-        const textSurface: *SDL.SDL_Surface = SDL.TTF_RenderText_Solid(GV.gFont, txt, textColor);
-        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, textSurface) orelse sdlPanic();
-        const w = textSurface.w;
-        const h = textSurface.h;
-        return Texture{
-            .w = w,
-            .h = h,
-            .t = t,
-        };
-    }
-
-    pub fn new(pngFile: [*c]const u8) Texture {
-        const pngSurface = SDL.IMG_Load(pngFile);
-        // *** define a color to be transparent.
-        //_ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
-        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse sdlPanic();
-        const w = pngSurface.*.w;
-        const h = pngSurface.*.h;
-        SDL.SDL_FreeSurface(pngSurface);
-        return Texture{
-            .w = w,
-            .h = h,
-            .t = t,
-        };
-    }
-
-    pub fn render(self: Texture, x: i32, y: i32, clip: ?*SDL.SDL_Rect, viewport: ?*SDL.SDL_Rect, angle: f64, center: ?*SDL.SDL_Point, flip: SDL.SDL_RendererFlip) void {
-        // default viewport
-        var default_viewport: SDL.SDL_Rect = undefined;
-        default_viewport.x = x;
-        default_viewport.y = y;
-        default_viewport.w = self.w;
-        default_viewport.h = self.h;
-
-        if (clip == null) {
-            if (viewport != null) {
-                default_viewport.w = viewport.?.w;
-                default_viewport.h = viewport.?.h;
-            }
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, null, &default_viewport, angle, center, flip);
-            return;
-        }
-
-        if (viewport == null) {
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, clip, &default_viewport, angle, center, flip);
-        } else {
-            default_viewport.w = viewport.?.w;
-            default_viewport.h = viewport.?.h;
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, clip, &default_viewport, angle, center, flip);
-        }
-    }
-
-    pub fn setColor(self: Texture, r: u8, g: u8, b: u8) void {
-        _ = SDL.SDL_SetTextureColorMod(self.t, r, g, b);
-    }
-
-    pub fn setBlendMode(self: Texture, blending: SDL.SDL_BlendMode) void {
-        _ = SDL.SDL_SetTextureBlendMode(self.t, blending);
-    }
-
-    pub fn setAlpha(self: Texture, alpha: u8) void {
-        _ = SDL.SDL_SetTextureAlphaMod(self.t, alpha);
-    }
-};
+const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
-    var window: *SDL.SDL_Window = undefined;
-    var renderer: *SDL.SDL_Renderer = undefined;
+    pub var window: *SDL.SDL_Window = undefined;
+    pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
     // var gArrowTexture: Texture = undefined;
-    var gTextTexture: Texture = undefined;
-    var gFont: *SDL.TTF_Font = undefined;
-    var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
-    var degrees: f64 = 0.0;
+    pub var gTextTexture: Texture = undefined;
+    pub var gFont: *SDL.TTF_Font = undefined;
+    pub var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
+    pub var degrees: f64 = 0.0;
     // ***
-    var gGameController: *SDL.SDL_Joystick = undefined;
+    pub var gGameController: *SDL.SDL_Joystick = undefined;
     pub var gcButtons: u32 = 0; // 12 bits
     pub var gcAxis_0: i32 = 0; // analog
     pub var gcAxis_1: i32 = 0;
@@ -101,7 +31,9 @@ pub const GV = struct { // Global Variables
 };
 
 pub const MB = struct { // Map board
-    const dim = [_]u32{ 6372, 4139 };
+    pub var img: Texture = undefined;
+    pub const dim = [_]u32{ 6372, 4139 };
+    pub var loc = [_]i32{ 0, 0 };
 };
 
 pub const Inputs = struct {
@@ -117,7 +49,7 @@ pub const Inputs = struct {
     }
 };
 
-const SCREEN_DIM = [_]i32{ 816, 480 };
+const SCREEN_DIM = [_]i32{ 640, 480 };
 
 // **************************************************************************************
 fn init() void {
@@ -161,6 +93,7 @@ pub fn main() !void {
 
     // ********** load PNGs and convert to texture
     // GV.gArrowTexture = Texture.new("arrow.png");
+    MB.img = Texture.new("img/Map.jpg");
 
     // ********** create text
     GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();
@@ -249,6 +182,7 @@ pub fn main() !void {
         // *************** render phase
         // GV.gArrowTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
         GV.gTextTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
+        MB.img.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
@@ -256,7 +190,7 @@ pub fn main() !void {
 }
 
 // ***********************************************************************************
-fn sdlPanic() noreturn {
+pub fn sdlPanic() noreturn {
     const str = @as(?[*:0]const u8, SDL.SDL_GetError()) orelse "unknown error";
     @panic(std.mem.sliceTo(str, 0));
 }
