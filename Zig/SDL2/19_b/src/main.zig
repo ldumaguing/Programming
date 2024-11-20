@@ -13,7 +13,6 @@ pub const GV = struct { // Global Variables
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
-    pub var gArrowTexture: Texture = undefined;
     pub var gTextTexture: Texture = undefined;
     pub var gFont: *SDL.TTF_Font = undefined;
     pub var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
@@ -32,6 +31,7 @@ pub const GV = struct { // Global Variables
 
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
+    pub var arrow: Texture = undefined;
     pub const dim = [_]u32{ 6372, 4139 };
     pub var loc = [_]i32{ -200, -200 };
 };
@@ -92,16 +92,16 @@ pub fn main() !void {
     init();
 
     // ********** load PNGs and convert to texture
-    GV.gArrowTexture = Texture.new("img/MY_arrow.png");
+    MB.arrow = Texture.new("img/MY_arrow.png");
     MB.img = Texture.new("img/Map.jpg");
 
     // ********** create text
-    GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();
-    var textColor: SDL.SDL_Color = undefined;
-    textColor.r = 0;
-    textColor.g = 0;
-    textColor.b = 0;
-    GV.gTextTexture = Texture.newText("bla bla bla", textColor);
+    //GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();
+    //var textColor: SDL.SDL_Color = undefined;
+    //textColor.r = 0;
+    //textColor.g = 0;
+    //textColor.b = 0;
+    //GV.gTextTexture = Texture.newText("bla bla bla", textColor);
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
@@ -181,9 +181,10 @@ pub fn main() !void {
 
         // *************** render phase
         // GV.gArrowTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
-        GV.gTextTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
+        // GV.gTextTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
         MB.img.render(MB.loc[0], MB.loc[1], null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-        GV.gArrowTexture.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+        // GV.gArrowTexture.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+        MB.arrow.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
