@@ -100,6 +100,10 @@ pub const GV = struct { // Global Variables
     pub var gcHat: u8 = 0; // 4 "bits"
 };
 
+pub const MB = struct { // Map board
+    const dim = [_]u32{ 6372, 4139 };
+};
+
 pub const Inputs = struct {
     pub fn showStats() void {
         print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
