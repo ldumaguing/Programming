@@ -10,7 +10,7 @@ const print = @import("std").debug.print;
 const mb = @import("main.zig").MB; // map board
 const gv = @import("main.zig").GV; // global variable
 
-pub fn foo() void {
+pub fn update() void {
     switch (gv.gcHat) {
         1 => mb.arrow.y -= 1,
         2 => mb.arrow.x += 1,
@@ -34,4 +34,8 @@ pub fn foo() void {
         },
         else => {},
     }
+    if (mb.arrow.x < 0) mb.arrow.x = 0;
+    if (mb.arrow.y < 0) mb.arrow.y = 0;
+    if (mb.arrow.x > gv.SCREEN_DIM[0] - 5) mb.arrow.x = gv.SCREEN_DIM[0] - 5;
+    if (mb.arrow.y > gv.SCREEN_DIM[1] - 5) mb.arrow.y = gv.SCREEN_DIM[1] - 5;
 }

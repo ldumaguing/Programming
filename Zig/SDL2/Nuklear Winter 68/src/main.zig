@@ -11,6 +11,7 @@ const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
+    pub const SCREEN_DIM = [_]i32{ 640, 480 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -34,7 +35,7 @@ pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
     pub const dim = [_]u32{ 6372, 4139 };
-    pub var loc = [_]i32{ -200, -200 };
+    pub var loc = [_]i32{ 0, 0 };
 };
 
 pub const Inputs = struct {
@@ -50,8 +51,6 @@ pub const Inputs = struct {
     }
 };
 
-const SCREEN_DIM = [_]i32{ 640, 480 };
-
 // **************************************************************************************
 fn init() void {
     // ********** init SDL
@@ -66,8 +65,8 @@ fn init() void {
         "19",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
-        SCREEN_DIM[0],
-        SCREEN_DIM[1],
+        GV.SCREEN_DIM[0],
+        GV.SCREEN_DIM[1],
         SDL.SDL_WINDOW_SHOWN, // | SDL.SDL_WINDOW_FULLSCREEN,
     ) orelse sdlPanic();
 
@@ -177,7 +176,7 @@ pub fn main() !void {
             // Inputs.showStats();
 
         }
-        game.foo();
+        game.update();
         // ********** clear screen
         _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
         _ = SDL.SDL_RenderClear(GV.renderer);
