@@ -1,0 +1,37 @@
+// ***
+const SDL = @cImport({
+    @cInclude("SDL2/SDL.h");
+    @cInclude("SDL2/SDL_image.h");
+    @cInclude("SDL2/SDL_ttf.h");
+});
+const std = @import("std");
+const print = @import("std").debug.print;
+
+const mb = @import("main.zig").MB; // map board
+const gv = @import("main.zig").GV; // global variable
+
+pub fn foo() void {
+    switch (gv.gcHat) {
+        1 => mb.arrow.y -= 1,
+        2 => mb.arrow.x += 1,
+        4 => mb.arrow.y += 1,
+        8 => mb.arrow.x -= 1,
+        3 => {
+            mb.arrow.y -= 1;
+            mb.arrow.x += 1;
+        },
+        6 => {
+            mb.arrow.x += 1;
+            mb.arrow.y += 1;
+        },
+        12 => {
+            mb.arrow.x -= 1;
+            mb.arrow.y += 1;
+        },
+        9 => {
+            mb.arrow.y -= 1;
+            mb.arrow.x -= 1;
+        },
+        else => {},
+    }
+}
