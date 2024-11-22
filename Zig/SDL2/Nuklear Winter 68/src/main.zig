@@ -6,8 +6,9 @@ const SDL = @cImport({
 });
 const std = @import("std");
 const print = @import("std").debug.print;
-const qPad = @import("gamepad.zig").query_gamepad;
-const game = @import("game.zig");
+const phPad = @import("PHASE_gamepad.zig").query_gamepad;
+const phGame = @import("PHASE_game.zig");
+const phRender = @import("PHASE_render.zig");
 const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
@@ -35,7 +36,6 @@ pub const GV = struct { // Global Variables
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
-    // pub const dim = [_]u32{ 6372, 4139 };
 };
 
 pub const Inputs = struct {
@@ -171,26 +171,18 @@ pub fn main() !void {
             }
 
             // ********** Gamepad
-            qPad(ev);
+            phPad(ev);
 
             // Inputs.showStats();
 
         }
-        game.update();
-        // ********** clear screen
-        _ = SDL.SDL_SetRenderDrawColor(GV.renderer, 0xFF, 0x0, 0xFF, 0xFF);
-        _ = SDL.SDL_RenderClear(GV.renderer);
 
-        // *************** render phase
-        // GV.gArrowTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
-        // GV.gTextTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
-        MB.img.render(MB.img.x, MB.img.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-        // GV.gArrowTexture.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-        MB.arrow.render(MB.arrow.x, MB.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+        phGame.update();
+        phRender.render();
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
-        // SDL.SDL_Delay(5);
+        SDL.SDL_Delay(5);
     }
 }
 
