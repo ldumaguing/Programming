@@ -1,4 +1,4 @@
-// ***
+// ***** PHASE_game.zig
 const SDL = @cImport({
     @cInclude("SDL2/SDL.h");
     @cInclude("SDL2/SDL_image.h");
@@ -9,6 +9,7 @@ const print = @import("std").debug.print;
 
 const mb = @import("main.zig").MB; // map board
 const gv = @import("main.zig").GV; // global variable
+const inputs = @import("main.zig").Inputs;
 
 pub fn update() void {
     switch (gv.gcHat) {
@@ -56,4 +57,8 @@ pub fn update() void {
     const max_y: i32 = gv.SCREEN_DIM[1] - mb.img.h;
     if (max_x > mb.img.x) mb.img.x = max_x;
     if (max_y > mb.img.y) mb.img.y = max_y;
+
+    // ***** scaling
+    if (inputs.shoulder_r) mb.scale += 0.1;
+    if (inputs.shoulder_l) mb.scale -= 0.1;
 }

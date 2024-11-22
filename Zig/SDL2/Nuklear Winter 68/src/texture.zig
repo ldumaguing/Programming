@@ -6,8 +6,8 @@ const SDL = @cImport({
 });
 const std = @import("std");
 const print = @import("std").debug.print;
-const GV = @import("main.zig").GV;
-const M = @import("main.zig");
+const gv = @import("main.zig").GV;
+const m = @import("main.zig");
 
 pub const Texture = struct {
     w: i32,
@@ -17,8 +17,8 @@ pub const Texture = struct {
     t: *SDL.SDL_Texture,
 
     pub fn newText(txt: [*c]const u8, textColor: SDL.SDL_Color) Texture {
-        const textSurface: *SDL.SDL_Surface = SDL.TTF_RenderText_Solid(GV.gFont, txt, textColor);
-        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, textSurface) orelse M.sdlPanic();
+        const textSurface: *SDL.SDL_Surface = SDL.TTF_RenderText_Solid(gv.gFont, txt, textColor);
+        const t = SDL.SDL_CreateTextureFromSurface(gv.renderer, textSurface) orelse m.sdlPanic();
         const w = textSurface.w;
         const h = textSurface.h;
         return Texture{
@@ -32,7 +32,7 @@ pub const Texture = struct {
         const pngSurface = SDL.IMG_Load(pngFile);
         // *** define a color to be transparent.
         //_ = SDL.SDL_SetColorKey(pngSurface, SDL.SDL_TRUE, SDL.SDL_MapRGB(pngSurface.*.format, 0, 0xff, 0xff));
-        const t = SDL.SDL_CreateTextureFromSurface(GV.renderer, pngSurface) orelse M.sdlPanic();
+        const t = SDL.SDL_CreateTextureFromSurface(gv.renderer, pngSurface) orelse m.sdlPanic();
         const w = pngSurface.*.w;
         const h = pngSurface.*.h;
         SDL.SDL_FreeSurface(pngSurface);
@@ -58,16 +58,16 @@ pub const Texture = struct {
                 default_viewport.w = viewport.?.w;
                 default_viewport.h = viewport.?.h;
             }
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, null, &default_viewport, angle, center, flip);
+            _ = SDL.SDL_RenderCopyEx(gv.renderer, self.t, null, &default_viewport, angle, center, flip);
             return;
         }
 
         if (viewport == null) {
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, clip, &default_viewport, angle, center, flip);
+            _ = SDL.SDL_RenderCopyEx(gv.renderer, self.t, clip, &default_viewport, angle, center, flip);
         } else {
             default_viewport.w = viewport.?.w;
             default_viewport.h = viewport.?.h;
-            _ = SDL.SDL_RenderCopyEx(GV.renderer, self.t, clip, &default_viewport, angle, center, flip);
+            _ = SDL.SDL_RenderCopyEx(gv.renderer, self.t, clip, &default_viewport, angle, center, flip);
         }
     }
 

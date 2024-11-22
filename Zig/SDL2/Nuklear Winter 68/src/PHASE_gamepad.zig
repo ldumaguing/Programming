@@ -1,4 +1,4 @@
-// ***** gamepad.zi
+// ***** gamepad.zig
 const std = @import("std");
 const print = @import("std").debug.print;
 const SDL = @cImport({
@@ -7,69 +7,84 @@ const SDL = @cImport({
     @cInclude("SDL2/SDL_ttf.h");
 });
 
-const GV = @import("main.zig").GV;
+const gv = @import("main.zig").GV;
+const inputs = @import("main.zig").Inputs;
 
 pub fn query_gamepad(ev: SDL.SDL_Event) void {
     if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
         // print("......{}\n", .{ev.jbutton.button});
         _ = switch (ev.jbutton.button) {
-            0 => GV.gcButtons |= (1 << 0),
-            1 => GV.gcButtons |= (1 << 1),
-            2 => GV.gcButtons |= (1 << 2),
-            3 => GV.gcButtons |= (1 << 3),
-            4 => GV.gcButtons |= (1 << 4),
-            5 => GV.gcButtons |= (1 << 5),
-            6 => GV.gcButtons |= (1 << 6),
-            7 => GV.gcButtons |= (1 << 7),
-            8 => GV.gcButtons |= (1 << 8),
-            9 => GV.gcButtons |= (1 << 9),
-            10 => GV.gcButtons |= (1 << 10),
-            11 => GV.gcButtons |= (1 << 11),
-            12 => GV.gcButtons |= (1 << 12),
-            13 => GV.gcButtons |= (1 << 13),
-            14 => GV.gcButtons |= (1 << 14),
+            0 => gv.gcButtons |= (1 << 0),
+            1 => gv.gcButtons |= (1 << 1),
+            2 => gv.gcButtons |= (1 << 2),
+            3 => gv.gcButtons |= (1 << 3),
+            4 => gv.gcButtons |= (1 << 4),
+            5 => gv.gcButtons |= (1 << 5),
+            6 => gv.gcButtons |= (1 << 6),
+            7 => gv.gcButtons |= (1 << 7),
+            8 => gv.gcButtons |= (1 << 8),
+            9 => gv.gcButtons |= (1 << 9),
+            10 => gv.gcButtons |= (1 << 10),
+            11 => gv.gcButtons |= (1 << 11),
+            12 => gv.gcButtons |= (1 << 12),
+            13 => gv.gcButtons |= (1 << 13),
+            14 => gv.gcButtons |= (1 << 14),
             else => {},
         };
     }
     if (ev.type == SDL.SDL_JOYBUTTONUP) {
         _ = switch (ev.jbutton.button) {
-            0 => GV.gcButtons ^= (1 << 0),
-            1 => GV.gcButtons ^= (1 << 1),
-            2 => GV.gcButtons ^= (1 << 2),
-            3 => GV.gcButtons ^= (1 << 3),
-            4 => GV.gcButtons ^= (1 << 4),
-            5 => GV.gcButtons ^= (1 << 5),
-            6 => GV.gcButtons ^= (1 << 6),
-            7 => GV.gcButtons ^= (1 << 7),
-            8 => GV.gcButtons ^= (1 << 8),
-            9 => GV.gcButtons ^= (1 << 9),
-            10 => GV.gcButtons ^= (1 << 10),
-            11 => GV.gcButtons ^= (1 << 11),
-            12 => GV.gcButtons ^= (1 << 12),
-            13 => GV.gcButtons ^= (1 << 13),
-            14 => GV.gcButtons ^= (1 << 14),
+            0 => gv.gcButtons ^= (1 << 0),
+            1 => gv.gcButtons ^= (1 << 1),
+            2 => gv.gcButtons ^= (1 << 2),
+            3 => gv.gcButtons ^= (1 << 3),
+            4 => gv.gcButtons ^= (1 << 4),
+            5 => gv.gcButtons ^= (1 << 5),
+            6 => gv.gcButtons ^= (1 << 6),
+            7 => gv.gcButtons ^= (1 << 7),
+            8 => gv.gcButtons ^= (1 << 8),
+            9 => gv.gcButtons ^= (1 << 9),
+            10 => gv.gcButtons ^= (1 << 10),
+            11 => gv.gcButtons ^= (1 << 11),
+            12 => gv.gcButtons ^= (1 << 12),
+            13 => gv.gcButtons ^= (1 << 13),
+            14 => gv.gcButtons ^= (1 << 14),
             else => {},
         };
     }
 
     if (ev.type == SDL.SDL_JOYAXISMOTION) {
         _ = switch (ev.jaxis.axis) {
-            0 => GV.gcAxis_0 = ev.jaxis.value,
-            1 => GV.gcAxis_1 = ev.jaxis.value,
-            2 => GV.gcAxis_2 = ev.jaxis.value,
-            3 => GV.gcAxis_3 = ev.jaxis.value,
-            4 => GV.gcAxis_4 = ev.jaxis.value,
-            5 => GV.gcAxis_5 = ev.jaxis.value,
+            0 => gv.gcAxis_0 = ev.jaxis.value,
+            1 => gv.gcAxis_1 = ev.jaxis.value,
+            2 => gv.gcAxis_2 = ev.jaxis.value,
+            3 => gv.gcAxis_3 = ev.jaxis.value,
+            4 => gv.gcAxis_4 = ev.jaxis.value,
+            5 => gv.gcAxis_5 = ev.jaxis.value,
             else => {},
         };
     }
     //print("............. {}\n", .{ev.type});
     if (ev.type == SDL.SDL_JOYHATMOTION) {
         // print("bo {}\n", .{ev.jhat.value});
-        GV.gcHat = ev.jhat.value;
+        gv.gcHat = ev.jhat.value;
         //_ = switch (ev.jhat.value) {
-        //    1...12 => GV.gcHat = ev.jhat.value,
-        //    else => GV.gcHat = 0,
+        //    1...12 => gv.gcHat = ev.jhat.value,
+        //    else => gv.gcHat = 0,
         //};
     }
+    reasign_buttons();
+}
+
+// **************************************************************************************
+fn reasign_buttons() void {
+    // ***** F710 and F310
+    inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
+    inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
+}
+
+pub fn toggle_buttons() void {
+    // print("{},{}\n", .{ inputs.shoulder_r, inputs.shoulder_l });
+    inputs.shoulder_r = false;
+    inputs.shoulder_l = false;
 }

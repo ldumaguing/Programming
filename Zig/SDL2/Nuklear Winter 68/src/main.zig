@@ -6,7 +6,7 @@ const SDL = @cImport({
 });
 const std = @import("std");
 const print = @import("std").debug.print;
-const phPad = @import("PHASE_gamepad.zig").query_gamepad;
+const phPad = @import("PHASE_gamepad.zig");
 const phGame = @import("PHASE_game.zig");
 const phRender = @import("PHASE_render.zig");
 const Texture = @import("texture.zig").Texture;
@@ -36,9 +36,13 @@ pub const GV = struct { // Global Variables
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
+    pub var scale: f64 = 1.0;
 };
 
 pub const Inputs = struct {
+    pub var shoulder_r: bool = false;
+    pub var shoulder_l: bool = false;
+
     pub fn showStats() void {
         print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
         print("hat      {}\n", .{GV.gcHat});
@@ -171,7 +175,7 @@ pub fn main() !void {
             }
 
             // ********** Gamepad
-            phPad(ev);
+            phPad.query_gamepad(ev);
 
             // Inputs.showStats();
 
@@ -179,10 +183,13 @@ pub fn main() !void {
 
         phGame.update();
         phRender.render();
+        phPad.toggle_buttons();
+
+        print("scale: {}\n", .{MB.scale});
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
-        SDL.SDL_Delay(5);
+        SDL.SDL_Delay(20);
     }
 }
 
