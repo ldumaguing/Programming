@@ -1,3 +1,4 @@
+// ***** main.zig
 const SDL = @cImport({
     @cInclude("SDL2/SDL.h");
     @cInclude("SDL2/SDL_image.h");
@@ -34,8 +35,7 @@ pub const GV = struct { // Global Variables
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
-    pub const dim = [_]u32{ 6372, 4139 };
-    pub var loc = [_]i32{ 0, 0 };
+    // pub const dim = [_]u32{ 6372, 4139 };
 };
 
 pub const Inputs = struct {
@@ -62,7 +62,7 @@ fn init() void {
 
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
-        "19",
+        "Nuklear Winter '68",
         SDL.SDL_WINDOWPOS_UNDEFINED,
         SDL.SDL_WINDOWPOS_UNDEFINED,
         GV.SCREEN_DIM[0],
@@ -184,13 +184,13 @@ pub fn main() !void {
         // *************** render phase
         // GV.gArrowTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
         // GV.gTextTexture.render(100, 100, null, null, GV.degrees, null, GV.flipType);
-        MB.img.render(MB.loc[0], MB.loc[1], null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+        MB.img.render(MB.img.x, MB.img.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
         // GV.gArrowTexture.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
         MB.arrow.render(MB.arrow.x, MB.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
-        SDL.SDL_Delay(10);
+        // SDL.SDL_Delay(5);
     }
 }
 
