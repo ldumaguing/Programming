@@ -18,8 +18,8 @@ pub fn render() void {
     var viewport: SDL.SDL_Rect = undefined;
     viewport.x = 0;
     viewport.y = 0;
-    viewport.w = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * 0.5);
-    viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * 0.5);
+    viewport.w = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
+    viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     mb.img.render(mb.img.x, mb.img.y, null, &viewport, 0.0, null, SDL.SDL_FLIP_NONE);
 
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
