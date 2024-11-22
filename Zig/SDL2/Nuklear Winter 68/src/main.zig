@@ -189,7 +189,7 @@ pub fn main() !void {
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
-        SDL.SDL_Delay(20);
+        SDL.SDL_Delay(5);
     }
 }
 

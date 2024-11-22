@@ -61,4 +61,5 @@ pub fn update() void {
     // ***** scaling
     if (inputs.shoulder_r) mb.scale += 0.1;
     if (inputs.shoulder_l) mb.scale -= 0.1;
+    if (mb.scale < 0.1) mb.scale = 0.1;
 }
