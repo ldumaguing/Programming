@@ -41,9 +41,15 @@ pub fn update() void {
     if (inputs.shoulder_l) mb.scale -= 0.1;
     if (mb.scale < 0.1) mb.scale = 0.1;
 
-    const scaled_X: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
-    print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_X });
-    if (gv.SCREEN_DIM[0] > scaled_X) mb.scale += 0.1;
+    var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
+    var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
+
+    // print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_X });
+    if (gv.SCREEN_DIM[0] > scaled_W) {
+        mb.scale += 0.1;
+        scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
+        scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
+    }
 
     // ***** arrow
     if (mb.arrow.x < 0) {
@@ -64,8 +70,8 @@ pub fn update() void {
     }
     if (mb.img.x > 0) mb.img.x = 0;
     if (mb.img.y > 0) mb.img.y = 0;
-    const max_x: i32 = gv.SCREEN_DIM[0] - mb.img.w;
-    const max_y: i32 = gv.SCREEN_DIM[1] - mb.img.h;
-    if (max_x > mb.img.x) mb.img.x = max_x;
-    if (max_y > mb.img.y) mb.img.y = max_y;
+    const max_w: i32 = gv.SCREEN_DIM[0] - scaled_W;
+    const max_h: i32 = gv.SCREEN_DIM[1] - scaled_H;
+    if (max_w > mb.img.x) mb.img.x = max_w;
+    if (max_h > mb.img.y) mb.img.y = max_h;
 }
