@@ -13,7 +13,7 @@ const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
-    pub const SCREEN_DIM = [_]i32{ 640, 480 };
+    pub const SCREEN_DIM = [_]i32{ 800, 600 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -36,7 +36,7 @@ pub const GV = struct { // Global Variables
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
-    pub var scale: f64 = 1.0;
+    pub var scale: f32 = 1.0;
 };
 
 pub const Inputs = struct {
@@ -185,7 +185,7 @@ pub fn main() !void {
         phRender.render();
         phPad.toggle_buttons();
 
-        print("scale: {}\n", .{MB.scale});
+        // print("scale: {}\n", .{MB.scale});
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);

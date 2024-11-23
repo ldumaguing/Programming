@@ -35,6 +35,17 @@ pub fn update() void {
         },
         else => {},
     }
+
+    // ***** scaling
+    if (inputs.shoulder_r) mb.scale += 0.1;
+    if (inputs.shoulder_l) mb.scale -= 0.1;
+    if (mb.scale < 0.1) mb.scale = 0.1;
+
+    const scaled_X: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
+    print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_X });
+    if (gv.SCREEN_DIM[0] > scaled_X) mb.scale += 0.1;
+
+    // ***** arrow
     if (mb.arrow.x < 0) {
         mb.arrow.x = 0;
         mb.img.x += 1;
@@ -57,9 +68,4 @@ pub fn update() void {
     const max_y: i32 = gv.SCREEN_DIM[1] - mb.img.h;
     if (max_x > mb.img.x) mb.img.x = max_x;
     if (max_y > mb.img.y) mb.img.y = max_y;
-
-    // ***** scaling
-    if (inputs.shoulder_r) mb.scale += 0.1;
-    if (inputs.shoulder_l) mb.scale -= 0.1;
-    if (mb.scale < 0.1) mb.scale = 0.1;
 }
