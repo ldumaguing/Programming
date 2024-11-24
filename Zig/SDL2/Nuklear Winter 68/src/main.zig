@@ -13,7 +13,9 @@ const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
+    // pub const SCREEN_DIM = [_]i32{ 640, 480 };
     pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    // pub const SCREEN_DIM = [_]i32{ 1024, 768 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -189,7 +191,7 @@ pub fn main() !void {
 
         // *************** present renderer
         SDL.SDL_RenderPresent(GV.renderer);
-        SDL.SDL_Delay(5);
+        SDL.SDL_Delay(10);
     }
 }
 
