@@ -44,12 +44,12 @@ pub fn update() void {
     var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
     var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
 
-    // print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_X });
     if (gv.SCREEN_DIM[0] > scaled_W) {
         mb.scale += 0.1;
         scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
         scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     }
+    print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_W });
 
     // ***** arrow
     if (mb.arrow.x < 0) {
