@@ -44,6 +44,8 @@ pub fn update() void {
     }
 
     const before_scale = mb.scale;
+    const before_arrow_x = mb.arrow.x;
+    const before_arrow_y = mb.arrow.y;
     // ***** scaling
     if (inputs.shoulder_r) mb.scale += 0.1;
     if (inputs.shoulder_l) mb.scale -= 0.1;
@@ -52,7 +54,7 @@ pub fn update() void {
     var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
     var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
 
-    if (gv.SCREEN_DIM[0] > scaled_W) {
+    if (gv.SCREEN_DIM[0] > scaled_W) { // prevent shrinking map too much
         mb.scale += 0.1;
         scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
         scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
@@ -61,6 +63,15 @@ pub fn update() void {
     // ********************* test
     if (before_scale > mb.scale) {
         print("shrinking\n", .{});
+        print("cursor: ({},{})\n", .{ mb.arrow.x, mb.arrow.y });
+        print("map loc: ({},{})\n", .{ mb.img.x, mb.img.y });
+        print("arrow loc: ({},{})\n", .{ before_arrow_x, before_arrow_y });
+        const arrow_loc_rel_map_x: i32 = before_arrow_x - mb.img.x;
+        const arrow_loc_rel_map_y: i32 = before_arrow_y - mb.img.y;
+        print("rel arrow: ({},{})\n", .{ arrow_loc_rel_map_x, arrow_loc_rel_map_y });
+        const shrink_arrow_loc_rel_map_x: i32 = @intFromFloat(@as(f32, @floatFromInt(arrow_loc_rel_map_x)) * mb.scale);
+        const shrink_arrow_loc_rel_map_y: i32 = @intFromFloat(@as(f32, @floatFromInt(arrow_loc_rel_map_y)) * mb.scale);
+        print("shrink rel arrow: ({},{})\n", .{ shrink_arrow_loc_rel_map_x, shrink_arrow_loc_rel_map_y });
     }
     if (before_scale < mb.scale) {
         print("enlarging\n", .{});
