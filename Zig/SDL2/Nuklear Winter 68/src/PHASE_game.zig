@@ -11,35 +11,43 @@ const mb = @import("main.zig").MB; // map board
 const gv = @import("main.zig").GV; // global variable
 const inputs = @import("main.zig").Inputs;
 
+var cursorSpeed: i32 = 0;
+
 pub fn update() void {
+    if (inputs.btn_B) {
+        cursorSpeed = 1;
+    } else {
+        cursorSpeed = 10;
+    }
     switch (gv.gcHat) {
-        1 => mb.arrow.y -= 1,
-        2 => mb.arrow.x += 1,
-        4 => mb.arrow.y += 1,
-        8 => mb.arrow.x -= 1,
+        1 => mb.arrow.y -= cursorSpeed,
+        2 => mb.arrow.x += cursorSpeed,
+        4 => mb.arrow.y += cursorSpeed,
+        8 => mb.arrow.x -= cursorSpeed,
         3 => {
-            mb.arrow.y -= 1;
-            mb.arrow.x += 1;
+            mb.arrow.y -= cursorSpeed;
+            mb.arrow.x += cursorSpeed;
         },
         6 => {
-            mb.arrow.x += 1;
-            mb.arrow.y += 1;
+            mb.arrow.x += cursorSpeed;
+            mb.arrow.y += cursorSpeed;
         },
         12 => {
-            mb.arrow.x -= 1;
-            mb.arrow.y += 1;
+            mb.arrow.x -= cursorSpeed;
+            mb.arrow.y += cursorSpeed;
         },
         9 => {
-            mb.arrow.y -= 1;
-            mb.arrow.x -= 1;
+            mb.arrow.y -= cursorSpeed;
+            mb.arrow.x -= cursorSpeed;
         },
         else => {},
     }
 
+    const before_scale = mb.scale;
     // ***** scaling
     if (inputs.shoulder_r) mb.scale += 0.1;
     if (inputs.shoulder_l) mb.scale -= 0.1;
-    if (mb.scale < 0.1) mb.scale = 0.1;
+    if (mb.scale < 0.1) mb.scale = 0.1; // limiting zoom out
 
     var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
     var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
@@ -49,25 +57,34 @@ pub fn update() void {
         scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
         scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     }
-    print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_W });
+    // print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_W });
+    // ********************* test
+    if (before_scale > mb.scale) {
+        print("shrinking\n", .{});
+    }
+    if (before_scale < mb.scale) {
+        print("enlarging\n", .{});
+    }
 
     // ***** arrow
     if (mb.arrow.x < 0) {
         mb.arrow.x = 0;
-        mb.img.x += 1;
+        mb.img.x += cursorSpeed;
     }
     if (mb.arrow.y < 0) {
         mb.arrow.y = 0;
-        mb.img.y += 1;
+        mb.img.y += cursorSpeed;
     }
     if (mb.arrow.x > gv.SCREEN_DIM[0] - 5) {
         mb.arrow.x = gv.SCREEN_DIM[0] - 5;
-        mb.img.x -= 1;
+        mb.img.x -= cursorSpeed;
     }
     if (mb.arrow.y > gv.SCREEN_DIM[1] - 5) {
         mb.arrow.y = gv.SCREEN_DIM[1] - 5;
-        mb.img.y -= 1;
+        mb.img.y -= cursorSpeed;
     }
+
+    // ***** corrections
     if (mb.img.x > 0) mb.img.x = 0;
     if (mb.img.y > 0) mb.img.y = 0;
     const max_w: i32 = gv.SCREEN_DIM[0] - scaled_W;

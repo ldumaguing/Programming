@@ -81,6 +81,7 @@ fn reasign_buttons() void {
     // ***** F710 and F310
     inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
     inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
+    inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
 }
 
 pub fn toggle_buttons() void {

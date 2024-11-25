@@ -14,9 +14,7 @@ const Texture = @import("texture.zig").Texture;
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
-    // pub const SCREEN_DIM = [_]i32{ 800, 600 };
-    // pub const SCREEN_DIM = [_]i32{ 1024, 768 };
-    pub const SCREEN_DIM = [_]i32{ 1000, 600 }; // 600 * 1.66666
+    pub const SCREEN_DIM = [_]i32{ 800, 600 };
     // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
@@ -46,6 +44,7 @@ pub const MB = struct { // Map board
 pub const Inputs = struct {
     pub var shoulder_r: bool = false;
     pub var shoulder_l: bool = false;
+    pub var btn_B: bool = false;
 
     pub fn showStats() void {
         print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
