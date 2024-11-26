@@ -14,8 +14,9 @@ const Texture = @import("texture.zig").Texture;
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
-    pub const SCREEN_DIM = [_]i32{ 800, 600 };
-    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    // pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
+    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -35,10 +36,14 @@ pub const GV = struct { // Global Variables
     pub var gcHat: u8 = 0; // 4 "bits"
 };
 
+const ArrayList = std.ArrayList;
+const allocator = std.heap.page_allocator;
+
 pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
     pub var scale: f32 = 1.0;
+    pub var list: std.ArrayListAligned(Texture, null) = undefined;
 };
 
 pub const Inputs = struct {
@@ -98,6 +103,10 @@ fn init() void {
 // **************************************************************************************
 pub fn main() !void {
     init();
+
+    MB.list = ArrayList(Texture).init(allocator);
+    defer MB.list.deinit();
+    try MB.list.append(Texture.new("resource/Vassal/NW68/A6 front.png"));
 
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");
