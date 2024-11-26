@@ -44,15 +44,16 @@ pub fn update() void {
     }
 
     // ***** scaling
-    if (inputs.shoulder_r) mb.scale += 0.1;
-    if (inputs.shoulder_l) mb.scale -= 0.1;
-    if (mb.scale < 0.1) mb.scale = 0.1; // limiting zoom out
+    if (inputs.shoulder_r) mb.scale += 0.05;
+    if (inputs.shoulder_l) mb.scale -= 0.05;
+    if (mb.scale < 0.05) mb.scale = 0.05; // limiting zoom out
+    if (inputs.reset_zoom) mb.scale = 1.0;
 
     var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
     var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
 
     if (gv.SCREEN_DIM[0] > scaled_W) { // prevent shrinking map too much
-        mb.scale += 0.1;
+        mb.scale += 0.05;
         scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
         scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     }

@@ -12,7 +12,7 @@ const inputs = @import("main.zig").Inputs;
 
 pub fn query_gamepad(ev: SDL.SDL_Event) void {
     if (ev.type == SDL.SDL_JOYBUTTONDOWN) {
-        // print("......{}\n", .{ev.jbutton.button});
+        print("......{}\n", .{ev.jbutton.button});
         _ = switch (ev.jbutton.button) {
             0 => gv.gcButtons |= (1 << 0),
             1 => gv.gcButtons |= (1 << 1),
@@ -78,17 +78,23 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
 
 // **************************************************************************************
 fn reasign_buttons() void {
-    // ***** F710 and F310
+    // ************************************************
+    // ***** Logitech Gamepad F310 (X mode)
+    // *****Logitech Gamepad F710 (X mode)
     inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
     inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
-    inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
+    // inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
 
+    // ************************************************
     // ***** ZEROPLUS GAMEPAD4-WIRED
-    // inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
+    // ***** Logitech RumblePad 2 USB
+    inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
+    inputs.reset_zoom = (gv.gcButtons & (1 << 8)) != 0;
 }
 
 pub fn toggle_buttons() void {
     // print("{},{}\n", .{ inputs.shoulder_r, inputs.shoulder_l });
+    inputs.reset_zoom = false;
     inputs.shoulder_r = false;
     inputs.shoulder_l = false;
 }

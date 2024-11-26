@@ -45,6 +45,7 @@ pub const Inputs = struct {
     pub var shoulder_r: bool = false;
     pub var shoulder_l: bool = false;
     pub var btn_B: bool = false;
+    pub var reset_zoom: bool = false;
 
     pub fn showStats() void {
         print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
