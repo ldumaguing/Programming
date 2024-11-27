@@ -14,9 +14,9 @@ const db = @import("database.zig");
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
-    pub var SCREEN_DIM: [2]i32 = undefined;
+    // pub var SCREEN_DIM: [2]i32 = undefined;
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
-    // pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    pub const SCREEN_DIM = [_]i32{ 800, 600 };
     // pub const SCREEN_DIM = [_]i32{ 256, 224 }; // standard SNES
     // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
     // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
@@ -31,7 +31,7 @@ pub const GV = struct { // Global Variables
     pub var degrees: f64 = 0.0;
     // ***
     pub var gGameController: *SDL.SDL_Joystick = undefined;
-    pub var gcButtons: u32 = 0; // 12 bits
+    pub var gcButtons: u32 = 0; // 15 bits
     pub var gcAxis_0: i32 = 0; // analog
     pub var gcAxis_1: i32 = 0;
     pub var gcAxis_2: i32 = 0;
@@ -56,6 +56,10 @@ pub const Inputs = struct {
     pub var shoulder_l: bool = false;
     pub var btn_B: bool = false;
     pub var reset_zoom: bool = false;
+    pub var Axis_Lx: i32 = 0;
+    pub var Axis_Ly: i32 = 0;
+    pub var Axis_Rx: i32 = 0;
+    pub var Axis_Ry: i32 = 0;
 
     pub fn showStats() void {
         print("{s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
@@ -81,8 +85,8 @@ fn init() void {
     var dm: SDL.SDL_DisplayMode = undefined;
     _ = SDL.SDL_GetDesktopDisplayMode(0, &dm);
     print("---- {},{}\n", .{ dm.w, dm.h });
-    GV.SCREEN_DIM[0] = dm.w;
-    GV.SCREEN_DIM[1] = dm.h;
+    //GV.SCREEN_DIM[0] = dm.w;
+    //GV.SCREEN_DIM[1] = dm.h;
 
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
@@ -91,7 +95,7 @@ fn init() void {
         SDL.SDL_WINDOWPOS_UNDEFINED,
         GV.SCREEN_DIM[0],
         GV.SCREEN_DIM[1],
-        SDL.SDL_WINDOW_SHOWN | SDL.SDL_WINDOW_FULLSCREEN,
+        SDL.SDL_WINDOW_SHOWN, // | SDL.SDL_WINDOW_FULLSCREEN,
     ) orelse sdlPanic();
 
     // ********** create renderer

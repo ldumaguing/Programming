@@ -77,6 +77,12 @@ pub fn update() void {
         mb.img.y -= cursorSpeed;
     }
 
+    // ***** Axis
+    if (inputs.Axis_Lx < -15000) mb.img.x += cursorSpeed;
+    if (inputs.Axis_Lx > 15000) mb.img.x -= cursorSpeed;
+    if (inputs.Axis_Ly < -15000) mb.img.y += cursorSpeed;
+    if (inputs.Axis_Ly > 15000) mb.img.y -= cursorSpeed;
+
     // ***** corrections
     if (mb.img.x > 0) mb.img.x = 0;
     if (mb.img.y > 0) mb.img.y = 0;
