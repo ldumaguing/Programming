@@ -83,14 +83,14 @@ fn reasign_buttons() void {
     // *****Logitech Gamepad F710 (X mode)
     inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
     inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
-    inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
-    inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
+    // inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
+    // inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
 
     // ************************************************
     // ***** ZEROPLUS GAMEPAD4-WIRED
     // ***** Logitech RumblePad 2 USB
-    // inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
-    // inputs.reset_zoom = (gv.gcButtons & (1 << 8)) != 0;
+    inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
+    inputs.reset_zoom = (gv.gcButtons & (1 << 8)) != 0;
 }
 
 pub fn toggle_buttons() void {
