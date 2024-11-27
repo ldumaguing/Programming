@@ -10,6 +10,7 @@ const phPad = @import("PHASE_gamepad.zig");
 const phGame = @import("PHASE_game.zig");
 const phRender = @import("PHASE_render.zig");
 const Texture = @import("texture.zig").Texture;
+const db = @import("database.zig");
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
@@ -47,7 +48,7 @@ pub const MB = struct { // Map board
     pub var img: Texture = undefined;
     pub var arrow: Texture = undefined;
     pub var scale: f32 = 1.0;
-    pub var list: std.ArrayListAligned(Texture, null) = undefined;
+    pub var unit_db: std.ArrayListAligned(Texture, null) = undefined;
 };
 
 pub const Inputs = struct {
@@ -114,9 +115,10 @@ fn init() void {
 pub fn main() !void {
     init();
 
-    MB.list = ArrayList(Texture).init(allocator);
-    defer MB.list.deinit();
-    try MB.list.append(Texture.new("resource/Vassal/NW68/A6 front.png"));
+    // ********** load unit PNGs
+    MB.unit_db = ArrayList(Texture).init(allocator);
+    defer MB.unit_db.deinit();
+    try db.populate_db();
 
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");

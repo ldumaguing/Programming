@@ -22,6 +22,6 @@ pub fn render() void {
     viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     mb.img.render(mb.img.x, mb.img.y, null, &viewport, 0.0, null, SDL.SDL_FLIP_NONE);
 
+    mb.unit_db.items[0].render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    mb.list.items[0].render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }
