@@ -82,6 +82,7 @@ fn init() void {
     print("---- {},{}\n", .{ dm.w, dm.h });
     GV.SCREEN_DIM[0] = dm.w;
     GV.SCREEN_DIM[1] = dm.h;
+
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
         "Nuklear Winter '68",
