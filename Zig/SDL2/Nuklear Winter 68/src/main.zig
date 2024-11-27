@@ -13,10 +13,14 @@ const Texture = @import("texture.zig").Texture;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
+    pub var SCREEN_DIM: [2]i32 = undefined;
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
     // pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    // pub const SCREEN_DIM = [_]i32{ 256, 224 }; // standard SNES
+    // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
+    // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
     // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
-    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -73,6 +77,11 @@ fn init() void {
     // ********** set texture filter to linear.
     _ = SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
+    var dm: SDL.SDL_DisplayMode = undefined;
+    _ = SDL.SDL_GetDesktopDisplayMode(0, &dm);
+    print("---- {},{}\n", .{ dm.w, dm.h });
+    GV.SCREEN_DIM[0] = dm.w;
+    GV.SCREEN_DIM[1] = dm.h;
     // ********** create window
     GV.window = SDL.SDL_CreateWindow(
         "Nuklear Winter '68",
@@ -80,7 +89,7 @@ fn init() void {
         SDL.SDL_WINDOWPOS_UNDEFINED,
         GV.SCREEN_DIM[0],
         GV.SCREEN_DIM[1],
-        SDL.SDL_WINDOW_SHOWN, // | SDL.SDL_WINDOW_FULLSCREEN,
+        SDL.SDL_WINDOW_SHOWN | SDL.SDL_WINDOW_FULLSCREEN,
     ) orelse sdlPanic();
 
     // ********** create renderer
