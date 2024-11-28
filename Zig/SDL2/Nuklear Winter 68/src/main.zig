@@ -11,6 +11,7 @@ const phGame = @import("PHASE_game.zig");
 const phRender = @import("PHASE_render.zig");
 const Texture = @import("texture.zig").Texture;
 const db = @import("database.zig");
+const Unit = @import("database.zig").Unit;
 
 pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
@@ -49,6 +50,7 @@ pub const MB = struct { // Map board
     pub var arrow: Texture = undefined;
     pub var scale: f32 = 1.0;
     pub var image_db: std.ArrayListAligned(Texture, null) = undefined;
+    pub var unit_db: std.ArrayListAligned(Unit, null) = undefined;
 };
 
 pub const Inputs = struct {
