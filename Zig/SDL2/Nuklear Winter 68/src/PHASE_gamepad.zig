@@ -78,30 +78,30 @@ pub fn query_gamepad(ev: SDL.SDL_Event) void {
 
 // **************************************************************************************
 fn reasign_buttons() void {
-    print("1 ----{}\n", .{gv.gcAxis_0});
-    print("2 ----{}\n", .{gv.gcAxis_1});
-    print("3 ----{}\n", .{gv.gcAxis_2});
-    print("4 ----{}\n", .{gv.gcAxis_3});
-    print("5 ----{}\n", .{gv.gcAxis_4});
-    print("6 ----{}\n", .{gv.gcAxis_5});
+    // print("1 ----{}\n", .{gv.gcAxis_0});
+    // print("2 ----{}\n", .{gv.gcAxis_1});
+    // print("3 ----{}\n", .{gv.gcAxis_2});
+    // print("4 ----{}\n", .{gv.gcAxis_3});
+    // print("5 ----{}\n", .{gv.gcAxis_4});
+    // print("6 ----{}\n", .{gv.gcAxis_5});
 
     // ************************************************
     // ***** Logitech Gamepad F310 (X mode)
     // *****Logitech Gamepad F710 (X mode)
     inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
     inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
-    // inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
-    // inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
-
-    // ************************************************
-    // ***** ZEROPLUS GAMEPAD4-WIRED
-    // ***** Logitech RumblePad 2 USB
-    inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
-    inputs.reset_zoom = (gv.gcButtons & (1 << 8)) != 0;
     inputs.Axis_Lx = gv.gcAxis_0;
     inputs.Axis_Ly = gv.gcAxis_1;
     inputs.Axis_Rx = gv.gcAxis_2;
     inputs.Axis_Ry = gv.gcAxis_3;
+    inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
+    inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
+
+    // ************************************************
+    // ***** ZEROPLUS GAMEPAD4-WIRED
+    // ***** Logitech RumblePad 2 USB
+    // inputs.btn_B = (gv.gcButtons & (1 << 2)) != 0;
+    // inputs.reset_zoom = (gv.gcButtons & (1 << 8)) != 0;
 }
 
 pub fn toggle_buttons() void {
