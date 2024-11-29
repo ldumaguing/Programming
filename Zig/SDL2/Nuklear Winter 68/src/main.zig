@@ -128,11 +128,6 @@ pub fn main() !void {
     defer MB.unit_db.deinit();
     try db.populate_db();
 
-    print("***************** {}\n", .{MB.unit_db.items.len});
-    for (MB.unit_db.items) |fish| {
-        print("--- {}, {}\n", .{ fish.id, fish.array_index });
-    }
-
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");
     MB.img = Texture.new("resource/Vassal/NW68/Map.jpg");
