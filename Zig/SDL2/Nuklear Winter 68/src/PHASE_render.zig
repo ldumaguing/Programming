@@ -22,9 +22,13 @@ pub fn render() void {
     viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
     mb.img.render(mb.img.x, mb.img.y, null, &viewport, 0.0, null, SDL.SDL_FLIP_NONE);
 
-    mb.unit_db.items[0].render(mb.image_db);
-    mb.unit_db.items[1].render(mb.image_db);
-    mb.unit_db.items[2].render(mb.image_db);
+    mb.unit_db.items[0].render();
+    mb.unit_db.items[1].render();
+    mb.unit_db.items[2].render();
+
+    // mb.unit_db.items[0].render(mb.image_db);
+    // mb.unit_db.items[1].render(mb.image_db);
+    // mb.unit_db.items[2].render(mb.image_db);
 
     // var v: SDL.SDL_Rect = undefined;
     // v.x = 0;
