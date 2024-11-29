@@ -46,7 +46,7 @@ const ArrayList = std.ArrayList;
 const allocator = std.heap.page_allocator;
 
 pub const MB = struct { // Map board
-    pub var img: Texture = undefined;
+    pub var map_image: Texture = undefined;
     pub var arrow: Texture = undefined;
     pub var scale: f32 = 1.0;
     pub var image_db: std.ArrayListAligned(Texture, null) = undefined;
@@ -130,7 +130,7 @@ pub fn main() !void {
 
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");
-    MB.img = Texture.new("resource/Vassal/NW68/Map.jpg");
+    MB.map_image = Texture.new("resource/Vassal/NW68/Map.jpg");
 
     // ********** create text
     //GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();

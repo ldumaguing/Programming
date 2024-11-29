@@ -15,43 +15,19 @@ pub fn render() void {
     _ = SDL.SDL_SetRenderDrawColor(gv.renderer, 0xFF, 0x0, 0xFF, 0xFF);
     _ = SDL.SDL_RenderClear(gv.renderer);
 
+    // ********** put map
     var viewport: SDL.SDL_Rect = undefined;
     viewport.x = 0;
     viewport.y = 0;
-    viewport.w = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
-    viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
-    mb.img.render(mb.img.x, mb.img.y, null, &viewport, 0.0, null, SDL.SDL_FLIP_NONE);
+    viewport.w = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.w)) * mb.scale);
+    viewport.h = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.h)) * mb.scale);
+    mb.map_image.render(mb.map_image.x, mb.map_image.y, null, &viewport, 0.0, null, SDL.SDL_FLIP_NONE);
 
-    mb.unit_db.items[0].render();
-    mb.unit_db.items[1].render();
-    mb.unit_db.items[2].render();
+    // ********** put units
+    for (mb.unit_db.items) |unit| {
+        unit.render();
+    }
 
-    // mb.unit_db.items[0].render(mb.image_db);
-    // mb.unit_db.items[1].render(mb.image_db);
-    // mb.unit_db.items[2].render(mb.image_db);
-
-    // var v: SDL.SDL_Rect = undefined;
-    // v.x = 0;
-    // v.y = 0;
-    // v.w = @intFromFloat(@as(f64, @floatFromInt(mb.image_db.items[0].w)) * mb.scale);
-    // v.h = @intFromFloat(@as(f64, @floatFromInt(mb.image_db.items[0].h)) * mb.scale);
-    // // mb.image_db.items[0].x = 5020 + mb.img.x;
-    // // mb.image_db.items[0].y = 141 + mb.img.y;
-    // var unit_x: i32 = mb.image_db.items[0].x;
-    // var unit_y: i32 = mb.image_db.items[0].y;
-    // mb.image_db.items[0].x = @intFromFloat(@as(f64, @floatFromInt(5021)) * mb.scale);
-    // mb.image_db.items[0].x += mb.img.x;
-    // mb.image_db.items[0].y = @intFromFloat(@as(f64, @floatFromInt(141)) * mb.scale);
-    // mb.image_db.items[0].y += mb.img.y;
-    // mb.image_db.items[0].render(unit_x, unit_y, null, &v, 0.0, null, SDL.SDL_FLIP_NONE);
-
-    // unit_x = mb.image_db.items[1].x;
-    // unit_y = mb.image_db.items[1].y;
-    // mb.image_db.items[1].x = @intFromFloat(@as(f64, @floatFromInt(292)) * mb.scale);
-    // mb.image_db.items[1].x += mb.img.x;
-    // mb.image_db.items[1].y = @intFromFloat(@as(f64, @floatFromInt(141)) * mb.scale);
-    // mb.image_db.items[1].y += mb.img.y;
-    // mb.image_db.items[1].render(unit_x, unit_y, null, &v, 0.0, null, SDL.SDL_FLIP_NONE);
-
+    // ********** put arrow
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }

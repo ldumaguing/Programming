@@ -49,45 +49,45 @@ pub fn update() void {
     if (mb.scale < 0.05) mb.scale = 0.05; // limiting zoom out
     if (inputs.reset_zoom) mb.scale = 1.0;
 
-    var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
-    var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
+    var scaled_W: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.w)) * mb.scale);
+    var scaled_H: i32 = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.h)) * mb.scale);
 
     if (gv.SCREEN_DIM[0] > scaled_W) { // prevent shrinking map too much
         mb.scale += 0.05;
-        scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.img.w)) * mb.scale);
-        scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.img.h)) * mb.scale);
+        scaled_W = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.w)) * mb.scale);
+        scaled_H = @intFromFloat(@as(f64, @floatFromInt(mb.map_image.h)) * mb.scale);
     }
     // print("{} --- {}\n", .{ gv.SCREEN_DIM[0], scaled_W });
 
     // ***** arrow
     if (mb.arrow.x < 0) {
         mb.arrow.x = 0;
-        mb.img.x += cursorSpeed;
+        mb.map_image.x += cursorSpeed;
     }
     if (mb.arrow.y < 0) {
         mb.arrow.y = 0;
-        mb.img.y += cursorSpeed;
+        mb.map_image.y += cursorSpeed;
     }
     if (mb.arrow.x > gv.SCREEN_DIM[0] - 5) {
         mb.arrow.x = gv.SCREEN_DIM[0] - 5;
-        mb.img.x -= cursorSpeed;
+        mb.map_image.x -= cursorSpeed;
     }
     if (mb.arrow.y > gv.SCREEN_DIM[1] - 5) {
         mb.arrow.y = gv.SCREEN_DIM[1] - 5;
-        mb.img.y -= cursorSpeed;
+        mb.map_image.y -= cursorSpeed;
     }
 
     // ***** Axis
-    if (inputs.Axis_Lx < -15000) mb.img.x += cursorSpeed;
-    if (inputs.Axis_Lx > 15000) mb.img.x -= cursorSpeed;
-    if (inputs.Axis_Ly < -15000) mb.img.y += cursorSpeed;
-    if (inputs.Axis_Ly > 15000) mb.img.y -= cursorSpeed;
+    if (inputs.Axis_Lx < -15000) mb.map_image.x += cursorSpeed;
+    if (inputs.Axis_Lx > 15000) mb.map_image.x -= cursorSpeed;
+    if (inputs.Axis_Ly < -15000) mb.map_image.y += cursorSpeed;
+    if (inputs.Axis_Ly > 15000) mb.map_image.y -= cursorSpeed;
 
     // ***** corrections
-    if (mb.img.x > 0) mb.img.x = 0;
-    if (mb.img.y > 0) mb.img.y = 0;
+    if (mb.map_image.x > 0) mb.map_image.x = 0;
+    if (mb.map_image.y > 0) mb.map_image.y = 0;
     const max_w: i32 = gv.SCREEN_DIM[0] - scaled_W;
     const max_h: i32 = gv.SCREEN_DIM[1] - scaled_H;
-    if (max_w > mb.img.x) mb.img.x = max_w;
-    if (max_h > mb.img.y) mb.img.y = max_h;
+    if (max_w > mb.map_image.x) mb.map_image.x = max_w;
+    if (max_h > mb.map_image.y) mb.map_image.y = max_h;
 }

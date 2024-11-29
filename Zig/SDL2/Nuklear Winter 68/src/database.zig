@@ -25,9 +25,25 @@ pub const Unit = struct {
     }
 
     pub fn render(self: Unit) void {
+        var v: SDL.SDL_Rect = undefined;
+        v.x = 0;
+        v.y = 0;
+        v.w = @intFromFloat(@as(f64, @floatFromInt(MB.image_db.items[self.array_index].w)) * MB.scale);
+        v.h = @intFromFloat(@as(f64, @floatFromInt(MB.image_db.items[self.array_index].h)) * MB.scale);
+
+        var unit_x: i32 = @intFromFloat(@as(f64, @floatFromInt(self.x)) * MB.scale);
+        unit_x += MB.image_db.items[self.array_index].x;
+        unit_x += MB.map_image.x;
+
+        var unit_y: i32 = @intFromFloat(@as(f64, @floatFromInt(self.y)) * MB.scale);
+        unit_y += MB.image_db.items[self.array_index].y;
+        unit_y += MB.map_image.y;
+
+        // mb.image_db.items[0].render(unit_x, unit_y, null, &v, 0.0, null, SDL.SDL_FLIP_NONE);
+
         // print("array: {}---{},{}\n", .{ self.array_index, self.x, self.y });
         // print("... {s}\n", .{self.image_db.items[self.array_index].name});
-        self.image_db.items[self.array_index].render(self.x, self.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+        self.image_db.items[self.array_index].render(unit_x, unit_y, null, &v, 0.0, null, SDL.SDL_FLIP_NONE);
     }
 };
 
@@ -38,14 +54,18 @@ pub fn populate_db() !void {
     try MB.image_db.append(Texture.new("resource/Vassal/NW68/SG2 Saucer front.png"));
 
     try MB.unit_db.append(Unit.new(0));
-    MB.unit_db.items[0].x = 100;
-    MB.unit_db.items[0].y = 100;
+    MB.unit_db.items[0].x = 292;
+    MB.unit_db.items[0].y = 141;
 
     try MB.unit_db.append(Unit.new(1));
-    MB.unit_db.items[1].x = 200;
-    MB.unit_db.items[1].y = 200;
+    MB.unit_db.items[1].x = 5021;
+    MB.unit_db.items[1].y = 141;
 
     try MB.unit_db.append(Unit.new(1));
-    MB.unit_db.items[2].x = 300;
-    MB.unit_db.items[2].y = 300;
+    MB.unit_db.items[2].x = 5021;
+    MB.unit_db.items[2].y = 3846;
+
+    try MB.unit_db.append(Unit.new(1));
+    MB.unit_db.items[3].x = 292;
+    MB.unit_db.items[3].y = 3846;
 }
