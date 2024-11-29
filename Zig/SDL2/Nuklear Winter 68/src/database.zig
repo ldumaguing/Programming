@@ -18,6 +18,8 @@ pub const Unit = struct {
             .array_index = array_index,
         };
     }
+
+    // pub fn render(self: Unit) void {}
 };
 
 pub fn populate_db() !void {
