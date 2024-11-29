@@ -124,7 +124,14 @@ pub fn main() !void {
     // ********** load unit PNGs
     MB.image_db = ArrayList(Texture).init(allocator);
     defer MB.image_db.deinit();
+    MB.unit_db = ArrayList(Unit).init(allocator);
+    defer MB.unit_db.deinit();
     try db.populate_db();
+
+    print("***************** {}\n", .{MB.unit_db.items.len});
+    for (MB.unit_db.items) |fish| {
+        print("--- {}, {}\n", .{ fish.id, fish.array_index });
+    }
 
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");

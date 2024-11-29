@@ -10,6 +10,7 @@ const gv = @import("main.zig").GV;
 const m = @import("main.zig");
 
 pub const Texture = struct {
+    name: [*c]const u8,
     w: i32,
     h: i32,
     x: i32,
@@ -37,6 +38,7 @@ pub const Texture = struct {
         const h = pngSurface.*.h;
         SDL.SDL_FreeSurface(pngSurface);
         return Texture{
+            .name = pngFile,
             .w = w,
             .h = h,
             .t = t,
