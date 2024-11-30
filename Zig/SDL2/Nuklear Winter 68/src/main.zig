@@ -9,7 +9,7 @@ const print = @import("std").debug.print;
 const phPad = @import("PHASE_gamepad.zig");
 const phGame = @import("PHASE_game.zig");
 const phRender = @import("PHASE_render.zig");
-const Texture = @import("texture.zig").Texture;
+const Texture = @import("Texture.zig").Texture;
 const db = @import("database.zig");
 const Unit = @import("database.zig").Unit;
 
@@ -52,12 +52,14 @@ pub const MB = struct { // Map board
     pub var image_db: std.ArrayListAligned(Texture, null) = undefined;
     pub var unit_db: std.ArrayListAligned(Unit, null) = undefined;
     pub var terminal: Texture = undefined;
+    pub var modes: u32 = 0;
 };
 
 pub const Inputs = struct {
     pub var shoulder_r: bool = false;
     pub var shoulder_l: bool = false;
     pub var btn_B: bool = false;
+    pub var btn_A: bool = false;
     pub var reset_zoom: bool = false;
     pub var Axis_Lx: i32 = 0;
     pub var Axis_Ly: i32 = 0;

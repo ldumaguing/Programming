@@ -2,7 +2,7 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 const MB = @import("main.zig").MB;
-const Texture = @import("texture.zig").Texture;
+const Texture = @import("Texture.zig").Texture;
 const SDL = @cImport({
     @cInclude("SDL2/SDL.h");
     @cInclude("SDL2/SDL_image.h");

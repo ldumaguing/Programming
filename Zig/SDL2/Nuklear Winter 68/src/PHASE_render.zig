@@ -9,6 +9,7 @@ const SDL = @cImport({
 
 const mb = @import("main.zig").MB;
 const gv = @import("main.zig").GV;
+const trm = @import("terminal.zig");
 
 pub fn render() void {
     // ********** clear screen
@@ -29,14 +30,18 @@ pub fn render() void {
     }
 
     // ********** put terminal
-    mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    if ((mb.modes & (1 << 0)) != 0) {
+        trm.doTerminal();
+        return;
+    }
+    // mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     // ********** put arrow
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
-    const x: i32 = 90;
-    const y: i32 = 66;
-    gv.gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    gv.gTextTexture.render(x, y + 16, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    gv.gTextTexture.render(x, y + (16 * 25), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    //const x: i32 = 90;
+    //const y: i32 = 66;
+    //gv.gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    //gv.gTextTexture.render(x, y + 16, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    //gv.gTextTexture.render(x, y + (16 * 25), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }

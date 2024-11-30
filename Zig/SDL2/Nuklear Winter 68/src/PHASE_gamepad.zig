@@ -94,6 +94,7 @@ fn reasign_buttons() void {
     inputs.Axis_Ly = gv.gcAxis_1;
     inputs.Axis_Rx = gv.gcAxis_2;
     inputs.Axis_Ry = gv.gcAxis_3;
+    inputs.btn_A = (gv.gcButtons & (1 << 0)) != 0;
     inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
     inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
 
@@ -109,4 +110,5 @@ pub fn toggle_buttons() void {
     inputs.reset_zoom = false;
     inputs.shoulder_r = false;
     inputs.shoulder_l = false;
+    inputs.btn_A = false;
 }

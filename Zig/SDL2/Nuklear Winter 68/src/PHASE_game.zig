@@ -14,6 +14,10 @@ const inputs = @import("main.zig").Inputs;
 var cursorSpeed: i32 = 0;
 
 pub fn update() void {
+    if (inputs.btn_A) {
+        mb.modes ^= (1 << 0);
+    }
+    if ((mb.modes & (1 << 0)) != 0) return; // terminal mode activated
     if (inputs.btn_B) {
         cursorSpeed = 1;
     } else {
