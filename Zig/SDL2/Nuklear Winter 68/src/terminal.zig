@@ -1,3 +1,4 @@
+// ***** terminal.zig
 const std = @import("std");
 const print = @import("std").debug.print;
 const SDL = @cImport({
@@ -12,12 +13,10 @@ const gv = @import("main.zig").GV;
 pub fn doTerminal() void {
     print("blaa\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    
-     const x: i32 = 90;
-    const y: i32 = 66;
+
+    const x: i32 = 90;
+    const y: i32 = 74;
     gv.gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
     gv.gTextTexture.render(x, y + 16, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    gv.gTextTexture.render(x, y + (16 * 25), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    
-    
+    gv.gTextTexture.render(x, y + (16 * 24), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }
