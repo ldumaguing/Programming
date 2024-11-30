@@ -28,6 +28,9 @@ pub fn render() void {
         unit.render();
     }
 
+    // ********** put terminal
+    mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+
     // ********** put arrow
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }

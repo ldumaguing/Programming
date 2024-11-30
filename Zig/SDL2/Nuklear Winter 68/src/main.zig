@@ -17,12 +17,12 @@ pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     // pub var SCREEN_DIM: [2]i32 = undefined;
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
-    pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    // pub const SCREEN_DIM = [_]i32{ 800, 600 };
     // pub const SCREEN_DIM = [_]i32{ 256, 224 }; // standard SNES
     // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
     // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
     // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
-    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -51,6 +51,7 @@ pub const MB = struct { // Map board
     pub var scale: f32 = 1.0;
     pub var image_db: std.ArrayListAligned(Texture, null) = undefined;
     pub var unit_db: std.ArrayListAligned(Unit, null) = undefined;
+    pub var terminal: Texture = undefined;
 };
 
 pub const Inputs = struct {
@@ -131,6 +132,7 @@ pub fn main() !void {
     // ********** load PNGs and convert to texture
     MB.arrow = Texture.new("resource/img/arrow.png");
     MB.map_image = Texture.new("resource/Vassal/NW68/Map.jpg");
+    MB.terminal = Texture.new("resource/img/terminal.png");
 
     // ********** create text
     //GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();
