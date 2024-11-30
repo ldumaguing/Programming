@@ -23,9 +23,12 @@ pub const Texture = struct {
         const w = textSurface.w;
         const h = textSurface.h;
         return Texture{
+            .name = "...",
             .w = w,
             .h = h,
             .t = t,
+            .x = 0,
+            .y = 0,
         };
     }
 

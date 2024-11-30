@@ -33,4 +33,10 @@ pub fn render() void {
 
     // ********** put arrow
     mb.arrow.render(mb.arrow.x, mb.arrow.y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+
+    const x: i32 = 90;
+    const y: i32 = 66;
+    gv.gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    gv.gTextTexture.render(x, y + 16, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    gv.gTextTexture.render(x, y + (16 * 25), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }

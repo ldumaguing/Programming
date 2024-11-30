@@ -135,12 +135,12 @@ pub fn main() !void {
     MB.terminal = Texture.new("resource/img/terminal.png");
 
     // ********** create text
-    //GV.gFont = SDL.TTF_OpenFont("lazy.ttf", 48) orelse sdlPanic();
-    //var textColor: SDL.SDL_Color = undefined;
-    //textColor.r = 0;
-    //textColor.g = 0;
-    //textColor.b = 0;
-    //GV.gTextTexture = Texture.newText("bla bla bla", textColor);
+    GV.gFont = SDL.TTF_OpenFont("resource/font/NotoSansMono-ExtraCondensedThin.ttf", 16) orelse sdlPanic();
+    var textColor: SDL.SDL_Color = undefined;
+    textColor.r = 0;
+    textColor.g = 255;
+    textColor.b = 0;
+    GV.gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor);
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
