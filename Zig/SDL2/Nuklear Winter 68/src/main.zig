@@ -26,10 +26,10 @@ pub const GV = struct { // Global Variables
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
-    pub var gTextTexture: Texture = undefined;
+    //pub var gTextTexture: Texture = undefined;
     pub var gFont: *SDL.TTF_Font = undefined;
-    pub var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
-    pub var degrees: f64 = 0.0;
+    //pub var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
+    // pub var degrees: f64 = 0.0;
     // ***
     pub var gGameController: *SDL.SDL_Joystick = undefined;
     pub var gcButtons: u32 = 0; // 15 bits
@@ -138,11 +138,11 @@ pub fn main() !void {
 
     // ********** create text
     GV.gFont = SDL.TTF_OpenFont("resource/font/NotoSansMono-ExtraCondensedThin.ttf", 16) orelse sdlPanic();
-    var textColor: SDL.SDL_Color = undefined;
-    textColor.r = 0;
-    textColor.g = 255;
-    textColor.b = 0;
-    GV.gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor);
+    //var textColor: SDL.SDL_Color = undefined;
+    //textColor.r = 0;
+    //textColor.g = 255;
+    //textColor.b = 0;
+    //GV.gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor);
 
     // ********** game loop
     var ev: SDL.SDL_Event = undefined;
@@ -154,27 +154,6 @@ pub fn main() !void {
             switch (ev.key.keysym.sym) {
                 SDL.SDLK_ESCAPE => {
                     break :mainLoop;
-                },
-                SDL.SDLK_a => {
-                    GV.degrees -= 1.0;
-                    if (GV.degrees < 0.0) {
-                        GV.degrees += 360.0;
-                    }
-                },
-                SDL.SDLK_d => {
-                    GV.degrees += 1.0;
-                    if (GV.degrees >= 360.0) {
-                        GV.degrees -= 360.0;
-                    }
-                },
-                SDL.SDLK_q => {
-                    GV.flipType = SDL.SDL_FLIP_HORIZONTAL;
-                },
-                SDL.SDLK_w => {
-                    GV.flipType = SDL.SDL_FLIP_NONE;
-                },
-                SDL.SDLK_e => {
-                    GV.flipType = SDL.SDL_FLIP_VERTICAL;
                 },
                 else => {},
             }
