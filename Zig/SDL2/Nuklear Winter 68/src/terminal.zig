@@ -19,28 +19,17 @@ pub fn doTerminal() void {
     textColor.r = 0;
     textColor.g = 255;
     textColor.b = 0;
-    const gTextTexture: Texture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor);
-    //pub var gTextTexture: Texture = undefined;
-    //pub var gFont: *SDL.TTF_Font = undefined;
-    //pub var flipType: SDL.SDL_RendererFlip = SDL.SDL_FLIP_NONE;
-    // pub var degrees: f64 = 0.0;
+    var gTextTexture: Texture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont);
 
-    //GV.gFont = SDL.TTF_OpenFont("resource/font/NotoSansMono-ExtraCondensedThin.ttf", 16) orelse sdlPanic();
-    //var textColor: SDL.SDL_Color = undefined;
-    //textColor.r = 0;
-    //textColor.g = 255;
-    //textColor.b = 0;
-    //GV.gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor);
     const x: i32 = 90;
-    const y: i32 = 74;
+    const y: i32 = 73;
     gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    //gv.gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    //gv.gTextTexture.render(x, y + 16, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-    //gv.gTextTexture.render(x, y + (16 * 24), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
-}
 
-// ***********************************************************************************
-pub fn sdlPanic() noreturn {
-    const str = @as(?[*:0]const u8, SDL.SDL_GetError()) orelse "unknown error";
-    @panic(std.mem.sliceTo(str, 0));
+    gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont2);
+    gTextTexture.render(x, y + (16 * 12), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+
+    gTextTexture = Texture.newText("123456789.123456789.123456789.123456789.123456789.123456789.1234567890", textColor, gv.gFont);
+    gTextTexture.render(x, y + (16 * 1), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    gTextTexture = Texture.newText("123456789.123456789.123456789.123456789.123456789.123456789.1234567890", textColor, gv.gFont);
+    gTextTexture.render(x + 1, y + (16 * 1), null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 }

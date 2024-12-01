@@ -17,8 +17,8 @@ pub const Texture = struct {
     y: i32,
     t: *SDL.SDL_Texture,
 
-    pub fn newText(txt: [*c]const u8, textColor: SDL.SDL_Color) Texture {
-        const textSurface: *SDL.SDL_Surface = SDL.TTF_RenderText_Solid(gv.gFont, txt, textColor);
+    pub fn newText(txt: [*c]const u8, textColor: SDL.SDL_Color, fnt: ?*SDL.TTF_Font) Texture {
+        const textSurface: *SDL.SDL_Surface = SDL.TTF_RenderText_Solid(fnt, txt, textColor);
         const t = SDL.SDL_CreateTextureFromSurface(gv.renderer, textSurface) orelse m.sdlPanic();
         const w = textSurface.w;
         const h = textSurface.h;
