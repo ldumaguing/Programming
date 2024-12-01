@@ -22,8 +22,8 @@ pub const GV = struct { // Global Variables
     // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
     // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
     // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
-    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
-    pub const SCREEN_DIM = [_]i32{ 320, 200 };
+    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    // pub const SCREEN_DIM = [_]i32{ 320, 200 };
 
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
@@ -108,6 +108,7 @@ fn init() void {
 
     // ********** create renderer
     GV.renderer = SDL.SDL_CreateRenderer(GV.window, -1, SDL.SDL_RENDERER_ACCELERATED) orelse sdlPanic();
+    // _ = SDL.SDL_RenderSetScale(GV.renderer, 2.0, 2.0);
 
     // ********** init PNG loading
     _ = SDL.IMG_Init(SDL.IMG_INIT_PNG);
