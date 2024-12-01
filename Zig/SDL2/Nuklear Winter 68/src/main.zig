@@ -22,7 +22,9 @@ pub const GV = struct { // Global Variables
     // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
     // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
     // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
-    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    pub const SCREEN_DIM = [_]i32{ 320, 200 };
+
     pub var window: *SDL.SDL_Window = undefined;
     pub var renderer: *SDL.SDL_Renderer = undefined;
     // ***
@@ -117,6 +119,7 @@ fn init() void {
         sdlPanic();
     } else {
         GV.gGameController = SDL.SDL_JoystickOpen(0) orelse sdlPanic();
+        print("***** {s}\n", .{SDL.SDL_JoystickName(GV.gGameController)});
     }
 }
 
