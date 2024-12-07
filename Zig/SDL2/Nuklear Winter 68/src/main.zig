@@ -56,6 +56,9 @@ pub const MB = struct { // Map board
     pub var unit_db: std.ArrayListAligned(Unit, null) = undefined;
     pub var terminal: Texture = undefined;
     pub var modes: u32 = 0;
+    // ***
+    pub const hexagon_w: f64 = (5021 - 292) / 28; // (right pixel - left pixel) / delta hexagon count
+    pub const hexagon_h: f64 = (3846 - 141) / 19;
 };
 
 pub const Inputs = struct {

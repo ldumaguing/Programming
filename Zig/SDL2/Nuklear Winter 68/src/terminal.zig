@@ -12,7 +12,13 @@ const gv = @import("main.zig").GV;
 const Texture = @import("Texture.zig").Texture;
 
 pub fn doTerminal() void {
-    print("blaa\n", .{});
+    print("arrow: ({},{})\n", .{ mb.arrow.x, mb.arrow.y });
+    print("map: ({},{})\n", .{ mb.map_image.x, mb.map_image.y });
+    const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x;
+    const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y;
+    print("arrow loc: ({},{})\n", .{ arrow_loc_x, arrow_loc_y });
+
+    print("\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     var textColor: SDL.SDL_Color = undefined;
