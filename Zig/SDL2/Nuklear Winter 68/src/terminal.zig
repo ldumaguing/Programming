@@ -17,6 +17,7 @@ pub fn doTerminal() void {
     const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x;
     const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y;
     print("arrow loc: ({},{})\n", .{ arrow_loc_x, arrow_loc_y });
+    print("scale: {d:.5}\n", .{mb.scale});
 
     print("\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
