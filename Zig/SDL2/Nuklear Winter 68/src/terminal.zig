@@ -19,11 +19,13 @@ pub fn doTerminal() void {
     const hexagon_dim = [_]f64{ (mb.HEXAGON_DIM[0] * mb.scale), (mb.HEXAGON_DIM[1] * mb.scale) };
     print("hexagon_dim: ({d:.6},{d:.6})\n", .{ hexagon_dim[0], hexagon_dim[1] });
 
-    const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x - mb.CORNER_0[0];
-    const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y - mb.CORNER_0[1];
-    print("arrow loc: ({},{})\n", .{ arrow_loc_x, arrow_loc_y });
-    print("***** scale: {d:.3}\n", .{mb.scale});
-
+    // const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x - mb.CORNER_0[0];
+    // const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y - mb.CORNER_0[1];
+    // print("arrow loc: ({},{})\n", .{ arrow_loc_x, arrow_loc_y });
+    // print("***** scale: {d:.3}\n", .{mb.scale});
+    // const fish: i32 = mb.arrow.x - @as(i32, @intFromFloat(corner_0[0])) - mb.map_image.x;
+    const arrow_loc = [_]i32{ (mb.arrow.x - @as(i32, @intFromFloat(corner_0[0])) - mb.map_image.x), (mb.arrow.y - @as(i32, @intFromFloat(corner_0[1])) - mb.map_image.y) };
+    print("arrow loc: ({},{})\n", .{ arrow_loc[0], arrow_loc[1] });
     print("\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
