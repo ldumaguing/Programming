@@ -57,8 +57,10 @@ pub const MB = struct { // Map board
     pub var terminal: Texture = undefined;
     pub var modes: u32 = 0;
     // ***
-    pub const hexagon_w: f64 = (5021 - 292) / 28; // (right pixel - left pixel) / delta hexagon count
-    pub const hexagon_h: f64 = (3846 - 141) / 19;
+    pub const CORNER_0 = [_]i32{ 292, 141 };
+    // pub const hexagon_w: f64 = (5021 - CORNER_0[0]) / 28; // (right pixel - left pixel) / delta hexagon count
+    // pub const hexagon_h: f64 = (3846 - CORNER_0[1]) / 19;
+    pub const HEXAGON_DIM = [_]f64{ ((5021 - CORNER_0[0]) / 28), ((3846 - CORNER_0[1]) / 19) };
 };
 
 pub const Inputs = struct {

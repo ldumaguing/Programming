@@ -14,10 +14,15 @@ const Texture = @import("Texture.zig").Texture;
 pub fn doTerminal() void {
     print("arrow: ({},{})\n", .{ mb.arrow.x, mb.arrow.y });
     print("map: ({},{})\n", .{ mb.map_image.x, mb.map_image.y });
-    const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x;
-    const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y;
+    const corner_0 = [_]f64{ @as(f64, @floatFromInt(mb.CORNER_0[0])) * @as(f64, mb.scale), @as(f64, @floatFromInt(mb.CORNER_0[1])) * @as(f64, mb.scale) };
+    print("corner_0: ({d:.6},{d:.6})\n", .{ corner_0[0], corner_0[1] });
+    const hexagon_dim = [_]f64{ (mb.HEXAGON_DIM[0] * mb.scale), (mb.HEXAGON_DIM[1] * mb.scale) };
+    print("hexagon_dim: ({d:.6},{d:.6})\n", .{ hexagon_dim[0], hexagon_dim[1] });
+
+    const arrow_loc_x: i32 = mb.arrow.x - mb.map_image.x - mb.CORNER_0[0];
+    const arrow_loc_y: i32 = mb.arrow.y - mb.map_image.y - mb.CORNER_0[1];
     print("arrow loc: ({},{})\n", .{ arrow_loc_x, arrow_loc_y });
-    print("scale: {d:.5}\n", .{mb.scale});
+    print("***** scale: {d:.3}\n", .{mb.scale});
 
     print("\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
