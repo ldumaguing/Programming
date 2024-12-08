@@ -20,7 +20,16 @@ pub fn doTerminal() void {
     print("arrow loc: ({},{})\n", .{ arrow_loc[0], arrow_loc[1] });
 
     // const fish: i32 = @intFromFloat(@as(f64, @floatFromInt(arrow_loc[0])) / hexagon_dim[0]);
-    const hex_id = [_]i32{ (@intFromFloat(@as(f64, @floatFromInt(arrow_loc[0])) / hexagon_dim[0])), (@intFromFloat(@as(f64, @floatFromInt(arrow_loc[1])) / hexagon_dim[1])) };
+    const hex_id_x: i32 = @intFromFloat(@as(f64, @floatFromInt(arrow_loc[0])) / hexagon_dim[0]);
+    var hex_id_y: i32 = 0;
+    if (@mod(hex_id_x, 2) == 0) {
+        hex_id_y = @intFromFloat(@as(f64, @floatFromInt(arrow_loc[1])) / hexagon_dim[1]);
+    } else {
+        const fish: i32 = @intFromFloat(corner_0[1]);
+        hex_id_y = @intFromFloat(@as(f64, @floatFromInt(arrow_loc[1] + fish)) / hexagon_dim[1]);
+        print("... {}\n", .{fish});
+    }
+    const hex_id = [_]i32{ hex_id_x, hex_id_y };
     print("hex id: ({},{})\n", .{ hex_id[0], hex_id[1] });
     print("\n", .{});
     mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
