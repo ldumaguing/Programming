@@ -10,8 +10,13 @@ const SDL = @cImport({
 const mb = @import("main.zig").MB;
 const gv = @import("main.zig").GV;
 const Texture = @import("Texture.zig").Texture;
+const inputs = @import("main.zig").Inputs;
 
 pub fn doTerminal() void {
+    if (inputs.btn_B) {
+        mb.modes = 0; // exit terminal mode
+    }
+
     const corner_0 = [_]f64{ @as(f64, @floatFromInt(mb.CORNER_0[0])) * @as(f64, mb.scale), @as(f64, @floatFromInt(mb.CORNER_0[1])) * @as(f64, mb.scale) };
     const hexagon_dim = [_]f64{ (mb.HEXAGON_DIM[0] * mb.scale), (mb.HEXAGON_DIM[1] * mb.scale) };
     // print("hexagon_dim: ({d:.6},{d:.6})\n", .{ hexagon_dim[0], hexagon_dim[1] });

@@ -111,5 +111,5 @@ pub fn toggle_buttons() void {
     inputs.reset_zoom = false;
     inputs.shoulder_r = false;
     inputs.shoulder_l = false;
-    inputs.btn_A = false;
+    // inputs.btn_A = false;
 }
