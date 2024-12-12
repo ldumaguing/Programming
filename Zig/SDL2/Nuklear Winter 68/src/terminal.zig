@@ -36,7 +36,7 @@ pub fn doTerminal() void {
     const hex_id = [_]i32{ hex_id_x, hex_id_y };
     print("hex id: ({},{})\n", .{ hex_id[0], hex_id[1] });
     // print("\n", .{});
-    mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    mb.terminal.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     var textColor: SDL.SDL_Color = undefined;
     textColor.r = 0;
@@ -44,8 +44,8 @@ pub fn doTerminal() void {
     textColor.b = 0;
     var gTextTexture: Texture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont);
 
-    const x: i32 = 90;
-    const y: i32 = 73;
+    const x: i32 = 80;
+    const y: i32 = 63;
     gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont2);
