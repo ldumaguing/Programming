@@ -13,3 +13,12 @@ CREATE TABLE chits (
 
 
 alter table chits rename to images;
+
+
+
+CREATE TABLE chits (
+   name varcher(255),
+   front integer,
+   back integer
+);
+
