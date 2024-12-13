@@ -12,6 +12,9 @@ const gv = @import("main.zig").GV;
 const Texture = @import("Texture.zig").Texture;
 const inputs = @import("main.zig").Inputs;
 
+const terminal_dim = [_]i32{ 719, 600 };
+const terminal_center = [_]i32{ (gv.SCREEN_DIM[0] - terminal_dim[0]) / 2, (gv.SCREEN_DIM[1] - terminal_dim[1]) / 2 };
+
 pub fn doTerminal() void {
     if (inputs.btn_B) {
         mb.modes = 0; // exit terminal mode
@@ -36,7 +39,7 @@ pub fn doTerminal() void {
     const hex_id = [_]i32{ hex_id_x, hex_id_y };
     print("hex id: ({},{})\n", .{ hex_id[0], hex_id[1] });
     // print("\n", .{});
-    mb.terminal.render(0, 0, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    mb.terminal.render(terminal_center[0], terminal_center[1], null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     var textColor: SDL.SDL_Color = undefined;
     textColor.r = 0;
@@ -44,8 +47,8 @@ pub fn doTerminal() void {
     textColor.b = 0;
     var gTextTexture: Texture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont);
 
-    const x: i32 = 80;
-    const y: i32 = 63;
+    const x: i32 = 80 + terminal_center[0];
+    const y: i32 = 63 + terminal_center[1];
     gTextTexture.render(x, y, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     gTextTexture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont2);

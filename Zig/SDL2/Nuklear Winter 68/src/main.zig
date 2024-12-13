@@ -17,12 +17,12 @@ pub const GV = struct { // Global Variables
     pub const desc = "Global Variables";
     // pub var SCREEN_DIM: [2]i32 = undefined;
     // pub const SCREEN_DIM = [_]i32{ 640, 480 };
-    pub const SCREEN_DIM = [_]i32{ 800, 600 };
+    // pub const SCREEN_DIM = [_]i32{ 800, 600 };
     // pub const SCREEN_DIM = [_]i32{ 256, 224 }; // standard SNES
     // pub const SCREEN_DIM = [_]i32{ 512, 448 }; // SNES interlaced
     // pub const SCREEN_DIM = [_]i32{ 512, 478 }; // SNES overscan
     // pub const SCREEN_DIM = [_]i32{ 1067, 600 };
-    // pub const SCREEN_DIM = [_]i32{ 1366, 768 };
+    pub const SCREEN_DIM = [_]i32{ 1366, 768 };
     // pub const SCREEN_DIM = [_]i32{ 320, 200 };
 
     pub var window: *SDL.SDL_Window = undefined;
