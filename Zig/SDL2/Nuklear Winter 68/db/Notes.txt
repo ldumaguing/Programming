@@ -12,3 +12,4 @@ CREATE TABLE chits (
 .import --csv --skip 1 chits.csv chits
 
 
+alter table chits rename to images;
