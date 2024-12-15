@@ -17,8 +17,13 @@ alter table chits rename to images;
 
 
 CREATE TABLE chits (
+   id integer not null,
    name varcher(255),
    front integer,
    back integer
 );
+
+.import --csv chits.csv chits
+
+106
 
