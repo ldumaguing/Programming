@@ -1,5 +1,6 @@
 const std = @import("std");
 const stdio = std.io.getStdOut().writer();
+const zqlite = @import("zqlite");
 
 pub fn main() !void {
     try stdio.print("<!DOCTYPE html>\n", .{});
@@ -17,5 +18,16 @@ pub fn main() !void {
 }
 
 fn foo() !void {
-    try stdio.print("<h1>Yo</h1>\n", .{});
+    const flags = zqlite.OpenFlags.Create | zqlite.OpenFlags.EXResCode;
+    var conn = try zqlite.open("../db/NW68.db", flags);
+    defer conn.close();
+
+    {
+        var rows = try conn.rows("select * from v_chits order by id", .{});
+        defer rows.deinit();
+        while (rows.next()) |row| {
+            try stdio.print("{} {s}; {s}; {s}\n", .{ row.int(0), row.text(1), row.text(2), row.text(3) });
+        }
+        if (rows.err) |err| return err;
+    }
 }

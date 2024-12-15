@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My First Webpage</title>
+</head>
+<body>
+1 1_130; 1_130 Chit front.png; Chit Back.png
+2 1_130 CO; 1_130 CO front.png; 1_130 CO back.png
+3 1_130 E100; 1_130 E100 front.png; 1_130 E100 back.png
+4 1_130 Hummel; 1_130 Hummel front.png; 1_130 Hummel back.png
+5 1_130 KT; 1_130 KT front.png; 1_130 KT back.png
+6 1_130 Puma; 1_130 Puma front.png; 1_130 Puma back.png
+7 1; 1.png; Chit Back.png
+8 1_7 SS; 1_7 SS Chit front.png; Chit Back.png
+9 1_7 SS 250; 1_7 SS 250 front.png; 1_7 SS 250 back.png
+10 1_7 SS CO; 1_7 SS CO front.png; 1_7 SS CO back.png
+11 1_7 SS VT; 1_7 SS VT front.png; 1_7 SS VT back.png
+12 1st Ranger; 1st Ranger Chit front.png; Chit Back.png
+13 1st Ranger CO; 1st Ranger CO front.png; 1st Ranger CO back.png
+14 1st Ranger M113; 1st Ranger M113 front.png; 1st Ranger M113 back.png
+15 1st Ranger M60; 1st Ranger M60 front.png; 1st Ranger M60 back.png
+16 1st Ranger; 1st Ranger Ranger front.png; 1st Ranger Ranger back.png
+17 2_130 250; 2_130 250 front.png; 2_130 250 back.png
+18 2_130; 2_130 chit front.png; Chit Back.png
+19 2_130 CO; 2_130 CO front.png; 2_130 CO back.png
+20 2_130 E100; 2_130 E100 front.png; 2_130 E100 back.png
+21 2_130 Fall; 2_130 Fall front.png; 2_130 Fall back.png
+22 2_130 JT; 2_130 JT front.png; 2_130 JT back.png
+23 2; 2.png; Chit Back.png
+24 2nd Ranger; 2nd Ranger Chit front.png; Chit Back.png
+25 2nd Ranger BRDM; 2nd Ranger BRDM front.png; 2nd Ranger BRDM back.png
+26 2nd Ranger CO; 2nd Ranger CO front.png; 2nd Ranger CO back.png
+27 2nd Ranger M113; 2nd Ranger M113 front.png; 2nd Ranger M113 back.png
+28 2nd Ranger M60; 2nd Ranger M60 front.png; 2nd Ranger M60 back.png
+29 2nd Ranger; 2nd Ranger Ranger front.png; 2nd Ranger Ranger back.png
+30 3; 3.png; Chit Back.png
+31 4; 4.png; Chit Back.png
+32 4th G; 4th G Chit front.png; Chit Back.png
+33 4th G CO; 4th G CO front.png; 4th G CO back.png
+34 4th G T64; 4th G T64 front.png; 4th G T64 back.png
+35 501SS; 501SS Chit front.png; Chit Back.png
+36 501SS CO; 501SS CO front.png; 501SS CO back.png
+37 501SS E100; 501SS E100 front.png; 501SS E100 back.png
+38 502SS 250; 502SS 250 front.png; 502SS 250 back.png
+39 502SS CO; 502SS CO front.png; 502SS CO back.png
+40 502SS E100; 502SS E100 front.png; 502SS E100 back.png
+41 502SS JT; 502SS JT front.png; 502SS JT back.png
+42 502SS VT; 502SS VT front.png; 502SS VT back.png
+43 5; 5.png; Chit Back.png
+44 58th; 58th Chit front.png; Chit Back.png
+45 58th CO; 58th CO front.png; 58th CO back.png
+46 58th M113; 58th M113 front.png; 58th M113 back.png
+47 58th Rangers; 58th Rangers front.png; 58th Rangers back.png
+48 58th Spetsnaz; 58th Spetsnaz front.png; 58th Spetsnaz back.png
+49 58th T62; 58th T62 front.png; 58th T62 back.png
+50 6; 6.png; Chit Back.png
+51 9K32; 9K32 front.png; Chit Back.png
+52 A6; A6 front.png; Chit Back.png
+53 Advance; Advance.png; Chit Back.png
+54 armies-icon; armies-icon.png; Chit Back.png
+55 Army_Menu; Army_Menu.png; Chit Back.png
+56 assault; assault.png; Chit Back.png
+57 assault-icon; assault-icon.png; Chit Back.png
+58 Barrage 3; Barrage 3.png; Chit Back.png
+59 Bio 1; Bio 1.png; Chit Back.png
+60 Black control; Black control.png; Chit Back.png
+61 Black Hand; Black Hand Chit front.png; Chit Back.png
+62 Blighter; Blighter front.png; Blighter back.png
+63 blue control; blue control.png; Chit Back.png
+64 BRDM; BRDM front.png; BRDM back.png
+65 Chemical; Chemical.png; Chit Back.png
+66 Chemical 3; Chemical 3.png; Chit Back.png
+67 Chit Back; Chit Back.png; Chit Back.png
+68 Combat; Combat.jpg; Chit Back.png
+69 Combat-icon; Combat-icon.png; Chit Back.png
+70 Cowboys; Cowboys Chit front.png; Chit Back.png
+71 Cowboys Huey; Cowboys Huey front.png; Cowboys Huey back.png
+72 cup; cup.jpg; Chit Back.png
+73 cup-icon; cup-icon.png; Chit Back.png
+74 Derek Castle; Derek Castle.png; Chit Back.png
+75 Diskord; Diskord front.png; Chit Back.png
+76 Event; Event.png; Chit Back.png
+77 Event-icon; Event-icon.png; Chit Back.png
+78 Finished; Finished.png; Chit Back.png
+79 Finished-icon2; Finished-icon2.png; Chit Back.png
+80 fire; fire.png; Chit Back.png
+81 fire-icon; fire-icon.png; Chit Back.png
+82 forward-button; forward-button.png; Chit Back.png
+83 globe-dark-icon; globe-dark-icon.png; Chit Back.png
+84 globe-icon; globe-icon.png; Chit Back.png
+85 High Morale; High Morale.png; Chit Back.png
+86 Hummel; Hummel front.png; Hummel back.png
+87 los-icon; los-icon.png; Chit Back.png
+88 Luftf; Luftf front.png; Chit Back.png
+89 M109; M109 front.png; M109 back.png
+90 M-60; M-60 front.png; Chit Back.png
+91 M72Law; M72Law front.png; Chit Back.png
+92 magnify-minus; magnify-minus.png; Chit Back.png
+93 magnify-plus; magnify-plus.png; Chit Back.png
+94 magnify-size; magnify-size.png; Chit Back.png
+95 Map; Map.jpg; Chit Back.png
+96 Map-mini-icon; Map-mini-icon.png; Chit Back.png
+97 Megrim; Megrim front.png; Megrim back.png
+98 MG42; MG42 front.png; Chit Back.png
+99 Mines; Mines.png; Chit Back.png
+100 mini-map-icon; mini-map-icon.png; Chit Back.png
+101 Moved; Moved.png; Chit Back.png
+102 moved-icon; moved-icon.png; Chit Back.png
+103 Nuclear 6; Nuclear 6.png; Chit Back.png
+104 Objective; Objective.png; Chit Back.png
+105 OOC; OOC.png; Chit Back.png
+106 OOC-icon; OOC-icon.png; Chit Back.png
+107 Ostwind; Ostwind front.png; Ostwind back.png
+108 Pest; Pest front.png; Pest back.png
+109 PFT3; PFT3 front.png; Chit Back.png
+110 Puma; Puma front.png; Puma back.png
+111 Rad; Rad.png; Chit Back.png
+112 Rancor; Rancor front.png; Rancor back.png
+113 Ravager; Ravager front.png; Ravager back.png
+114 Red control; Red control.png; Chit Back.png
+115 retire-button; retire-button.png; Chit Back.png
+116 Sandbags; Sandbags.png; Chit Back.png
+117 Scourge; Scourge front.png; Scourge back.png
+118 screenshot-icon; screenshot-icon.png; Chit Back.png
+119 Scud; Scud front.png; Chit Back.png
+120 server-button; server-button.png; Chit Back.png
+121 SG2; SG2 Chit front.png; Chit Back.png
+122 SG2 Saucer; SG2 Saucer front.png; SG2 Saucer back.png
+123 Shaken; Shaken.png; Chit Back.png
+124 Shellholes; Shellholes.png; Chit Back.png
+125 Smoke 3; Smoke 3.png; Chit Back.png
+126 Smoke L1; Smoke L1.png; Chit Back.png
+127 Smoke L2; Smoke L2.png; Chit Back.png
+128 Splash.gif; Splash.gif; Chit Back.png
+129 Stuka; Stuka front.png; Chit Back.png
+130 Turn; Turn.png; Chit Back.png
+131 undo; undo.png; Chit Back.png
+132 V2; V2 front.png; Chit Back.png
+133 Vehicle Crew; Vehicle Crew.png; Chit Back.png
+134 Vympel; Vympel Chit front.png; Chit Back.png
+135 Vympel Co; Vympel Co front.png; Vympel Co back.png
+136 Vympel Spetsnaz; Vympel Spetsnaz front.png; Vympel Spetsnaz back.png
+137 Wreck; Wreck.png; Chit Back.png
+138 XM134; XM134 front.png; Chit Back.png
+139 Zealots; Zealots front.png; Zealots back.png
+140 ZSU23; ZSU23 front.png; ZSU23 back.png
+</body>
+</html>
