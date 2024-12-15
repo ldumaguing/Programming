@@ -1,3 +1,66 @@
+create view v_chits as
+select
+cc.id, cc.name, cc.frontname, ii.name
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back
+from
+  images i,
+  chits  c
+where
+c.front = i.id) cc
+where
+cc.back = ii.id
+;
+
+
+
+
+
+
+
+select 
+c.id, c.name, i.name frontname, c.back
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+;
+
+
+
+
+
+sqlite> .schema images
+CREATE TABLE IF NOT EXISTS "images" (
+   id integer not null,
+   name varchar(255)
+);
+sqlite> .schema chits
+CREATE TABLE chits (
+   id integer not null,
+   name varcher(255),
+   front integer,
+   back integer
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE chits (
    id integer not null,
