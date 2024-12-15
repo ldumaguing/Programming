@@ -1,10 +1,9 @@
-const zqlite = @import("zqlite");
 const std = @import("std");
+const zqlite = @import("zqlite");
 
 pub fn main() !void {
-    // good idea to pass EXResCode to get extended result codes (more detailed error codes)
     const flags = zqlite.OpenFlags.Create | zqlite.OpenFlags.EXResCode;
-    var conn = try zqlite.open("/tmp/test.sqlite", flags);
+    var conn = try zqlite.open("/home/ayeka/test.sqlite", flags);
     defer conn.close();
 
     try conn.exec("create table if not exists test (name text)", .{});

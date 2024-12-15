@@ -1,3 +1,4 @@
-https://zigistry.dev/packages/karlseguin/zqlite.zig
+https://github.com/karlseguin/zqlite.zig
 
+https://github.com/vrischmann/zig-sqlite
 
