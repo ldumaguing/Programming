@@ -55,6 +55,7 @@ pub const MB = struct { // Map board
     pub var image_db: std.ArrayListAligned(Texture, null) = undefined;
     pub var unit_db: std.ArrayListAligned(Unit, null) = undefined;
     pub var terminal: Texture = undefined;
+    pub var terminal_2: Texture = undefined;
     pub var modes: u32 = 0;
     // ***
     pub const CORNER_0 = [_]i32{ 292, 141 };
@@ -68,6 +69,7 @@ pub const Inputs = struct {
     pub var shoulder_l: bool = false;
     pub var btn_B: bool = false;
     pub var btn_A: bool = false;
+    pub var btn_Y: bool = false;
     pub var reset_zoom: bool = false;
     pub var Axis_Lx: i32 = 0;
     pub var Axis_Ly: i32 = 0;
@@ -145,6 +147,7 @@ pub fn main() !void {
     MB.arrow = Texture.new("resource/img/arrow.png");
     MB.map_image = Texture.new("resource/Vassal/NW68/Map.jpg");
     MB.terminal = Texture.new("resource/img/terminal.png");
+    MB.terminal_2 = Texture.new("resource/img/terminal_2.png");
 
     // ********** create text
     GV.gFont = SDL.TTF_OpenFont("resource/font/NotoSansMono-ExtraCondensedThin.ttf", 16) orelse sdlPanic();

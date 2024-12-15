@@ -17,7 +17,7 @@ const terminal_center = [_]i32{ (gv.SCREEN_DIM[0] - terminal_dim[0]) / 2, (gv.SC
 
 pub fn doTerminal() void {
     if (inputs.btn_B) {
-        mb.modes = 0; // exit terminal mode
+        mb.modes &= ~@as(u32, (1 << 0));
     }
 
     const corner_0 = [_]f64{ @as(f64, @floatFromInt(mb.CORNER_0[0])) * @as(f64, mb.scale), @as(f64, @floatFromInt(mb.CORNER_0[1])) * @as(f64, mb.scale) };

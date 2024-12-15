@@ -15,9 +15,14 @@ var cursorSpeed: i32 = 0;
 
 pub fn update() void {
     if ((mb.modes & (1 << 0)) != 0) return; // terminal mode active
+    if ((mb.modes & (1 << 1)) != 0) return; // terminal_2 mode active
 
-    if (inputs.btn_A) {
+    if (inputs.btn_A) { // activate terminal mode
         mb.modes |= (1 << 0);
+    }
+
+    if (inputs.btn_Y) { // activate terminal_2 mode
+        mb.modes |= (1 << 1);
     }
 
     if (inputs.btn_B) {

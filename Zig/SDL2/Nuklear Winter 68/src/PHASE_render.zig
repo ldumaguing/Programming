@@ -10,6 +10,7 @@ const SDL = @cImport({
 const mb = @import("main.zig").MB;
 const gv = @import("main.zig").GV;
 const trm = @import("terminal.zig");
+const trm2 = @import("terminal_2.zig");
 
 pub fn render() void {
     // ********** clear screen
@@ -34,6 +35,13 @@ pub fn render() void {
         trm.doTerminal();
         return;
     }
+
+    // ********** put terminal_2
+    if ((mb.modes & (1 << 1)) != 0) {
+        trm2.doTerminal();
+        return;
+    }
+
     // mb.terminal.render(10, 10, null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     // ********** put arrow

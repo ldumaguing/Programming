@@ -87,7 +87,7 @@ fn reasign_buttons() void {
 
     // ************************************************
     // ***** Logitech Gamepad F310 (X mode)
-    // *****Logitech Gamepad F710 (X mode)
+    // ***** Logitech Gamepad F710 (X mode)
     inputs.shoulder_r = (gv.gcButtons & (1 << 5)) != 0;
     inputs.shoulder_l = (gv.gcButtons & (1 << 4)) != 0;
     inputs.Axis_Lx = gv.gcAxis_0;
@@ -96,6 +96,7 @@ fn reasign_buttons() void {
     inputs.Axis_Ry = gv.gcAxis_3;
     inputs.btn_A = (gv.gcButtons & (1 << 0)) != 0;
     inputs.btn_B = (gv.gcButtons & (1 << 1)) != 0;
+    inputs.btn_Y = (gv.gcButtons & (1 << 3)) != 0;
     inputs.reset_zoom = (gv.gcButtons & (1 << 6)) != 0;
 
     // ************************************************

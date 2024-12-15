@@ -17,7 +17,7 @@ const terminal_center = [_]i32{ (gv.SCREEN_DIM[0] - terminal_dim[0]) / 2, (gv.SC
 
 pub fn doTerminal() void {
     if (inputs.btn_B) {
-        mb.modes = 0; // exit terminal mode
+        mb.modes &= ~@as(u32, (1 << 1));
     }
 
     const corner_0 = [_]f64{ @as(f64, @floatFromInt(mb.CORNER_0[0])) * @as(f64, mb.scale), @as(f64, @floatFromInt(mb.CORNER_0[1])) * @as(f64, mb.scale) };
@@ -39,11 +39,11 @@ pub fn doTerminal() void {
     const hex_id = [_]i32{ hex_id_x, hex_id_y };
     print("hex id: ({},{})\n", .{ hex_id[0], hex_id[1] });
     // print("\n", .{});
-    mb.terminal.render(terminal_center[0], terminal_center[1], null, null, 0.0, null, SDL.SDL_FLIP_NONE);
+    mb.terminal_2.render(terminal_center[0], terminal_center[1], null, null, 0.0, null, SDL.SDL_FLIP_NONE);
 
     var textColor: SDL.SDL_Color = undefined;
-    textColor.r = 0;
-    textColor.g = 255;
+    textColor.r = 255;
+    textColor.g = 180;
     textColor.b = 0;
     var gTextTexture: Texture = Texture.newText("1234567890123456789012345678901234567890123456789012345678901234567890", textColor, gv.gFont);
 
