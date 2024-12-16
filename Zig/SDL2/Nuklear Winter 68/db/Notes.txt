@@ -1,6 +1,92 @@
+create view v_chits as
+select
+cc.id, cc.name, cc.frontname, ii.name backname
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+and
+c.is_chit = 1
+) cc
+where
+cc.back = ii.id
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+alter table chits
+ add is_chit integer default 1;
+
+
+
+
+
+
+
+
+
+
+
+
+create view v_all as
+select
+cc.id, cc.name, cc.frontname, ii.name backname
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+
+) cc
+where
+cc.back = ii.id
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 create view v_units as
 select
-cc.id, cc.name, cc.frontname, ii.name
+cc.id, cc.name, cc.frontname, ii.name backname
 from
 images ii,
 (select 
@@ -16,6 +102,10 @@ c.is_unit = 1
 where
 cc.back = ii.id
 ;
+
+
+
+
 
 
 
