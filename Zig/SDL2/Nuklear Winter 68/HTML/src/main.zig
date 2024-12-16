@@ -22,12 +22,20 @@ fn foo() !void {
     var conn = try zqlite.open("../db/NW68.db", flags);
     defer conn.close();
 
+    try stdio.print("<table>\n", .{});
+
     {
         var rows = try conn.rows("select * from v_chits order by id", .{});
         defer rows.deinit();
         while (rows.next()) |row| {
-            try stdio.print("{} {s}; {s}; {s}\n", .{ row.int(0), row.text(1), row.text(2), row.text(3) });
+            // try stdio.print("{} {s}; {s}; {s}\n", .{ row.int(0), row.text(1), row.text(2), row.text(3) });
+            try stdio.print("<tr>\n", .{});
+            try stdio.print("<td>{}</td>\n", .{row.int(0)});
+            try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>>\n", .{row.text(2)});
+            try stdio.print("</tr>\n", .{});
         }
         if (rows.err) |err| return err;
     }
+
+    try stdio.print("</table>\n", .{});
 }
