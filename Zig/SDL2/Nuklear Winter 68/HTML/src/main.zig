@@ -25,7 +25,9 @@ fn foo() !void {
     try stdio.print("<table>\n", .{});
 
     {
-        var rows = try conn.rows("select * from v_units order by id", .{});
+        // var rows = try conn.rows("select * from v_units order by id", .{});
+        var rows = try conn.rows("select * from v_chits order by id", .{});
+
         defer rows.deinit();
         while (rows.next()) |row| {
             // try stdio.print("{} {s}; {s}; {s}\n", .{ row.int(0), row.text(1), row.text(2), row.text(3) });
