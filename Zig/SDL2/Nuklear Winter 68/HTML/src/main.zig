@@ -25,13 +25,16 @@ fn foo() !void {
     try stdio.print("<table>\n", .{});
 
     {
-        var rows = try conn.rows("select * from v_chits order by id", .{});
+        var rows = try conn.rows("select * from v_units order by id", .{});
         defer rows.deinit();
         while (rows.next()) |row| {
             // try stdio.print("{} {s}; {s}; {s}\n", .{ row.int(0), row.text(1), row.text(2), row.text(3) });
             try stdio.print("<tr>\n", .{});
             try stdio.print("<td>{}</td>\n", .{row.int(0)});
-            try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>>\n", .{row.text(2)});
+            try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(2)});
+            try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(3)});
+            try stdio.print("<td>{s}</td>\n", .{row.text(1)});
+
             try stdio.print("</tr>\n", .{});
         }
         if (rows.err) |err| return err;

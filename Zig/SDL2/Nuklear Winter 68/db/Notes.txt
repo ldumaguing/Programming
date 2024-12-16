@@ -1,3 +1,38 @@
+create view v_units as
+select
+cc.id, cc.name, cc.frontname, ii.name
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+and
+c.is_unit = 1
+) cc
+where
+cc.back = ii.id
+;
+
+
+
+
+
+
+
+
+
+alter table chits
+ add is_unit integer default 0;
+
+
+
+
+
+
 create view v_chits as
 select
 cc.id, cc.name, cc.frontname, ii.name
