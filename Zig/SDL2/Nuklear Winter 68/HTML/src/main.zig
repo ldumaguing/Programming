@@ -36,7 +36,8 @@ fn foo() !void {
             try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(2)});
             try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(3)});
             try stdio.print("<td>{s}</td>\n", .{row.text(1)});
-
+            try stdio.print("<td><b>{s}</b></td>\n", .{row.text(4)});
+            try stdio.print("<td>{s}</td>\n", .{row.text(5)});
             try stdio.print("</tr>\n", .{});
         }
         if (rows.err) |err| return err;
