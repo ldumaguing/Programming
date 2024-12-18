@@ -1,0 +1,7 @@
+     flagA
+***************
+0:    default
+
+bit
+0:    insignia
+1:    attachable weapons for infantry

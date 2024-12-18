@@ -1,3 +1,95 @@
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+update chits set unit_type = '' where id = ;
+
+
+update chits set formation = '' where id = 51;
+update chits set unit_type = '9K32 Strela-2' where id = 51;
+
+
+update chits
+   set formation = '335th Cowboys'
+   where id >= 70 and id <= 71;
+
+
+
+
+
+update chits
+   set unit_type = 'SdKfz 250'
+   where name regexp '250';
+
+
+update chits
+   set unit_type = 'M113'
+   where name regexp 'M113';
+
+update chits
+   set unit_type = 'Fallschirmjager'
+   where name regexp 'Fall';
+
+
+
+create view v_chits as
+select
+cc.id, cc.name, cc.frontname, ii.name backname, cc.unit_type, cc.formation
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back, c.unit_type, c.formation
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+and
+c.is_chit = 1
+) cc
+where
+cc.back = ii.id
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+update chits
+   set formation = '1/130'
+   where id <= 6;
+
+update chits
+   set formation = '1/7 SS'
+   where id >=8 and id <= 11;
+
+update chits
+   set formation = '1st Ranger'
+   where id >= 12 and id <= 16;
+
+
+
+
+alter table chits
+   add unit_type varchar(80);
+alter table chits
+   add formation varchar(80);
+
+
+
+
 create view v_chits as
 select
 cc.id, cc.name, cc.frontname, ii.name backname
