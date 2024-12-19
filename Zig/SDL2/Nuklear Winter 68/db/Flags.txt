@@ -8,6 +8,27 @@ bit
 2:    CO & 2IC
 3:    airplane
 4:    infantry
+5:    recon
+6:    recon in front mode only
+7:    personnel carrier
+
+select * from chits where (flags <> (1 << 7)) = 0;    // XOR
+
+update chits set flags = flags | (1 << 7) where id = 9;
+update chits set flags = flags | (1 << 7) where id = 14;
+update chits set flags = flags | (1 << 7) where id = 17;
+update chits set flags = flags | (1 << 7) where id = 38;
+update chits set flags = flags | (1 << 7) where id = 27;
+update chits set flags = flags | (1 << 7) where id = 46;
+update chits set flags = flags | (1 << 7) where id = 108;
+update chits set flags = flags | (1 << 7) where id = ;
+update chits set flags = flags | (1 << 7) where id = ;
+
+
+
+
+
+
 
 update chits set flags = flags | (1 << 4) where id = ;
 

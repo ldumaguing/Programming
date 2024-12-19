@@ -26,7 +26,7 @@ fn foo() !void {
 
     {
         // var rows = try conn.rows("select * from v_units order by id", .{});
-        var rows = try conn.rows("select * from v_chits where flags = 0 order by formation, unit_type, id", .{});
+        var rows = try conn.rows("select * from v_chits order by formation, unit_type, id", .{});
 
         defer rows.deinit();
         while (rows.next()) |row| {
@@ -38,6 +38,7 @@ fn foo() !void {
             try stdio.print("<td>{s}</td>\n", .{row.text(1)});
             try stdio.print("<td><b>{s}</b></td>\n", .{row.text(4)});
             try stdio.print("<td>{s}</td>\n", .{row.text(5)});
+            try stdio.print("<td>{b}</td>\n", .{row.int(6)});
             try stdio.print("</tr>\n", .{});
         }
         if (rows.err) |err| return err;
