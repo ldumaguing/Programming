@@ -1,3 +1,14 @@
+update chits set formation = '2/501 SS' where id = 39;
+update chits set formation = '2/501 SS' where id = 40;
+update chits set formation = '2/501 SS' where id = 41;
+update chits set formation = '2/501 SS' where id = 42;
+update chits set formation = '2/501 SS' where id = 38;
+update chits set formation = '2/501 SS' where id = ;
+
+
+
+
+
 update chits set unit_type = '' where id = ;
 update chits set unit_type = '' where id = ;
 update chits set unit_type = '' where id = ;
@@ -37,11 +48,11 @@ update chits
 
 create view v_chits as
 select
-cc.id, cc.name, cc.frontname, ii.name backname, cc.unit_type, cc.formation
+cc.id, cc.name, cc.frontname, ii.name backname, cc.unit_type, cc.formation, cc.flags
 from
 images ii,
 (select 
-c.id, c.name, i.name frontname, c.back, c.unit_type, c.formation
+c.id, c.name, i.name frontname, c.back, c.unit_type, c.formation, c.flags
 from
   images i,
   chits  c

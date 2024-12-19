@@ -26,7 +26,7 @@ fn foo() !void {
 
     {
         // var rows = try conn.rows("select * from v_units order by id", .{});
-        var rows = try conn.rows("select * from v_chits order by formation, unit_type, id", .{});
+        var rows = try conn.rows("select * from v_chits where flags = 0 order by formation, unit_type, id", .{});
 
         defer rows.deinit();
         while (rows.next()) |row| {

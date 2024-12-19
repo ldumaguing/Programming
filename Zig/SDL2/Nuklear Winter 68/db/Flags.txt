@@ -1,7 +1,34 @@
      flagA
 ***************
-0:    default
+0:    default; vehicles
 
 bit
 0:    insignia
 1:    attachable weapons for infantry
+2:    CO & 2IC
+3:    airplane
+4:    infantry
+
+update chits set flags = flags | (1 << 4) where id = ;
+
+
+
+
+
+update chits set flags = flags | (1 << 3) where id = 52;
+
+
+
+update chits set flags = flags | (1 << 2) where unit_type = 'CO';
+
+
+update chits set flags = flags | (1 << 1) where id = 88;
+update chits set flags = flags | (1 << 1) where id = 90;
+update chits set flags = flags | (1 << 1) where id = 91;
+update chits set flags = flags | (1 << 1) where id = 98;
+update chits set flags = flags | (1 << 1) where id = 109;
+update chits set flags = flags | (1 << 1) where id = 138;
+
+
+alter table chits
+   add flags int;
