@@ -1,4 +1,31 @@
-     flagA
+HE_R_c: HE Range color
+Arm:    Armor
+Arm_c:  Armor color
+Spd:    Speed
+Spd_m:  Minimum speed
+AP2:     AP Firepower (back side)
+AP_c2:   AP Firepower color (back side)
+AP_R2:   AP Range (back side)
+AP_R_c2: AP Range color (back side)
+HE2:     HE Firepower (back side)
+HE_c2:   HE Firepower color (back side)
+HE_R2:   HE Range (back side)
+HE_R_c2: HE Range color (back side)
+
+   color
+***********
+0: white
+1: red
+2: blue
+3: yellow
+4: red & blue
+
+
+
+
+
+
+     flags
 ***************
 0:    default; vehicles
 
