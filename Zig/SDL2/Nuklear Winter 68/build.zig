@@ -37,7 +37,8 @@ pub fn build(b: *std.Build) void {
     });
 
     exe.linkSystemLibrary("SDL2");
-    exe.linkSystemLibrary("c");
+    // exe.linkSystemLibrary("c");
+    exe.linkLibC();
     exe.linkSystemLibrary("sdl2_image");
     exe.linkSystemLibrary("sdl2_ttf");
 
