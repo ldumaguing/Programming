@@ -1,3 +1,15 @@
+
+.headers on
+.mode csv
+.output test.csv
+select * from tbl1;
+.output stdout
+
+
+
+
+
+
 update chits set formation = '2/501 SS' where id = 39;
 update chits set formation = '2/501 SS' where id = 40;
 update chits set formation = '2/501 SS' where id = 41;
@@ -317,4 +329,51 @@ CREATE TABLE chits (
 .import --csv chits.csv chits
 
 106
+
+
+
+
+
+
+
+CREATE TABLE chits (
+   id        integer not null,
+   name      varcher(255),
+   front     integer,
+   back      integer,
+   is_unit   integer default 0,
+   is_chit   integer default 1,
+   unit_type varchar(80),
+   formation varchar(80),
+   flags     int default 0,
+   AP        int default 0,
+   AP_c      int default 0,
+   AP_R      int default 0,
+   AP_R_c    int default 0,
+   HE        int default 0,
+   HE_c      int default 0,
+   HE_R      int default 0,
+   HE_R_c    int default 0,
+   Arm       int default 0,
+   Arm_c     int default 0,
+   Spd       int default 0,
+   Spd_m     int default 0,
+   AP2       int default 0,
+   AP_c2     int default 0,
+   AP_R2     int default 0,
+   AP_R_c2   int default 0,
+   HE2       int default 0,
+   HE_c2     int default 0,
+   HE_R2     int default 0,
+   HE_R_c2   int default 0
+);
+
+
+
+
+
+
+
+
+
 
