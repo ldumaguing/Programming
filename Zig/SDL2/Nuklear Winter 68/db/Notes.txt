@@ -369,6 +369,64 @@ CREATE TABLE chits (
 );
 
 
+create view v_chits as
+select
+cc.id, cc.name, cc.frontname, ii.name backname, cc.unit_type, cc.formation, cc.flags,
+cc.AP,
+cc.AP_c,
+cc.AP_R,
+cc.AP_R_c,
+cc.HE,
+cc.HE_c,
+cc.HE_R,
+cc.HE_R_c,
+cc.Arm,
+cc.Arm_c,
+cc.Spd,
+cc.Spd_m,
+cc.AP2,
+cc.AP_c2,
+cc.AP_R2,
+cc.AP_R_c2,
+cc.HE2,
+cc.HE_c2,
+cc.HE_R2,
+cc.HE_R_c2
+from
+images ii,
+(select 
+c.id, c.name, i.name frontname, c.back, c.unit_type, c.formation, c.flags,
+c.AP,
+c.AP_c,
+c.AP_R,
+c.AP_R_c,
+c.HE,
+c.HE_c,
+c.HE_R,
+c.HE_R_c,
+c.Arm,
+c.Arm_c,
+c.Spd,
+c.Spd_m,
+c.AP2,
+c.AP_c2,
+c.AP_R2,
+c.AP_R_c2,
+c.HE2,
+c.HE_c2,
+c.HE_R2,
+c.HE_R_c2
+from
+  images i,
+  chits  c
+where
+c.front = i.id
+and
+c.is_chit = 1
+) cc
+where
+cc.back = ii.id
+;
 
 
 
