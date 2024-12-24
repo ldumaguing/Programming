@@ -346,26 +346,30 @@ CREATE TABLE chits (
    unit_type varchar(80),
    formation varchar(80),
    flags     int default 0,
-   AP        int default 0,
-   AP_c      int default 0,
-   AP_R      int default 0,
-   AP_R_c    int default 0,
-   HE        int default 0,
-   HE_c      int default 0,
-   HE_R      int default 0,
-   HE_R_c    int default 0,
-   Arm       int default 0,
-   Arm_c     int default 0,
-   Spd       int default 0,
-   Spd_m     int default 0,
-   AP2       int default 0,
-   AP_c2     int default 0,
-   AP_R2     int default 0,
-   AP_R_c2   int default 0,
-   HE2       int default 0,
-   HE_c2     int default 0,
-   HE_R2     int default 0,
-   HE_R_c2   int default 0
+   AP        int default 0, // 7
+   AP_c      int default 0, // 8
+   AP_R      int default 0, // 9
+   AP_R_c    int default 0, // 10
+   
+   HE        int default 0, // 11
+   HE_c      int default 0, // 12
+   HE_R      int default 0, // 13
+   HE_R_c    int default 0, // 14
+   
+   Arm       int default 0, // 15
+   Arm_c     int default 0, // 16
+   
+   Spd       int default 0, // 17
+   Spd_m     int default 0, // 18
+   
+   AP2       int default 0, // 19
+   AP_c2     int default 0, // 20
+   AP_R2     int default 0, // 21
+   AP_R_c2   int default 0, // 22
+   HE2       int default 0, // 23
+   HE_c2     int default 0, // 24
+   HE_R2     int default 0, // 25
+   HE_R_c2   int default 0  // 26
 );
 
 
