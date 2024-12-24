@@ -26,7 +26,7 @@ fn foo() !void {
 
     {
         // var rows = try conn.rows("select * from v_units order by id", .{});
-        var rows = try conn.rows("select * from v_chits order by id", .{});
+        var rows = try conn.rows("select * from v_chits where Spd > 0 order by id", .{});
 
         defer rows.deinit();
         while (rows.next()) |row| {
@@ -74,8 +74,10 @@ fn foo() !void {
                 try stdio.print("<td><h1><span style='background-color:red'>&emsp;{}&emsp;</span></h1></td>\n", .{row.int(15)});
             } else if (row.int(16) == 2) {
                 try stdio.print("<td><h1><span style='background-color:DodgerBlue'>&emsp;{}&emsp;</span></h1></td>\n", .{row.int(15)});
-            } else {
+            } else if (row.int(16) == 3) {
                 try stdio.print("<td><h1><span style='background-color:yellow'>&emsp;{}&emsp;</span></h1></td>\n", .{row.int(15)});
+            } else {
+                try stdio.print("<td><h1>&emsp;{}&emsp;</h1></td>\n", .{row.int(15)});
             }
             // ***** Spd
             try stdio.print("<td><h1><u>&emsp;{}&emsp;</u></h1></td>\n", .{row.int(17)});
