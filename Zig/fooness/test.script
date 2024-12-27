@@ -1,0 +1,19 @@
+***** chit placement
+3:C1:F
+11:A5:F
+14:AA5:F
+14:P15:F
+15:AA15:F
+9:AA16:B
+3:B15:B
+
+
+
+
+
+***** END
+^[0-9]+        : chit ID
+[A-Z]+[0-9]+   : hex ID
+[FB]$          : (F)ront side or (B)ack side of chit
+
+
