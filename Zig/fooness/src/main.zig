@@ -41,12 +41,39 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn placement(line: []u8, id_counter: i32) !void {
-    const regex: mvzr.Regex = mvzr.compile("^[0-9]+").?;
+    _ = id_counter;
+    //const stmt_a = "insert into chit_status (id, chit_ID, hex_ID, flags) values (";
+    var chit_ID: []u8 = undefined;
+    //var hex_ID: []u8 = undefined;
 
-    if (regex.isMatch(line)) {
-        const match: mvzr.Match = regex.match(line).?;
-        std.debug.print("{}: {s}\n", .{ id_counter, match.slice });
+    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+
+    const regex1: mvzr.Regex = mvzr.compile("^[0-9]+").?;
+    if (regex1.isMatch(line)) {
+        const match: mvzr.Match = regex1.match(line).?;
+
+        chit_ID = try std.fmt.allocPrint(allocator, "{s}", .{match.slice});
+        defer allocator.free(chit_ID);
+        std.debug.print("...b: {s}\n", .{chit_ID});
     }
+    // std.debug.print("b: {s}, {s}\n", .{ line, chit_ID.ptr });
+
+    // var arena1 = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    // defer arena1.deinit();
+    // const allocator1 = arena1.allocator();
+
+    // const regex2: mvzr.Regex = mvzr.compile("[A-Z]+[0-9]+").?;
+    // if (regex2.isMatch(line)) {
+    //     const match: mvzr.Match = regex2.match(line).?;
+
+    //     stmt_c = try std.fmt.allocPrint(allocator1, "{s}, {s}", .{ stmt_b, match.slice });
+    //     std.debug.print(":::{s}\n", .{stmt_c});
+    //     defer allocator1.free(stmt_c);
+    //     std.debug.print("...{s}\n", .{stmt_c});
+    // }
+
     // const match: mvzr.Match = regex.match("fish 123").?;
     // std.debug.print("{s}\n", .{match.slice});
     // const did_match: bool = regex.isMatch("123 fish");
