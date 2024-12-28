@@ -1,4 +1,5 @@
 const mvzr = @import("mvzr.zig");
+const String = @import("zig-string.zig").String;
 const std = @import("std");
 
 pub fn main() !void {
@@ -42,22 +43,28 @@ pub fn main() !void {
 // ************************************************************************************************
 fn placement(line: []u8, id_counter: i32) !void {
     _ = id_counter;
-    //const stmt_a = "insert into chit_status (id, chit_ID, hex_ID, flags) values (";
-    var chit_ID: []u8 = undefined;
+    const stmt_a = "insert into chit_status (id, chit_ID, hex_ID, flags) values (";
+    //var chit_ID: []u8 = undefined;
     //var hex_ID: []u8 = undefined;
 
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
-    const allocator = arena.allocator();
+    var stmt = String.init(arena.allocator());
+    defer stmt.deinit();
 
     const regex1: mvzr.Regex = mvzr.compile("^[0-9]+").?;
     if (regex1.isMatch(line)) {
         const match: mvzr.Match = regex1.match(line).?;
-
-        chit_ID = try std.fmt.allocPrint(allocator, "{s}", .{match.slice});
-        defer allocator.free(chit_ID);
-        std.debug.print("...b: {s}\n", .{chit_ID});
+        // const fish = match.slice;
+        try stmt.concat(stmt_a);
+        try stmt.concat(match.slice);
+        try stmt.concat(", ");
+        // chit_ID = try std.fmt.allocPrint(allocator, "{s}", .{match.slice});
+        // defer allocator.free(chit_ID);
+        // std.debug.print("...b: {s}{s}\n", .{ fish, stmt.str() });
     }
+    std.debug.print("...b: {s}\n", .{stmt.str()});
+
     // std.debug.print("b: {s}, {s}\n", .{ line, chit_ID.ptr });
 
     // var arena1 = std.heap.ArenaAllocator.init(std.heap.page_allocator);
