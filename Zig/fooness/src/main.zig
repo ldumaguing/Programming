@@ -1,3 +1,4 @@
+const mvzr = @import("mvzr.zig");
 const std = @import("std");
 
 pub fn main() !void {
@@ -11,6 +12,7 @@ pub fn main() !void {
     defer file.close();
 
     var mode: i32 = 0;
+    var id_counter: i32 = 1000;
     while (file.reader().readUntilDelimiterOrEofAlloc(allocator, '\n', std.math.maxInt(usize)) catch |err| {
         std.log.err("Failed to read line: {s}", .{@errorName(err)});
         return;
@@ -21,22 +23,32 @@ pub fn main() !void {
             mode = 1;
         }
         if (std.mem.indexOf(u8, line, "***** END")) |_| {
-            mode = 0;
+            mode = 999;
         }
 
         switch (mode) {
-            0 => {
+            999 => {
                 return;
             },
             1 => {
-                placement(line);
+                try placement(line, id_counter);
             },
             else => {},
         }
+        id_counter += 1;
     }
 }
 
 // ************************************************************************************************
-fn placement(line: []u8) void {
-    std.debug.print("{s}\n", .{line});
+fn placement(line: []u8, id_counter: i32) !void {
+    const regex: mvzr.Regex = mvzr.compile("^[0-9]+").?;
+
+    if (regex.isMatch(line)) {
+        const match: mvzr.Match = regex.match(line).?;
+        std.debug.print("{}: {s}\n", .{ id_counter, match.slice });
+    }
+    // const match: mvzr.Match = regex.match("fish 123").?;
+    // std.debug.print("{s}\n", .{match.slice});
+    // const did_match: bool = regex.isMatch("123 fish");
+    // std.debug.print("{}\n", .{did_match});
 }

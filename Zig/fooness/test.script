@@ -12,8 +12,24 @@
 
 
 ***** END
+**************************************************************** Notes
 ^[0-9]+        : chit ID
 [A-Z]+[0-9]+   : hex ID
 [FB]$          : (F)ront side or (B)ack side of chit
+
+********** flags
+bit
+0:    chit's side (F=0; B=1)
+1:    unit is SHAKEN
+2:    unit has FIRED
+3:    unit has MOVED
+
+
+create table chit_status (
+   id      int,
+   chit_ID int,
+   hex_ID  varchar(80),
+   flags   int
+);
 
 
