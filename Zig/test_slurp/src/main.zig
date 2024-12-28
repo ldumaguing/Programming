@@ -1,8 +1,22 @@
 const mvzr = @import("mvzr.zig");
 const String = @import("zig-string.zig").String;
 const std = @import("std");
+const sqlite = @import("sqlite");
+
+var db: sqlite.Db = undefined;
 
 pub fn main() !void {
+    db = try sqlite.Db.init(.{
+        .mode = sqlite.Db.Mode{ .File = "NW68.db" },
+        .open_flags = .{
+            .write = true,
+            .create = true,
+        },
+        .threading_mode = .MultiThread,
+    });
+
+    try db.exec("delete from chit_status", .{}, .{});
+
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
 
@@ -42,44 +56,50 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn placement(line: []u8, id_counter: i32) !void {
-    var buf: [32]u8 = undefined;
-    const stmt_a = "insert into chit_status (id, chit_ID, hex_ID, flags) values (";
-
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
-    var stmt = String.init(arena.allocator());
-    defer stmt.deinit();
+
+    var chit_ID: i32 = 0;
+    var hex_ID = String.init(arena.allocator());
+    defer hex_ID.deinit();
+    var flags: i32 = 0;
+    var is_valid: bool = false;
 
     const regex1: mvzr.Regex = mvzr.compile("^[0-9]+").?;
     if (regex1.isMatch(line)) {
-        const str_id_counter = try std.fmt.bufPrint(&buf, "{}", .{id_counter});
         const match: mvzr.Match = regex1.match(line).?;
-        try stmt.concat(stmt_a);
-        try stmt.concat(str_id_counter);
-        try stmt.concat(", ");
-        try stmt.concat(match.slice);
-        try stmt.concat(", ");
+        chit_ID = try std.fmt.parseInt(i32, match.slice, 10);
     }
 
     const regex2: mvzr.Regex = mvzr.compile("[A-Z]+[0-9]+").?;
     if (regex2.isMatch(line)) {
         const match: mvzr.Match = regex2.match(line).?;
-        try stmt.concat("'");
-        try stmt.concat(match.slice);
-        try stmt.concat("', ");
+        try hex_ID.concat(match.slice);
     }
 
     const regex3: mvzr.Regex = mvzr.compile("[FB]$").?;
     if (regex3.isMatch(line)) {
         const match: mvzr.Match = regex3.match(line).?;
         if (std.mem.eql(u8, match.slice, "F")) {
-            try stmt.concat("0)");
+            flags = 0;
         } else {
-            try stmt.concat("1)");
+            flags = 1;
         }
+        is_valid = true;
     }
 
-    if (stmt.len() > 20) {
-        std.debug.print("{s}\n", .{stmt.str()});
+    if (is_valid) {
+        // std.debug.print("{} --- {s} --- {}, {s}, {}\n", .{ id_counter, line, chit_ID, hex_ID.str(), flags });
+        const query =
+            \\insert into chit_status (id, chit_ID, hex_ID, flags) values (?, ?, ?, ?)
+        ;
+        var stmt = try db.prepare(query);
+        defer stmt.deinit();
+        try stmt.exec(.{}, .{
+            .id = id_counter,
+            .chit_ID = chit_ID,
+            .hex_ID = hex_ID.str(),
+            .flags = flags,
+        });
     }
 }
