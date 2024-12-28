@@ -1,27 +1,28 @@
-const std = @import("std");
-const zqlite = @import("zqlite");
+//! By convention, main.zig is where your main function lives in the case that
+//! you are building an executable. If you are making a library, the convention
+//! is to delete this file and start with root.zig instead.
+const sqlite = @import("sqlite");
 
 pub fn main() !void {
-    const flags = zqlite.OpenFlags.Create | zqlite.OpenFlags.EXResCode;
-    var conn = try zqlite.open("/home/ayeka/test.sqlite", flags);
-    defer conn.close();
+    var db = try sqlite.Db.init(.{
+        .mode = sqlite.Db.Mode{ .File = "mydata.db" },
+        .open_flags = .{
+            .write = true,
+            .create = true,
+        },
+        .threading_mode = .MultiThread,
+    });
 
-    try conn.exec("create table if not exists test (name text)", .{});
-    try conn.exec("insert into test (name) values (?1), (?2)", .{ "Leto", "Ghanima" });
+    // ********************
 
-    {
-        if (try conn.row("select * from test order by name limit 1", .{})) |row| {
-            defer row.deinit();
-            std.debug.print("name: {s}\n", .{row.text(0)});
-        }
-    }
+    try db.exec("CREATE TABLE IF NOT EXISTS employees(id integer primary key, name text, age integer, salary integer)", .{}, .{});
 
-    {
-        var rows = try conn.rows("select * from test order by name", .{});
-        defer rows.deinit();
-        while (rows.next()) |row| {
-            std.debug.print("name: {s}\n", .{row.text(0)});
-        }
-        if (rows.err) |err| return err;
-    }
+    const query =
+        \\SELECT id, name, age, salary FROM employees WHERE age > ? AND age < ?
+    ;
+
+    var stmt = try db.prepare(query);
+    defer stmt.deinit();
 }
+
+const std = @import("std");
