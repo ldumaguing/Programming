@@ -26,7 +26,7 @@ fn foo() !void {
 
     {
         // var rows = try conn.rows("select * from v_units order by id", .{});
-        var rows = try conn.rows("select * from v_chits where Spd > 0 order by id", .{});
+        var rows = try conn.rows("select * from v_chits order by id", .{});
 
         defer rows.deinit();
         while (rows.next()) |row| {
@@ -35,10 +35,10 @@ fn foo() !void {
             try stdio.print("<td>{}</td>\n", .{row.int(0)});
             try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(2)});
             try stdio.print("<td><img src=\"/home/ayeka/resource/Vassal/NW68/{s}\"</td>\n", .{row.text(3)});
-            try stdio.print("<td>{s}</td>\n", .{row.text(1)});
-            try stdio.print("<td><b>{s}</b></td>\n", .{row.text(4)});
-            try stdio.print("<td>{s}</td>\n", .{row.text(5)});
-            try stdio.print("<td>{b}</td>\n", .{row.int(6)});
+            // try stdio.print("<td>{s}</td>\n", .{row.text(1)});
+            // try stdio.print("<td><b>{s}</b></td>\n", .{row.text(4)});
+            // try stdio.print("<td>{s}</td>\n", .{row.text(5)});
+            // try stdio.print("<td>{b}</td>\n", .{row.int(6)});
             // ***** AP
             if (row.int(8) == 1) {
                 try stdio.print("<td><h1><span style='background-color:red'>&emsp;{}&emsp;</span></h1></td>\n", .{row.int(7)});
