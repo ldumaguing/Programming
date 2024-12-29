@@ -20,7 +20,28 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
 
-    const file = std.fs.cwd().openFile("test.script", .{}) catch |err| {
+    // **************
+    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    defer arena.deinit();
+
+    var theFile = String.init(arena.allocator());
+    defer theFile.deinit();
+
+    const allocator1 = std.heap.page_allocator;
+    var argsIterator = try std.process.ArgIterator.initWithAllocator(allocator1);
+    defer argsIterator.deinit();
+
+    _ = argsIterator.next();
+    if (argsIterator.next()) |arg| {
+        try theFile.concat(arg);
+        std.log.err("{s}\n", .{theFile.str()});
+    } else {
+        std.log.err("Need a file.\n", .{});
+        return;
+    }
+    // ***************
+
+    const file = std.fs.cwd().openFile(theFile.str(), .{}) catch |err| {
         std.log.err("Failed to open file: {s}", .{@errorName(err)});
         return;
     };
