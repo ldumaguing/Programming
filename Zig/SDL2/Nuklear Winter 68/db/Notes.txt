@@ -105,6 +105,17 @@ update chits
 
 
 
+
+
+
+
+
+
+alter table chit_status
+   add embarkable int default -1;
+
+
+
 alter table chits
    add unit_type varchar(80);
 alter table chits
