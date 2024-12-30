@@ -22,22 +22,25 @@ pub const Hexagon = struct {
         std.debug.print("id: {s}\n", .{id});
 
         var X: i32 = 0;
-        const regex3: mvzr.Regex = mvzr.compile("^[A-Z][A-Z]").?;
-        if (regex3.isMatch(id)) {
-            const match: mvzr.Match = regex3.match(id).?;
+        var Y: i32 = 0;
+        var regex: mvzr.Regex = undefined;
+        var match: mvzr.Match = undefined;
+
+        regex = mvzr.compile("^[A-Z][A-Z]").?;
+        if (regex.isMatch(id)) {
+            match = regex.match(id).?;
             X = @as(i32, match.slice[0]) - letter_A + 26;
         } else {
-            const regex1: mvzr.Regex = mvzr.compile("^[A-Z]").?;
-            if (regex1.isMatch(id)) {
-                const match: mvzr.Match = regex1.match(id).?;
+            regex = mvzr.compile("^[A-Z]").?;
+            if (regex.isMatch(id)) {
+                match = regex.match(id).?;
                 X = @as(i32, match.slice[0]) - letter_A;
             }
         }
 
-        var Y: i32 = 0;
-        const regex2: mvzr.Regex = mvzr.compile("[0-9]+").?;
-        if (regex2.isMatch(id)) {
-            const match: mvzr.Match = regex2.match(id).?;
+        regex = mvzr.compile("[0-9]+").?;
+        if (regex.isMatch(id)) {
+            match = regex.match(id).?;
             Y = std.fmt.parseInt(i32, match.slice, 10) catch 0;
         }
 
