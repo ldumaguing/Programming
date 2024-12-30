@@ -39,6 +39,17 @@ bit
 6:    recon in front mode only
 7:    personnel carrier
 
+
+
+***** find vehicles that has "personnel carrier" attribute
+***** then assign embarkable to 0 to indicate its vacancy.
+update chit_status set embarkable = 0 where chit_ID in
+(
+select id from chits where flags & (1 << 7)
+);
+
+
+
 select * from chits where (flags <> (1 << 7)) = 0;    // XOR
 
 update chits set flags = flags | (1 << 7) where id = 9;

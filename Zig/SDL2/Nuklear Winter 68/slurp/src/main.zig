@@ -20,7 +20,7 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
 
-    // **************
+    // ************** PARSING ARGS
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
@@ -39,7 +39,7 @@ pub fn main() !void {
         std.log.err("Need a file.\n", .{});
         return;
     }
-    // ***************
+    // *************** parsing args
 
     const file = std.fs.cwd().openFile(theFile.str(), .{}) catch |err| {
         std.log.err("Failed to open file: {s}", .{@errorName(err)});
@@ -58,12 +58,16 @@ pub fn main() !void {
         if (std.mem.indexOf(u8, line, "***** chit placement")) |_| {
             mode = 1;
         }
+        if (std.mem.indexOf(u8, line, "***** set embarkable")) |_| {
+            try embarkable();
+        }
         if (std.mem.indexOf(u8, line, "***** END")) |_| {
             mode = 999;
         }
 
         switch (mode) {
             999 => {
+                std.debug.print("Done.\n", .{});
                 return;
             },
             1 => {
@@ -73,6 +77,18 @@ pub fn main() !void {
         }
         id_counter += 1;
     }
+}
+
+// ************************************************************************************************
+fn embarkable() !void {
+    std.debug.print("embarkable\n", .{});
+    const query =
+        \\update chit_status set embarkable = 0 where chit_ID in (
+        \\select id from chits where flags & (1 << 7)
+        \\)
+    ;
+
+    try db.exec(query, .{}, .{});
 }
 
 // ************************************************************************************************
