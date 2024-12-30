@@ -24,7 +24,6 @@ pub const Hexagon = struct {
         var X: i32 = 0;
         const regex3: mvzr.Regex = mvzr.compile("^[A-Z][A-Z]").?;
         if (regex3.isMatch(id)) {
-            std.debug.print("here\n", .{});
             const match: mvzr.Match = regex3.match(id).?;
             X = @as(i32, match.slice[0]) - letter_A + 26;
         } else {
