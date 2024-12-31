@@ -9,6 +9,6 @@ pub fn main() !void {
     std.debug.print("{s}, {}, {}, {}\n", .{ hex0.id, hex0.x, hex0.y, hex0.z });
     hex0.foo(hex1);
 
-    hex_foo = hexagon.Hexagon.new_XYZ(10, 13, 0);
+    hex_foo = hexagon.Hexagon.new_XYZ(26, 13, 0);
     std.debug.print("{s} --- ({}, {})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y });
 }

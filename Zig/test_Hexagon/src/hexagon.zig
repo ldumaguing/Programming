@@ -4,6 +4,7 @@ const mvzr = @import("mvzr.zig");
 const String = @import("zig-string.zig").String;
 
 const letter_A: u8 = 'A';
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 pub const Hexagon = struct {
     id: []const u8,
@@ -17,20 +18,28 @@ pub const Hexagon = struct {
     }
 
     pub fn new_XYZ(x: i32, y: i32, z: i32) Hexagon {
-        // // Use your favorite allocator
+        var X = x;
+        var Y = y;
+        if (X < 0) X = 0;
+        if (X > 29) X = 29;
+        if (Y < 1) Y = 1;
+        if (Y > 20) Y = 20;
+        // Use your favorite allocator
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
 
-        // // Create your String
+        // Create your String
         var myString = String.init(arena.allocator());
         defer myString.deinit();
-        myString.concat("123fXish123.334") catch undefined;
 
-        std.debug.print("{s}\n", .{myString.str()});
         var buff: [32]u8 = undefined;
-        _ = std.fmt.bufPrint(&buff, "{s}: {}", .{ myString.str(), myString.str().len }) catch undefined;
-        const String_len = @as(usize, myString.str().len);
-        buff[String_len] = 0;
+        if (X < 26) {
+            _ = std.fmt.bufPrintZ(&buff, "{c}{}", .{ alphabet[@abs(X)], Y }) catch undefined;
+        } else {
+            X = x - 26;
+            _ = std.fmt.bufPrintZ(&buff, "{c}{c}{}", .{ alphabet[@abs(X)], alphabet[@abs(X)], Y }) catch undefined;
+        }
+        const String_len: usize = @abs(std.mem.indexOf(u8, &buff, "\x00").?);
         const slice = buff[0..String_len :0];
 
         return Hexagon{
@@ -44,7 +53,7 @@ pub const Hexagon = struct {
     pub fn new(id: []const u8, z: i32) Hexagon {
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
-        std.debug.print("id: {s}\n", .{id});
+        // std.debug.print("id: {s}\n", .{id});
 
         var X: i32 = 0;
         var Y: i32 = 0;
