@@ -3,13 +3,16 @@ const std = @import("std");
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
-    const hex0 = hexagon.Hexagon.new("AA3", 0);
-    const hex1 = hexagon.Hexagon.new("G4", 0);
+    const hex0 = hexagon.Hexagon.new("AA3");
+    const hex1 = hexagon.Hexagon.new("G4");
     var hex_foo: hexagon.Hexagon = undefined;
-    std.debug.print("{s}, {}, {}, {}\n", .{ hex0.id, hex0.x, hex0.y, hex0.z });
+    std.debug.print("{s}, {}, {}\n", .{ hex0.id, hex0.x, hex0.y });
     std.debug.print("   ({}, {})\n", .{ hex0.carti_X, hex0.carti_Y });
     hex0.foo(hex1);
 
-    hex_foo = hexagon.Hexagon.new_XYZ(25, 13, 0);
+    hex_foo = hexagon.Hexagon.new_XYZ(7, 3, 0);
     std.debug.print("{s} --- ({}, {}) ({},{})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y, hex_foo.carti_X, hex_foo.carti_Y });
+
+    const hex_adj = hex1.adjacent(1);
+    std.debug.print("{s}: ({}, {}) --- {s}: ({}, {})\n", .{ hex1.id, hex1.x, hex1.y, hex_adj.id, hex_adj.x, hex_adj.y });
 }

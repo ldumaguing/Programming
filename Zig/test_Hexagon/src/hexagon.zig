@@ -19,6 +19,102 @@ pub const Hexagon = struct {
         std.debug.print("foo: {}\n", .{hex.x});
     }
 
+    pub fn adjacent(self: Hexagon, d: i32) Hexagon {
+        var X: i32 = 0;
+        var Y: i32 = 0;
+        if (@mod(X, 2) == 0) {
+            switch (d) {
+                0 => {
+                    X = self.x;
+                    Y = self.y - 1;
+                },
+                1 => {
+                    X = self.x + 1;
+                    Y = self.y - 1;
+                },
+                2 => {
+                    X = self.x + 1;
+                    Y = self.y;
+                },
+                3 => {
+                    X = self.x;
+                    Y = self.y + 1;
+                },
+                4 => {
+                    X = self.x - 1;
+                    Y = self.y;
+                },
+                5 => {
+                    X = self.x - 1;
+                    Y = self.y - 1;
+                },
+                else => {},
+            }
+        } else {
+            switch (d) {
+                0 => {
+                    X = self.x;
+                    Y = self.y - 1;
+                },
+                1 => {
+                    X = self.x + 1;
+                    Y = self.y;
+                },
+                2 => {
+                    X = self.x + 1;
+                    Y = self.y + 1;
+                },
+                3 => {
+                    X = self.x;
+                    Y = self.y + 1;
+                },
+                4 => {
+                    X = self.x - 1;
+                    Y = self.y + 1;
+                },
+                5 => {
+                    X = self.x - 1;
+                    Y = self.y;
+                },
+                else => {},
+            }
+        }
+
+        // Use your favorite allocator
+        var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+        defer arena.deinit();
+
+        // Create your String
+        var myString = String.init(arena.allocator());
+        defer myString.deinit();
+
+        var buff: [32]u8 = undefined;
+        if (X < 26) {
+            _ = std.fmt.bufPrintZ(&buff, "{c}{}", .{ alphabet[@abs(X)], Y }) catch undefined;
+        } else {
+            X -= 26;
+            _ = std.fmt.bufPrintZ(&buff, "{c}{c}{}", .{ alphabet[@abs(X)], alphabet[@abs(X)], Y }) catch undefined;
+        }
+        const String_len: usize = @abs(std.mem.indexOf(u8, &buff, "\x00").?);
+        const slice = buff[0..String_len :0];
+
+        var fY: f64 = 0.0;
+        if (@mod(X, 2) == 0) {
+            fY = @as(f64, @floatFromInt(Y));
+        } else {
+            fY = @as(f64, @floatFromInt(Y)) + 0.5;
+        }
+
+        return Hexagon{
+            .id = slice,
+            .x = X,
+            .y = Y,
+            .z = 0,
+            .carti_X = (std.math.cos(30.0 * std.math.pi / 180.0)) * @as(f64, @floatFromInt(X)),
+            .carti_Y = fY,
+        };
+    }
+
     pub fn new_XYZ(x: i32, y: i32, z: i32) Hexagon {
         var X = x;
         var Y = y;
@@ -62,7 +158,7 @@ pub const Hexagon = struct {
         };
     }
 
-    pub fn new(id: []const u8, z: i32) Hexagon {
+    pub fn new_Z(id: []const u8, z: i32) Hexagon {
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
         // std.debug.print("id: {s}\n", .{id});
@@ -102,6 +198,51 @@ pub const Hexagon = struct {
             .x = X,
             .y = Y,
             .z = z,
+            .carti_X = (std.math.cos(30.0 * std.math.pi / 180.0)) * @as(f64, @floatFromInt(X)),
+            .carti_Y = fY,
+        };
+    }
+
+    pub fn new(id: []const u8) Hexagon {
+        var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+        defer arena.deinit();
+        // std.debug.print("id: {s}\n", .{id});
+
+        var X: i32 = 0;
+        var Y: i32 = 0;
+        var regex: mvzr.Regex = undefined;
+        var match: mvzr.Match = undefined;
+
+        regex = mvzr.compile("^[A-Z][A-Z]").?;
+        if (regex.isMatch(id)) {
+            match = regex.match(id).?;
+            X = @as(i32, match.slice[0]) - letter_A + 26;
+        } else {
+            regex = mvzr.compile("^[A-Z]").?;
+            if (regex.isMatch(id)) {
+                match = regex.match(id).?;
+                X = @as(i32, match.slice[0]) - letter_A;
+            }
+        }
+
+        regex = mvzr.compile("[0-9]+").?;
+        if (regex.isMatch(id)) {
+            match = regex.match(id).?;
+            Y = std.fmt.parseInt(i32, match.slice, 10) catch 0;
+        }
+
+        var fY: f64 = 0.0;
+        if (@mod(X, 2) == 0) {
+            fY = @as(f64, @floatFromInt(Y));
+        } else {
+            fY = @as(f64, @floatFromInt(Y)) + 0.5;
+        }
+
+        return Hexagon{
+            .id = id,
+            .x = X,
+            .y = Y,
+            .z = 0,
             .carti_X = (std.math.cos(30.0 * std.math.pi / 180.0)) * @as(f64, @floatFromInt(X)),
             .carti_Y = fY,
         };
