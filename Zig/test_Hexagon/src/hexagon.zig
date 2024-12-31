@@ -24,9 +24,15 @@ pub const Hexagon = struct {
         // // Create your String
         var myString = String.init(arena.allocator());
         defer myString.deinit();
-        myString.concat("123fXish123") catch undefined;
+        myString.concat("123fXish123.334") catch undefined;
 
         std.debug.print("{s}\n", .{myString.str()});
+        var buff: [32]u8 = undefined;
+        _ = std.fmt.bufPrint(&buff, "{s}: {}", .{ myString.str(), myString.str().len }) catch undefined;
+        buff[5] = 'Y';
+        const String_len = @as(usize, myString.str().len);
+        buff[String_len] = 0;
+        const slice1 = buff[0..String_len :0];
 
         var array: [32]u8 = undefined;
         array[0] = 'a';
@@ -35,10 +41,10 @@ pub const Hexagon = struct {
         array[3] = 'd';
         array[4] = 0;
         const slice = array[0..4 :0];
-        std.debug.print("{s}: {}\n", .{ slice, slice.len });
+        std.debug.print("{s}: {} -- {s} ---\n>>>> {s}:{}\n", .{ slice, slice.len, buff, slice1, String_len });
 
         return Hexagon{
-            .id = slice,
+            .id = slice1,
             .x = x,
             .y = y,
             .z = z,
