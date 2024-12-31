@@ -7,8 +7,9 @@ pub fn main() !void {
     const hex1 = hexagon.Hexagon.new("G4", 0);
     var hex_foo: hexagon.Hexagon = undefined;
     std.debug.print("{s}, {}, {}, {}\n", .{ hex0.id, hex0.x, hex0.y, hex0.z });
+    std.debug.print("   ({}, {})\n", .{ hex0.carti_X, hex0.carti_Y });
     hex0.foo(hex1);
 
-    hex_foo = hexagon.Hexagon.new_XYZ(26, 13, 0);
-    std.debug.print("{s} --- ({}, {})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y });
+    hex_foo = hexagon.Hexagon.new_XYZ(25, 13, 0);
+    std.debug.print("{s} --- ({}, {}) ({},{})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y, hex_foo.carti_X, hex_foo.carti_Y });
 }

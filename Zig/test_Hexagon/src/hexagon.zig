@@ -11,6 +11,8 @@ pub const Hexagon = struct {
     x: i32,
     y: i32,
     z: i32,
+    carti_X: f64,
+    carti_Y: f64,
 
     pub fn foo(self: Hexagon, hex: Hexagon) void {
         _ = self;
@@ -43,11 +45,20 @@ pub const Hexagon = struct {
         const String_len: usize = @abs(std.mem.indexOf(u8, &buff, "\x00").?);
         const slice = buff[0..String_len :0];
 
+        var fY: f64 = 0.0;
+        if (@mod(X, 2) == 0) {
+            fY = @as(f64, @floatFromInt(Y));
+        } else {
+            fY = @as(f64, @floatFromInt(Y)) + 0.5;
+        }
+
         return Hexagon{
             .id = slice,
             .x = x,
             .y = y,
             .z = z,
+            .carti_X = (std.math.cos(30.0 * std.math.pi / 180.0)) * @as(f64, @floatFromInt(x)),
+            .carti_Y = fY,
         };
     }
 
@@ -79,11 +90,20 @@ pub const Hexagon = struct {
             Y = std.fmt.parseInt(i32, match.slice, 10) catch 0;
         }
 
+        var fY: f64 = 0.0;
+        if (@mod(X, 2) == 0) {
+            fY = @as(f64, @floatFromInt(Y));
+        } else {
+            fY = @as(f64, @floatFromInt(Y)) + 0.5;
+        }
+
         return Hexagon{
             .id = id,
             .x = X,
             .y = Y,
             .z = z,
+            .carti_X = (std.math.cos(30.0 * std.math.pi / 180.0)) * @as(f64, @floatFromInt(X)),
+            .carti_Y = fY,
         };
     }
 };
