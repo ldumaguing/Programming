@@ -24,6 +24,7 @@ pub const Hexagon = struct {
         if (X > 29) X = 29;
         if (Y < 1) Y = 1;
         if (Y > 20) Y = 20;
+
         // Use your favorite allocator
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
