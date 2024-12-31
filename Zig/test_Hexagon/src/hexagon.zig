@@ -29,22 +29,12 @@ pub const Hexagon = struct {
         std.debug.print("{s}\n", .{myString.str()});
         var buff: [32]u8 = undefined;
         _ = std.fmt.bufPrint(&buff, "{s}: {}", .{ myString.str(), myString.str().len }) catch undefined;
-        buff[5] = 'Y';
         const String_len = @as(usize, myString.str().len);
         buff[String_len] = 0;
-        const slice1 = buff[0..String_len :0];
-
-        var array: [32]u8 = undefined;
-        array[0] = 'a';
-        array[1] = myString.str()[4];
-        array[2] = 'c';
-        array[3] = 'd';
-        array[4] = 0;
-        const slice = array[0..4 :0];
-        std.debug.print("{s}: {} -- {s} ---\n>>>> {s}:{}\n", .{ slice, slice.len, buff, slice1, String_len });
+        const slice = buff[0..String_len :0];
 
         return Hexagon{
-            .id = slice1,
+            .id = slice,
             .x = x,
             .y = y,
             .z = z,
