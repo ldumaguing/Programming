@@ -19,16 +19,34 @@ pub const Hexagon = struct {
         std.debug.print("foo: {}\n", .{hex.x});
     }
 
-    pub fn hex_distance(self: Hexagon, hex: Hexagon) i32 {
-        const init_degrees: f64 = self.degrees(hex);
-        std.debug.print("***********\ndeg: {}\n", .{init_degrees});
-        return 13;
-    }
-
     pub fn distance(self: Hexagon, hex: Hexagon) f64 {
         const X: f64 = hex.carti_X - self.carti_X;
         const Y: f64 = hex.carti_Y - self.carti_Y;
         return std.math.hypot(X, Y);
+    }
+
+    pub fn hex_direction(self: Hexagon, hex: Hexagon) i32 {
+        // 0 = N, 1 = NE, 2 = SE, 3 = S, 4 = SW, 5 = NW
+        var dir: i32 = 2;
+        const degs = self.degrees(hex);
+
+        if ((degs >= 0.0) and (degs < 60.0)) {
+            dir = 1;
+        }
+        if ((degs >= 60.0) and (degs < 120.0)) {
+            dir = 0;
+        }
+        if ((degs >= 120.0) and (degs < 180.0)) {
+            dir = 5;
+        }
+        if ((degs >= 180.0) and (degs < 240.0)) {
+            dir = 4;
+        }
+        if ((degs >= 240.0) and (degs < 300.0)) {
+            dir = 3;
+        }
+
+        return dir;
     }
 
     pub fn degrees(self: Hexagon, hex: Hexagon) f64 {

@@ -11,7 +11,7 @@ pub fn main() !void {
     const deg: f64 = hex0.degrees(hex1);
     std.debug.print("deg: {}\n", .{deg});
     std.debug.print("distance: {}\n", .{hex0.distance(hex1)});
-    std.debug.print("hex distance: {}\n", .{hex0.hex_distance(hex1)});
+    std.debug.print("hex dir: {}\n", .{hex0.hex_direction(hex1)});
 
     hex_foo = hexagon.Hexagon.new_XYZ(7, 3, 0);
     std.debug.print("{s} --- ({}, {}) ({},{})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y, hex_foo.carti_X, hex_foo.carti_Y });
