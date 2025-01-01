@@ -3,12 +3,13 @@ const std = @import("std");
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
-    const hex0 = hexagon.Hexagon.new("AA3");
-    const hex1 = hexagon.Hexagon.new("G4");
+    const hex0 = hexagon.Hexagon.new("G5");
+    const hex1 = hexagon.Hexagon.new("E5");
     var hex_foo: hexagon.Hexagon = undefined;
     std.debug.print("{s}, {}, {}\n", .{ hex0.id, hex0.x, hex0.y });
     std.debug.print("   ({}, {})\n", .{ hex0.carti_X, hex0.carti_Y });
-    hex0.foo(hex1);
+    const deg: f64 = hex0.degrees(hex1);
+    std.debug.print("deg: {}\n", .{deg});
 
     hex_foo = hexagon.Hexagon.new_XYZ(7, 3, 0);
     std.debug.print("{s} --- ({}, {}) ({},{})\n", .{ hex_foo.id, hex_foo.x, hex_foo.y, hex_foo.carti_X, hex_foo.carti_Y });

@@ -19,6 +19,29 @@ pub const Hexagon = struct {
         std.debug.print("foo: {}\n", .{hex.x});
     }
 
+    pub fn degrees(self: Hexagon, hex: Hexagon) f64 {
+        const X: f64 = hex.carti_X - self.carti_X;
+        const Y: f64 = hex.carti_Y - self.carti_Y;
+        if (std.math.hypot(X, Y) <= 0) return -1.0;
+
+        var DEGS: f64 = std.math.radiansToDegrees(std.math.atan(Y / X));
+        if ((X >= 0) and (Y < 0)) {
+            DEGS = @abs(DEGS);
+        }
+        if ((X < 0) and (Y < 0)) {
+            DEGS = 180.0 - DEGS;
+        }
+        if ((X < 0) and (Y >= 0)) {
+            DEGS = 180.0 - DEGS;
+        }
+        if ((X >= 0) and (Y >= 0)) {
+            DEGS = 360.0 - DEGS;
+            if (DEGS >= 360.0) DEGS = 0.0;
+        }
+
+        return DEGS;
+    }
+
     pub fn adjacent(self: Hexagon, d: i32) Hexagon {
         var X: i32 = 0;
         var Y: i32 = 0;
