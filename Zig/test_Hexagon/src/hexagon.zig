@@ -19,9 +19,20 @@ pub const Hexagon = struct {
         std.debug.print("foo: {}\n", .{hex.x});
     }
 
+    pub fn crawl_to_hex(self: Hexagon, hex: Hexagon) void {
+        var valid_hexes: [3]i32 = undefined;
+        const hex_dir = self.hex_direction(hex);
+        valid_hexes[0] = @mod(hex_dir - 1, 6);
+        valid_hexes[1] = hex_dir;
+        valid_hexes[2] = @mod(hex_dir + 1, 6);
+        std.debug.print("{}, {}, {}:  {u}\n", .{ valid_hexes[0], valid_hexes[1], valid_hexes[2], '\u{6753}' });
+        // var hexagon_tmp: Hexagon = undefined;
+    }
+
     pub fn distance(self: Hexagon, hex: Hexagon) f64 {
         const X: f64 = hex.carti_X - self.carti_X;
         const Y: f64 = hex.carti_Y - self.carti_Y;
+        if ((hex.carti_X == self.carti_X) and (self.carti_Y == hex.carti_Y)) return 0.0;
         return std.math.hypot(X, Y);
     }
 
