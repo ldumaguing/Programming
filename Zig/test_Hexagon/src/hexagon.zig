@@ -19,6 +19,12 @@ pub const Hexagon = struct {
         std.debug.print("foo: {}\n", .{hex.x});
     }
 
+    pub fn hex_distance(self: Hexagon, hex: Hexagon) i32 {
+        const init_degrees: f64 = self.degrees(hex);
+        std.debug.print("***********\ndeg: {}\n", .{init_degrees});
+        return 13;
+    }
+
     pub fn distance(self: Hexagon, hex: Hexagon) f64 {
         const X: f64 = hex.carti_X - self.carti_X;
         const Y: f64 = hex.carti_Y - self.carti_Y;
