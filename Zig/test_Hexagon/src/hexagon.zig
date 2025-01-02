@@ -20,15 +20,42 @@ pub const Hexagon = struct {
     }
 
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
-        var hex_runner: Hexagon = self;
-        var dirH = hex_runner.hex_direction(target_hex);
-        std.debug.print("0) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+        const target_degrees: f64 = self.degrees(target_hex);
+        const target_dir: i32 = self.hex_direction(target_hex);
+        var valid_dirs: [3]i32 = undefined;
+        valid_dirs[1] = target_dir;
+        valid_dirs[2] = @mod(target_dir + 1, 6);
+        valid_dirs[0] = @mod(target_dir - 1, 6);
 
-        while (dirH > 0) {
-            hex_runner = hex_runner.adjacent(dirH);
-            dirH = hex_runner.hex_direction(target_hex);
-            std.debug.print("1) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+        var hex_runner: Hexagon = self;
+        var ref_hexagon: Hexagon = hex_runner.adjacent(valid_dirs[0]);
+        const angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[1]);
+        const angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[2]);
+        const angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        std.debug.print("{}\n{}\n{}\n", .{ angle0, angle1, angle2 });
+
+        //var dirH = hex_runner.hex_direction(target_hex);
+        var countdown: i32 = 5;
+        while (countdown > 0) {
+            hex_runner = hex_runner.adjacent(valid_dirs[0]);
+            if (angle0 > angle1) hex_runner = hex_runner.adjacent(valid_dirs[1]);
+            if (angle1 > angle2) hex_runner = hex_runner.adjacent(valid_dirs[2]);
+            std.debug.print("{},{}\n", .{ hex_runner.x, hex_runner.y });
+            countdown -= 1;
+            //  dirH = hex_runner.hex_direction(target_hex);
         }
+
+        // var hex_runner: Hexagon = self;
+        //     var dirH = hex_runner.hex_direction(target_hex);
+        //     std.debug.print("0) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+
+        //     while (dirH > 0) {
+        //         hex_runner = hex_runner.adjacent(dirH);
+        //         dirH = hex_runner.hex_direction(target_hex);
+        //         std.debug.print("1) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+        //     }
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
