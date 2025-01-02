@@ -3,21 +3,21 @@ const std = @import("std");
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
-    const hex0 = hexagon.Hexagon.new("G5");
-    const hex1 = hexagon.Hexagon.new("I5");
+    const hex0 = hexagon.Hexagon.new("A1");
+    const hex1 = hexagon.Hexagon.new("E20");
     hex0.crawl_to_hex(hex1);
 
-    const h0: hexagon.Hexagon = hex0.adjacent(0);
-    const h1: hexagon.Hexagon = hex0.adjacent(1);
-    const h2: hexagon.Hexagon = hex0.adjacent(2);
-    const h3: hexagon.Hexagon = hex0.adjacent(3);
-    const h4: hexagon.Hexagon = hex0.adjacent(4);
-    const h5: hexagon.Hexagon = hex0.adjacent(5);
+    // const h0: hexagon.Hexagon = hex0.adjacent(0);
+    // const h1: hexagon.Hexagon = hex0.adjacent(1);
+    // const h2: hexagon.Hexagon = hex0.adjacent(2);
+    // const h3: hexagon.Hexagon = hex0.adjacent(3);
+    // const h4: hexagon.Hexagon = hex0.adjacent(4);
+    // const h5: hexagon.Hexagon = hex0.adjacent(5);
 
-    std.debug.print("{}, {}, {}\n", .{ h0.x, h1.x, h2.x });
-    std.debug.print("{}, {}, {}\n", .{ h3.x, h4.x, h5.x });
-    std.debug.print("---\n{}, {}, {}\n", .{ h0.y, h1.y, h2.y });
-    std.debug.print("{}, {}, {}\n", .{ h3.y, h4.y, h5.y });
+    // std.debug.print("{}, {}, {}\n", .{ h0.x, h1.x, h2.x });
+    // std.debug.print("{}, {}, {}\n", .{ h3.x, h4.x, h5.x });
+    // std.debug.print("---\n{}, {}, {}\n", .{ h0.y, h1.y, h2.y });
+    // std.debug.print("{}, {}, {}\n", .{ h3.y, h4.y, h5.y });
     // const hex1 = hexagon.Hexagon.new("I5");
     // hex0.crawl_to_hex(hex1);
     // std.debug.print("\n", .{});

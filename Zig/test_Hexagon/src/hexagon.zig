@@ -29,46 +29,6 @@ pub const Hexagon = struct {
             dirH = hex_runner.hex_direction(target_hex);
             std.debug.print("1) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
         }
-        //   hex_runner = hex_runner.adjacent(dirH);
-        //  dirH = hex_runner.hex_direction(target_hex);
-        //std.debug.print("2) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
-
-        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
-        // dirH = hex_runner.hex_direction(hex);
-        // std.debug.print("{}, {}\n", .{ hex_runner.x, hex_runner.y });
-
-        // std.debug.print("0) distance: {}\n", .{hex_runner.distance(hex)});
-        // var dirH: i32 = hex_runner.hex_direction(hex);
-        // std.debug.print("   dirH: {}\n", .{dirH});
-
-        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
-        // std.debug.print("1) distance: {}\n", .{hex_runner.distance(hex)});
-        // dirH = hex_runner.hex_direction(hex);
-        // std.debug.print("   dirH: {}\n", .{dirH});
-
-        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
-        // std.debug.print("2) distance: {}\n", .{hex_runner.distance(hex)});
-        // dirH = hex_runner.hex_direction(hex);
-        // std.debug.print("   dirH: {}\n", .{dirH});
-
-        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
-        // std.debug.print("3) distance: {}\n", .{hex_runner.distance(hex)});
-        // dirH = hex_runner.hex_direction(hex);
-        // std.debug.print("   dirH: {}\n", .{dirH});
-
-        //}
-        // var valid_hex_dirs: [3]i32 = undefined;
-        // const hex_dir = self.hex_direction(hex);
-        // valid_hex_dirs[0] = @mod(hex_dir - 1, 6);
-        // valid_hex_dirs[1] = hex_dir;
-        // valid_hex_dirs[2] = @mod(hex_dir + 1, 6);
-        // std.debug.print("{}, {}, {}:  {u}\n", .{ valid_hex_dirs[0], valid_hex_dirs[1], valid_hex_dirs[2], '\u{6753}' });
-        // var hexagon_adjac: Hexagon = undefined;
-
-        // hexagon_adjac = self.adjacent(hex_dir);
-        // std.debug.print("{}, {}, {}\n   {}\n", .{ hexagon_adjac.x, hexagon_adjac.y, hexagon_adjac.distance(hex), hexagon_adjac.degrees(hex) });
-        //hexagon_adjac = hexagon_adjac.
-
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
