@@ -7,39 +7,81 @@ const letter_A: u8 = 'A';
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 pub const Hexagon = struct {
-    id: []const u8,
+    // id: []const u8,
     x: i32,
     y: i32,
     z: i32,
     carti_X: f64,
     carti_Y: f64,
 
-    pub fn foo(self: Hexagon, hex: Hexagon) void {
+    pub fn foo(self: Hexagon, target_hex: Hexagon) void {
         _ = self;
-        std.debug.print("foo: {}\n", .{hex.x});
+        std.debug.print("foo: {}\n", .{target_hex.x});
     }
 
-    pub fn crawl_to_hex(self: Hexagon, hex: Hexagon) void {
-        var valid_hexes: [3]i32 = undefined;
-        const hex_dir = self.hex_direction(hex);
-        valid_hexes[0] = @mod(hex_dir - 1, 6);
-        valid_hexes[1] = hex_dir;
-        valid_hexes[2] = @mod(hex_dir + 1, 6);
-        std.debug.print("{}, {}, {}:  {u}\n", .{ valid_hexes[0], valid_hexes[1], valid_hexes[2], '\u{6753}' });
-        // var hexagon_tmp: Hexagon = undefined;
+    pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
+        var hex_runner: Hexagon = self;
+        var dirH = hex_runner.hex_direction(target_hex);
+        std.debug.print("0) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+
+        while (dirH > 0) {
+            hex_runner = hex_runner.adjacent(dirH);
+            dirH = hex_runner.hex_direction(target_hex);
+            std.debug.print("1) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+        }
+        //   hex_runner = hex_runner.adjacent(dirH);
+        //  dirH = hex_runner.hex_direction(target_hex);
+        //std.debug.print("2) {}, {} -> {}\n", .{ hex_runner.x, hex_runner.y, dirH });
+
+        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
+        // dirH = hex_runner.hex_direction(hex);
+        // std.debug.print("{}, {}\n", .{ hex_runner.x, hex_runner.y });
+
+        // std.debug.print("0) distance: {}\n", .{hex_runner.distance(hex)});
+        // var dirH: i32 = hex_runner.hex_direction(hex);
+        // std.debug.print("   dirH: {}\n", .{dirH});
+
+        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
+        // std.debug.print("1) distance: {}\n", .{hex_runner.distance(hex)});
+        // dirH = hex_runner.hex_direction(hex);
+        // std.debug.print("   dirH: {}\n", .{dirH});
+
+        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
+        // std.debug.print("2) distance: {}\n", .{hex_runner.distance(hex)});
+        // dirH = hex_runner.hex_direction(hex);
+        // std.debug.print("   dirH: {}\n", .{dirH});
+
+        // hex_runner = hex_runner.adjacent(hex_runner.hex_direction(hex));
+        // std.debug.print("3) distance: {}\n", .{hex_runner.distance(hex)});
+        // dirH = hex_runner.hex_direction(hex);
+        // std.debug.print("   dirH: {}\n", .{dirH});
+
+        //}
+        // var valid_hex_dirs: [3]i32 = undefined;
+        // const hex_dir = self.hex_direction(hex);
+        // valid_hex_dirs[0] = @mod(hex_dir - 1, 6);
+        // valid_hex_dirs[1] = hex_dir;
+        // valid_hex_dirs[2] = @mod(hex_dir + 1, 6);
+        // std.debug.print("{}, {}, {}:  {u}\n", .{ valid_hex_dirs[0], valid_hex_dirs[1], valid_hex_dirs[2], '\u{6753}' });
+        // var hexagon_adjac: Hexagon = undefined;
+
+        // hexagon_adjac = self.adjacent(hex_dir);
+        // std.debug.print("{}, {}, {}\n   {}\n", .{ hexagon_adjac.x, hexagon_adjac.y, hexagon_adjac.distance(hex), hexagon_adjac.degrees(hex) });
+        //hexagon_adjac = hexagon_adjac.
+
     }
 
-    pub fn distance(self: Hexagon, hex: Hexagon) f64 {
-        const X: f64 = hex.carti_X - self.carti_X;
-        const Y: f64 = hex.carti_Y - self.carti_Y;
-        if ((hex.carti_X == self.carti_X) and (self.carti_Y == hex.carti_Y)) return 0.0;
+    pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
+        const X: f64 = target_hex.carti_X - self.carti_X;
+        const Y: f64 = target_hex.carti_Y - self.carti_Y;
+        if ((target_hex.carti_X == self.carti_X) and (self.carti_Y == target_hex.carti_Y)) return 0.0;
         return std.math.hypot(X, Y);
     }
 
-    pub fn hex_direction(self: Hexagon, hex: Hexagon) i32 {
+    pub fn hex_direction(self: Hexagon, target_hex: Hexagon) i32 {
         // 0 = N, 1 = NE, 2 = SE, 3 = S, 4 = SW, 5 = NW
-        var dir: i32 = 2;
-        const degs = self.degrees(hex);
+        var dir: i32 = -1;
+        const degs = self.degrees(target_hex);
 
         if ((degs >= 0.0) and (degs < 60.0)) {
             dir = 1;
@@ -56,13 +98,16 @@ pub const Hexagon = struct {
         if ((degs >= 240.0) and (degs < 300.0)) {
             dir = 3;
         }
+        if ((degs >= 300.0) and (degs < 360.0)) {
+            dir = 2;
+        }
 
         return dir;
     }
 
-    pub fn degrees(self: Hexagon, hex: Hexagon) f64 {
-        const X: f64 = hex.carti_X - self.carti_X;
-        const Y: f64 = hex.carti_Y - self.carti_Y;
+    pub fn degrees(self: Hexagon, target_hex: Hexagon) f64 {
+        const X: f64 = target_hex.carti_X - self.carti_X;
+        const Y: f64 = target_hex.carti_Y - self.carti_Y;
         if (std.math.hypot(X, Y) <= 0) return -1.0;
 
         var DEGS: f64 = std.math.radiansToDegrees(std.math.atan(Y / X));
@@ -84,12 +129,14 @@ pub const Hexagon = struct {
     }
 
     pub fn adjacent(self: Hexagon, d: i32) Hexagon {
-        var X: i32 = 0;
-        var Y: i32 = 0;
+        //std.debug.print("adj: {}\n", .{self.y});
+        var X: i32 = self.x;
+        var Y: i32 = self.y;
         if (@mod(X, 2) == 0) {
+            //std.debug.print("even\n", .{});
             switch (d) {
                 0 => {
-                    X = self.x;
+                    //X = self.x;
                     Y = self.y - 1;
                 },
                 1 => {
@@ -98,15 +145,15 @@ pub const Hexagon = struct {
                 },
                 2 => {
                     X = self.x + 1;
-                    Y = self.y;
+                    //Y = self.y;
                 },
                 3 => {
-                    X = self.x;
+                    //X = self.x;
                     Y = self.y + 1;
                 },
                 4 => {
                     X = self.x - 1;
-                    Y = self.y;
+                    //Y = self.y;
                 },
                 5 => {
                     X = self.x - 1;
@@ -115,21 +162,22 @@ pub const Hexagon = struct {
                 else => {},
             }
         } else {
+            //std.debug.print("odd\n", .{});
             switch (d) {
                 0 => {
-                    X = self.x;
+                    //X = self.x;
                     Y = self.y - 1;
                 },
                 1 => {
                     X = self.x + 1;
-                    Y = self.y;
+                    //Y = self.y;
                 },
                 2 => {
                     X = self.x + 1;
                     Y = self.y + 1;
                 },
                 3 => {
-                    X = self.x;
+                    //X = self.x;
                     Y = self.y + 1;
                 },
                 4 => {
@@ -138,29 +186,11 @@ pub const Hexagon = struct {
                 },
                 5 => {
                     X = self.x - 1;
-                    Y = self.y;
+                    //Y = self.y;
                 },
                 else => {},
             }
         }
-
-        // Use your favorite allocator
-        var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-        defer arena.deinit();
-
-        // Create your String
-        var myString = String.init(arena.allocator());
-        defer myString.deinit();
-
-        var buff: [32]u8 = undefined;
-        if (X < 26) {
-            _ = std.fmt.bufPrintZ(&buff, "{c}{}", .{ alphabet[@abs(X)], Y }) catch undefined;
-        } else {
-            X -= 26;
-            _ = std.fmt.bufPrintZ(&buff, "{c}{c}{}", .{ alphabet[@abs(X)], alphabet[@abs(X)], Y }) catch undefined;
-        }
-        const String_len: usize = @abs(std.mem.indexOf(u8, &buff, "\x00").?);
-        const slice = buff[0..String_len :0];
 
         var fY: f64 = 0.0;
         if (@mod(X, 2) == 0) {
@@ -168,9 +198,7 @@ pub const Hexagon = struct {
         } else {
             fY = @as(f64, @floatFromInt(Y)) + 0.5;
         }
-
         return Hexagon{
-            .id = slice,
             .x = X,
             .y = Y,
             .z = 0,
@@ -187,24 +215,6 @@ pub const Hexagon = struct {
         if (Y < 1) Y = 1;
         if (Y > 20) Y = 20;
 
-        // Use your favorite allocator
-        var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-        defer arena.deinit();
-
-        // Create your String
-        var myString = String.init(arena.allocator());
-        defer myString.deinit();
-
-        var buff: [32]u8 = undefined;
-        if (X < 26) {
-            _ = std.fmt.bufPrintZ(&buff, "{c}{}", .{ alphabet[@abs(X)], Y }) catch undefined;
-        } else {
-            X = x - 26;
-            _ = std.fmt.bufPrintZ(&buff, "{c}{c}{}", .{ alphabet[@abs(X)], alphabet[@abs(X)], Y }) catch undefined;
-        }
-        const String_len: usize = @abs(std.mem.indexOf(u8, &buff, "\x00").?);
-        const slice = buff[0..String_len :0];
-
         var fY: f64 = 0.0;
         if (@mod(X, 2) == 0) {
             fY = @as(f64, @floatFromInt(Y));
@@ -213,7 +223,6 @@ pub const Hexagon = struct {
         }
 
         return Hexagon{
-            .id = slice,
             .x = x,
             .y = y,
             .z = z,
@@ -258,7 +267,6 @@ pub const Hexagon = struct {
         }
 
         return Hexagon{
-            .id = id,
             .x = X,
             .y = Y,
             .z = z,
@@ -303,7 +311,6 @@ pub const Hexagon = struct {
         }
 
         return Hexagon{
-            .id = id,
             .x = X,
             .y = Y,
             .z = 0,
