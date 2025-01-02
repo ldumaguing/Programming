@@ -1,5 +1,7 @@
 // ***** hexagon.zig
 const std = @import("std");
+const print = @import("std").debug.print;
+
 const mvzr = @import("mvzr.zig");
 const String = @import("zig-string.zig").String;
 
@@ -21,31 +23,96 @@ pub const Hexagon = struct {
 
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
         const target_degrees: f64 = self.degrees(target_hex);
+        print("target deg: {}\n", .{target_degrees});
         const target_dir: i32 = self.hex_direction(target_hex);
         var valid_dirs: [3]i32 = undefined;
         valid_dirs[1] = target_dir;
         valid_dirs[2] = @mod(target_dir + 1, 6);
         valid_dirs[0] = @mod(target_dir - 1, 6);
+        print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
 
         var hex_runner: Hexagon = self;
+        print("***** {},{}\n", .{ hex_runner.x, hex_runner.y });
         var ref_hexagon: Hexagon = hex_runner.adjacent(valid_dirs[0]);
-        const angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        var angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
         ref_hexagon = hex_runner.adjacent(valid_dirs[1]);
-        const angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        var angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
         ref_hexagon = hex_runner.adjacent(valid_dirs[2]);
-        const angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        var angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
         std.debug.print("{}\n{}\n{}\n", .{ angle0, angle1, angle2 });
 
-        //var dirH = hex_runner.hex_direction(target_hex);
-        var countdown: i32 = 5;
-        while (countdown > 0) {
-            hex_runner = hex_runner.adjacent(valid_dirs[0]);
-            if (angle0 > angle1) hex_runner = hex_runner.adjacent(valid_dirs[1]);
-            if (angle1 > angle2) hex_runner = hex_runner.adjacent(valid_dirs[2]);
-            std.debug.print("{},{}\n", .{ hex_runner.x, hex_runner.y });
-            countdown -= 1;
-            //  dirH = hex_runner.hex_direction(target_hex);
-        }
+        var best_dir: usize = 0;
+        if (angle0 > angle1) best_dir = 1;
+        if (angle1 > angle2) best_dir = 2;
+        print("best dir: {}\n", .{valid_dirs[best_dir]});
+        // ----
+        hex_runner = hex_runner.adjacent(valid_dirs[best_dir]);
+        print("**** {},{}\n", .{ hex_runner.x, hex_runner.y });
+        ref_hexagon = hex_runner.adjacent(valid_dirs[0]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[1]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[2]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        std.debug.print("{}\n{}\n{}\n", .{ angle0, angle1, angle2 });
+
+        best_dir = 0;
+        if (angle0 > angle1) best_dir = 1;
+        if (angle1 > angle2) best_dir = 2;
+        print("best dir: {}\n", .{valid_dirs[best_dir]});
+        // ----
+        hex_runner = hex_runner.adjacent(valid_dirs[best_dir]);
+        print("**** {},{}\n", .{ hex_runner.x, hex_runner.y });
+        ref_hexagon = hex_runner.adjacent(valid_dirs[0]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[1]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[2]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        std.debug.print("{}\n{}\n{}\n", .{ angle0, angle1, angle2 });
+
+        best_dir = 0;
+        if (angle0 > angle1) best_dir = 1;
+        if (angle1 > angle2) best_dir = 2;
+        print("best dir: {}\n", .{valid_dirs[best_dir]});
+        // ----
+        hex_runner = hex_runner.adjacent(valid_dirs[best_dir]);
+        print("**** {},{}\n", .{ hex_runner.x, hex_runner.y });
+        ref_hexagon = hex_runner.adjacent(valid_dirs[0]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle0 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[1]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle1 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        ref_hexagon = hex_runner.adjacent(valid_dirs[2]);
+        print("{},{}\n", .{ ref_hexagon.x, ref_hexagon.y });
+        angle2 = @abs(ref_hexagon.degrees(target_hex) - target_degrees);
+        std.debug.print("{}\n{}\n{}\n", .{ angle0, angle1, angle2 });
+
+        best_dir = 0;
+        if (angle0 > angle1) best_dir = 1;
+        if (angle1 > angle2) best_dir = 2;
+        print("best dir: {}\n", .{valid_dirs[best_dir]});
+
+        // //var dirH = hex_runner.hex_direction(target_hex);
+        // var countdown: i32 = 5;
+        // while (countdown > 0) {
+        //     hex_runner = hex_runner.adjacent(valid_dirs[0]);
+        //     if (angle0 > angle1) hex_runner = hex_runner.adjacent(valid_dirs[1]);
+        //     if (angle1 > angle2) hex_runner = hex_runner.adjacent(valid_dirs[2]);
+        //     std.debug.print("{},{}\n", .{ hex_runner.x, hex_runner.y });
+        //     countdown -= 1;
+        //     //  dirH = hex_runner.hex_direction(target_hex);
+        // }
 
         // var hex_runner: Hexagon = self;
         //     var dirH = hex_runner.hex_direction(target_hex);
