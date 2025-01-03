@@ -55,23 +55,6 @@ pub const Hexagon = struct {
             // print("...dist: {}\n", .{dist});
         }
         print("***** best hex: {}, {}\n", .{ target_hex.x, target_hex.y });
-
-        // while (dist > 0.0) {
-        //     var hex_ref: Hexagon = hex_runner.adjacent(valid_dirs[0]);
-        //     const angle_0: f64 = hex_ref.distance(target_hex);
-        //     hex_ref = hex_runner.adjacent(valid_dirs[1]);
-        //     const angle_1: f64 = hex_ref.distance(target_hex);
-        //     hex_ref = hex_runner.adjacent(valid_dirs[2]);
-        //     const angle_2: f64 = hex_ref.distance(target_hex);
-        //     print("dists: {}, {}, {}\n", .{ angle_0, angle_1, angle_2 });
-        //     var best_dir: usize = 0;
-        //     if (angle_0 > angle_1) best_dir = 1;
-        //     if (angle_1 > angle_2) best_dir = 2;
-        //     print("best dir: {}\n", .{best_dir});
-        //     hex_runner = hex_runner.adjacent(valid_dirs[best_dir]);
-        //     print("***** best hex: {}, {}\n", .{ hex_runner.x, hex_runner.y });
-        //     dist = hex_runner.distance(target_hex);
-        // }
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
