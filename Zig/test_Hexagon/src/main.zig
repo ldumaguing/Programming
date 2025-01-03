@@ -6,9 +6,9 @@ const hexagon = @import("hexagon.zig");
 pub fn main() !void {
     const hex0 = hexagon.Hexagon.new("O10");
     // const hex1 = hexagon.Hexagon.new("R7");
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W10")); // 0
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W9"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W11")); // ************ broken
+    //hex0.crawl_to_hex(hexagon.Hexagon.new("W10")); // 0
+    //hex0.crawl_to_hex(hexagon.Hexagon.new("W9"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W11")); // ************ broken
     // hex0.crawl_to_hex(hexagon.Hexagon.new("W14"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("W13"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("W12"));
@@ -22,7 +22,7 @@ pub fn main() !void {
     // hex0.crawl_to_hex(hexagon.Hexagon.new("I10")); // 180
     // hex0.crawl_to_hex(hexagon.Hexagon.new("I9"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("I11"));
-    hex0.crawl_to_hex(hexagon.Hexagon.new("F9")); // ************ broken
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("F9")); // ************ broken
 
     // hex0.crawl_to_hex(hexagon.Hexagon.new("O15")); // 270
     // hex0.crawl_to_hex(hexagon.Hexagon.new("N15"));
