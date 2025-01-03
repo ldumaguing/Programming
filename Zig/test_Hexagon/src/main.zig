@@ -4,7 +4,7 @@ const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
     const hex0 = hexagon.Hexagon.new("A1");
-    const hex1 = hexagon.Hexagon.new("D5");
+    const hex1 = hexagon.Hexagon.new("A2");
     hex0.crawl_to_hex(hex1);
 
     // const h0: hexagon.Hexagon = hex0.adjacent(0);
