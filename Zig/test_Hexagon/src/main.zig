@@ -1,11 +1,17 @@
 // ***** main.zig
 const std = @import("std");
+const print = @import("std").debug.print;
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
-    const hex0 = hexagon.Hexagon.new("A1");
-    const hex1 = hexagon.Hexagon.new("C15");
-    hex0.crawl_to_hex(hex1);
+    const hex0 = hexagon.Hexagon.new("A2");
+    // const hex1 = hexagon.Hexagon.new("R7");
+    hex0.crawl_to_hex(hexagon.Hexagon.new("Z2"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("P9"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("P10"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("O11"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("N10"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("N9"));
 
     // const h0: hexagon.Hexagon = hex0.adjacent(0);
     // const h1: hexagon.Hexagon = hex0.adjacent(1);

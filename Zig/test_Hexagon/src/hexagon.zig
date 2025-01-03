@@ -22,6 +22,8 @@ pub const Hexagon = struct {
     }
 
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
+        const fish = self.degrees(target_hex);
+        print("fish: {}\n", .{fish});
         const target_dir: i32 = self.hex_direction(target_hex);
         var valid_dirs: [3]i32 = undefined;
         valid_dirs[1] = target_dir;
@@ -36,25 +38,37 @@ pub const Hexagon = struct {
             return;
         }
 
-        const deg_ref: f64 = target_hex.degrees(self);
-        while (dist > 1.0) {
-            var hex_ref: Hexagon = hex_runner.adjacent(valid_dirs[0]);
-            const angle_0: f64 = @abs(target_hex.degrees(hex_ref) - deg_ref);
+        const angle_ref: f64 = self.degrees(target_hex);
+        print("angle ref: {}\n", .{angle_ref});
+        var hex_ref: Hexagon = undefined;
+        var counter: i32 = 30;
+        // while (dist > 1.0) {
+        while (counter > 0) {
+            hex_ref = hex_runner.adjacent(valid_dirs[0]);
+            const dist_0: f64 = @abs(hex_ref.degrees(target_hex));
             hex_ref = hex_runner.adjacent(valid_dirs[1]);
-            const angle_1: f64 = @abs(target_hex.degrees(hex_ref) - deg_ref);
+            const dist_1: f64 = @abs(hex_ref.degrees(target_hex));
             hex_ref = hex_runner.adjacent(valid_dirs[2]);
-            const angle_2: f64 = @abs(target_hex.degrees(hex_ref) - deg_ref);
-            // print("angles: {}, {}, {}\n", .{ angle_0, angle_1, angle_2 });
-            var best_dir: usize = 0;
-            if (angle_0 > angle_1) best_dir = 1;
-            if (angle_1 > angle_2) best_dir = 2;
-            // print("best dir: {}\n", .{best_dir});
-            hex_runner = hex_runner.adjacent(valid_dirs[best_dir]);
-            print("***** best hex: {}, {}\n", .{ hex_runner.x, hex_runner.y });
-            dist = hex_runner.distance(target_hex);
-            // print("...dist: {}\n", .{dist});
+            const dist_2: f64 = @abs(hex_ref.degrees(target_hex));
+            print("degs: {}, {}, {}\n", .{ dist_0, dist_1, dist_2 });
+            var least_dist: usize = 0;
+            if (dist_0 > dist_1) least_dist = 1;
+            if (dist_1 > dist_2) least_dist = 2;
+            print("least degs: {}\n\n", .{least_dist});
+            hex_ref = hex_runner.adjacent(valid_dirs[least_dist]);
+            dist = hex_ref.distance(target_hex);
+            print("***** best hex: {}, {}\n", .{ hex_ref.x, hex_ref.y });
+            hex_runner = hex_ref;
+            counter -= 1;
         }
-        print("***** best hex: {}, {}\n", .{ target_hex.x, target_hex.y });
+        print("******** best hex: {}, {}\n", .{ target_hex.x, target_hex.y });
+
+        //     hex_runner = hex_runner.adjacent(valid_dirs[least_dir]);
+        //     print("***** best hex: {}, {}\n", .{ hex_runner.x, hex_runner.y });
+        //     dist = hex_runner.distance(target_hex);
+        //     // print("...dist: {}\n", .{dist});
+        // }
+        // print("***** best hex: {}, {}\n", .{ target_hex.x, target_hex.y });
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
