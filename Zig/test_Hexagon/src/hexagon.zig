@@ -90,65 +90,12 @@ pub const Hexagon = struct {
             hex_runner = hex_runner.adjacent(valid_dirs[indx]);
             print("new position: {}, {}\n", .{ hex_runner.x, hex_runner.y });
             dist = @round(hex_runner.distance(target_hex));
-            //print("dist: {}\n", .{dist});
             if (dist <= 1.0) break;
             //print("\n", .{});
             countdown -= 1;
         }
 
         print("\nnew position: {}, {}\n\n", .{ target_hex.x, target_hex.y });
-
-        // // const angle_ref: f64 = self.degrees(target_hex);
-        // // print("angle ref: {}\n", .{angle_ref});
-        // var hex_ref: Hexagon = undefined;
-        // var counter: i32 = 15;
-        // // while (dist > 1.0) {
-        // while (counter > 0) {
-        //     // while (true) {
-        //     hex_ref = hex_runner.adjacent(valid_dirs[0]);
-        //     const deg_0: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-        //     const dist_0: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-        //     hex_ref = hex_runner.adjacent(valid_dirs[1]);
-        //     const deg_1: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-        //     const dist_1: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-        //     hex_ref = hex_runner.adjacent(valid_dirs[2]);
-        //     const deg_2: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-        //     const dist_2: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-        //     print("degs: {}, {}, {} --- {}, {}, {}\n", .{ deg_0, deg_1, deg_2, dist_0, dist_1, dist_2 });
-
-        //     //if (dist_0 == 0) break;
-        //     //if (dist_1 == 0) break;
-        //     //if (dist_2 == 0) break;
-
-        //     var least_dist: usize = 0;
-
-        //     if (deg_0 > deg_1) least_dist = 1;
-        //     if (deg_1 > deg_2) least_dist = 2;
-        //     print("least degs: {}\n", .{least_dist});
-        //     hex_ref = hex_runner.adjacent(valid_dirs[least_dist]);
-        //     dist = hex_ref.distance(target_hex);
-        //     print("***** best hex: {}, {} --- {}\n\n", .{ hex_ref.x, hex_ref.y, dist });
-        //     hex_runner = hex_ref;
-        //     counter -= 1;
-
-        //     if (dist_0 == 0) break;
-        //     if (dist_1 == 0) break;
-        //     if (dist_2 == 0) break;
-        // }
-        // print("******** best hex: {}, {}\n\n", .{ target_hex.x, target_hex.y });
-
-        //     hex_runner = hex_runner.adjacent(valid_dirs[least_dir]);
-        //     print("***** best hex: {}, {}\n", .{ hex_runner.x, hex_runner.y });
-        //     dist = hex_runner.distance(target_hex);
-        //     // print("...dist: {}\n", .{dist});
-        // }
-        // print("***** best hex: {}, {}\n", .{ target_hex.x, target_hex.y });
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
@@ -209,14 +156,11 @@ pub const Hexagon = struct {
     }
 
     pub fn adjacent(self: Hexagon, d: i32) Hexagon {
-        //std.debug.// print("adj: {}\n", .{self.y});
         var X: i32 = self.x;
         var Y: i32 = self.y;
         if (@mod(X, 2) == 0) {
-            //std.debug.// print("even\n", .{});
             switch (d) {
                 0 => {
-                    //X = self.x;
                     Y = self.y - 1;
                 },
                 1 => {
@@ -225,15 +169,12 @@ pub const Hexagon = struct {
                 },
                 2 => {
                     X = self.x + 1;
-                    //Y = self.y;
                 },
                 3 => {
-                    //X = self.x;
                     Y = self.y + 1;
                 },
                 4 => {
                     X = self.x - 1;
-                    //Y = self.y;
                 },
                 5 => {
                     X = self.x - 1;
@@ -242,22 +183,18 @@ pub const Hexagon = struct {
                 else => {},
             }
         } else {
-            //std.debug.// print("odd\n", .{});
             switch (d) {
                 0 => {
-                    //X = self.x;
                     Y = self.y - 1;
                 },
                 1 => {
                     X = self.x + 1;
-                    //Y = self.y;
                 },
                 2 => {
                     X = self.x + 1;
                     Y = self.y + 1;
                 },
                 3 => {
-                    //X = self.x;
                     Y = self.y + 1;
                 },
                 4 => {
@@ -266,7 +203,6 @@ pub const Hexagon = struct {
                 },
                 5 => {
                     X = self.x - 1;
-                    //Y = self.y;
                 },
                 else => {},
             }
@@ -314,7 +250,6 @@ pub const Hexagon = struct {
     pub fn new_Z(id: []const u8, z: i32) Hexagon {
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
-        // std.debug.// print("id: {s}\n", .{id});
 
         var X: i32 = 0;
         var Y: i32 = 0;
@@ -358,7 +293,6 @@ pub const Hexagon = struct {
     pub fn new(id: []const u8) Hexagon {
         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         defer arena.deinit();
-        // std.debug.// print("id: {s}\n", .{id});
 
         var X: i32 = 0;
         var Y: i32 = 0;
