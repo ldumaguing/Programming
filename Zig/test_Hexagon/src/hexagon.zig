@@ -24,13 +24,13 @@ pub const Hexagon = struct {
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
         print("***** {}, {} ---> {}, {}\n", .{ self.x, self.y, target_hex.x, target_hex.y });
         const angle_to_target = self.degrees(target_hex);
-        print("angle_to_target: {}\n", .{angle_to_target});
+        //print("angle_to_target: {}\n", .{angle_to_target});
         const target_dir: i32 = self.hex_direction(target_hex);
         var valid_dirs: [3]i32 = undefined;
         valid_dirs[1] = target_dir;
         valid_dirs[2] = @mod(target_dir + 1, 6);
         valid_dirs[0] = @mod(target_dir - 1, 6);
-        print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
+        //print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
 
         var hex_runner: Hexagon = self;
         var dist: f64 = hex_runner.distance(target_hex);
@@ -45,8 +45,9 @@ pub const Hexagon = struct {
         }
 
         // **************
-
-        while (true) {
+        var countdown: i32 = 15;
+        // while (true) {
+        while (countdown > 0) {
             const hx0 = hex_runner.adjacent(valid_dirs[0]);
             const hx1 = hex_runner.adjacent(valid_dirs[1]);
             const hx2 = hex_runner.adjacent(valid_dirs[2]);
@@ -69,31 +70,34 @@ pub const Hexagon = struct {
             };
             angle2 = @intCast(@abs(angle2 - angle_to_target));
 
-            print("angles: {}, {}, {}\n", .{
-                hx0.degrees(target_hex),
-                hx1.degrees(target_hex),
-                hx2.degrees(target_hex),
-            });
+            // print("angles: {}, {}, {}\n", .{
+            //     hx0.degrees(target_hex),
+            //     hx1.degrees(target_hex),
+            //     hx2.degrees(target_hex),
+            // });
 
-            print("angles: {}, {}, {}\n", .{
-                angle0,
-                angle1,
-                angle2,
-            });
+            // print("angles: {}, {}, {}\n", .{
+            //     angle0,
+            //     angle1,
+            //     angle2,
+            // });
 
             var indx: usize = 0;
             if (angle0 > angle1) indx = 1;
             if (angle1 > angle2) indx = 2;
-            print("{}:{}\n", .{ indx, valid_dirs[indx] });
+            //print("{}:{}\n", .{ indx, valid_dirs[indx] });
 
             hex_runner = hex_runner.adjacent(valid_dirs[indx]);
             print("new position: {}, {}\n", .{ hex_runner.x, hex_runner.y });
-            dist = hex_runner.distance(target_hex);
-            print("dist: {}\n", .{dist});
-            // if (dist == 1) print("break\n", .{});
+            dist = @round(hex_runner.distance(target_hex));
+            //print("dist: {}\n", .{dist});
             if (dist <= 1.0) break;
-            print("\n", .{});
+            //print("\n", .{});
+            countdown -= 1;
         }
+
+        print("\nnew position: {}, {}\n\n", .{ target_hex.x, target_hex.y });
+
         // // const angle_ref: f64 = self.degrees(target_hex);
         // // print("angle ref: {}\n", .{angle_ref});
         // var hex_ref: Hexagon = undefined;
