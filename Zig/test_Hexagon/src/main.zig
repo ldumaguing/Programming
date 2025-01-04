@@ -28,7 +28,7 @@ pub fn main() !void {
     // hex0.crawl_to_hex(hexagon.Hexagon.new("N15"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("P15"));
 
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("N9"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("O9"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("P9"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("P10"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("O11"));

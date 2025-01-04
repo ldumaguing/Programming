@@ -30,59 +30,114 @@ pub const Hexagon = struct {
         valid_dirs[1] = target_dir;
         valid_dirs[2] = @mod(target_dir + 1, 6);
         valid_dirs[0] = @mod(target_dir - 1, 6);
-        print("valid dirs: {}, {}, {}\n\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
+        print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
 
         var hex_runner: Hexagon = self;
-        var dist: f64 = self.distance(target_hex);
+        var dist: f64 = hex_runner.distance(target_hex);
         if (dist == 0.0) {
             print("Already here.\n", .{});
             return;
         }
 
-        // const angle_ref: f64 = self.degrees(target_hex);
-        // print("angle ref: {}\n", .{angle_ref});
-        var hex_ref: Hexagon = undefined;
-        var counter: i32 = 15;
-        // while (dist > 1.0) {
-        while (counter > 0) {
-            // while (true) {
-            hex_ref = hex_runner.adjacent(valid_dirs[0]);
-            const deg_0: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-            const dist_0: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-            print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-            hex_ref = hex_runner.adjacent(valid_dirs[1]);
-            const deg_1: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-            const dist_1: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-            print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-            hex_ref = hex_runner.adjacent(valid_dirs[2]);
-            const deg_2: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
-            const dist_2: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
-            print("=========== {}\n", .{hex_ref.degrees(target_hex)});
-
-            print("degs: {}, {}, {} --- {}, {}, {}\n", .{ deg_0, deg_1, deg_2, dist_0, dist_1, dist_2 });
-
-            //if (dist_0 == 0) break;
-            //if (dist_1 == 0) break;
-            //if (dist_2 == 0) break;
-
-            var least_dist: usize = 0;
-
-            if (deg_0 > deg_1) least_dist = 1;
-            if (deg_1 > deg_2) least_dist = 2;
-            print("least degs: {}\n", .{least_dist});
-            hex_ref = hex_runner.adjacent(valid_dirs[least_dist]);
-            dist = hex_ref.distance(target_hex);
-            print("***** best hex: {}, {} --- {}\n\n", .{ hex_ref.x, hex_ref.y, dist });
-            hex_runner = hex_ref;
-            counter -= 1;
-
-            if (dist_0 == 0) break;
-            if (dist_1 == 0) break;
-            if (dist_2 == 0) break;
+        if (@as(i32, @intFromFloat(@round(dist))) == 1) {
+            print("***** {}, {}\n\n", .{ target_hex.x, target_hex.y });
+            return;
         }
-        print("******** best hex: {}, {}\n\n", .{ target_hex.x, target_hex.y });
+
+        // **************
+
+        while (true) {
+            const hx0 = hex_runner.adjacent(valid_dirs[0]);
+            const hx1 = hex_runner.adjacent(valid_dirs[1]);
+            const hx2 = hex_runner.adjacent(valid_dirs[2]);
+
+            var angle0 = switch (hx0.degrees(target_hex)) {
+                0 => 360,
+                else => hx0.degrees(target_hex),
+            };
+            angle0 = @intCast(@abs(angle0 - angle_to_target));
+
+            var angle1 = switch (hx1.degrees(target_hex)) {
+                0 => 360,
+                else => hx1.degrees(target_hex),
+            };
+            angle1 = @intCast(@abs(angle1 - angle_to_target));
+
+            var angle2 = switch (hx2.degrees(target_hex)) {
+                0 => 360,
+                else => hx2.degrees(target_hex),
+            };
+            angle2 = @intCast(@abs(angle2 - angle_to_target));
+
+            print("angles: {}, {}, {}\n", .{
+                hx0.degrees(target_hex),
+                hx1.degrees(target_hex),
+                hx2.degrees(target_hex),
+            });
+
+            print("angles: {}, {}, {}\n", .{
+                angle0,
+                angle1,
+                angle2,
+            });
+
+            var indx: usize = 0;
+            if (angle0 > angle1) indx = 1;
+            if (angle1 > angle2) indx = 2;
+            print("{}:{}\n", .{ indx, valid_dirs[indx] });
+
+            hex_runner = hex_runner.adjacent(valid_dirs[indx]);
+            print("new position: {}, {}\n", .{ hex_runner.x, hex_runner.y });
+            dist = hex_runner.distance(target_hex);
+            print("dist: {}\n", .{dist});
+            // if (dist == 1) print("break\n", .{});
+            if (dist <= 1.0) break;
+            print("\n", .{});
+        }
+        // // const angle_ref: f64 = self.degrees(target_hex);
+        // // print("angle ref: {}\n", .{angle_ref});
+        // var hex_ref: Hexagon = undefined;
+        // var counter: i32 = 15;
+        // // while (dist > 1.0) {
+        // while (counter > 0) {
+        //     // while (true) {
+        //     hex_ref = hex_runner.adjacent(valid_dirs[0]);
+        //     const deg_0: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
+        //     const dist_0: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
+        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
+
+        //     hex_ref = hex_runner.adjacent(valid_dirs[1]);
+        //     const deg_1: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
+        //     const dist_1: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
+        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
+
+        //     hex_ref = hex_runner.adjacent(valid_dirs[2]);
+        //     const deg_2: f64 = @abs(hex_ref.degrees(target_hex) - angle_to_target);
+        //     const dist_2: i32 = @as(i32, @intFromFloat(hex_ref.distance(target_hex)));
+        //     print("=========== {}\n", .{hex_ref.degrees(target_hex)});
+
+        //     print("degs: {}, {}, {} --- {}, {}, {}\n", .{ deg_0, deg_1, deg_2, dist_0, dist_1, dist_2 });
+
+        //     //if (dist_0 == 0) break;
+        //     //if (dist_1 == 0) break;
+        //     //if (dist_2 == 0) break;
+
+        //     var least_dist: usize = 0;
+
+        //     if (deg_0 > deg_1) least_dist = 1;
+        //     if (deg_1 > deg_2) least_dist = 2;
+        //     print("least degs: {}\n", .{least_dist});
+        //     hex_ref = hex_runner.adjacent(valid_dirs[least_dist]);
+        //     dist = hex_ref.distance(target_hex);
+        //     print("***** best hex: {}, {} --- {}\n\n", .{ hex_ref.x, hex_ref.y, dist });
+        //     hex_runner = hex_ref;
+        //     counter -= 1;
+
+        //     if (dist_0 == 0) break;
+        //     if (dist_1 == 0) break;
+        //     if (dist_2 == 0) break;
+        // }
+        // print("******** best hex: {}, {}\n\n", .{ target_hex.x, target_hex.y });
 
         //     hex_runner = hex_runner.adjacent(valid_dirs[least_dir]);
         //     print("***** best hex: {}, {}\n", .{ hex_runner.x, hex_runner.y });
@@ -126,7 +181,7 @@ pub const Hexagon = struct {
         return dir;
     }
 
-    pub fn degrees(self: Hexagon, target_hex: Hexagon) f64 {
+    pub fn degrees(self: Hexagon, target_hex: Hexagon) i32 {
         const X: f64 = target_hex.carti_X - self.carti_X;
         const Y: f64 = target_hex.carti_Y - self.carti_Y;
         if (std.math.hypot(X, Y) <= 0) return -1.0;
@@ -146,7 +201,7 @@ pub const Hexagon = struct {
             if (DEGS >= 360.0) DEGS = 0.0;
         }
 
-        return DEGS;
+        return @as(i32, @intFromFloat(DEGS));
     }
 
     pub fn adjacent(self: Hexagon, d: i32) Hexagon {
