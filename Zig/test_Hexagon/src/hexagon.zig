@@ -45,7 +45,7 @@ pub const Hexagon = struct {
         }
 
         // **************
-        var countdown: i32 = 15;
+        // var countdown: i32 = 15;
         // while (true) {
         while (countdown > 0) {
             const hx0 = hex_runner.adjacent(valid_dirs[0]);
@@ -91,8 +91,8 @@ pub const Hexagon = struct {
             print("new position: {}, {}\n", .{ hex_runner.x, hex_runner.y });
             dist = @round(hex_runner.distance(target_hex));
             if (dist <= 1.0) break;
-            //print("\n", .{});
-            countdown -= 1;
+            // print("\n", .{});
+            // countdown -= 1;
         }
 
         print("\nnew position: {}, {}\n\n", .{ target_hex.x, target_hex.y });
