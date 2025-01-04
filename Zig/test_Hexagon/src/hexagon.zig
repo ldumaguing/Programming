@@ -46,8 +46,8 @@ pub const Hexagon = struct {
 
         // **************
         // var countdown: i32 = 15;
-        // while (true) {
-        while (countdown > 0) {
+        while (true) {
+        // while (countdown > 0) {
             const hx0 = hex_runner.adjacent(valid_dirs[0]);
             const hx1 = hex_runner.adjacent(valid_dirs[1]);
             const hx2 = hex_runner.adjacent(valid_dirs[2]);
