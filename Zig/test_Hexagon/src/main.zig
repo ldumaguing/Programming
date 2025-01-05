@@ -4,8 +4,8 @@ const print = @import("std").debug.print;
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
-    const hex0 = hexagon.Hexagon.new("O10");
-    print("hex dist: {}\n", .{hex0.hex_distance(hexagon.Hexagon.new("O11"))});
+    const hex0 = hexagon.Hexagon.new("L5");
+    print("hex dist: {}\n", .{hex0.hex_distance(hexagon.Hexagon.new("S5"))});
     // const hex1 = hexagon.Hexagon.new("R7");
     // hex0.crawl_to_hex(hexagon.Hexagon.new("W10")); // 0
     // hex0.crawl_to_hex(hexagon.Hexagon.new("W9"));
