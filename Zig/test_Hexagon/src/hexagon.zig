@@ -21,6 +21,63 @@ pub const Hexagon = struct {
         print("foo: {}\n", .{target_hex.x});
     }
 
+    pub fn hex_distance(self: Hexagon, target_hex: Hexagon) i32 {
+        const angle_to_target = self.degrees(target_hex);
+        const target_dir: i32 = self.hex_direction(target_hex);
+        var valid_dirs: [3]i32 = undefined;
+        valid_dirs[1] = target_dir;
+        valid_dirs[2] = @mod(target_dir + 1, 6);
+        valid_dirs[0] = @mod(target_dir - 1, 6);
+
+        var hex_runner: Hexagon = self;
+        var dist: f64 = hex_runner.distance(target_hex);
+        if (dist == 0.0) {
+            return 0;
+        }
+
+        if (@as(i32, @intFromFloat(@round(dist))) == 1) {
+            return 1;
+        }
+
+        // **************
+        var hex_count: i32 = 0;
+        while (true) {
+            // while (countdown > 0) {
+            const hx0 = hex_runner.adjacent(valid_dirs[0]);
+            const hx1 = hex_runner.adjacent(valid_dirs[1]);
+            const hx2 = hex_runner.adjacent(valid_dirs[2]);
+
+            var angle0 = switch (hx0.degrees(target_hex)) {
+                0 => 360,
+                else => hx0.degrees(target_hex),
+            };
+            angle0 = @intCast(@abs(angle0 - angle_to_target));
+
+            var angle1 = switch (hx1.degrees(target_hex)) {
+                0 => 360,
+                else => hx1.degrees(target_hex),
+            };
+            angle1 = @intCast(@abs(angle1 - angle_to_target));
+
+            var angle2 = switch (hx2.degrees(target_hex)) {
+                0 => 360,
+                else => hx2.degrees(target_hex),
+            };
+            angle2 = @intCast(@abs(angle2 - angle_to_target));
+
+            var indx: usize = 0;
+            if (angle0 > angle1) indx = 1;
+            if (angle1 > angle2) indx = 2;
+
+            hex_runner = hex_runner.adjacent(valid_dirs[indx]);
+            dist = @round(hex_runner.distance(target_hex));
+            if (dist <= 1.0) break;
+            hex_count += 1;
+        }
+        hex_count += 1;
+        return hex_count;
+    }
+
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
         print("***** {}, {} ---> {}, {}\n", .{ self.x, self.y, target_hex.x, target_hex.y });
         const angle_to_target = self.degrees(target_hex);
@@ -47,7 +104,7 @@ pub const Hexagon = struct {
         // **************
         // var countdown: i32 = 15;
         while (true) {
-        // while (countdown > 0) {
+            // while (countdown > 0) {
             const hx0 = hex_runner.adjacent(valid_dirs[0]);
             const hx1 = hex_runner.adjacent(valid_dirs[1]);
             const hx2 = hex_runner.adjacent(valid_dirs[2]);
