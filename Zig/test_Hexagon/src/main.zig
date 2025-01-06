@@ -4,30 +4,59 @@ const print = @import("std").debug.print;
 const hexagon = @import("hexagon.zig");
 
 pub fn main() !void {
+    // _ = hexagon.Hexagon.new("F5");
+    // print("*************\n", .{});
+    // _ = hexagon.Hexagon.new("F4");
+    // _ = hexagon.Hexagon.new("G5");
+    // _ = hexagon.Hexagon.new("G6");
+    // _ = hexagon.Hexagon.new("F6");
+    // _ = hexagon.Hexagon.new("E6");
+    // _ = hexagon.Hexagon.new("E5");
+    // print("*************\n", .{});
+    // _ = hexagon.Hexagon.new("E1");
+    // _ = hexagon.Hexagon.new("F1");
+
+    // const hex0 = hexagon.Hexagon.new("L5");
+    // // //print("hex dist: {}\n", .{hex0.hex_distance(hexagon.Hexagon.new("S5"))});
+    // // // const hex1 = hexagon.Hexagon.new("R7");
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("L4"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("M5"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("M6"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("L6"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("K6"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("K5"));
+
     const hex0 = hexagon.Hexagon.new("L5");
-    print("hex dist: {}\n", .{hex0.hex_distance(hexagon.Hexagon.new("S5"))});
-    // const hex1 = hexagon.Hexagon.new("R7");
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W10")); // 0
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W9"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W11")); // ************ broken
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W14"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W13"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("W12"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("X11")); // ************ broken
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("M9"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("N9"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("N10"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("M11"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("L10"));
+    // hex0.crawl_to_hex(hexagon.Hexagon.new("L9"));
+
+    hex0.crawl_to_hex(hexagon.Hexagon.new("S6"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("K15"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W10")); // 0
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W9"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W11")); // ************ broken
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W14"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W13"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("W12"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("X11")); // ************ broken
     // // // ************
 
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("O5")); // 90
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("N5"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("P5"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("O5")); // 90
+    hex0.crawl_to_hex(hexagon.Hexagon.new("N5"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("P5"));
 
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("I10")); // 180
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("I9"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("I11"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("F9")); // ************ broken
+    hex0.crawl_to_hex(hexagon.Hexagon.new("I10")); // 180
+    hex0.crawl_to_hex(hexagon.Hexagon.new("I9"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("I11"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("F9")); // ************ broken
 
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("O15")); // 270
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("N15"));
-    // hex0.crawl_to_hex(hexagon.Hexagon.new("P15"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("O15")); // 270
+    hex0.crawl_to_hex(hexagon.Hexagon.new("N15"));
+    hex0.crawl_to_hex(hexagon.Hexagon.new("P15"));
 
     // hex0.crawl_to_hex(hexagon.Hexagon.new("O9"));
     // hex0.crawl_to_hex(hexagon.Hexagon.new("P9"));

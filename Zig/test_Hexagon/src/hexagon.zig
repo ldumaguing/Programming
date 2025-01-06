@@ -21,33 +21,19 @@ pub const Hexagon = struct {
         print("foo: {}\n", .{target_hex.x});
     }
 
-    pub fn hex_distance(self: Hexagon, target_hex: Hexagon) u32 {
-        const Y: i32 = @intCast(@abs(self.y - target_hex.y));
-        print("...{}: {}, {}\n", .{ Y, self.x, target_hex.x });
-        const Xa: i32 = self.x - target_hex.x;
-        const Xb: f32 = @abs(@round(@as(f32, @floatFromInt(Xa)) / 2.0));
-        const Xc: i32 = @intFromFloat(Xb);
-        print("Xc: {}\n", .{Xc});
-        //  const Xa: f32 = @round((@as(f32, (@floatFromInt(self.x))) - @as(f32, @floatFromInt(target_hex.x)) / 2.0));
-        // const X: i32 = @intFromFloat(Xa);
-
-        if (Y < 2) {
-            return @abs(Xc);
-        } else {
-            return @abs(Xa);
-        }
-    }
-
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
-        print("***** {}, {} ---> {}, {}\n", .{ self.x, self.y, target_hex.x, target_hex.y });
+        print("crawling\n***** {}, {} ---> {}, {}\n", .{ self.x, self.y, target_hex.x, target_hex.y });
+        const ref_angle = acute_angle(self, target_hex);
+        print("ref_angle: {}\n", .{ref_angle});
+        print("\n", .{});
         const angle_to_target = self.degrees(target_hex);
-        //print("angle_to_target: {}\n", .{angle_to_target});
+        print("angle_to_target: {}\n", .{angle_to_target});
         const target_dir: i32 = self.hex_direction(target_hex);
         var valid_dirs: [3]i32 = undefined;
         valid_dirs[1] = target_dir;
         valid_dirs[2] = @mod(target_dir + 1, 6);
         valid_dirs[0] = @mod(target_dir - 1, 6);
-        //print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
+        print("valid dirs: {}, {}, {}\n", .{ valid_dirs[0], valid_dirs[1], valid_dirs[2] });
 
         var hex_runner: Hexagon = self;
         var dist: f64 = hex_runner.distance(target_hex);
@@ -61,58 +47,60 @@ pub const Hexagon = struct {
             return;
         }
 
-        // **************
-        // var countdown: i32 = 15;
+        //        // **************
+        //        var countdown: i32 = 25;
         while (true) {
-            // while (countdown > 0) {
+            //        while (countdown > 0) {
             const hx0 = hex_runner.adjacent(valid_dirs[0]);
             const hx1 = hex_runner.adjacent(valid_dirs[1]);
             const hx2 = hex_runner.adjacent(valid_dirs[2]);
+            //
+            //            //            const angle0 = acute_angle(angle_to_target, hx0.degrees(target_hex));
+            const angle0 = @abs(acute_angle(hx0, target_hex) - ref_angle);
+            const angle1 = @abs(acute_angle(hx1, target_hex) - ref_angle);
+            const angle2 = @abs(acute_angle(hx2, target_hex) - ref_angle);
 
-            var angle0 = switch (hx0.degrees(target_hex)) {
-                0 => 360,
-                else => hx0.degrees(target_hex),
-            };
-            angle0 = @intCast(@abs(angle0 - angle_to_target));
-
-            var angle1 = switch (hx1.degrees(target_hex)) {
-                0 => 360,
-                else => hx1.degrees(target_hex),
-            };
-            angle1 = @intCast(@abs(angle1 - angle_to_target));
-
-            var angle2 = switch (hx2.degrees(target_hex)) {
-                0 => 360,
-                else => hx2.degrees(target_hex),
-            };
-            angle2 = @intCast(@abs(angle2 - angle_to_target));
-
-            // print("angles: {}, {}, {}\n", .{
-            //     hx0.degrees(target_hex),
-            //     hx1.degrees(target_hex),
-            //     hx2.degrees(target_hex),
-            // });
-
-            // print("angles: {}, {}, {}\n", .{
-            //     angle0,
-            //     angle1,
-            //     angle2,
-            // });
-
+            //            // print("angles: {}, {}, {}\n", .{
+            //            //     hx0.degrees(target_hex),
+            //            //     hx1.degrees(target_hex),
+            //            //     hx2.degrees(target_hex),
+            //            // });
+            //
+            print("........angles: {}, {}, {}\n", .{
+                angle0,
+                angle1,
+                angle2,
+            });
+            //
             var indx: usize = 0;
             if (angle0 > angle1) indx = 1;
             if (angle1 > angle2) indx = 2;
-            //print("{}:{}\n", .{ indx, valid_dirs[indx] });
-
+            print("index:{}; dir: {}\n", .{ indx, valid_dirs[indx] });
+            //
             hex_runner = hex_runner.adjacent(valid_dirs[indx]);
             print("new position: {}, {}\n", .{ hex_runner.x, hex_runner.y });
             dist = @round(hex_runner.distance(target_hex));
             if (dist <= 1.0) break;
-            // print("\n", .{});
-            // countdown -= 1;
+            print("\n", .{});
+            //            countdown -= 1;
         }
+        //
+        //        print("\nnew position: {}, {}\n\n", .{ target_hex.x, target_hex.y });
+    }
 
-        print("\nnew position: {}, {}\n\n", .{ target_hex.x, target_hex.y });
+    pub fn acute_angle(from: Hexagon, to: Hexagon) i32 {
+        const X: f64 = from.carti_X - to.carti_X;
+        const Y: f64 = from.carti_Y - to.carti_Y;
+        //print("carti Y: {},{}\n", .{ from.carti_Y, to.carti_Y });
+        //print("X,Y: {}, {}\n", .{ X, Y });
+        // if (std.math.hypot(X, Y) <= 0) return -1.0;
+
+        const DEGS: f64 = std.math.radiansToDegrees(std.math.atan(Y / X));
+        //print("--------------.-----------> {}, {}\n", .{ DEGS, @abs(@round(DEGS)) });
+
+        const deg: i32 = @intFromFloat(@round(DEGS));
+        // if (deg < 0) return (0 - deg);
+        return deg;
     }
 
     pub fn distance(self: Hexagon, target_hex: Hexagon) f64 {
@@ -155,6 +143,7 @@ pub const Hexagon = struct {
         if (std.math.hypot(X, Y) <= 0) return -1.0;
 
         var DEGS: f64 = std.math.radiansToDegrees(std.math.atan(Y / X));
+        print("-------------------------> {}\n", .{@abs(@round(DEGS))});
         if ((X >= 0) and (Y < 0)) {
             DEGS = @abs(DEGS);
         }
@@ -340,6 +329,8 @@ pub const Hexagon = struct {
         } else {
             fY = @as(f64, @floatFromInt(Y)) + 0.5;
         }
+
+        // print("new: {}, {}/{}\n", .{ X, Y, fY });
 
         return Hexagon{
             .x = X,
