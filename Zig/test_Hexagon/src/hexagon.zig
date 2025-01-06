@@ -330,8 +330,6 @@ pub const Hexagon = struct {
             fY = @as(f64, @floatFromInt(Y)) + 0.5;
         }
 
-        // print("new: {}, {}/{}\n", .{ X, Y, fY });
-
         return Hexagon{
             .x = X,
             .y = Y,
