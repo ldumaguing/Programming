@@ -21,6 +21,47 @@ pub const Hexagon = struct {
         print("foo: {}\n", .{target_hex.x});
     }
 
+    pub fn hex_distance(self: Hexagon, target_hex: Hexagon) i32 {
+        var count: i32 = 0;
+        const ref_angle = acute_angle(self, target_hex);
+        const target_dir: i32 = self.hex_direction(target_hex);
+        var valid_dirs: [3]i32 = undefined;
+        valid_dirs[1] = target_dir;
+        valid_dirs[2] = @mod(target_dir + 1, 6);
+        valid_dirs[0] = @mod(target_dir - 1, 6);
+
+        var hex_runner: Hexagon = self;
+        var dist: f64 = hex_runner.distance(target_hex);
+        if (dist == 0.0) {
+            return 0; // Already here.
+        }
+
+        if (@as(i32, @intFromFloat(@round(dist))) == 1) {
+            return 1;
+        }
+
+        while (true) {
+            count += 1;
+            const hx0 = hex_runner.adjacent(valid_dirs[0]);
+            const hx1 = hex_runner.adjacent(valid_dirs[1]);
+            const hx2 = hex_runner.adjacent(valid_dirs[2]);
+            const angle0 = @abs(acute_angle(hx0, target_hex) - ref_angle);
+            const angle1 = @abs(acute_angle(hx1, target_hex) - ref_angle);
+            const angle2 = @abs(acute_angle(hx2, target_hex) - ref_angle);
+
+            var indx: usize = 0;
+            if (angle0 > angle1) indx = 1;
+            if (angle1 > angle2) indx = 2;
+
+            hex_runner = hex_runner.adjacent(valid_dirs[indx]);
+            dist = @round(hex_runner.distance(target_hex));
+            if (dist <= 1.0) break;
+        }
+
+        count += 1;
+        return count;
+    }
+
     pub fn crawl_to_hex(self: Hexagon, target_hex: Hexagon) void {
         print("crawling\n***** {}, {} ---> {}, {}\n", .{ self.x, self.y, target_hex.x, target_hex.y });
         const ref_angle = acute_angle(self, target_hex);
