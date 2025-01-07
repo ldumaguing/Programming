@@ -1,7 +1,7 @@
 // ***** main.zig
 const std = @import("std");
 const print = @import("std").debug.print;
-const hexagon = @import("hexagon.zig");
+const hexagon = @import("Hexagon.zig");
 
 pub fn main() !void {
     // _ = hexagon.Hexagon.new("F5");
