@@ -27,11 +27,21 @@ bit
 3:    unit has MOVED
 
 
-create table chit_status (
-   id      int,
-   chit_ID int,
-   hex_ID  varchar(80),
-   flags   int
+CREATE TABLE chit_status (
+   id         int,
+   chit_ID    int,
+   hex_ID     varchar(80),
+   flags      int,
+   embarkable int default -1
 );
+
+***** embarkable
+****************
+ -1:  not a container
+  0:  a container but empty
+num:  ID of the contained; usually an infantry unit
+
+
+
 
 https://github.com/JakubSzark/zig-string
