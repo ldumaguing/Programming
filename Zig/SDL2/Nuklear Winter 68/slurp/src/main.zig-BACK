@@ -21,10 +21,14 @@ pub fn main() !void {
     const allocator = gpa.allocator();
 
     // ************** PARSING ARGS
-    var theFile = String.init(allocator);
+    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    defer arena.deinit();
+
+    var theFile = String.init(arena.allocator());
     defer theFile.deinit();
 
-    var argsIterator = try std.process.ArgIterator.initWithAllocator(allocator);
+    const allocator1 = std.heap.page_allocator;
+    var argsIterator = try std.process.ArgIterator.initWithAllocator(allocator1);
     defer argsIterator.deinit();
 
     _ = argsIterator.next();
