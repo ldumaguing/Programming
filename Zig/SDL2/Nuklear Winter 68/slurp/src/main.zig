@@ -1,9 +1,13 @@
 const mvzr = @import("mvzr.zig");
 const String = @import("zig-string.zig").String;
 const std = @import("std");
+const print = @import("std").debug.print;
 const sqlite = @import("sqlite");
 
 var db: sqlite.Db = undefined;
+var faction_name: [64]u8 = undefined;
+var formation_name: [64]u8 = undefined;
+var unit_type: [64]u8 = undefined;
 
 pub fn main() !void {
     db = try sqlite.Db.init(.{
@@ -44,6 +48,8 @@ pub fn main() !void {
     defer file.close();
 
     var mode: u64 = 0;
+    // 0: chit placement
+    // 1: OOB
     var id_counter: i32 = 1000;
     while (file.reader().readUntilDelimiterOrEofAlloc(allocator, '\n', std.math.maxInt(usize)) catch |err| {
         std.log.err("Failed to read line: {s}", .{@errorName(err)});
@@ -54,6 +60,10 @@ pub fn main() !void {
         if (std.mem.indexOf(u8, line, "***** chit placement")) |_| {
             mode = (1 << 0);
         }
+        if (std.mem.indexOf(u8, line, "***** OOB")) |_| {
+            mode = (1 << 1);
+        }
+
         if (std.mem.indexOf(u8, line, "***** set embarkable")) |_| {
             try embarkable();
         }
@@ -63,12 +73,16 @@ pub fn main() !void {
 
         switch (mode) {
             999 => {
-                std.debug.print("Done.\n", .{});
+                print("Done.\n", .{});
                 return;
             },
             (1 << 0) => {
                 try placement(line, id_counter);
             },
+            (1 << 1) => {
+                try oob(line, id_counter);
+            },
+
             else => {},
         }
         id_counter += 1;
@@ -76,8 +90,40 @@ pub fn main() !void {
 }
 
 // ************************************************************************************************
+fn oob(line: []u8, id_counter: i32) !void {
+    _ = id_counter;
+    // print("In OOB: {s}.\n", .{line});
+
+    if (std.mem.indexOf(u8, line, "*** ")) |_| {
+        for (0..64) |i| {
+            faction_name[i] = 0;
+        }
+        for (0..64) |i| {
+            formation_name[i] = 0;
+        }
+        _ = try std.fmt.bufPrintZ(&faction_name, "{s}", .{line[4..]});
+        return;
+    }
+    if (std.mem.indexOf(u8, line, "** ")) |_| {
+        for (0..64) |i| {
+            formation_name[i] = 0;
+        }
+        _ = try std.fmt.bufPrintZ(&formation_name, "{s}", .{line[3..]});
+        return;
+    }
+    for (0..64) |i| {
+        unit_type[i] = 0;
+    }
+    _ = try std.fmt.bufPrintZ(&unit_type, "{s}", .{line});
+
+    if (line.len <= 0) return;
+
+    print("{s} : {s} : {s}\n", .{ faction_name, formation_name, unit_type });
+}
+
+// ************************************************************************************************
 fn embarkable() !void {
-    std.debug.print("embarkable\n", .{});
+    print("embarkable\n", .{});
     const query =
         \\update chit_status set embarkable = 0 where chit_ID in (
         \\select id from chits where flags & (1 << 7)
@@ -89,6 +135,7 @@ fn embarkable() !void {
 
 // ************************************************************************************************
 fn placement(line: []u8, id_counter: i32) !void {
+    print("placement.\n", .{});
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
@@ -122,7 +169,7 @@ fn placement(line: []u8, id_counter: i32) !void {
     }
 
     if (is_valid) {
-        // std.debug.print("{} --- {s} --- {}, {s}, {}\n", .{ id_counter, line, chit_ID, hex_ID.str(), flags });
+        // print("{} --- {s} --- {}, {s}, {}\n", .{ id_counter, line, chit_ID, hex_ID.str(), flags });
         const query =
             \\insert into chit_status (id, chit_ID, hex_ID, flags) values (?, ?, ?, ?)
         ;
