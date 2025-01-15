@@ -43,7 +43,7 @@ pub fn main() !void {
     };
     defer file.close();
 
-    var mode: i32 = 0;
+    var mode: u64 = 0;
     var id_counter: i32 = 1000;
     while (file.reader().readUntilDelimiterOrEofAlloc(allocator, '\n', std.math.maxInt(usize)) catch |err| {
         std.log.err("Failed to read line: {s}", .{@errorName(err)});
@@ -52,7 +52,7 @@ pub fn main() !void {
         defer allocator.free(line);
 
         if (std.mem.indexOf(u8, line, "***** chit placement")) |_| {
-            mode = 1;
+            mode = (1 << 0);
         }
         if (std.mem.indexOf(u8, line, "***** set embarkable")) |_| {
             try embarkable();
@@ -66,7 +66,7 @@ pub fn main() !void {
                 std.debug.print("Done.\n", .{});
                 return;
             },
-            1 => {
+            (1 << 0) => {
                 try placement(line, id_counter);
             },
             else => {},
