@@ -8,6 +8,7 @@ var db: sqlite.Db = undefined;
 var faction_name: [64]u8 = undefined;
 var formation_name: [64]u8 = undefined;
 var unit_type: [64]u8 = undefined;
+var id_counter: i32 = 1000;
 
 pub fn main() !void {
     db = try sqlite.Db.init(.{
@@ -50,7 +51,6 @@ pub fn main() !void {
     var mode: u64 = 0;
     // 0: chit placement
     // 1: OOB
-    var id_counter: i32 = 1000;
     while (file.reader().readUntilDelimiterOrEofAlloc(allocator, '\n', std.math.maxInt(usize)) catch |err| {
         std.log.err("Failed to read line: {s}", .{@errorName(err)});
         return;
@@ -77,21 +77,20 @@ pub fn main() !void {
                 return;
             },
             (1 << 0) => {
-                try placement(line, id_counter);
+                try placement(line);
             },
             (1 << 1) => {
-                try oob(line, id_counter);
+                try oob(line);
             },
 
             else => {},
         }
-        id_counter += 1;
     }
 }
 
 // ************************************************************************************************
-fn oob(line: []u8, id_counter: i32) !void {
-    _ = id_counter;
+fn oob(line: []u8) !void {
+    // _ = id_counter;
     // print("In OOB: {s}.\n", .{line});
 
     if (std.mem.indexOf(u8, line, "*** ")) |_| {
@@ -118,7 +117,8 @@ fn oob(line: []u8, id_counter: i32) !void {
 
     if (line.len <= 0) return;
 
-    print("{s} : {s} : {s}\n", .{ faction_name, formation_name, unit_type });
+    print("{}) {s} : {s} : {s}\n", .{ id_counter, faction_name, formation_name, unit_type });
+    id_counter += 1;
 }
 
 // ************************************************************************************************
@@ -134,7 +134,7 @@ fn embarkable() !void {
 }
 
 // ************************************************************************************************
-fn placement(line: []u8, id_counter: i32) !void {
+fn placement(line: []u8) !void {
     print("placement.\n", .{});
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
@@ -181,5 +181,6 @@ fn placement(line: []u8, id_counter: i32) !void {
             .hex_ID = hex_ID.str(),
             .flags = flags,
         });
+        id_counter += 1;
     }
 }
