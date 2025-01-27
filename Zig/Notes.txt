@@ -2,3 +2,9 @@ https://gencmurat.com/en/posts/zig-strings/
 
 
 https://stackoverflow.com/questions/77024689/how-do-i-compare-two-zero-terminated-but-different-length-strings-in-zig
+
+
+
+cmake .. -DCMAKE_BUILD_TYPE=Release --install-prefix /usr
+cmake --build . --config Release --parallel
+sudo cmake --install . --config Release
