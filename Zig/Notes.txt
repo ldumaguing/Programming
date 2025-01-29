@@ -12,3 +12,4 @@ sudo cmake --install . --config Release
 
 -DCMAKE_PREFIX_PATH="/usr/local/llvm19;/usr/local;/usr/local/lib"
 
+https://github.com/ziglang/zig/wiki/Building-Zig-From-Source#for-freebsd
