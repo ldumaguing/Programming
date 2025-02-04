@@ -29,3 +29,6 @@ vim .config/nvim/init.lua
 
 ***** add in "formatters_by_ft = {"
    zig = { 'zig fmt' },
+
+***** below "and there is more!"
+   require('mini.pairs').setup()
