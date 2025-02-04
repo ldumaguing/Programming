@@ -20,10 +20,12 @@ https://github.com/ziglang/zig/wiki/Building-Zig-From-Source#for-freebsd
 cd .config
 git clone https://github.com/nvim-lua/kickstart.nvim nvim
 nvim
+
 vim .config/nvim/init.lua
 ***** above "lua_ls = {"
    zls = {
      cmd = { '/home/ayeka/bin/zls' },
    },
 
-
+***** add in "formatters_by_ft = {"
+   zig = { 'zig fmt' },
