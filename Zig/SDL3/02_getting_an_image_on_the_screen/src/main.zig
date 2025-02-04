@@ -31,7 +31,7 @@ pub fn main() !void {
 
     c.SDL_SetMainReady();
 
-    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD));
+    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO));
     defer c.SDL_Quit();
 
     std.log.debug("SDL video drivers: {}", .{fmtSdlDrivers(
@@ -49,15 +49,18 @@ pub fn main() !void {
     const window_h = 480;
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
-        var window: ?*c.SDL_Window = null;
-        var renderer: ?*c.SDL_Renderer = null;
-        try errify(c.SDL_CreateWindowAndRenderer("01_hello", window_w, window_h, 0, &window, &renderer));
-        errdefer comptime unreachable;
+    // const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
+    //     var window: ?*c.SDL_Window = null;
+    //     var renderer: ?*c.SDL_Renderer = null;
+    //     try errify(c.SDL_CreateWindowAndRenderer("01_hello", window_w, window_h, 0, &window, &renderer));
+    //     errdefer comptime unreachable;
 
-        break :create_window_and_renderer .{ window.?, renderer.? };
-    };
-    defer c.SDL_DestroyRenderer(renderer);
+    //     break :create_window_and_renderer .{ window.?, renderer.? };
+    // };
+    // defer c.SDL_DestroyRenderer(renderer);
+    // defer c.SDL_DestroyWindow(window);
+
+    const window = try errify(c.SDL_CreateWindow("02_getting_an_image_on_the_screen", window_w, window_h, c.SDL_EVENT_WINDOW_SHOWN));
     defer c.SDL_DestroyWindow(window);
 
     const win_surf = c.SDL_GetWindowSurface(window);
