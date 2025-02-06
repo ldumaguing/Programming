@@ -11,20 +11,32 @@ const c = @cImport({
 });
 
 pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
-    const points_2d = [_][2]f32{
-        [_]f32{ 1.0, 0.0 },
-        [_]f32{ 0.0, 1.0 },
-        [_]f32{ 0.0, 0.0 },
-        [_]f32{ 0.0, 0.0 },
+    const line_points = [9]c.SDL_Point{
+        .{ .x = 100.0, .y = 354.0 },
+        .{ .x = 220.0, .y = 230.0 },
+        .{ .x = 140.0, .y = 230.0 },
+        .{ .x = 320.0, .y = 100.0 },
+        .{ .x = 500.0, .y = 230.0 },
+        .{ .x = 420.0, .y = 230.0 },
+        .{ .x = 540.0, .y = 354.0 },
+        .{ .x = 400.0, .y = 354.0 },
+        .{ .x = 100.0, .y = 354.0 },
     };
-    _ = points_2d;
 
-    const X = [_]c.SDL_Point{
-        .{ .x = 0.0, .y = 1.0 },
-        .{ .x = 2.0, .y = 3.0 },
-    };
+    // as you can see from this, rendering draws over whatever was drawn before it.
+    _ = c.SDL_SetRenderDrawColor(renderer, 100, 100, 100, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderClear(renderer);
 
-    print("{}, {} --- {}, {}\n", .{ X[0].x, X[0].y, X[1].x, X[1].y });
+    // You can draw lines, one at a time, like these brown ones...
+    _ = c.SDL_SetRenderDrawColor(renderer, 127, 49, 32, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderLine(renderer, 240, 450, 400, 450);
+    _ = c.SDL_RenderLine(renderer, 240, 356, 400, 356);
+    _ = c.SDL_RenderLine(renderer, 240, 356, 240, 450);
+    _ = c.SDL_RenderLine(renderer, 400, 356, 400, 450);
+
+    // You can also draw a series of connected lines in a single batch...
+    _ = c.SDL_SetRenderDrawColor(renderer, 0, 255, 0, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderLines(renderer, [*]line_points, line_points.len);
 
     _ = c.SDL_RenderPresent(renderer);
 
