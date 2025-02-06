@@ -11,7 +11,7 @@ const c = @cImport({
 });
 
 pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
-    const line_points = [9]c.SDL_Point{
+    const line_points = [_]c.SDL_FPoint{
         .{ .x = 100.0, .y = 354.0 },
         .{ .x = 220.0, .y = 230.0 },
         .{ .x = 140.0, .y = 230.0 },
@@ -36,7 +36,7 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
 
     // You can also draw a series of connected lines in a single batch...
     _ = c.SDL_SetRenderDrawColor(renderer, 0, 255, 0, c.SDL_ALPHA_OPAQUE);
-    _ = c.SDL_RenderLines(renderer, [*]line_points, line_points.len);
+    _ = c.SDL_RenderLines(renderer, &line_points, line_points.len);
 
     _ = c.SDL_RenderPresent(renderer);
 
