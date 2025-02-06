@@ -11,7 +11,6 @@ const c = @cImport({
 });
 
 pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
-    //try m.errify(c.SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0xff, 0xff));
     const now: f64 = @as(f64, @floatFromInt(c.SDL_GetTicks())) / 1000.0;
 
     const red: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now));
