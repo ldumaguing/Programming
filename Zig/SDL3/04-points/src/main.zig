@@ -11,6 +11,18 @@ const c = @cImport({
 
 const sdl = @import("mineSDL.zig");
 
+pub var last_time: u64 = 0;
+
+const WINDOW_WIDTH: i32 = 640;
+const WINDOW_HEIGHT: i32 = 480;
+
+pub const NUM_POINTS: i32 = 500;
+pub const MIN_PIXELS_PER_SECOND: f32 = 30;
+pub const MAX_PIXELS_PER_SECOND: f32 = 60;
+
+pub var points: [NUM_POINTS]c.SDL_FPoint = undefined;
+pub var point_speeds: [NUM_POINTS]f32 = undefined;
+
 // ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
@@ -58,6 +70,15 @@ pub fn main() !void {
     };
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
+
+    // ==============================================================
+    for (0..points.len) |i| {
+        points[i].x = c.SDL_randf() * @as(f32, @floatFromInt(WINDOW_WIDTH));
+        points[i].y = c.SDL_randf() * @as(f32, @floatFromInt(WINDOW_HEIGHT));
+        point_speeds[i] = MIN_PIXELS_PER_SECOND + (c.SDL_randf() * (MAX_PIXELS_PER_SECOND - MIN_PIXELS_PER_SECOND));
+    }
+    last_time = c.SDL_GetTicks();
+    // ==============================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
