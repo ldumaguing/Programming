@@ -38,15 +38,15 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     _ = c.SDL_SetRenderDrawColor(renderer, 0, 255, 0, c.SDL_ALPHA_OPAQUE);
     _ = c.SDL_RenderLines(renderer, &line_points, line_points.len);
 
+    // here's a bunch of lines drawn out from a center point in a circle.
+    // we randomize the color of each line, so it functions as animation.
+    const size: f32 = 30.0;
+    const x: f32 = 320.0;
+    const y: f32 = 95.0 - (size / 2.0);
+    for (0..360) |i| {
+        _ = c.SDL_SetRenderDrawColor(renderer, @intCast(c.SDL_rand(256)), @intCast(c.SDL_rand(256)), @intCast(c.SDL_rand(256)), c.SDL_ALPHA_OPAQUE);
+        _ = c.SDL_RenderLine(renderer, x, y, x + c.SDL_sinf(@floatFromInt(i)) * size, y + c.SDL_cosf(@floatFromInt(i)) * size);
+    }
+
     _ = c.SDL_RenderPresent(renderer);
-
-    // const now: f64 = @as(f64, @floatFromInt(c.SDL_GetTicks())) / 1000.0;
-
-    // const red: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now));
-    // const green: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now + c.SDL_PI_D * 2.0 / 3.0));
-    // const blue: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now + c.SDL_PI_D * 4.0 / 3.0));
-    // try m.errify(c.SDL_SetRenderDrawColorFloat(renderer, red, green, blue, c.SDL_ALPHA_OPAQUE_FLOAT));
-
-    // try m.errify(c.SDL_RenderClear(renderer));
-    // try m.errify(c.SDL_RenderPresent(renderer));
 }
