@@ -1,8 +1,5 @@
 const std = @import("std");
-
-pub const std_options: std.Options = .{
-    .log_level = .debug,
-};
+const print = @import("std").debug.print;
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -11,6 +8,11 @@ const c = @cImport({
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
 });
+
+const sdl = @import("mineSDL.zig");
+
+pub const WINDOW_WIDTH = 640;
+pub const WINDOW_HEIGHT = 480;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -45,14 +47,12 @@ pub fn main() !void {
         c.SDL_GetAudioDriver,
     )});
 
-    const window_w = 640;
-    const window_h = 480;
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
         var window: ?*c.SDL_Window = null;
         var renderer: ?*c.SDL_Renderer = null;
-        try errify(c.SDL_CreateWindowAndRenderer("01_hello", window_w, window_h, 0, &window, &renderer));
+        try errify(c.SDL_CreateWindowAndRenderer("01_hello", WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &renderer));
         errdefer comptime unreachable;
 
         break :create_window_and_renderer .{ window.?, renderer.? };
@@ -70,9 +70,7 @@ pub fn main() !void {
                 else => {},
             }
         }
-        try errify(c.SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0xff, 0xff));
-        try errify(c.SDL_RenderClear(renderer));
-        try errify(c.SDL_RenderPresent(renderer));
+        try sdl.AppIterate(renderer);
     }
 }
 
@@ -113,7 +111,7 @@ fn formatSdlDrivers(
 }
 
 /// Converts the return value of an SDL function to an error union.
-inline fn errify(value: anytype) error{SdlError}!switch (@import("shims").typeInfo(@TypeOf(value))) {
+pub inline fn errify(value: anytype) error{SdlError}!switch (@import("shims").typeInfo(@TypeOf(value))) {
     .bool => void,
     .pointer, .optional => @TypeOf(value.?),
     .int => |info| switch (info.signedness) {
