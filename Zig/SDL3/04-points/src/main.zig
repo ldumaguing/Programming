@@ -13,8 +13,8 @@ const sdl = @import("mineSDL.zig");
 
 pub var last_time: u64 = 0;
 
-const WINDOW_WIDTH: i32 = 640;
-const WINDOW_HEIGHT: i32 = 480;
+pub const WINDOW_WIDTH: i32 = 640;
+pub const WINDOW_HEIGHT: i32 = 480;
 
 pub const NUM_POINTS: i32 = 500;
 pub const MIN_PIXELS_PER_SECOND: f32 = 30;
