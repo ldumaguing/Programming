@@ -51,7 +51,7 @@ pub fn main() !void {
     const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
         var window: ?*c.SDL_Window = null;
         var renderer: ?*c.SDL_Renderer = null;
-        try errify(c.SDL_CreateWindowAndRenderer("03-lines", window_w, window_h, 0, &window, &renderer));
+        try errify(c.SDL_CreateWindowAndRenderer("01_hello", window_w, window_h, 0, &window, &renderer));
         errdefer comptime unreachable;
 
         break :create_window_and_renderer .{ window.?, renderer.? };
