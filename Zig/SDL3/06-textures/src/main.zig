@@ -1,45 +1,149 @@
-//! By convention, main.zig is where your main function lives in the case that
-//! you are building an executable. If you are making a library, the convention
-//! is to delete this file and start with root.zig instead.
-
-pub fn main() !void {
-    // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
-    std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
-
-    // stdout is for the actual output of your application, for example if you
-    // are implementing gzip, then only the compressed bytes should be sent to
-    // stdout, not any debugging messages.
-    const stdout_file = std.io.getStdOut().writer();
-    var bw = std.io.bufferedWriter(stdout_file);
-    const stdout = bw.writer();
-
-    try stdout.print("Run `zig build test` to run the tests.\n", .{});
-
-    try bw.flush(); // Don't forget to flush!
-}
-
-test "simple test" {
-    var list = std.ArrayList(i32).init(std.testing.allocator);
-    defer list.deinit(); // Try commenting this out and see if zig detects the memory leak!
-    try list.append(42);
-    try std.testing.expectEqual(@as(i32, 42), list.pop());
-}
-
-test "use other module" {
-    try std.testing.expectEqual(@as(i32, 150), lib.add(100, 50));
-}
-
-test "fuzz example" {
-    const global = struct {
-        fn testOne(input: []const u8) anyerror!void {
-            // Try passing `--fuzz` to `zig build test` and see if it manages to fail this test case!
-            try std.testing.expect(!std.mem.eql(u8, "canyoufindme", input));
-        }
-    };
-    try std.testing.fuzz(global.testOne, .{});
-}
-
 const std = @import("std");
+const print = @import("std").debug.print;
 
-/// This imports the separate module containing `root.zig`. Take a look in `build.zig` for details.
-const lib = @import("06-textures_lib");
+const c = @cImport({
+    @cDefine("SDL_DISABLE_OLD_NAMES", {});
+    @cInclude("SDL3/SDL.h");
+    @cInclude("SDL3/SDL_revision.h");
+    @cDefine("SDL_MAIN_HANDLED", {});
+    @cInclude("SDL3/SDL_main.h");
+});
+
+const sdl = @import("mineSDL.zig");
+
+pub const WINDOW_WIDTH = 640;
+pub const WINDOW_HEIGHT = 480;
+
+pub var texture: *c.SDL_Texture = undefined;
+pub var texture_width: i32 = 0;
+pub var texture_height: i32 = 0;
+
+// ************************************************************************************************
+pub fn main() !void {
+    errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
+
+    std.log.debug("SDL build time version: {d}.{d}.{d}", .{
+        c.SDL_MAJOR_VERSION,
+        c.SDL_MINOR_VERSION,
+        c.SDL_MICRO_VERSION,
+    });
+
+    const version = c.SDL_GetVersion();
+    std.log.debug("SDL runtime version: {d}.{d}.{d}", .{
+        c.SDL_VERSIONNUM_MAJOR(version),
+        c.SDL_VERSIONNUM_MINOR(version),
+        c.SDL_VERSIONNUM_MICRO(version),
+    });
+
+    c.SDL_SetMainReady();
+
+    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD));
+    defer c.SDL_Quit();
+
+    std.log.debug("SDL video drivers: {}", .{fmtSdlDrivers(
+        c.SDL_GetCurrentVideoDriver().?,
+        c.SDL_GetNumVideoDrivers(),
+        c.SDL_GetVideoDriver,
+    )});
+    std.log.debug("SDL audio drivers: {}", .{fmtSdlDrivers(
+        c.SDL_GetCurrentAudioDriver().?,
+        c.SDL_GetNumAudioDrivers(),
+        c.SDL_GetAudioDriver,
+    )});
+
+    errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
+
+    const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
+        var window: ?*c.SDL_Window = null;
+        var renderer: ?*c.SDL_Renderer = null;
+        try errify(c.SDL_CreateWindowAndRenderer("06-textures", WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &renderer));
+        errdefer comptime unreachable;
+
+        break :create_window_and_renderer .{ window.?, renderer.? };
+    };
+    defer c.SDL_DestroyRenderer(renderer);
+    defer c.SDL_DestroyWindow(window);
+
+    // ========================================================================
+    const bmp = @embedFile("sample.bmp");
+    const stream: *c.SDL_IOStream = try errify(c.SDL_IOFromConstMem(bmp, bmp.len));
+    const surface: *c.SDL_Surface = c.SDL_LoadBMP_IO(stream, true);
+    defer c.SDL_DestroySurface(surface);
+
+    texture_width = surface.w;
+    texture_height = surface.h;
+
+    texture = c.SDL_CreateTextureFromSurface(renderer, surface);
+    defer c.SDL_DestroyTexture(texture);
+    // ========================================================================
+
+    main_loop: while (true) {
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event)) {
+            switch (event.type) {
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                else => {},
+            }
+        }
+        try sdl.AppIterate(renderer);
+    }
+}
+
+// ************************************************************************************************
+fn fmtSdlDrivers(
+    current_driver: [*:0]const u8,
+    num_drivers: c_int,
+    getDriver: *const fn (c_int) callconv(.C) ?[*:0]const u8,
+) std.fmt.Formatter(formatSdlDrivers) {
+    return .{ .data = .{
+        .current_driver = current_driver,
+        .num_drivers = num_drivers,
+        .getDriver = getDriver,
+    } };
+}
+
+fn formatSdlDrivers(
+    context: struct {
+        current_driver: [*:0]const u8,
+        num_drivers: c_int,
+        getDriver: *const fn (c_int) callconv(.C) ?[*:0]const u8,
+    },
+    comptime _: []const u8,
+    _: std.fmt.FormatOptions,
+    writer: anytype,
+) !void {
+    var i: c_int = 0;
+    while (i < context.num_drivers) : (i += 1) {
+        if (i != 0) {
+            try writer.writeAll(", ");
+        }
+        const driver = context.getDriver(i).?;
+        try writer.writeAll(std.mem.span(driver));
+        if (std.mem.orderZ(u8, context.current_driver, driver) == .eq) {
+            try writer.writeAll(" (current)");
+        }
+    }
+}
+
+/// Converts the return value of an SDL function to an error union.
+pub inline fn errify(value: anytype) error{SdlError}!switch (@import("shims").typeInfo(@TypeOf(value))) {
+    .bool => void,
+    .pointer, .optional => @TypeOf(value.?),
+    .int => |info| switch (info.signedness) {
+        .signed => @TypeOf(@max(0, value)),
+        .unsigned => @TypeOf(value),
+    },
+    else => @compileError("unerrifiable type: " ++ @typeName(@TypeOf(value))),
+} {
+    return switch (@import("shims").typeInfo(@TypeOf(value))) {
+        .bool => if (!value) error.SdlError,
+        .pointer, .optional => value orelse error.SdlError,
+        .int => |info| switch (info.signedness) {
+            .signed => if (value >= 0) @max(0, value) else error.SdlError,
+            .unsigned => if (value != 0) value else error.SdlError,
+        },
+        else => comptime unreachable,
+    };
+}
