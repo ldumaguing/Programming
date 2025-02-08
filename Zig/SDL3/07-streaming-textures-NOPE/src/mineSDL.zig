@@ -11,9 +11,9 @@ const c = @cImport({
 });
 
 pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
-    // var dst_rect: c.SDL_FRect = undefined;
+    var dst_rect: c.SDL_FRect = undefined;
     const now: f32 = @floatFromInt(c.SDL_GetTicks());
-    var surface: *c.SDL_Surface = undefined;
+    var surface: [*c][*c]c.SDL_Surface = undefined;
 
     // we'll have some textures move around over a few seconds.
     const direction = blk: {
@@ -32,18 +32,40 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     // SDL_LockTextureToSurface() here, because it wraps that array in a temporary SDL_Surface,
     // letting us use the surface drawing functions instead of lighting up individual pixels.
     if (c.SDL_LockTextureToSurface(m.texture, null, &surface)) {
+        print("yo\n", .{});
         var r: c.SDL_Rect = undefined;
-        c.SDL_FillSurfaceRect(surface, null, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.format), null, 0, 0, 0)); // make the whole surface black
+        _ = c.SDL_FillSurfaceRect(surface.*, null, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.*.format), null, 0, 0, 0));
         r.w = m.TEXTURE_SIZE;
         r.h = m.TEXTURE_SIZE / 10;
         r.x = 0;
-        r.y = (m.TEXTURE_SIZE - r.h) * ((scale + 1.0) / 2.0);
-
+        // r.y = (m.TEXTURE_SIZE - r.h) * ((scale + 1.0) / 2.0);
+        r.y = (m.TEXTURE_SIZE - r.h);
+        r.y *= @intFromFloat((scale + 1.0) / 2.0);
         // r.y = (int) (((float) (TEXTURE_SIZE - r.h)) * ((scale + 1.0f) / 2.0f));
-        // SDL_FillSurfaceRect(surface, &r, SDL_MapRGB(SDL_GetPixelFormatDetails(surface->format), NULL, 0, 255, 0));  /* make a strip of the surface green */
-        // SDL_UnlockTexture(texture);  /* upload the changes (and frees the temporary surface)! */
-
+        _ = c.SDL_FillSurfaceRect(surface.*, &r, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.*.format), null, 0, 255, 0));
+        _ = c.SDL_UnlockTexture(m.texture);
     }
+
+    // as you can see from this, rendering draws over whatever was drawn before it.
+    _ = c.SDL_SetRenderDrawColor(renderer, 66, 66, 66, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderClear(renderer);
+
+    // **************************
+    // Just draw the static texture a few times. You can think of it like a
+    // stamp, there isn't a limit to the number of times you can draw with it.
+
+    // Center this one. It'll draw the latest version of the texture we drew while it was locked.
+    // dst_rect.x = ((float) (WINDOW_WIDTH - TEXTURE_SIZE)) / 2.0f;
+    dst_rect.x = (m.WINDOW_WIDTH - m.TEXTURE_SIZE);
+    dst_rect.x /= 2.0;
+    // dst_rect.y = ((float) (WINDOW_HEIGHT - TEXTURE_SIZE)) / 2.0f;
+    dst_rect.y = (m.WINDOW_HEIGHT - m.TEXTURE_SIZE);
+    dst_rect.y /= 2.0;
+    // dst_rect.w = dst_rect.h = (float) TEXTURE_SIZE;
+    dst_rect.w = m.TEXTURE_SIZE;
+    dst_rect.h = m.TEXTURE_SIZE;
+    _ = c.SDL_RenderTexture(renderer, m.texture, null, &dst_rect);
+    // **************************
 
     _ = c.SDL_RenderPresent(renderer);
 }
