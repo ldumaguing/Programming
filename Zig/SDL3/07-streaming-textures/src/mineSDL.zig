@@ -13,7 +13,7 @@ const c = @cImport({
 pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     var dst_rect: c.SDL_FRect = undefined;
     const now: f32 = @floatFromInt(c.SDL_GetTicks());
-    var surface: [*c][*c]c.SDL_Surface = undefined;
+    var surface: [*c]c.SDL_Surface = undefined;
 
     // we'll have some textures move around over a few seconds.
     const direction = blk: {
@@ -21,7 +21,7 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
         if (@mod(now, 2000) >= 1000) val = 1.0;
         break :blk val;
     };
-    const scale = ((@mod(now, 1000) - 500.0) / 500.0) * direction;
+    const scale: f32 = ((@mod(now, 1000) - 500.0) / 500.0) * direction;
 
     // To update a streaming texture, you need to lock it first. This gets you access to the pixels.
     // Note that this is considered a _write-only_ operation: the buffer you get from locking
@@ -32,17 +32,15 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     // SDL_LockTextureToSurface() here, because it wraps that array in a temporary SDL_Surface,
     // letting us use the surface drawing functions instead of lighting up individual pixels.
     if (c.SDL_LockTextureToSurface(m.texture, null, &surface)) {
-        print("yo\n", .{});
         var r: c.SDL_Rect = undefined;
-        _ = c.SDL_FillSurfaceRect(surface.*, null, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.*.format), null, 0, 0, 0));
+        _ = c.SDL_FillSurfaceRect(surface, null, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.format), null, 0, 0, 0));
         r.w = m.TEXTURE_SIZE;
         r.h = m.TEXTURE_SIZE / 10;
         r.x = 0;
-        // r.y = (m.TEXTURE_SIZE - r.h) * ((scale + 1.0) / 2.0);
-        r.y = (m.TEXTURE_SIZE - r.h);
-        r.y *= @intFromFloat((scale + 1.0) / 2.0);
-        // r.y = (int) (((float) (TEXTURE_SIZE - r.h)) * ((scale + 1.0f) / 2.0f));
-        _ = c.SDL_FillSurfaceRect(surface.*, &r, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.*.format), null, 0, 255, 0));
+        var foo = (scale + 1.0) / 2.0;
+        foo *= @floatFromInt(m.TEXTURE_SIZE - r.h);
+        r.y = @intFromFloat(foo);
+        _ = c.SDL_FillSurfaceRect(surface, &r, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.format), null, 0, 255, 0));
         _ = c.SDL_UnlockTexture(m.texture);
     }
 
