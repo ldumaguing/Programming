@@ -37,9 +37,9 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
         r.w = m.TEXTURE_SIZE;
         r.h = m.TEXTURE_SIZE / 10;
         r.x = 0;
-        var foo = (scale + 1.0) / 2.0;
-        foo *= @floatFromInt(m.TEXTURE_SIZE - r.h);
-        r.y = @intFromFloat(foo);
+        var r_y = (scale + 1.0) / 2.0;
+        r_y *= @floatFromInt(m.TEXTURE_SIZE - r.h);
+        r.y = @intFromFloat(r_y);
         _ = c.SDL_FillSurfaceRect(surface, &r, c.SDL_MapRGB(c.SDL_GetPixelFormatDetails(surface.*.format), null, 0, 255, 0));
         _ = c.SDL_UnlockTexture(m.texture);
     }
