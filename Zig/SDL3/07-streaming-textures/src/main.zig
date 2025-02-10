@@ -65,7 +65,6 @@ pub fn main() !void {
 
     // ==================================================================================
     texture = c.SDL_CreateTexture(renderer, c.SDL_PIXELFORMAT_RGBA8888, c.SDL_TEXTUREACCESS_STREAMING, TEXTURE_SIZE, TEXTURE_SIZE);
-
     // ==================================================================================
 
     main_loop: while (true) {
