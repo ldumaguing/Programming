@@ -17,6 +17,9 @@ pub const WINDOW_HEIGHT = 480;
 pub var texture: *c.SDL_Texture = undefined;
 pub var texture_width: i32 = 0;
 pub var texture_height: i32 = 0;
+pub var cliprect_position: c.SDL_FPoint = undefined;
+pub var cliprect_direction: c.SDL_FPoint = undefined;
+pub var last_time: f32 = 0.0;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -75,6 +78,9 @@ pub fn main() !void {
 
     texture = c.SDL_CreateTextureFromSurface(renderer, surface);
     defer c.SDL_DestroyTexture(texture);
+
+    cliprect_direction = .{ .x = 1.0, .y = 1.0 };
+    last_time = @floatFromInt(c.SDL_GetTicks());
     // ========================================================================
 
     main_loop: while (true) {
