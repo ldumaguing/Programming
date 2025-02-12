@@ -65,10 +65,6 @@ pub fn build(b: *std.Build) void {
         .root_module = exe_mod,
     });
 
-    //  exe.linkSystemLibrary("c");
-    exe.linkLibC();
-    //    exe.addIncludePath("src/");
-
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).

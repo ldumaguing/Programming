@@ -1,12 +1,6 @@
-const re = @cImport(@cInclude("regex.h"));
-
 const std = @import("std");
 const print = @import("std").debug.print;
-
-const f = @cImport("./regez.h");
-
-const REGEX_T_SIZEOF = re.sizeof_regex_t;
-const REGEX_T_ALIGNOF = re.alignof_regex_t;
+const mvzr = @import("mvzr.zig");
 
 pub fn main() !void {
     const action_table = [27][7]i32{
@@ -56,16 +50,12 @@ pub fn main() !void {
     }
 
     // ****************
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
+    var re: mvzr.Regex = mvzr.compile("fx").?;
+    const is_match: bool = re.isMatch("fish 123");
+    print(">{}<\n", .{is_match});
 
-    const slice = try allocator.alignedAlloc(u8, REGEX_T_ALIGNOF, REGEX_T_SIZEOF);
-    defer allocator.free(slice);
-    const regext: [*]re.regex_t = @ptrCast(slice.ptr);
-
-    var fish = re.regcomp(regext, "fish123", re.REG_EXTENDED | re.REG_ICASE);
-    defer re.regfree(regext);
-    print("1 - {}\n", .{fish});
-    fish = re.regexec(regext, "fish123", 0, null, 0);
-    print("2 - {}\n", .{fish});
+    re = mvzr.compile("14").?;
+    // const match: mvzr.Match = re.match("fish 123").?;
+    // _ = match;
+    // print(">{}<\n", .{match});
 }
