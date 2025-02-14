@@ -48,17 +48,18 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     // from the GPU to system RAM!
     surface = c.SDL_RenderReadPixels(renderer, null);
 
+    // This is also expensive, but easier: convert the pixels to a format we want.
     const testA: bool = (surface != null);
     const testB: bool = (surface.*.format != c.SDL_PIXELFORMAT_RGBA8888);
     const testC: bool = (surface.*.format != c.SDL_PIXELFORMAT_BGRA8888);
-    if (testA and (testB and testC)) {
+    if (testA and testB and testC) {
         const converted: [*c]c.SDL_Surface = c.SDL_ConvertSurface(surface, c.SDL_PIXELFORMAT_RGBA8888);
         _ = c.SDL_DestroySurface(surface);
         surface = converted;
     }
 
-    const test_S: bool = (surface != null);
-    if (test_S) {
+    if (surface != null) {
+        // Rebuild converted_texture if the dimensions have changed (window resized, etc).
         const test_SW: bool = (surface.*.w != m.converted_texture_width);
         const test_SH: bool = (surface.*.h != m.converted_texture_height);
         if (test_SW or test_SH) {
@@ -70,16 +71,22 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
             m.converted_texture_width = surface.*.w;
             m.converted_texture_height = surface.*.h;
         }
+
+        // *****
+        // TODO
+        // *****
+
+        // upload the processed pixels back into a texture.
+        _ = c.SDL_UpdateTexture(m.converted_texture, null, surface.*.pixels, surface.*.pitch);
+        _ = c.SDL_DestroySurface(surface);
+
+        // draw the texture to the top-left of the screen.
+        dst_rect.x = 0.0;
+        dst_rect.y = 0.0;
+        dst_rect.w = m.WINDOW_WIDTH / 4.0;
+        dst_rect.h = m.WINDOW_HEIGHT / 4.0;
+        _ = c.SDL_RenderTexture(renderer, m.converted_texture, null, &dst_rect);
     }
-
-    // Turn each pixel into either black or white. This is a lousy technique but it works here.
-    // In real life, something like Floyd-Steinberg dithering might work
-    // better: https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
-    // for (0..@intCast(surface.*.h)) |y| {
-    //     for(0..@intCast(surface.*.w)) |x| {
-
-    //     }
-    // }
 
     _ = c.SDL_RenderPresent(renderer);
 }
