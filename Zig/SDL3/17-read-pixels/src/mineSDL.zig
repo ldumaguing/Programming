@@ -39,7 +39,6 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     center.y /= 2.0;
     _ = c.SDL_RenderTextureRotated(renderer, m.texture, null, &dst_rect, rotation, &center, c.SDL_FLIP_NONE);
 
-    // ************************************** part 2
     // *********************************************
     // this next whole thing is _super_ expensive. Seriously, don't do this in real life.
 
@@ -49,10 +48,7 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     surface = c.SDL_RenderReadPixels(renderer, null);
 
     // This is also expensive, but easier: convert the pixels to a format we want.
-    const testA: bool = (surface != null);
-    const testB: bool = (surface.*.format != c.SDL_PIXELFORMAT_RGBA8888);
-    const testC: bool = (surface.*.format != c.SDL_PIXELFORMAT_BGRA8888);
-    if (testA and testB and testC) {
+    if ((surface != null) and (surface.*.format != c.SDL_PIXELFORMAT_RGBA8888) and (surface.*.format != c.SDL_PIXELFORMAT_BGRA8888)) {
         const converted: [*c]c.SDL_Surface = c.SDL_ConvertSurface(surface, c.SDL_PIXELFORMAT_RGBA8888);
         _ = c.SDL_DestroySurface(surface);
         surface = converted;
@@ -64,15 +60,16 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
         m.converted_texture = c.SDL_CreateTexture(renderer, c.SDL_PIXELFORMAT_RGBA8888, c.SDL_TEXTUREACCESS_STREAMING, surface.*.w, surface.*.h);
 
         // **************************************** modifying the surface
-        const surface_pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
+        // const surface_pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
+        const surface_pixels: [*]u8 = @ptrCast(surface.*.pixels);
         const pitch: u32 = @intCast(surface.*.pitch);
-        const w: u32 = 4;
+        const rgba_bytes = 4;
         // for (0..100000) |i| {
         //     pixels[i] = 0xff;
         // }
         for (0..@intCast(surface.*.h)) |y| {
             for (0..@intCast(surface.*.w)) |x| {
-                const i = (x * w) + (y * pitch);
+                const i = (x * rgba_bytes) + (y * pitch);
                 const p: [*]u8 = surface_pixels;
                 var average: f32 = @floatFromInt(p[i + 1]);
                 average += @floatFromInt(p[i + 2]);
