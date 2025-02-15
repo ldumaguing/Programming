@@ -84,13 +84,14 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
                     p[i + 1] = 0x0;
                     p[i + 2] = 0x0;
                 } else {
-                    p[i + 1] = 0x0;
-                    p[i + 2] = 0x0;
-                    p[i + 3] = 0x0;
                     if (average > 50.0) {
                         p[i + 1] = 0xff;
                         p[i + 2] = 0xff;
                         p[i + 3] = 0xff;
+                    } else {
+                        p[i + 1] = 0x0;
+                        p[i + 2] = 0x0;
+                        p[i + 3] = 0x0;
                     }
                 }
                 //surface_pixels[i] = 0xff;
