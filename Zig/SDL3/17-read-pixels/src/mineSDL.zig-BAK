@@ -60,15 +60,24 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
 
     if (surface != null) {
         // Rebuild converted_texture if the dimensions have changed (window resized, etc).
-        _ = c.SDL_DestroyTexture(m.converted_texture);
-        m.converted_texture = c.SDL_CreateTexture(renderer, c.SDL_PIXELFORMAT_RGBA8888, c.SDL_TEXTUREACCESS_STREAMING, surface.*.w, surface.*.h);
+        const test_SW: bool = (surface.*.w != m.converted_texture_width);
+        const test_SH: bool = (surface.*.h != m.converted_texture_height);
+        if (test_SW or test_SH) {
+            _ = c.SDL_DestroyTexture(m.converted_texture);
+            m.converted_texture = c.SDL_CreateTexture(renderer, c.SDL_PIXELFORMAT_RGBA8888, c.SDL_TEXTUREACCESS_STREAMING, surface.*.w, surface.*.h);
+            if (m.converted_texture == null) {
+                print("***** oops\n", .{});
+            }
+            m.converted_texture_width = surface.*.w;
+            m.converted_texture_height = surface.*.h;
+        }
 
         // **************************************** modifying the surface
         const pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
         for (0..100000) |i| {
             pixels[i] = 0xff;
         }
-        // ****************************************
+        // *****
 
         // upload the processed pixels back into a texture.
         _ = c.SDL_UpdateTexture(m.converted_texture, null, surface.*.pixels, surface.*.pitch);

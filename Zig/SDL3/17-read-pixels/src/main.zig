@@ -18,8 +18,6 @@ pub var texture: *c.SDL_Texture = undefined;
 pub var texture_width: i32 = 0;
 pub var texture_height: i32 = 0;
 pub var converted_texture: [*c]c.SDL_Texture = undefined;
-pub var converted_texture_width: i32 = 0;
-pub var converted_texture_height: i32 = 0;
 
 // ************************************************************************************************
 pub fn main() !void {
