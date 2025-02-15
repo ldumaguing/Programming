@@ -64,9 +64,40 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
         m.converted_texture = c.SDL_CreateTexture(renderer, c.SDL_PIXELFORMAT_RGBA8888, c.SDL_TEXTUREACCESS_STREAMING, surface.*.w, surface.*.h);
 
         // **************************************** modifying the surface
-        const pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
-        for (0..100000) |i| {
-            pixels[i] = 0xff;
+        const surface_pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
+        const pitch: u32 = @intCast(surface.*.pitch);
+        const w: u32 = 4;
+        // for (0..100000) |i| {
+        //     pixels[i] = 0xff;
+        // }
+        for (0..@intCast(surface.*.h)) |y| {
+            for (0..@intCast(surface.*.w)) |x| {
+                const i = (x * w) + (y * pitch);
+                const p: [*]u8 = surface_pixels;
+                var average: f32 = @floatFromInt(p[i + 1]);
+                average += @floatFromInt(p[i + 2]);
+                average += @floatFromInt(p[i + 3]);
+                average /= 3.0;
+                if (average == 0.0) {
+                    p[i] = 0xff;
+                    p[i + 3] = 0xff;
+                    p[i + 1] = 0x0;
+                    p[i + 2] = 0x0;
+                } else {
+                    p[i + 1] = 0x0;
+                    p[i + 2] = 0x0;
+                    p[i + 3] = 0x0;
+                    if (average > 50.0) {
+                        p[i + 1] = 0xff;
+                        p[i + 2] = 0xff;
+                        p[i + 3] = 0xff;
+                    }
+                }
+                //surface_pixels[i] = 0xff;
+                //surface_pixels[i + 1] = 0xff;
+                //surface_pixels[i + 2] = 0xff;
+                //surface_pixels[i + 3] = 0xff;
+            }
         }
         // ****************************************
 
