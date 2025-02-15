@@ -74,6 +74,11 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
 
         // *****
         // TODO
+        const pixels: [*]u8 = @alignCast(@ptrCast(surface.*.pixels));
+        pixels[10] = 0xff;
+        pixels[11] = 0xff;
+        pixels[12] = 0xff;
+        pixels[13] = 0xff;
         // *****
 
         // upload the processed pixels back into a texture.
