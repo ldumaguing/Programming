@@ -20,8 +20,8 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
 
     _ = c.SDL_SetRenderDrawColor(renderer, 51, 102, 255, c.SDL_ALPHA_OPAQUE);
     _ = c.SDL_RenderDebugText(renderer, 184, 200, "You can do it in different colors.");
-    _ = c.SDL_SetRenderDrawColor(renderer, 255, 255, 255, c.SDL_ALPHA_OPAQUE);
 
+    _ = c.SDL_SetRenderDrawColor(renderer, 255, 255, 255, c.SDL_ALPHA_OPAQUE);
     _ = c.SDL_SetRenderScale(renderer, 4.0, 4.0);
     _ = c.SDL_RenderDebugText(renderer, 14, 65, "It can be scaled.");
     _ = c.SDL_SetRenderScale(renderer, 1.0, 1.0);
