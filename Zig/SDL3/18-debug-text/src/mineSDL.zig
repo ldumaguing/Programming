@@ -27,8 +27,10 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
     _ = c.SDL_SetRenderScale(renderer, 1.0, 1.0);
     _ = c.SDL_RenderDebugText(renderer, 64, 350, "This only does ASCII chars. So this laughing emoji won't draw: 🤣");
 
-    const X: f32 = @as(f32, @floatFromInt(c.SDL_GetTicks())) / 1000.0;
-    _ = c.SDL_RenderDebugTextFormat(renderer, 200.0, 400.0, "(This program has been running for %.0f seconds.)", X);
+    const ticks: f32 = @as(f32, @floatFromInt(c.SDL_GetTicks())) / 1000.0;
+    const charsize: i32 = c.SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE;
+    const X: f32 = (@as(f32, @floatFromInt(charsize)) * 46.0) / 2.0;
+    _ = c.SDL_RenderDebugTextFormat(renderer, X, 400.0, "(This program has been running for %.0f seconds.)", ticks);
 
     _ = c.SDL_RenderPresent(renderer);
 }
