@@ -1,6 +1,7 @@
 const std = @import("std");
 // const print = @import("std").debug.print;
 const outw = @import("std").io.getStdOut().writer();
+const math = @import("std").math;
 
 const fs = std.fs;
 
@@ -15,15 +16,16 @@ pub fn main() !void {
     defer std.heap.page_allocator.free(buffer);
 
     const bytes_read = try file.read(buffer);
-
+    _ = bytes_read;
     // std.debug.print("... {s}", .{buffer[0..bytes_read]});
+
     const p: [*]u8 = @ptrCast(buffer);
-    try outw.print("{}, {}\n", .{ p[1], bytes_read });
     for (0..512) |x| {
         for (0..8) |y| {
             const b: u8 = p[y + (8 * x)];
-            inline for (0..8) |i| {
-                const mask = 128 >> i;
+            var i: i32 = 7;
+            while (i >= 0) : (i -= 1) {
+                const mask: i32 = math.pow(i32, 2, i);
                 const showDot: bool = ((mask & b) != 0);
                 if (showDot) {
                     try outw.print("*", .{});
