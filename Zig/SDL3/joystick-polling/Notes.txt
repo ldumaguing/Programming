@@ -1,0 +1,26 @@
+ZEROPLUS GAMEPAD4-WIRED-V1.2
+============================
+Axis 0: 128     L-Axis  Horizonal
+Axis 1: 128     L-Axis  Vertical
+Axis 2: 128     R-Axis  Horizonal
+Axis 3: -32768  L2
+Axis 4: -32768  R2
+Axis 5: 128     R-Axis  Vertical
+
+Button 0:  Square    West
+Button 1:  X         South
+Button 2:  Circle    East
+Button 3:  Triangle  North
+Button 4:  L1
+Button 5:  R1
+Button 6:  L2
+Button 7:  R2
+Button 8:  Share
+Button 9:  Option
+Button 10: L-Axis
+Button 11: R-Axis
+Button 12: Center
+Button 13:
+
+Hat 0: D-Pad  (1:N, 2:E, 4:S, 8:W)
+
