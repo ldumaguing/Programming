@@ -15,8 +15,8 @@ Button 4:  L1
 Button 5:  R1
 Button 6:  L2
 Button 7:  R2
-Button 8:  Share
-Button 9:  Option
+Button 8:  SHARE
+Button 9:  OPTIONS
 Button 10: L-Axis
 Button 11: R-Axis
 Button 12: Center
