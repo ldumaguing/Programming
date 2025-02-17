@@ -116,8 +116,7 @@ fn record_joystick_events() void {
             print("Hat {}: {}\n", .{ i, c.SDL_GetJoystickHat(joystick, @intCast(i)) });
         }
     }
-
-    print("\n", .{});
+    print("{s}\n", .{c.SDL_GetJoystickName(joystick)});
 }
 
 // ************************************************************************************************
