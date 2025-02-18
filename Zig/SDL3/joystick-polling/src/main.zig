@@ -108,7 +108,9 @@ fn record_button_events() void {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
             const val = button_mods[i];
             if (val >= 0) {
-                print("Button {} --- button_mod: {}\n", .{ i, val });
+                const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+                button_bits |= bits;
+                print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
             }
         }
     }
@@ -117,12 +119,39 @@ fn record_button_events() void {
 // ************************************************************************************************
 fn define_button_mods(aText: [*c]const u8) !void {
     print("yo: {s}\n", .{aText});
+    var joystick_type: i32 = 0;
+
     var buffer = [_]u8{0} ** 100;
     _ = try std.fmt.bufPrintZ(&buffer, "{s}\n", .{aText});
 
     var regex: mvzr.Regex = mvzr.compile("RumblePad").?;
     if (regex.isMatch(&buffer)) {
-        print("rumblepad\n", .{});
+        joystick_type = 1;
+    }
+
+    regex = mvzr.compile("ZEROPLUS").?;
+    if (regex.isMatch(&buffer)) {
+        joystick_type = 1;
+    }
+
+    regex = mvzr.compile("F710").?;
+    if (regex.isMatch(&buffer)) {
+        print("f710\n", .{});
+        joystick_type = 2;
+    }
+
+    regex = mvzr.compile("PS4").?;
+    if (regex.isMatch(&buffer)) {
+        joystick_type = 3;
+    }
+
+    regex = mvzr.compile("SWITCH CO").?;
+    if (regex.isMatch(&buffer)) {
+        joystick_type = 4;
+    }
+
+    // ****************************************************
+    if (joystick_type == 1) {
         // ***** Logi-D and Snake W
         button_mods[0] = 2;
         button_mods[1] = 0;
@@ -139,9 +168,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[12] = -1;
     }
 
-    regex = mvzr.compile("F710").?;
-    if (regex.isMatch(&buffer)) {
-        print("f710\n", .{});
+    if (joystick_type == 2) {
         // ***** Logi-X and 8BitDo
         button_mods[0] = 0;
         button_mods[1] = 3;
@@ -157,35 +184,40 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[11] = -1;
         button_mods[12] = -1;
     }
-    // ***** Snake (wireless version)
-    // button_mods[0] = 0;
-    // button_mods[1] = 3;
-    // button_mods[2] = 2;
-    // button_mods[3] = 1;
-    // button_mods[4] = 6;
-    // button_mods[5] = 10;
-    // button_mods[6] = 7;
-    // button_mods[7] = 8;
-    // button_mods[8] = 9;
-    // button_mods[9] = 4;
-    // button_mods[10] = 5;
-    // button_mods[11] = ;
-    // button_mods[12] = ;
 
-    // ***** Sega
-    // button_mods[0] = 2;
-    // button_mods[1] = 0;
-    // button_mods[2] = 3;
-    // button_mods[3] = 1;
-    // button_mods[4] = 9;
-    // button_mods[5] = 8;
-    // button_mods[6] = 4;
-    // button_mods[7] = 5;
-    // button_mods[8] = 7;
-    // button_mods[9] = 10;
-    // button_mods[10] = -1;
-    // button_mods[11] = -1;
-    // button_mods[12] = -1;
+    if (joystick_type == 3) {
+        // ***** Snake (wireless version)
+        button_mods[0] = 0;
+        button_mods[1] = 3;
+        button_mods[2] = 2;
+        button_mods[3] = 1;
+        button_mods[4] = 6;
+        button_mods[5] = 10;
+        button_mods[6] = 7;
+        button_mods[7] = 8;
+        button_mods[8] = 9;
+        button_mods[9] = 4;
+        button_mods[10] = 5;
+        button_mods[11] = -1;
+        button_mods[12] = -1;
+    }
+
+    if (joystick_type == 4) {
+        // ***** Sega
+        button_mods[0] = 2;
+        button_mods[1] = 0;
+        button_mods[2] = 3;
+        button_mods[3] = 1;
+        button_mods[4] = 9;
+        button_mods[5] = 8;
+        button_mods[6] = 4;
+        button_mods[7] = 5;
+        button_mods[8] = 7;
+        button_mods[9] = 10;
+        button_mods[10] = -1;
+        button_mods[11] = -1;
+        button_mods[12] = -1;
+    }
 }
 
 // ************************************************************************************************
