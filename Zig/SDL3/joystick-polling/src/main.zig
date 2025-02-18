@@ -159,8 +159,8 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[3] = 1;
         button_mods[4] = 4;
         button_mods[5] = 5;
-        button_mods[6] = -1;
-        button_mods[7] = -1;
+        button_mods[6] = 11;
+        button_mods[7] = 12;
         button_mods[8] = 6;
         button_mods[9] = 7;
         button_mods[10] = 8;
