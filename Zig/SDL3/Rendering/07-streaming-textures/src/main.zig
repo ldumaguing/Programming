@@ -74,6 +74,14 @@ pub fn main() !void {
                 c.SDL_EVENT_QUIT => {
                     break :main_loop;
                 },
+                c.SDL_EVENT_KEY_DOWN, c.SDL_EVENT_KEY_UP => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_ESCAPE => {
+                            break :main_loop;
+                        },
+                        else => {},
+                    }
+                },
                 else => {},
             }
         }
