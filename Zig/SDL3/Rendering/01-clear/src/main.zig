@@ -60,13 +60,16 @@ pub fn main() !void {
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
 
+    _ = c.SDL_HideCursor();
+    _ = c.SDL_SetWindowFullscreen(window, true);
+
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                c.SDL_EVENT_QUIT => {
-                    break :main_loop;
-                },
+                // c.SDL_EVENT_QUIT => {
+                //    break :main_loop;
+                // },
                 c.SDL_EVENT_KEY_DOWN, c.SDL_EVENT_KEY_UP => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
