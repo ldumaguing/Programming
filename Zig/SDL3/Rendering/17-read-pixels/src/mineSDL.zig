@@ -67,10 +67,10 @@ pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
         // for (0..100000) |i| {
         //     pixels[i] = 0xff;
         // }
+        const p: [*]u8 = surface_pixels;
         for (0..@intCast(surface.*.h)) |y| {
             for (0..@intCast(surface.*.w)) |x| {
                 const i = (x * rgba_bytes) + (y * pitch);
-                const p: [*]u8 = surface_pixels;
                 var average: f32 = @floatFromInt(p[i + 1]);
                 average += @floatFromInt(p[i + 2]);
                 average += @floatFromInt(p[i + 3]);
