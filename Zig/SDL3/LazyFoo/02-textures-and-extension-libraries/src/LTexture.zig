@@ -20,9 +20,8 @@ mTexture: *c.SDL_Texture,
 const LTexture = @This();
 
 // ****************************************************************************
-pub fn new(id: i32) LTexture {
-    const img = @embedFile("loaded.png");
-    const stream: ?*c.SDL_IOStream = c.SDL_IOFromConstMem(img, img.len);
+pub fn new(id: i32, filename: [*c]const u8) LTexture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
     const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
     defer c.SDL_DestroySurface(surface);
 
