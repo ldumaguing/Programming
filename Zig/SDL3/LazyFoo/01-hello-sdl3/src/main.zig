@@ -47,7 +47,6 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-
     const gWindow: ?*c.SDL_Window = c.SDL_CreateWindow("SDL3 Tutorial: Hello SDL3", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     defer c.SDL_DestroyWindow(gWindow);
     const gScreenSurface: ?*c.SDL_Surface = c.SDL_GetWindowSurface(gWindow);
