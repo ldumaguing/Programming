@@ -64,7 +64,7 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    t1 = LTexture.new(13);
+    t1 = LTexture.new(13, "loaded.png");
     defer t1.destroy();
     // ========================================================================
 
