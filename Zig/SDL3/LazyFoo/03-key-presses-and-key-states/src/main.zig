@@ -68,10 +68,10 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    gUpTexture = LTexture.new(1, "up.png");
-    gDownTexture = LTexture.new(2, "down.png");
-    gLeftTexture = LTexture.new(3, "left.png");
-    gRightTexture = LTexture.new(4, "right.png");
+    gUpTexture = LTexture.new(1, "img/up.png");
+    gDownTexture = LTexture.new(2, "img/down.png");
+    gLeftTexture = LTexture.new(3, "img/left.png");
+    gRightTexture = LTexture.new(4, "img/right.png");
     defer gUpTexture.destroy();
     defer gDownTexture.destroy();
     defer gLeftTexture.destroy();

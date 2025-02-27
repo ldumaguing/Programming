@@ -11,8 +11,18 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
+const colors = [4][3]u8{
+    [_]u8{ 0xff, 0xff, 0xff },
+    [_]u8{ 0xff, 0x00, 0x00 },
+    [_]u8{ 0x00, 0xff, 0x00 },
+    [_]u8{ 0x00, 0x00, 0xff },
+};
+
 pub fn AppIterate() !void {
-    _ = c.SDL_SetRenderDrawColor(m.gRenderer, 0xff, 0x00, 0xff, 0xff);
+    var color: u8 = @as(u8, @intCast(m.gCurrTexture.*.id));
+    color -= 1;
+    print(">>> {}\n", .{color});
+    _ = c.SDL_SetRenderDrawColor(m.gRenderer, colors[color][0], colors[color][1], colors[color][2], 0xff);
     _ = c.SDL_RenderClear(m.gRenderer);
 
     m.gCurrTexture.*.render(0.0, 0.0);

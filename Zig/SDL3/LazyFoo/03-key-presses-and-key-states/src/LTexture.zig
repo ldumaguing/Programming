@@ -31,10 +31,10 @@ pub fn new(id: i32, filename: [*c]const u8) LTexture {
 // **********
 pub fn render(self: *LTexture, x: f32, y: f32) void {
     var dst_rect: c.SDL_FRect = undefined;
-    // dst_rect.h = @as(f32, @floatFromInt(self.mTexture.h));
-    dst_rect.h = m.WINDOW_HEIGHT;
-    // dst_rect.w = @as(f32, @floatFromInt(self.mTexture.w));
-    dst_rect.w = m.WINDOW_WIDTH;
+    dst_rect.h = @as(f32, @floatFromInt(self.mTexture.h));
+    // dst_rect.h = m.WINDOW_HEIGHT;
+    dst_rect.w = @as(f32, @floatFromInt(self.mTexture.w));
+    // dst_rect.w = m.WINDOW_WIDTH;
     dst_rect.x = x;
     dst_rect.y = y;
     _ = c.SDL_RenderTexture(m.gRenderer, self.mTexture, null, &dst_rect);
