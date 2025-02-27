@@ -7,15 +7,26 @@ const c = @cImport({
     @cInclude("SDL3/SDL_revision.h");
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
+    @cInclude("SDL3_image/SDL_image.h");
 });
+
+const LTexture = @import("LTexture.zig");
+
+const iter = @import("mineSDL.zig");
+
+pub var gWindow: ?*c.SDL_Window = undefined;
+pub var gRenderer: ?*c.SDL_Renderer = undefined;
 
 pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
-// ************************************************************************************************
-pub fn main() !void {
-    defer c.SDL_Quit();
+pub var gUpTexture: LTexture = undefined;
+pub var gDownTexture: LTexture = undefined;
+pub var gLeftTexture: LTexture = undefined;
+pub var gRightTexture: LTexture = undefined;
 
+// // ************************************************************************************************
+pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
 
     std.log.debug("SDL build time version: {d}.{d}.{d}", .{
@@ -49,31 +60,49 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    const gWindow: ?*c.SDL_Window = c.SDL_CreateWindow("SDL3 Tutorial: Hello SDL3", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    // ************************************************************************
+    gWindow = c.SDL_CreateWindow("02-textures-and-extension-libraries", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    gRenderer = c.SDL_CreateRenderer(gWindow, null);
+    defer c.SDL_DestroyRenderer(gRenderer);
     defer c.SDL_DestroyWindow(gWindow);
-    const gScreenSurface: ?*c.SDL_Surface = c.SDL_GetWindowSurface(gWindow);
-    defer c.SDL_DestroySurface(gScreenSurface);
 
-    const bmp = @embedFile("hello-sdl3.bmp");
-    const stream: *c.SDL_IOStream = try errify(c.SDL_IOFromConstMem(bmp, bmp.len));
-    const gHelloWorld: *c.SDL_Surface = c.SDL_LoadBMP_IO(stream, true);
-    defer c.SDL_DestroySurface(gHelloWorld);
-
-    _ = c.SDL_FillSurfaceRect(gScreenSurface, null, c.SDL_MapSurfaceRGB(gScreenSurface, 0xff, 0xff, 0xff));
-    _ = c.SDL_BlitSurface(gHelloWorld, null, gScreenSurface, null);
-    _ = c.SDL_UpdateWindowSurface(gWindow);
+    // ========================================================================
+    gUpTexture = LTexture.new(1, "up.png");
+    gDownTexture = LTexture.new(2, "down.png");
+    gLeftTexture = LTexture.new(3, "left.png");
+    gRightTexture = LTexture.new(4, "right.png");
+    defer gUpTexture.destroy();
+    defer gDownTexture.destroy();
+    defer gLeftTexture.destroy();
+    defer gRightTexture.destroy();
+    // ========================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                // c.SDL_EVENT_QUIT => {
-                //    break :main_loop;
-                // },
-                c.SDL_EVENT_KEY_DOWN, c.SDL_EVENT_KEY_UP => {
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
+                        c.SDL_EVENT_QUIT => {
+                            break :main_loop;
+                        },
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
+                        },
+                        c.SDL_SCANCODE_DOWN => {
+                            print("down\n", .{});
+                        },
+                        c.SDL_SCANCODE_UP => {
+                            print("up\n", .{});
+                        },
+                        c.SDL_SCANCODE_LEFT => {
+                            print("left\n", .{});
+                        },
+                        c.SDL_SCANCODE_RIGHT => {
+                            print("right\n", .{});
                         },
                         else => {},
                     }
@@ -81,10 +110,13 @@ pub fn main() !void {
                 else => {},
             }
         }
+
+        try iter.AppIterate();
+        _ = c.SDL_RenderPresent(gRenderer);
     }
 }
-
-// ************************************************************************************************
+//
+// // ************************************************************************************************
 fn fmtSdlDrivers(
     current_driver: [*:0]const u8,
     num_drivers: c_int,
