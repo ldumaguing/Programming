@@ -24,6 +24,7 @@ pub var gUpTexture: LTexture = undefined;
 pub var gDownTexture: LTexture = undefined;
 pub var gLeftTexture: LTexture = undefined;
 pub var gRightTexture: LTexture = undefined;
+pub var gCurrTexture: *LTexture = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -75,6 +76,7 @@ pub fn main() !void {
     defer gDownTexture.destroy();
     defer gLeftTexture.destroy();
     defer gRightTexture.destroy();
+    gCurrTexture = &gUpTexture;
     // ========================================================================
 
     main_loop: while (true) {
@@ -94,15 +96,19 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_DOWN => {
                             print("down\n", .{});
+                            gCurrTexture = &gDownTexture;
                         },
                         c.SDL_SCANCODE_UP => {
                             print("up\n", .{});
+                            gCurrTexture = &gUpTexture;
                         },
                         c.SDL_SCANCODE_LEFT => {
                             print("left\n", .{});
+                            gCurrTexture = &gLeftTexture;
                         },
                         c.SDL_SCANCODE_RIGHT => {
                             print("right\n", .{});
+                            gCurrTexture = &gRightTexture;
                         },
                         else => {},
                     }

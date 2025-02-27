@@ -14,4 +14,6 @@ const c = @cImport({
 pub fn AppIterate() !void {
     _ = c.SDL_SetRenderDrawColor(m.gRenderer, 0xff, 0x00, 0xff, 0xff);
     _ = c.SDL_RenderClear(m.gRenderer);
+
+    m.gCurrTexture.*.render(0.0, 0.0);
 }
