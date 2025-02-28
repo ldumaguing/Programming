@@ -66,7 +66,7 @@ pub fn main() !void {
 
     // ========================================================================
     gBackground = DiTexture.new(0, "img/background.png");
-    gFoo = DiTexture.new(1, "img/foo.png");
+    gFoo = DiTexture.new_with_transparency(1, "img/foo.png", 0x0, 0xff, 0xff);
     defer gBackground.destroy();
     defer gFoo.destroy();
     // ========================================================================
