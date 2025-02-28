@@ -68,7 +68,8 @@ pub fn main() !void {
     // ========================================================================
     gSpriteSheet = DiTexture.new_with_transparency(1, "img/dots.png", 0x0, 0xff, 0xff);
     defer gSpriteSheet.destroy();
-    MySprite = DiSprite.new(2, &gSpriteSheet);
+    const fish: c.SDL_FRect = .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 };
+    MySprite = DiSprite.new(2, &gSpriteSheet, fish);
     // ========================================================================
 
     main_loop: while (true) {

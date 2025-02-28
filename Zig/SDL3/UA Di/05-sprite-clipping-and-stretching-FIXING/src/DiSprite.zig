@@ -27,5 +27,6 @@ pub fn new(id: i32, sprite_sheet: *sprite, clippage: c.SDL_FRect) DiSprite {
 }
 
 pub fn render(self: *DiSprite) void {
+    print("{}, {} --- {}, {}\n", .{ self.clippage.x, self.clippage.y, self.clippage.h, self.clippage.w });
     _ = self.sprite_sheet.render_sprite(50.0, 50.0);
 }
