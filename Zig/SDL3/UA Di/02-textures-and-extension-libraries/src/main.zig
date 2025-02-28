@@ -64,7 +64,7 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    diTexture = DiTexture.new(13, "loaded.png");
+    diTexture = DiTexture.new(13, "img/loaded.png");
     defer diTexture.destroy();
     // ========================================================================
 
