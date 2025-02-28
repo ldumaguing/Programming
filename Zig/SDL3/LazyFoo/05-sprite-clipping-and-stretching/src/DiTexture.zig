@@ -14,13 +14,13 @@ const m = @import("main.zig");
 
 // ****************************************************************************
 id: i32,
-mTexture: *c.SDL_Texture,
+diTexture: *c.SDL_Texture,
 
 // ****************************************************************************
-const LTexture = @This();
+const DiTexture = @This();
 
 // ****************************************************************************
-pub fn new(id: i32, filename: [*c]const u8) LTexture {
+pub fn new(id: i32, filename: [*c]const u8) DiTexture {
     const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
     const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
     // define a transparent color
@@ -28,24 +28,24 @@ pub fn new(id: i32, filename: [*c]const u8) LTexture {
 
     defer c.SDL_DestroySurface(surface);
 
-    return .{ .id = id, .mTexture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface) };
+    return .{ .id = id, .diTexture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface) };
 }
 
 // **********
-pub fn render(self: *LTexture, x: f32, y: f32) void {
+pub fn render(self: *DiTexture, x: f32, y: f32) void {
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = @as(f32, @floatFromInt(self.mTexture.h));
+    dst_rect.h = @as(f32, @floatFromInt(self.diTexture.h));
     // dst_rect.h = m.WINDOW_HEIGHT;
-    dst_rect.w = @as(f32, @floatFromInt(self.mTexture.w));
+    dst_rect.w = @as(f32, @floatFromInt(self.diTexture.w));
     // dst_rect.w = m.WINDOW_WIDTH;
     dst_rect.x = x;
     dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.mTexture, null, &dst_rect);
+    _ = c.SDL_RenderTexture(m.gRenderer, self.diTexture, null, &dst_rect);
 }
 
 // **********
-pub fn renderStretch(self: *LTexture, srcrect: [*c]const c.SDL_FRect, dstrect: [*c]const c.SDL_FRect) void {
-    _ = c.SDL_RenderTexture(m.gRenderer, self.mTexture, srcrect, dstrect);
+pub fn renderStretch(self: *DiTexture, srcrect: [*c]const c.SDL_FRect, dstrect: [*c]const c.SDL_FRect) void {
+    _ = c.SDL_RenderTexture(m.gRenderer, self.diTexture, srcrect, dstrect);
 
     // c.SDL_RenderTexture(
     // renderer: ?*SDL_Renderer,
@@ -56,6 +56,6 @@ pub fn renderStretch(self: *LTexture, srcrect: [*c]const c.SDL_FRect, dstrect: [
 }
 
 // **********
-pub fn destroy(self: *LTexture) void {
-    c.SDL_DestroyTexture(self.mTexture);
+pub fn destroy(self: *DiTexture) void {
+    c.SDL_DestroyTexture(self.diTexture);
 }

@@ -10,7 +10,7 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-const LTexture = @import("LTexture.zig");
+const DiTexture = @import("DiTexture.zig");
 
 const iter = @import("mineSDL.zig");
 
@@ -21,7 +21,7 @@ pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
 pub const gSpriteSize = 100.0;
-pub var gSpriteSheet: LTexture = undefined;
+pub var gSpriteSheet: DiTexture = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -65,7 +65,7 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    gSpriteSheet = LTexture.new(1, "img/dots.png");
+    gSpriteSheet = DiTexture.new(1, "img/dots.png");
     defer gSpriteSheet.destroy();
     // ========================================================================
 

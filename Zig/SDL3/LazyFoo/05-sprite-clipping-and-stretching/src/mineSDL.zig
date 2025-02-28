@@ -21,5 +21,5 @@ pub fn AppIterate() !void {
     // const spriteClip: c.SDL_FRect = {0.0, 0.0, kSpriteSize, kSpriteSize};
     // const spriteSize: c.SDL_FRect = {0.0, 0.0, kSpriteSize, kSpriteSize};
 
-    m.gSpriteSheetTexture.renderStretch(&spriteClip, &spriteStretch);
+    m.gSpriteSheet.renderStretch(&spriteClip, &spriteStretch);
 }
