@@ -14,8 +14,7 @@ const c = @cImport({
 pub fn AppIterate() !void {
     _ = c.SDL_RenderClear(null);
 
-    m.gBackground.render(0.0, 0.0);
-    m.gFoo.render(240.0, 190.0);
+    m.MySprite.render();
 
     _ = c.SDL_RenderPresent(m.gRenderer);
 }

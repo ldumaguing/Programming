@@ -11,5 +11,20 @@ const c = @cImport({
 });
 
 const m = @import("main.zig");
+const sprite = @import("DiTexture.zig");
 
 // ****************************************************************************
+id: i32,
+sprite_sheet: *sprite,
+
+// ****************************************************************************
+const DiSprite = @This();
+
+// ****************************************************************************
+pub fn new(id: i32, sprite_sheet: *sprite) DiSprite {
+    return .{ .id = id, .sprite_sheet = sprite_sheet };
+}
+
+pub fn render(self: *DiSprite) void {
+    _ = self.sprite_sheet.render(0.0, 0.0);
+}
