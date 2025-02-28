@@ -20,8 +20,7 @@ pub var gRenderer: ?*c.SDL_Renderer = undefined;
 pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
-pub var gBackground: DiTexture = undefined;
-pub var gFoo: DiTexture = undefined;
+pub var gSpriteSheet: DiTexture = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -65,10 +64,8 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    gBackground = DiTexture.new(0, "img/background.png");
-    gFoo = DiTexture.new_with_transparency(1, "img/foo.png", 0x0, 0xff, 0xff);
-    defer gBackground.destroy();
-    defer gFoo.destroy();
+    gSpriteSheet = DiTexture.new_with_transparency(1, "img/dots.png", 0x0, 0xff, 0xff);
+    defer gSpriteSheet.destroy();
     // ========================================================================
 
     main_loop: while (true) {
