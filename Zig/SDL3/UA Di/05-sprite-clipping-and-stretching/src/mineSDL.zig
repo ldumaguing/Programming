@@ -14,7 +14,7 @@ const c = @cImport({
 pub fn AppIterate() !void {
     _ = c.SDL_RenderClear(null);
 
-    m.redDot.render(320.0, 240.0);
+    m.redDot.render_stretch(320.0, 240.0, [_]f32{ 100.0, 50.0 });
 
     _ = c.SDL_RenderPresent(m.gRenderer);
 }

@@ -27,8 +27,9 @@ pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
 }
 
 // **********
-pub fn render_stretch(self: *DiSprite, x: f32, y: f32) void {
-    _ = self.sprite_sheet.render_sprite(x, y, self.clippage);
+pub fn render_stretch(self: *DiSprite, x: f32, y: f32, stretch: [2]f32) void {
+    // stretch[0] is w; stretch[1] is h
+    _ = self.sprite_sheet.render_stretch(x, y, self.clippage, stretch);
 }
 
 // **********

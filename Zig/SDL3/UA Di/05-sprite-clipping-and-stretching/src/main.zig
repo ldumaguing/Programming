@@ -69,8 +69,7 @@ pub fn main() !void {
     // ========================================================================
     gSpriteSheet = DiTexture.new_with_transparency(1, "img/dots.png", 0x0, 0xff, 0xff);
     defer gSpriteSheet.destroy();
-    // const clippage: c.SDL_FRect = .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 };
-    // mySprite = DiSprite.new(2, &gSpriteSheet, clippage);
+
     redDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     // ========================================================================
 

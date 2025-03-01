@@ -40,6 +40,16 @@ pub fn new(id: i32, filename: [*c]const u8) DiTexture {
 }
 
 // **********
+pub fn render_stretch(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect, stretch: [2]f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = stretch[1];
+    dst_rect.w = stretch[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, &clippage, &dst_rect);
+}
+
+// **********
 pub fn render_sprite(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect) void {
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.h = clippage.h;
