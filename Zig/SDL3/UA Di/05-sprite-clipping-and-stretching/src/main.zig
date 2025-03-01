@@ -22,7 +22,8 @@ pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
 pub var gSpriteSheet: DiTexture = undefined;
-pub var MySprite: DiSprite = undefined;
+// pub var mySprite: DiSprite = undefined;
+pub var redDot: DiSprite = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -68,7 +69,9 @@ pub fn main() !void {
     // ========================================================================
     gSpriteSheet = DiTexture.new_with_transparency(1, "img/dots.png", 0x0, 0xff, 0xff);
     defer gSpriteSheet.destroy();
-    MySprite = DiSprite.new(2, &gSpriteSheet);
+    // const clippage: c.SDL_FRect = .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 };
+    // mySprite = DiSprite.new(2, &gSpriteSheet, clippage);
+    redDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     // ========================================================================
 
     main_loop: while (true) {
