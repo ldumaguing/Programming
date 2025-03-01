@@ -22,8 +22,10 @@ pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
 pub var gSpriteSheet: DiTexture = undefined;
-// pub var mySprite: DiSprite = undefined;
 pub var redDot: DiSprite = undefined;
+pub var greenDot: DiSprite = undefined;
+pub var yellowDot: DiSprite = undefined;
+pub var blueDot: DiSprite = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -67,10 +69,14 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    gSpriteSheet = DiTexture.new_with_transparency(1, "img/dots.png", 0x0, 0xff, 0xff);
+    gSpriteSheet = DiTexture.new_with_transparency(0, "img/dots.png", 0x0, 0xff, 0xff);
     defer gSpriteSheet.destroy();
 
-    redDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    redDot = DiSprite.new(1, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    greenDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    yellowDot = DiSprite.new(3, &gSpriteSheet, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+    blueDot = DiSprite.new(4, &gSpriteSheet, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+
     // ========================================================================
 
     main_loop: while (true) {
