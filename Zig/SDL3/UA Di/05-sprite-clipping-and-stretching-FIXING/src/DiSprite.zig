@@ -11,22 +11,22 @@ const c = @cImport({
 });
 
 const m = @import("main.zig");
-const sprite = @import("DiTexture.zig");
+const DiTexture = @import("DiTexture.zig");
 
 // ****************************************************************************
 id: i32,
-sprite_sheet: *sprite,
+sprite_sheet: *DiTexture,
 clippage: c.SDL_FRect,
 
 // ****************************************************************************
 const DiSprite = @This();
 
 // ****************************************************************************
-pub fn new(id: i32, sprite_sheet: *sprite, clippage: c.SDL_FRect) DiSprite {
+pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
     return .{ .id = id, .sprite_sheet = sprite_sheet, .clippage = clippage };
 }
 
 pub fn render(self: *DiSprite) void {
     print("{}, {} --- {}, {}\n", .{ self.clippage.x, self.clippage.y, self.clippage.h, self.clippage.w });
-    _ = self.sprite_sheet.render_sprite(50.0, 50.0);
+    _ = self.sprite_sheet.render_sprite(50.0, 50.0, self.clippage);
 }
