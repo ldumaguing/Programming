@@ -70,7 +70,7 @@ pub fn main() !void {
 
     // ========================================================================
     gSpriteSheet = DiTexture.new(0, "img/dots.png");
-    defer c.SDL_DestroyTexture(gSpriteSheet.texture);
+    defer gSpriteSheet.destroy();
 
     redDot = DiSprite.new(1, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     greenDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });

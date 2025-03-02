@@ -29,22 +29,42 @@ pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
 // **********
 pub fn render_scale_rotate(self: *DiSprite, x: f32, y: f32, opts: [3]f32) void {
     // opts[0] is w; opts[1] is h; opts[2] is degrees
-    _ = self.sprite_sheet.render_scale_rotate(x, y, self.clippage, opts);
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = self.clippage.h * opts[1];
+    dst_rect.w = self.clippage.w * opts[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.sprite_sheet.texture, &self.clippage, &dst_rect, opts[2], null, 0);
 }
 
 // **********
-pub fn render_scale(self: *DiSprite, x: f32, y: f32, stretch: [2]f32) void {
+pub fn render_scale(self: *DiSprite, x: f32, y: f32, scale: [2]f32) void {
     // scale[0] is w; scale[1] is h
-    _ = self.sprite_sheet.render_scale(x, y, self.clippage, stretch);
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = self.clippage.h * scale[1];
+    dst_rect.w = self.clippage.w * scale[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.sprite_sheet.texture, &self.clippage, &dst_rect);
 }
 
 // **********
 pub fn render_stretch(self: *DiSprite, x: f32, y: f32, stretch: [2]f32) void {
     // stretch[0] is w; stretch[1] is h
-    _ = self.sprite_sheet.render_stretch(x, y, self.clippage, stretch);
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = stretch[1];
+    dst_rect.w = stretch[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.sprite_sheet.texture, &self.clippage, &dst_rect);
 }
 
 // **********
 pub fn render(self: *DiSprite, x: f32, y: f32) void {
-    _ = self.sprite_sheet.render_sprite(x, y, self.clippage);
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = self.clippage.h;
+    dst_rect.w = self.clippage.w;
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.sprite_sheet.texture, &self.clippage, &dst_rect);
 }
