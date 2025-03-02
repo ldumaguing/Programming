@@ -46,7 +46,6 @@ pub fn render_scale_rotate_center(self: *DiTexture, x: f32, y: f32, opts: [3]f32
     dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
     dst_rect.x = x;
     dst_rect.y = y;
-    // const center: c.SDL_FPoint = .{ .x = 50.0, .y = 50.0 };
     _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], &center, 0);
 }
 

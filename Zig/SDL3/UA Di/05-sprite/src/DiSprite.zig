@@ -27,6 +27,17 @@ pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
 }
 
 // **********
+pub fn render_scale_rotate_center(self: *DiSprite, x: f32, y: f32, opts: [3]f32, center: c.SDL_FPoint) void {
+    // opts[0] is w; opts[1] is h; opts[2] is degrees
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = self.clippage.h * opts[1];
+    dst_rect.w = self.clippage.w * opts[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.sprite_sheet.texture, &self.clippage, &dst_rect, opts[2], &center, 0);
+}
+
+// **********
 pub fn render_scale_rotate(self: *DiSprite, x: f32, y: f32, opts: [3]f32) void {
     // opts[0] is w; opts[1] is h; opts[2] is degrees
     var dst_rect: c.SDL_FRect = undefined;
