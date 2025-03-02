@@ -21,7 +21,16 @@ pub fn AppIterate() !void {
     m.blueDot.render_stretch(320.0, 240.0, [_]f32{ 100.0, 50.0 });
 
     const degs = @mod(c.SDL_GetTicks(), 360);
-    m.redDot.render_scale_rotate(320.0, 320.0, [_]f32{ 2.0, 0.5, @as(f32, @floatFromInt(degs)) });
+    const deg2 = @mod(c.SDL_GetTicks(), 90);
+    m.redDot.render_scale_rotate(160.0, 160.0, [_]f32{ 2.0, 0.5, @as(f32, @floatFromInt(degs)) });
+
+    const center: c.SDL_FPoint = .{ .x = 50.0, .y = 50.0 };
+    m.gSpriteSheet.render_scale_rotate_center(250, 250, [_]f32{ 1.0, 1.0, @as(f32, @floatFromInt(degs)) }, center);
+
+    const center1: c.SDL_FPoint = .{ .x = 20.0, .y = 20.0 };
+    m.greenDot.render_scale_rotate_center(50, 50, [_]f32{ 1.0, 1.0, @as(f32, @floatFromInt(deg2)) }, center1);
+
+    m.yellowDot.render_scale_rotate_center_flip(50, 50, [_]f32{ 1.0, 1.0, 0.0 }, center1, c.SDL_FLIP_HORIZONTAL);
 
     _ = c.SDL_RenderPresent(m.gRenderer);
 }

@@ -40,44 +40,43 @@ pub fn new(id: i32, filename: [*c]const u8) DiTexture {
 }
 
 // **********
-pub fn render_scale_rotate(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect, opts: [3]f32) void {
+pub fn render_scale_rotate_center(self: *DiTexture, x: f32, y: f32, opts: [3]f32, center: c.SDL_FPoint) void {
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = clippage.h * opts[1];
-    dst_rect.w = clippage.w * opts[0];
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
     dst_rect.x = x;
     dst_rect.y = y;
-
-    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, &clippage, &dst_rect, opts[2], null, 0);
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], &center, 0);
 }
 
 // **********
-pub fn render_scale(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect, scale: [2]f32) void {
+pub fn render_scale_rotate(self: *DiTexture, x: f32, y: f32, opts: [3]f32) void {
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = clippage.h * scale[1];
-    dst_rect.w = clippage.w * scale[0];
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
     dst_rect.x = x;
     dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, &clippage, &dst_rect);
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], null, 0);
 }
 
 // **********
-pub fn render_stretch(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect, stretch: [2]f32) void {
+pub fn render_scale(self: *DiTexture, x: f32, y: f32, scale: [2]f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * scale[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * scale[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+}
+
+// **********
+pub fn render_stretch(self: *DiTexture, x: f32, y: f32, stretch: [2]f32) void {
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.h = stretch[1];
     dst_rect.w = stretch[0];
     dst_rect.x = x;
     dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, &clippage, &dst_rect);
-}
-
-// **********
-pub fn render_sprite(self: *DiTexture, x: f32, y: f32, clippage: c.SDL_FRect) void {
-    var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = clippage.h;
-    dst_rect.w = clippage.w;
-    dst_rect.x = x;
-    dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, &clippage, &dst_rect);
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
 }
 
 // **********
@@ -88,9 +87,4 @@ pub fn render(self: *DiTexture, x: f32, y: f32) void {
     dst_rect.x = x;
     dst_rect.y = y;
     _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
-}
-
-// **********
-pub fn destroy(self: *DiTexture) void {
-    c.SDL_DestroyTexture(self.texture);
 }
