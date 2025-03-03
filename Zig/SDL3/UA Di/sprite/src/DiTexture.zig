@@ -15,6 +15,14 @@ const m = @import("main.zig");
 // ****************************************************************************
 id: i32,
 texture: *c.SDL_Texture,
+stretch_x: f32,
+stretch_y: f32,
+scale_x: f32,
+scale_y: f32,
+flip: c.SDL_FlipMode,
+center: c.SDL_FPoint,
+is_default_center: bool,
+angle: f32,
 
 // ****************************************************************************
 const DiTexture = @This();
@@ -36,55 +44,37 @@ pub fn new(id: i32, filename: [*c]const u8) DiTexture {
     const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
     defer c.SDL_DestroySurface(surface);
 
-    return .{ .id = id, .texture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface) };
-}
+    const center: c.SDL_FPoint = .{ .x = 0.0, .y = 0.0 };
 
-// **********
-pub fn render_scale_rotate_center(self: *DiTexture, x: f32, y: f32, opts: [3]f32, center: c.SDL_FPoint) void {
-    var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
-    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
-    dst_rect.x = x;
-    dst_rect.y = y;
-    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], &center, 0);
-}
-
-// **********
-pub fn render_scale_rotate(self: *DiTexture, x: f32, y: f32, opts: [3]f32) void {
-    var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
-    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
-    dst_rect.x = x;
-    dst_rect.y = y;
-    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], null, 0);
-}
-
-// **********
-pub fn render_scale(self: *DiTexture, x: f32, y: f32, scale: [2]f32) void {
-    var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * scale[1];
-    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * scale[0];
-    dst_rect.x = x;
-    dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
-}
-
-// **********
-pub fn render_stretch(self: *DiTexture, x: f32, y: f32, stretch: [2]f32) void {
-    var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = stretch[1];
-    dst_rect.w = stretch[0];
-    dst_rect.x = x;
-    dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+    return .{
+        .id = id,
+        .texture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface),
+        .stretch_x = -1.0,
+        .stretch_y = -1.0,
+        .scale_x = 1.0,
+        .scale_y = 1.0,
+        .flip = c.SDL_FLIP_NONE,
+        .center = center,
+        .is_default_center = true,
+        .angle = 0.0,
+    };
 }
 
 // **********
 pub fn render(self: *DiTexture, x: f32, y: f32) void {
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.h = @floatFromInt(self.texture.h);
-    dst_rect.w = @floatFromInt(self.texture.w);
+    if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) {
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x;
+    } else {
+        dst_rect.h = self.stretch_y;
+        dst_rect.w = self.stretch_x;
+    }
     dst_rect.x = x;
     dst_rect.y = y;
-    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+    if (self.is_default_center) {
+        _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, self.angle, null, self.flip);
+    } else {
+        _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, self.angle, &self.center, self.flip);
+    }
 }
