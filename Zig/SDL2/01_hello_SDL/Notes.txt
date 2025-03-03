@@ -1,3 +1,0 @@
-https://gist.github.com/bens/bd9ba0414fcf74bf05ecf7e6f75c4e97
- _ = SDL.SDL_FillRect(screenSurface, null, SDL.SDL_MapRGB(screenSurface.*.format, 255, 0, 255));
-
