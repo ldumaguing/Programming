@@ -12,6 +12,7 @@ const c = @cImport({
 
 const DiTexture = @import("DiTexture.zig");
 const DiTile = @import("DiTile.zig");
+const DiSprite = @import("DiSprite.zig");
 
 const iter = @import("mineSDL.zig");
 
@@ -21,11 +22,14 @@ pub var gRenderer: ?*c.SDL_Renderer = undefined;
 pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
-pub var gSpriteSheet: DiTexture = undefined;
+pub var gTexture: DiTexture = undefined;
 pub var redDot: DiTile = undefined;
 pub var greenDot: DiTile = undefined;
 pub var yellowDot: DiTile = undefined;
 pub var blueDot: DiTile = undefined;
+
+pub var gFooSheet: DiTexture = undefined;
+pub var fooSprite: DiSprite = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -69,14 +73,18 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    gSpriteSheet = DiTexture.new(0, "img/dots.png");
-    defer c.SDL_DestroyTexture(gSpriteSheet.texture);
+    gTexture = DiTexture.new(0, "img/dots.png");
+    defer c.SDL_DestroyTexture(gTexture.texture);
 
-    redDot = DiTile.new(1, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
-    greenDot = DiTile.new(2, &gSpriteSheet, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
-    yellowDot = DiTile.new(3, &gSpriteSheet, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
-    blueDot = DiTile.new(4, &gSpriteSheet, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+    redDot = DiTile.new(1, &gTexture, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    greenDot = DiTile.new(2, &gTexture, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    yellowDot = DiTile.new(3, &gTexture, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+    blueDot = DiTile.new(4, &gTexture, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
 
+    gFooSheet = DiTexture.new(5, "img/foo-sprites.png");
+    defer c.SDL_DestroyTexture(gFooSheet.texture);
+    fooSprite = DiSprite.new(6, &gFooSheet, .{ .x = 64.0, .y = 205.0 });
+    fooSprite.frames = 4;
     // ========================================================================
 
     main_loop: while (true) {
