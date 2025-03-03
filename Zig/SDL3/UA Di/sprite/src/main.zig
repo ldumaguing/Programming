@@ -11,7 +11,7 @@ const c = @cImport({
 });
 
 const DiTexture = @import("DiTexture.zig");
-const DiSprite = @import("DiSprite.zig");
+const DiTile = @import("DiTile.zig");
 
 const iter = @import("mineSDL.zig");
 
@@ -22,10 +22,10 @@ pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
 pub var gSpriteSheet: DiTexture = undefined;
-pub var redDot: DiSprite = undefined;
-pub var greenDot: DiSprite = undefined;
-pub var yellowDot: DiSprite = undefined;
-pub var blueDot: DiSprite = undefined;
+pub var redDot: DiTile = undefined;
+pub var greenDot: DiTile = undefined;
+pub var yellowDot: DiTile = undefined;
+pub var blueDot: DiTile = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -72,10 +72,10 @@ pub fn main() !void {
     gSpriteSheet = DiTexture.new(0, "img/dots.png");
     defer c.SDL_DestroyTexture(gSpriteSheet.texture);
 
-    redDot = DiSprite.new(1, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
-    greenDot = DiSprite.new(2, &gSpriteSheet, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
-    yellowDot = DiSprite.new(3, &gSpriteSheet, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
-    blueDot = DiSprite.new(4, &gSpriteSheet, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+    redDot = DiTile.new(1, &gSpriteSheet, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    greenDot = DiTile.new(2, &gSpriteSheet, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    yellowDot = DiTile.new(3, &gSpriteSheet, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
+    blueDot = DiTile.new(4, &gSpriteSheet, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
 
     // ========================================================================
 

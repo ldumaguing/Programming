@@ -27,10 +27,10 @@ is_default_center: bool,
 angle: f32,
 
 // ****************************************************************************
-const DiSprite = @This();
+const DiTile = @This();
 
 // ****************************************************************************
-pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
+pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiTile {
     const center: c.SDL_FPoint = .{ .x = 0.0, .y = 0.0 };
     return .{
         .id = id,
@@ -48,7 +48,7 @@ pub fn new(id: i32, sprite_sheet: *DiTexture, clippage: c.SDL_FRect) DiSprite {
 }
 
 // **********
-pub fn render(self: *DiSprite, x: f32, y: f32) void {
+pub fn render(self: *DiTile, x: f32, y: f32) void {
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) {
         dst_rect.h = self.clippage.h * self.scale_y;
