@@ -31,6 +31,8 @@ pub var blueDot: DiTile = undefined;
 pub var gFooSheet: DiTexture = undefined;
 pub var fooSprite: DiSprite = undefined;
 
+pub var tick: u64 = 0;
+
 // // ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
@@ -88,6 +90,7 @@ pub fn main() !void {
     // ========================================================================
 
     main_loop: while (true) {
+        tick = c.SDL_GetTicks();
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {

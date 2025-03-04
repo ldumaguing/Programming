@@ -24,9 +24,10 @@ flip: c.SDL_FlipMode,
 center: c.SDL_FPoint,
 is_default_center: bool,
 angle: f32,
-frames: i32, // defines a number of frames a sprite have
+frames: i32, // defines a number of frames a sprite have in a row
 frame_dim: c.SDL_FPoint, // defines the frame's dimentions (w, h)
 frame_curr: i32,
+tock: u64,
 
 // ****************************************************************************
 const DiSprite = @This();
@@ -48,14 +49,17 @@ pub fn new(id: i32, sprite_sheet: *DiTexture, frame_dim: c.SDL_FPoint) DiSprite 
         .frames = 1,
         .frame_dim = frame_dim,
         .frame_curr = 0,
+        .tock = 0,
     };
 }
 
 // **********
 pub fn render(self: *DiSprite, x: f32, y: f32) void {
-    const x1: u32 = @intCast(self.frames);
-    const xx = @mod(c.SDL_GetTicks(), x1);
-    const f: f32 = @as(f32, @floatFromInt(xx));
+    if ((m.tick - self.tock) >= 100) {
+        self.frame_curr += 1;
+        self.frame_curr = @mod(self.frame_curr, 4);
+        self.tock = m.tick;
+    }
 
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.h = self.frame_dim.y;
@@ -66,7 +70,7 @@ pub fn render(self: *DiSprite, x: f32, y: f32) void {
     var clippage: c.SDL_FRect = undefined;
     clippage.h = self.frame_dim.y;
     clippage.w = self.frame_dim.x;
-    clippage.x = self.frame_dim.x * f;
+    clippage.x = self.frame_dim.x * @as(f32, @floatFromInt(self.frame_curr));
     clippage.y = 0.0;
 
     if (self.is_default_center) {
