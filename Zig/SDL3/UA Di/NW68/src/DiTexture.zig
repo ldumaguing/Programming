@@ -1,0 +1,90 @@
+const std = @import("std");
+const print = @import("std").debug.print;
+
+const c = @cImport({
+    @cDefine("SDL_DISABLE_OLD_NAMES", {});
+    @cInclude("SDL3/SDL.h");
+    @cInclude("SDL3/SDL_revision.h");
+    @cDefine("SDL_MAIN_HANDLED", {});
+    @cInclude("SDL3/SDL_main.h");
+    @cInclude("SDL3_image/SDL_image.h");
+});
+
+const m = @import("main.zig");
+
+// ****************************************************************************
+id: i32,
+texture: *c.SDL_Texture,
+
+// ****************************************************************************
+const DiTexture = @This();
+
+// ****************************************************************************
+pub fn new_with_transparency(id: i32, filename: [*c]const u8, r: u8, g: u8, b: u8) DiTexture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
+    const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
+    _ = c.SDL_SetSurfaceColorKey(surface, true, c.SDL_MapSurfaceRGB(surface, r, g, b));
+
+    defer c.SDL_DestroySurface(surface);
+
+    return .{ .id = id, .texture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface) };
+}
+
+// ****************************************************************************
+pub fn new(id: i32, filename: [*c]const u8) DiTexture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
+    const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
+    defer c.SDL_DestroySurface(surface);
+
+    return .{ .id = id, .texture = c.SDL_CreateTextureFromSurface(m.gRenderer, surface) };
+}
+
+// **********
+pub fn render_scale_rotate_center(self: *DiTexture, x: f32, y: f32, opts: [3]f32, center: c.SDL_FPoint) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], &center, 0);
+}
+
+// **********
+pub fn render_scale_rotate(self: *DiTexture, x: f32, y: f32, opts: [3]f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * opts[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * opts[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTextureRotated(m.gRenderer, self.texture, null, &dst_rect, opts[2], null, 0);
+}
+
+// **********
+pub fn render_scale(self: *DiTexture, x: f32, y: f32, scale: [2]f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * scale[1];
+    dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * scale[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+}
+
+// **********
+pub fn render_stretch(self: *DiTexture, x: f32, y: f32, stretch: [2]f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = stretch[1];
+    dst_rect.w = stretch[0];
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+}
+
+// **********
+pub fn render(self: *DiTexture, x: f32, y: f32) void {
+    var dst_rect: c.SDL_FRect = undefined;
+    dst_rect.h = @floatFromInt(self.texture.h);
+    dst_rect.w = @floatFromInt(self.texture.w);
+    dst_rect.x = x;
+    dst_rect.y = y;
+    _ = c.SDL_RenderTexture(m.gRenderer, self.texture, null, &dst_rect);
+}
