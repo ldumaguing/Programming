@@ -25,6 +25,7 @@ pub const WINDOW_HEIGHT = 480;
 pub var gMap: DiTexture = undefined;
 var button_bits: u16 = 0;
 var keybrd_bits: u16 = 0;
+var keybrd_dpad: u16 = 0;
 var d_pad: u16 = 0;
 
 // *************** Joystick
@@ -99,8 +100,10 @@ pub fn main() !void {
                         joystick = null;
                     }
                 },
-                // ********************************************** Keyboard
+
+                // ********************************************** Num Pad
                 c.SDL_EVENT_KEY_DOWN => {
+                    print("*****************************\n", .{});
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
@@ -113,6 +116,12 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_KP_6 => {
                             keybrd_bits |= 8;
+                        },
+                        c.SDL_SCANCODE_KP_4 => {
+                            keybrd_bits |= 4;
+                        },
+                        c.SDL_SCANCODE_KP_9 => {
+                            keybrd_bits |= 32;
                         },
                         else => {},
                     }
@@ -127,6 +136,12 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_KP_6 => {
                             keybrd_bits ^= 8;
+                        },
+                        c.SDL_SCANCODE_KP_4 => {
+                            keybrd_bits ^= 4;
+                        },
+                        c.SDL_SCANCODE_KP_9 => {
+                            keybrd_bits ^= 32;
                         },
                         else => {},
                     }
@@ -164,7 +179,7 @@ fn record_button_events() void {
         d_pad = hat;
         // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
-    print("{} -- {} -- {}\n", .{ d_pad, button_bits, keybrd_bits });
+    print("{} -- {} -- {} .. {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad });
 }
 
 // ************************************************************************************************
