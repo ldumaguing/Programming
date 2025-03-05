@@ -24,6 +24,7 @@ pub const WINDOW_HEIGHT = 480;
 
 pub var gMap: DiTexture = undefined;
 var button_bits: u16 = 0;
+var keybrd_bits: u16 = 0;
 var d_pad: u16 = 0;
 
 // *************** Joystick
@@ -98,10 +99,34 @@ pub fn main() !void {
                         joystick = null;
                     }
                 },
-                c.SDL_EVENT_KEY_DOWN, c.SDL_EVENT_KEY_UP => {
+                // ********************************************** Keyboard
+                c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
+                        },
+                        c.SDL_SCANCODE_KP_5 => {
+                            keybrd_bits |= 1;
+                        },
+                        c.SDL_SCANCODE_KP_8 => {
+                            keybrd_bits |= 2;
+                        },
+                        c.SDL_SCANCODE_KP_6 => {
+                            keybrd_bits |= 8;
+                        },
+                        else => {},
+                    }
+                },
+                c.SDL_EVENT_KEY_UP => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_KP_5 => {
+                            keybrd_bits ^= 1;
+                        },
+                        c.SDL_SCANCODE_KP_8 => {
+                            keybrd_bits ^= 2;
+                        },
+                        c.SDL_SCANCODE_KP_6 => {
+                            keybrd_bits ^= 8;
                         },
                         else => {},
                     }
@@ -109,6 +134,7 @@ pub fn main() !void {
                 else => {},
             }
         }
+
         if (joystick != null) {
             // sample_joystick_events();
             record_button_events();
@@ -121,6 +147,7 @@ pub fn main() !void {
 // ************************************************************************************************
 fn record_button_events() void {
     button_bits = 0;
+    d_pad = 0;
     const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
     for (0..total) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
@@ -128,16 +155,16 @@ fn record_button_events() void {
             if (val >= 0) {
                 const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
                 button_bits |= bits;
-                print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
+                // print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
             }
         }
     }
     const hat = c.SDL_GetJoystickHat(joystick, 0);
     if (hat != 0) {
         d_pad = hat;
-        print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
-        d_pad = 0;
+        // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
+    print("{} -- {} -- {}\n", .{ d_pad, button_bits, keybrd_bits });
 }
 
 // ************************************************************************************************
