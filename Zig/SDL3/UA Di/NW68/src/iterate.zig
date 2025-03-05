@@ -15,7 +15,7 @@ pub fn AppIterate() !void {
     _ = c.SDL_SetRenderDrawColor(m.gRenderer, 0xff, 0xff, 0xff, 0xff);
     _ = c.SDL_RenderClear(m.gRenderer);
 
-    _ = m.gMap.render(0.0, 0.0);
+    _ = m.gMap.render(-100.0, -100.0);
 
     _ = c.SDL_RenderPresent(m.gRenderer);
 }
