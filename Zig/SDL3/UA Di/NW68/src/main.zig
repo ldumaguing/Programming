@@ -140,7 +140,7 @@ pub fn main() !void {
                         c.SDL_SCANCODE_E => {
                             keybrd_bits |= 2048;
                         },
-                        c.SDL_SCANCODE_7 => {
+                        c.SDL_SCANCODE_KP_7 => {
                             keybrd_bits |= 4096;
                         },
                         c.SDL_SCANCODE_G => {
@@ -190,7 +190,7 @@ pub fn main() !void {
                         c.SDL_SCANCODE_E => {
                             keybrd_bits ^= 2048;
                         },
-                        c.SDL_SCANCODE_7 => {
+                        c.SDL_SCANCODE_KP_7 => {
                             keybrd_bits ^= 4096;
                         },
                         c.SDL_SCANCODE_G => {
