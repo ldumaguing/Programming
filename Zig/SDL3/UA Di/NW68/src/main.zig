@@ -103,7 +103,6 @@ pub fn main() !void {
 
                 // ********************************************** Num Pad
                 c.SDL_EVENT_KEY_DOWN => {
-                    print("*****************************\n", .{});
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
@@ -122,6 +121,36 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_KP_9 => {
                             keybrd_bits |= 32;
+                        },
+                        c.SDL_SCANCODE_W => {
+                            keybrd_dpad |= 1;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            keybrd_dpad |= 2;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            keybrd_dpad |= 4;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            keybrd_dpad |= 8;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            keybrd_bits |= 16;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            keybrd_bits |= 2048;
+                        },
+                        c.SDL_SCANCODE_7 => {
+                            keybrd_bits |= 4096;
+                        },
+                        c.SDL_SCANCODE_G => {
+                            keybrd_bits |= 64;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            keybrd_bits |= 128;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            keybrd_bits |= 1024;
                         },
                         else => {},
                     }
@@ -143,11 +172,42 @@ pub fn main() !void {
                         c.SDL_SCANCODE_KP_9 => {
                             keybrd_bits ^= 32;
                         },
+                        c.SDL_SCANCODE_W => {
+                            keybrd_dpad ^= 1;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            keybrd_dpad ^= 2;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            keybrd_dpad ^= 4;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            keybrd_dpad ^= 8;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            keybrd_bits ^= 16;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            keybrd_bits ^= 2048;
+                        },
+                        c.SDL_SCANCODE_7 => {
+                            keybrd_bits ^= 4096;
+                        },
+                        c.SDL_SCANCODE_G => {
+                            keybrd_bits ^= 64;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            keybrd_bits ^= 128;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            keybrd_bits ^= 1024;
+                        },
                         else => {},
                     }
                 },
                 else => {},
             }
+            print("{} -- {} -- {} .. {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad });
         }
 
         if (joystick != null) {
