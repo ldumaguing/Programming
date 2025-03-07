@@ -10,6 +10,8 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
+const Tile = @import("Tile.zig");
+
 const texture = @import("texture.zig");
 
 const iter = @import("mineSDL.zig");
@@ -21,8 +23,8 @@ pub const WINDOW_WIDTH = 640;
 pub const WINDOW_HEIGHT = 480;
 
 pub var gTexture: ?*c.SDL_Texture = undefined;
-// pub var redDot: DiTile = undefined;
-// pub var greenDot: DiTile = undefined;
+pub var redDot: Tile = undefined;
+pub var greenDot: Tile = undefined;
 // pub var yellowDot: DiTile = undefined;
 // pub var blueDot: DiTile = undefined;
 //
@@ -78,13 +80,13 @@ pub fn main() !void {
     //gTexture = c.SDL_CreateTextureFromSurface(gRenderer, surface);
     //defer c.SDL_DestroyTexture(gTexture);
 
-    gTexture = texture.createTextureFromPNG("img/dots.png");
+    gTexture = texture.createTextureFromPNG(gRenderer, "img/dots.png");
     defer c.SDL_DestroyTexture(gTexture);
 
     //
     //
-    // redDot = DiTile.new(1, &gTexture, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
-    // greenDot = DiTile.new(2, &gTexture, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    redDot = Tile.new(1, gTexture, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+    greenDot = Tile.new(2, gTexture, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     // yellowDot = DiTile.new(3, &gTexture, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
     // blueDot = DiTile.new(4, &gTexture, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
 

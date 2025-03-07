@@ -13,17 +13,44 @@ const c = @cImport({
 const m = @import("main.zig");
 
 // ****************************************************************************
-pub fn render0(texture: ?*c.SDL_Texture) void {
-    _ = c.SDL_RenderTexture(m.gRenderer, texture, null, null);
+pub fn render(renderer: ?*c.SDL_Renderer, texture: ?*c.SDL_Texture) void {
+    _ = c.SDL_RenderTexture(renderer, texture, null, null);
 }
 
 // ****************************************************************************
-pub fn createTextureFromPNG(filename: [*c]const u8) ?*c.SDL_Texture {
+pub fn createTextureFromPNG(renderer: ?*c.SDL_Renderer, filename: [*c]const u8) ?*c.SDL_Texture {
     const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
     const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
     defer c.SDL_DestroySurface(surface);
 
-    return c.SDL_CreateTextureFromSurface(m.gRenderer, surface);
+    return c.SDL_CreateTextureFromSurface(renderer, surface);
+}
+
+// ****************************************************************************
+pub fn createTextureFromBMP(renderer: ?*c.SDL_Renderer, filename: [*c]const u8) ?*c.SDL_Texture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
+    const surface: ?*c.SDL_Surface = c.IMG_LoadBMP_IO(stream);
+    defer c.SDL_DestroySurface(surface);
+
+    return c.SDL_CreateTextureFromSurface(renderer, surface);
+}
+
+// ****************************************************************************
+pub fn createTextureFromJPG(renderer: ?*c.SDL_Renderer, filename: [*c]const u8) ?*c.SDL_Texture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
+    const surface: ?*c.SDL_Surface = c.IMG_LoadJPG_IO(stream);
+    defer c.SDL_DestroySurface(surface);
+
+    return c.SDL_CreateTextureFromSurface(renderer, surface);
+}
+
+// ****************************************************************************
+pub fn createTextureFromGIF(renderer: ?*c.SDL_Renderer, filename: [*c]const u8) ?*c.SDL_Texture {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile(filename, "r");
+    const surface: ?*c.SDL_Surface = c.IMG_LoadGIF_IO(stream);
+    defer c.SDL_DestroySurface(surface);
+
+    return c.SDL_CreateTextureFromSurface(renderer, surface);
 }
 
 // // ****************************************************************************

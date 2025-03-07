@@ -11,11 +11,10 @@ const c = @cImport({
 });
 
 const m = @import("main.zig");
-const DiTexture = @import("DiTexture.zig");
 
 // ****************************************************************************
 id: i32,
-tile_sheet: *DiTexture,
+tile_sheet: *c.SDL_Texture,
 clippage: c.SDL_FRect, // defines a Tile
 stretch_x: f32,
 stretch_y: f32,
@@ -27,14 +26,14 @@ is_default_center: bool,
 angle: f32,
 
 // ****************************************************************************
-const DiTile = @This();
+const Tile = @This();
 
 // ****************************************************************************
-pub fn new(id: i32, tile_sheet: *DiTexture, clippage: c.SDL_FRect) DiTile {
+pub fn new(id: i32, tile_sheet: ?*c.SDL_Texture, clippage: c.SDL_FRect) Tile {
     const center: c.SDL_FPoint = .{ .x = 0.0, .y = 0.0 };
     return .{
         .id = id,
-        .tile_sheet = tile_sheet,
+        .tile_sheet = @ptrCast(tile_sheet),
         .clippage = clippage,
         .stretch_x = -1.0,
         .stretch_y = -1.0,
@@ -48,7 +47,7 @@ pub fn new(id: i32, tile_sheet: *DiTexture, clippage: c.SDL_FRect) DiTile {
 }
 
 // **********
-pub fn render(self: *DiTile, x: f32, y: f32) void {
+pub fn render(self: *Tile, renderer: ?*c.SDL_Renderer, x: f32, y: f32) void {
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) {
         dst_rect.h = self.clippage.h * self.scale_y;
@@ -60,8 +59,8 @@ pub fn render(self: *DiTile, x: f32, y: f32) void {
     dst_rect.x = x;
     dst_rect.y = y;
     if (self.is_default_center) {
-        _ = c.SDL_RenderTextureRotated(m.gRenderer, self.tile_sheet.texture, &self.clippage, &dst_rect, self.angle, null, self.flip);
+        _ = c.SDL_RenderTextureRotated(renderer, self.tile_sheet, &self.clippage, &dst_rect, self.angle, null, self.flip);
     } else {
-        _ = c.SDL_RenderTextureRotated(m.gRenderer, self.tile_sheet.texture, &self.clippage, &dst_rect, self.angle, &self.center, self.flip);
+        _ = c.SDL_RenderTextureRotated(renderer, self.tile_sheet, &self.clippage, &dst_rect, self.angle, &self.center, self.flip);
     }
 }

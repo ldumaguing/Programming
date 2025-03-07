@@ -29,7 +29,10 @@ pub fn AppIterate() !void {
     //_ = t.render0(m.gTexture);
 
     // _ = c.SDL_RenderTexture(m.gRenderer, m.gTexture, null, null);
-    _ = texture.render0(m.gTexture);
+    _ = texture.render(m.gRenderer, m.gTexture);
+
+    m.redDot.render(m.gRenderer, 320.0, 240.0);
+    m.greenDot.render(m.gRenderer, 0.0, 0.0);
 
     // **********************************************************************************
     _ = c.SDL_RenderPresent(m.gRenderer);
