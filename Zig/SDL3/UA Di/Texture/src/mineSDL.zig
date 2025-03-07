@@ -34,6 +34,8 @@ pub fn AppIterate() !void {
     m.redDot.render(m.gRenderer, 320.0, 240.0);
     m.greenDot.render(m.gRenderer, 0.0, 0.0);
 
+    m.foo_guy.render(m.gRenderer, 100.0, 100.0);
+    m.foo_guy.animate(m.gRenderer, 250.0, 200.0);
     // **********************************************************************************
     _ = c.SDL_RenderPresent(m.gRenderer);
 }

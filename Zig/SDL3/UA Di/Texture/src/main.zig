@@ -11,6 +11,7 @@ const c = @cImport({
 });
 
 const Tile = @import("Tile.zig");
+const Sprite = @import("Sprite.zig");
 
 const texture = @import("texture.zig");
 
@@ -28,8 +29,9 @@ pub var greenDot: Tile = undefined;
 // pub var yellowDot: DiTile = undefined;
 // pub var blueDot: DiTile = undefined;
 //
-// pub var gFooSheet: DiTexture = undefined;
-//
+pub var gFooManSheet: ?*c.SDL_Texture = undefined;
+pub var foo_guy: Sprite = undefined;
+
 // pub var tick: u64 = 0;
 
 // // ************************************************************************************************
@@ -83,15 +85,16 @@ pub fn main() !void {
     gTexture = texture.createTextureFromPNG(gRenderer, "img/dots.png");
     defer c.SDL_DestroyTexture(gTexture);
 
-    //
-    //
     redDot = Tile.new(1, gTexture, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     greenDot = Tile.new(2, gTexture, .{ .x = 100.0, .y = 0.0, .h = 100.0, .w = 100.0 });
     // yellowDot = DiTile.new(3, &gTexture, .{ .x = 0.0, .y = 100.0, .h = 100.0, .w = 100.0 });
     // blueDot = DiTile.new(4, &gTexture, .{ .x = 100.0, .y = 100.0, .h = 100.0, .w = 100.0 });
 
-    // gFooSheet = DiTexture.new(5, "img/foo-sprites.png");
-    // defer c.SDL_DestroyTexture(gFooSheet.texture);
+    gFooManSheet = texture.createTextureFromPNG(gRenderer, "img/foo-sprites.png");
+    defer c.SDL_DestroyTexture(gFooManSheet);
+
+    foo_guy = Sprite.new(1, gFooManSheet, .{ .x = 0.0, .y = 0.0, .h = 205.0, .w = 64.0 }, 4);
+
     // ========================================================================
 
     main_loop: while (true) {
