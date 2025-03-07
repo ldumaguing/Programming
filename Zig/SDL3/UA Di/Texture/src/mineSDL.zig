@@ -34,8 +34,15 @@ pub fn AppIterate() !void {
     m.redDot.render(m.gRenderer, 320.0, 240.0);
     m.greenDot.render(m.gRenderer, 0.0, 0.0);
 
-    m.foo_guy.render(m.gRenderer, 100.0, 100.0);
-    m.foo_guy.animate(m.gRenderer, 250.0, 200.0);
+    m.foo_guy.loc_x = 100.0;
+    m.foo_guy.loc_y = 100.0;
+    m.foo_guy.flip = c.SDL_FLIP_NONE;
+    m.foo_guy.render(m.gRenderer);
+
+    m.foo_guy.loc_x = 250.0;
+    m.foo_guy.loc_y = 200.0;
+    m.foo_guy.flip = c.SDL_FLIP_VERTICAL;
+    m.foo_guy.animate(m.gRenderer);
     // **********************************************************************************
     _ = c.SDL_RenderPresent(m.gRenderer);
 }
