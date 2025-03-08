@@ -24,6 +24,8 @@ flip: c.SDL_FlipMode,
 center: c.SDL_FPoint,
 is_default_center: bool,
 angle: f32,
+loc_x: f32,
+loc_y: f32,
 
 // ****************************************************************************
 const Tile = @This();
@@ -43,11 +45,13 @@ pub fn new(id: i32, tile_sheet: ?*c.SDL_Texture, clippage: c.SDL_FRect) Tile {
         .center = center,
         .is_default_center = true,
         .angle = 0.0,
+        .loc_x = 0.0,
+        .loc_y = 0.0,
     };
 }
 
 // **********
-pub fn render(self: *Tile, renderer: ?*c.SDL_Renderer, x: f32, y: f32) void {
+pub fn render(self: *Tile, renderer: ?*c.SDL_Renderer) void {
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
         dst_rect.h = self.clippage.h * self.scale_y;
@@ -56,8 +60,8 @@ pub fn render(self: *Tile, renderer: ?*c.SDL_Renderer, x: f32, y: f32) void {
         dst_rect.h = self.stretch_y;
         dst_rect.w = self.stretch_x;
     }
-    dst_rect.x = x;
-    dst_rect.y = y;
+    dst_rect.x = self.loc_x;
+    dst_rect.y = self.loc_y;
     if (self.is_default_center) {
         _ = c.SDL_RenderTextureRotated(renderer, self.tile_sheet, &self.clippage, &dst_rect, self.angle, null, self.flip);
     } else {

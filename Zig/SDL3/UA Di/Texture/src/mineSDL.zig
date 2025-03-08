@@ -31,8 +31,10 @@ pub fn AppIterate() !void {
     // _ = c.SDL_RenderTexture(m.gRenderer, m.gTexture, null, null);
     _ = texture.render(m.gRenderer, m.gTexture);
 
-    m.redDot.render(m.gRenderer, 320.0, 240.0);
-    m.greenDot.render(m.gRenderer, 0.0, 0.0);
+    m.redDot.loc_x = 320.0;
+    m.redDot.loc_y = 240.0;
+    m.redDot.render(m.gRenderer);
+    m.greenDot.render(m.gRenderer);
 
     m.foo_guy.loc_x = 100.0;
     m.foo_guy.loc_y = 100.0;
