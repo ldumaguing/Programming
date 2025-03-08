@@ -12,6 +12,7 @@ const c = @cImport({
 
 const Tile = @import("Tile.zig");
 const Sprite = @import("Sprite.zig");
+const Poster = @import("Poster.zig");
 
 const texture = @import("texture.zig");
 
@@ -32,7 +33,7 @@ pub var greenDot: Tile = undefined;
 pub var gFooManSheet: ?*c.SDL_Texture = undefined;
 pub var foo_guy: Sprite = undefined;
 
-// pub var tick: u64 = 0;
+pub var gameboard: Poster = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -70,18 +71,12 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // ************************************************************************
-    gWindow = c.SDL_CreateWindow("05-sprite-FINAL", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    gWindow = c.SDL_CreateWindow("Texture", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     gRenderer = c.SDL_CreateRenderer(gWindow, null);
     defer c.SDL_DestroyRenderer(gRenderer);
     defer c.SDL_DestroyWindow(gWindow);
 
     // ========================================================================
-    //const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img/dots.png", "r");
-    //const surface: ?*c.SDL_Surface = c.IMG_LoadPNG_IO(stream);
-    //defer c.SDL_DestroySurface(surface);
-    //gTexture = c.SDL_CreateTextureFromSurface(gRenderer, surface);
-    //defer c.SDL_DestroyTexture(gTexture);
-
     gTexture = texture.createTextureFromPNG(gRenderer, "img/dots.png");
     defer c.SDL_DestroyTexture(gTexture);
 
@@ -95,10 +90,10 @@ pub fn main() !void {
 
     foo_guy = Sprite.new(1, gFooManSheet, .{ .x = 0.0, .y = 0.0, .h = 205.0, .w = 64.0 }, 4);
 
+    gameboard = Poster.new(1, gTexture);
     // ========================================================================
 
     main_loop: while (true) {
-        // tick = c.SDL_GetTicks();
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -131,8 +126,6 @@ pub fn main() !void {
                 else => {},
             }
         }
-        // _ = Texture.render0(gTexture);
-        // _ = c.SDL_RenderTexture(gRenderer, gTexture, null, null);
 
         try iter.AppIterate();
     }
