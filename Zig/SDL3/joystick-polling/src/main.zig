@@ -77,7 +77,7 @@ pub fn main() !void {
                 c.SDL_EVENT_JOYSTICK_ADDED => {
                     if (joystick == null) {
                         joystick = c.SDL_OpenJoystick(event.jdevice.which);
-                        // print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
                         try define_button_mods(c.SDL_GetJoystickName(joystick));
                     }
                 },
@@ -92,8 +92,8 @@ pub fn main() !void {
             }
         }
         if (joystick != null) {
-            // sample_joystick_events();
-            record_button_events();
+            sample_joystick_events();
+            // record_button_events();
         }
 
         try sdl.AppIterate(renderer);
@@ -102,6 +102,7 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn record_button_events() void {
+    //print("yo\n", .{});
     button_bits = 0;
     const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
     for (0..total) |i| {
@@ -165,7 +166,8 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[9] = 7;
         button_mods[10] = 8;
         button_mods[11] = 9;
-        button_mods[12] = -1;
+        button_mods[12] = 10;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 2) {
@@ -183,6 +185,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = 9;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 3) {
@@ -200,6 +203,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = 5;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 4) {
@@ -217,6 +221,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = -1;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 }
 
