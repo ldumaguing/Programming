@@ -33,8 +33,8 @@ var keybrd_bits: u16 = 0;
 var keybrd_dpad: u16 = 0;
 
 // ***************
-var all_bits: u16 = 0;
-var all_dpad: u16 = 0;
+pub var all_bits: u16 = 0;
+pub var all_dpad: u16 = 0;
 
 // *************** images
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
@@ -227,6 +227,7 @@ pub fn main() !void {
             print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
+        sdl.AppUpdate();
         sdl.AppIterate();
         d_pad = 0;
     }

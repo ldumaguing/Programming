@@ -13,6 +13,23 @@ const c = @cImport({
 
 pub fn AppIterate() void {
     _ = c.SDL_RenderClear(m.renderer);
+
     m.boardgame_sheet.render(m.renderer);
+
     _ = c.SDL_RenderPresent(m.renderer);
+}
+
+pub fn AppUpdate() void {
+    if ((m.all_dpad & 1) > 0) {
+        m.boardgame_sheet.loc_y += 10;
+    }
+    if ((m.all_dpad & 2) > 0) {
+        m.boardgame_sheet.loc_x -= 10;
+    }
+    if ((m.all_dpad & 4) > 0) {
+        m.boardgame_sheet.loc_y -= 10;
+    }
+    if ((m.all_dpad & 8) > 0) {
+        m.boardgame_sheet.loc_x += 10;
+    }
 }
