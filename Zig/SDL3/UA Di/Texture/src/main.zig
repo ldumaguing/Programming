@@ -12,7 +12,7 @@ const c = @cImport({
 
 const Tile = @import("Tile.zig");
 const Sprite = @import("Sprite.zig");
-const Poster = @import("Poster.zig");
+const Sheet = @import("Sheet.zig");
 
 const texture = @import("texture.zig");
 
@@ -33,7 +33,7 @@ pub var greenDot: Tile = undefined;
 pub var gFooManSheet: ?*c.SDL_Texture = undefined;
 pub var foo_guy: Sprite = undefined;
 
-pub var gameboard: Poster = undefined;
+pub var gameboard: Sheet = undefined;
 
 // // ************************************************************************************************
 pub fn main() !void {
@@ -90,7 +90,7 @@ pub fn main() !void {
 
     foo_guy = Sprite.new(1, gFooManSheet, .{ .x = 0.0, .y = 0.0, .h = 205.0, .w = 64.0 }, 4);
 
-    gameboard = Poster.new(1, gTexture);
+    gameboard = Sheet.new(1, gTexture);
     // ========================================================================
 
     main_loop: while (true) {

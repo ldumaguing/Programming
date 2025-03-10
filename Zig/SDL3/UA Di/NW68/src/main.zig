@@ -25,6 +25,10 @@ var d_pad: u16 = 0;
 var keybrd_bits: u16 = 0;
 var keybrd_dpad: u16 = 0;
 
+// ***************
+var all_bits: u16 = 0;
+var all_dpad: u16 = 0;
+
 // ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
@@ -207,6 +211,9 @@ pub fn main() !void {
                 // sample_joystick_events();
                 record_button_events();
             }
+            all_bits = keybrd_bits | button_bits;
+            all_dpad = keybrd_dpad | d_pad;
+            print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
         try sdl.AppIterate(renderer);
@@ -229,12 +236,13 @@ fn record_button_events() void {
             }
         }
     }
+
     const hat = c.SDL_GetJoystickHat(joystick, 0);
     if (hat != 0) {
         d_pad = hat;
         // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
-    print("{} -- {} -- {} .. {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad });
+    //    print("{} -- {} -- {} .. {} *** {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits });
 }
 
 // ************************************************************************************************
