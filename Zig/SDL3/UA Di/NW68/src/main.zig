@@ -8,12 +8,17 @@ const c = @cImport({
     @cInclude("SDL3/SDL_revision.h");
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
+    @cInclude("SDL3_image/SDL_image.h");
 });
 
 const sdl = @import("mineSDL.zig");
+const texture = @import("texture.zig");
 
-pub const WINDOW_WIDTH = 640;
-pub const WINDOW_HEIGHT = 480;
+pub const WINDOW_WIDTH = 800;
+pub const WINDOW_HEIGHT = 600;
+
+pub var window: ?*c.SDL_Window = undefined;
+pub var renderer: ?*c.SDL_Renderer = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
@@ -28,6 +33,9 @@ var keybrd_dpad: u16 = 0;
 // ***************
 var all_bits: u16 = 0;
 var all_dpad: u16 = 0;
+
+// *************** images
+pub var boardgame_texture: ?*c.SDL_Texture = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -64,16 +72,15 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    const window: *c.SDL_Window, const renderer: *c.SDL_Renderer = create_window_and_renderer: {
-        var window: ?*c.SDL_Window = null;
-        var renderer: ?*c.SDL_Renderer = null;
-        try errify(c.SDL_CreateWindowAndRenderer("01_hello", WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &renderer));
-        errdefer comptime unreachable;
-
-        break :create_window_and_renderer .{ window.?, renderer.? };
-    };
+    window = c.SDL_CreateWindow("Texture", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
+
+    // ============================================================================================
+    boardgame_texture = texture.createTextureFromJPG(renderer, "img/Map.jpg");
+    defer c.SDL_DestroyTexture(boardgame_texture);
+    // ============================================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -216,7 +223,7 @@ pub fn main() !void {
             print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
-        try sdl.AppIterate(renderer);
+        sdl.AppIterate();
         d_pad = 0;
     }
 }

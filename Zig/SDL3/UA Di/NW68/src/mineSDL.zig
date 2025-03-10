@@ -8,16 +8,11 @@ const c = @cImport({
     @cInclude("SDL3/SDL_revision.h");
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
+    @cInclude("SDL3_image/SDL_image.h");
 });
 
-pub fn AppIterate(renderer: *c.SDL_Renderer) !void {
-    const now: f64 = @as(f64, @floatFromInt(c.SDL_GetTicks())) / 1000.0;
-
-    const red: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now));
-    const green: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now + c.SDL_PI_D * 2.0 / 3.0));
-    const blue: f32 = 0.5 + 0.5 * c.SDL_sinf(@floatCast(now + c.SDL_PI_D * 4.0 / 3.0));
-    try m.errify(c.SDL_SetRenderDrawColorFloat(renderer, red, green, blue, c.SDL_ALPHA_OPAQUE_FLOAT));
-
-    try m.errify(c.SDL_RenderClear(renderer));
-    try m.errify(c.SDL_RenderPresent(renderer));
+pub fn AppIterate() void {
+    _ = c.SDL_RenderClear(m.renderer);
+    _ = c.SDL_RenderTexture(m.renderer, m.boardgame_texture, null, null);
+    _ = c.SDL_RenderPresent(m.renderer);
 }
