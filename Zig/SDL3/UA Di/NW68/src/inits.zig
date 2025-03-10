@@ -12,8 +12,10 @@ const c = @cImport({
 
 const m = @import("main.zig");
 const texture = @import("texture.zig");
+const Sheet = @import("Sheet.zig");
 
 pub fn load_images() void {
     print("yottt\n", .{});
     m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
+    m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
 }

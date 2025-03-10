@@ -14,7 +14,7 @@ const m = @import("main.zig");
 
 // ****************************************************************************
 id: i32,
-sheet: *c.SDL_Texture,
+texture: *c.SDL_Texture,
 stretch_x: f32,
 stretch_y: f32,
 scale_x: f32,
@@ -29,7 +29,7 @@ const Sheet = @This();
 pub fn bindTexture2Sheet(id: i32, sheet: ?*c.SDL_Texture) Sheet {
     return .{
         .id = id,
-        .sheet = @ptrCast(sheet),
+        .texture = @ptrCast(sheet),
         .stretch_x = -1.0,
         .stretch_y = -1.0,
         .scale_x = 1.0,
@@ -43,13 +43,13 @@ pub fn bindTexture2Sheet(id: i32, sheet: ?*c.SDL_Texture) Sheet {
 pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
-        dst_rect.h = @as(f32, @floatFromInt(self.sheet.h)) * self.scale_y;
-        dst_rect.w = @as(f32, @floatFromInt(self.sheet.w)) * self.scale_x;
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x;
     } else {
         dst_rect.h = self.stretch_y;
         dst_rect.w = self.stretch_x;
     }
     dst_rect.x = self.loc_x;
     dst_rect.y = self.loc_y;
-    _ = c.SDL_RenderTexture(renderer, self.sheet, null, &dst_rect);
+    _ = c.SDL_RenderTexture(renderer, self.texture, null, &dst_rect);
 }

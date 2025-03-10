@@ -83,7 +83,7 @@ pub fn main() !void {
     // ============================================================================================
     inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
-    boardgame_sheet = Sheet.bindTexture2Sheet(0, boardgame_texture);
+    // boardgame_sheet = Sheet.bindTexture2Sheet(0, boardgame_texture);
     // ============================================================================================
 
     main_loop: while (true) {
