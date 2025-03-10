@@ -26,10 +26,10 @@ loc_y: f32,
 const Sheet = @This();
 
 // ****************************************************************************
-pub fn bindTexture2Sheet(id: i32, sheet: ?*c.SDL_Texture) Sheet {
+pub fn bindTexture2Sheet(id: i32, texture: ?*c.SDL_Texture) Sheet {
     return .{
         .id = id,
-        .texture = @ptrCast(sheet),
+        .texture = @ptrCast(texture),
         .stretch_x = -1.0,
         .stretch_y = -1.0,
         .scale_x = 1.0,
