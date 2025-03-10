@@ -13,6 +13,6 @@ const c = @cImport({
 
 pub fn AppIterate() void {
     _ = c.SDL_RenderClear(m.renderer);
-    _ = c.SDL_RenderTexture(m.renderer, m.boardgame_texture, null, null);
+    m.boardgame_sheet.render(m.renderer);
     _ = c.SDL_RenderPresent(m.renderer);
 }

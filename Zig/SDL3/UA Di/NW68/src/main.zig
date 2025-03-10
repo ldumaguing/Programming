@@ -14,6 +14,7 @@ const c = @cImport({
 const sdl = @import("mineSDL.zig");
 const texture = @import("texture.zig");
 const inits = @import("inits.zig");
+const Sheet = @import("Sheet.zig");
 
 pub const WINDOW_WIDTH = 800;
 pub const WINDOW_HEIGHT = 600;
@@ -37,6 +38,7 @@ var all_dpad: u16 = 0;
 
 // *************** images
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
+pub var boardgame_sheet: Sheet = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -73,15 +75,15 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    window = c.SDL_CreateWindow("Texture", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
 
     // ============================================================================================
-    // boardgame_texture = texture.createTextureFromJPG(renderer, "img/Map.jpg");
     inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
+    boardgame_sheet = Sheet.bindTexture2Sheet(0, boardgame_texture);
     // ============================================================================================
 
     main_loop: while (true) {
