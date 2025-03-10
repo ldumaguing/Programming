@@ -11,29 +11,36 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-const DiTexture = @import("DiTexture.zig");
-const DiSprite = @import("DiSprite.zig");
+const sdl = @import("mineSDL.zig");
+const texture = @import("texture.zig");
+const inits = @import("inits.zig");
+const Sheet = @import("Sheet.zig");
 
-const iter = @import("iterate.zig");
+pub const WINDOW_WIDTH = 800;
+pub const WINDOW_HEIGHT = 600;
 
-pub var gWindow: ?*c.SDL_Window = undefined;
-pub var gRenderer: ?*c.SDL_Renderer = undefined;
-
-pub const WINDOW_WIDTH = 640;
-pub const WINDOW_HEIGHT = 480;
-
-pub var gMap: DiTexture = undefined;
-var button_bits: u16 = 0;
-var keybrd_bits: u16 = 0;
-var keybrd_dpad: u16 = 0;
-var d_pad: u16 = 0;
+pub var window: ?*c.SDL_Window = undefined;
+pub var renderer: ?*c.SDL_Renderer = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
+var button_bits: u16 = 0;
 var button_mods = [_]i32{0} ** 14;
-// ***************
+var d_pad: u16 = 0;
 
-// // ************************************************************************************************
+// ***************
+var keybrd_bits: u16 = 0;
+var keybrd_dpad: u16 = 0;
+
+// ***************
+pub var all_bits: u16 = 0;
+pub var all_dpad: u16 = 0;
+
+// *************** images
+pub var boardgame_texture: ?*c.SDL_Texture = undefined;
+pub var boardgame_sheet: Sheet = undefined;
+
+// ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
 
@@ -52,7 +59,7 @@ pub fn main() !void {
 
     c.SDL_SetMainReady();
 
-    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD));
+    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD | c.SDL_INIT_JOYSTICK));
     defer c.SDL_Quit();
 
     std.log.debug("SDL video drivers: {}", .{fmtSdlDrivers(
@@ -68,16 +75,16 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // ************************************************************************
-    gWindow = c.SDL_CreateWindow("Nuklear Winther '68'", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-    gRenderer = c.SDL_CreateRenderer(gWindow, null);
-    defer c.SDL_DestroyRenderer(gRenderer);
-    defer c.SDL_DestroyWindow(gWindow);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    renderer = c.SDL_CreateRenderer(window, null);
+    defer c.SDL_DestroyRenderer(renderer);
+    defer c.SDL_DestroyWindow(window);
 
-    // ========================================================================
-    gMap = DiTexture.new(0, "img/Map.jpg");
-    defer c.SDL_DestroyTexture(gMap.texture);
-    // ========================================================================
+    // ============================================================================================
+    inits.load_images();
+    defer c.SDL_DestroyTexture(boardgame_texture);
+    // boardgame_sheet = Sheet.bindTexture2Sheet(0, boardgame_texture);
+    // ============================================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -89,7 +96,7 @@ pub fn main() !void {
                 c.SDL_EVENT_JOYSTICK_ADDED => {
                     if (joystick == null) {
                         joystick = c.SDL_OpenJoystick(event.jdevice.which);
-                        // print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
                         try define_button_mods(c.SDL_GetJoystickName(joystick));
                     }
                 },
@@ -100,28 +107,31 @@ pub fn main() !void {
                         joystick = null;
                     }
                 },
-
-                // ********************************************** Num Pad
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
                         },
-                        c.SDL_SCANCODE_KP_5 => {
+                        // **********
+                        c.SDL_SCANCODE_SEMICOLON => {
                             keybrd_bits |= 1;
                         },
-                        c.SDL_SCANCODE_KP_8 => {
+                        c.SDL_SCANCODE_P => {
                             keybrd_bits |= 2;
                         },
-                        c.SDL_SCANCODE_KP_6 => {
+                        c.SDL_SCANCODE_APOSTROPHE => {
                             keybrd_bits |= 8;
                         },
-                        c.SDL_SCANCODE_KP_4 => {
+                        c.SDL_SCANCODE_L => {
                             keybrd_bits |= 4;
                         },
-                        c.SDL_SCANCODE_KP_9 => {
+                        c.SDL_SCANCODE_LEFTBRACKET => {
                             keybrd_bits |= 32;
                         },
+                        c.SDL_SCANCODE_O => {
+                            keybrd_bits |= 4096;
+                        },
+                        // ***
                         c.SDL_SCANCODE_W => {
                             keybrd_dpad |= 1;
                         },
@@ -140,9 +150,7 @@ pub fn main() !void {
                         c.SDL_SCANCODE_E => {
                             keybrd_bits |= 2048;
                         },
-                        c.SDL_SCANCODE_KP_7 => {
-                            keybrd_bits |= 4096;
-                        },
+                        // ***
                         c.SDL_SCANCODE_G => {
                             keybrd_bits |= 64;
                         },
@@ -157,21 +165,25 @@ pub fn main() !void {
                 },
                 c.SDL_EVENT_KEY_UP => {
                     switch (event.key.scancode) {
-                        c.SDL_SCANCODE_KP_5 => {
+                        c.SDL_SCANCODE_SEMICOLON => {
                             keybrd_bits ^= 1;
                         },
-                        c.SDL_SCANCODE_KP_8 => {
+                        c.SDL_SCANCODE_P => {
                             keybrd_bits ^= 2;
                         },
-                        c.SDL_SCANCODE_KP_6 => {
+                        c.SDL_SCANCODE_APOSTROPHE => {
                             keybrd_bits ^= 8;
                         },
-                        c.SDL_SCANCODE_KP_4 => {
+                        c.SDL_SCANCODE_L => {
                             keybrd_bits ^= 4;
                         },
-                        c.SDL_SCANCODE_KP_9 => {
+                        c.SDL_SCANCODE_LEFTBRACKET => {
                             keybrd_bits ^= 32;
                         },
+                        c.SDL_SCANCODE_O => {
+                            keybrd_bits ^= 4096;
+                        },
+                        // ***
                         c.SDL_SCANCODE_W => {
                             keybrd_dpad ^= 1;
                         },
@@ -190,9 +202,7 @@ pub fn main() !void {
                         c.SDL_SCANCODE_E => {
                             keybrd_bits ^= 2048;
                         },
-                        c.SDL_SCANCODE_KP_7 => {
-                            keybrd_bits ^= 4096;
-                        },
+                        // ***
                         c.SDL_SCANCODE_G => {
                             keybrd_bits ^= 64;
                         },
@@ -207,22 +217,26 @@ pub fn main() !void {
                 },
                 else => {},
             }
-            print("{} -- {} -- {} .. {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad });
+
+            if (joystick != null) {
+                // sample_joystick_events();
+                record_button_events();
+            }
+            all_bits = keybrd_bits | button_bits;
+            all_dpad = keybrd_dpad | d_pad;
+            print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
-        if (joystick != null) {
-            // sample_joystick_events();
-            record_button_events();
-        }
-
-        try iter.AppIterate();
+        sdl.AppUpdate();
+        sdl.AppIterate();
+        d_pad = 0;
     }
 }
 
 // ************************************************************************************************
 fn record_button_events() void {
+    //print("yo\n", .{});
     button_bits = 0;
-    d_pad = 0;
     const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
     for (0..total) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
@@ -230,21 +244,22 @@ fn record_button_events() void {
             if (val >= 0) {
                 const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
                 button_bits |= bits;
-                // print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
+                print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
             }
         }
     }
+
     const hat = c.SDL_GetJoystickHat(joystick, 0);
     if (hat != 0) {
         d_pad = hat;
         // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
-    print("{} -- {} -- {} .. {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad });
+    //    print("{} -- {} -- {} .. {} *** {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits });
 }
 
 // ************************************************************************************************
 fn define_button_mods(aText: [*c]const u8) !void {
-    print("yo: {s}\n", .{aText});
+    // print("yo: {s}\n", .{aText});
     var joystick_type: i32 = 0;
 
     var buffer = [_]u8{0} ** 100;
@@ -277,6 +292,8 @@ fn define_button_mods(aText: [*c]const u8) !void {
     }
 
     // ****************************************************
+    // joystick signal to bit
+    // -1: not in use
     if (joystick_type == 1) {
         // ***** Logi-D and Snake W
         button_mods[0] = 2;
@@ -291,7 +308,8 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[9] = 7;
         button_mods[10] = 8;
         button_mods[11] = 9;
-        button_mods[12] = -1;
+        button_mods[12] = 10;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 2) {
@@ -309,6 +327,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = 9;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 3) {
@@ -326,6 +345,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = 5;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 
     if (joystick_type == 4) {
@@ -343,6 +363,7 @@ fn define_button_mods(aText: [*c]const u8) !void {
         button_mods[10] = -1;
         button_mods[11] = -1;
         button_mods[12] = -1;
+        button_mods[13] = -1;
     }
 }
 
@@ -375,7 +396,7 @@ fn sample_joystick_events() void {
     print("{s}\n", .{c.SDL_GetJoystickName(joystick)});
 }
 
-// // ************************************************************************************************
+// ************************************************************************************************
 fn fmtSdlDrivers(
     current_driver: [*:0]const u8,
     num_drivers: c_int,
