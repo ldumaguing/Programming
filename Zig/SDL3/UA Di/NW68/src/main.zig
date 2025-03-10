@@ -83,7 +83,6 @@ pub fn main() !void {
     // ============================================================================================
     inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
-    // boardgame_sheet = Sheet.bindTexture2Sheet(0, boardgame_texture);
     // ============================================================================================
 
     main_loop: while (true) {
@@ -224,7 +223,7 @@ pub fn main() !void {
             }
             all_bits = keybrd_bits | button_bits;
             all_dpad = keybrd_dpad | d_pad;
-            print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
+            // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
         sdl.AppUpdate();
@@ -244,7 +243,7 @@ fn record_button_events() void {
             if (val >= 0) {
                 const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
                 button_bits |= bits;
-                print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
+                // print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
             }
         }
     }

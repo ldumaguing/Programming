@@ -20,6 +20,12 @@ pub fn AppIterate() void {
 }
 
 pub fn AppUpdate() void {
+    if ((m.all_bits & 32) > 0) {
+        print("enlarge\n", .{});
+    }
+    if ((m.all_bits & 16) > 0) {
+        print("shrink\n", .{});
+    }
     if ((m.all_dpad & 1) > 0) {
         m.boardgame_sheet.loc_y += 10;
     }
