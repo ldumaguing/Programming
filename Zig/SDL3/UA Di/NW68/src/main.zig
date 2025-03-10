@@ -13,6 +13,7 @@ const c = @cImport({
 
 const sdl = @import("mineSDL.zig");
 const texture = @import("texture.zig");
+const inits = @import("inits.zig");
 
 pub const WINDOW_WIDTH = 800;
 pub const WINDOW_HEIGHT = 600;
@@ -78,7 +79,8 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(window);
 
     // ============================================================================================
-    boardgame_texture = texture.createTextureFromJPG(renderer, "img/Map.jpg");
+    // boardgame_texture = texture.createTextureFromJPG(renderer, "img/Map.jpg");
+    inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
     // ============================================================================================
 
