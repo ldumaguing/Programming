@@ -41,10 +41,16 @@ pub fn bindTexture2Sheet(id: i32, texture: ?*c.SDL_Texture) Sheet {
 
 // **********
 pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
+    var gscale: f32 = 0.0;
+    if (m.gScale >= 0) {
+        gscale = 1.0 + @as(f32, @floatFromInt(m.gScale));
+    } else {
+        gscale = 1.0 / (1.0 - @as(f32, @floatFromInt(m.gScale)));
+    }
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
-        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y;
-        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x;
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * gscale;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * gscale;
     } else {
         dst_rect.h = self.stretch_y;
         dst_rect.w = self.stretch_x;

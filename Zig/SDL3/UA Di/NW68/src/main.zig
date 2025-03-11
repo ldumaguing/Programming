@@ -39,6 +39,7 @@ pub var all_dpad: u16 = 0;
 // *************** images
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
 pub var boardgame_sheet: Sheet = undefined;
+pub var gScale: i32 = 0;
 
 // ************************************************************************************************
 pub fn main() !void {
