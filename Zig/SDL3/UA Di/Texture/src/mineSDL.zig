@@ -1,7 +1,6 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 const m = @import("main.zig");
-const texture = @import("texture.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -12,36 +11,33 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-pub fn AppIterate() !void {
-    _ = c.SDL_SetRenderDrawColor(m.gRenderer, 0xff, 0xff, 0xff, 0xff);
-    _ = c.SDL_RenderClear(m.gRenderer);
+pub fn AppIterate() void {
+    _ = c.SDL_RenderClear(m.renderer);
 
-    _ = texture.render(m.gRenderer, m.gTexture);
+    m.boardgame_sheet.render(m.renderer);
 
-    m.redDot.loc_x = 320.0;
-    m.redDot.loc_y = 240.0;
-    m.redDot.render(m.gRenderer);
-    m.greenDot.render(m.gRenderer);
+    _ = c.SDL_RenderPresent(m.renderer);
+}
 
-    m.foo_guy.loc_x = 100.0;
-    m.foo_guy.loc_y = 100.0;
-    m.foo_guy.flip = c.SDL_FLIP_NONE;
-    m.foo_guy.scale_x = 1.0;
-    m.foo_guy.angle = 0.0;
-    m.foo_guy.render(m.gRenderer);
-
-    m.foo_guy.loc_x = 250.0;
-    m.foo_guy.loc_y = 200.0;
-    m.foo_guy.flip = c.SDL_FLIP_VERTICAL;
-    m.foo_guy.scale_x = 2.0;
-    m.foo_guy.angle = 30.0;
-    m.foo_guy.animate(m.gRenderer);
-
-    m.gameboard.stretch_x = 100.0;
-    m.gameboard.stretch_y = 100.0;
-    m.gameboard.loc_y = 240.0;
-    m.gameboard.render(m.gRenderer);
-
-    // **********************************************************************************
-    _ = c.SDL_RenderPresent(m.gRenderer);
+pub fn AppUpdate() void {
+    if ((m.all_bits & 32) > 0) {
+        m.gScale += 1;
+        m.all_bits ^= 32;
+    }
+    if ((m.all_bits & 16) > 0) {
+        m.gScale -= 1;
+        m.all_bits ^= 16;
+    }
+    if ((m.all_dpad & 1) > 0) {
+        m.boardgame_sheet.loc_y += 10;
+    }
+    if ((m.all_dpad & 2) > 0) {
+        m.boardgame_sheet.loc_x -= 10;
+    }
+    if ((m.all_dpad & 4) > 0) {
+        m.boardgame_sheet.loc_y -= 10;
+    }
+    if ((m.all_dpad & 8) > 0) {
+        m.boardgame_sheet.loc_x += 10;
+    }
 }
