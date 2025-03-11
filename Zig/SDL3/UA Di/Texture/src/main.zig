@@ -15,6 +15,7 @@ const sdl = @import("mineSDL.zig");
 const texture = @import("texture.zig");
 const inits = @import("inits.zig");
 const Sheet = @import("Sheet.zig");
+const Tile = @import("Tile.zig");
 
 pub const WINDOW_WIDTH = 800;
 pub const WINDOW_HEIGHT = 600;
@@ -40,6 +41,7 @@ pub var all_dpad: u16 = 0;
 pub var a_texture: ?*c.SDL_Texture = undefined;
 pub var a_sheet: Sheet = undefined;
 pub var gScale: i32 = 0;
+pub var redDot: Tile = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {

@@ -16,6 +16,8 @@ pub fn AppIterate() void {
 
     m.a_sheet.render(m.renderer);
 
+    m.redDot.render(m.renderer);
+
     _ = c.SDL_RenderPresent(m.renderer);
 }
 
