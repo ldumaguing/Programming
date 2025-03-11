@@ -125,6 +125,6 @@ pub fn define_button_mods(aText: [*c]const u8) !void {
 }
 
 pub fn load_images() void {
-    m.boardgame_texture = texture.createTextureFromPNG(m.renderer, "img/dots.png");
-    m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
+    m.a_texture = texture.createTextureFromPNG(m.renderer, "img/dots.png");
+    m.a_sheet = Sheet.bindTexture2Sheet(0, m.a_texture);
 }

@@ -37,8 +37,8 @@ pub var all_bits: u16 = 0;
 pub var all_dpad: u16 = 0;
 
 // *************** images
-pub var boardgame_texture: ?*c.SDL_Texture = undefined;
-pub var boardgame_sheet: Sheet = undefined;
+pub var a_texture: ?*c.SDL_Texture = undefined;
+pub var a_sheet: Sheet = undefined;
 pub var gScale: i32 = 0;
 
 // ************************************************************************************************
@@ -76,7 +76,7 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    window = c.SDL_CreateWindow("Texture", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
@@ -85,7 +85,7 @@ pub fn main() !void {
 
     // ============================================================================================
     inits.load_images();
-    defer c.SDL_DestroyTexture(boardgame_texture);
+    defer c.SDL_DestroyTexture(a_texture);
     // ============================================================================================
 
     main_loop: while (true) {
