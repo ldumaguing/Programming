@@ -25,7 +25,7 @@ pub var renderer: ?*c.SDL_Renderer = undefined;
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
 var button_bits: u16 = 0;
-var button_mods = [_]i32{0} ** 14;
+pub var button_mods = [_]i32{0} ** 14;
 var d_pad: u16 = 0;
 
 // ***************
@@ -80,6 +80,8 @@ pub fn main() !void {
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
 
+    _ = c.SDL_HideCursor();
+
     // ============================================================================================
     inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
@@ -96,7 +98,7 @@ pub fn main() !void {
                     if (joystick == null) {
                         joystick = c.SDL_OpenJoystick(event.jdevice.which);
                         print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
-                        try define_button_mods(c.SDL_GetJoystickName(joystick));
+                        try inits.define_button_mods(c.SDL_GetJoystickName(joystick));
                     }
                 },
                 c.SDL_EVENT_JOYSTICK_REMOVED => {
@@ -254,116 +256,6 @@ fn record_button_events() void {
         // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
     //    print("{} -- {} -- {} .. {} *** {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits });
-}
-
-// ************************************************************************************************
-fn define_button_mods(aText: [*c]const u8) !void {
-    // print("yo: {s}\n", .{aText});
-    var joystick_type: i32 = 0;
-
-    var buffer = [_]u8{0} ** 100;
-    _ = try std.fmt.bufPrintZ(&buffer, "{s}\n", .{aText});
-
-    var regex: mvzr.Regex = mvzr.compile("RumblePad").?;
-    if (regex.isMatch(&buffer)) {
-        joystick_type = 1;
-    }
-
-    regex = mvzr.compile("ZEROPLUS").?;
-    if (regex.isMatch(&buffer)) {
-        joystick_type = 1;
-    }
-
-    regex = mvzr.compile("F710").?;
-    if (regex.isMatch(&buffer)) {
-        print("f710\n", .{});
-        joystick_type = 2;
-    }
-
-    regex = mvzr.compile("PS4").?;
-    if (regex.isMatch(&buffer)) {
-        joystick_type = 3;
-    }
-
-    regex = mvzr.compile("SWITCH CO").?;
-    if (regex.isMatch(&buffer)) {
-        joystick_type = 4;
-    }
-
-    // ****************************************************
-    // joystick signal to bit
-    // -1: not in use
-    if (joystick_type == 1) {
-        // ***** Logi-D and Snake W
-        button_mods[0] = 2;
-        button_mods[1] = 0;
-        button_mods[2] = 3;
-        button_mods[3] = 1;
-        button_mods[4] = 4;
-        button_mods[5] = 5;
-        button_mods[6] = 11;
-        button_mods[7] = 12;
-        button_mods[8] = 6;
-        button_mods[9] = 7;
-        button_mods[10] = 8;
-        button_mods[11] = 9;
-        button_mods[12] = 10;
-        button_mods[13] = -1;
-    }
-
-    if (joystick_type == 2) {
-        // ***** Logi-X and 8BitDo
-        button_mods[0] = 0;
-        button_mods[1] = 3;
-        button_mods[2] = 2;
-        button_mods[3] = 1;
-        button_mods[4] = 4;
-        button_mods[5] = 5;
-        button_mods[6] = 6;
-        button_mods[7] = 7;
-        button_mods[8] = 10;
-        button_mods[9] = 8;
-        button_mods[10] = 9;
-        button_mods[11] = -1;
-        button_mods[12] = -1;
-        button_mods[13] = -1;
-    }
-
-    if (joystick_type == 3) {
-        // ***** Snake (wireless version)
-        button_mods[0] = 0;
-        button_mods[1] = 3;
-        button_mods[2] = 2;
-        button_mods[3] = 1;
-        button_mods[4] = 6;
-        button_mods[5] = 10;
-        button_mods[6] = 7;
-        button_mods[7] = 8;
-        button_mods[8] = 9;
-        button_mods[9] = 4;
-        button_mods[10] = 5;
-        button_mods[11] = -1;
-        button_mods[12] = -1;
-        button_mods[13] = -1;
-    }
-
-    if (joystick_type == 4) {
-        // ***** Sega
-        button_mods[0] = 2;
-        button_mods[1] = 0;
-        button_mods[2] = 3;
-        button_mods[3] = 1;
-        button_mods[4] = 9;
-        button_mods[5] = 8;
-        button_mods[6] = 4;
-        button_mods[7] = 5;
-        button_mods[8] = 7;
-        button_mods[9] = 10;
-        button_mods[10] = -1;
-        button_mods[11] = -1;
-        button_mods[12] = -1;
-        button_mods[13] = -1;
-    }
 }
 
 // ************************************************************************************************
