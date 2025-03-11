@@ -15,6 +15,7 @@ const m = @import("main.zig");
 const texture = @import("texture.zig");
 const Sheet = @import("Sheet.zig");
 const Tile = @import("Tile.zig");
+const Sprite = @import("Sprite.zig");
 
 pub fn define_button_mods(aText: [*c]const u8) !void {
     print("yo: {s}\n", .{aText});
@@ -130,4 +131,7 @@ pub fn load_images() void {
     m.a_sheet = Sheet.bindTexture2Sheet(0, m.a_texture);
 
     m.redDot = Tile.bindClippage2Tile(1, m.a_texture, .{ .x = 0.0, .y = 0.0, .h = 100.0, .w = 100.0 });
+
+    m.foo_texture = texture.createTextureFromPNG(m.renderer, "img/foo-sprites.png");
+    m.foo_sprite = Sprite.bindTexture2Sprite(2, m.foo_texture, .{ .x = 0.0, .y = 0.0, .w = 64.0, .h = 205.0 }, 4);
 }

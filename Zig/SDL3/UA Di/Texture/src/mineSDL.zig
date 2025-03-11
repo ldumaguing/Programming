@@ -12,11 +12,14 @@ const c = @cImport({
 });
 
 pub fn AppIterate() void {
+    _ = c.SDL_SetRenderDrawColor(m.renderer, 133, 133, 133, c.SDL_ALPHA_OPAQUE);
     _ = c.SDL_RenderClear(m.renderer);
 
     m.a_sheet.render(m.renderer);
 
     m.redDot.render(m.renderer);
+
+    m.foo_sprite.animate(m.renderer);
 
     _ = c.SDL_RenderPresent(m.renderer);
 }
@@ -30,6 +33,7 @@ pub fn AppUpdate() void {
         m.gScale -= 1;
         m.all_bits ^= 16;
     }
+    // ********** D-Pad
     if ((m.all_dpad & 1) > 0) {
         m.a_sheet.loc_y += 10;
     }
@@ -41,5 +45,18 @@ pub fn AppUpdate() void {
     }
     if ((m.all_dpad & 8) > 0) {
         m.a_sheet.loc_x += 10;
+    }
+    // ********** Buttons
+    if ((m.all_bits & 1) > 0) {
+        m.foo_sprite.loc_y += 10;
+    }
+    if ((m.all_bits & 2) > 0) {
+        m.foo_sprite.loc_y -= 10;
+    }
+    if ((m.all_bits & 4) > 0) {
+        m.foo_sprite.loc_x -= 10;
+    }
+    if ((m.all_bits & 8) > 0) {
+        m.foo_sprite.loc_x += 10;
     }
 }
