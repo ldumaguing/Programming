@@ -18,6 +18,8 @@ const Sheet = @import("Sheet.zig");
 
 pub const WINDOW_WIDTH = 800;
 pub const WINDOW_HEIGHT = 600;
+pub const WINDOW_CENTER_X = WINDOW_WIDTH / 2;
+pub const WINDOW_CENTER_Y = WINDOW_HEIGHT / 2;
 
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
