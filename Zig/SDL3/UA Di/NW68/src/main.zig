@@ -119,7 +119,7 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_I => {
                             print("\n*** INFO ***\n", .{});
-                            print("{d}, {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y });
+                            print("{d}, {d} : {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y, gScale });
                         },
                         // **********
                         c.SDL_SCANCODE_SEMICOLON => {
