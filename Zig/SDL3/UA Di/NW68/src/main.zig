@@ -42,6 +42,7 @@ pub var all_dpad: u16 = 0;
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
 pub var boardgame_sheet: Sheet = undefined;
 pub var gScale: i32 = 0;
+pub var gScale_prev: i32 = 0;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -115,6 +116,10 @@ pub fn main() !void {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
+                        },
+                        c.SDL_SCANCODE_I => {
+                            print("\n*** INFO ***\n", .{});
+                            print("{d}, {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y });
                         },
                         // **********
                         c.SDL_SCANCODE_SEMICOLON => {
@@ -231,8 +236,11 @@ pub fn main() !void {
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
         }
 
-        sdl.AppUpdate();
-        sdl.AppIterate();
+        sdl.AppUpdate(); // game physics
+        sdl.AppIterate(); // draw stuff
+
+        // ********** house keeping
+        gScale_prev = gScale;
         d_pad = 0;
     }
 }

@@ -121,7 +121,7 @@ pub fn main() !void {
                         },
                         c.SDL_SCANCODE_I => {
                             print("\n*** INFO ***\n", .{});
-                            print("{},{}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y });
+                            print("{},{}\n", .{boardgame_sheet.loc_x, boardgame_sheet.loc_y});
                         },
                         c.SDL_SCANCODE_SPACE => {
                             boardgame_sheet.loc_x = 0.0;

@@ -1448,9 +1448,9 @@ fn compileRegex(RegexT: type, in: []const u8) ?RegexT {
                     if (in[i] == '}') { // {,N}
                         j += prefixModifier(patt, j, RegOp{ .up_to = c1 }) catch
                             {
-                            bad_string = true;
-                            break :dispatch;
-                        };
+                                bad_string = true;
+                                break :dispatch;
+                            };
                         continue :dispatch;
                     } else {
                         bad_string = true;

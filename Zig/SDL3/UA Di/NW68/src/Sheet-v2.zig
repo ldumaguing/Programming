@@ -44,46 +44,30 @@ pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
     var gscale: f32 = 0.0;
     if (m.gScale >= 0) {
         gscale = 1.0 + @as(f32, @floatFromInt(m.gScale));
+        // =======================
+        if (m.gScale != m.gScale_prev) {
+            const gscale_prev = @as(f32, @floatFromInt(m.gScale));
+            print("need to shift. {} -> {} : {d} -> {d}\n", .{ m.gScale_prev, m.gScale, gscale_prev, gscale });
+            const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
+            const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
+            print("{d}, {d}\n", .{ orig_len_x, orig_len_y });
+            print("{d}, {d} : new scale\n", .{ orig_len_x * gscale, orig_len_y * gscale });
+            m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
+            m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
+        }
+        // =======================
     } else {
         gscale = 1.0 / (1.0 - @as(f32, @floatFromInt(m.gScale)));
     }
-
-    // var dst_rect: c.SDL_FRect = undefined;
-    // if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
-    //     dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * gscale;
-    //     dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * gscale;
-    // } else {
-    //     dst_rect.h = self.stretch_y;
-    //     dst_rect.w = self.stretch_x;
-    // }
-    // dst_rect.x = self.loc_x;
-    // dst_rect.y = self.loc_y;
-    // _ = c.SDL_RenderTexture(renderer, self.texture, null, &dst_rect);
-
-    var src_rect: c.SDL_FRect = undefined;
     var dst_rect: c.SDL_FRect = undefined;
-
-    src_rect.x = self.loc_x;
-    src_rect.y = self.loc_y;
-    src_rect.w = m.WINDOW_WIDTH / gscale;
-    src_rect.h = m.WINDOW_HEIGHT / gscale;
-
-    print("{}, {}\n", .{ self.loc_x, self.loc_y });
-    if (self.loc_x >= 0) {
-        dst_rect.x = 0;
-        dst_rect.w = m.WINDOW_WIDTH;
+    if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * gscale;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * gscale;
     } else {
-        dst_rect.x = 0 - self.loc_x;
-        dst_rect.w = m.WINDOW_WIDTH + self.loc_x;
+        dst_rect.h = self.stretch_y;
+        dst_rect.w = self.stretch_x;
     }
-
-    if (self.loc_y >= 0) {
-        dst_rect.y = 0;
-        dst_rect.h = m.WINDOW_HEIGHT;
-    } else {
-        dst_rect.y = 0 - self.loc_y;
-        dst_rect.h = m.WINDOW_HEIGHT + self.loc_y;
-    }
-
-    _ = c.SDL_RenderTexture(renderer, self.texture, &src_rect, &dst_rect);
+    dst_rect.x = self.loc_x;
+    dst_rect.y = self.loc_y;
+    _ = c.SDL_RenderTexture(renderer, self.texture, null, &dst_rect);
 }

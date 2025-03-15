@@ -16,6 +16,10 @@ pub fn AppIterate() void {
 
     m.boardgame_sheet.render(m.renderer);
 
+    _ = c.SDL_SetRenderDrawColor(m.renderer, 255, 255, 0, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderLine(m.renderer, 0, 0, m.WINDOW_WIDTH, m.WINDOW_HEIGHT);
+    _ = c.SDL_RenderLine(m.renderer, 0, m.WINDOW_HEIGHT, m.WINDOW_WIDTH, 0);
+
     _ = c.SDL_RenderPresent(m.renderer);
 }
 
