@@ -42,10 +42,58 @@ pub fn bindTexture2Sheet(id: i32, texture: ?*c.SDL_Texture) Sheet {
 // **********
 pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
     var gscale: f32 = 0.0;
+    var gscale_prev: f32 = 0.0;
     if (m.gScale >= 0) {
         gscale = 1.0 + @as(f32, @floatFromInt(m.gScale));
+        if (m.gScale != m.gScale_prev) {
+            print("{d} ---> {d}\n", .{ m.gScale_prev, m.gScale });
+            if ((m.gScale_prev == -1) and (m.gScale == 0)) {
+                // ===
+                print("yo\n", .{});
+
+                gscale_prev = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale_prev)) * 0.25));
+                print(" {d} ==> {d}\n", .{ gscale_prev, gscale });
+                const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
+                const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
+                m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
+                m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
+                // ===
+            } else {
+                if (m.gScale > m.gScale_prev) {
+                    gscale_prev = @as(f32, @floatFromInt(m.gScale));
+                } else {
+                    gscale_prev = gscale + 1.0;
+                }
+                print("{d} ==> {d}\n", .{ gscale_prev, gscale });
+                const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
+                const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
+                m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
+                m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
+            }
+        }
     } else {
-        gscale = 1.0 / (1.0 - @as(f32, @floatFromInt(m.gScale)));
+        gscale = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale)) * 0.25));
+        if (m.gScale != m.gScale_prev) {
+            print(" {d} --> {d}\n", .{ m.gScale_prev, m.gScale });
+            if (m.gScale < m.gScale_prev) {
+                print("shrink\n", .{});
+                gscale_prev = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale_prev)) * 0.25));
+                print(" {d} ==> {d}\n", .{ gscale_prev, gscale });
+                const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
+                const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
+                m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
+                m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
+            } else {
+                print("enlarge\n", .{});
+
+                gscale_prev = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale_prev)) * 0.25));
+                print(" {d} ==> {d}\n", .{ gscale_prev, gscale });
+                const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
+                const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
+                m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
+                m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
+            }
+        }
     }
     var dst_rect: c.SDL_FRect = undefined;
     if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
