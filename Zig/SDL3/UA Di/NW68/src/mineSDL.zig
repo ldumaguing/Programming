@@ -44,4 +44,10 @@ pub fn AppUpdate() void {
     if ((m.all_dpad & 8) > 0) {
         m.boardgame_sheet.loc_x += 10;
     }
+
+    if (m.gScale >= 0) {
+        m.gScale_mult = 1.0 + @as(f32, @floatFromInt(m.gScale));
+    } else {
+        m.gScale_mult = 1.0 / (1.0 - @as(f32, @floatFromInt(m.gScale)));
+    }
 }

@@ -41,54 +41,23 @@ pub fn bindTexture2Sheet(id: i32, texture: ?*c.SDL_Texture) Sheet {
 
 // **********
 pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
-    var gscale: f32 = 0.0;
-    var gscale_prev: f32 = 0.0;
-
-    if (m.gScale >= 0) {
-        gscale = 1.0 + @as(f32, @floatFromInt(m.gScale));
-        if (m.gScale != m.gScale_prev) {
-            print("a", .{});
-            if ((m.gScale_prev == -1) and (m.gScale == 0)) {
-                print("b", .{});
-                gscale_prev = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale_prev)) * 0.25));
-            } else {
-                print("c", .{});
-                if (m.gScale > m.gScale_prev) {
-                    print("d", .{});
-                    gscale_prev = @as(f32, @floatFromInt(m.gScale));
-                } else {
-                    print("e", .{});
-                    gscale_prev = gscale + 1.0;
-                }
-            }
-            const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
-            const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
-            m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
-            m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
-            print("\n", .{});
-        }
-    } else {
-        gscale = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale)) * 0.25));
-        if (m.gScale != m.gScale_prev) {
-            print("A", .{});
-            gscale_prev = 1.0 / (1.0 - (@as(f32, @floatFromInt(m.gScale_prev)) * 0.25));
-            const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / gscale_prev;
-            const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / gscale_prev;
-            m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * gscale);
-            m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * gscale);
-        }
-        print("\n", .{});
-    }
-
     var dst_rect: c.SDL_FRect = undefined;
-    if ((self.stretch_x <= 0.0) or (self.stretch_y <= 0.0)) { // if stretch varibles are negative, use scaling.
-        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * gscale;
-        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * gscale;
+
+    if (m.gScale_prev != m.gScale_mult) {
+        const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / m.gScale_prev;
+        const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / m.gScale_prev;
+        m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * m.gScale_mult);
+        m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * m.gScale_mult);
+
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * m.gScale_mult;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * m.gScale_mult;
     } else {
-        dst_rect.h = self.stretch_y;
-        dst_rect.w = self.stretch_x;
+        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * self.scale_y * m.gScale_mult;
+        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * self.scale_x * m.gScale_mult;
     }
+
     dst_rect.x = self.loc_x;
     dst_rect.y = self.loc_y;
+
     _ = c.SDL_RenderTexture(renderer, self.texture, null, &dst_rect);
 }

@@ -42,7 +42,8 @@ pub var all_dpad: u16 = 0;
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
 pub var boardgame_sheet: Sheet = undefined;
 pub var gScale: i32 = 0;
-pub var gScale_prev: i32 = 0;
+pub var gScale_prev: f32 = 1.0;
+pub var gScale_mult: f32 = 1.0;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -120,6 +121,11 @@ pub fn main() !void {
                         c.SDL_SCANCODE_I => {
                             print("\n*** INFO ***\n", .{});
                             print("{d}, {d} : {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y, gScale });
+                        },
+                        c.SDL_SCANCODE_DELETE => {
+                            boardgame_sheet.loc_x = 0.0;
+                            boardgame_sheet.loc_y = 0.0;
+                            boardgame_sheet.render(renderer);
                         },
                         // **********
                         c.SDL_SCANCODE_SEMICOLON => {
@@ -240,7 +246,7 @@ pub fn main() !void {
         sdl.AppIterate(); // draw stuff
 
         // ********** house keeping
-        gScale_prev = gScale;
+        gScale_prev = gScale_mult;
         d_pad = 0;
     }
 }
