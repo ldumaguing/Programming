@@ -45,6 +45,10 @@ pub var gScale: i32 = 0;
 pub var gScale_prev: f32 = 1.0;
 pub var gScale_mult: f32 = 1.0;
 
+pub const loc0x0 = [_]f32{ 292.0, 142.0 };
+pub const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
+pub const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
+
 // ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
