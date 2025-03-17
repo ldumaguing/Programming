@@ -45,9 +45,11 @@ pub var gScale: i32 = 0;
 pub var gScale_prev: f32 = 1.0;
 pub var gScale_mult: f32 = 1.0;
 
-pub const loc0x0 = [_]f32{ 292.0, 142.0 };
-pub const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
-pub const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
+const loc0x0 = [_]f32{ 292.0, 142.0 };
+const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
+const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
+pub const Hex_W: f64 = (locH_X[0] - loc0x0[0]) / locH_X[1];
+pub const Hex_H: f64 = (locH_Y[0] - loc0x0[1]) / locH_Y[1];
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -90,6 +92,8 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(window);
 
     _ = c.SDL_HideCursor();
+
+    print("{d}, {d}\n", .{ Hex_W, Hex_H });
 
     // ============================================================================================
     inits.load_images();
