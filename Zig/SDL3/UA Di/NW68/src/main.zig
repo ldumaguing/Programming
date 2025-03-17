@@ -15,6 +15,7 @@ const sdl = @import("mineSDL.zig");
 const texture = @import("texture.zig");
 const inits = @import("inits.zig");
 const Sheet = @import("Sheet.zig");
+const Chit = @import("Chit.zig");
 
 pub const WINDOW_WIDTH = 800;
 pub const WINDOW_HEIGHT = 600;
@@ -45,11 +46,14 @@ pub var gScale: i32 = 0;
 pub var gScale_prev: f32 = 1.0;
 pub var gScale_mult: f32 = 1.0;
 
-const loc0x0 = [_]f32{ 292.0, 142.0 };
+pub const loc0x0 = [_]f32{ 292.0, 142.0 };
 const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
 const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
 pub const Hex_W: f64 = (locH_X[0] - loc0x0[0]) / locH_X[1];
 pub const Hex_H: f64 = (locH_Y[0] - loc0x0[1]) / locH_Y[1];
+
+pub var chit_1_texture: ?*c.SDL_Texture = undefined;
+pub var chit_1_chit: Chit = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {

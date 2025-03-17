@@ -13,10 +13,11 @@ const c = @cImport({
 
 pub fn AppIterate() void {
     _ = c.SDL_RenderClear(m.renderer);
+    _ = c.SDL_SetRenderDrawColor(m.renderer, 5, 5, 5, c.SDL_ALPHA_OPAQUE);
 
     m.boardgame_sheet.render(m.renderer);
+    m.chit_1_chit.render(m.renderer);
 
-    _ = c.SDL_SetRenderDrawColor(m.renderer, 5, 5, 5, c.SDL_ALPHA_OPAQUE);
     //_ = c.SDL_RenderLine(m.renderer, 0, 0, m.WINDOW_WIDTH, m.WINDOW_HEIGHT);
     //_ = c.SDL_RenderLine(m.renderer, 0, m.WINDOW_HEIGHT, m.WINDOW_WIDTH, 0);
 

@@ -14,6 +14,7 @@ const c = @cImport({
 const m = @import("main.zig");
 const texture = @import("texture.zig");
 const Sheet = @import("Sheet.zig");
+const Chit = @import("Chit.zig");
 
 pub fn define_button_mods(aText: [*c]const u8) !void {
     print("yo: {s}\n", .{aText});
@@ -127,4 +128,7 @@ pub fn define_button_mods(aText: [*c]const u8) !void {
 pub fn load_images() void {
     m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
     m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
+
+    m.chit_1_texture = texture.createTextureFromPNG(m.renderer, "img/1_130 Hummel front.png");
+    m.chit_1_chit = Chit.bindTexture2Chit(1, m.chit_1_texture);
 }
