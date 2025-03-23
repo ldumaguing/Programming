@@ -11,6 +11,51 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
+const inits = @import("inits.zig");
+const mine = @import("mine.zig");
+
+pub var WINDOW_WIDTH: f32 = 800.0;
+pub var WINDOW_HEIGHT: f32 = 600.0;
+pub var WINDOW_CENTER_X: f32 = 400.0;
+pub var WINDOW_CENTER_Y: f32 = 300.0;
+
+pub var window: ?*c.SDL_Window = undefined;
+pub var window_surface: ?*c.SDL_Surface = undefined;
+pub var renderer: ?*c.SDL_Renderer = undefined;
+
+// *************** Joystick
+var joystick: ?*c.SDL_Joystick = null;
+var button_bits: u16 = 0;
+pub var button_mods = [_]i32{0} ** 14;
+var d_pad: u16 = 0;
+
+// ***************
+var keybrd_bits: u16 = 0;
+var keybrd_dpad: u16 = 0;
+
+// ***************
+pub var all_bits: u16 = 0;
+pub var all_dpad: u16 = 0;
+
+// *************** images
+pub var boardgame_surface: ?*c.SDL_Surface = undefined;
+// pub var boardgame_texture: ?*c.SDL_Texture = undefined;
+// pub var boardgame_sheet: Sheet = undefined;
+//
+// pub var chit_texture: ?*c.SDL_Texture = undefined;
+// pub var chit_1: Chit = undefined;
+
+pub var gScale: i32 = 0;
+pub var gScale_prev: f32 = 1.0;
+pub var gScale_mult: f32 = 1.0;
+
+pub const loc0x0 = [_]f32{ 292.0, 142.0 };
+const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
+const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
+pub const Hex_W: f64 = (locH_X[0] - loc0x0[0]) / locH_X[1];
+pub const Hex_H: f64 = (locH_Y[0] - loc0x0[1]) / locH_Y[1];
+
+// ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
 
@@ -44,6 +89,246 @@ pub fn main() !void {
     )});
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
+
+    const desktop_dim: [*c]c.SDL_DisplayMode = @constCast(c.SDL_GetCurrentDisplayMode(1));
+    // print("{d}, {d}\n", .{ desktop_dim.*.h, desktop_dim.*.w });
+
+    window = c.SDL_CreateWindow("Nuklear Winter '68", desktop_dim.*.w, desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
+    renderer = c.SDL_CreateRenderer(window, null);
+    defer c.SDL_DestroyRenderer(renderer);
+    defer c.SDL_DestroyWindow(window);
+
+    _ = c.SDL_HideCursor();
+
+    // print("{d}, {d}\n", .{ Hex_W, Hex_H });
+
+    // ============================================================================================
+    inits.load_images();
+    defer c.SDL_DestroySurface(boardgame_surface);
+    defer c.SDL_DestroySurface(window_surface);
+    //defer c.SDL_DestroyTexture(boardgame_texture);
+    //defer c.SDL_DestroyTexture(chit_texture);
+    // ============================================================================================
+
+    //_ = c.SDL_BlitSurface(boardgame_surface, null, window_surface, null);
+    //_ = c.SDL_UpdateWindowSurface(window);
+
+    main_loop: while (true) {
+        //_ = c.SDL_BlitSurface(boardgame_surface, null, window_surface, null);
+        //_ = c.SDL_UpdateWindowSurface(window);
+
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event)) {
+            switch (event.type) {
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                c.SDL_EVENT_JOYSTICK_ADDED => {
+                    if (joystick == null) {
+                        joystick = c.SDL_OpenJoystick(event.jdevice.which);
+                        print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        try inits.define_button_mods(c.SDL_GetJoystickName(joystick));
+                    }
+                },
+                c.SDL_EVENT_JOYSTICK_REMOVED => {
+                    if ((joystick != null) and (c.SDL_GetJoystickID(joystick) == event.jdevice.which)) {
+                        print("close: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        c.SDL_CloseJoystick(joystick);
+                        joystick = null;
+                    }
+                },
+                c.SDL_EVENT_KEY_DOWN => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_ESCAPE => {
+                            break :main_loop;
+                        },
+                        // c.SDL_SCANCODE_I => {
+                        //     print("\n*** INFO ***\n", .{});
+                        //     print("{d}, {d} : {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y, gScale });
+                        // },
+                        // c.SDL_SCANCODE_DELETE => {
+                        //     boardgame_sheet.loc_x = 0.0;
+                        //     boardgame_sheet.loc_y = 0.0;
+                        //     boardgame_sheet.render(renderer);
+                        // },
+                        // **********
+                        c.SDL_SCANCODE_SEMICOLON => {
+                            keybrd_bits |= 1;
+                        },
+                        c.SDL_SCANCODE_P => {
+                            keybrd_bits |= 2;
+                        },
+                        c.SDL_SCANCODE_APOSTROPHE => {
+                            keybrd_bits |= 8;
+                        },
+                        c.SDL_SCANCODE_L => {
+                            keybrd_bits |= 4;
+                        },
+                        c.SDL_SCANCODE_LEFTBRACKET => {
+                            keybrd_bits |= 32;
+                        },
+                        c.SDL_SCANCODE_O => {
+                            keybrd_bits |= 4096;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_W => {
+                            keybrd_dpad |= 1;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            keybrd_dpad |= 2;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            keybrd_dpad |= 4;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            keybrd_dpad |= 8;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            keybrd_bits |= 16;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            keybrd_bits |= 2048;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_G => {
+                            keybrd_bits |= 64;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            keybrd_bits |= 128;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            keybrd_bits |= 1024;
+                        },
+                        else => {},
+                    }
+                },
+                c.SDL_EVENT_KEY_UP => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_SEMICOLON => {
+                            keybrd_bits ^= 1;
+                        },
+                        c.SDL_SCANCODE_P => {
+                            keybrd_bits ^= 2;
+                        },
+                        c.SDL_SCANCODE_APOSTROPHE => {
+                            keybrd_bits ^= 8;
+                        },
+                        c.SDL_SCANCODE_L => {
+                            keybrd_bits ^= 4;
+                        },
+                        c.SDL_SCANCODE_LEFTBRACKET => {
+                            keybrd_bits ^= 32;
+                        },
+                        c.SDL_SCANCODE_O => {
+                            keybrd_bits ^= 4096;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_W => {
+                            keybrd_dpad ^= 1;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            keybrd_dpad ^= 2;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            keybrd_dpad ^= 4;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            keybrd_dpad ^= 8;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            keybrd_bits ^= 16;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            keybrd_bits ^= 2048;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_G => {
+                            keybrd_bits ^= 64;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            keybrd_bits ^= 128;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            keybrd_bits ^= 1024;
+                        },
+                        else => {},
+                    }
+                },
+                else => {},
+            }
+
+            if (joystick != null) {
+                // sample_joystick_events();
+                record_button_events();
+            }
+            all_bits = keybrd_bits | button_bits;
+            all_dpad = keybrd_dpad | d_pad;
+            // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits, all_dpad });
+        }
+
+        mine.AppUpdate(); // game physics
+        mine.AppIterate(); // draw stuff
+
+        _ = c.SDL_BlitSurface(boardgame_surface, null, window_surface, null);
+        _ = c.SDL_UpdateWindowSurface(window);
+
+        // ********** house keeping
+        gScale_prev = gScale_mult;
+        d_pad = 0;
+    }
+}
+
+// ************************************************************************************************
+fn record_button_events() void {
+    //print("yo\n", .{});
+    button_bits = 0;
+    const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
+    for (0..total) |i| {
+        if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
+            const val = button_mods[i];
+            if (val >= 0) {
+                const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+                button_bits |= bits;
+                // print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
+            }
+        }
+    }
+
+    const hat = c.SDL_GetJoystickHat(joystick, 0);
+    if (hat != 0) {
+        d_pad = hat;
+        // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
+    }
+    //    print("{} -- {} -- {} .. {} *** {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits });
+}
+
+// ************************************************************************************************
+fn sample_joystick_events() void {
+    {
+        const total: u32 = @as(u32, @intCast(c.SDL_GetNumJoystickAxes(joystick)));
+        for (0..total) |i| {
+            print("Axis {}: {}\n", .{ i, c.SDL_GetJoystickAxis(joystick, @intCast(i)) });
+        }
+    }
+
+    print("\n", .{});
+
+    {
+        const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
+        for (0..total) |i| {
+            print("Button {}: {}\n", .{ i, c.SDL_GetJoystickButton(joystick, @intCast(i)) });
+        }
+    }
+
+    print("\n", .{});
+
+    {
+        const total = @as(u32, @intCast(c.SDL_GetNumJoystickHats(joystick)));
+        for (0..total) |i| {
+            print("Hat {}: {}\n", .{ i, c.SDL_GetJoystickHat(joystick, @intCast(i)) });
+        }
+    }
+    print("{s}\n", .{c.SDL_GetJoystickName(joystick)});
 }
 
 // ************************************************************************************************

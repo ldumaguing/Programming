@@ -13,8 +13,8 @@ const c = @cImport({
 
 const m = @import("main.zig");
 const texture = @import("texture.zig");
-const Sheet = @import("Sheet.zig");
-const Chit = @import("Chit.zig");
+//const Sheet = @import("Sheet.zig");
+//const Chit = @import("Chit.zig");
 
 pub fn define_button_mods(aText: [*c]const u8) !void {
     print("yo: {s}\n", .{aText});
@@ -126,9 +126,12 @@ pub fn define_button_mods(aText: [*c]const u8) !void {
 }
 
 pub fn load_images() void {
-    m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
-    m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
+    print("yo\n", .{});
+    m.window_surface = c.SDL_GetWindowSurface(m.window);
+    m.boardgame_surface = c.IMG_Load("img/Map.jpg");
+    //m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
+    //m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
 
-    m.chit_texture = texture.createTextureFromPNG(m.renderer, "img/red.png");
-    m.chit_1 = Chit.clipTexture4Chit(1, m.chit_texture, 150, 2);
+    //m.chit_texture = texture.createTextureFromPNG(m.renderer, "img/red.png");
+    //m.chit_1 = Chit.clipTexture4Chit(1, m.chit_texture, 150, 2);
 }
