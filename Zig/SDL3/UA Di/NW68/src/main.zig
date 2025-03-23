@@ -17,10 +17,10 @@ const inits = @import("inits.zig");
 const Sheet = @import("Sheet.zig");
 const Chit = @import("Chit.zig");
 
-pub const WINDOW_WIDTH = 800;
-pub const WINDOW_HEIGHT = 600;
-pub const WINDOW_CENTER_X = WINDOW_WIDTH / 2;
-pub const WINDOW_CENTER_Y = WINDOW_HEIGHT / 2;
+pub var WINDOW_WIDTH: f32 = 800.0;
+pub var WINDOW_HEIGHT: f32 = 600.0;
+pub var WINDOW_CENTER_X: f32 = 400.0;
+pub var WINDOW_CENTER_Y: f32 = 300.0;
 
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
@@ -42,6 +42,10 @@ pub var all_dpad: u16 = 0;
 // *************** images
 pub var boardgame_texture: ?*c.SDL_Texture = undefined;
 pub var boardgame_sheet: Sheet = undefined;
+
+pub var chit_texture: ?*c.SDL_Texture = undefined;
+pub var chit_1: Chit = undefined;
+
 pub var gScale: i32 = 0;
 pub var gScale_prev: f32 = 1.0;
 pub var gScale_mult: f32 = 1.0;
@@ -51,9 +55,6 @@ const locH_Y = [_]f32{ 3846.0, 19.0 }; // pixel bottom loc, hex count
 const locH_X = [_]f32{ 5020.0, 28.0 }; // pixel right-most loc, hex count
 pub const Hex_W: f64 = (locH_X[0] - loc0x0[0]) / locH_X[1];
 pub const Hex_H: f64 = (locH_Y[0] - loc0x0[1]) / locH_Y[1];
-
-pub var chit_1_texture: ?*c.SDL_Texture = undefined;
-pub var chit_1_chit: Chit = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -90,18 +91,22 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    window = c.SDL_CreateWindow("Nuklear Winter '68", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    const desktop_dim: [*c]c.SDL_DisplayMode = @constCast(c.SDL_GetCurrentDisplayMode(1));
+    // print("{d}, {d}\n", .{ desktop_dim.*.h, desktop_dim.*.w });
+
+    window = c.SDL_CreateWindow("Nuklear Winter '68", desktop_dim.*.w, desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
 
     _ = c.SDL_HideCursor();
 
-    print("{d}, {d}\n", .{ Hex_W, Hex_H });
+    // print("{d}, {d}\n", .{ Hex_W, Hex_H });
 
     // ============================================================================================
     inits.load_images();
     defer c.SDL_DestroyTexture(boardgame_texture);
+    defer c.SDL_DestroyTexture(chit_texture);
     // ============================================================================================
 
     main_loop: while (true) {

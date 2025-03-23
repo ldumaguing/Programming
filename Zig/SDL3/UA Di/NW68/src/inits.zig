@@ -129,6 +129,6 @@ pub fn load_images() void {
     m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
     m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
 
-    m.chit_1_texture = texture.createTextureFromPNG(m.renderer, "img/1_130 Hummel front.png");
-    m.chit_1_chit = Chit.bindTexture2Chit(1, m.chit_1_texture);
+    m.chit_texture = texture.createTextureFromPNG(m.renderer, "img/red.png");
+    m.chit_1 = Chit.clipTexture4Chit(1, m.chit_texture, 150, 2);
 }
