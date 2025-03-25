@@ -10,7 +10,6 @@ const c = @cImport({
     @cInclude("SDL3/SDL_revision.h");
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
-    @cInclude("SDL3/SDL_surface.h");
 });
 
 // ************************************************************************************************
@@ -77,20 +76,8 @@ pub fn main() !void {
     defer c.SDL_DestroySurface(hello_surf);
 
     const hello_texture = c.SDL_CreateTextureFromSurface(renderer, hello_surf);
-    defer c.SDL_DestroyTexture(hello_texture);
 
-    // *******************
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(640, 480, c.SDL_PIXELFORMAT_RGBA8888);
-    defer c.SDL_DestroySurface(a_surf);
 
-    var a_rect: c.SDL_Rect = undefined;
-    a_rect.x = 600;
-    a_rect.y = 400;
-    a_rect.w = 110;
-    a_rect.h = 110;
-    _ = c.SDL_BlitSurface(hello_surf, &a_rect, a_surf, null); // no scaling. the target surface truncates.
-    const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
-    defer c.SDL_DestroyTexture(a_texture);
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -103,14 +90,8 @@ pub fn main() !void {
             }
         }
 
-        var f_rect: c.SDL_FRect = undefined;
-        f_rect.x = 10.0;
-        f_rect.y = 10.0;
-        f_rect.w = 640.0 * 1;
-        f_rect.h = 480.0 * 1;
-
-        //_ = c.SDL_CreateTextureFromSurface(renderer, hello_surf);
-        _ = c.SDL_RenderTexture(renderer, a_texture, null, &f_rect);
+        _ = c.SDL_CreateTextureFromSurface(renderer, hello_surf);
+        _ = c.SDL_RenderTexture(renderer, hello_texture, null, null );
         _ = c.SDL_RenderPresent(renderer);
         // try errify(c.SDL_BlitSurface(hello_surf, null, win_surf, null));
         // try errify(c.SDL_UpdateWindowSurface(window));
