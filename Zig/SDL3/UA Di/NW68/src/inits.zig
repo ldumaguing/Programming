@@ -16,7 +16,7 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-pub fn begin() void {
+pub fn create_WindowAndRenderer() void {
     print("yo me\n", .{});
     const desktop_dim: [*c]c.SDL_DisplayMode = @constCast(c.SDL_GetCurrentDisplayMode(1));
     // print("{d}, {d}\n", .{ desktop_dim.*.h, desktop_dim.*.w });
@@ -133,6 +133,16 @@ pub fn define_button_mods(aText: [*c]const u8) !void {
         g.button_mods[12] = -1;
         g.button_mods[13] = -1;
     }
+}
+
+pub fn load_boardgame_image() void {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    g.boardgame_surface = c.IMG_LoadJPG_IO(stream);
+}
+
+pub fn load_chit_images() void {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
+    g.chits_surface = c.IMG_LoadPNG_IO(stream);
 }
 
 pub fn load_images() void {

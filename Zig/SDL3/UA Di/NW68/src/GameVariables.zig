@@ -28,4 +28,7 @@ pub var keybrd_dpad: u16 = 0;
 pub var all_bits: u16 = 0;
 pub var all_dpad: u16 = 0;
 
+// *************** Images
+pub var boardgame_surface: ?*c.SDL_Surface = undefined;
+pub var chits_surface: ?*c.SDL_Surface = undefined;
 // ***
