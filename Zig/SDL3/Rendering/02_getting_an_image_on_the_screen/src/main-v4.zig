@@ -11,7 +11,6 @@ const c = @cImport({
     @cDefine("SDL_MAIN_HANDLED", {});
     @cInclude("SDL3/SDL_main.h");
     @cInclude("SDL3/SDL_surface.h");
-    @cInclude("SDL3_image/SDL_image.h");
 });
 
 // ************************************************************************************************

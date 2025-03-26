@@ -48,6 +48,7 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
+    // =======================================================================
     inits.create_WindowAndRenderer();
     defer c.SDL_DestroyRenderer(g.renderer);
     defer c.SDL_DestroyWindow(g.window);
@@ -60,6 +61,7 @@ pub fn main() !void {
 
     const win_surf = c.SDL_GetWindowSurface(g.window);
     defer c.SDL_DestroySurface(win_surf);
+    // =======================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -211,9 +213,12 @@ pub fn main() !void {
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
         }
 
+        // =======================================================================
         _ = c.SDL_BlitSurface(g.boardgame_surface, null, win_surf, null);
         _ = c.SDL_BlitSurface(g.chits_surface, null, win_surf, null);
         _ = c.SDL_UpdateWindowSurface(g.window);
+        // =======================================================================
+
     } // main_loop
 }
 

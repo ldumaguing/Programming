@@ -77,8 +77,6 @@ pub fn main() !void {
 
     const hello_texture = c.SDL_CreateTextureFromSurface(renderer, hello_surf);
 
-
-
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
@@ -91,7 +89,7 @@ pub fn main() !void {
         }
 
         _ = c.SDL_CreateTextureFromSurface(renderer, hello_surf);
-        _ = c.SDL_RenderTexture(renderer, hello_texture, null, null );
+        _ = c.SDL_RenderTexture(renderer, hello_texture, null, null);
         _ = c.SDL_RenderPresent(renderer);
         // try errify(c.SDL_BlitSurface(hello_surf, null, win_surf, null));
         // try errify(c.SDL_UpdateWindowSurface(window));
