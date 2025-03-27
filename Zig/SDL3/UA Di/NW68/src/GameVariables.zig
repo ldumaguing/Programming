@@ -13,6 +13,7 @@ const c = @cImport({
 
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
+pub var display_info: [*c]c.SDL_DisplayMode = undefined;
 
 // *************** Joystick
 pub var joystick: ?*c.SDL_Joystick = null;
