@@ -14,6 +14,8 @@ const c = @cImport({
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
 pub var display_info: [*c]c.SDL_DisplayMode = undefined;
+pub var scale: i32 = 0;
+pub var scale_mult: f32 = 1.0;
 
 // *************** Joystick
 pub var joystick: ?*c.SDL_Joystick = null;

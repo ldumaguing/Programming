@@ -21,7 +21,6 @@ pub fn create_WindowAndRenderer() void {
     g.display_info = @constCast(c.SDL_GetCurrentDisplayMode(1));
 
     g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.display_info.*.w, g.display_info.*.h, 0);
-    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", desktop_dim.*.w, desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
     g.renderer = c.SDL_CreateRenderer(g.window, null);
 }
 
