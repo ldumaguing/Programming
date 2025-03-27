@@ -59,23 +59,8 @@ pub fn main() !void {
     inits.load_chit_images();
     defer c.SDL_DestroySurface(g.chits_surface);
 
-    // const stored_clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(g.display_info.*.w, g.display_info.*.h, c.SDL_PIXELFORMAT_RGBA8888);
-    var width: i32 = g.display_info.*.w;
-    var height: i32 = g.display_info.*.h;
-    width = @intFromFloat(@as(f32, @floatFromInt(width)) * 7.0);
-    height = @intFromFloat(@as(f32, @floatFromInt(height)) * 7.0);
-    const stored_clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width, height, c.SDL_PIXELFORMAT_RGBA8888);
-    defer c.SDL_DestroySurface(stored_clippage_surface);
-
-    var clip_rect: c.SDL_Rect = undefined;
-    clip_rect.x = 0;
-    clip_rect.y = 0;
-    clip_rect.w = width;
-    clip_rect.h = height;
-    _ = c.SDL_BlitSurface(g.boardgame_surface, &clip_rect, stored_clippage_surface, null);
-    const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, stored_clippage_surface);
-    defer c.SDL_DestroyTexture(clipped_texture);
-
+    const win_surf = c.SDL_GetWindowSurface(g.window);
+    defer c.SDL_DestroySurface(win_surf);
     // =======================================================================
 
     main_loop: while (true) {
@@ -226,22 +211,15 @@ pub fn main() !void {
             g.all_bits = g.keybrd_bits | g.button_bits;
             g.all_dpad = g.keybrd_dpad | g.d_pad;
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
-        } // *** PollEVent
+        }
 
         // =======================================================================
-        var a_rect: c.SDL_FRect = undefined;
-        a_rect.x = 0.0;
-        a_rect.y = 0.0;
-        a_rect.w = @as(f32, @floatFromInt(g.display_info.*.w));
-        a_rect.h = @as(f32, @floatFromInt(g.display_info.*.h));
-        _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &a_rect);
-        _ = c.SDL_RenderPresent(g.renderer);
-        // _ = c.SDL_BlitSurface(g.boardgame_surface, null, win_surf, null);
-        // _ = c.SDL_BlitSurface(g.chits_surface, null, win_surf, null);
-        // _ = c.SDL_UpdateWindowSurface(g.window);
+        _ = c.SDL_BlitSurface(g.boardgame_surface, null, win_surf, null);
+        _ = c.SDL_BlitSurface(g.chits_surface, null, win_surf, null);
+        _ = c.SDL_UpdateWindowSurface(g.window);
         // =======================================================================
 
-    } // *** main_loop
+    } // main_loop
 }
 
 // ************************************************************************************************

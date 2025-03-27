@@ -1,6 +1,11 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
+const g = @import("GameVariables.zig");
+// const m = @import("main.zig");
+// const texture = @import("texture.zig");
+// const Sheet = @import("Sheet.zig");
+// const Chit = @import("Chit.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -11,10 +16,14 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-const m = @import("main.zig");
-const texture = @import("texture.zig");
-const Sheet = @import("Sheet.zig");
-const Chit = @import("Chit.zig");
+pub fn create_WindowAndRenderer() void {
+    print("yo me\n", .{});
+    g.display_info = @constCast(c.SDL_GetCurrentDisplayMode(1));
+
+    g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.display_info.*.w, g.display_info.*.h, 0);
+    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", desktop_dim.*.w, desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
+    g.renderer = c.SDL_CreateRenderer(g.window, null);
+}
 
 pub fn define_button_mods(aText: [*c]const u8) !void {
     print("yo: {s}\n", .{aText});
@@ -54,81 +63,91 @@ pub fn define_button_mods(aText: [*c]const u8) !void {
     // -1: not in use
     if (joystick_type == 1) {
         // ***** Logi-D and Snake W
-        m.button_mods[0] = 2;
-        m.button_mods[1] = 0;
-        m.button_mods[2] = 3;
-        m.button_mods[3] = 1;
-        m.button_mods[4] = 4;
-        m.button_mods[5] = 5;
-        m.button_mods[6] = 11;
-        m.button_mods[7] = 12;
-        m.button_mods[8] = 6;
-        m.button_mods[9] = 7;
-        m.button_mods[10] = 8;
-        m.button_mods[11] = 9;
-        m.button_mods[12] = 10;
-        m.button_mods[13] = -1;
+        g.button_mods[0] = 2;
+        g.button_mods[1] = 0;
+        g.button_mods[2] = 3;
+        g.button_mods[3] = 1;
+        g.button_mods[4] = 4;
+        g.button_mods[5] = 5;
+        g.button_mods[6] = 11;
+        g.button_mods[7] = 12;
+        g.button_mods[8] = 6;
+        g.button_mods[9] = 7;
+        g.button_mods[10] = 8;
+        g.button_mods[11] = 9;
+        g.button_mods[12] = 10;
+        g.button_mods[13] = -1;
     }
 
     if (joystick_type == 2) {
         // ***** Logi-X and 8BitDo
-        m.button_mods[0] = 0;
-        m.button_mods[1] = 3;
-        m.button_mods[2] = 2;
-        m.button_mods[3] = 1;
-        m.button_mods[4] = 4;
-        m.button_mods[5] = 5;
-        m.button_mods[6] = 6;
-        m.button_mods[7] = 7;
-        m.button_mods[8] = 10;
-        m.button_mods[9] = 8;
-        m.button_mods[10] = 9;
-        m.button_mods[11] = -1;
-        m.button_mods[12] = -1;
-        m.button_mods[13] = -1;
+        g.button_mods[0] = 0;
+        g.button_mods[1] = 3;
+        g.button_mods[2] = 2;
+        g.button_mods[3] = 1;
+        g.button_mods[4] = 4;
+        g.button_mods[5] = 5;
+        g.button_mods[6] = 6;
+        g.button_mods[7] = 7;
+        g.button_mods[8] = 10;
+        g.button_mods[9] = 8;
+        g.button_mods[10] = 9;
+        g.button_mods[11] = -1;
+        g.button_mods[12] = -1;
+        g.button_mods[13] = -1;
     }
 
     if (joystick_type == 3) {
         // ***** Snake (wireless version)
-        m.button_mods[0] = 0;
-        m.button_mods[1] = 3;
-        m.button_mods[2] = 2;
-        m.button_mods[3] = 1;
-        m.button_mods[4] = 6;
-        m.button_mods[5] = 10;
-        m.button_mods[6] = 7;
-        m.button_mods[7] = 8;
-        m.button_mods[8] = 9;
-        m.button_mods[9] = 4;
-        m.button_mods[10] = 5;
-        m.button_mods[11] = -1;
-        m.button_mods[12] = -1;
-        m.button_mods[13] = -1;
+        g.button_mods[0] = 0;
+        g.button_mods[1] = 3;
+        g.button_mods[2] = 2;
+        g.button_mods[3] = 1;
+        g.button_mods[4] = 6;
+        g.button_mods[5] = 10;
+        g.button_mods[6] = 7;
+        g.button_mods[7] = 8;
+        g.button_mods[8] = 9;
+        g.button_mods[9] = 4;
+        g.button_mods[10] = 5;
+        g.button_mods[11] = -1;
+        g.button_mods[12] = -1;
+        g.button_mods[13] = -1;
     }
 
     if (joystick_type == 4) {
         // ***** Sega
-        m.button_mods[0] = 2;
-        m.button_mods[1] = 0;
-        m.button_mods[2] = 3;
-        m.button_mods[3] = 1;
-        m.button_mods[4] = 9;
-        m.button_mods[5] = 8;
-        m.button_mods[6] = 4;
-        m.button_mods[7] = 5;
-        m.button_mods[8] = 7;
-        m.button_mods[9] = 10;
-        m.button_mods[10] = -1;
-        m.button_mods[11] = -1;
-        m.button_mods[12] = -1;
-        m.button_mods[13] = -1;
+        g.button_mods[0] = 2;
+        g.button_mods[1] = 0;
+        g.button_mods[2] = 3;
+        g.button_mods[3] = 1;
+        g.button_mods[4] = 9;
+        g.button_mods[5] = 8;
+        g.button_mods[6] = 4;
+        g.button_mods[7] = 5;
+        g.button_mods[8] = 7;
+        g.button_mods[9] = 10;
+        g.button_mods[10] = -1;
+        g.button_mods[11] = -1;
+        g.button_mods[12] = -1;
+        g.button_mods[13] = -1;
     }
 }
 
-pub fn load_images() void {
-    m.boardgame_texture = texture.createTextureFromJPG(m.renderer, "img/Map.jpg");
-    m.boardgame_sheet = Sheet.bindTexture2Sheet(0, m.boardgame_texture);
+pub fn load_boardgame_image() void {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    g.boardgame_surface = c.IMG_LoadJPG_IO(stream);
+}
 
-    m.chit_texture = texture.createTextureFromPNG(m.renderer, "img/red.png");
-    m.chit_1 = Chit.clipTexture4Chit(1, m.chit_texture, 150, 2);
+pub fn load_chit_images() void {
+    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
+    g.chits_surface = c.IMG_LoadPNG_IO(stream);
+}
+
+pub fn load_images() void {
+    // g.boardgame_texture = texture.createTextureFromJPG(g.renderer, "img/Map.jpg");
+    // g.boardgame_sheet = Sheet.bindTexture2Sheet(0, g.boardgame_texture);
+
+    // g.chit_texture = texture.createTextureFromPNG(g.renderer, "img/red.png");
+    // g.chit_1 = Chit.clipTexture4Chit(1, g.chit_texture, 150, 2);
 }
