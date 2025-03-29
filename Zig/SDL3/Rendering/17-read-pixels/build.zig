@@ -42,14 +42,14 @@ pub fn build(b: *std.Build) void {
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     // This is what allows Zig source code to use `@import("foo")` where 'foo' is not a
     // file path. In this case, we set up `exe_mod` to import `lib_mod`.
-    exe_mod.addImport("17-read-pixels_lib", lib_mod);
+    exe_mod.addImport("_17_read_pixels_lib", lib_mod);
 
     // Now, we will create a static library based on the module we created above.
     // This creates a `std.Build.Step.Compile`, which is the build step responsible
     // for actually invoking the compiler.
     const lib = b.addLibrary(.{
         .linkage = .static,
-        .name = "17-read-pixels",
+        .name = "_17_read_pixels",
         .root_module = lib_mod,
     });
 
@@ -61,14 +61,13 @@ pub fn build(b: *std.Build) void {
     // This creates another `std.Build.Step.Compile`, but this one builds an executable
     // rather than a static library.
     const exe = b.addExecutable(.{
-        .name = "17-read-pixels",
+        .name = "_17_read_pixels",
         .root_module = exe_mod,
     });
 
-    exe.linkSystemLibrary("SDL3");
-    // exe.linkSystemLibrary("c");
-    exe.linkLibC();
     exe.root_module.addAnonymousImport("shims", .{ .root_source_file = b.path("src/shims.zig") });
+    exe.linkSystemLibrary("SDL3");
+    exe.linkLibC();
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default

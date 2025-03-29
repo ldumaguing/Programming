@@ -201,7 +201,8 @@ pub fn main() !void {
             g.all_dpad = g.keybrd_dpad | g.d_pad;
             print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
         }
-    }
+        g.d_pad = 0;
+    } // *** main_loop
 }
 
 // ************************************************************************************************
