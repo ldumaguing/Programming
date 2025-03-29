@@ -5,6 +5,7 @@ const mvzr = @import("mvzr.zig");
 const inits = @import("inits.zig");
 const g = @import("GameVariables.zig");
 const gL = @import("gameLoop.zig");
+const Sheet = @import("Sheet.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -57,8 +58,9 @@ pub fn main() !void {
     inits.load_surfaces();
     defer c.SDL_DestroySurface(g.mapboard_surface);
 
-    g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
-    defer c.SDL_DestroyTexture(g.mapboard_texture);
+    g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
+    // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
+    // defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
 
     main_loop: while (true) {
@@ -214,7 +216,7 @@ pub fn main() !void {
         // ============================================================================================
         // _ = c.SDL_RenderTexture(g.renderer, mapboard_texture, null, null);
         // _ = c.SDL_RenderPresent(g.renderer);
-        gL.AppIterate();
+        gL.draw_Screen();
         // ============================================================================================
 
         g.d_pad = 0;

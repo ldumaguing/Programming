@@ -1,6 +1,7 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
+const Sheet = @import("Sheet.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -32,8 +33,8 @@ pub var all_dpad: u16 = 0;
 // *************** Surface
 pub var mapboard_surface: ?*c.SDL_Surface = undefined;
 
-// *************** Texture
-pub var mapboard_texture: ?*c.SDL_Texture = undefined;
+// *************** Sheet
+pub var mapboard_sheet: Sheet = undefined;
 
 // ***
 

@@ -12,8 +12,9 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-pub fn AppIterate() void {
-    _ = c.SDL_RenderTexture(g.renderer, g.mapboard_texture, null, null);
+pub fn draw_Screen() void {
+    // _ = c.SDL_RenderTexture(g.renderer, g.mapboard_texture, null, null);
+    g.mapboard_sheet.render();
     _ = c.SDL_RenderPresent(g.renderer);
 }
 
