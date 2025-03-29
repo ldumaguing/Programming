@@ -4,6 +4,7 @@ const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
 const inits = @import("inits.zig");
 const g = @import("GameVariables.zig");
+const gL = @import("gameLoop.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -56,11 +57,8 @@ pub fn main() !void {
     inits.load_surfaces();
     defer c.SDL_DestroySurface(g.mapboard_surface);
 
-    const mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
-    defer c.SDL_DestroyTexture(mapboard_texture);
-
-    _ = c.SDL_RenderTexture(g.renderer, mapboard_texture, null, null);
-    _ = c.SDL_RenderPresent(g.renderer);
+    g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
+    defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
 
     main_loop: while (true) {
@@ -212,6 +210,13 @@ pub fn main() !void {
             g.all_dpad = g.keybrd_dpad | g.d_pad;
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
         }
+
+        // ============================================================================================
+        // _ = c.SDL_RenderTexture(g.renderer, mapboard_texture, null, null);
+        // _ = c.SDL_RenderPresent(g.renderer);
+        gL.AppIterate();
+        // ============================================================================================
+
         g.d_pad = 0;
     } // *** main_loop
 }

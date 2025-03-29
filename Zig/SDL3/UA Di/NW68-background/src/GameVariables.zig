@@ -32,5 +32,8 @@ pub var all_dpad: u16 = 0;
 // *************** Surface
 pub var mapboard_surface: ?*c.SDL_Surface = undefined;
 
+// *************** Texture
+pub var mapboard_texture: ?*c.SDL_Texture = undefined;
+
 // ***
 
