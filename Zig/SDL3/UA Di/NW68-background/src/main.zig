@@ -48,20 +48,20 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // =======================================================================
-    inits.create_WindowAndRenderer();
+    // ============================================================================================
+    inits.desktop_screen();
     defer c.SDL_DestroyRenderer(g.renderer);
     defer c.SDL_DestroyWindow(g.window);
 
-    inits.load_boardgame_image();
-    defer c.SDL_DestroySurface(g.boardgame_surface);
+    inits.load_surfaces();
+    defer c.SDL_DestroySurface(g.mapboard_surface);
 
-    inits.load_chit_images();
-    defer c.SDL_DestroySurface(g.chits_surface);
+    const mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
+    defer c.SDL_DestroyTexture(mapboard_texture);
 
-    const win_surf = c.SDL_GetWindowSurface(g.window);
-    defer c.SDL_DestroySurface(win_surf);
-    // =======================================================================
+    _ = c.SDL_RenderTexture(g.renderer, mapboard_texture, null, null);
+    _ = c.SDL_RenderPresent(g.renderer);
+    // ============================================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -212,14 +212,8 @@ pub fn main() !void {
             g.all_dpad = g.keybrd_dpad | g.d_pad;
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
         }
-
-        // =======================================================================
-        _ = c.SDL_BlitSurface(g.boardgame_surface, null, win_surf, null);
-        _ = c.SDL_BlitSurface(g.chits_surface, null, win_surf, null);
-        _ = c.SDL_UpdateWindowSurface(g.window);
-        // =======================================================================
-
-    } // main_loop
+        g.d_pad = 0;
+    } // *** main_loop
 }
 
 // ************************************************************************************************
