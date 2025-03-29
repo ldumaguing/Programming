@@ -49,6 +49,8 @@ pub fn render(self: *Sheet) void {
 
     // dst_rect.x = self.loc_x;
     // dst_rect.y = self.loc_y;
+
     const texture = c.SDL_CreateTextureFromSurface(g.renderer, self.surface);
+    defer c.SDL_DestroyTexture(texture);
     _ = c.SDL_RenderTexture(g.renderer, texture, null, null);
 }

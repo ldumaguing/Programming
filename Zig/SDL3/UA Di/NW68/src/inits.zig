@@ -30,7 +30,7 @@ pub fn load_surfaces() void {
 pub fn desktop_screen() void {
     g.desktop_dim = @constCast(c.SDL_GetCurrentDisplayMode(1));
     g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, 0);
-    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", desktop_dim.*.w, desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
+    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
     g.renderer = c.SDL_CreateRenderer(g.window, null);
 }
 
