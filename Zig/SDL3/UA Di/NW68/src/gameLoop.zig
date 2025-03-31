@@ -16,6 +16,7 @@ pub fn draw_world() void {
     _ = c.SDL_RenderClear(g.renderer);
 
     g.mapboard_sheet.render();
+
     _ = c.SDL_RenderPresent(g.renderer);
 }
 
