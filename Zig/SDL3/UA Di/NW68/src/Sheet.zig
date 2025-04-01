@@ -55,7 +55,7 @@ pub fn render(self: *Sheet) void {
     // ********************************************************************************************
     // print("{d}, {d} ----- {d},{d}\n", .{ g.scale_prev, g.scale, g.window_center_x, g.window_center_y });
 
-    print("{d}, {d} | {d}, {d}, {d}\n", .{ self.x, self.y, g.scale_rank, g.scale_prev, g.scale });
+    // print("{d}, {d} | {d}, {d}, {d}\n", .{ self.x, self.y, g.scale_rank, g.scale_prev, g.scale });
 
     var width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
     var width_int: i32 = @as(i32, @intFromFloat(width));
@@ -76,26 +76,26 @@ pub fn render(self: *Sheet) void {
         height_int = @as(i32, @intFromFloat(height));
     }
 
-    print("{d}, {d} --- {d}\n", .{ width_int, height_int, self.surface.w });
+    // print("{d}, {d} --- {d}\n", .{ width_int, height_int, self.surface.w });
 
+    // *** create a clippage storage surface
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
 
+    // *** define a clipping rectangle
     var clipping_rect: c.SDL_Rect = undefined;
     clipping_rect.x = @intFromFloat(self.x);
     clipping_rect.y = @intFromFloat(self.y);
     clipping_rect.w = width_int;
     clipping_rect.h = height_int;
 
+    // *** clip a map area and store it in the clippage storage surface
     _ = c.SDL_BlitSurface(g.mapboard_surface, &clipping_rect, clippage_surface, null);
+
+    // *** convert the surface to a texture
     const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
     defer c.SDL_DestroyTexture(clipped_texture);
 
-    var silly_rect: c.SDL_FRect = undefined;
-    silly_rect.x = 0.0;
-    silly_rect.y = 0.0;
-    silly_rect.w = @as(f32, @floatFromInt(g.desktop_dim.*.w));
-    silly_rect.h = @as(f32, @floatFromInt(g.desktop_dim.*.h));
-
-    _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &silly_rect);
+    // *** render the whole (null) texture
+    _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, null);
 }
