@@ -23,16 +23,20 @@ pub fn draw_world() void {
 pub fn update_world() void {
     // ****************************** Global scale
     if ((g.all_bits & 32) > 0) {
+        g.scale_rank_prev = g.scale_rank;
         g.scale_rank += 1;
         g.all_bits ^= 32;
     }
     if ((g.all_bits & 16) > 0) {
+        g.scale_rank_prev = g.scale_rank;
         g.scale_rank -= 1;
         g.all_bits ^= 16;
     }
     if (g.scale_rank >= 0) {
+        g.scale_prev = g.scale;
         g.scale = 1.0 + @as(f32, @floatFromInt(g.scale_rank));
     } else {
+        g.scale_prev = g.scale;
         g.scale = 1.0 / (1.0 - @as(f32, @floatFromInt(g.scale_rank)));
     }
     if (g.scale_rank < 0) {
