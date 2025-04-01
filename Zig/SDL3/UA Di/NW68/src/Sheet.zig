@@ -52,18 +52,29 @@ pub fn render(self: *Sheet) void {
     // dst_rect.x = self.loc_x;
     // dst_rect.y = self.loc_y;
 
-    const clippage_surface_storage: *c.SDL_Surface = c.SDL_CreateSurface(g.desktop_dim.*.w, g.desktop_dim.*.h, c.SDL_PIXELFORMAT_RGBA8888);
-    defer c.SDL_DestroySurface(clippage_surface_storage);
+    const width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) * g.scale;
+    const width_int: i32 = @as(i32, @intFromFloat(width));
+    const height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) * g.scale;
+    const height_int: i32 = @as(i32, @intFromFloat(height));
 
-    var src_rect: c.SDL_Rect = undefined;
-    src_rect.x = @intFromFloat(self.x);
-    src_rect.y = @intFromFloat(self.y);
-    src_rect.w = g.desktop_dim.*.w;
-    src_rect.h = g.desktop_dim.*.h;
+    const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
+    defer c.SDL_DestroySurface(clippage_surface);
 
-    _ = c.SDL_BlitSurface(g.mapboard_surface, &src_rect, clippage_surface_storage, null);
-    const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface_storage);
+    var clipping_rect: c.SDL_Rect = undefined;
+    clipping_rect.x = @intFromFloat(self.x);
+    clipping_rect.y = @intFromFloat(self.y);
+    clipping_rect.w = width_int;
+    clipping_rect.h = height_int;
+
+    _ = c.SDL_BlitSurface(g.mapboard_surface, &clipping_rect, clippage_surface, null);
+    const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
     defer c.SDL_DestroyTexture(clipped_texture);
 
-    _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, null);
+    var silly_rect: c.SDL_FRect = undefined;
+    silly_rect.x = 0.0;
+    silly_rect.y = 0.0;
+    silly_rect.w = @as(f32, @floatFromInt(g.desktop_dim.*.w));
+    silly_rect.h = @as(f32, @floatFromInt(g.desktop_dim.*.h));
+
+    _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &silly_rect);
 }
