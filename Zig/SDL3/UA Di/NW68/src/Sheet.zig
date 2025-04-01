@@ -32,7 +32,6 @@ pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
 
 // **********
 pub fn render(self: *Sheet) void {
-    print("{d}, {d} ----- {d},{d}\n", .{ g.scale_prev, g.scale, g.window_center_x, g.window_center_y });
 
     // var dst_rect: c.SDL_FRect = undefined;
 
@@ -52,10 +51,32 @@ pub fn render(self: *Sheet) void {
     // dst_rect.x = self.loc_x;
     // dst_rect.y = self.loc_y;
 
-    const width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) * g.scale;
-    const width_int: i32 = @as(i32, @intFromFloat(width));
-    const height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) * g.scale;
-    const height_int: i32 = @as(i32, @intFromFloat(height));
+    // ********************************************************************************************
+    // ********************************************************************************************
+    // print("{d}, {d} ----- {d},{d}\n", .{ g.scale_prev, g.scale, g.window_center_x, g.window_center_y });
+
+    print("{d}, {d} | {d}, {d}, {d}\n", .{ self.x, self.y, g.scale_rank, g.scale_prev, g.scale });
+
+    var width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
+    var width_int: i32 = @as(i32, @intFromFloat(width));
+    var height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
+    var height_int: i32 = @as(i32, @intFromFloat(height));
+
+    if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
+        g.scale_rank += 1;
+        if (g.scale_rank >= 0) {
+            g.scale = 1.0 + @as(f32, @floatFromInt(g.scale_rank));
+        } else {
+            g.scale = 1.0 / (1.0 - @as(f32, @floatFromInt(g.scale_rank)));
+        }
+
+        width = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
+        width_int = @as(i32, @intFromFloat(width));
+        height = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
+        height_int = @as(i32, @intFromFloat(height));
+    }
+
+    print("{d}, {d} --- {d}\n", .{ width_int, height_int, self.surface.w });
 
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);

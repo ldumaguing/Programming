@@ -18,6 +18,7 @@ pub var desktop_dim: [*c]c.SDL_DisplayMode = undefined;
 pub var scale_rank: i32 = 0;
 pub var scale: f32 = 1.0;
 pub var scale_prev: f32 = 1.0;
+pub var scroll_spd: i32 = 1;
 pub var window_center_x: f32 = 0.0;
 pub var window_center_y: f32 = 0.0;
 
