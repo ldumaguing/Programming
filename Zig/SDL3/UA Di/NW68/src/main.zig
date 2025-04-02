@@ -215,10 +215,14 @@ pub fn main() !void {
         }
 
         // ============================================================================================
-        // _ = c.SDL_RenderTexture(g.renderer, mapboard_texture, null, null);
-        // _ = c.SDL_RenderPresent(g.renderer);
         gL.update_world();
         gL.draw_world();
+
+        // ***** updates
+        if (g.scale_rank != g.scale_rank_prev) { // scale change
+            g.scale_rank_prev = g.scale_rank;
+            g.scale_prev = g.scale;
+        }
         // ============================================================================================
 
         g.d_pad = 0;

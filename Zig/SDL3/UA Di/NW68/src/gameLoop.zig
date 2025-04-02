@@ -22,25 +22,24 @@ pub fn draw_world() void {
 
 pub fn update_world() void {
     // ****************************** Global scale
+    // *** update rank
     if ((g.all_bits & 32) > 0) {
-        g.scale_rank_prev = g.scale_rank;
         g.scale_rank += 1;
         g.all_bits ^= 32;
     }
     if ((g.all_bits & 16) > 0) {
-        g.scale_rank_prev = g.scale_rank;
         g.scale_rank -= 1;
         g.all_bits ^= 16;
     }
+    // *** update scale
     if (g.scale_rank >= 0) {
-        g.scale_prev = g.scale;
         g.scale = 1.0 + @as(f32, @floatFromInt(g.scale_rank));
     } else {
-        g.scale_prev = g.scale;
         g.scale = 1.0 / (1.0 - @as(f32, @floatFromInt(g.scale_rank)));
     }
+    // *** update scroll speed
     if (g.scale_rank < 0) {
-        g.scroll_spd = (g.scale_rank - g.scale_rank + 1) * 10;
+        g.scroll_spd = 10;
     } else {
         g.scroll_spd = 1;
     }

@@ -59,12 +59,9 @@ pub fn render(self: *Sheet) void {
     var height_int: i32 = @as(i32, @intFromFloat(height));
 
     if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
-        g.scale_rank += 1;
-        if (g.scale_rank >= 0) {
-            g.scale = 1.0 + @as(f32, @floatFromInt(g.scale_rank));
-        } else {
-            g.scale = 1.0 / (1.0 - @as(f32, @floatFromInt(g.scale_rank)));
-        }
+        // too much shrinkage; undo
+        g.scale_rank = g.scale_rank_prev;
+        g.scale = g.scale_prev;
 
         width = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
         width_int = @as(i32, @intFromFloat(width));
