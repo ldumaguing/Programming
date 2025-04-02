@@ -16,6 +16,8 @@ id: i32,
 surface: *c.SDL_Surface,
 x: f32,
 y: f32,
+x_prev: f32,
+y_prev: f32,
 
 // ****************************************************************************
 const Sheet = @This();
@@ -27,12 +29,13 @@ pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
         .surface = @ptrCast(surface),
         .x = 0.0,
         .y = 0.0,
+        .x_prev = 0.0,
+        .y_prev = 0.0,
     };
 }
 
 // **********
 pub fn render(self: *Sheet) void {
-
     // var dst_rect: c.SDL_FRect = undefined;
 
     // if (m.gScale_prev != m.gScale_mult) {
@@ -58,8 +61,8 @@ pub fn render(self: *Sheet) void {
     var height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
     var height_int: i32 = @as(i32, @intFromFloat(height));
 
+    // ***** too much shrinkage; undo
     if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
-        // too much shrinkage; undo
         g.scale_rank = g.scale_rank_prev;
         g.scale = g.scale_prev;
 
@@ -73,10 +76,30 @@ pub fn render(self: *Sheet) void {
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
 
+    // ============================================================================================
+    if (g.scale_rank != g.scale_rank_prev) {
+        print("{d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank });
+        print("{d} ---> {d}\n", .{ g.scale_prev, g.scale });
+
+        const orig_len_x: f32 = (g.window_center_x - self.x) * g.scale_prev;
+        const orig_len_y: f32 = (g.window_center_y - self.y) * g.scale_prev;
+        const len_x: f32 = (g.window_center_x - self.x) * g.scale;
+        const len_y: f32 = (g.window_center_y - self.y) * g.scale;
+        print("{d}, {d}\n", .{ orig_len_x, orig_len_y });
+        print(">{d}, {d}\n", .{ len_x, len_y });
+        print(".{d}, {d}\n", .{ self.x, self.y });
+        //const x_ = g.window_center_x - (orig_len_x * g.scale);
+        //const y_ = g.window_center_y - (orig_len_y * g.scale);
+        //print(":{d}, {d}\n", .{ x_, y_ });
+
+        print("\n", .{});
+    }
+    // ============================================================================================
+
     // *** define a clipping rectangle
     var clipping_rect: c.SDL_Rect = undefined;
-    clipping_rect.x = @intFromFloat(self.x);
-    clipping_rect.y = @intFromFloat(self.y);
+    clipping_rect.x = @as(i32, @intFromFloat(self.x)) + 0;
+    clipping_rect.y = @as(i32, @intFromFloat(self.y)) + 0;
     clipping_rect.w = width_int;
     clipping_rect.h = height_int;
 

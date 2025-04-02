@@ -222,6 +222,8 @@ pub fn main() !void {
         if (g.scale_rank != g.scale_rank_prev) { // scale change
             g.scale_rank_prev = g.scale_rank;
             g.scale_prev = g.scale;
+            g.mapboard_sheet.x_prev = g.mapboard_sheet.x;
+            g.mapboard_sheet.y_prev = g.mapboard_sheet.y;
         }
         // ============================================================================================
 
