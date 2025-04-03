@@ -80,17 +80,20 @@ pub fn render(self: *Sheet) void {
     if (g.scale_rank != g.scale_rank_prev) {
         print("{d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank });
         print("{d} ---> {d}\n", .{ g.scale_prev, g.scale });
-
-        const orig_len_x: f32 = (g.window_center_x - self.x) * g.scale_prev;
-        const orig_len_y: f32 = (g.window_center_y - self.y) * g.scale_prev;
-        const len_x: f32 = (g.window_center_x - self.x) * g.scale;
-        const len_y: f32 = (g.window_center_y - self.y) * g.scale;
-        print("{d}, {d}\n", .{ orig_len_x, orig_len_y });
-        print(">{d}, {d}\n", .{ len_x, len_y });
         print(".{d}, {d}\n", .{ self.x, self.y });
-        //const x_ = g.window_center_x - (orig_len_x * g.scale);
-        //const y_ = g.window_center_y - (orig_len_y * g.scale);
-        //print(":{d}, {d}\n", .{ x_, y_ });
+        const orig_len_x: f32 = (g.window_center_x + self.x) * g.scale_prev;
+        const orig_len_y: f32 = (g.window_center_y + self.y) * g.scale_prev;
+        print("orig_len: {d}, {d}\n", .{ orig_len_x, orig_len_y });
+        print("center: {d}, {d}\n", .{g.window_center_x, g.window_center_y});
+        // ***     const len_x: f32 = (g.window_center_x - self.x) * g.scale;
+        // ***     const len_y: f32 = (g.window_center_y - self.y) * g.scale;
+        // ***     print("scale: {d}\n", .{g.scale});
+
+        // ***     print(">{d}, {d}\n", .{ len_x, len_y });
+
+        // ***     //const x_ = g.window_center_x - (orig_len_x * g.scale);
+        // ***     //const y_ = g.window_center_y - (orig_len_y * g.scale);
+        // ***     //print(":{d}, {d}\n", .{ x_, y_ });
 
         print("\n", .{});
     }

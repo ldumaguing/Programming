@@ -90,8 +90,7 @@ pub fn main() !void {
                             break :main_loop;
                         },
                         c.SDL_SCANCODE_I => {
-                            print("\n*** INFO ***\n", .{});
-                            // print("{d}, {d} : {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y, gScale });
+                            print("info: {d}, {d} : {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y, g.scale_rank });
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;
