@@ -1,0 +1,68 @@
+const std = @import("std");
+
+const c = @cImport({
+    @cDefine("SDL_DISABLE_OLD_NAMES", {});
+    @cInclude("SDL3/SDL.h");
+    @cInclude("SDL3/SDL_revision.h");
+    @cDefine("SDL_MAIN_HANDLED", {});
+    @cInclude("SDL3/SDL_main.h");
+});
+
+// ************************************************************************************************
+pub fn main() !void {
+    c.SDL_SetMainReady();
+
+    try errify(c.SDL_Init(c.SDL_INIT_VIDEO));
+    defer c.SDL_Quit();
+
+    const window_w = 640;
+    const window_h = 480;
+    errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
+
+    const window = try errify(c.SDL_CreateWindow("02_getting_an_image_on_the_screen", window_w, window_h, c.SDL_EVENT_WINDOW_SHOWN));
+    defer c.SDL_DestroyWindow(window);
+
+    const win_surf = c.SDL_GetWindowSurface(window);
+    defer c.SDL_DestroySurface(win_surf);
+
+    const bmp = @embedFile("hello_world.bmp");
+    const stream: *c.SDL_IOStream = try errify(c.SDL_IOFromConstMem(bmp, bmp.len));
+    const hello_surf: *c.SDL_Surface = try errify(c.SDL_LoadBMP_IO(stream, true));
+    defer c.SDL_DestroySurface(hello_surf);
+
+    main_loop: while (true) {
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event)) {
+            switch (event.type) {
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                else => {},
+            }
+        }
+        try errify(c.SDL_BlitSurface(hello_surf, null, win_surf, null));
+        try errify(c.SDL_UpdateWindowSurface(window));
+    }
+}
+
+// ************************************************************************************************
+/// Converts the return value of an SDL function to an error union.
+inline fn errify(value: anytype) error{SdlError}!switch (@import("shims").typeInfo(@TypeOf(value))) {
+    .bool => void,
+    .pointer, .optional => @TypeOf(value.?),
+    .int => |info| switch (info.signedness) {
+        .signed => @TypeOf(@max(0, value)),
+        .unsigned => @TypeOf(value),
+    },
+    else => @compileError("unerrifiable type: " ++ @typeName(@TypeOf(value))),
+} {
+    return switch (@import("shims").typeInfo(@TypeOf(value))) {
+        .bool => if (!value) error.SdlError,
+        .pointer, .optional => value orelse error.SdlError,
+        .int => |info| switch (info.signedness) {
+            .signed => if (value >= 0) @max(0, value) else error.SdlError,
+            .unsigned => if (value != 0) value else error.SdlError,
+        },
+        else => comptime unreachable,
+    };
+}
