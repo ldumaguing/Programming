@@ -36,7 +36,8 @@ pub fn update_world() void {
         g.scale_rank -= 1;
         g.all_bits ^= 16;
     }
-    // *** update scale
+    // *** define scale rank
+    if (g.scale_rank != g.scale_rank_prev) {}
     if (g.scale_rank >= 0) {
         g.scale = 1.0 + @as(f32, @floatFromInt(g.scale_rank));
     } else {
@@ -51,15 +52,15 @@ pub fn update_world() void {
 
     // ****************************** move mapboard
     if ((g.all_dpad & 1) > 0) {
-        g.mapboard_sheet.y += 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.y += 1; // 10 * @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 2) > 0) {
-        g.mapboard_sheet.x -= 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.x -= 1; // 10 * @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 4) > 0) {
-        g.mapboard_sheet.y -= 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.y -= 1; // 10 * @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 8) > 0) {
-        g.mapboard_sheet.x += 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.x += 1; // 10 * @as(f32, @floatFromInt(g.scroll_spd));
     }
 }

@@ -90,7 +90,7 @@ pub fn main() !void {
                             break :main_loop;
                         },
                         c.SDL_SCANCODE_I => {
-                            print("info: {d}, {d} : {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y, g.scale_rank });
+                            print("info: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;
@@ -217,10 +217,14 @@ pub fn main() !void {
         gL.update_world();
         gL.draw_world();
 
-        // ***** updates
+        // ****************************************************** updates
         if (g.scale_rank != g.scale_rank_prev) { // scale change
             g.scale_rank_prev = g.scale_rank;
             g.scale_prev = g.scale;
+            // g.scale_delta_prev = g.scale_delta;
+        }
+        // *** location change
+        if ((g.mapboard_sheet.x != g.mapboard_sheet.x_prev) or (g.mapboard_sheet.y != g.mapboard_sheet.y_prev)) {
             g.mapboard_sheet.x_prev = g.mapboard_sheet.x;
             g.mapboard_sheet.y_prev = g.mapboard_sheet.y;
         }

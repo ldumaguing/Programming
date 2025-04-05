@@ -36,23 +36,6 @@ pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
 
 // **********
 pub fn render(self: *Sheet) void {
-    // var dst_rect: c.SDL_FRect = undefined;
-
-    // if (m.gScale_prev != m.gScale_mult) {
-    //     const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / m.gScale_prev;
-    //     const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / m.gScale_prev;
-    //     m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * m.gScale_mult);
-    //     m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * m.gScale_mult);
-
-    //     dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * m.gScale_mult;
-    //     dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * m.gScale_mult;
-    // } else {
-    //     dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * m.gScale_mult;
-    //     dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * m.gScale_mult;
-    // }
-
-    // dst_rect.x = self.loc_x;
-    // dst_rect.y = self.loc_y;
 
     // ********************************************************************************************
     // ********************************************************************************************
@@ -77,31 +60,20 @@ pub fn render(self: *Sheet) void {
     defer c.SDL_DestroySurface(clippage_surface);
 
     // ============================================================================================
-    if (g.scale_rank != g.scale_rank_prev) {
-        print("{d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank });
-        const scaling: f32 = g.scale / g.scale_prev;
-        print("{d} ---> {d} : {d}\n", .{ g.scale_prev, g.scale, scaling });
-        print(".{d}, {d}\n", .{ self.x, self.y });  // upper-left corner location
-        const len_x: f32 = (g.window_center_x + self.x);
-        const len_y: f32 = (g.window_center_y + self.y);
-        print("len: {d}, {d}\n", .{ len_x, len_y });
-        print("center: {d}, {d}\n", .{ g.window_center_x, g.window_center_y });
-        const curr_len_x: f32 = len_x * g.scale;
-        const curr_len_y: f32 = len_y * g.scale;
-        print("curr_len: {d}, {d}\n", .{ curr_len_x, curr_len_y });
-        // ***     const len_x: f32 = (g.window_center_x - self.x) * g.scale;
-        // ***     const len_y: f32 = (g.window_center_y - self.y) * g.scale;
-        // ***     print("scale: {d}\n", .{g.scale});
-
-        // ***     print(">{d}, {d}\n", .{ len_x, len_y });
-
-        // ***     //const x_ = g.window_center_x - (orig_len_x * g.scale);
-        // ***     //const y_ = g.window_center_y - (orig_len_y * g.scale);
-        // ***     //print(":{d}, {d}\n", .{ x_, y_ });
-
-
-
+    if ((self.x != self.x_prev) or (self.y != self.y_prev)) {
+        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
+        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
         print("\n", .{});
+    }
+    if (g.scale_rank != g.scale_rank_prev) {
+        print("*******************************************\n", .{});
+        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
+        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
+        print("\n", .{});
+        print("prev scale * window_center_x: {d}\n", .{g.scale_prev * g.window_center_x});
+        print("prev scale * window_center_y: {d}\n", .{g.scale_prev * g.window_center_y});
+        print("scale * window_center_x: {d}\n", .{g.scale * g.window_center_x});
+        print("scale * window_center_y: {d}\n", .{g.scale * g.window_center_y});
     }
     // ============================================================================================
 

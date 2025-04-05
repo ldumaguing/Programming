@@ -20,6 +20,8 @@ pub var scale_rank: i32 = 0;
 pub var scale_rank_prev: i32 = 0;
 pub var scale: f32 = 1.0;
 pub var scale_prev: f32 = 1.0;
+//pub var scale_delta: f32 = undefined;
+//pub var scale_delta_prev: f32 = undefined;
 
 pub var scroll_spd: i32 = 1;
 pub var window_center_x: f32 = 0.0;
