@@ -77,6 +77,11 @@ pub fn render(self: *Sheet) void {
         const scale_x = g.window_center_x - (g.window_center_x / g.scale);
         const scale_y = g.window_center_y - (g.window_center_y / g.scale);
         print("({d},{d}) ---> ({d},{d})\n", .{ scale_prev_x, scale_prev_y, scale_x, scale_y });
+        const shift_x = (self.x - scale_prev_x) + scale_x;
+        const shift_y = (self.y - scale_prev_y) + scale_y;
+        print("shift: ({d},{d})\n", .{shift_x, shift_y});
+        self.x = shift_x;
+        self.y = shift_y;
         //print("prev scale * window_center_x: {d}\n", .{g.scale_prev * g.window_center_x});
         //print("prev scale * window_center_y: {d}\n", .{g.scale_prev * g.window_center_y});
         //print("scale * window_center_x: {d}\n", .{g.scale * g.window_center_x});
