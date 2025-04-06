@@ -1,5 +1,6 @@
 const std = @import("std");
 const print = @import("std").debug.print;
+const g = @import("GameVariables.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -10,46 +11,98 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-const m = @import("main.zig");
-
 // ****************************************************************************
 id: i32,
-texture: *c.SDL_Texture,
-loc_x: f32,
-loc_y: f32,
+surface: *c.SDL_Surface,
+x: f32,
+y: f32,
+x_prev: f32,
+y_prev: f32,
 
 // ****************************************************************************
 const Sheet = @This();
 
 // ****************************************************************************
-pub fn bindTexture2Sheet(id: i32, texture: ?*c.SDL_Texture) Sheet {
+pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
     return .{
         .id = id,
-        .texture = @ptrCast(texture),
-        .loc_x = 0.0,
-        .loc_y = 0.0,
+        .surface = @ptrCast(surface),
+        .x = 0.0,
+        .y = 0.0,
+        .x_prev = 0.0,
+        .y_prev = 0.0,
     };
 }
 
 // **********
-pub fn render(self: *Sheet, renderer: ?*c.SDL_Renderer) void {
-    var dst_rect: c.SDL_FRect = undefined;
+pub fn render(self: *Sheet) void {
 
-    if (m.gScale_prev != m.gScale_mult) {
-        const orig_len_x: f32 = (m.WINDOW_CENTER_X - m.boardgame_sheet.loc_x) / m.gScale_prev;
-        const orig_len_y: f32 = (m.WINDOW_CENTER_Y - m.boardgame_sheet.loc_y) / m.gScale_prev;
-        m.boardgame_sheet.loc_x = m.WINDOW_CENTER_X - (orig_len_x * m.gScale_mult);
-        m.boardgame_sheet.loc_y = m.WINDOW_CENTER_Y - (orig_len_y * m.gScale_mult);
+    // ********************************************************************************************
+    // ********************************************************************************************
+    var width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
+    var width_int: i32 = @as(i32, @intFromFloat(width));
+    var height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
+    var height_int: i32 = @as(i32, @intFromFloat(height));
 
-        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * m.gScale_mult;
-        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * m.gScale_mult;
-    } else {
-        dst_rect.h = @as(f32, @floatFromInt(self.texture.h)) * m.gScale_mult;
-        dst_rect.w = @as(f32, @floatFromInt(self.texture.w)) * m.gScale_mult;
+    // ***** too much shrinkage; undo
+    // if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
+    if (g.scale_rank < -3) {
+        g.scale_rank = g.scale_rank_prev;
+        g.scale = g.scale_prev;
+
+        width = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
+        width_int = @as(i32, @intFromFloat(width));
+        height = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
+        height_int = @as(i32, @intFromFloat(height));
     }
 
-    dst_rect.x = self.loc_x;
-    dst_rect.y = self.loc_y;
+    // *** create a clippage storage surface
+    const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
+    defer c.SDL_DestroySurface(clippage_surface);
 
-    _ = c.SDL_RenderTexture(renderer, self.texture, null, &dst_rect);
+    // ============================================================================================
+    if ((self.x != self.x_prev) or (self.y != self.y_prev)) {
+        print("+++++++++++++++++++++++++++++++++++++++++++\n", .{});
+        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
+        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
+        print("\n", .{});
+    }
+    if (g.scale_rank != g.scale_rank_prev) {
+        print("*******************************************\n", .{});
+        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
+        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
+        print("\n", .{});
+        const scale_prev_x = g.window_center_x - (g.window_center_x / g.scale_prev);
+        const scale_prev_y = g.window_center_y - (g.window_center_y / g.scale_prev);
+        const scale_x = g.window_center_x - (g.window_center_x / g.scale);
+        const scale_y = g.window_center_y - (g.window_center_y / g.scale);
+        print("({d},{d}) ---> ({d},{d})\n", .{ scale_prev_x, scale_prev_y, scale_x, scale_y });
+        const shift_x = (self.x - scale_prev_x) + scale_x;
+        const shift_y = (self.y - scale_prev_y) + scale_y;
+        print("shift: ({d},{d})\n", .{shift_x, shift_y});
+        self.x = shift_x;
+        self.y = shift_y;
+        //print("prev scale * window_center_x: {d}\n", .{g.scale_prev * g.window_center_x});
+        //print("prev scale * window_center_y: {d}\n", .{g.scale_prev * g.window_center_y});
+        //print("scale * window_center_x: {d}\n", .{g.scale * g.window_center_x});
+        //print("scale * window_center_y: {d}\n", .{g.scale * g.window_center_y});
+    }
+    // ============================================================================================
+
+    // *** define a clipping rectangle
+    var clipping_rect: c.SDL_Rect = undefined;
+    clipping_rect.x = @as(i32, @intFromFloat(self.x)) + 0;
+    clipping_rect.y = @as(i32, @intFromFloat(self.y)) + 0;
+    clipping_rect.w = width_int;
+    clipping_rect.h = height_int;
+
+    // *** clip a map area and store it in the clippage storage surface
+    _ = c.SDL_BlitSurface(g.mapboard_surface, &clipping_rect, clippage_surface, null);
+
+    // *** convert the surface to a texture
+    const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
+    defer c.SDL_DestroyTexture(clipped_texture);
+
+    // *** render the whole (null) texture
+    _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, null);
 }

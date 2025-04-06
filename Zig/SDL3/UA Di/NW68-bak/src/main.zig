@@ -4,6 +4,8 @@ const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
 const inits = @import("inits.zig");
 const g = @import("GameVariables.zig");
+const gL = @import("gameLoop.zig");
+const Sheet = @import("Sheet.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -48,35 +50,18 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // =======================================================================
-    inits.create_WindowAndRenderer();
+    // ============================================================================================
+    inits.desktop_screen();
     defer c.SDL_DestroyRenderer(g.renderer);
     defer c.SDL_DestroyWindow(g.window);
 
-    inits.load_boardgame_image();
-    defer c.SDL_DestroySurface(g.boardgame_surface);
+    inits.load_surfaces();
+    defer c.SDL_DestroySurface(g.mapboard_surface);
 
-    inits.load_chit_images();
-    defer c.SDL_DestroySurface(g.chits_surface);
-
-    // const stored_clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(g.display_info.*.w, g.display_info.*.h, c.SDL_PIXELFORMAT_RGBA8888);
-    var width: i32 = g.display_info.*.w;
-    var height: i32 = g.display_info.*.h;
-    width = @intFromFloat(@as(f32, @floatFromInt(width)) * 7.0);
-    height = @intFromFloat(@as(f32, @floatFromInt(height)) * 7.0);
-    const stored_clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width, height, c.SDL_PIXELFORMAT_RGBA8888);
-    defer c.SDL_DestroySurface(stored_clippage_surface);
-
-    var clip_rect: c.SDL_Rect = undefined;
-    clip_rect.x = 0;
-    clip_rect.y = 0;
-    clip_rect.w = width;
-    clip_rect.h = height;
-    _ = c.SDL_BlitSurface(g.boardgame_surface, &clip_rect, stored_clippage_surface, null);
-    const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, stored_clippage_surface);
-    defer c.SDL_DestroyTexture(clipped_texture);
-
-    // =======================================================================
+    g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
+    // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
+    // defer c.SDL_DestroyTexture(g.mapboard_texture);
+    // ============================================================================================
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -105,8 +90,7 @@ pub fn main() !void {
                             break :main_loop;
                         },
                         c.SDL_SCANCODE_I => {
-                            print("\n*** INFO ***\n", .{});
-                            // print("{d}, {d} : {d}\n", .{ boardgame_sheet.loc_x, boardgame_sheet.loc_y, gScale });
+                            print("info: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;
@@ -226,21 +210,27 @@ pub fn main() !void {
             g.all_bits = g.keybrd_bits | g.button_bits;
             g.all_dpad = g.keybrd_dpad | g.d_pad;
             // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
-        } // *** PollEVent
+            // print("{d} -- {d}\n", .{g.scale_rank, g.scale});
+        }
 
-        // =======================================================================
-        var a_rect: c.SDL_FRect = undefined;
-        a_rect.x = 0.0;
-        a_rect.y = 0.0;
-        a_rect.w = @as(f32, @floatFromInt(g.display_info.*.w));
-        a_rect.h = @as(f32, @floatFromInt(g.display_info.*.h));
-        _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &a_rect);
-        _ = c.SDL_RenderPresent(g.renderer);
-        // _ = c.SDL_BlitSurface(g.boardgame_surface, null, win_surf, null);
-        // _ = c.SDL_BlitSurface(g.chits_surface, null, win_surf, null);
-        // _ = c.SDL_UpdateWindowSurface(g.window);
-        // =======================================================================
+        // ============================================================================================
+        gL.update_world();
+        gL.draw_world();
 
+        // ****************************************************** updates
+        if (g.scale_rank != g.scale_rank_prev) { // scale change
+            g.scale_rank_prev = g.scale_rank;
+            g.scale_prev = g.scale;
+            // g.scale_delta_prev = g.scale_delta;
+        }
+        // *** location change
+        if ((g.mapboard_sheet.x != g.mapboard_sheet.x_prev) or (g.mapboard_sheet.y != g.mapboard_sheet.y_prev)) {
+            g.mapboard_sheet.x_prev = g.mapboard_sheet.x;
+            g.mapboard_sheet.y_prev = g.mapboard_sheet.y;
+        }
+        // ============================================================================================
+
+        g.d_pad = 0;
     } // *** main_loop
 }
 

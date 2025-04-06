@@ -45,8 +45,8 @@ pub fn render(self: *Sheet) void {
     var height_int: i32 = @as(i32, @intFromFloat(height));
 
     // ***** too much shrinkage; undo
-    // if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
-    if (g.scale_rank < -3) {
+    if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
+        // if (g.scale_rank < -3) {
         g.scale_rank = g.scale_rank_prev;
         g.scale = g.scale_prev;
 
@@ -61,31 +61,13 @@ pub fn render(self: *Sheet) void {
     defer c.SDL_DestroySurface(clippage_surface);
 
     // ============================================================================================
-    if ((self.x != self.x_prev) or (self.y != self.y_prev)) {
-        print("+++++++++++++++++++++++++++++++++++++++++++\n", .{});
-        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
-        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
-        print("\n", .{});
-    }
     if (g.scale_rank != g.scale_rank_prev) {
-        print("*******************************************\n", .{});
-        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
-        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
-        print("\n", .{});
         const scale_prev_x = g.window_center_x - (g.window_center_x / g.scale_prev);
         const scale_prev_y = g.window_center_y - (g.window_center_y / g.scale_prev);
         const scale_x = g.window_center_x - (g.window_center_x / g.scale);
         const scale_y = g.window_center_y - (g.window_center_y / g.scale);
-        print("({d},{d}) ---> ({d},{d})\n", .{ scale_prev_x, scale_prev_y, scale_x, scale_y });
-        const shift_x = (self.x - scale_prev_x) + scale_x;
-        const shift_y = (self.y - scale_prev_y) + scale_y;
-        print("shift: ({d},{d})\n", .{shift_x, shift_y});
-        self.x = shift_x;
-        self.y = shift_y;
-        //print("prev scale * window_center_x: {d}\n", .{g.scale_prev * g.window_center_x});
-        //print("prev scale * window_center_y: {d}\n", .{g.scale_prev * g.window_center_y});
-        //print("scale * window_center_x: {d}\n", .{g.scale * g.window_center_x});
-        //print("scale * window_center_y: {d}\n", .{g.scale * g.window_center_y});
+        self.x = self.x - scale_prev_x + scale_x;
+        self.y = self.y - scale_prev_y + scale_y;
     }
     // ============================================================================================
 

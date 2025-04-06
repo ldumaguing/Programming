@@ -1,6 +1,7 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
+const Sheet = @import("Sheet.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -13,7 +14,18 @@ const c = @cImport({
 
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
-pub var display_info: [*c]c.SDL_DisplayMode = undefined;
+pub var desktop_dim: [*c]c.SDL_DisplayMode = undefined;
+
+pub var scale_rank: i32 = 0;
+pub var scale_rank_prev: i32 = 0;
+pub var scale: f32 = 1.0;
+pub var scale_prev: f32 = 1.0;
+//pub var scale_delta: f32 = undefined;
+//pub var scale_delta_prev: f32 = undefined;
+
+pub var scroll_spd: i32 = 1;
+pub var window_center_x: f32 = 0.0;
+pub var window_center_y: f32 = 0.0;
 
 // *************** Joystick
 pub var joystick: ?*c.SDL_Joystick = null;
@@ -29,7 +41,10 @@ pub var keybrd_dpad: u16 = 0;
 pub var all_bits: u16 = 0;
 pub var all_dpad: u16 = 0;
 
-// *************** Images
-pub var boardgame_surface: ?*c.SDL_Surface = undefined;
-pub var chits_surface: ?*c.SDL_Surface = undefined;
+// *************** Surface
+pub var mapboard_surface: ?*c.SDL_Surface = undefined;
+
+// *************** Sheet (is a texture with stuff.)
+pub var mapboard_sheet: Sheet = undefined;
+
 // ***
