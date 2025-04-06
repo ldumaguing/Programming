@@ -60,7 +60,7 @@ pub fn render(self: *Sheet) void {
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
 
-    // ============================================================================================
+    // *** scaling
     if (g.scale_rank != g.scale_rank_prev) {
         const scale_prev_x = g.window_center_x - (g.window_center_x / g.scale_prev);
         const scale_prev_y = g.window_center_y - (g.window_center_y / g.scale_prev);
@@ -69,7 +69,6 @@ pub fn render(self: *Sheet) void {
         self.x = self.x - scale_prev_x + scale_x;
         self.y = self.y - scale_prev_y + scale_y;
     }
-    // ============================================================================================
 
     // *** define a clipping rectangle
     var clipping_rect: c.SDL_Rect = undefined;
