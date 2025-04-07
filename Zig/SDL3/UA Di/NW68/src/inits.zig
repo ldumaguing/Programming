@@ -18,8 +18,14 @@ const c = @cImport({
 
 pub fn load_surfaces() void {
     print("yo\n", .{});
-    const stream: ?*c.SDL_IOStream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    var stream: ?*c.SDL_IOStream = undefined;
+
+    stream = c.SDL_IOFromFile("img/Map.jpg", "r");
     g.mapboard_surface = c.IMG_LoadJPG_IO(stream);
+
+    stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
+    g.chits_surface = c.IMG_LoadPNG_IO(stream);
+
     // g.boardgame_texture = texture.createTextureFromJPG(g.renderer, "img/Map.jpg");
     // g.boardgame_sheet = Sheet.bindTexture2Sheet(0, g.boardgame_texture);
 
@@ -29,8 +35,8 @@ pub fn load_surfaces() void {
 
 pub fn desktop_screen() void {
     g.desktop_dim = @constCast(c.SDL_GetCurrentDisplayMode(1));
-    g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, 0);
-    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
+    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, 0);
+    g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
     g.renderer = c.SDL_CreateRenderer(g.window, null);
 
     g.window_center_x = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / 2.0;

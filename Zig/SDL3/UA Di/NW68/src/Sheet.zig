@@ -16,8 +16,6 @@ id: i32,
 surface: *c.SDL_Surface,
 x: f32,
 y: f32,
-x_prev: f32,
-y_prev: f32,
 
 // ****************************************************************************
 const Sheet = @This();
@@ -29,8 +27,6 @@ pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
         .surface = @ptrCast(surface),
         .x = 0.0,
         .y = 0.0,
-        .x_prev = 0.0,
-        .y_prev = 0.0,
     };
 }
 

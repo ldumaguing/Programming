@@ -17,6 +17,8 @@ pub fn draw_world() void {
 
     g.mapboard_sheet.render(); // the map is a good reference.
 
+    g.aSprite.render();
+
     const W: f32 = @floatFromInt(g.desktop_dim.*.w);
     const H: f32 = @floatFromInt(g.desktop_dim.*.h);
     _ = c.SDL_RenderLine(g.renderer, 0, 0, W, H);

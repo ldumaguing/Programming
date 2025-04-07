@@ -6,6 +6,7 @@ const inits = @import("inits.zig");
 const g = @import("GameVariables.zig");
 const gL = @import("gameLoop.zig");
 const Sheet = @import("Sheet.zig");
+const Sprite = @import("Sprite.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -59,6 +60,9 @@ pub fn main() !void {
     defer c.SDL_DestroySurface(g.mapboard_surface);
 
     g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
+
+    g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
+
     // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
     // defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
@@ -213,7 +217,6 @@ pub fn main() !void {
             // print("{d} -- {d}\n", .{g.scale_rank, g.scale});
         }
 
-        // ============================================================================================
         gL.update_world();
         gL.draw_world();
 
@@ -221,14 +224,7 @@ pub fn main() !void {
         if (g.scale_rank != g.scale_rank_prev) { // scale change
             g.scale_rank_prev = g.scale_rank;
             g.scale_prev = g.scale;
-            // g.scale_delta_prev = g.scale_delta;
         }
-        // *** location change
-        if ((g.mapboard_sheet.x != g.mapboard_sheet.x_prev) or (g.mapboard_sheet.y != g.mapboard_sheet.y_prev)) {
-            g.mapboard_sheet.x_prev = g.mapboard_sheet.x;
-            g.mapboard_sheet.y_prev = g.mapboard_sheet.y;
-        }
-        // ============================================================================================
 
         g.d_pad = 0;
     } // *** main_loop
