@@ -100,8 +100,8 @@ pub fn render(self: *Sprite) void {
     defer c.SDL_DestroyTexture(clipped_texture);
 
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.x = self.x;
-    dst_rect.y = self.y;
+    dst_rect.x = self.x - g.mapboard_sheet.x;
+    dst_rect.y = self.y - g.mapboard_sheet.y;
     dst_rect.w = 150.0;
     dst_rect.h = 150.0;
 
