@@ -18,6 +18,7 @@ x: f32,
 y: f32,
 index: i32,
 size: i32,
+hex_loc: [2]i32,
 
 // ****************************************************************************
 const Sprite = @This();
@@ -31,7 +32,22 @@ pub fn bind_Surface_Sprite(id: i32, surface: ?*c.SDL_Surface, index: i32, size: 
         .y = 0.0,
         .index = index,
         .size = size,
+        .hex_loc = .{ 0, 0 },
     };
+}
+
+// **********
+pub fn set_HexID(self: *Sprite, x: i32, y: i32) void {
+    self.hex_loc[0] = x;
+    self.hex_loc[1] = y;
+
+    self.x = @floatCast(@as(f64, @floatFromInt(g.ZERO_ZERO[0])) + (@as(f64, @floatFromInt(x)) * g.Hex_Dim[0]));
+    self.y = @floatCast(@as(f64, @floatFromInt(g.ZERO_ZERO[1])) + (@as(f64, @floatFromInt(y)) * g.Hex_Dim[1]));
+    if (@mod(x, 2) != 0) {
+        self.y += g.Half_Hex_Y;
+    }
+    print(">>>>>{d},{d}\n", .{ self.x, self.y });
+    //self.y = g.ZERO_ZERO[1] + (y * g.Hex_Dim[1]);
 }
 
 // **********
@@ -72,7 +88,7 @@ pub fn render(self: *Sprite) void {
     // *** define a clipping square
     var clipping_rect: c.SDL_Rect = undefined;
     clipping_rect.x = 0;
-    clipping_rect.y = 0;
+    clipping_rect.y = self.index * self.size;
     clipping_rect.w = self.size;
     clipping_rect.h = self.size;
 
@@ -84,8 +100,8 @@ pub fn render(self: *Sprite) void {
     defer c.SDL_DestroyTexture(clipped_texture);
 
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.x = 0.0;
-    dst_rect.y = 0.0;
+    dst_rect.x = self.x;
+    dst_rect.y = self.y;
     dst_rect.w = 150.0;
     dst_rect.h = 150.0;
 

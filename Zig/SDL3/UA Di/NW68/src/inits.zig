@@ -19,6 +19,7 @@ pub fn mapboard() void {
     const LOWER_RIGHT = [_]i32{ 5020, 3846 };
     g.Hex_Dim[0] = @as(f64, @floatFromInt((LOWER_RIGHT[0] - g.ZERO_ZERO[0]))) / 28.0;
     g.Hex_Dim[1] = @as(f64, @floatFromInt((LOWER_RIGHT[1] - g.ZERO_ZERO[1]))) / 19.0;
+    g.Half_Hex_Y = @floatCast(g.Hex_Dim[1] / 2.0);
 }
 
 pub fn load_surfaces() void {

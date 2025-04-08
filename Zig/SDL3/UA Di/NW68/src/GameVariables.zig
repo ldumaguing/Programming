@@ -53,5 +53,6 @@ pub var aSprite: Sprite = undefined;
 // *************** Mapboard info
 pub const ZERO_ZERO = [_]i32{ 292, 141 };
 pub var Hex_Dim = [_]f64{ 0.0, 0.0 };
+pub var Half_Hex_Y: f32 = 0.0;
 
 // ***
