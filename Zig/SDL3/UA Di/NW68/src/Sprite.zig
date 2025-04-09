@@ -99,11 +99,13 @@ pub fn render(self: *Sprite) void {
     const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
     defer c.SDL_DestroyTexture(clipped_texture);
 
+    print("{d}\n", .{g.scale});
+
     var dst_rect: c.SDL_FRect = undefined;
-    dst_rect.x = self.x - g.mapboard_sheet.x;
-    dst_rect.y = self.y - g.mapboard_sheet.y;
-    dst_rect.w = 150.0;
-    dst_rect.h = 150.0;
+    dst_rect.x = (self.x * g.scale) - (g.mapboard_sheet.x * g.scale);
+    dst_rect.y = (self.y * g.scale) - (g.mapboard_sheet.y * g.scale);
+    dst_rect.w = 150.0 * g.scale;
+    dst_rect.h = 150.0 * g.scale;
 
     // *** render the whole (null) texture
     _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &dst_rect);
