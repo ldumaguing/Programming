@@ -23,7 +23,7 @@ pub fn mapboard() void {
 }
 
 pub fn load_surfaces() void {
-    print("yo\n", .{});
+    // print("yo\n", .{});
     var stream: ?*c.SDL_IOStream = undefined;
 
     stream = c.SDL_IOFromFile("img/Map.jpg", "r");
@@ -51,7 +51,7 @@ pub fn desktop_screen() void {
 
 // ************************************************************************************************
 pub fn define_button_mods(aText: [*c]const u8) !void {
-    print("yo: {s}\n", .{aText});
+    // print("yo: {s}\n", .{aText});
     var joystick_type: i32 = 0;
 
     var buffer = [_]u8{0} ** 100;

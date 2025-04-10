@@ -46,7 +46,7 @@ pub fn set_HexID(self: *Sprite, x: i32, y: i32) void {
     if (@mod(x, 2) != 0) {
         self.y += g.Half_Hex_Y;
     }
-    print(">>>>>{d},{d}\n", .{ self.x, self.y });
+    //print(">>>>>{d},{d}\n", .{ self.x, self.y });
     //self.y = g.ZERO_ZERO[1] + (y * g.Hex_Dim[1]);
 }
 
@@ -99,7 +99,7 @@ pub fn render(self: *Sprite) void {
     const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
     defer c.SDL_DestroyTexture(clipped_texture);
 
-    print("{d}\n", .{g.scale});
+    // print("{d}\n", .{g.scale});
 
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.x = (self.x * g.scale) - (g.mapboard_sheet.x * g.scale);

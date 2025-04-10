@@ -70,7 +70,7 @@ pub fn main() !void {
     // defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
 
-    print("{d},{d}\n", .{ g.Hex_Dim[0], g.Hex_Dim[1] });
+    // print("{d},{d}\n", .{ g.Hex_Dim[0], g.Hex_Dim[1] });
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -99,7 +99,10 @@ pub fn main() !void {
                             break :main_loop;
                         },
                         c.SDL_SCANCODE_I => {
-                            print("info: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
+                            print("{d}\n", .{g.scale});
+                            print("map: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
+                            print("sprite: {d}, {d}\n", .{ g.aSprite.x, g.aSprite.y });
+                            print("map clip: {d}, {d}\n", .{ g.mapboard_clip_w, g.mapboard_clip_h });
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;

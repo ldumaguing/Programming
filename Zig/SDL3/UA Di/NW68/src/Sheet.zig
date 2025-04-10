@@ -52,6 +52,9 @@ pub fn render(self: *Sheet) void {
         height_int = @as(i32, @intFromFloat(height));
     }
 
+    g.mapboard_clip_w = width_int;
+    g.mapboard_clip_h = height_int;
+
     // *** create a clippage storage surface
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
@@ -68,8 +71,8 @@ pub fn render(self: *Sheet) void {
 
     // *** define a clipping rectangle
     var clipping_rect: c.SDL_Rect = undefined;
-    clipping_rect.x = @as(i32, @intFromFloat(self.x)) + 0;
-    clipping_rect.y = @as(i32, @intFromFloat(self.y)) + 0;
+    clipping_rect.x = @as(i32, @intFromFloat(self.x));
+    clipping_rect.y = @as(i32, @intFromFloat(self.y));
     clipping_rect.w = width_int;
     clipping_rect.h = height_int;
 
