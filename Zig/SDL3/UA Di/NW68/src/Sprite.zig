@@ -52,10 +52,6 @@ pub fn set_HexID(self: *Sprite, x: i32, y: i32) void {
 
 // **********
 pub fn render(self: *Sprite) void {
-    if (self.x < g.mapboard_sheet.x) {
-        return;
-    }
-
     // *** create a clippage storage surface
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(self.size, self.size, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
@@ -79,8 +75,16 @@ pub fn render(self: *Sprite) void {
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.x = (self.x * g.scale) - (g.mapboard_sheet.x * g.scale);
     dst_rect.y = (self.y * g.scale) - (g.mapboard_sheet.y * g.scale);
-    dst_rect.w = 150.0 * g.scale;
-    dst_rect.h = 150.0 * g.scale;
+    dst_rect.w = @as(f32, @floatFromInt(self.size)) * g.scale;
+    dst_rect.h = @as(f32, @floatFromInt(self.size)) * g.scale;
+
+    if (self.x < g.mapboard_sheet.x) {
+        const right_most = self.x + @as(f32, @floatFromInt(self.size));
+        if (right_most < g.mapboard_sheet.x) {
+            //print("...{d}--{d}...{d}\n", .{ self.x, g.mapboard_sheet.x, right_most });
+            return;
+        }
+    }
 
     // *** render the whole (null) texture
     _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &dst_rect);
