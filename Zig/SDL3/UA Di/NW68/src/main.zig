@@ -64,7 +64,7 @@ pub fn main() !void {
     g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
 
     g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
-    g.aSprite.set_HexID(28, 0);
+    g.aSprite.set_HexID(1, 1);
 
     // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
     // defer c.SDL_DestroyTexture(g.mapboard_texture);

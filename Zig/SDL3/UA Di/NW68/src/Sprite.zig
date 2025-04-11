@@ -52,38 +52,13 @@ pub fn set_HexID(self: *Sprite, x: i32, y: i32) void {
 
 // **********
 pub fn render(self: *Sprite) void {
-    //          // ********************************************************************************************
-    //          // ********************************************************************************************
-    //          var width: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
-    //          var width_int: i32 = @as(i32, @intFromFloat(width));
-    //          var height: f32 = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
-    //          var height_int: i32 = @as(i32, @intFromFloat(height));
-
-    //          // ***** too much shrinkage; undo
-    //          if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
-    //              // if (g.scale_rank < -3) {
-    //              g.scale_rank = g.scale_rank_prev;
-    //              g.scale = g.scale_prev;
-
-    //              width = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / g.scale;
-    //              width_int = @as(i32, @intFromFloat(width));
-    //              height = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / g.scale;
-    //              height_int = @as(i32, @intFromFloat(height));
-    //          }
+    if (self.x < g.mapboard_sheet.x) {
+        return;
+    }
 
     // *** create a clippage storage surface
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(self.size, self.size, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
-
-    //          // *** scaling
-    //          if (g.scale_rank != g.scale_rank_prev) {
-    //              const scale_prev_x = g.window_center_x - (g.window_center_x / g.scale_prev);
-    //              const scale_prev_y = g.window_center_y - (g.window_center_y / g.scale_prev);
-    //              const scale_x = g.window_center_x - (g.window_center_x / g.scale);
-    //              const scale_y = g.window_center_y - (g.window_center_y / g.scale);
-    //              self.x = self.x - scale_prev_x + scale_x;
-    //              self.y = self.y - scale_prev_y + scale_y;
-    //          }
 
     // *** define a clipping square
     var clipping_rect: c.SDL_Rect = undefined;
