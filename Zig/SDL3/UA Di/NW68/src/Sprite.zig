@@ -70,22 +70,33 @@ pub fn render(self: *Sprite) void {
     const clipped_texture = c.SDL_CreateTextureFromSurface(g.renderer, clippage_surface);
     defer c.SDL_DestroyTexture(clipped_texture);
 
-    // print("{d}\n", .{g.scale});
-
+    // *** create silly putty rect
     var dst_rect: c.SDL_FRect = undefined;
     dst_rect.x = (self.x * g.scale) - (g.mapboard_sheet.x * g.scale);
     dst_rect.y = (self.y * g.scale) - (g.mapboard_sheet.y * g.scale);
     dst_rect.w = @as(f32, @floatFromInt(self.size)) * g.scale;
     dst_rect.h = @as(f32, @floatFromInt(self.size)) * g.scale;
 
+    // *** don't render if out of screen
     if (self.x < g.mapboard_sheet.x) {
         const right_most = self.x + @as(f32, @floatFromInt(self.size));
         if (right_most < g.mapboard_sheet.x) {
-            //print("...{d}--{d}...{d}\n", .{ self.x, g.mapboard_sheet.x, right_most });
             return;
         }
     }
+    if (self.y < g.mapboard_sheet.y) {
+        const bottom_most = self.y + @as(f32, @floatFromInt(self.size));
+        if (bottom_most < g.mapboard_sheet.y) {
+            return;
+        }
+    }
+    if (@as(f32, @floatFromInt(g.mapboard_clip_w)) + g.mapboard_sheet.x < self.x) {
+        return;
+    }
+    if (@as(f32, @floatFromInt(g.mapboard_clip_h)) + g.mapboard_sheet.y < self.y) {
+        return;
+    }
 
-    // *** render the whole (null) texture
+    // *** render the whole (null) texture with silly putty
     _ = c.SDL_RenderTexture(g.renderer, clipped_texture, null, &dst_rect);
 }
