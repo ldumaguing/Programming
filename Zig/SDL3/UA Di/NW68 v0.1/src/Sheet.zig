@@ -16,8 +16,6 @@ id: i32,
 surface: *c.SDL_Surface,
 x: f32,
 y: f32,
-x_prev: f32,
-y_prev: f32,
 
 // ****************************************************************************
 const Sheet = @This();
@@ -29,8 +27,6 @@ pub fn bind_Surface_Sheet(id: i32, surface: ?*c.SDL_Surface) Sheet {
         .surface = @ptrCast(surface),
         .x = 0.0,
         .y = 0.0,
-        .x_prev = 0.0,
-        .y_prev = 0.0,
     };
 }
 
@@ -45,8 +41,8 @@ pub fn render(self: *Sheet) void {
     var height_int: i32 = @as(i32, @intFromFloat(height));
 
     // ***** too much shrinkage; undo
-    // if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
-    if (g.scale_rank < -3) {
+    if ((width_int > self.surface.w) or (height_int > self.surface.h)) {
+        // if (g.scale_rank < -3) {
         g.scale_rank = g.scale_rank_prev;
         g.scale = g.scale_prev;
 
@@ -56,43 +52,27 @@ pub fn render(self: *Sheet) void {
         height_int = @as(i32, @intFromFloat(height));
     }
 
+    g.mapboard_clip_w = width_int;
+    g.mapboard_clip_h = height_int;
+
     // *** create a clippage storage surface
     const clippage_surface: *c.SDL_Surface = c.SDL_CreateSurface(width_int, height_int, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(clippage_surface);
 
-    // ============================================================================================
-    if ((self.x != self.x_prev) or (self.y != self.y_prev)) {
-        print("+++++++++++++++++++++++++++++++++++++++++++\n", .{});
-        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
-        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
-        print("\n", .{});
-    }
+    // *** scaling
     if (g.scale_rank != g.scale_rank_prev) {
-        print("*******************************************\n", .{});
-        print("scale change: {d} ---> {d} | {d} ---> {d}\n", .{ g.scale_rank_prev, g.scale_rank, g.scale_prev, g.scale });
-        print("map: ({d},{d}) ---> ({d},{d})\n", .{ self.x_prev, self.y_prev, self.x, self.y });
-        print("\n", .{});
         const scale_prev_x = g.window_center_x - (g.window_center_x / g.scale_prev);
         const scale_prev_y = g.window_center_y - (g.window_center_y / g.scale_prev);
         const scale_x = g.window_center_x - (g.window_center_x / g.scale);
         const scale_y = g.window_center_y - (g.window_center_y / g.scale);
-        print("({d},{d}) ---> ({d},{d})\n", .{ scale_prev_x, scale_prev_y, scale_x, scale_y });
-        const shift_x = (self.x - scale_prev_x) + scale_x;
-        const shift_y = (self.y - scale_prev_y) + scale_y;
-        print("shift: ({d},{d})\n", .{shift_x, shift_y});
-        self.x = shift_x;
-        self.y = shift_y;
-        //print("prev scale * window_center_x: {d}\n", .{g.scale_prev * g.window_center_x});
-        //print("prev scale * window_center_y: {d}\n", .{g.scale_prev * g.window_center_y});
-        //print("scale * window_center_x: {d}\n", .{g.scale * g.window_center_x});
-        //print("scale * window_center_y: {d}\n", .{g.scale * g.window_center_y});
+        self.x = self.x - scale_prev_x + scale_x;
+        self.y = self.y - scale_prev_y + scale_y;
     }
-    // ============================================================================================
 
     // *** define a clipping rectangle
     var clipping_rect: c.SDL_Rect = undefined;
-    clipping_rect.x = @as(i32, @intFromFloat(self.x)) + 0;
-    clipping_rect.y = @as(i32, @intFromFloat(self.y)) + 0;
+    clipping_rect.x = @as(i32, @intFromFloat(self.x));
+    clipping_rect.y = @as(i32, @intFromFloat(self.y));
     clipping_rect.w = width_int;
     clipping_rect.h = height_int;
 
