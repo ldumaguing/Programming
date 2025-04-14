@@ -103,6 +103,7 @@ pub fn main() !void {
                             print("map: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
                             print("sprite: {d}, {d}\n", .{ g.aSprite.x, g.aSprite.y });
                             print("map clip: {d}, {d}\n", .{ g.mapboard_clip_w, g.mapboard_clip_h });
+                            c.SDL_WarpMouseInWindow(g.window, 10.0, 10.0);
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;
