@@ -52,12 +52,14 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // ============================================================================================
+    inits.load_surfaces();
+    defer c.SDL_DestroySurface(g.mapboard_surface);
+    defer c.SDL_DestroySurface(g.chits_surface);
+    defer c.SDL_DestroySurface(g.arrow_surface);
+
     inits.desktop_screen();
     defer c.SDL_DestroyRenderer(g.renderer);
     defer c.SDL_DestroyWindow(g.window);
-
-    inits.load_surfaces();
-    defer c.SDL_DestroySurface(g.mapboard_surface);
 
     inits.mapboard();
 

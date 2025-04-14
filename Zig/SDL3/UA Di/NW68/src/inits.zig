@@ -32,6 +32,9 @@ pub fn load_surfaces() void {
     stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
     g.chits_surface = c.IMG_LoadPNG_IO(stream);
 
+    stream = c.SDL_IOFromFile("img2/arrow.png", "r");
+    g.arrow_surface = c.IMG_LoadPNG_IO(stream);
+
     // g.boardgame_texture = texture.createTextureFromJPG(g.renderer, "img/Map.jpg");
     // g.boardgame_sheet = Sheet.bindTexture2Sheet(0, g.boardgame_texture);
 
@@ -47,6 +50,9 @@ pub fn desktop_screen() void {
 
     g.window_center_x = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / 2.0;
     g.window_center_y = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / 2.0;
+
+    const cursor = c.SDL_CreateColorCursor(g.arrow_surface, 1, 1);
+    _ = c.SDL_SetCursor(cursor);
 }
 
 // ************************************************************************************************

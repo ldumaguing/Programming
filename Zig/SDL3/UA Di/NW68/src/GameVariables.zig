@@ -45,6 +45,7 @@ pub var mapboard_surface: ?*c.SDL_Surface = undefined;
 pub var mapboard_clip_w: i32 = 0;
 pub var mapboard_clip_h: i32 = 0;
 pub var chits_surface: ?*c.SDL_Surface = undefined;
+pub var arrow_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Sheet (is a texture with stuff.)
 pub var mapboard_sheet: Sheet = undefined;
