@@ -67,12 +67,7 @@ pub fn main() !void {
 
     g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
     g.aSprite.set_HexID(1, 1);
-
-    // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
-    // defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
-
-    // print("{d},{d}\n", .{ g.Hex_Dim[0], g.Hex_Dim[1] });
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
