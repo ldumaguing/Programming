@@ -62,7 +62,6 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(g.window);
 
     inits.mapboard();
-
     g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
 
     g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
@@ -100,6 +99,7 @@ pub fn main() !void {
                             print("map: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
                             print("sprite: {d}, {d}\n", .{ g.aSprite.x, g.aSprite.y });
                             print("map clip: {d}, {d}\n", .{ g.mapboard_clip_w, g.mapboard_clip_h });
+                            print("scroll speed: {d} -- {d}", .{g.scroll_spd, g.scale_rank});
                             c.SDL_WarpMouseInWindow(g.window, 10.0, 10.0);
                         },
                         c.SDL_SCANCODE_DELETE => {
