@@ -2,10 +2,6 @@ const std = @import("std");
 const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
 const g = @import("GameVariables.zig");
-// const m = @import("main.zig");
-// const texture = @import("texture.zig");
-// const Sheet = @import("Sheet.zig");
-// const Chit = @import("Chit.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -51,7 +47,6 @@ pub fn desktop_screen() void {
 
 // ************************************************************************************************
 pub fn define_button_mods(aText: [*c]const u8) !void {
-    // print("yo: {s}\n", .{aText});
     var joystick_type: i32 = 0;
 
     var buffer = [_]u8{0} ** 100;
