@@ -45,24 +45,33 @@ pub fn update_world() void {
     } else {
         g.scale = 1.0 / (1.0 - @as(f32, @floatFromInt(g.scale_rank)));
     }
+
     // *** update scroll speed
-    if (g.scale_rank < 0) {
-        g.scroll_spd = 10;
-    } else {
-        g.scroll_spd = 1;
+    g.scroll_spd = 10;
+    if (g.scale_rank == -1) {
+        g.scroll_spd = 50;
+    }
+    if (g.scale_rank == -2) {
+        g.scroll_spd = 110;
+    }
+    if (g.scale_rank == -3) {
+        g.scroll_spd = 200;
+    }
+    if (g.scale_rank >= 3) {
+        g.scroll_spd = 5;
     }
 
     // ****************************** move mapboard
     if ((g.all_dpad & 1) > 0) {
-        g.mapboard_sheet.y += 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.y += @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 2) > 0) {
-        g.mapboard_sheet.x -= 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.x -= @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 4) > 0) {
-        g.mapboard_sheet.y -= 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.y -= @as(f32, @floatFromInt(g.scroll_spd));
     }
     if ((g.all_dpad & 8) > 0) {
-        g.mapboard_sheet.x += 10 * @as(f32, @floatFromInt(g.scroll_spd));
+        g.mapboard_sheet.x += @as(f32, @floatFromInt(g.scroll_spd));
     }
 }

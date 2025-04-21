@@ -52,25 +52,21 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // ============================================================================================
+    inits.load_surfaces();
+    defer c.SDL_DestroySurface(g.mapboard_surface);
+    defer c.SDL_DestroySurface(g.chits_surface);
+    defer c.SDL_DestroySurface(g.arrow_surface);
+
     inits.desktop_screen();
     defer c.SDL_DestroyRenderer(g.renderer);
     defer c.SDL_DestroyWindow(g.window);
 
-    inits.load_surfaces();
-    defer c.SDL_DestroySurface(g.mapboard_surface);
-
     inits.mapboard();
-
     g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
 
     g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
     g.aSprite.set_HexID(1, 1);
-
-    // g.mapboard_texture = c.SDL_CreateTextureFromSurface(g.renderer, g.mapboard_surface);
-    // defer c.SDL_DestroyTexture(g.mapboard_texture);
     // ============================================================================================
-
-    // print("{d},{d}\n", .{ g.Hex_Dim[0], g.Hex_Dim[1] });
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -103,6 +99,8 @@ pub fn main() !void {
                             print("map: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
                             print("sprite: {d}, {d}\n", .{ g.aSprite.x, g.aSprite.y });
                             print("map clip: {d}, {d}\n", .{ g.mapboard_clip_w, g.mapboard_clip_h });
+                            print("scroll speed: {d} -- {d}", .{g.scroll_spd, g.scale_rank});
+                            c.SDL_WarpMouseInWindow(g.window, 10.0, 10.0);
                         },
                         c.SDL_SCANCODE_DELETE => {
                             // boardgame_sheet.loc_x = 0.0;

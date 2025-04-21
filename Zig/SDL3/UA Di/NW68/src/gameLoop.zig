@@ -54,6 +54,9 @@ pub fn update_world() void {
     if (g.scale_rank == -2) {
         g.scroll_spd = 110;
     }
+    if (g.scale_rank == -3) {
+        g.scroll_spd = 200;
+    }
     if (g.scale_rank >= 3) {
         g.scroll_spd = 5;
     }
