@@ -223,14 +223,14 @@ pub fn main() !void {
             // print("{d} -- {d}\n", .{g.scale_rank, g.scale});
         }
 
-        gL.update_world();
-        gL.draw_world();
-
         // ****************************************************** updates
         if (g.scale_rank != g.scale_rank_prev) { // scale change
             g.scale_rank_prev = g.scale_rank;
             g.scale_prev = g.scale;
         }
+
+        gL.update_world();
+        gL.draw_world();
 
         g.d_pad = 0;
     } // *** main_loop
