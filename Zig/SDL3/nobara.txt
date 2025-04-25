@@ -1,0 +1,19 @@
+dnf install mc gedit neovim vim fish
+dnf install steam
+dnf install cmake
+dnf install -y alsa-lib-devel 
+dnf install -y jack-audio-connection-kit-devel
+dnf install -y pipewire-devel
+dnf install -y pulseaudio-libs-devel pulseaudio-qt-qt6-devel
+dnf install -y libdrm-devel
+dnf install -y mesa-libgbm-devel
+dnf install -y wayland-devel
+dnf install -y libdecor-devel
+dnf install -y libunwind-devel llvm-libunwind-devel
+dnf install -y libusb1-devel
+dnf install -y xorg-x11-server-devel
+dnf install -y dbus-devel dbus-glib-devel
+dnf install -y xorg-x11-drv-libinput-devel
+dnf install -y libavif-devel
+dnf install -y libtiff-devel
+dnf install -y libwebp-devel
