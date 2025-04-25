@@ -16,6 +16,21 @@ sudo ldconfig
 https://github.com/ziglang/zig/wiki/Building-Zig-From-Source#for-freebsd
 
 
+************ kate
+{
+  "servers": {
+    "zig": {
+      "command": ["/home/ayeka/bin/zls"],
+      "url": "https://github.com/zigtools/zls",
+      "highlightingModeRegex": "^Zig$",
+      "initializationOptions": {
+        "zig_exe_path": "/home/ayeka/bin/zig"
+      }
+    }
+  }
+}
+
+
 
 ************ neovim
 cd .config
