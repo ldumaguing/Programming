@@ -8,7 +8,7 @@ const fs = std.fs;
 pub fn main() !void {
     const cwd = fs.cwd();
     const open_file_flags = fs.File.OpenFlags{ .mode = .read_only };
-    const file_path = "chargen-901225-01.bin";
+    const file_path = "chargen-906143-02.bin";
 
     const file = try cwd.openFile(file_path, open_file_flags);
 
