@@ -19,8 +19,8 @@ pub fn draw_world() void {
 
     g.aSprite.render();
 
-    const W: f32 = @floatFromInt(g.desktop_dim.*.w);
-    const H: f32 = @floatFromInt(g.desktop_dim.*.h);
+    const W: f32 = g.desktop_w;
+    const H: f32 = g.desktop_h;
     _ = c.SDL_RenderLine(g.renderer, 0, 0, W, H);
     _ = c.SDL_RenderLine(g.renderer, 0, H, W, 0);
 

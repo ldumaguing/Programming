@@ -33,13 +33,17 @@ pub fn load_surfaces() void {
 }
 
 pub fn desktop_screen() void {
-    g.desktop_dim = @constCast(c.SDL_GetCurrentDisplayMode(1));
-    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, 0);
-    g.window = c.SDL_CreateWindow("Nuklear Winter '68", g.desktop_dim.*.w, g.desktop_dim.*.h, c.SDL_WINDOW_FULLSCREEN);
+    // const dimention = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+    // g.desktop_w = @as(f32, @floatFromInt(dimention.*.w));
+    // g.desktop_h = @as(f32, @floatFromInt(dimention.*.h));
+    g.desktop_w = 1066;
+    g.desktop_h = 600;
+    g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), 0);
+    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_FULLSCREEN);
     g.renderer = c.SDL_CreateRenderer(g.window, null);
 
-    g.window_center_x = @as(f32, @floatFromInt(g.desktop_dim.*.w)) / 2.0;
-    g.window_center_y = @as(f32, @floatFromInt(g.desktop_dim.*.h)) / 2.0;
+    g.window_center_x = g.desktop_w / 2.0;
+    g.window_center_y = g.desktop_h / 2.0;
 
     const cursor = c.SDL_CreateColorCursor(g.arrow_surface, 1, 1);
     _ = c.SDL_SetCursor(cursor);

@@ -15,7 +15,8 @@ const c = @cImport({
 
 pub var window: ?*c.SDL_Window = undefined;
 pub var renderer: ?*c.SDL_Renderer = undefined;
-pub var desktop_dim: [*c]c.SDL_DisplayMode = undefined;
+pub var desktop_w: f32 = 0.0;
+pub var desktop_h: f32 = 0.0;
 
 pub var scale_rank: i32 = 0;
 pub var scale_rank_prev: i32 = 0;
