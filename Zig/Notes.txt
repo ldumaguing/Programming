@@ -5,9 +5,9 @@ https://stackoverflow.com/questions/77024689/how-do-i-compare-two-zero-terminate
 
 
 
-cmake .. -DCMAKE_BUILD_TYPE=Release --install-prefix /usr
-cmake --build . --config Release --parallel
-sudo cmake --install . --config Release
+cmake .. -DCMAKE_BUILD_TYPE=Release --install-prefix /usr &&
+cmake --build . --config Release --parallel &&
+sudo cmake --install . --config Release &&
 sudo ldconfig
 
 
