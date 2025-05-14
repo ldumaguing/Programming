@@ -1,49 +1,26 @@
-dnf install mc gedit neovim vim fish
-dnf install steam
-dnf install cmake
-dnf install -y alsa-lib-devel &&
+****************************************************************
+dnf install -y neovim fish vim mc gedit geany htop &&
+dnf install -y cmake make &&
+dnf install -y libX11-devel  libXfont2-devel  libXext-devel  libXrender-devel  libXext-devel  libXfont-devel &&
+dnf install -y libXrandr-devel  xorg-x11-xtrans-devel &&
+dnf install -y xorg-x11-drv-libinput-devel  xorg-x11-drv-evdev-devel &&
+dnf install -y libXScrnSaver-devel &&
+dnf install -y xorg-x11-drv-wacom-devel  xorg-x11-drv-synaptics-devel  xorg-x11-drv-evdev-devel &&
+dnf install -y xorg-x11-drv-evdev-devel &&
+dnf install -y alsa-lib-devel zita-alsa-pcmi-devel &&
 dnf install -y jack-audio-connection-kit-devel &&
 dnf install -y pipewire-devel &&
-dnf install -y pulseaudio-libs-devel pulseaudio-qt-qt6-devel &&
-dnf install -y libdrm-devel &&
+dnf install -y libdrm-devel  libdrm-armada-devel  mingw64-drmingw-devel &&
+dnf install -y pulseaudio-libs-devel &&
+dnf install -y ghc-OpenGL-devel  ghc-OpenGLRaw-devel  gtkglext-devel  &&
 dnf install -y mesa-libgbm-devel &&
-dnf install -y wayland-devel &&
-dnf install -y libdecor-devel &&
-dnf install -y libunwind-devel llvm-libunwind-devel &&
-dnf install -y libusb1-devel &&
-dnf install -y xorg-x11-server-devel &&
-dnf install -y dbus-devel dbus-glib-devel &&
-dnf install -y xorg-x11-drv-libinput-devel &&
-dnf install -y libavif-devel &&
-dnf install -y libtiff-devel &&
-dnf install -y libwebp-devel
+dnf install -y xorg-x11-server-Xwayland-devel  egl-wayland-devel  wayland-devel &&
+dnf install -y libxkbcommon-devel  libxkbcommon-x11-devel  xkbcomp-devel &&
+dnf install -y libunwind-devel  llvm-libunwind-devel
+dnf install -y libusbg-devel  libusb-compat-0.1-devel  libusb1-devel  libusbmuxd-devel  usbrelay-devel &&
+dnf install -y libdecor-devel   &&
+dnf install -y kdecoration-devel   &&
+dnf install -y  libtiff-devel &&
+dnf install -y  libavif-devel
 
-****************************************************************
-    3  dnf install google-chrome-stable_current_x86_64.rpm
-    4  dnf install neovim fish vim mc gedit geany htop
-   10  dnf install cmake make
-   25  dnf install  libX11-devel  libXfont2-devel  libXext-devel  libXrender-devel  libXext-devel  libXfont-devel
-   27  dnf install  libXrandr-devel  xorg-x11-xtrans-devel
-   29  dnf install   xorg-x11-drv-libinput-devel  xorg-x11-drv-evdev-devel
-   31  dnf install    libXScrnSaver-devel
-   33  dnf install     xorg-x11-drv-wacom-devel  xorg-x11-drv-synaptics-devel  xorg-x11-drv-evdev-devel
-   35  dnf install    xorg-x11-drv-evdev-devel
-   37  dnf install  alsa-lib-devel zita-alsa-pcmi-devel
-   39  dnf install  jack-audio-connection-kit-devel pipewire-jack-audio-connection-kit-devel
-   40  dnf install  jack-audio-connection-kit-devel 
-   42  dnf install  pipewire-devel  pipewire-jack-audio-connection-kit-devel  kpipewire-devel
-   43  dnf install  pipewire-devel  pipewire-jack-audio-connection-kit-devel  
-   44  dnf install  pipewire-devel  
-   46  dnf install  libdrm-devel  libdrm-armada-devel  mingw64-drmingw-devel
-   48  dnf install  pulseaudio-libs-devel
-   50  dnf install  ghc-OpenGL-devel  ghc-OpenGLRaw-devel  gtkglext-devel 
-   52  dnf install   mesa-libgbm-devel
-   54  dnf install  xorg-x11-server-Xwayland-devel  egl-wayland-devel  wayland-devel
-   56  dnf install  libxkbcommon-devel  libxkbcommon-x11-devel  xkbcomp-devel
-   58  dnf install  libunwind-devel  llvm-libunwind-devel
-   60  dnf install  libusbg-devel  libusb-compat-0.1-devel  libusb1-devel  libusbmuxd-devel  usbrelay-devel
-   62  dnf install  libdecor-devel  kdecoration-devel  kdecoration5-devel
-   63  dnf install  libdecor-devel  
-   64  dnf install    kdecoration-devel  
-   66  dnf install  libtiff-devel
-   68  dnf install  libavif-devel
+
