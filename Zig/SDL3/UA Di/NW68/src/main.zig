@@ -109,51 +109,51 @@ pub fn main() !void {
                         },
                         // **********
                         c.SDL_SCANCODE_SEMICOLON => {
-                            g.keybrd_bits |= 1;
+                            g.keybrd_bits |= g.bit_0;
                         },
                         c.SDL_SCANCODE_P => {
-                            g.keybrd_bits |= 2;
+                            g.keybrd_bits |= g.bit_1;
                         },
                         c.SDL_SCANCODE_APOSTROPHE => {
-                            g.keybrd_bits |= 8;
+                            g.keybrd_bits |= g.bit_3;
                         },
                         c.SDL_SCANCODE_L => {
-                            g.keybrd_bits |= 4;
+                            g.keybrd_bits |= g.bit_2;
                         },
                         c.SDL_SCANCODE_LEFTBRACKET => {
-                            g.keybrd_bits |= 32;
+                            g.keybrd_bits |= g.bit_5;
                         },
                         c.SDL_SCANCODE_O => {
-                            g.keybrd_bits |= 4096;
+                            g.keybrd_bits |= g.bit_12;
                         },
                         // ***
                         c.SDL_SCANCODE_W => {
-                            g.keybrd_dpad |= 1;
+                            g.keybrd_dpad |= g.bit_0;
                         },
                         c.SDL_SCANCODE_D => {
-                            g.keybrd_dpad |= 2;
+                            g.keybrd_dpad |= g.bit_1;
                         },
                         c.SDL_SCANCODE_S => {
-                            g.keybrd_dpad |= 4;
+                            g.keybrd_dpad |= g.bit_2;
                         },
                         c.SDL_SCANCODE_A => {
-                            g.keybrd_dpad |= 8;
+                            g.keybrd_dpad |= g.bit_3;
                         },
                         c.SDL_SCANCODE_Q => {
-                            g.keybrd_bits |= 16;
+                            g.keybrd_bits |= g.bit_4;
                         },
                         c.SDL_SCANCODE_E => {
-                            g.keybrd_bits |= 2048;
+                            g.keybrd_bits |= g.bit_11;
                         },
                         // ***
                         c.SDL_SCANCODE_G => {
-                            g.keybrd_bits |= 64;
+                            g.keybrd_bits |= g.bit_6;
                         },
                         c.SDL_SCANCODE_H => {
-                            g.keybrd_bits |= 128;
+                            g.keybrd_bits |= g.bit_7;
                         },
                         c.SDL_SCANCODE_B => {
-                            g.keybrd_bits |= 1024;
+                            g.keybrd_bits |= g.bit_10;
                         },
                         else => {},
                     }
@@ -161,51 +161,51 @@ pub fn main() !void {
                 c.SDL_EVENT_KEY_UP => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_SEMICOLON => {
-                            g.keybrd_bits ^= 1;
+                            g.keybrd_bits ^= g.bit_0;
                         },
                         c.SDL_SCANCODE_P => {
-                            g.keybrd_bits ^= 2;
+                            g.keybrd_bits ^= g.bit_1;
                         },
                         c.SDL_SCANCODE_APOSTROPHE => {
-                            g.keybrd_bits ^= 8;
+                            g.keybrd_bits ^= g.bit_3;
                         },
                         c.SDL_SCANCODE_L => {
-                            g.keybrd_bits ^= 4;
+                            g.keybrd_bits ^= g.bit_2;
                         },
                         c.SDL_SCANCODE_LEFTBRACKET => {
-                            g.keybrd_bits ^= 32;
+                            g.keybrd_bits ^= g.bit_5;
                         },
                         c.SDL_SCANCODE_O => {
-                            g.keybrd_bits ^= 4096;
+                            g.keybrd_bits ^= g.bit_12;
                         },
                         // ***
                         c.SDL_SCANCODE_W => {
-                            g.keybrd_dpad ^= 1;
+                            g.keybrd_dpad ^= g.bit_0;
                         },
                         c.SDL_SCANCODE_D => {
-                            g.keybrd_dpad ^= 2;
+                            g.keybrd_dpad ^= g.bit_1;
                         },
                         c.SDL_SCANCODE_S => {
-                            g.keybrd_dpad ^= 4;
+                            g.keybrd_dpad ^= g.bit_2;
                         },
                         c.SDL_SCANCODE_A => {
-                            g.keybrd_dpad ^= 8;
+                            g.keybrd_dpad ^= g.bit_3;
                         },
                         c.SDL_SCANCODE_Q => {
-                            g.keybrd_bits ^= 16;
+                            g.keybrd_bits ^= g.bit_4;
                         },
                         c.SDL_SCANCODE_E => {
-                            g.keybrd_bits ^= 2048;
+                            g.keybrd_bits ^= g.bit_11;
                         },
                         // ***
                         c.SDL_SCANCODE_G => {
-                            g.keybrd_bits ^= 64;
+                            g.keybrd_bits ^= g.bit_6;
                         },
                         c.SDL_SCANCODE_H => {
-                            g.keybrd_bits ^= 128;
+                            g.keybrd_bits ^= g.bit_7;
                         },
                         c.SDL_SCANCODE_B => {
-                            g.keybrd_bits ^= 1024;
+                            g.keybrd_bits ^= g.bit_10;
                         },
                         else => {},
                     }
