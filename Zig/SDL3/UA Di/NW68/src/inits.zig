@@ -36,9 +36,12 @@ pub fn desktop_screen() void {
     // const dimention = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
     // g.desktop_w = @as(f32, @floatFromInt(dimention.*.w));
     // g.desktop_h = @as(f32, @floatFromInt(dimention.*.h));
-    g.desktop_w = 1280; // High Definition (HD)
-    g.desktop_h = 720;
-    g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_BORDERLESS);
+    // g.desktop_w = 1280; // High Definition (HD)
+    // g.desktop_h = 720;
+    g.desktop_w = 800;
+    g.desktop_h = 600;
+    // g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_BORDERLESS);
+    g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), 0);
     // g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_FULLSCREEN);
     g.renderer = c.SDL_CreateRenderer(g.window, null);
 
