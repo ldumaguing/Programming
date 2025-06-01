@@ -38,8 +38,10 @@ pub fn desktop_screen() void {
     // g.desktop_h = @as(f32, @floatFromInt(dimention.*.h));
     // g.desktop_w = 1280; // High Definition (HD)
     // g.desktop_h = 720;
-    g.desktop_w = 800;
-    g.desktop_h = 600;
+    // g.desktop_w = 960; // anbernic.com
+    // g.desktop_h = 720;
+    g.desktop_w = 720; // anbernic.com
+    g.desktop_h = 720;
     // g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_BORDERLESS);
     g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), 0);
     // g.window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(g.desktop_w), @intFromFloat(g.desktop_h), c.SDL_WINDOW_FULLSCREEN);
