@@ -19,11 +19,12 @@ var desktop_h: f32 = 480.0;
 var mapboard_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Mapboard info
-const ZERO_ZERO = [_]i32{ 293, 141 };
-const LOWER_RIGHT = [_]i32{ 5020, 3846 };
-const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((LOWER_RIGHT[0] - ZERO_ZERO[0]))) / 28.0, @as(f64, @floatFromInt((LOWER_RIGHT[1] - ZERO_ZERO[1]))) / 19.0 };
+const Zero_Zero = [_]i32{ 293, 141 };
+const Lower_Right = [_]i32{ 5020, 3846 };
+const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / 28.0, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / 19.0 };
 const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
 
+// ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
 
@@ -58,7 +59,7 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // [ set window and renderer ******************************************************************
+    // [ set window and renderer ==================================================================
     // const desktop_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
     // desktop_w = @as(f32, @floatFromInt(desktop_dim.*.w));
     // desktop_h = @as(f32, @floatFromInt(desktop_dim.*.h));
@@ -69,14 +70,14 @@ pub fn main() !void {
     defer c.SDL_DestroyWindow(window);
     // ] set window and renderer
 
-    // [ store images on surfaces *****************************************************************
+    // [ store images on surfaces =================================================================
     var stream: ?*c.SDL_IOStream = undefined;
 
     stream = c.SDL_IOFromFile("img/Map.jpg", "r");
     mapboard_surface = c.IMG_LoadJPG_IO(stream);
     // ] store images on surfaces
 
-    // [ game loop ********************************************************************************
+    // [ game loop ================================================================================
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
@@ -109,14 +110,14 @@ fn draw_world() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_background() void {
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(640, 480, c.SDL_PIXELFORMAT_RGBA8888);
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(desktop_w), @intFromFloat(desktop_h), c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = 0;
     a_rect.y = 0;
-    a_rect.w = 640;
-    a_rect.h = 480;
+    a_rect.w = @intFromFloat(desktop_w);
+    a_rect.h = @intFromFloat(desktop_h);
     _ = c.SDL_BlitSurface(mapboard_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
 
     const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
