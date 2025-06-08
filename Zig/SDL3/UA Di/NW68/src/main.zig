@@ -12,8 +12,17 @@ const c = @cImport({
 
 var window: ?*c.SDL_Window = undefined;
 var renderer: ?*c.SDL_Renderer = undefined;
-var desktop_w: f32 = 128.0;
-var desktop_h: f32 = 128.0;
+var desktop_w: f32 = 640.0;
+var desktop_h: f32 = 480.0;
+
+// *************** Surface
+var mapboard_surface: ?*c.SDL_Surface = undefined;
+
+// *************** Mapboard info
+const ZERO_ZERO = [_]i32{ 293, 141 };
+const LOWER_RIGHT = [_]i32{ 5020, 3846 };
+const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((LOWER_RIGHT[0] - ZERO_ZERO[0]))) / 28.0, @as(f64, @floatFromInt((LOWER_RIGHT[1] - ZERO_ZERO[1]))) / 19.0 };
+const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
 
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
@@ -50,14 +59,22 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ******************************************************************
-    const desktop_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
-    desktop_w = @as(f32, @floatFromInt(desktop_dim.*.w));
-    desktop_h = @as(f32, @floatFromInt(desktop_dim.*.h));
+    // const desktop_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+    // desktop_w = @as(f32, @floatFromInt(desktop_dim.*.w));
+    // desktop_h = @as(f32, @floatFromInt(desktop_dim.*.h));
+    // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(desktop_w), @intFromFloat(desktop_h), 0);
     window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(desktop_w), @intFromFloat(desktop_h), 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
-    // ]
+    // ] set window and renderer
+
+    // [ store images on surfaces *****************************************************************
+    var stream: ?*c.SDL_IOStream = undefined;
+
+    stream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    mapboard_surface = c.IMG_LoadJPG_IO(stream);
+    // ] store images on surfaces
 
     // [ game loop ********************************************************************************
     main_loop: while (true) {
@@ -75,9 +92,23 @@ pub fn main() !void {
                 else => {},
             }
         }
+        draw_world();
     }
-    // ]
+    // ] game loop
 }
+
+// ************************************************************************************************
+fn draw_world() void {
+    _ = c.SDL_SetRenderDrawColor(renderer, 255, 5, 255, c.SDL_ALPHA_OPAQUE);
+    _ = c.SDL_RenderClear(renderer);
+
+    _ = draw_background();
+
+    _ = c.SDL_RenderPresent(renderer);
+}
+
+// ------------------------------------------------------------------------------------------------
+fn draw_background() void {}
 
 // ************************************************************************************************
 fn fmtSdlDrivers(
