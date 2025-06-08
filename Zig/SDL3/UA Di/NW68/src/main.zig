@@ -1,5 +1,7 @@
 const std = @import("std");
 const NW68 = @import("NW68");
+const gv = @import("GameVariables.zig");
+const print = @import("std").debug.print;
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -59,7 +61,7 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // [ set window and renderer ==================================================================
+    // [ set window and renderer ================================================================ ]
     // const desktop_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
     // desktop_w = @as(f32, @floatFromInt(desktop_dim.*.w));
     // desktop_h = @as(f32, @floatFromInt(desktop_dim.*.h));
@@ -68,16 +70,17 @@ pub fn main() !void {
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
-    // ] set window and renderer
 
-    // [ store images on surfaces =================================================================
+    // [ store images on surfaces =============================================================== ]
     var stream: ?*c.SDL_IOStream = undefined;
 
     stream = c.SDL_IOFromFile("img/Map.jpg", "r");
     mapboard_surface = c.IMG_LoadJPG_IO(stream);
-    // ] store images on surfaces
 
-    // [ game loop ================================================================================
+    // [ misc =================================================================================== ]
+    print("{}, {}\n", .{ gv.bit_0, gv.bit_1 });
+
+    // [ game loop ============================================================================== ]
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
@@ -95,7 +98,6 @@ pub fn main() !void {
         }
         draw_world();
     }
-    // ] game loop
 }
 
 // ************************************************************************************************
