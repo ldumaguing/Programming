@@ -108,7 +108,22 @@ fn draw_world() void {
 }
 
 // ------------------------------------------------------------------------------------------------
-fn draw_background() void {}
+fn draw_background() void {
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(640, 480, c.SDL_PIXELFORMAT_RGBA8888);
+    defer c.SDL_DestroySurface(a_surf);
+
+    var a_rect: c.SDL_Rect = undefined;
+    a_rect.x = 0;
+    a_rect.y = 0;
+    a_rect.w = 640;
+    a_rect.h = 480;
+    _ = c.SDL_BlitSurface(mapboard_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
+
+    const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
+    defer c.SDL_DestroyTexture(a_texture);
+
+    _ = c.SDL_RenderTexture(renderer, a_texture, null, null);
+}
 
 // ************************************************************************************************
 fn fmtSdlDrivers(
