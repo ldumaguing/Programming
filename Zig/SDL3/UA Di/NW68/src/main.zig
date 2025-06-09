@@ -1,8 +1,12 @@
 const std = @import("std");
-const NW68 = @import("NW68");
-const gv = @import("GlobalVariables.zig");
-const jstk = @import("joystick.zig");
 const print = @import("std").debug.print;
+
+const mvzr = @import("mvzr.zig");
+const inits = @import("inits.zig");
+const g = @import("GameVariables.zig");
+const gL = @import("gameLoop.zig");
+const Sheet = @import("Sheet.zig");
+const Sprite = @import("Sprite.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -13,20 +17,6 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-var window: ?*c.SDL_Window = undefined;
-var renderer: ?*c.SDL_Renderer = undefined;
-
-// *************** Surface
-var mapboard_surface: ?*c.SDL_Surface = undefined;
-
-// *************** Joystick
-var joystick: ?*c.SDL_Joystick = null;
-var button_bits: u16 = 0;
-var d_pad: u16 = 0;
-pub var map_button = [_]i32{0} ** 14;
-var num_buttons: u32 = 0;
-
-// ************************************************************************************************
 pub fn main() !void {
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{c.SDL_GetError()});
 
@@ -61,124 +51,242 @@ pub fn main() !void {
 
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
-    // [ set window and renderer ================================================================ ]
-    // const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
-    // window_w = @as(f32, @floatFromInt(window_dim.*.w));
-    // window_h = @as(f32, @floatFromInt(window_dim.*.h));
-    // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(window_w), @intFromFloat(window_h), 0);
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
-    renderer = c.SDL_CreateRenderer(window, null);
-    defer c.SDL_DestroyRenderer(renderer);
-    defer c.SDL_DestroyWindow(window);
+    // ============================================================================================
+    inits.load_surfaces();
+    defer c.SDL_DestroySurface(g.mapboard_surface);
+    defer c.SDL_DestroySurface(g.chits_surface);
+    defer c.SDL_DestroySurface(g.arrow_surface);
 
-    // [ store images on surfaces =============================================================== ]
-    var stream: ?*c.SDL_IOStream = undefined;
+    inits.desktop_screen();
+    defer c.SDL_DestroyRenderer(g.renderer);
+    defer c.SDL_DestroyWindow(g.window);
 
-    stream = c.SDL_IOFromFile("img/Map.jpg", "r");
-    mapboard_surface = c.IMG_LoadJPG_IO(stream);
+    inits.mapboard();
+    g.mapboard_sheet = Sheet.bind_Surface_Sheet(0, g.mapboard_surface);
 
-    // [ misc =================================================================================== ]
+    g.aSprite = Sprite.bind_Surface_Sprite(0, g.chits_surface, 2, 150);
+    g.aSprite.set_HexID(1, 1);
+    // ============================================================================================
 
-    // [ game loop ============================================================================== ]
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                // [ Joystick =================================================================== ]
-                c.SDL_EVENT_JOYSTICK_ADDED => {
-                    if (joystick == null) {
-                        joystick = c.SDL_OpenJoystick(event.jdevice.which);
-                        print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
-                        try jstk.bind_buttons(c.SDL_GetJoystickName(joystick));
-                        num_buttons = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
-                    }
-                },
-                c.SDL_EVENT_JOYSTICK_REMOVED => {
-                    if ((joystick != null) and (c.SDL_GetJoystickID(joystick) == event.jdevice.which)) {
-                        print("close: {s}\n", .{c.SDL_GetJoystickName(joystick)});
-                        c.SDL_CloseJoystick(joystick);
-                        joystick = null;
-                        num_buttons = 0;
-                    }
-                },
-                // [ GUI window events ========================================================== ]
                 c.SDL_EVENT_QUIT => {
                     break :main_loop;
                 },
-                // [ Key down =================================================================== ]
+                c.SDL_EVENT_JOYSTICK_ADDED => {
+                    if (g.joystick == null) {
+                        g.joystick = c.SDL_OpenJoystick(event.jdevice.which);
+                        print("open: {s}\n", .{c.SDL_GetJoystickName(g.joystick)});
+                        try inits.define_button_mods(c.SDL_GetJoystickName(g.joystick));
+                    }
+                },
+                c.SDL_EVENT_JOYSTICK_REMOVED => {
+                    if ((g.joystick != null) and (c.SDL_GetJoystickID(g.joystick) == event.jdevice.which)) {
+                        print("close: {s}\n", .{c.SDL_GetJoystickName(g.joystick)});
+                        c.SDL_CloseJoystick(g.joystick);
+                        g.joystick = null;
+                    }
+                },
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
+                        },
+                        c.SDL_SCANCODE_I => {
+                            print("{d}\n", .{g.scale});
+                            print("map: {d}, {d}\n", .{ g.mapboard_sheet.x, g.mapboard_sheet.y });
+                            print("sprite: {d}, {d}\n", .{ g.aSprite.x, g.aSprite.y });
+                            print("map clip: {d}, {d}\n", .{ g.mapboard_clip_w, g.mapboard_clip_h });
+                            print("scroll speed: {d} -- {d}", .{ g.scroll_spd, g.scale_rank });
+                            c.SDL_WarpMouseInWindow(g.window, 10.0, 10.0);
+                        },
+                        c.SDL_SCANCODE_DELETE => {
+                            // boardgame_sheet.loc_x = 0.0;
+                            // boardgame_sheet.loc_y = 0.0;
+                            // boardgame_sheet.render(renderer);
+                        },
+                        // **********
+                        c.SDL_SCANCODE_SEMICOLON => {
+                            g.keybrd_bits |= g.bit_0;
+                        },
+                        c.SDL_SCANCODE_P => {
+                            g.keybrd_bits |= g.bit_1;
+                        },
+                        c.SDL_SCANCODE_APOSTROPHE => {
+                            g.keybrd_bits |= g.bit_3;
+                        },
+                        c.SDL_SCANCODE_L => {
+                            g.keybrd_bits |= g.bit_2;
+                        },
+                        c.SDL_SCANCODE_LEFTBRACKET => {
+                            g.keybrd_bits |= g.bit_5;
+                        },
+                        c.SDL_SCANCODE_O => {
+                            g.keybrd_bits |= g.bit_12;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_W => {
+                            g.keybrd_dpad |= g.bit_0;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            g.keybrd_dpad |= g.bit_1;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            g.keybrd_dpad |= g.bit_2;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            g.keybrd_dpad |= g.bit_3;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            g.keybrd_bits |= g.bit_4;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            g.keybrd_bits |= g.bit_11;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_G => {
+                            g.keybrd_bits |= g.bit_6;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            g.keybrd_bits |= g.bit_7;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            g.keybrd_bits |= g.bit_10;
+                        },
+                        else => {},
+                    }
+                },
+                c.SDL_EVENT_KEY_UP => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_SEMICOLON => {
+                            g.keybrd_bits ^= g.bit_0;
+                        },
+                        c.SDL_SCANCODE_P => {
+                            g.keybrd_bits ^= g.bit_1;
+                        },
+                        c.SDL_SCANCODE_APOSTROPHE => {
+                            g.keybrd_bits ^= g.bit_3;
+                        },
+                        c.SDL_SCANCODE_L => {
+                            g.keybrd_bits ^= g.bit_2;
+                        },
+                        c.SDL_SCANCODE_LEFTBRACKET => {
+                            g.keybrd_bits ^= g.bit_5;
+                        },
+                        c.SDL_SCANCODE_O => {
+                            g.keybrd_bits ^= g.bit_12;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_W => {
+                            g.keybrd_dpad ^= g.bit_0;
+                        },
+                        c.SDL_SCANCODE_D => {
+                            g.keybrd_dpad ^= g.bit_1;
+                        },
+                        c.SDL_SCANCODE_S => {
+                            g.keybrd_dpad ^= g.bit_2;
+                        },
+                        c.SDL_SCANCODE_A => {
+                            g.keybrd_dpad ^= g.bit_3;
+                        },
+                        c.SDL_SCANCODE_Q => {
+                            g.keybrd_bits ^= g.bit_4;
+                        },
+                        c.SDL_SCANCODE_E => {
+                            g.keybrd_bits ^= g.bit_11;
+                        },
+                        // ***
+                        c.SDL_SCANCODE_G => {
+                            g.keybrd_bits ^= g.bit_6;
+                        },
+                        c.SDL_SCANCODE_H => {
+                            g.keybrd_bits ^= g.bit_7;
+                        },
+                        c.SDL_SCANCODE_B => {
+                            g.keybrd_bits ^= g.bit_10;
                         },
                         else => {},
                     }
                 },
                 else => {},
             }
+
+            if (g.joystick != null) {
+                // sample_g.joystick_events();
+                record_button_events();
+            }
+            g.all_bits = g.keybrd_bits | g.button_bits;
+            g.all_dpad = g.keybrd_dpad | g.d_pad;
+            // print("{} -- {} -- {} .. {} *** {}, {}\n", .{ g.d_pad, g.button_bits, g.keybrd_bits, g.keybrd_dpad, g.all_bits, g.all_dpad });
+            // print("{d} -- {d}\n", .{g.scale_rank, g.scale});
         }
-        record_joystick_events();
-        draw_world();
-    }
+
+        // ****************************************************** updates
+        if (g.scale_rank != g.scale_rank_prev) { // scale change
+            g.scale_rank_prev = g.scale_rank;
+            g.scale_prev = g.scale;
+        }
+
+        gL.update_world();
+        gL.draw_world();
+
+        g.d_pad = 0;
+    } // *** main_loop
 }
 
 // ************************************************************************************************
-fn record_joystick_events() void {
-    button_bits = 0;
-    d_pad = 0;
-
-    for (0..num_buttons) |i| {
-        if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
-            const val = map_button[i];
+fn record_button_events() void {
+    //print("yo\n", .{});
+    g.button_bits = 0;
+    const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(g.joystick)));
+    for (0..total) |i| {
+        if (c.SDL_GetJoystickButton(g.joystick, @intCast(i))) {
+            const val = g.button_mods[i];
             if (val >= 0) {
                 const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
-                button_bits |= bits;
+                g.button_bits |= bits;
+                // print("Button {} --- button_mod: {} -- {}\n", .{ i, val, button_bits });
             }
         }
     }
 
-    const hat = c.SDL_GetJoystickHat(joystick, 0);
+    const hat = c.SDL_GetJoystickHat(g.joystick, 0);
     if (hat != 0) {
-        d_pad = hat;
+        g.d_pad = hat;
+        // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
     }
-    // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
+    //    print("{} -- {} -- {} .. {} *** {}\n", .{ d_pad, button_bits, keybrd_bits, keybrd_dpad, all_bits });
 }
 
 // ************************************************************************************************
-fn draw_world() void {
-    // ***** clear window with color
-    _ = c.SDL_SetRenderDrawColor(renderer, 255, 5, 255, c.SDL_ALPHA_OPAQUE);
-    _ = c.SDL_RenderClear(renderer);
+fn sample_joystick_events() void {
+    {
+        const total: u32 = @as(u32, @intCast(c.SDL_GetNumJoystickAxes(g.joystick)));
+        for (0..total) |i| {
+            print("Axis {}: {}\n", .{ i, c.SDL_GetJoystickAxis(g.joystick, @intCast(i)) });
+        }
+    }
 
-    // ***** drawing
-    _ = draw_mapboard();
+    print("\n", .{});
 
-    // ***** draw X on window
-    const W: f32 = gv.window_w;
-    const H: f32 = gv.window_h;
-    _ = c.SDL_RenderLine(renderer, 0, 0, W, H);
-    _ = c.SDL_RenderLine(renderer, 0, H, W, 0);
+    {
+        const total = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(g.joystick)));
+        for (0..total) |i| {
+            print("Button {}: {}\n", .{ i, c.SDL_GetJoystickButton(g.joystick, @intCast(i)) });
+        }
+    }
 
-    // ***** show
-    _ = c.SDL_RenderPresent(renderer);
-}
+    print("\n", .{});
 
-// ------------------------------------------------------------------------------------------------
-fn draw_mapboard() void {
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_PIXELFORMAT_RGBA8888);
-    defer c.SDL_DestroySurface(a_surf);
-
-    var a_rect: c.SDL_Rect = undefined;
-    a_rect.x = 0;
-    a_rect.y = 0;
-    a_rect.w = @intFromFloat(gv.window_w);
-    a_rect.h = @intFromFloat(gv.window_h);
-    _ = c.SDL_BlitSurface(mapboard_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
-
-    const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
-    defer c.SDL_DestroyTexture(a_texture);
-
-    _ = c.SDL_RenderTexture(renderer, a_texture, null, null);
+    {
+        const total = @as(u32, @intCast(c.SDL_GetNumJoystickHats(g.joystick)));
+        for (0..total) |i| {
+            print("Hat {}: {}\n", .{ i, c.SDL_GetJoystickHat(g.joystick, @intCast(i)) });
+        }
+    }
+    print("{s}\n", .{c.SDL_GetJoystickName(g.joystick)});
 }
 
 // ************************************************************************************************
