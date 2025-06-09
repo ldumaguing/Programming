@@ -1,3 +1,12 @@
+pub var desktop_w: f32 = 640.0;
+pub var desktop_h: f32 = 480.0;
+
+// *************** Mapboard info
+pub const Zero_Zero = [_]i32{ 293, 141 };
+pub const Lower_Right = [_]i32{ 5020, 3846 };
+pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / 28.0, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / 19.0 };
+pub const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
+
 // *************** Bits
 pub const bit_0 = 1 << 0;
 pub const bit_1 = 1 << 1;

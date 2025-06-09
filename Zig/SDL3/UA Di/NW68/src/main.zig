@@ -1,6 +1,7 @@
 const std = @import("std");
 const NW68 = @import("NW68");
-const gv = @import("GameVariables.zig");
+const gv = @import("GlobalVariables.zig");
+const jstk = @import("joystick.zig");
 const print = @import("std").debug.print;
 
 const c = @cImport({
@@ -14,17 +15,16 @@ const c = @cImport({
 
 var window: ?*c.SDL_Window = undefined;
 var renderer: ?*c.SDL_Renderer = undefined;
-var desktop_w: f32 = 640.0;
-var desktop_h: f32 = 480.0;
 
 // *************** Surface
 var mapboard_surface: ?*c.SDL_Surface = undefined;
 
-// *************** Mapboard info
-const Zero_Zero = [_]i32{ 293, 141 };
-const Lower_Right = [_]i32{ 5020, 3846 };
-const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / 28.0, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / 19.0 };
-const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
+// *************** Joystick
+var joystick: ?*c.SDL_Joystick = null;
+var button_bits: u16 = 0;
+pub var map_button = [_]i32{0} ** 14;
+var d_pad: u16 = 0;
+var num_buttons: u32 = 0;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -66,7 +66,7 @@ pub fn main() !void {
     // desktop_w = @as(f32, @floatFromInt(desktop_dim.*.w));
     // desktop_h = @as(f32, @floatFromInt(desktop_dim.*.h));
     // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(desktop_w), @intFromFloat(desktop_h), 0);
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(desktop_w), @intFromFloat(desktop_h), 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.desktop_w), @intFromFloat(gv.desktop_h), 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
@@ -78,14 +78,35 @@ pub fn main() !void {
     mapboard_surface = c.IMG_LoadJPG_IO(stream);
 
     // [ misc =================================================================================== ]
-    print("{}, {}\n", .{ gv.bit_0, gv.bit_1 });
 
     // [ game loop ============================================================================== ]
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                c.SDL_EVENT_KEY_DOWN, c.SDL_EVENT_KEY_UP => {
+                // [ Joystick =================================================================== ]
+                c.SDL_EVENT_JOYSTICK_ADDED => {
+                    if (joystick == null) {
+                        joystick = c.SDL_OpenJoystick(event.jdevice.which);
+                        print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        try jstk.bind_buttons(c.SDL_GetJoystickName(joystick));
+                        num_buttons = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
+                    }
+                },
+                c.SDL_EVENT_JOYSTICK_REMOVED => {
+                    if ((joystick != null) and (c.SDL_GetJoystickID(joystick) == event.jdevice.which)) {
+                        print("close: {s}\n", .{c.SDL_GetJoystickName(joystick)});
+                        c.SDL_CloseJoystick(joystick);
+                        joystick = null;
+                        num_buttons = 0;
+                    }
+                },
+                // [ GUI window events ========================================================== ]
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                // [ Key down =================================================================== ]
+                c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
                             break :main_loop;
@@ -96,7 +117,23 @@ pub fn main() !void {
                 else => {},
             }
         }
+        record_joystick_events();
+        print("{}\n", .{button_bits});
         draw_world();
+    }
+}
+
+// ************************************************************************************************
+fn record_joystick_events() void {
+    button_bits = 0;
+    for (0..num_buttons) |i| {
+        if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
+            const val = map_button[i];
+            if (val >= 0) {
+                const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+                button_bits |= bits;
+            }
+        }
     }
 }
 
@@ -112,14 +149,14 @@ fn draw_world() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_background() void {
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(desktop_w), @intFromFloat(desktop_h), c.SDL_PIXELFORMAT_RGBA8888);
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(gv.desktop_w), @intFromFloat(gv.desktop_h), c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = 0;
     a_rect.y = 0;
-    a_rect.w = @intFromFloat(desktop_w);
-    a_rect.h = @intFromFloat(desktop_h);
+    a_rect.w = @intFromFloat(gv.desktop_w);
+    a_rect.h = @intFromFloat(gv.desktop_h);
     _ = c.SDL_BlitSurface(mapboard_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
 
     const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
