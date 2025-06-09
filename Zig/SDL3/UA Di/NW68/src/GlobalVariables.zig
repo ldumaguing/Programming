@@ -1,5 +1,5 @@
-pub var desktop_w: f32 = 640.0;
-pub var desktop_h: f32 = 480.0;
+pub var window_w: f32 = 640.0;
+pub var window_h: f32 = 480.0;
 
 // *************** Mapboard info
 pub const Zero_Zero = [_]i32{ 293, 141 };
