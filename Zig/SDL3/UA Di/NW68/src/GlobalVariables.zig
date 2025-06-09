@@ -4,7 +4,9 @@ pub var window_h: f32 = 480.0;
 // *************** Mapboard info
 pub const Zero_Zero = [_]i32{ 293, 141 };
 pub const Lower_Right = [_]i32{ 5020, 3846 };
-pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / 28.0, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / 19.0 };
+const hex_count_row: f64 = 28.0;
+const hex_count_col: f64 = 19.0;
+pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / hex_count_row, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / hex_count_col };
 pub const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
 
 // *************** Bits

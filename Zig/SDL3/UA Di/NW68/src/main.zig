@@ -118,7 +118,6 @@ pub fn main() !void {
             }
         }
         record_joystick_events();
-        // print("{}\n", .{button_bits});
         draw_world();
     }
 }
@@ -142,21 +141,25 @@ fn record_joystick_events() void {
     if (hat != 0) {
         d_pad = hat;
     }
-    print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
+    // print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
 }
 
 // ************************************************************************************************
 fn draw_world() void {
+    // ***** clear window with color
     _ = c.SDL_SetRenderDrawColor(renderer, 255, 5, 255, c.SDL_ALPHA_OPAQUE);
     _ = c.SDL_RenderClear(renderer);
 
+    // ***** drawing
     _ = draw_mapboard();
 
+    // ***** draw X on window
     const W: f32 = gv.window_w;
     const H: f32 = gv.window_h;
     _ = c.SDL_RenderLine(renderer, 0, 0, W, H);
     _ = c.SDL_RenderLine(renderer, 0, H, W, 0);
 
+    // ***** show
     _ = c.SDL_RenderPresent(renderer);
 }
 
