@@ -22,6 +22,7 @@ var mapboard_surface: ?*c.SDL_Surface = undefined;
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
 var button_bits: u16 = 0;
+var button_bits_old: u16 = 0;
 var d_pad: u16 = 0;
 pub var map_button = [_]i32{0} ** 14;
 var num_buttons: u32 = 0;
@@ -125,6 +126,7 @@ pub fn main() !void {
 // ************************************************************************************************
 fn record_joystick_events() void {
     // ********** clear bits & d_pad info
+    button_bits_old = button_bits;
     button_bits = 0;
     d_pad = 0;
 
@@ -132,10 +134,8 @@ fn record_joystick_events() void {
     for (0..num_buttons) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
             const val = map_button[i];
-            if (val >= 0) {
-                const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
-                button_bits |= bits;
-            }
+            const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+            button_bits |= bits;
         }
     }
 
@@ -154,6 +154,7 @@ fn draw_world() void {
 
     // ***** drawing
     _ = draw_mapboard();
+    // _ = draw_chits();
 
     // ***** draw X on window
     const W: f32 = gv.window_w;
@@ -181,14 +182,18 @@ fn draw_mapboard() void {
         gv.map_loc[0] -= 1;
     }
 
-    // ********** Left & Right sholder bind_buttons
+    // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
     if ((button_bits & gv.bit_4) != 0) {
-        gv.scale -= 1;
+        if ((button_bits_old & gv.bit_4) == 0) {
+            gv.scale -= 1;
+        }
     }
     if ((button_bits & gv.bit_5) != 0) {
-        gv.scale += 1;
+        if ((button_bits_old & gv.bit_5) == 0) {
+            gv.scale += 1;
+        }
     }
-    print("{}\n", .{gv.scale});
+    //print("{}\n", .{gv.scale});
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_PIXELFORMAT_RGBA8888);
