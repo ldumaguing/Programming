@@ -124,9 +124,11 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn record_joystick_events() void {
+    // ********** clear bits & d_pad info
     button_bits = 0;
     d_pad = 0;
 
+    // ********** set info bits
     for (0..num_buttons) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
             const val = map_button[i];
@@ -137,26 +139,11 @@ fn record_joystick_events() void {
         }
     }
 
+    // ********** set d_pad info
     const hat = c.SDL_GetJoystickHat(joystick, 0);
     if (hat != 0) {
         d_pad = hat;
     }
-
-    // [ update map board location ============================================================== ]
-    //print("d_pad: {} --- {}\n", .{ d_pad, button_bits });
-    if ((d_pad & gv.bit_0) != 0) {
-        gv.map_loc[1] += 1;
-    }
-    if ((d_pad & gv.bit_1) != 0) {
-        gv.map_loc[0] += 1;
-    }
-    if ((d_pad & gv.bit_2) != 0) {
-        gv.map_loc[1] -= 1;
-    }
-    if ((d_pad & gv.bit_3) != 0) {
-        gv.map_loc[0] -= 1;
-    }
-    // print("{}, {}\n", .{ gv.map_loc[0], gv.map_loc[1] });
 }
 
 // ************************************************************************************************
@@ -180,6 +167,30 @@ fn draw_world() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
+    // ********** D-Pad
+    if ((d_pad & gv.bit_0) != 0) {
+        gv.map_loc[1] += 1;
+    }
+    if ((d_pad & gv.bit_1) != 0) {
+        gv.map_loc[0] += 1;
+    }
+    if ((d_pad & gv.bit_2) != 0) {
+        gv.map_loc[1] -= 1;
+    }
+    if ((d_pad & gv.bit_3) != 0) {
+        gv.map_loc[0] -= 1;
+    }
+
+    // ********** Left & Right sholder bind_buttons
+    if ((button_bits & gv.bit_4) != 0) {
+        gv.scale -= 1;
+    }
+    if ((button_bits & gv.bit_5) != 0) {
+        gv.scale += 1;
+    }
+    print("{}\n", .{gv.scale});
+
+    // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 

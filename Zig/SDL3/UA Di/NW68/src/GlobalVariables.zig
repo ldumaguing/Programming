@@ -9,6 +9,8 @@ const hex_count_col: f64 = 19.0;
 pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / hex_count_row, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / hex_count_col };
 pub const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
 pub var map_loc = [_]i32{ 0, 0 };
+pub var scale: i32 = 0;
+pub var scale_toggle: bool = false;
 
 // *************** Bits
 pub const bit_0: u16 = 1 << 0;
