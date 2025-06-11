@@ -128,11 +128,11 @@ fn record_joystick_events() void {
     // ********** set info bits
     for (0..jstk.num_buttons) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
-            // const val = jstk.map_button[i];
-            // const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
-            const val: u16 = @as(u16, @intCast(jstk.map_button[i]));
-            const bits: u16 = std.math.pow(u16, 2, val);
-            jstk.button_bits |= bits;
+            const val = jstk.map_button[i];
+            if (val >= 0) { // valid buttons are 0+. Unused buttons have the value of -1
+                const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+                jstk.button_bits |= bits;
+            }
         }
     }
 
