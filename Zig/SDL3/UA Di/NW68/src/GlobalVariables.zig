@@ -30,12 +30,3 @@ pub const bit_12: u16 = 1 << 12;
 pub const bit_13: u16 = 1 << 13;
 pub const bit_14: u16 = 1 << 14;
 pub const bit_15: u16 = 1 << 15;
-
-pub const bit_16: u16 = 1 << 16;
-pub const bit_17: u16 = 1 << 17;
-pub const bit_18: u16 = 1 << 18;
-pub const bit_19: u16 = 1 << 19;
-pub const bit_20: u16 = 1 << 20;
-pub const bit_21: u16 = 1 << 21;
-pub const bit_22: u16 = 1 << 22;
-pub const bit_23: u16 = 1 << 23;
