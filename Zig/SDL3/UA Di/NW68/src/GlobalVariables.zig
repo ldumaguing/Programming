@@ -10,6 +10,7 @@ pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0
 pub const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
 pub var map_loc = [_]i32{ 0, 0 };
 pub var scale: i32 = 0;
+pub var scaleness: f32 = 1.0;
 pub var scale_toggle: bool = false;
 
 // *************** Bits
