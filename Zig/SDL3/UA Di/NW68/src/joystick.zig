@@ -11,6 +11,12 @@ const c = @cImport({
     @cInclude("SDL3/SDL_main.h");
     @cInclude("SDL3_image/SDL_image.h");
 });
+// *************** Joystick states
+pub var button_bits: u16 = 0;
+pub var button_bits_old: u16 = 0;
+pub var d_pad: u16 = 0;
+pub var map_button = [_]i32{0} ** 14;
+pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
 pub fn bind_buttons(aText: [*c]const u8) !void {
@@ -52,73 +58,73 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     // *** -1: not in use
     if (joystick_type == 1) {
         // ***** Logi-D and Snake W
-        m.map_button[0] = 2;
-        m.map_button[1] = 0;
-        m.map_button[2] = 3;
-        m.map_button[3] = 1;
-        m.map_button[4] = 4;
-        m.map_button[5] = 5;
-        m.map_button[6] = 11;
-        m.map_button[7] = 12;
-        m.map_button[8] = 6;
-        m.map_button[9] = 7;
-        m.map_button[10] = 8;
-        m.map_button[11] = 9;
-        m.map_button[12] = 10;
-        m.map_button[13] = -1;
+        map_button[0] = 2;
+        map_button[1] = 0;
+        map_button[2] = 3;
+        map_button[3] = 1;
+        map_button[4] = 4;
+        map_button[5] = 5;
+        map_button[6] = 11;
+        map_button[7] = 12;
+        map_button[8] = 6;
+        map_button[9] = 7;
+        map_button[10] = 8;
+        map_button[11] = 9;
+        map_button[12] = 10;
+        map_button[13] = -1;
     }
 
     if (joystick_type == 2) {
         // ***** Logi-X and 8BitDo
-        m.map_button[0] = 0;
-        m.map_button[1] = 3;
-        m.map_button[2] = 2;
-        m.map_button[3] = 1;
-        m.map_button[4] = 4;
-        m.map_button[5] = 5;
-        m.map_button[6] = 6;
-        m.map_button[7] = 7;
-        m.map_button[8] = 10;
-        m.map_button[9] = 8;
-        m.map_button[10] = 9;
-        m.map_button[11] = -1;
-        m.map_button[12] = -1;
-        m.map_button[13] = -1;
+        map_button[0] = 0;
+        map_button[1] = 3;
+        map_button[2] = 2;
+        map_button[3] = 1;
+        map_button[4] = 4;
+        map_button[5] = 5;
+        map_button[6] = 6;
+        map_button[7] = 7;
+        map_button[8] = 10;
+        map_button[9] = 8;
+        map_button[10] = 9;
+        map_button[11] = -1;
+        map_button[12] = -1;
+        map_button[13] = -1;
     }
 
     if (joystick_type == 3) {
         // ***** Snake (wireless version)
-        m.map_button[0] = 0;
-        m.map_button[1] = 3;
-        m.map_button[2] = 2;
-        m.map_button[3] = 1;
-        m.map_button[4] = 6;
-        m.map_button[5] = 10;
-        m.map_button[6] = 7;
-        m.map_button[7] = 8;
-        m.map_button[8] = 9;
-        m.map_button[9] = 4;
-        m.map_button[10] = 5;
-        m.map_button[11] = -1;
-        m.map_button[12] = -1;
-        m.map_button[13] = -1;
+        map_button[0] = 0;
+        map_button[1] = 3;
+        map_button[2] = 2;
+        map_button[3] = 1;
+        map_button[4] = 6;
+        map_button[5] = 10;
+        map_button[6] = 7;
+        map_button[7] = 8;
+        map_button[8] = 9;
+        map_button[9] = 4;
+        map_button[10] = 5;
+        map_button[11] = -1;
+        map_button[12] = -1;
+        map_button[13] = -1;
     }
 
     if (joystick_type == 4) {
         // ***** Sega
-        m.map_button[0] = 2;
-        m.map_button[1] = 0;
-        m.map_button[2] = 3;
-        m.map_button[3] = 1;
-        m.map_button[4] = 9;
-        m.map_button[5] = 8;
-        m.map_button[6] = 4;
-        m.map_button[7] = 5;
-        m.map_button[8] = 7;
-        m.map_button[9] = 10;
-        m.map_button[10] = -1;
-        m.map_button[11] = -1;
-        m.map_button[12] = -1;
-        m.map_button[13] = -1;
+        map_button[0] = 2;
+        map_button[1] = 0;
+        map_button[2] = 3;
+        map_button[3] = 1;
+        map_button[4] = 9;
+        map_button[5] = 8;
+        map_button[6] = 4;
+        map_button[7] = 5;
+        map_button[8] = 7;
+        map_button[9] = 10;
+        map_button[10] = -1;
+        map_button[11] = -1;
+        map_button[12] = -1;
+        map_button[13] = -1;
     }
 }

@@ -21,11 +21,6 @@ var mapboard_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
-var button_bits: u16 = 0;
-var button_bits_old: u16 = 0;
-var d_pad: u16 = 0;
-pub var map_button = [_]i32{0} ** 14;
-var num_buttons: u32 = 0;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -91,7 +86,7 @@ pub fn main() !void {
                         joystick = c.SDL_OpenJoystick(event.jdevice.which);
                         print("open: {s}\n", .{c.SDL_GetJoystickName(joystick)});
                         try jstk.bind_buttons(c.SDL_GetJoystickName(joystick));
-                        num_buttons = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
+                        jstk.num_buttons = @as(u32, @intCast(c.SDL_GetNumJoystickButtons(joystick)));
                     }
                 },
                 c.SDL_EVENT_JOYSTICK_REMOVED => {
@@ -99,7 +94,7 @@ pub fn main() !void {
                         print("close: {s}\n", .{c.SDL_GetJoystickName(joystick)});
                         c.SDL_CloseJoystick(joystick);
                         joystick = null;
-                        num_buttons = 0;
+                        jstk.num_buttons = 0;
                     }
                 },
                 // [ GUI window events ========================================================== ]
@@ -121,28 +116,28 @@ pub fn main() !void {
         record_joystick_events();
         draw_world();
     }
-}
+} // pub fn main()
 
 // ************************************************************************************************
 fn record_joystick_events() void {
     // ********** clear bits & d_pad info
-    button_bits_old = button_bits;
-    button_bits = 0;
-    d_pad = 0;
+    jstk.button_bits_old = jstk.button_bits;
+    jstk.button_bits = 0;
+    jstk.d_pad = 0;
 
     // ********** set info bits
-    for (0..num_buttons) |i| {
+    for (0..jstk.num_buttons) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) {
-            const val = map_button[i];
+            const val = jstk.map_button[i];
             const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
-            button_bits |= bits;
+            jstk.button_bits |= bits;
         }
     }
 
     // ********** set d_pad info
     const hat = c.SDL_GetJoystickHat(joystick, 0);
     if (hat != 0) {
-        d_pad = hat;
+        jstk.d_pad = hat;
     }
 }
 
@@ -169,27 +164,27 @@ fn draw_world() void {
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
     // ********** D-Pad
-    if ((d_pad & gv.bit_0) != 0) {
+    if ((jstk.d_pad & gv.bit_0) != 0) {
         gv.map_loc[1] += 1;
     }
-    if ((d_pad & gv.bit_1) != 0) {
+    if ((jstk.d_pad & gv.bit_1) != 0) {
         gv.map_loc[0] += 1;
     }
-    if ((d_pad & gv.bit_2) != 0) {
+    if ((jstk.d_pad & gv.bit_2) != 0) {
         gv.map_loc[1] -= 1;
     }
-    if ((d_pad & gv.bit_3) != 0) {
+    if ((jstk.d_pad & gv.bit_3) != 0) {
         gv.map_loc[0] -= 1;
     }
 
     // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
-    if ((button_bits & gv.bit_4) != 0) {
-        if ((button_bits_old & gv.bit_4) == 0) {
+    if ((jstk.button_bits & gv.bit_4) != 0) {
+        if ((jstk.button_bits_old & gv.bit_4) == 0) {
             gv.scale -= 1;
         }
     }
-    if ((button_bits & gv.bit_5) != 0) {
-        if ((button_bits_old & gv.bit_5) == 0) {
+    if ((jstk.button_bits & gv.bit_5) != 0) {
+        if ((jstk.button_bits_old & gv.bit_5) == 0) {
             gv.scale += 1;
         }
     }
