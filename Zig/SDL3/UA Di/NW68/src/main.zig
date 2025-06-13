@@ -154,10 +154,8 @@ fn draw_world() void {
     // _ = draw_chits();
 
     // ***** draw X on window
-    const W: f32 = gv.window_w;
-    const H: f32 = gv.window_h;
-    _ = c.SDL_RenderLine(renderer, 0, 0, W, H);
-    _ = c.SDL_RenderLine(renderer, 0, H, W, 0);
+    _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
+    _ = c.SDL_RenderLine(renderer, 0, gv.window_h, gv.window_w, 0);
 
     // ***** show
     _ = c.SDL_RenderPresent(renderer);
