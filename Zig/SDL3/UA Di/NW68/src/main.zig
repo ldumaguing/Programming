@@ -166,17 +166,19 @@ fn draw_world() void {
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
     // ********** D-Pad
-    if ((jstk.d_pad & gv.bit_0) != 0) {
-        gv.map_loc[1] += 1;
-    }
-    if ((jstk.d_pad & gv.bit_1) != 0) {
-        gv.map_loc[0] += 1;
-    }
-    if ((jstk.d_pad & gv.bit_2) != 0) {
-        gv.map_loc[1] -= 1;
-    }
-    if ((jstk.d_pad & gv.bit_3) != 0) {
-        gv.map_loc[0] -= 1;
+    if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
+        if ((jstk.d_pad & gv.bit_0) != 0) {
+            gv.map_loc[1] += 1;
+        }
+        if ((jstk.d_pad & gv.bit_1) != 0) {
+            gv.map_loc[0] += 1;
+        }
+        if ((jstk.d_pad & gv.bit_2) != 0) {
+            gv.map_loc[1] -= 1;
+        }
+        if ((jstk.d_pad & gv.bit_3) != 0) {
+            gv.map_loc[0] -= 1;
+        }
     }
 
     // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
@@ -197,7 +199,6 @@ fn draw_mapboard() void {
     } else {
         gv.scaleness = 1.0;
     }
-    // gv.scaleness = 1.0;
     //print("{}\n", .{gv.scale});
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
