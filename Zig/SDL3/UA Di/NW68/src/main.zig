@@ -192,7 +192,7 @@ fn draw_mapboard() void {
     }
     if (gv.scale > 0) { // zoom in
         gv.scaleness = 1.0 / ((1.0 + @as(f32, @floatFromInt(gv.scale))) * 0.6);
-    } else if (gv.scale < 0) {
+    } else if (gv.scale < 0) { // zoom out
         gv.scaleness = 1.0 - (@as(f32, @floatFromInt(gv.scale)) * 0.5);
     } else {
         gv.scaleness = 1.0;
@@ -201,14 +201,16 @@ fn draw_mapboard() void {
     //print("{}\n", .{gv.scale});
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(gv.window_w * gv.scaleness), @intFromFloat(gv.window_h * gv.scaleness), c.SDL_PIXELFORMAT_RGBA8888);
+    const clip_w: f32 = gv.window_w * gv.scaleness;
+    const clip_h: f32 = gv.window_h * gv.scaleness;
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(clip_w), @intFromFloat(clip_h), c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = gv.map_loc[0];
     a_rect.y = gv.map_loc[1];
-    a_rect.w = @intFromFloat(gv.window_w * gv.scaleness);
-    a_rect.h = @intFromFloat(gv.window_h * gv.scaleness);
+    a_rect.w = @intFromFloat(clip_w);
+    a_rect.h = @intFromFloat(clip_h);
     _ = c.SDL_BlitSurface(mapboard_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
 
     const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
