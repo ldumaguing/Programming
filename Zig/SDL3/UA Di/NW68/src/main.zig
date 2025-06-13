@@ -180,6 +180,8 @@ fn draw_mapboard() void {
     }
 
     // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
+    gv.scale_old = gv.scale;
+    gv.scaleness_old = gv.scaleness;
     if ((jstk.button_bits & gv.bit_4) != 0) {
         if ((jstk.button_bits_old & gv.bit_4) == 0) {
             gv.scale -= 1;
@@ -190,14 +192,15 @@ fn draw_mapboard() void {
             gv.scale += 1;
         }
     }
-    if (gv.scale > 0) { // zoom in
-        gv.scaleness = 1.0 / ((1.0 + @as(f32, @floatFromInt(gv.scale))) * 0.6);
-    } else if (gv.scale < 0) { // zoom out
-        gv.scaleness = 1.0 - (@as(f32, @floatFromInt(gv.scale)) * 0.5);
-    } else {
-        gv.scaleness = 1.0;
+    if (gv.scale_old != gv.scale) {
+        if (gv.scale > 0) { // zoom in
+            gv.scaleness = 1.0 / ((1.0 + @as(f32, @floatFromInt(gv.scale))) * 0.6);
+        } else if (gv.scale < 0) { // zoom out
+            gv.scaleness = 1.0 - (@as(f32, @floatFromInt(gv.scale)) * 0.5);
+        } else {
+            gv.scaleness = 1.0;
+        }
     }
-    //print("{}\n", .{gv.scale});
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
     const clip_w: f32 = gv.window_w * gv.scaleness;
