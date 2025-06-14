@@ -1,7 +1,5 @@
-pub var window_w: f32 = 640.0; // var because may be redefine later.
-pub var window_h: f32 = 480.0; // var because may be redefine later.
-pub var window_center_x: f32 = 320.0;
-pub var window_center_y: f32 = 240.0;
+pub var window_w: f32 = 800.0; // var because may be redefine later.
+pub var window_h: f32 = 600.0; // var because may be redefine later.
 
 // *************** Mapboard info
 pub const Zero_Zero = [_]i32{ 293, 141 };
