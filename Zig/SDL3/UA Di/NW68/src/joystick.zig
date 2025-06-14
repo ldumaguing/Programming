@@ -51,7 +51,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         joystick_type = 4;
     }
 
-    print("-----------> {}", .{joystick_type});
+    print("-----------> {}\n", .{joystick_type});
 
     // ****************************************************
     // *** joystick signal to bit
