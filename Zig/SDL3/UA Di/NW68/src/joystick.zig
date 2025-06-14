@@ -51,6 +51,11 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         joystick_type = 4;
     }
 
+    regex = mvzr.compile("Xbox One").?;
+    if (regex.isMatch(&buffer)) {
+        joystick_type = 5;
+    }
+
     print("-----------> {}\n", .{joystick_type});
 
     // ****************************************************
@@ -75,7 +80,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     }
 
     if (joystick_type == 2) {
-        // ***** Logi-X and 8BitDo
+        // ***** Logi-X
         map_button[0] = 0;
         map_button[1] = 3;
         map_button[2] = 2;
@@ -123,6 +128,24 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[8] = 7;
         map_button[9] = 10;
         map_button[10] = -1;
+        map_button[11] = -1;
+        map_button[12] = -1;
+        map_button[13] = -1;
+    }
+
+    if (joystick_type == 5) {
+        // ***** Xbox One
+        map_button[0] = 0;
+        map_button[1] = 3;
+        map_button[2] = 2;
+        map_button[3] = 1;
+        map_button[4] = 4;
+        map_button[5] = 5;
+        map_button[6] = 6;
+        map_button[7] = 7;
+        map_button[8] = 8;
+        map_button[9] = 9;
+        map_button[10] = 10;
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
