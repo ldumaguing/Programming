@@ -167,9 +167,11 @@ fn draw_world() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_chits() void {
+    // ***** create a surface
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(gv.chit_square_dim, gv.chit_square_dim, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
+    // ***** clip one chit and put it on the surface
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = 0;
     a_rect.y = 0;
@@ -177,9 +179,11 @@ fn draw_chits() void {
     a_rect.h = gv.chit_square_dim;
     _ = c.SDL_BlitSurface(chits_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
 
+    // convert the surface to a texture
     const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
+    // define a silly puddy rectangle and render it
     var a_rectness: c.SDL_FRect = undefined;
     a_rectness.x = @floatFromInt(gv.Zero_Zero[0]);
     a_rectness.y = @floatFromInt(gv.Zero_Zero[1]);
