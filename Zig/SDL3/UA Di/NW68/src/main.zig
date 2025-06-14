@@ -208,7 +208,18 @@ fn draw_mapboard() void {
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(@intFromFloat(clip_w), @intFromFloat(clip_h), c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
-    var a_rect: c.SDL_Rect = undefined;
+    var a_rect: c.SDL_Rect = undefined; // clip square
+    if (gv.scale_old != gv.scale) { // shift clip square
+        // gv.map_loc[0] = 0;
+        // gv.map_loc[1] = 0;
+        // print("{}: {}\n", .{gv.scaleness_old, gv.scaleness});
+        //const scale_prev_x: f32 = gv.window_center_x - (gv.window_center_x / gv.scaleness_old);
+        //const scale_prev_y: f32 = gv.window_center_y - (gv.window_center_y / gv.scaleness_old);
+        //const scale_x: f32 = gv.window_center_x - (gv.window_center_x / gv.scaleness);
+        //const scale_y: f32 = gv.window_center_y - (gv.window_center_y / gv.scaleness);
+        //gv.map_loc[0] = gv.map_loc[0] - @as(i32, @intFromFloat(scale_prev_x + scale_x));
+        //gv.map_loc[1] = gv.map_loc[1] - @as(i32, @intFromFloat(scale_prev_y + scale_y));
+    }
     a_rect.x = gv.map_loc[0];
     a_rect.y = gv.map_loc[1];
     a_rect.w = @intFromFloat(clip_w);
