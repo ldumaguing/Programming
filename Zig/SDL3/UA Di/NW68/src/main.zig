@@ -167,15 +167,19 @@ fn draw_mapboard() void {
     if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
         if ((jstk.d_pad & gv.bit_0) != 0) {
             gv.map_loc[1] += 1;
+            //print("up: {}\n", .{gv.map_loc[1]});
         }
         if ((jstk.d_pad & gv.bit_1) != 0) {
-            gv.map_loc[0] += 1;
+            gv.map_loc[0] -= 1;
+            //print("right: {}\n", .{gv.map_loc[0]});
         }
         if ((jstk.d_pad & gv.bit_2) != 0) {
             gv.map_loc[1] -= 1;
+            //print("down: {}\n", .{gv.map_loc[1]});
         }
         if ((jstk.d_pad & gv.bit_3) != 0) {
-            gv.map_loc[0] -= 1;
+            gv.map_loc[0] += 1;
+            //print("left: {}\n", .{gv.map_loc[0]});
         }
     }
 
