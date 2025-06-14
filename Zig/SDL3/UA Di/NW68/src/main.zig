@@ -18,6 +18,7 @@ var renderer: ?*c.SDL_Renderer = undefined;
 
 // *************** Surface
 var mapboard_surface: ?*c.SDL_Surface = undefined;
+var chits_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
@@ -72,6 +73,9 @@ pub fn main() !void {
 
     stream = c.SDL_IOFromFile("img/Map.jpg", "r");
     mapboard_surface = c.IMG_LoadJPG_IO(stream);
+
+    stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
+    chits_surface = c.IMG_LoadPNG_IO(stream);
 
     // [ misc =================================================================================== ]
 
@@ -151,7 +155,7 @@ fn draw_world() void {
 
     // ***** drawing
     _ = draw_mapboard();
-    // _ = draw_chits();
+    _ = draw_chits();
 
     // ***** draw X on window
     _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
@@ -159,6 +163,29 @@ fn draw_world() void {
 
     // ***** show
     _ = c.SDL_RenderPresent(renderer);
+}
+
+// ------------------------------------------------------------------------------------------------
+fn draw_chits() void {
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(gv.chit_square_dim, gv.chit_square_dim, c.SDL_PIXELFORMAT_RGBA8888);
+    defer c.SDL_DestroySurface(a_surf);
+
+    var a_rect: c.SDL_Rect = undefined;
+    a_rect.x = 0;
+    a_rect.y = 0;
+    a_rect.w = gv.chit_square_dim;
+    a_rect.h = gv.chit_square_dim;
+    _ = c.SDL_BlitSurface(chits_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
+
+    const a_texture = c.SDL_CreateTextureFromSurface(renderer, a_surf);
+    defer c.SDL_DestroyTexture(a_texture);
+
+    var a_rectness: c.SDL_FRect = undefined;
+    a_rectness.x = @floatFromInt(gv.Zero_Zero[0]);
+    a_rectness.y = @floatFromInt(gv.Zero_Zero[1]);
+    a_rectness.w = @floatFromInt(gv.chit_square_dim);
+    a_rectness.h = @floatFromInt(gv.chit_square_dim);
+    _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
 // ------------------------------------------------------------------------------------------------

@@ -14,7 +14,9 @@ pub var scale: i32 = 0;
 pub var scaleness: f32 = 1.0;
 pub var scale_old: i32 = 0;
 pub var scaleness_old: f32 = 1.0;
-// pub var scale_toggle: bool = false;
+
+// *************** chit
+pub const chit_square_dim: i32 = 150;
 
 // *************** Bits
 pub const bit_0: u16 = 1 << 0;
