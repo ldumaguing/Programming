@@ -214,26 +214,10 @@ fn draw_mapboard() void {
 
     var a_rect: c.SDL_Rect = undefined; // clip square
     if (gv.scale_old != gv.scale) { // shift clip square
-        print("{}: {}\n", .{ gv.scaleness_old, gv.scaleness });
-        if (gv.scale_old > gv.scale) { // zoom out
-            //print("\nzoom out: {d}->{d}\n", .{ gv.window_w * gv.scaleness_old, gv.window_w * gv.scaleness });
-            const delta_x_half: f32 = ((gv.window_w * gv.scaleness) - (gv.window_w * gv.scaleness_old)) / 2.0;
-            //print("delta_x: {d}\n", .{delta_x_half});
-            const delta_y_half: f32 = ((gv.window_h * gv.scaleness) - (gv.window_h * gv.scaleness_old)) / 2.0;
-            //print("delta_y: {d}\n", .{delta_y_half});
-            gv.map_loc[0] -= @intFromFloat(delta_x_half);
-            gv.map_loc[1] -= @intFromFloat(delta_y_half);
-        }
-        if (gv.scale_old < gv.scale) { // zoom in
-            print("\nzoom in: {d}->{d}\n", .{ gv.window_w * gv.scaleness_old, gv.window_w * gv.scaleness });
-            const delta_x_half: f32 = ((gv.window_w * gv.scaleness_old) - (gv.window_w * gv.scaleness)) / 2.0;
-            print("delta_x: {d}\n", .{delta_x_half});
-            const delta_y_half: f32 = ((gv.window_h * gv.scaleness_old) - (gv.window_h * gv.scaleness)) / 2.0;
-            print("delta_y: {d}\n", .{delta_y_half});
-            //print("\nzoom in: {d}->{d}\n", .{ gv.window_w * gv.scaleness_old, gv.window_w * gv.scaleness });
-            gv.map_loc[0] += @intFromFloat(delta_x_half);
-            gv.map_loc[1] += @intFromFloat(delta_y_half);
-        }
+        const delta_x_half: f32 = ((gv.window_w * gv.scaleness) - (gv.window_w * gv.scaleness_old)) / 2.0;
+        const delta_y_half: f32 = ((gv.window_h * gv.scaleness) - (gv.window_h * gv.scaleness_old)) / 2.0;
+        gv.map_loc[0] -= @intFromFloat(delta_x_half);
+        gv.map_loc[1] -= @intFromFloat(delta_y_half);
     }
     a_rect.x = gv.map_loc[0];
     a_rect.y = gv.map_loc[1];
