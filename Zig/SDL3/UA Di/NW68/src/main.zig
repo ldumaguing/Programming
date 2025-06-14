@@ -167,6 +167,10 @@ fn draw_world() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_chits() void {
+    // ***** chit info
+    //const hex_loc = [_]i32{ 0, 0 };
+    //const chit_index = 0;
+
     // ***** create a surface
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(gv.chit_square_dim, gv.chit_square_dim, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
