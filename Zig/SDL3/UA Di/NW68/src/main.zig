@@ -155,7 +155,7 @@ fn draw_world() void {
 
     // ***** drawing
     _ = draw_mapboard();
-    _ = draw_chits();
+    _ = draw_chit1();
 
     // ***** draw X on window
     _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
@@ -166,10 +166,10 @@ fn draw_world() void {
 }
 
 // ------------------------------------------------------------------------------------------------
-fn draw_chits() void {
+fn draw_chit1() void {
     // ***** chit info
     //const hex_loc = [_]i32{ 0, 0 };
-    //const chit_index = 0;
+    const chit_index = 2;
 
     // ***** create a surface
     const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(gv.chit_square_dim, gv.chit_square_dim, c.SDL_PIXELFORMAT_RGBA8888);
@@ -178,7 +178,7 @@ fn draw_chits() void {
     // ***** clip one chit and put it on the surface
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = 0;
-    a_rect.y = 0;
+    a_rect.y = chit_index * gv.chit_square_dim;
     a_rect.w = gv.chit_square_dim;
     a_rect.h = gv.chit_square_dim;
     _ = c.SDL_BlitSurface(chits_surface, &a_rect, a_surf, null); // no scaling. the target surface truncates.
@@ -189,10 +189,10 @@ fn draw_chits() void {
 
     // define a silly puddy rectangle and render it
     var a_rectness: c.SDL_FRect = undefined;
-    a_rectness.x = @floatFromInt(gv.Zero_Zero[0]);
-    a_rectness.y = @floatFromInt(gv.Zero_Zero[1]);
-    a_rectness.w = @floatFromInt(gv.chit_square_dim);
-    a_rectness.h = @floatFromInt(gv.chit_square_dim);
+    a_rectness.x = @as(f32, @floatFromInt(gv.Zero_Zero[0] - gv.map_loc[0])) / gv.scaleness;
+    a_rectness.y = @as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1])) / gv.scaleness;
+    a_rectness.w = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
+    a_rectness.h = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
     _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
