@@ -16,6 +16,8 @@ pub var button_bits: u16 = 0;
 pub var button_bits_old: u16 = 0;
 pub var d_pad: u16 = 0;
 pub var map_button = [_]i32{0} ** 14;
+pub var map_axis = [_]u32{0} ** 6;
+pub var axis_vals = [_]i32{0} ** 6;
 pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
@@ -143,11 +145,18 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[5] = 5;
         map_button[6] = 6;
         map_button[7] = 7;
-        map_button[8] = 8;
-        map_button[9] = 9;
+        map_button[8] = -1;
+        map_button[9] = -1;
         map_button[10] = 10;
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
+
+        map_axis[0] = 2;
+        map_axis[1] = 5;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 3;
+        map_axis[5] = 4;
     }
 }

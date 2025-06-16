@@ -145,6 +145,14 @@ fn record_joystick_events() void {
     if (hat != 0) {
         jstk.d_pad = hat;
     }
+
+    // ********** set axis info
+    // const total: u32 = @as(u32, @intCast(c.SDL_GetNumJoystickAxes(joystick)));
+    for (0..6) |i| {
+        // print(".Axis {}: {}; map: {}\n", .{ i, c.SDL_GetJoystickAxis(joystick, @intCast(i)), jstk.map_axis[i] });
+        jstk.axis_vals[jstk.map_axis[i]] = c.SDL_GetJoystickAxis(joystick, @intCast(i));
+        print("axis: {} -- {}\n", .{i, jstk.axis_vals[jstk.map_axis[i]]});
+    }
 }
 
 // ************************************************************************************************
