@@ -18,7 +18,7 @@ pub var d_pad: u16 = 0;
 pub var map_button = [_]i32{0} ** 14;
 pub var map_axis = [_]i32{0} ** 6;
 pub var axis_vals = [_]i32{0} ** 6;
-pub var num_buttons: u32 = 0;
+// pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
 pub fn bind_buttons(aText: [*c]const u8) !void {
