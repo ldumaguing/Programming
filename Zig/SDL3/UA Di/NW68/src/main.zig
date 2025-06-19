@@ -62,14 +62,13 @@ pub fn main() !void {
     const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
     gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
     gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
-    const ratio: f32 = gv.window_w / gv.window_h;
-    print("ratio: {}\n", .{ratio});
-    gv.window_w = gv.MY_REZ * ratio;
+    gv.ratio = gv.window_w / gv.window_h;
+    print("ratio: {}\n", .{gv.ratio});
+    gv.window_w = gv.MY_REZ * gv.ratio;
     gv.window_h = gv.MY_REZ;
     print("{d}, {d}\n", .{gv.window_w, gv.window_h});
 
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
-    //window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
@@ -179,7 +178,10 @@ fn draw_world() void {
     _ = draw_chit3();
 
     // ***** draw X on window
-    _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
+    const w: f32 = gv.window_w;
+    const h: f32 = gv.window_h;
+    print("{d}, {d}\n", .{w, h});
+    _ = c.SDL_RenderLine(renderer, 0, 0, 1067.0, 700.0);
     _ = c.SDL_RenderLine(renderer, 0, gv.window_h, gv.window_w, 0);
 
     // ***** show
