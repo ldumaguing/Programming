@@ -148,16 +148,18 @@ fn record_joystick_events() void {
 
     // ********** set axis info
     print("\n", .{});
+    var count: u32 = 0;
+    for (0..6) |_| {
+        if (jstk.map_axis[count] >= 0) {
+            jstk.axis_vals[count] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[count]);
+        }
+        count += 1;
+    }
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
-            jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
+            print("{}; {}\n", .{ i, jstk.axis_vals[i] });
         }
     }
-    //for (0..6) |i| {
-    //    if (jstk.map_axis[i] >= 0) {
-    //        print("{}; {}\n", .{ i, jstk.axis_vals[i] });
-    //    }
-    //}
 }
 
 // ************************************************************************************************
