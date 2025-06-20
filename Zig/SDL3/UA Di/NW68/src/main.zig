@@ -62,23 +62,8 @@ pub fn main() !void {
     const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
     gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
     gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
-    gv.stretch_w = gv.window_w;
-    gv.stretch_h = gv.window_h;
-
-    gv.window_w = (gv.window_w / gv.window_h) * gv.MY_REZ;
-    gv.window_h = gv.MY_REZ;
-    print("{d}, {d}\n", .{gv.window_w, gv.window_h});
-
-    gv.stretch_w = gv.stretch_w / gv.window_w;
-    gv.stretch_h = gv.stretch_h / gv.window_h;
-    print(".{d}, {d}\n", .{gv.stretch_w, gv.stretch_h});
-    //gv.ratio = gv.window_w / gv.window_h;
-    //print("ratio: {}\n", .{gv.ratio});
-    //gv.window_w = gv.MY_REZ * gv.ratio;
-    //gv.window_h = gv.MY_REZ;
-    //
-
     window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
+    // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
@@ -162,17 +147,11 @@ fn record_joystick_events() void {
     }
 
     // ********** set axis info
-    //print("\n", .{});
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
             jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
         }
     }
-    //for (0..6) |i| {
-    //    if (jstk.map_axis[i] >= 0) {
-    //        print("{}; {}\n", .{ i, jstk.axis_vals[i] });
-    //    }
-    //}
 }
 
 // ************************************************************************************************
@@ -188,11 +167,8 @@ fn draw_world() void {
     _ = draw_chit3();
 
     // ***** draw X on window
-    const w: f32 = gv.window_w * gv.stretch_w;
-    const h: f32 = gv.window_h * gv.stretch_h;
-    //print("{d}, {d}\n", .{w, h});
-    _ = c.SDL_RenderLine(renderer, 0, 0, w, h);
-    _ = c.SDL_RenderLine(renderer, 0, h, w, 0);
+    _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
+    _ = c.SDL_RenderLine(renderer, 0, gv.window_h, gv.window_w, 0);
 
     // ***** show
     _ = c.SDL_RenderPresent(renderer);
@@ -232,10 +208,10 @@ fn draw_chit3() void {
         y = @as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1] + hex_ID_y + @as(i32, @intFromFloat(gv.Half_Hex_Y_ness)))) / gv.scaleness;
     }
     const w_h_ness: f32 = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
-    a_rectness.x = x * gv.stretch_h;
-    a_rectness.y = y * gv.stretch_h;
-    a_rectness.w = w_h_ness * gv.stretch_h;
-    a_rectness.h = w_h_ness * gv.stretch_h;
+    a_rectness.x = x;
+    a_rectness.y = y;
+    a_rectness.w = w_h_ness;
+    a_rectness.h = w_h_ness;
     _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
@@ -268,10 +244,10 @@ fn draw_chit2() void {
     const x: f32 = @as(f32, @floatFromInt(gv.Zero_Zero[0] - gv.map_loc[0] + hex_ID_x)) / gv.scaleness;
     const y: f32 = @as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1] + hex_ID_y)) / gv.scaleness;
     const w_h_ness: f32 = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
-    a_rectness.x = x * gv.stretch_h;
-    a_rectness.y = y * gv.stretch_h;
-    a_rectness.w = w_h_ness * gv.stretch_h;
-    a_rectness.h = w_h_ness * gv.stretch_h;
+    a_rectness.x = x;
+    a_rectness.y = y;
+    a_rectness.w = w_h_ness;
+    a_rectness.h = w_h_ness;
     _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
@@ -299,10 +275,10 @@ fn draw_chit1() void {
 
     // define a silly puddy rectangle and render it
     var a_rectness: c.SDL_FRect = undefined;
-    a_rectness.x = (@as(f32, @floatFromInt(gv.Zero_Zero[0] - gv.map_loc[0])) / gv.scaleness) * gv.stretch_h;
-    a_rectness.y = (@as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1])) / gv.scaleness) * gv.stretch_h;
-    a_rectness.w = (@as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness) * gv.stretch_h;
-    a_rectness.h = (@as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness) * gv.stretch_h;
+    a_rectness.x = @as(f32, @floatFromInt(gv.Zero_Zero[0] - gv.map_loc[0])) / gv.scaleness;
+    a_rectness.y = @as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1])) / gv.scaleness;
+    a_rectness.w = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
+    a_rectness.h = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
     _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
