@@ -67,6 +67,7 @@ pub fn main() !void {
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
+    // gv.scaleness = gv.MY_H / gv.window_h; // if disable zooming, recognize this line (2/3)
 
     // [ store images on surfaces =============================================================== ]
     var stream: ?*c.SDL_IOStream = undefined;
@@ -305,6 +306,7 @@ fn draw_mapboard() void {
     }
 
     // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
+    // if (false) { // if disable zooming, recognize this line (3/3)
     gv.scale_old = gv.scale;
     gv.scaleness_old = gv.scaleness;
     if ((jstk.button_bits & gv.bit_4) != 0) {
@@ -326,6 +328,7 @@ fn draw_mapboard() void {
             gv.scaleness = 1.0;
         }
     }
+    // } // if disable zooming, recognize this line (3/3)
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
     const clip_w: f32 = gv.window_w * gv.scaleness;
