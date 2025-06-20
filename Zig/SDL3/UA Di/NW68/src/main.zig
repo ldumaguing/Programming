@@ -59,15 +59,14 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ================================================================ ]
-    const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
-    gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
-    gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
-    // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
+    // const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+    // window_w = @as(f32, @floatFromInt(window_dim.*.w));
+    // window_h = @as(f32, @floatFromInt(window_dim.*.h));
+    // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(window_w), @intFromFloat(window_h), 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
-    // gv.scaleness = gv.MY_H / gv.window_h; // if disable zooming, recognize this line (2/3)
 
     // [ store images on surfaces =============================================================== ]
     var stream: ?*c.SDL_IOStream = undefined;
@@ -148,9 +147,17 @@ fn record_joystick_events() void {
     }
 
     // ********** set axis info
+    print("\n", .{});
+    var count: u32 = 0;
+    for (0..6) |_| {
+        if (jstk.map_axis[count] >= 0) {
+            jstk.axis_vals[count] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[count]);
+        }
+        count += 1;
+    }
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
-            jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
+            print("{}; {}\n", .{ i, jstk.axis_vals[i] });
         }
     }
 }
@@ -306,7 +313,6 @@ fn draw_mapboard() void {
     }
 
     // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
-    // if (false) { // if disable zooming, recognize this line (3/3)
     gv.scale_old = gv.scale;
     gv.scaleness_old = gv.scaleness;
     if ((jstk.button_bits & gv.bit_4) != 0) {
@@ -328,7 +334,6 @@ fn draw_mapboard() void {
             gv.scaleness = 1.0;
         }
     }
-    // } // if disable zooming, recognize this line (3/3)
 
     // ********** clip map surface and save it on a_surf; convert a_surf to texture; render the texture
     const clip_w: f32 = gv.window_w * gv.scaleness;

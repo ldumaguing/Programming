@@ -6,15 +6,17 @@ pub const Zero_Zero = [_]i32{ 293, 141 };
 pub const Lower_Right = [_]i32{ 5020, 3846 };
 const hex_count_row: f64 = 28.0;
 const hex_count_col: f64 = 19.0;
-pub const Hex_Dim = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / hex_count_row, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / hex_count_col };
-pub const Half_Hex_Y: f32 = @floatCast(Hex_Dim[1] / 2.0);
+pub const Hex_Dim_ness = [_]f64{ @as(f64, @floatFromInt((Lower_Right[0] - Zero_Zero[0]))) / hex_count_row, @as(f64, @floatFromInt((Lower_Right[1] - Zero_Zero[1]))) / hex_count_col };
+pub const Half_Hex_Y_ness: f32 = @floatCast(Hex_Dim_ness[1] / 2.0);
 pub var map_loc = [_]i32{ 0, 0 };
 
 pub var scale: i32 = 0;
 pub var scaleness: f32 = 1.0;
 pub var scale_old: i32 = 0;
 pub var scaleness_old: f32 = 1.0;
-// pub var scale_toggle: bool = false;
+
+// *************** chit
+pub const chit_square_dim: i32 = 150;
 
 // *************** Bits
 pub const bit_0: u16 = 1 << 0;

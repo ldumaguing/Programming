@@ -16,6 +16,8 @@ pub var button_bits: u16 = 0;
 pub var button_bits_old: u16 = 0;
 pub var d_pad: u16 = 0;
 pub var map_button = [_]i32{0} ** 14;
+pub var map_axis = [_]i32{0} ** 6;
+pub var axis_vals = [_]i32{0} ** 6;
 pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
@@ -32,12 +34,11 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     regex = mvzr.compile("ZEROPLUS").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 1;
+        joystick_type = 6;
     }
 
     regex = mvzr.compile("F710").?;
     if (regex.isMatch(&buffer)) {
-        print("f710\n", .{});
         joystick_type = 2;
     }
 
@@ -62,21 +63,28 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     // *** joystick signal to bit
     // *** -1: not in use
     if (joystick_type == 1) {
-        // ***** Logi-D and Snake W
-        map_button[0] = 2;
-        map_button[1] = 0;
-        map_button[2] = 3;
-        map_button[3] = 1;
+        // ***** RumblePad
+        map_button[0] = 1;
+        map_button[1] = 3;
+        map_button[2] = 0;
+        map_button[3] = 2;
         map_button[4] = 4;
         map_button[5] = 5;
-        map_button[6] = 11;
-        map_button[7] = 12;
-        map_button[8] = 6;
-        map_button[9] = 7;
-        map_button[10] = 8;
-        map_button[11] = 9;
-        map_button[12] = 10;
+        map_button[6] = 8;
+        map_button[7] = 9;
+        map_button[8] = 10;
+        map_button[9] = 11;
+        map_button[10] = -1;
+        map_button[11] = 6;
+        map_button[12] = 7;
         map_button[13] = -1;
+
+        map_axis[0] = -1;
+        map_axis[1] = -1;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 2;
+        map_axis[5] = 3;
     }
 
     if (joystick_type == 2) {
@@ -143,11 +151,43 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[5] = 5;
         map_button[6] = 6;
         map_button[7] = 7;
-        map_button[8] = 8;
-        map_button[9] = 9;
+        map_button[8] = -1;
+        map_button[9] = -1;
         map_button[10] = 10;
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
+
+        map_axis[0] = 2;
+        map_axis[1] = 5;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 3;
+        map_axis[5] = 4;
+    }
+
+    if (joystick_type == 6) {
+        // ***** ZeroPlus (Game:Pad 4 S)
+        map_button[0] = 1;
+        map_button[1] = 3;
+        map_button[2] = 0;
+        map_button[3] = 2;
+        map_button[4] = 4;
+        map_button[5] = 5;
+        map_button[6] = 8;
+        map_button[7] = 9;
+        map_button[8] = 10;
+        map_button[9] = 11;
+        map_button[10] = 12;
+        map_button[11] = 6;
+        map_button[12] = 7;
+        map_button[13] = -1;
+
+        map_axis[0] = 3;
+        map_axis[1] = 4;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 2;
+        map_axis[5] = 5;
     }
 }
