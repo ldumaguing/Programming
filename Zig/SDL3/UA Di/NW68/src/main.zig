@@ -147,7 +147,7 @@ fn record_joystick_events() void {
     }
 
     // ********** set axis info
-    print("\n", .{});
+    //print("\n", .{});
     var count: u32 = 0;
     for (0..6) |_| {
         if (jstk.map_axis[count] >= 0) {
@@ -155,11 +155,11 @@ fn record_joystick_events() void {
         }
         count += 1;
     }
-    for (0..6) |i| {
-        if (jstk.map_axis[i] >= 0) {
-            print("{}; {}\n", .{ i, jstk.axis_vals[i] });
-        }
-    }
+    //for (0..6) |i| {
+    //    if (jstk.map_axis[i] >= 0) {
+    //        print("{}; {}\n", .{ i, jstk.axis_vals[i] });
+    //    }
+    //}
 }
 
 // ************************************************************************************************

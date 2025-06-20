@@ -88,7 +88,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     }
 
     if (joystick_type == 2) {
-        // ***** Logi-X
+        // ***** F710
         map_button[0] = 0;
         map_button[1] = 3;
         map_button[2] = 2;
@@ -103,6 +103,13 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
+
+        map_axis[0] = 2;
+        map_axis[1] = 5;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 3;
+        map_axis[5] = 4;
     }
 
     if (joystick_type == 3) {
