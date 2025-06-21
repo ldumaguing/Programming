@@ -59,11 +59,11 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ================================================================ ]
-    // const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
-    // window_w = @as(f32, @floatFromInt(window_dim.*.w));
-    // window_h = @as(f32, @floatFromInt(window_dim.*.h));
+     const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+     gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
+     gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
     // window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(window_w), @intFromFloat(window_h), 0);
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
+    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
@@ -71,7 +71,9 @@ pub fn main() !void {
     // [ store images on surfaces =============================================================== ]
     var stream: ?*c.SDL_IOStream = undefined;
 
-    stream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    //stream = c.SDL_IOFromFile("img/Map.jpg", "r");
+    //mapboard_surface = c.IMG_LoadJPG_IO(stream);
+    stream = c.SDL_IOFromFile("img2/fish2.jpg", "r");
     mapboard_surface = c.IMG_LoadJPG_IO(stream);
 
     stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
