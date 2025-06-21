@@ -119,20 +119,20 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     if (joystick_type == 3) {
         // ***** PS4
-        map_button[0] = 0;
-        map_button[1] = 3;
-        map_button[2] = 2;
-        map_button[3] = 1;
-        map_button[4] = 9;
-        map_button[5] = 10;
-        map_button[6] = 4;
-        map_button[7] = 6;
-        map_button[8] = 7;
-        map_button[9] = 8;
-        map_button[10] = 5;
-        map_button[11] = -1;
+        map_button[0] = 0; // down
+        map_button[1] = 3; // right
+        map_button[2] = 2; // left
+        map_button[3] = 1; // up
+        map_button[4] = 6; // center left
+        map_button[5] = 10; // center
+        map_button[6] = 7; // center right
+        map_button[7] = 8; // axis left
+        map_button[8] = 9; // axis right
+        map_button[9] = 4; // left sholder
+        map_button[10] = 5; // right sholder
+        map_button[11] = 13; // touch pad
         map_button[12] = -1;
-        map_button[13] = 11;
+        map_button[13] = -1;
 
         map_axis[0] = 4;
         map_axis[1] = 5;
