@@ -118,21 +118,28 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     }
 
     if (joystick_type == 3) {
-        // ***** Snake (wireless version)
+        // ***** PS4
         map_button[0] = 0;
         map_button[1] = 3;
         map_button[2] = 2;
         map_button[3] = 1;
-        map_button[4] = 6;
+        map_button[4] = 9;
         map_button[5] = 10;
-        map_button[6] = 7;
-        map_button[7] = 8;
-        map_button[8] = 9;
-        map_button[9] = 4;
+        map_button[6] = 4;
+        map_button[7] = 6;
+        map_button[8] = 7;
+        map_button[9] = 8;
         map_button[10] = 5;
         map_button[11] = -1;
         map_button[12] = -1;
-        map_button[13] = -1;
+        map_button[13] = 11;
+
+        map_axis[0] = 4;
+        map_axis[1] = 5;
+        map_axis[2] = 0;
+        map_axis[3] = 1;
+        map_axis[4] = 2;
+        map_axis[5] = 3;
     }
 
     if (joystick_type == 4) {
