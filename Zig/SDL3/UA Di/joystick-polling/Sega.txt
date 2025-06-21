@@ -1,0 +1,16 @@
+SWITCH CO.,LTD. USB Gamepad
+===========================
+Axis 0: 128  D-Pad Horizontal
+Axis 1: 128  D-Pad Vertical
+
+Button 0: X
+Button 1: A
+Button 2: B
+Button 3: Y
+Button 4: C
+Button 5: Z
+Button 6: Shoulder Left
+Button 7: Shoulder Right
+Button 8: SELECT
+Button 9: START
+
