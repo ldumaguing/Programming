@@ -148,17 +148,16 @@ fn record_joystick_events() void {
     }
 
     // ********** set axis info
-    print("\n", .{});
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
             jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
         }
     }
-    for (0..6) |i| {
-        if (jstk.map_axis[i] >= 0) {
-            print("{}; {}\n", .{ i, jstk.axis_vals[i] });
-        }
-    }
+    //for (0..6) |i| {
+    //    if (jstk.map_axis[i] >= 0) {
+    //        print("{}; {}\n", .{ i, jstk.axis_vals[i] });
+    //    }
+    //}
 }
 
 // ************************************************************************************************
