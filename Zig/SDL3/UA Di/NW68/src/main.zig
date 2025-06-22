@@ -151,23 +151,16 @@ fn record_joystick_events() void {
     // ********** set axis info
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
-            //jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
-            //print("{d}:{d} {d}\n", .{ i, jstk.map_axis[i], c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]) });
             const val = c.SDL_GetJoystickAxis(joystick, @intCast(i));
-            //print("{d}  index:{d}  val:{d}", .{ i, jstk.map_axis[i], val });
-            //const index: u32 = @intCast(jstk.map_axis[@intCast(i)]);
-            //jstk.axis_vals[@intCast(jstk.map_axis[index])] = val;
-            const fish: u32 = @abs(jstk.map_axis[i]);
-            //print("--- fish: {d}\n", .{fish});
-            jstk.axis_vals[fish] = val;
+            jstk.axis_vals[@abs(jstk.map_axis[i])] = val;
         }
     }
-    for (0..6) |i| { // larry was here 1
-        if (jstk.map_axis[i] >= 0) {
-            const index: u32 = @intCast(jstk.map_axis[i]);
-            print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
-        }
-    }
+    //for (0..6) |i| { // larry was here 1
+    //    if (jstk.map_axis[i] >= 0) {
+    //        const index: u32 = @intCast(jstk.map_axis[i]);
+    //        print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
+    //    }
+    //}
 }
 
 // ************************************************************************************************
@@ -300,25 +293,23 @@ fn draw_chit1() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
-    // const foo: i32 = jstk.axis_vals[4];
-    //const index = 1;
-    //print("{d}--{d}\n", .{jstk.map_axis[4],   jstk.axis_vals[index]        });
+    const spd: i32 = @intFromFloat(((@as(f32, @floatFromInt(jstk.axis_vals[1] + 32769)) / 65536.0) * 200.0) + 1.0);
     // ********** D-Pad
     if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
         if ((jstk.d_pad & gv.bit_0) != 0) {
-            gv.map_loc[1] += 1;
+            gv.map_loc[1] += spd;
             //print("up: {}\n", .{gv.map_loc[1]});
         }
         if ((jstk.d_pad & gv.bit_1) != 0) {
-            gv.map_loc[0] -= 1;
+            gv.map_loc[0] -= spd;
             //print("right: {}\n", .{gv.map_loc[0]});
         }
         if ((jstk.d_pad & gv.bit_2) != 0) {
-            gv.map_loc[1] -= 1;
+            gv.map_loc[1] -= spd;
             //print("down: {}\n", .{gv.map_loc[1]});
         }
         if ((jstk.d_pad & gv.bit_3) != 0) {
-            gv.map_loc[0] += 1;
+            gv.map_loc[0] += spd;
             //print("left: {}\n", .{gv.map_loc[0]});
         }
     }
