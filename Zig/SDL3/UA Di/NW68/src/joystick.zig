@@ -187,27 +187,27 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     if (joystick_type == 6) {
         // ***** ZeroPlus (Game:Pad 4 S)
-        map_button[0] = 1;
-        map_button[1] = 3;
-        map_button[2] = 0;
-        map_button[3] = 2;
-        map_button[4] = 4;
-        map_button[5] = 5;
-        map_button[6] = 8;
-        map_button[7] = 9;
-        map_button[8] = 10;
-        map_button[9] = 11;
-        map_button[10] = 12;
-        map_button[11] = 6;
-        map_button[12] = 7;
-        map_button[13] = -1;
+        map_button[0] = 2; // left
+        map_button[1] = 0; // down
+        map_button[2] = 3; // right
+        map_button[3] = 1; // up
+        map_button[4] = 4; // left sholder
+        map_button[5] = 5; // right sholder
+        map_button[6] = 11; // left trigger
+        map_button[7] = 12; // right trigger
+        map_button[8] = 6; // center left
+        map_button[9] = 7; // center right
+        map_button[10] = 8; // left axis
+        map_button[11] = 9; // right axis
+        map_button[12] = 10; // center
+        map_button[13] = -1; //
 
-        map_axis[0] = 3;
-        map_axis[1] = 4;
-        map_axis[2] = 0;
-        map_axis[3] = 1;
-        map_axis[4] = 2;
-        map_axis[5] = 5;
+        map_axis[0] = 2; // left X
+        map_axis[1] = 3; // left Y
+        map_axis[2] = 4; // right X
+        map_axis[3] = 0; // left trigger
+        map_axis[4] = 1; // right trigger
+        map_axis[5] = 5; // right Y
     }
 
     if (joystick_type == 7) {

@@ -133,9 +133,10 @@ fn record_joystick_events() void {
     // ********** set info bits
     for (0..jstk.num_buttons) |i| {
         if (c.SDL_GetJoystickButton(joystick, @intCast(i))) { // if buttons are pressed
-             print("button {d}", .{i});
+            //print("button {d}", .{i});
             const val = jstk.map_button[i];
-             print(": {d}\n", .{val});
+            //print(": {d}\n", .{val});
+            if (val < 0) continue;
             const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
             jstk.button_bits |= bits;
         }
