@@ -144,20 +144,30 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     if (joystick_type == 4) {
         // ***** Sega
-        map_button[0] = 2;
-        map_button[1] = 0;
-        map_button[2] = 3;
-        map_button[3] = 1;
-        map_button[4] = 9;
-        map_button[5] = 8;
-        map_button[6] = 4;
-        map_button[7] = 5;
-        map_button[8] = 7;
-        map_button[9] = 10;
+        map_button[0] = 2; // left - x
+        map_button[1] = 0; // down - A
+        map_button[2] = 3; // right - B
+        map_button[3] = 1; // up - y
+        map_button[4] = 9; // axis R - C
+        map_button[5] = 8; // axis L - z
+        map_button[6] = 4; // left sholder
+        map_button[7] = 5; // right sholder
+        map_button[8] = 7; // center right
+        map_button[9] = 10; // center
         map_button[10] = -1;
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
+        
+        
+        map_axis[0] = 2; // left x
+        map_axis[1] = 3; // left y
+        map_axis[2] = -1; // 
+        map_axis[3] = -1; // 
+        map_axis[4] = -1; // 
+        map_axis[5] = -1; // 
+        
+        
     }
 
     if (joystick_type == 5) {
