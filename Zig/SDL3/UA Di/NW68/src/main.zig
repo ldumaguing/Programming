@@ -155,13 +155,14 @@ fn record_joystick_events() void {
             //print("{d}:{d} {d}\n", .{ i, jstk.map_axis[i], c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]) });
             const val = c.SDL_GetJoystickAxis(joystick, @intCast(i));
             //print("{d}  index:{d}  val:{d}\n", .{ i, jstk.map_axis[i], val });
-            jstk.axis_vals[@intCast(jstk.map_axis[i])] = val;
+            const index: u32 = @intCast(jstk.map_axis[@intCast(i)]);
+            jstk.axis_vals[@intCast(jstk.map_axis[index])] = val;
         }
     }
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
             const index: u32 = @intCast(jstk.map_axis[i]);
-            print("{d};  {d}\n", .{ i, jstk.axis_vals[index] });
+            print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
         }
     }
 }

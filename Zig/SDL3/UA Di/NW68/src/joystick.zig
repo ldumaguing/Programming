@@ -134,12 +134,12 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[12] = -1;
         map_button[13] = -1;
 
-        map_axis[0] = 4;
-        map_axis[1] = 5;
-        map_axis[2] = 0;
-        map_axis[3] = 1;
-        map_axis[4] = 2;
-        map_axis[5] = 3;
+        map_axis[0] = 2; // left x
+        map_axis[1] = 3; // left y
+        map_axis[2] = 4; // right x
+        map_axis[3] = 5; // right y
+        map_axis[4] = 0; // left trigger
+        map_axis[5] = 1; // right trigger
     }
 
     if (joystick_type == 4) {
