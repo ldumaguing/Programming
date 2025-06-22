@@ -162,7 +162,7 @@ fn record_joystick_events() void {
             jstk.axis_vals[fish] = val;
         }
     }
-    for (0..6) |i| { // larry was here
+    for (0..6) |i| { // larry was here 1
         if (jstk.map_axis[i] >= 0) {
             const index: u32 = @intCast(jstk.map_axis[i]);
             print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
