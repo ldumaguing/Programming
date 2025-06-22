@@ -68,53 +68,53 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
     // *** joystick signal to bit
     // *** -1: not in use
     if (joystick_type == 1) {
-        // ***** RumblePad
-        map_button[0] = 1;
-        map_button[1] = 3;
-        map_button[2] = 0;
-        map_button[3] = 2;
-        map_button[4] = 4;
-        map_button[5] = 5;
-        map_button[6] = 8;
-        map_button[7] = 9;
-        map_button[8] = 10;
-        map_button[9] = 11;
-        map_button[10] = -1;
-        map_button[11] = 6;
-        map_button[12] = 7;
+        // ***** RumblePad 2 USB
+        map_button[0] = 2; // left
+        map_button[1] = 0; // down
+        map_button[2] = 3; // right
+        map_button[3] = 1; // up
+        map_button[4] = 4; // left sholder
+        map_button[5] = 5; // right sholder
+        map_button[6] = 11; // left trigger
+        map_button[7] = 12; // right trigger
+        map_button[8] = 6; // left center
+        map_button[9] = 7; // right center
+        map_button[10] = 8; // left axis
+        map_button[11] = 9; // right axis
+        map_button[12] = -1;
         map_button[13] = -1;
 
-        map_axis[0] = -1;
-        map_axis[1] = -1;
-        map_axis[2] = 0;
-        map_axis[3] = 1;
-        map_axis[4] = 2;
-        map_axis[5] = 3;
+        map_axis[0] = 2; // left X
+        map_axis[1] = 3; // left Y
+        map_axis[2] = 4; // right X
+        map_axis[3] = 5; // right Y
+        map_axis[4] = -1;
+        map_axis[5] = -1;
     }
 
     if (joystick_type == 2) {
         // ***** F710
-        map_button[0] = 0;
-        map_button[1] = 3;
-        map_button[2] = 2;
-        map_button[3] = 1;
-        map_button[4] = 4;
-        map_button[5] = 5;
-        map_button[6] = 6;
-        map_button[7] = 7;
-        map_button[8] = 10;
-        map_button[9] = 8;
-        map_button[10] = 9;
+        map_button[0] = 0; // down
+        map_button[1] = 3; // right
+        map_button[2] = 2; // left
+        map_button[3] = 1; // up
+        map_button[4] = 4; // left sholder
+        map_button[5] = 5; // right sholder
+        map_button[6] = 6; // center left
+        map_button[7] = 7; // center right
+        map_button[8] = 10; // center
+        map_button[9] = 8; // left axis
+        map_button[10] = 9; // right axis
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
 
-        map_axis[0] = 2;
-        map_axis[1] = 5;
-        map_axis[2] = 0;
-        map_axis[3] = 1;
-        map_axis[4] = 3;
-        map_axis[5] = 4;
+        map_axis[0] = 2; // left X
+        map_axis[1] = 5; // left Y
+        map_axis[2] = 0; // left trigger
+        map_axis[3] = 1; // right X
+        map_axis[4] = 3; // right Y
+        map_axis[5] = 4; // right trigger
     }
 
     if (joystick_type == 3) {
