@@ -42,11 +42,6 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         joystick_type = 7;
     }
 
-    regex = mvzr.compile("GAMEPAD4").?;
-    if (regex.isMatch(&buffer)) {
-        joystick_type = 8;
-    }
-
     regex = mvzr.compile("F710").?;
     if (regex.isMatch(&buffer)) {
         joystick_type = 2;
@@ -57,7 +52,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         joystick_type = 3;
     }
 
-    regex = mvzr.compile("SWITCH CO").?;
+    regex = mvzr.compile("SWITCH CO").?; // Sega
     if (regex.isMatch(&buffer)) {
         joystick_type = 4;
     }
@@ -206,8 +201,8 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[3] = 1; // up
         map_button[4] = 4; // left sholder
         map_button[5] = 5; // right sholder
-        map_button[6] = 11; // left trigger
-        map_button[7] = 12; // right trigger
+        map_button[6] = -1;
+        map_button[7] = -1;
         map_button[8] = 6; // center left
         map_button[9] = 7; // center right
         map_button[10] = 8; // left axis
@@ -246,30 +241,5 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[3] = 1;
         map_axis[4] = 3;
         map_axis[5] = 4;
-    }
-
-    if (joystick_type == 8) {
-        // ***** GAMEPAD4
-        map_button[0] = 0; // down
-        map_button[1] = 3; // right
-        map_button[2] = 1; // up
-        map_button[3] = 2; // left
-        map_button[4] = 4; // left sholder
-        map_button[5] = 5; // right sholder
-        map_button[6] = 11; // left trigger
-        map_button[7] = 7; // right trigger
-        map_button[8] = 6; // center left
-        map_button[9] = 12; // center right
-        map_button[10] = 10; // center
-        map_button[11] = 8; // axis left
-        map_button[12] = 9; // axis right
-        map_button[13] = -1;
-
-        map_axis[0] = 2; // left X
-        map_axis[1] = 3; // left Y
-        map_axis[2] = 0; // left trigger
-        map_axis[3] = 4; // right X
-        map_axis[4] = 5; // right Y
-        map_axis[5] = 1; // right trigger
     }
 }
