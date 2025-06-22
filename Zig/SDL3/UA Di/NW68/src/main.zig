@@ -151,14 +151,19 @@ fn record_joystick_events() void {
     // ********** set axis info
     for (0..6) |i| {
         if (jstk.map_axis[i] >= 0) {
-            jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
+            //jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
+            //print("{d}:{d} {d}\n", .{ i, jstk.map_axis[i], c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]) });
+            const val = c.SDL_GetJoystickAxis(joystick, @intCast(i));
+            //print("{d}  index:{d}  val:{d}\n", .{ i, jstk.map_axis[i], val });
+            jstk.axis_vals[@intCast(jstk.map_axis[i])] = val;
         }
     }
-    //for (0..6) |i| {
-    //    if (jstk.map_axis[i] >= 0) {
-    //        print("{}; {}\n", .{ i, jstk.axis_vals[i] });
-    //    }
-    //}
+    for (0..6) |i| {
+        if (jstk.map_axis[i] >= 0) {
+            const index: u32 = @intCast(jstk.map_axis[i]);
+            print("{d};  {d}\n", .{ i, jstk.axis_vals[index] });
+        }
+    }
 }
 
 // ************************************************************************************************
@@ -291,6 +296,9 @@ fn draw_chit1() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
+    // const foo: i32 = jstk.axis_vals[4];
+    //const index = 1;
+    //print("{d}--{d}\n", .{jstk.map_axis[4],   jstk.axis_vals[index]        });
     // ********** D-Pad
     if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
         if ((jstk.d_pad & gv.bit_0) != 0) {

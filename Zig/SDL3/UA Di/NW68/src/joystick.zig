@@ -202,9 +202,9 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_button[12] = 10; // center
         map_button[13] = -1; //
 
-        map_axis[0] = 2; // left X
-        map_axis[1] = 3; // left Y
-        map_axis[2] = 4; // right X
+        map_axis[0] = 2; // left x
+        map_axis[1] = 3; // left y
+        map_axis[2] = 4; // right x
         map_axis[3] = 0; // left trigger
         map_axis[4] = 1; // right trigger
         map_axis[5] = 5; // right Y
