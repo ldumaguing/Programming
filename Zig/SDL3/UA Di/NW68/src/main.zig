@@ -154,12 +154,15 @@ fn record_joystick_events() void {
             //jstk.axis_vals[i] = c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]);
             //print("{d}:{d} {d}\n", .{ i, jstk.map_axis[i], c.SDL_GetJoystickAxis(joystick, jstk.map_axis[i]) });
             const val = c.SDL_GetJoystickAxis(joystick, @intCast(i));
-            //print("{d}  index:{d}  val:{d}\n", .{ i, jstk.map_axis[i], val });
-            const index: u32 = @intCast(jstk.map_axis[@intCast(i)]);
-            jstk.axis_vals[@intCast(jstk.map_axis[index])] = val;
+            //print("{d}  index:{d}  val:{d}", .{ i, jstk.map_axis[i], val });
+            //const index: u32 = @intCast(jstk.map_axis[@intCast(i)]);
+            //jstk.axis_vals[@intCast(jstk.map_axis[index])] = val;
+            const fish: u32 = @abs(jstk.map_axis[i]);
+            //print("--- fish: {d}\n", .{fish});
+            jstk.axis_vals[fish] = val;
         }
     }
-    for (0..6) |i| {
+    for (0..6) |i| { // larry was here
         if (jstk.map_axis[i] >= 0) {
             const index: u32 = @intCast(jstk.map_axis[i]);
             print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
