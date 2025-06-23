@@ -220,26 +220,26 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     if (joystick_type == 7) {
         // ***** F310
-        map_button[0] = 0;
-        map_button[1] = 3;
-        map_button[2] = 2;
-        map_button[3] = 1;
-        map_button[4] = 4;
-        map_button[5] = 5;
-        map_button[6] = 6;
-        map_button[7] = 7;
-        map_button[8] = 9;
-        map_button[9] = 10;
-        map_button[10] = 8;
+        map_button[0] = 0; // down
+        map_button[1] = 3; // right
+        map_button[2] = 2; // left
+        map_button[3] = 1; // up
+        map_button[4] = 4; // left sholder
+        map_button[5] = 5; // right sholder
+        map_button[6] = 6; // center left
+        map_button[7] = 7; // center right
+        map_button[8] = 10; // center
+        map_button[9] = 8; // left axis
+        map_button[10] = 9; // right axis
         map_button[11] = -1;
         map_button[12] = -1;
         map_button[13] = -1;
 
-        map_axis[0] = 2;
-        map_axis[1] = 5;
-        map_axis[2] = 0;
-        map_axis[3] = 1;
-        map_axis[4] = 3;
-        map_axis[5] = 4;
+        map_axis[0] = 2; // left x
+        map_axis[1] = 3; // left y
+        map_axis[2] = 0; // left trigger
+        map_axis[3] = 4; // right x
+        map_axis[4] = 5; // right y
+        map_axis[5] = 1; // right trigger
     }
 }
