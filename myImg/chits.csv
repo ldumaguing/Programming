@@ -1,0 +1,103 @@
+1,Flag - Black Hand,0,-1
+2,Blighter,1,2
+3,Diskord (AT/AA Launcher),3,-1
+4,Megrim,4,5
+5,Pest,6,7
+6,Rancor,8,9
+7,Ravager,10,11
+8,Control - Black Hand,12,-1
+9,Scourge,13,14
+10,XM134 (Machinegun),15,-1
+11,Zealots,16,17
+12,Flag - 1st Ranger,18,-1
+13,CO - 1st Ranger,20,19
+14,M113 - 1st Ranger,22,21
+15,M60A1 - 1st Ranger,24,23
+16,US Rangers - 1st Ranger,26,25
+17,BRDM-2 - 2nd Ranger,28,27
+18,Flag - 2nd Ranger,29,-1
+19,CO - 2nd Ranger,31,30
+20,M113 - 2nd Ranger,33,32
+21,M60A1 - 2nd Ranger,35,34
+22,US Rangers - 2nd Ranger,37,36
+23,Flag - 4th Guards,38,-1
+24,CO - 4th Guards,40,39
+25,T-64 - 4th Guards,42,41
+26,Flag - 58th Rifle,43,-1
+27,CO - 58th Motor Rifle,45,44
+28,M113 - 58th Motor Rifle,47,46
+29,US Rangers - 58th Motor Rifle,49,48
+30,Spetsnaz - 58th Motor Rifle,51,50
+31,T-64 - 58th Motor Rifle,53,52
+32,9K32 Strela-2 (AA Launcher),54,-1
+33,A-6 Intruder,55,-1
+34,Control - Blue,56,-1
+35,BRDM-2,58,57
+36,Flag - Cowboys,59,-1
+37,UH-1 Huey - 335th Cowboys,61,60
+38,M109 Paladin,63,62
+39,M60 (Machinegun),64,-1
+40,M72 LAW (AT Launcher),65,-1
+41,SS-1C Scud-B,66,-1
+42,Flag - Vympel,67,-1
+43,CO - Vympel,69,68
+44,Spetsnaz - Vympel,71,70
+45,ZSU-23-4 Shilka,73,72
+46,Flag - 1/130,74,-1
+47,CO - 1/130,76,75
+48,E-100 - 1/130,78,77
+49,Hummel - 1/130,80,79
+50,King Tiger - 1/130,82,81
+51,Puma - 1/130,84,83
+52,SdKfz 250 - 1/7 SS,86,85
+53,Flag - 1/7 SS,87,-1
+54,CO - 1/7 SS,89,88
+55,SS-VT - 1/7 SS,91,90
+56,SdKfz 250 - 2/130,93,92
+57,Flag - 2/130,94,-1
+58,CO - 2/130,96,95
+59,E-100 - 2/130,98,97
+60,Fallschirmjager - 2/130,100,99
+61,Jagdtiger - 2/130,102,101
+62,Flag - 1/501 SS,103,-1
+63,CO - 1/501 SS,105,104
+64,E-100 - 1/501 SS,107,106
+65,SdKfz 250 - 2/501 SS,109,108
+66,Flag - 2/501 SS,110,-1
+67,CO - 2/501 SS,112,111
+68,E-100 - 2/501 SS,114,113
+69,Jagdtiger - 2/501 SS,116,115
+70,SS-VT - 2/501 SS,118,117
+71,Control - Grey,119,-1
+72,Derek Castle (Captain),120,-1
+73,Hummel,122,121
+74,Luftfaust (AA Launcher),123,-1
+75,MG 42 (Machinegun),124,-1
+76,Ostwind,126,125
+77,Panzerfaust 3 (AT Launcher),127,-1
+78,Puma,129,128
+79,Flag - SG 2,130,-1
+80,Haunebu III - SG 2,132,131
+81,Ju-87G Stuka,133,-1
+82,V-2,134,-1
+83,Vehicle Crew (Army Corps),135,-1
+84,Advance,136,-1
+85,Barrage 3,137,-1
+86,Biological 1,138,-1
+87,Chemical 3,139,-1
+88,Chemical,140,-1
+89,game icon,141,-1
+90,Event,142,-1
+91,High Moral,143,-1
+92,black chit,144,-1
+93,Minefield,145,-1
+94,Nuclear 6,146,-1
+95,Objective,147,-1
+96,Radiation,148,-1
+97,Sandbags,149,-1
+98,Shellholes,150,-1
+99,Smoke 3,151,-1
+100,Smoke L1,152,-1
+101,Smoke L2,153,-1
+102,Turn,154,-1
+103,Wreck,155,-1

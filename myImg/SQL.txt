@@ -1,0 +1,28 @@
+create table chits (
+   id      integer,
+   descrip text,
+   front   integer,
+   back    integer
+);
+
+***************************************************** IMPORT
+.mode csv
+.import chits.csv chits
+.quit
+
+***************************************************** EXPORT
+.headers on
+.mode csv
+.output 'Laptop Location.csv'
+select man, servTag, box, slot, changeStatDate, notes from laptop order by box, slot;
+*** or ***
+select * from v_laptops order by box, slot, man;
+.quit
+
+
+
+
+
+
+
+
