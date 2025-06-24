@@ -216,11 +216,16 @@ fn draw_chit3() void {
     } else {
         y = @as(f32, @floatFromInt(gv.Zero_Zero[1] - gv.map_loc[1] + hex_ID_y + @as(i32, @intFromFloat(gv.Half_Hex_Y_ness)))) / gv.scaleness;
     }
+
     const w_h_ness: f32 = @as(f32, @floatFromInt(gv.chit_square_dim)) / gv.scaleness;
     a_rectness.x = x;
     a_rectness.y = y;
     a_rectness.w = w_h_ness;
     a_rectness.h = w_h_ness;
+    if ((x + w_h_ness) < 0) return;
+    if (x > gv.window_w) return;
+    if ((y + w_h_ness) < 0) return;
+    if (y > gv.window_h) return;
     _ = c.SDL_RenderTexture(renderer, a_texture, null, &a_rectness);
 }
 
