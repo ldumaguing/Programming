@@ -99,6 +99,7 @@ pub fn main() !void {
                         print("close: {s}\n", .{c.SDL_GetJoystickName(joystick)});
                         c.SDL_CloseJoystick(joystick);
                         joystick = null;
+                        gv.joystick_type = 0;
                         jstk.num_buttons = 0;
                     }
                 },
