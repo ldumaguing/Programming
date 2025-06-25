@@ -301,7 +301,15 @@ fn draw_chit1() void {
 
 // ------------------------------------------------------------------------------------------------
 fn draw_mapboard() void {
-    const spd: i32 = @intFromFloat(((@as(f32, @floatFromInt(jstk.axis_vals[1] + 32769)) / 65536.0) * 200.0) + 1.0);
+    var spd: i32 = 1;
+    if (gv.joystick_type == 1) { // using RumblePad
+        if ((jstk.button_bits & gv.bit_12) != 0) {
+            spd = 200;
+        }
+    } else {
+        spd = @intFromFloat(((@as(f32, @floatFromInt(jstk.axis_vals[1] + 32769)) / 65536.0) * 200.0) + 1.0);
+    }
+
     // ********** D-Pad
     if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
         if ((jstk.d_pad & gv.bit_0) != 0) {
