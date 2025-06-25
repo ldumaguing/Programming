@@ -126,6 +126,8 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn record_joystick_events() void {
+    if (gv.joystick_type == 0) return;
+
     // ********** clear bits & d_pad info
     jstk.button_bits_old = jstk.button_bits;
     jstk.button_bits = 0;
