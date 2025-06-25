@@ -186,7 +186,7 @@ fn draw_world() void {
 // ------------------------------------------------------------------------------------------------
 fn draw_chit3() void {
     // ***** chit info
-    const hex_ID = [_]i32{ 1, 1 };
+    const hex_ID = [_]i32{ 28, 0 };
     const chit_index = 7;
 
     // ***** create a surface
