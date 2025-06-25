@@ -2,6 +2,7 @@ const std = @import("std");
 const print = @import("std").debug.print;
 const mvzr = @import("mvzr.zig");
 const m = @import("main.zig");
+const gv = @import("GlobalVariables.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -22,52 +23,50 @@ pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
 pub fn bind_buttons(aText: [*c]const u8) !void {
-    var joystick_type: i32 = 0;
-
     var buffer = [_]u8{0} ** 100;
     _ = try std.fmt.bufPrintZ(&buffer, "{s}\n", .{aText});
 
     var regex: mvzr.Regex = mvzr.compile("RumblePad").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 1;
+        gv.joystick_type = 1;
     }
 
     regex = mvzr.compile("ZEROPLUS").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 6;
+        gv.joystick_type = 6;
     }
 
     regex = mvzr.compile("F310").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 7;
+        gv.joystick_type = 7;
     }
 
     regex = mvzr.compile("F710").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 2;
+        gv.joystick_type = 2;
     }
 
     regex = mvzr.compile("PS4").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 3;
+        gv.joystick_type = 3;
     }
 
     regex = mvzr.compile("SWITCH CO").?; // Sega
     if (regex.isMatch(&buffer)) {
-        joystick_type = 4;
+        gv.joystick_type = 4;
     }
 
     regex = mvzr.compile("Xbox One").?;
     if (regex.isMatch(&buffer)) {
-        joystick_type = 5;
+        gv.joystick_type = 5;
     }
 
-    print("-----------> {}\n", .{joystick_type});
+    print("-----------> {}\n", .{gv.joystick_type});
 
     // ****************************************************
     // *** joystick signal to bit
     // *** -1: not in use
-    if (joystick_type == 1) {
+    if (gv.joystick_type == 1) {
         // ***** RumblePad 2 USB
         map_button[0] = 2; // left
         map_button[1] = 0; // down
@@ -92,7 +91,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[5] = -1;
     }
 
-    if (joystick_type == 2) {
+    if (gv.joystick_type == 2) {
         // ***** F710
         map_button[0] = 0; // down
         map_button[1] = 3; // right
@@ -117,7 +116,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[5] = 1; // right trigger
     }
 
-    if (joystick_type == 3) {
+    if (gv.joystick_type == 3) {
         // ***** PS4
         map_button[0] = 0; // down
         map_button[1] = 3; // right
@@ -142,7 +141,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[5] = 1; // right trigger
     }
 
-    if (joystick_type == 4) {
+    if (gv.joystick_type == 4) {
         // ***** Sega
         map_button[0] = 2; // left - x
         map_button[1] = 0; // down - A
@@ -168,7 +167,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
 
     }
 
-    if (joystick_type == 5) {
+    if (gv.joystick_type == 5) {
         // ***** Xbox One
         map_button[0] = 0; // down
         map_button[1] = 3; // right
@@ -193,7 +192,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[5] = 1; // right trigger
     }
 
-    if (joystick_type == 6) {
+    if (gv.joystick_type == 6) {
         // ***** ZeroPlus (Game:Pad 4 S)
         map_button[0] = 2; // left
         map_button[1] = 0; // down
@@ -218,7 +217,7 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         map_axis[5] = 5; // right Y
     }
 
-    if (joystick_type == 7) {
+    if (gv.joystick_type == 7) {
         // ***** F310
         map_button[0] = 0; // down
         map_button[1] = 3; // right
