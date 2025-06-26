@@ -37,7 +37,7 @@ pub fn render(self: *Chit) void {
     // ***** clip one chit and put it on the surface
     var a_rect: c.SDL_Rect = undefined;
     a_rect.x = 0;
-    a_rect.y = self.index * gv.chit_square_dim;
+    a_rect.y = self.img_index * gv.chit_square_dim;
     a_rect.w = gv.chit_square_dim;
     a_rect.h = gv.chit_square_dim;
     _ = c.SDL_BlitSurface(@ptrCast(m.chits_surface), &a_rect, a_surf, null); // no scaling. the target surface truncates.
