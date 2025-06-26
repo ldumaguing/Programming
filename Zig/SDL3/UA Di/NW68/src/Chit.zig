@@ -14,17 +14,17 @@ const c = @cImport({
 
 // ****************************************************************************
 id: i32,
-index: i32,
+img_index: i32,
 hex_ID: [2]i32,
 
 // ****************************************************************************
 pub const Chit = @This();
 
 // ****************************************************************************
-pub fn new(id: i32, index: i32, hex_ID: [2]i32) Chit {
+pub fn new(id: i32, img_index: i32, hex_ID: [2]i32) Chit {
     return .{
         .id = id,
-        .index = index,
+        .img_index = img_index,
         .hex_ID = hex_ID,
     };
 }
