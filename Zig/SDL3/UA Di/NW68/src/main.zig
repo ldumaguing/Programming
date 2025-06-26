@@ -1,8 +1,8 @@
 const std = @import("std");
-const NW68 = @import("NW68");
+const print = @import("std").debug.print;
 const gv = @import("GlobalVariables.zig");
 const jstk = @import("joystick.zig");
-const print = @import("std").debug.print;
+const chit = @import("Chit.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -14,14 +14,17 @@ const c = @cImport({
 });
 
 var window: ?*c.SDL_Window = undefined;
-var renderer: ?*c.SDL_Renderer = undefined;
+pub var renderer: ?*c.SDL_Renderer = undefined;
 
 // *************** Surface
 var mapboard_surface: ?*c.SDL_Surface = undefined;
-var chits_surface: ?*c.SDL_Surface = undefined;
+pub var chits_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
+
+// *************** Chits
+var fish: chit.Chit = undefined;
 
 // ************************************************************************************************
 pub fn main() !void {
@@ -79,6 +82,7 @@ pub fn main() !void {
     chits_surface = c.IMG_LoadPNG_IO(stream);
 
     // [ misc =================================================================================== ]
+    fish = chit.new(12, 13, .{ 0, 1 });
 
     // [ game loop ============================================================================== ]
     main_loop: while (true) {
@@ -177,6 +181,8 @@ fn draw_world() void {
     _ = draw_chit1();
     _ = draw_chit2();
     _ = draw_chit3();
+    fish.render();
+    // print("{d}\n", .{fish.id});
 
     // ***** draw X on window
     _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
