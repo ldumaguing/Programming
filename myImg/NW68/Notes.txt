@@ -1,0 +1,21 @@
+create table if not exists actual (
+   id      integer default 0,
+   game_id integer default 0,
+   chit_id integer default 0,
+   hex_x   integer default -1,
+   hex_y   integer default -1,
+   stats_1 integer default 0
+);
+
+create table if not exists game (
+   id      integer,
+   notes   text,
+   script  text default 'foo.txt',
+   created text default current_timestamp
+);
+
+
+select datetime(created, 'localtime') from game;
+
+SELECT datetime(CURRENT_TIMESTAMP, 'localtime');
+select CURRENT_TIMESTAMP;
