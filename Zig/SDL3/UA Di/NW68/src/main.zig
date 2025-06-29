@@ -318,7 +318,6 @@ fn draw_mapboard() void {
 
     // ********** D-Pad
     if (gv.joystick_type == 4) { // using Sega; converting axis to d-pad infos
-        //print("{d}, {d} - {d}\n", .{jstk.axis_vals[0], jstk.axis_vals[1], spd});
         if (jstk.axis_vals[0] < -5000) jstk.d_pad = 8;
         if (jstk.axis_vals[0] > 5000) jstk.d_pad = 2;
         if (jstk.axis_vals[1] < -5000) jstk.d_pad |= 1;
