@@ -328,6 +328,16 @@ fn draw_mapboard() void {
             spd = 100;
         }
     }
+    if ((gv.OS_platform == 1) and (gv.joystick_type != 4)) { // FreeBSD
+        if (jstk.axis_vals[2] < -5000) jstk.d_pad = 8;
+        if (jstk.axis_vals[2] > 5000) jstk.d_pad = 2;
+        if (jstk.axis_vals[3] < -5000) jstk.d_pad |= 1;
+        if (jstk.axis_vals[3] > 5000) jstk.d_pad |= 4;
+        spd = 1;
+        if ((jstk.button_bits & gv.bit_8) != 0) {
+            spd = 100;
+        }
+    }
     if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
         if ((jstk.d_pad & gv.bit_0) != 0) {
             gv.map_loc[1] += spd;

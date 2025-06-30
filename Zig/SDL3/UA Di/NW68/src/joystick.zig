@@ -12,6 +12,7 @@ const c = @cImport({
     @cInclude("SDL3/SDL_main.h");
     @cInclude("SDL3_image/SDL_image.h");
 });
+
 // *************** Joystick states
 pub var button_bits: u16 = 0;
 pub var button_bits_old: u16 = 0;
@@ -61,7 +62,13 @@ pub fn bind_buttons(aText: [*c]const u8) !void {
         gv.joystick_type = 5;
     }
 
-    print("-----------> {}\n", .{gv.joystick_type});
+    _ = try std.fmt.bufPrintZ(&buffer, "{s}\n", .{c.SDL_GetPlatform()});
+    regex = mvzr.compile("FreeBSD").?;
+    if (regex.isMatch(&buffer)) {
+        gv.OS_platform = 1;
+    }
+
+    print("-----------> {} -- {}\n", .{ gv.joystick_type, gv.OS_platform });
 
     // ****************************************************
     // *** joystick signal to bit
