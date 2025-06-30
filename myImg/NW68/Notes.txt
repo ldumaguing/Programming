@@ -4,6 +4,7 @@ create table if not exists actual (
    chit_id integer default 0,
    hex_x   integer default -1,
    hex_y   integer default -1,
+   hex_z   integer default -1,
    stats_1 integer default 0
 );
 
@@ -19,3 +20,10 @@ select datetime(created, 'localtime') from game;
 
 SELECT datetime(CURRENT_TIMESTAMP, 'localtime');
 select CURRENT_TIMESTAMP;
+
+***** stats_1 ***************************************************
+default: 0
+bit
+===
+  0 is invisible
+  1
