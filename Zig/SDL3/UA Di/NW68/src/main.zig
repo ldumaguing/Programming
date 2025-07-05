@@ -131,24 +131,16 @@ pub fn main() !void {
 
 // ************************************************************************************************
 fn set_toggles() void {
+    // ********** menu/sidebar screen
     if ((jstk.button_bits & gv.bit_1) == 0) {
-        print("release\n", .{}); // old becomes current
-        gv.toggles_old = gv.toggles;
+        gv.toggles_old = gv.toggles; // old becomes current
     } else { // up button event
-        print("press\n", .{});
         const cur: bool = (gv.toggles & gv.bit_0) == 0;
         const old: bool = (gv.toggles_old & gv.bit_0) == 0;
-        if (cur and old) {
-            print("0 0\n", .{});
-            gv.toggles |= gv.bit_0;
-        }
-        if (!cur and !old) {
-            print("1 1\n", .{});
-            const X: u16 = ~gv.bit_0;
-            gv.toggles &= X;
-        }
+        if (cur and old) gv.toggles |= gv.bit_0;
+        if (!cur and !old) gv.toggles &= ~gv.bit_0;
     }
-    print("{d}\n", .{gv.toggles});
+    // print("{d}\n", .{gv.toggles});
 }
 
 // ************************************************************************************************
