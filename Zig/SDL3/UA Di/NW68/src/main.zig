@@ -130,11 +130,10 @@ pub fn main() !void {
         }
         record_joystick_events();
         set_toggles();
-        if ((gv.toggles & gv.bit_0) == 0) {
-            draw_world();
+        if ((gv.toggles & gv.bit_0) != 0) { // HUD mode
+            hud.mode();
         } else {
             draw_world();
-            hud.mode();
         }
     }
 } // pub fn main()

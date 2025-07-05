@@ -18,7 +18,7 @@ pub fn mode() void {
     var viewport: c.SDL_Rect = undefined;
 
     // ***** create a surface
-    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(260, 340, c.SDL_PIXELFORMAT_RGBA4444);
+    const a_surf: *c.SDL_Surface = c.SDL_CreateSurface(260, 340, c.SDL_PIXELFORMAT_RGBA8888);
     defer c.SDL_DestroySurface(a_surf);
 
     // ***** clip the frame and put it on the surface
@@ -28,8 +28,8 @@ pub fn mode() void {
     const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
-    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 0, 0, 0, c.SDL_ALPHA_OPAQUE);
-    _ = c.SDL_RenderClear(@ptrCast(m.renderer));
+    //_ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 0, 0, 0, c.SDL_ALPHA_OPAQUE);
+    //_ = c.SDL_RenderClear(@ptrCast(m.renderer));
 
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
     _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &dst_rectness);
