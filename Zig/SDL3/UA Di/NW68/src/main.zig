@@ -124,9 +124,32 @@ pub fn main() !void {
             }
         }
         record_joystick_events();
+        set_toggles();
         draw_world();
     }
 } // pub fn main()
+
+// ************************************************************************************************
+fn set_toggles() void {
+    if ((jstk.button_bits & gv.bit_1) == 0) {
+        print("release\n", .{}); // old becomes current
+        gv.toggles_old = gv.toggles;
+    } else { // up button event
+        print("press\n", .{});
+        const cur: bool = (gv.toggles & gv.bit_0) == 0;
+        const old: bool = (gv.toggles_old & gv.bit_0) == 0;
+        if (cur and old) {
+            print("0 0\n", .{});
+            gv.toggles |= gv.bit_0;
+        }
+        if (!cur and !old) {
+            print("1 1\n", .{});
+            const X: u16 = ~gv.bit_0;
+            gv.toggles &= X;
+        }
+    }
+    print("{d}\n", .{gv.toggles});
+}
 
 // ************************************************************************************************
 fn record_joystick_events() void {
