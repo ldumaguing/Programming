@@ -3,6 +3,7 @@ const print = @import("std").debug.print;
 const gv = @import("GlobalVariables.zig");
 const jstk = @import("joystick.zig");
 const chit = @import("Chit.zig");
+const hud = @import("HUD.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -19,6 +20,7 @@ pub var renderer: ?*c.SDL_Renderer = undefined;
 // *************** Surface
 var mapboard_surface: ?*c.SDL_Surface = undefined;
 pub var chits_surface: ?*c.SDL_Surface = undefined;
+pub var frames_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Joystick
 var joystick: ?*c.SDL_Joystick = null;
@@ -81,6 +83,9 @@ pub fn main() !void {
     stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
     chits_surface = c.IMG_LoadPNG_IO(stream);
 
+    stream = c.SDL_IOFromFile("img2/frames.png", "r");
+    frames_surface = c.IMG_LoadPNG_IO(stream);
+
     // [ misc =================================================================================== ]
     fish = chit.new(12, 13, .{ 0, 1 });
 
@@ -125,7 +130,12 @@ pub fn main() !void {
         }
         record_joystick_events();
         set_toggles();
-        draw_world();
+        if ((gv.toggles & gv.bit_0) == 0) {
+            draw_world();
+        } else {
+            draw_world();
+            hud.mode();
+        }
     }
 } // pub fn main()
 
