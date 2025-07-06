@@ -130,11 +130,16 @@ pub fn main() !void {
         }
         record_joystick_events();
         set_toggles();
+
         if ((gv.toggles & gv.bit_0) != 0) { // HUD mode
+            draw_world();
             hud.mode();
         } else {
             draw_world();
         }
+
+        // ***** show
+        _ = c.SDL_RenderPresent(renderer);
     }
 } // pub fn main()
 
@@ -144,10 +149,12 @@ fn set_toggles() void {
     if ((jstk.button_bits & gv.bit_1) == 0) {
         gv.toggles_old = gv.toggles; // old becomes current
     } else { // up button event
-        const cur: bool = (gv.toggles & gv.bit_0) == 0;
-        const old: bool = (gv.toggles_old & gv.bit_0) == 0;
-        if (cur and old) gv.toggles |= gv.bit_0;
-        if (!cur and !old) gv.toggles &= ~gv.bit_0;
+        if (jstk.d_pad == 0) { // prevent simultanious inputs
+            const cur: bool = (gv.toggles & gv.bit_0) == 0;
+            const old: bool = (gv.toggles_old & gv.bit_0) == 0;
+            if (cur and old) gv.toggles |= gv.bit_0;
+            if (!cur and !old) gv.toggles &= ~gv.bit_0;
+        }
     }
     // print("{d}\n", .{gv.toggles});
 }
@@ -213,7 +220,7 @@ fn draw_world() void {
     _ = c.SDL_RenderLine(renderer, 0, gv.window_h, gv.window_w, 0);
 
     // ***** show
-    _ = c.SDL_RenderPresent(renderer);
+    //_ = c.SDL_RenderPresent(renderer);
 }
 
 // ------------------------------------------------------------------------------------------------

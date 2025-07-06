@@ -34,5 +34,5 @@ pub fn mode() void {
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
     _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &dst_rectness);
 
-    _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
+    //_ = c.SDL_RenderPresent(@ptrCast(m.renderer));
 }
