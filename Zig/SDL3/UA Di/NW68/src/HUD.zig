@@ -31,6 +31,12 @@ pub fn mode() void {
         const fishness = c.SDL_FRect{ .x = 30.0, .y = 30.0, .w = 260.0, .h = 340.0 };
         _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &fishness);
     } else { // trying to use viewport; lol
+        //const rect_0 = c.SDL_Rect{ .x = 0, .y = 0, .w = 260, .h = 340 };
+        const rect_0ness = c.SDL_FRect{ .x = gv.window_w - 260.0, .y = 0.0, .w = 260.0, .h = 340.0 };
+        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
+        _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness);
 
+        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 255, 255, c.SDL_ALPHA_OPAQUE);
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), rect_0ness.x + 11.0, rect_0ness.y + 11.0, "Hello world!");
     }
 }
