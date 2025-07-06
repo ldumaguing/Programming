@@ -218,9 +218,6 @@ fn draw_world() void {
     // ***** draw X on window
     _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
     _ = c.SDL_RenderLine(renderer, 0, gv.window_h, gv.window_w, 0);
-
-    // ***** show
-    //_ = c.SDL_RenderPresent(renderer);
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -365,45 +362,47 @@ fn draw_mapboard() void {
         if (jstk.axis_vals[3] < -10000) jstk.d_pad |= 1;
         if (jstk.axis_vals[3] > 10000) jstk.d_pad |= 4;
     }
-    if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
-        if ((jstk.d_pad & gv.bit_0) != 0) {
-            gv.map_loc[1] += spd;
-            //print("up: {}\n", .{gv.map_loc[1]});
+    if ((gv.toggles & gv.bit_0) == 0) { // not in HUD mode; don't move nor scale map
+        if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
+            if ((jstk.d_pad & gv.bit_0) != 0) {
+                gv.map_loc[1] += spd;
+                //print("up: {}\n", .{gv.map_loc[1]});
+            }
+            if ((jstk.d_pad & gv.bit_1) != 0) {
+                gv.map_loc[0] -= spd;
+                //print("right: {}\n", .{gv.map_loc[0]});
+            }
+            if ((jstk.d_pad & gv.bit_2) != 0) {
+                gv.map_loc[1] -= spd;
+                //print("down: {}\n", .{gv.map_loc[1]});
+            }
+            if ((jstk.d_pad & gv.bit_3) != 0) {
+                gv.map_loc[0] += spd;
+                //print("left: {}\n", .{gv.map_loc[0]});
+            }
         }
-        if ((jstk.d_pad & gv.bit_1) != 0) {
-            gv.map_loc[0] -= spd;
-            //print("right: {}\n", .{gv.map_loc[0]});
-        }
-        if ((jstk.d_pad & gv.bit_2) != 0) {
-            gv.map_loc[1] -= spd;
-            //print("down: {}\n", .{gv.map_loc[1]});
-        }
-        if ((jstk.d_pad & gv.bit_3) != 0) {
-            gv.map_loc[0] += spd;
-            //print("left: {}\n", .{gv.map_loc[0]});
-        }
-    }
 
-    // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
-    gv.scale_old = gv.scale;
-    gv.scaleness_old = gv.scaleness;
-    if ((jstk.button_bits & gv.bit_4) != 0) {
-        if ((jstk.button_bits_old & gv.bit_4) == 0) {
-            gv.scale -= 1;
+        // ********** Left & Right sholder bind_buttons. If continued pressing, don't change scale.
+        gv.scale_old = gv.scale;
+        gv.scaleness_old = gv.scaleness;
+        if ((jstk.button_bits & gv.bit_4) != 0) {
+            if ((jstk.button_bits_old & gv.bit_4) == 0) {
+                gv.scale -= 1;
+            }
         }
-    }
-    if ((jstk.button_bits & gv.bit_5) != 0) {
-        if ((jstk.button_bits_old & gv.bit_5) == 0) {
-            gv.scale += 1;
+        if ((jstk.button_bits & gv.bit_5) != 0) {
+            if ((jstk.button_bits_old & gv.bit_5) == 0) {
+                gv.scale += 1;
+            }
         }
-    }
-    if (gv.scale_old != gv.scale) {
-        if (gv.scale > 0) { // zoom in
-            gv.scaleness = 1.0 / ((1.0 + @as(f32, @floatFromInt(gv.scale))) * 0.6);
-        } else if (gv.scale < 0) { // zoom out
-            gv.scaleness = 1.0 - (@as(f32, @floatFromInt(gv.scale)) * 0.5);
-        } else {
-            gv.scaleness = 1.0;
+        if (gv.scale_old != gv.scale) {
+            if (gv.scale > 0) { // zoom in
+                gv.scaleness = 1.0 / ((1.0 + @as(f32, @floatFromInt(gv.scale))) * 0.6);
+            } else if (gv.scale < 0) { // zoom out
+                gv.scaleness = 1.0 - (@as(f32, @floatFromInt(gv.scale)) * 0.5);
+            } else {
+                gv.scaleness = 1.0;
+            }
         }
     }
 
