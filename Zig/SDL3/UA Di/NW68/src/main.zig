@@ -149,14 +149,11 @@ fn set_toggles() void {
     if ((jstk.button_bits & gv.bit_1) == 0) {
         gv.toggles_old = gv.toggles; // old becomes current
     } else { // up button event
-        if (jstk.d_pad == 0) { // prevent simultanious inputs
-            const cur: bool = (gv.toggles & gv.bit_0) == 0;
-            const old: bool = (gv.toggles_old & gv.bit_0) == 0;
-            if (cur and old) gv.toggles |= gv.bit_0;
-            if (!cur and !old) gv.toggles &= ~gv.bit_0;
-        }
+        const cur: bool = (gv.toggles & gv.bit_0) == 0;
+        const old: bool = (gv.toggles_old & gv.bit_0) == 0;
+        if (cur and old) gv.toggles |= gv.bit_0;
+        if (!cur and !old) gv.toggles &= ~gv.bit_0;
     }
-    // print("{d}\n", .{gv.toggles});
 }
 
 // ************************************************************************************************
@@ -193,12 +190,6 @@ fn record_joystick_events() void {
             jstk.axis_vals[@abs(jstk.map_axis[i])] = val;
         }
     }
-    //for (0..6) |i| { // larry was here 1
-    //    if (jstk.map_axis[i] >= 0) {
-    //        const index: u32 = @intCast(jstk.map_axis[i]);
-    //        print("{d}:{d};  {d}\n", .{ i, index, jstk.axis_vals[index] });
-    //    }
-    //}
 }
 
 // ************************************************************************************************
@@ -213,7 +204,6 @@ fn draw_world() void {
     _ = draw_chit2();
     _ = draw_chit3();
     fish.render();
-    // print("{d}\n", .{fish.id});
 
     // ***** draw X on window
     _ = c.SDL_RenderLine(renderer, 0, 0, gv.window_w, gv.window_h);
@@ -346,7 +336,6 @@ fn draw_mapboard() void {
 
     // ********** D-Pad
     if (gv.joystick_type == 4) { // using Sega; converting axis to d-pad infos
-        //print("{d}, {d} - {d}\n", .{jstk.axis_vals[0], jstk.axis_vals[1], spd});
         if (jstk.axis_vals[0] < -5000) jstk.d_pad = 8;
         if (jstk.axis_vals[0] > 5000) jstk.d_pad = 2;
         if (jstk.axis_vals[1] < -5000) jstk.d_pad |= 1;
@@ -366,19 +355,15 @@ fn draw_mapboard() void {
         if (jstk.d_pad != 0) { // no inputs, don't bother going in; this should save time
             if ((jstk.d_pad & gv.bit_0) != 0) {
                 gv.map_loc[1] += spd;
-                //print("up: {}\n", .{gv.map_loc[1]});
             }
             if ((jstk.d_pad & gv.bit_1) != 0) {
                 gv.map_loc[0] -= spd;
-                //print("right: {}\n", .{gv.map_loc[0]});
             }
             if ((jstk.d_pad & gv.bit_2) != 0) {
                 gv.map_loc[1] -= spd;
-                //print("down: {}\n", .{gv.map_loc[1]});
             }
             if ((jstk.d_pad & gv.bit_3) != 0) {
                 gv.map_loc[0] += spd;
-                //print("left: {}\n", .{gv.map_loc[0]});
             }
         }
 

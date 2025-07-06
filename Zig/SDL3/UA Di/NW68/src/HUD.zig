@@ -28,11 +28,6 @@ pub fn mode() void {
     const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
-    //_ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 0, 0, 0, c.SDL_ALPHA_OPAQUE);
-    //_ = c.SDL_RenderClear(@ptrCast(m.renderer));
-
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
     _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &dst_rectness);
-
-    //_ = c.SDL_RenderPresent(@ptrCast(m.renderer));
 }
