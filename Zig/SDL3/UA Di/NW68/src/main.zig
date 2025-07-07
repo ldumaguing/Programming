@@ -64,11 +64,14 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ================================================================ ]
-    // const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
-    // gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
-    // gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
-    window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
-    //window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
+    if (false) { // true: windowed
+        window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
+    } else { // false: fullscreen
+        const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+        gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
+        gv.window_h = @as(f32, @floatFromInt(window_dim.*.h));
+        window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_FULLSCREEN);
+    }
     renderer = c.SDL_CreateRenderer(window, null);
     defer c.SDL_DestroyRenderer(renderer);
     defer c.SDL_DestroyWindow(window);
