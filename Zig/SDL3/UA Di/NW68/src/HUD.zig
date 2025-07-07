@@ -28,24 +28,16 @@ pub fn mode() void {
     const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
+    // ***** "paste" the texture on the window
     const rect_0ness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    if (false) { // not using viewport
-        // *** render texture
-        const fishness = c.SDL_FRect{ .x = 30.0, .y = 30.0, .w = 260.0, .h = 340.0 };
-        _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &fishness);
-    } else { // trying to use viewport; lol
-        //const rect_0 = c.SDL_Rect{ .x = 0, .y = 0, .w = 260, .h = 340 };
-        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
-        _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness);
-    }
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; the whole window
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness);
 
     main_menu(rect_0ness);
 }
 
 // ************************************************************************************************
 fn main_menu(rect_0ness: c.SDL_FRect) void {
-    const rect_0 = c.SDL_Rect{ .x = @intFromFloat(rect_0ness.x), .y = 0, .w = @intFromFloat(rect_0ness.w), .h = @intFromFloat(rect_0ness.h) };
-
     if (false) {
         _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
         const font_scale: f32 = 2.0;
@@ -59,9 +51,11 @@ fn main_menu(rect_0ness: c.SDL_FRect) void {
 
         _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
     } else {
-        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
-        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &rect_0);
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "Hello world.");
+        const viewport_rect = c.SDL_Rect{ .x = @intFromFloat(rect_0ness.x + 11.0), .y = 11, .w = @intFromFloat(rect_0ness.w), .h = @intFromFloat(rect_0ness.h) };
+        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
+        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect); // set
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "Hello world."); // put
+
         _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
     }
 }
