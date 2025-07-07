@@ -64,7 +64,7 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ================================================================ ]
-    if (false) { // true: windowed
+    if (true) { // true: windowed
         window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
     } else { // false: fullscreen
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());

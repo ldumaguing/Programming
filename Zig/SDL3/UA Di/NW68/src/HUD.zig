@@ -28,21 +28,31 @@ pub fn mode() void {
     const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
+    const rect_0ness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
     if (false) { // not using viewport
         // *** render texture
         const fishness = c.SDL_FRect{ .x = 30.0, .y = 30.0, .w = 260.0, .h = 340.0 };
         _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &fishness);
     } else { // trying to use viewport; lol
         //const rect_0 = c.SDL_Rect{ .x = 0, .y = 0, .w = 260, .h = 340 };
-        const rect_0ness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
         _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
         _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness);
-
-        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 255, 255, c.SDL_ALPHA_OPAQUE);
-        const font_scale: f32 = 2.0;
-        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), font_scale, font_scale); // this will affect a lot
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), (rect_0ness.x / font_scale) + (11 / font_scale), (11 / font_scale), "-123456789-123456789-1");
-        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
-
     }
+
+    main_menu(rect_0ness);
+}
+
+// ************************************************************************************************
+fn main_menu(rect_0ness: c.SDL_FRect) void {
+    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
+    const font_scale: f32 = 2.0;
+    const top_left_corner = [_]f32{ (rect_0ness.x / font_scale) + (11 / font_scale), (11 / font_scale) };
+
+    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), font_scale, font_scale); // this will affect a lot
+
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 15), "       New Game");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 16), "       Load Game");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 17), "       Save Game");
+
+    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
 }
