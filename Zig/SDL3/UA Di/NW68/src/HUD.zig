@@ -44,15 +44,24 @@ pub fn mode() void {
 
 // ************************************************************************************************
 fn main_menu(rect_0ness: c.SDL_FRect) void {
-    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
-    const font_scale: f32 = 2.0;
-    const top_left_corner = [_]f32{ (rect_0ness.x / font_scale) + (11 / font_scale), (11 / font_scale) };
+    const rect_0 = c.SDL_Rect{ .x = @intFromFloat(rect_0ness.x), .y = 0, .w = @intFromFloat(rect_0ness.w), .h = @intFromFloat(rect_0ness.h) };
 
-    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), font_scale, font_scale); // this will affect a lot
+    if (false) {
+        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
+        const font_scale: f32 = 2.0;
+        const top_left_corner = [_]f32{ (rect_0ness.x / font_scale) + (11 / font_scale), (11 / font_scale) };
 
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 15), "       New Game");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 16), "       Load Game");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 17), "       Save Game");
+        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), font_scale, font_scale); // this will affect a lot
 
-    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 15), "       New Game");
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 16), "       Load Game");
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 17), "       Save Game");
+
+        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
+    } else {
+        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
+        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &rect_0);
+        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "Hello world.");
+        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
+    }
 }
