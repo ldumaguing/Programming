@@ -30,9 +30,8 @@ pub fn mode() void {
     defer c.SDL_DestroyTexture(a_texture);
 
     // ***** "paste" the texture on the window
-    const rect_0ness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; use the whole window for viewport
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness); // put texture on viewport area
+    const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture on viewport area
 
     main_menu();
 }
@@ -52,10 +51,10 @@ fn main_menu() void {
     // ******************************************
     X = @intFromFloat(gv.window_w);
     X = X - (frame_dim[0] - mesa_dim[2]); // shift left adjustment
-    const viewport_rect = c.SDL_Rect{ .x = X, .y = mesa_dim[3], .w = mesa_dim[0], .h = mesa_dim[1] };
+    const viewport = c.SDL_Rect{ .x = X, .y = mesa_dim[3], .w = mesa_dim[0], .h = mesa_dim[1] };
 
     _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect); // define a viewport area within the window
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport); // define a viewport area within the window
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789");
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 8, "Moe.");
 
@@ -82,9 +81,9 @@ fn main_menu() void {
 
     // ***** back to normal
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect);
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Larry.");
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Shemp.");
 
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; the whole window become the viewport
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; remove viewport
 }
