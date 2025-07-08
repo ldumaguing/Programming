@@ -30,32 +30,33 @@ pub fn mode() void {
 
     // ***** "paste" the texture on the window
     const rect_0ness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; the whole window
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness);
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; use the whole window for viewport
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &rect_0ness); // put texture on viewport area
 
-    main_menu(rect_0ness);
+    main_menu(rect_0ness, frame_dim);
 }
 
 // ************************************************************************************************
-fn main_menu(rect_0ness: c.SDL_FRect) void {
-    if (false) {
-        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
-        const font_scale: f32 = 2.0;
-        const top_left_corner = [_]f32{ (rect_0ness.x / font_scale) + (11 / font_scale), (11 / font_scale) };
+fn main_menu(rect_0ness: c.SDL_FRect, frame_dim: [2]i32) void {
+    const viewport_rect = c.SDL_Rect{ .x = @intFromFloat(rect_0ness.x + 11.0), .y = @intFromFloat(rect_0ness.y + 11.0), .w = frame_dim[0] - 22, .h = frame_dim[1] - 22 };
+    const scale: f32 = 2.0;
 
-        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), font_scale, font_scale); // this will affect a lot
+    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect); // define a viewport area within the window
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 8, "Moe.");
 
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 15), "       New Game");
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 16), "       Load Game");
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), top_left_corner[0], top_left_corner[1] + (8 * 17), "       Save Game");
+    const X: i32 = @intFromFloat((gv.window_w - @as(f32, @floatFromInt(frame_dim[0]))) / scale);
+    const test_viewport = c.SDL_Rect{ .x = X + 5, .y = 5, .w = frame_dim[0] - 196, .h = frame_dim[1] };
+    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), scale, scale);
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &test_viewport);
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "Curly -123456789-123456789-123456789-123456789-123456789");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Curly -123456789-123456789-123456789-123456789-123456789");
 
-        _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0); // normalize overall scale
-    } else {
-        const viewport_rect = c.SDL_Rect{ .x = @intFromFloat(rect_0ness.x + 11.0), .y = 11, .w = @intFromFloat(rect_0ness.w), .h = @intFromFloat(rect_0ness.h) };
-        _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
-        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect); // set
-        _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "Hello world."); // put
+    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport_rect);
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 300, "Larry.");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 320, "Shemp.");
 
-        _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
-    }
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; the whole window become the viewport
 }
