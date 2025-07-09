@@ -2,6 +2,7 @@ const std = @import("std");
 const gv = @import("GlobalVariables.zig");
 const print = @import("std").debug.print;
 const m = @import("main.zig");
+const jstk = @import("joystick.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -14,6 +15,8 @@ const c = @cImport({
 
 const frame_dim = [_]i32{ 372, 596, 0, 60 }; // frame & corner
 const mesa_dim = [_]i32{ 352, 576, 10, 10 }; // mesa & shifts
+var menu_option: i32 = 0;
+var d_pad_old: u16 = 0;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -38,6 +41,26 @@ pub fn mode() void {
 
 // ************************************************************************************************
 fn main_menu(silly: c.SDL_FRect) void {
+    // ***** menu number
+    const num_choices: i32 = 4;
+
+    if (jstk.d_pad == 1) {
+        if (jstk.d_pad != d_pad_old) {
+            menu_option -= 1;
+            d_pad_old = 1;
+        }
+    }
+    if (jstk.d_pad == 4) {
+        if (jstk.d_pad != d_pad_old) {
+            menu_option += 1;
+            d_pad_old = 4;
+        }
+    }
+    if (menu_option < 0) menu_option += num_choices;
+    if (menu_option >= num_choices) menu_option = 0;
+    if (jstk.d_pad == 0) d_pad_old = 0;
+    print("{d}\n", .{menu_option});
+
     var X: i32 = 0;
     var Xness: f32 = 0.0;
     var Y: i32 = 0;
@@ -57,10 +80,10 @@ fn main_menu(silly: c.SDL_FRect) void {
     W -= (mesa_dim[2] * 2);
     const viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = @intFromFloat(silly.h) };
 
-    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport); // define a viewport area within the window
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 8, "Moe.");
+    //_ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
+    //_ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport); // define a viewport area within the window
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 8, "Moe.");
 
     // ***** 2x scale
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), scale, scale);
@@ -78,16 +101,22 @@ fn main_menu(silly: c.SDL_FRect) void {
     H = @intFromFloat(Hness);
     const scaled_viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = H };
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Curly -123456789-123456789-123456789-123456789-123456789");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Curly -123456789-123456789-123456789-123456789-123456789");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 34), "Curly -123456789-123456789-123456789-123456789-123456789");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 35), "Curly -123456789-123456789-123456789-123456789-123456789");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Curly -123456789-123456789-123456789-123456789-123456789");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Curly -123456789-123456789-123456789-123456789-123456789");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "         New");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "         Load");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "         Save");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 16), "         Quit");
+    Yness = @floatFromInt(menu_option);
+    Yness += 13;
+    Yness *= 8;
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, Yness, "       *");
 
     // ***** back to normal
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Larry.");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Shemp.");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Larry.");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Shemp.");
 
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; remove viewport
 }
