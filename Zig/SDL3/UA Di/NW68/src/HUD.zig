@@ -33,11 +33,11 @@ pub fn mode() void {
     const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
     _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture on viewport area
 
-    main_menu();
+    main_menu(silly_putty);
 }
 
 // ************************************************************************************************
-fn main_menu() void {
+fn main_menu(silly: c.SDL_FRect) void {
     var X: i32 = 0;
     var Xness: f32 = 0.0;
     var Y: i32 = 0;
@@ -49,9 +49,13 @@ fn main_menu() void {
     const scale: f32 = 2.0;
 
     // ******************************************
-    X = @intFromFloat(gv.window_w);
-    X = X - (frame_dim[0] - mesa_dim[2]); // shift left adjustment
-    const viewport = c.SDL_Rect{ .x = X, .y = mesa_dim[3], .w = mesa_dim[0], .h = mesa_dim[1] };
+    X = @intFromFloat(silly.x);
+    X += mesa_dim[2]; // shift left adjustment
+    Y = @intFromFloat(silly.y);
+    Y += mesa_dim[3]; // shift down
+    W = @intFromFloat(silly.w);
+    W -= (mesa_dim[2] * 2);
+    const viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = @intFromFloat(silly.h) };
 
     _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport); // define a viewport area within the window
