@@ -59,6 +59,7 @@ fn main_menu(silly: c.SDL_FRect) void {
     if (menu_option < 0) menu_option += num_choices;
     if (menu_option >= num_choices) menu_option = 0;
     if (jstk.d_pad == 0) d_pad_old = 0;
+    print("{d}\n", .{menu_option});
 
     var X: i32 = 0;
     var Xness: f32 = 0.0;
@@ -73,6 +74,16 @@ fn main_menu(silly: c.SDL_FRect) void {
     // ******************************************
     X = @intFromFloat(silly.x);
     X += mesa_dim[2]; // shift left adjustment
+    Y = @intFromFloat(silly.y);
+    Y += mesa_dim[3]; // shift down
+    W = @intFromFloat(silly.w);
+    W -= (mesa_dim[2] * 2);
+    const viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = @intFromFloat(silly.h) };
+
+    //_ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE); // font color
+    //_ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport); // define a viewport area within the window
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 8, "Moe.");
 
     // ***** 2x scale
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), scale, scale);
@@ -90,6 +101,8 @@ fn main_menu(silly: c.SDL_FRect) void {
     H = @intFromFloat(Hness);
     const scaled_viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = H };
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Curly -123456789-123456789-123456789-123456789-123456789");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Curly -123456789-123456789-123456789-123456789-123456789");
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "         New");
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "         Load");
     _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "         Save");
@@ -101,6 +114,9 @@ fn main_menu(silly: c.SDL_FRect) void {
 
     // ***** back to normal
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &viewport);
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 16, "Larry.");
+    //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 24, "Shemp.");
 
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; remove viewport
 }
