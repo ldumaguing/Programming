@@ -15,5 +15,23 @@ const c = @cImport({
 });
 
 pub fn newGame() void {
-    print("New Game\n", .{});
+    print("New Game...............\n", .{});
+    main_loop: while (true) {
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event)) {
+            switch (event.type) {
+                // [ Key down =================================================================== ]
+                c.SDL_EVENT_KEY_DOWN => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_ESCAPE => {
+                            break :main_loop;
+                        },
+                        else => {},
+                    }
+                },
+                else => {},
+            }
+        }
+    }
+    print("back...............\n", .{});
 }

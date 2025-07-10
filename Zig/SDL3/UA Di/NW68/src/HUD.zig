@@ -112,18 +112,22 @@ fn main_menu(silly: c.SDL_FRect) void {
             gv.flags = 1;
         }
         if ((menu_option == 0) and (menu_option_old != 0)) { // 0: new game option
+            menu_option = 0;
             hud_0.newGame();
             menu_option_old = 0;
         }
         if ((menu_option == 1) and (menu_option_old != 1)) { // 1: load game option
+            menu_option = 1;
             print("one\n", .{});
             menu_option_old = 1;
         }
         if ((menu_option == 2) and (menu_option_old != 2)) { // 2: save game option
+            menu_option = 2;
             print("two\n", .{});
             menu_option_old = 2;
         }
     } else {
         menu_option_old = -1;
     }
+
 }
