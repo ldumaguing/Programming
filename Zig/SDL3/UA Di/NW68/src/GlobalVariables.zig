@@ -42,3 +42,9 @@ pub const bit_12: u16 = 1 << 12;
 pub const bit_13: u16 = 1 << 13;
 pub const bit_14: u16 = 1 << 14;
 pub const bit_15: u16 = 1 << 15;
+
+// *************** Flags
+// bit 0: quit game
+pub var flags: u32 = 0;
+
+

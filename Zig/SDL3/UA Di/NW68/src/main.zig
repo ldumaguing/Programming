@@ -143,6 +143,8 @@ pub fn main() !void {
 
         // ***** show
         _ = c.SDL_RenderPresent(renderer);
+
+        if (gv.flags == 1) break :main_loop;
     }
 } // pub fn main()
 

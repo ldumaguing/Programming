@@ -3,6 +3,7 @@ const gv = @import("GlobalVariables.zig");
 const print = @import("std").debug.print;
 const m = @import("main.zig");
 const jstk = @import("joystick.zig");
+const hud_0 = @import("hud_new.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -16,6 +17,7 @@ const c = @cImport({
 const frame_dim = [_]i32{ 372, 596, 0, 60 }; // frame & corner
 const mesa_dim = [_]i32{ 352, 576, 10, 10 }; // mesa & shifts
 var menu_option: i32 = 0;
+var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
 
 pub fn mode() void {
@@ -90,10 +92,10 @@ fn main_menu(silly: c.SDL_FRect) void {
     H = @intFromFloat(Hness);
     const scaled_viewport = c.SDL_Rect{ .x = X, .y = Y, .w = W, .h = H };
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "         New");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "         Load");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "         Save");
-    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 16), "         Quit");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "         New"); // 0
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "         Load"); // 1
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "         Save"); // 2
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 16), "         Quit"); // 3
     Yness = @floatFromInt(menu_option);
     Yness += 13;
     Yness *= 8;
@@ -103,4 +105,25 @@ fn main_menu(silly: c.SDL_FRect) void {
     _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
 
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // null; remove viewport
+
+    // ***** set flags
+    if ((jstk.button_bits & gv.bit_0) != 0) { // down button pressed
+        if (menu_option == 3) { // 3: quit option
+            gv.flags = 1;
+        }
+        if ((menu_option == 0) and (menu_option_old != 0)) { // 0: new game option
+            hud_0.newGame();
+            menu_option_old = 0;
+        }
+        if ((menu_option == 1) and (menu_option_old != 1)) { // 1: load game option
+            print("one\n", .{});
+            menu_option_old = 1;
+        }
+        if ((menu_option == 2) and (menu_option_old != 2)) { // 2: save game option
+            print("two\n", .{});
+            menu_option_old = 2;
+        }
+    } else {
+        menu_option_old = -1;
+    }
 }
