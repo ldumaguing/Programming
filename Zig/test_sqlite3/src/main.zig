@@ -1,6 +1,5 @@
 const std = @import("std");
 const print = @import("std").debug.print;
-//const fish = @import("fish");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
