@@ -23,7 +23,7 @@ pub var chits_surface: ?*c.SDL_Surface = undefined;
 pub var frames_surface: ?*c.SDL_Surface = undefined;
 
 // *************** Joystick
-var joystick: ?*c.SDL_Joystick = null;
+pub var joystick: ?*c.SDL_Joystick = null;
 
 // *************** Chits
 var fish: chit.Chit = undefined;
@@ -131,7 +131,7 @@ pub fn main() !void {
                 else => {},
             }
         }
-        record_joystick_events();
+        jstk.record_events();
         set_toggles();
 
         if ((gv.toggles & gv.bit_0) != 0) { // HUD mode
@@ -145,7 +145,7 @@ pub fn main() !void {
         _ = c.SDL_RenderPresent(renderer);
 
         if (gv.flags == 1) break :main_loop;
-    }
+    } // game loop
 } // pub fn main()
 
 // ************************************************************************************************
@@ -161,41 +161,6 @@ fn set_toggles() void {
     }
 }
 
-// ************************************************************************************************
-fn record_joystick_events() void {
-    if (gv.joystick_type == 0) return;
-
-    // ********** clear bits & d_pad info
-    jstk.button_bits_old = jstk.button_bits;
-    jstk.button_bits = 0;
-    jstk.d_pad = 0;
-
-    // ********** set info bits
-    for (0..jstk.num_buttons) |i| {
-        if (c.SDL_GetJoystickButton(joystick, @intCast(i))) { // if buttons are pressed
-            //print("button {d}", .{i});
-            const val = jstk.map_button[i];
-            //print(": {d}\n", .{val});
-            if (val < 0) continue;
-            const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
-            jstk.button_bits |= bits;
-        }
-    }
-
-    // ********** set d_pad info
-    const hat = c.SDL_GetJoystickHat(joystick, 0);
-    if (hat != 0) {
-        jstk.d_pad = hat;
-    }
-
-    // ********** set axis info
-    for (0..6) |i| {
-        if (jstk.map_axis[i] >= 0) {
-            const val = c.SDL_GetJoystickAxis(joystick, @intCast(i));
-            jstk.axis_vals[@abs(jstk.map_axis[i])] = val;
-        }
-    }
-}
 
 // ************************************************************************************************
 fn draw_world() void {

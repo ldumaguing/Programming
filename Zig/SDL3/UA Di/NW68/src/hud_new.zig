@@ -1,9 +1,8 @@
 const std = @import("std");
-//const gv = @import("GlobalVariables.zig");
+const gv = @import("GlobalVariables.zig");
 const print = @import("std").debug.print;
 //const m = @import("main.zig");
-//const jstk = @import("joystick.zig");
-//const hud_0 = @import("hud_new.zig");
+const jstk = @import("joystick.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -16,6 +15,7 @@ const c = @cImport({
 
 pub fn newGame() void {
     print("New Game...............\n", .{});
+    // [ newGame loop =========================================================================== ]
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
@@ -32,6 +32,29 @@ pub fn newGame() void {
                 else => {},
             }
         }
-    }
+        jstk.record_events();
+        print("...{d}\n", .{jstk.button_bits});
+    } // main_loop
     print("back...............\n", .{});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

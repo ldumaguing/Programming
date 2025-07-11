@@ -23,6 +23,42 @@ pub var axis_vals = [_]i32{0} ** 6;
 pub var num_buttons: u32 = 0;
 
 // ************************************************************************************************
+pub fn record_events() void {
+    if (gv.joystick_type == 0) return;
+
+    // ********** clear bits & d_pad info
+    button_bits_old = button_bits;
+    button_bits = 0;
+    d_pad = 0;
+
+    // ********** set info bits
+    for (0..num_buttons) |i| {
+        if (c.SDL_GetJoystickButton(@ptrCast(m.joystick), @intCast(i))) { // if buttons are pressed
+            //print("button {d}", .{i});
+            const val = map_button[i];
+            //print(": {d}\n", .{val});
+            if (val < 0) continue;
+            const bits: u16 = std.math.pow(u16, 2, @as(u16, @intCast(val)));
+            button_bits |= bits;
+        }
+    }
+
+    // ********** set d_pad info
+    const hat = c.SDL_GetJoystickHat(@ptrCast(m.joystick), 0);
+    if (hat != 0) {
+        d_pad = hat;
+    }
+
+    // ********** set axis info
+    for (0..6) |i| {
+        if (map_axis[i] >= 0) {
+            const val = c.SDL_GetJoystickAxis(@ptrCast(m.joystick), @intCast(i));
+            axis_vals[@abs(map_axis[i])] = val;
+        }
+    }
+}
+
+// ************************************************************************************************
 pub fn bind_buttons(aText: [*c]const u8) !void {
     var buffer = [_]u8{0} ** 100;
     _ = try std.fmt.bufPrintZ(&buffer, "{s}\n", .{aText});
