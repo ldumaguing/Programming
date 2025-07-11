@@ -1,28 +1,25 @@
-//! By convention, main.zig is where your main function lives in the case that
-//! you are building an executable. If you are making a library, the convention
-//! is to delete this file and start with root.zig instead.
-const sqlite = @import("sqlite");
+const std = @import("std");
+const print = @import("std").debug.print;
+//const fish = @import("fish");
+
+const c = @cImport({
+    @cInclude("sqlite3.h");
+});
 
 pub fn main() !void {
-    var db = try sqlite.Db.init(.{
-        .mode = sqlite.Db.Mode{ .File = "mydata.db" },
-        .open_flags = .{
-            .write = true,
-            .create = true,
-        },
-        .threading_mode = .MultiThread,
-    });
+    var db: ?*c.sqlite3 = undefined;
+    var stmt: ?*c.sqlite3_stmt = undefined;
 
-    // ********************
+    _ = c.sqlite3_open("fish.db", &db);
+    if (db == null) {
+        print("failed to open\n", .{});
+        return;
+    }
 
-    try db.exec("CREATE TABLE IF NOT EXISTS employees(id integer primary key, name text, age integer, salary integer)", .{}, .{});
-
-    const query =
-        \\SELECT id, name, age, salary FROM employees WHERE age > ? AND age < ?
-    ;
-
-    var stmt = try db.prepare(query);
-    defer stmt.deinit();
+    _ = c.sqlite3_prepare_v2(db, "select * from laptop", -1, &stmt, null);
+    var count: i32 = 0;
+    while (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        count += 1;
+        print("{d}\n", .{count});
+    }
 }
-
-const std = @import("std");
