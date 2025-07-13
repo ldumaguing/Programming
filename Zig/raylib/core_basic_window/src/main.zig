@@ -3,6 +3,7 @@ const print = @import("std").debug.print;
 
 const c = @cImport({
     @cInclude("raylib.h");
+    @cInclude("raymath.h");
 });
 
 pub fn main() !void {
@@ -16,9 +17,10 @@ pub fn main() !void {
 
     while (c.WindowShouldClose() == false) {
         c.BeginDrawing();
+        defer c.EndDrawing();
+
         c.ClearBackground(c.RAYWHITE);
 
         c.DrawText("your first window", 190, 200, 20, c.LIGHTGRAY);
-        c.EndDrawing();
     }
 }

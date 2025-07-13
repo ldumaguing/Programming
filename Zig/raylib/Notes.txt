@@ -1,0 +1,24 @@
+zig fetch --save git+https://github.com/raysan5/raylib.git
+
+********** build.zig
+    const raylib_dep = b.dependency("raylib", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const raylib = raylib_dep.artifact("raylib");
+    exe.linkLibrary(raylib);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
