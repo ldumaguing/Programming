@@ -65,6 +65,10 @@ pub fn main() !void {
 
     // [ set window and renderer ================================================================ ]
     if (true) { // true: windowed
+        const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
+        const ratio: f32 = 1.6;
+        gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
+        gv.window_w = ratio * gv.window_h;
         window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
     } else { // false: fullscreen
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
