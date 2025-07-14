@@ -14,8 +14,8 @@ const c = @cImport({
     @cInclude("SDL3_image/SDL_image.h");
 });
 
-const frame_dim = [_]i32{ 372, 596, 0, 60 }; // frame & corner
-const mesa_dim = [_]i32{ 352, 576, 10, 10 }; // mesa & shifts
+const frame_dim = [_]i32{ 500, 660, 0, 0 }; // frame & corner
+const mesa_dim = [_]i32{ 480, 640, 10, 10 }; // mesa & shifts
 var menu_option: i32 = 0;
 var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
@@ -73,6 +73,14 @@ fn main_menu(silly: c.SDL_FRect) void {
     const scale: f32 = 2.0;
 
     // ******************************************
+    Xness = gv.window_w - frame_dim[0];
+    X = @intFromFloat(Xness);
+    X += 11;
+    const mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
+    _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 1, 0, "   345");
+
     X = @intFromFloat(silly.x);
     X += mesa_dim[2]; // shift left adjustment
 
@@ -129,5 +137,4 @@ fn main_menu(silly: c.SDL_FRect) void {
     } else {
         menu_option_old = -1;
     }
-
 }

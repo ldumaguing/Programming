@@ -64,14 +64,16 @@ pub fn main() !void {
     errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
 
     // [ set window and renderer ================================================================ ]
-    if (true) { // true: windowed
+    if (false) { // true: windowed
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         const window_w = @as(f32, @floatFromInt(window_dim.*.w));
         const window_h = @as(f32, @floatFromInt(window_dim.*.h));
-        const percent = 0.92;
+        const percent = 0.91;
         gv.window_w = window_w * percent;
         gv.window_h = window_h * percent;
-        window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
+        //gv.window_w = 1280.0;
+        //gv.window_h = 720.0;
+        window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_BORDERLESS);
     } else { // false: fullscreen
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
@@ -92,7 +94,7 @@ pub fn main() !void {
     stream = c.SDL_IOFromFile("img2/NW68-chits.png", "r");
     chits_surface = c.IMG_LoadPNG_IO(stream);
 
-    stream = c.SDL_IOFromFile("img2/frames.png", "r");
+    stream = c.SDL_IOFromFile("img2/frames-1.png", "r");
     frames_surface = c.IMG_LoadPNG_IO(stream);
 
     // [ misc =================================================================================== ]
