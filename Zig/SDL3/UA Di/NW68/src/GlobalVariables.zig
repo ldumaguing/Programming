@@ -1,6 +1,6 @@
 pub var OS_platform: i32 = 0; // 0: linux;   1: FreeBSD
 pub var window_w: f32 = 800.0; // var because may be redefine later.
-pub var window_h: f32 = 600.0; // var because may be redefine later.
+pub var window_h: f32 = 720.0; // var because may be redefine later.
 pub var joystick_type: i32 = 0;
 
 // *************** Toggles
