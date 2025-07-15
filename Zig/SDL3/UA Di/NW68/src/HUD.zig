@@ -34,9 +34,9 @@ pub fn mode() void {
     const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(a_texture);
 
-    // ***** "paste" the texture on the window
+    // ***** "paste" the texture on the window; not using viewport
     const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture on viewport area
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture FOR any viewports
 
     main_menu(silly_putty);
 }
