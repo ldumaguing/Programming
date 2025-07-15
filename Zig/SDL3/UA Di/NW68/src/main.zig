@@ -47,24 +47,13 @@ pub fn main() !void {
 
     c.SDL_SetMainReady();
 
-    try errify(c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD | c.SDL_INIT_JOYSTICK));
+    _ = c.SDL_Init(c.SDL_INIT_VIDEO | c.SDL_INIT_AUDIO | c.SDL_INIT_GAMEPAD | c.SDL_INIT_JOYSTICK);
     defer c.SDL_Quit();
 
-    std.log.debug("SDL video drivers: {}", .{fmtSdlDrivers(
-        c.SDL_GetCurrentVideoDriver().?,
-        c.SDL_GetNumVideoDrivers(),
-        c.SDL_GetVideoDriver,
-    )});
-    std.log.debug("SDL audio drivers: {}", .{fmtSdlDrivers(
-        c.SDL_GetCurrentAudioDriver().?,
-        c.SDL_GetNumAudioDrivers(),
-        c.SDL_GetAudioDriver,
-    )});
-
-    errify(c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1")) catch {};
+    _ = c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1");
 
     // [ set window and renderer ================================================================ ]
-    if (false) { // true: windowed
+    if (true) { // true: windowed
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         const window_w = @as(f32, @floatFromInt(window_dim.*.w));
         const window_h = @as(f32, @floatFromInt(window_dim.*.h));
@@ -168,7 +157,6 @@ fn set_toggles() void {
         if (!cur and !old) gv.toggles &= ~gv.bit_0;
     }
 }
-
 
 // ************************************************************************************************
 fn draw_world() void {
@@ -392,61 +380,4 @@ fn draw_mapboard() void {
     defer c.SDL_DestroyTexture(a_texture);
 
     _ = c.SDL_RenderTexture(renderer, a_texture, null, null);
-}
-
-// ************************************************************************************************
-fn fmtSdlDrivers(
-    current_driver: [*:0]const u8,
-    num_drivers: c_int,
-    getDriver: *const fn (c_int) callconv(.C) ?[*:0]const u8,
-) std.fmt.Formatter(formatSdlDrivers) {
-    return .{ .data = .{
-        .current_driver = current_driver,
-        .num_drivers = num_drivers,
-        .getDriver = getDriver,
-    } };
-}
-
-fn formatSdlDrivers(
-    context: struct {
-        current_driver: [*:0]const u8,
-        num_drivers: c_int,
-        getDriver: *const fn (c_int) callconv(.C) ?[*:0]const u8,
-    },
-    comptime _: []const u8,
-    _: std.fmt.FormatOptions,
-    writer: anytype,
-) !void {
-    var i: c_int = 0;
-    while (i < context.num_drivers) : (i += 1) {
-        if (i != 0) {
-            try writer.writeAll(", ");
-        }
-        const driver = context.getDriver(i).?;
-        try writer.writeAll(std.mem.span(driver));
-        if (std.mem.orderZ(u8, context.current_driver, driver) == .eq) {
-            try writer.writeAll(" (current)");
-        }
-    }
-}
-
-/// Converts the return value of an SDL function to an error union.
-pub inline fn errify(value: anytype) error{SdlError}!switch (@import("shims").typeInfo(@TypeOf(value))) {
-    .bool => void,
-    .pointer, .optional => @TypeOf(value.?),
-    .int => |info| switch (info.signedness) {
-        .signed => @TypeOf(@max(0, value)),
-        .unsigned => @TypeOf(value),
-    },
-    else => @compileError("unerrifiable type: " ++ @typeName(@TypeOf(value))),
-} {
-    return switch (@import("shims").typeInfo(@TypeOf(value))) {
-        .bool => if (!value) error.SdlError,
-        .pointer, .optional => value orelse error.SdlError,
-        .int => |info| switch (info.signedness) {
-            .signed => if (value >= 0) @max(0, value) else error.SdlError,
-            .unsigned => if (value != 0) value else error.SdlError,
-        },
-        else => comptime unreachable,
-    };
 }

@@ -37,24 +37,3 @@ pub fn newGame() void {
     } // main_loop
     print("back...............\n", .{});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
