@@ -73,8 +73,7 @@ fn main_menu(silly: c.SDL_FRect) void {
     const scale: f32 = 2.0;
 
     // ******************************************
-    Xness = gv.window_w - frame_dim[0];
-    X = @intFromFloat(Xness);
+    X = @intFromFloat(gv.window_w - frame_dim[0]);
     X += 11;
     const mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
