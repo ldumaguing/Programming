@@ -57,7 +57,7 @@ pub fn main() !void {
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         const window_w = @as(f32, @floatFromInt(window_dim.*.w));
         const window_h = @as(f32, @floatFromInt(window_dim.*.h));
-        const percent = 0.91;
+        const percent = 0.8;
         gv.window_w = window_w * percent;
         gv.window_h = window_h * percent;
         //gv.window_w = 1280.0;
@@ -130,7 +130,7 @@ pub fn main() !void {
         }
         jstk.record_events();
 
-        if ((jstk.button_bits & gv.bit_1) != 0) {
+        if ((jstk.button_bits & gv.bit_1) != 0) { // HUD mode
             draw_world();
             hud.mode();
         } else {

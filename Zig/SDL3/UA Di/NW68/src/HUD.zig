@@ -19,7 +19,6 @@ const mesa_dim = [_]i32{ 480, 640, 10, 10 }; // mesa & shifts
 var menu_option: i32 = 0;
 var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
-var HUD_texture: ?[*]c.SDL_Texture = undefined;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -32,18 +31,44 @@ pub fn mode() void {
     _ = c.SDL_BlitSurface(@ptrCast(m.frames_surface), &clipped, a_surf, null);
 
     // convert the surface to a texture
-    HUD_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
-    defer c.SDL_DestroyTexture(HUD_texture);
+    const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
+    defer c.SDL_DestroyTexture(a_texture);
 
     // ***** "paste" the texture on the window; not using viewport
     const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &silly_putty); // put texture FOR any viewports
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture FOR any viewports
 
-    main_menu();
+    main_menu(silly_putty);
 }
 
 // ************************************************************************************************
-fn main_menu() void {
+fn main_menu(silly: c.SDL_FRect) void {
+    _ = silly;
+    main_loop: while (true) {
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event)) {
+            switch (event.type) {
+                // [ GUI window events ========================================================== ]
+                c.SDL_EVENT_QUIT => {
+                    break :main_loop;
+                },
+                // [ Key down =================================================================== ]
+                c.SDL_EVENT_KEY_DOWN => {
+                    switch (event.key.scancode) {
+                        c.SDL_SCANCODE_ESCAPE => {
+                            break :main_loop;
+                        },
+                        else => {},
+                    }
+                },
+                else => {},
+            }
+        }
+
+        jstk.record_events();
+        print(".........{d}\n", .{jstk.button_bits});
+        if ((jstk.button_bits & gv.bit_3) != 0) break :main_loop;
+    }
     // // ***** menu number
     // const num_choices: i32 = 4;
 
