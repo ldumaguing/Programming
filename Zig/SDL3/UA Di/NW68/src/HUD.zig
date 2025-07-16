@@ -19,6 +19,7 @@ const mesa_dim = [_]i32{ 480, 640, 10, 10 }; // mesa & shifts
 var menu_option: i32 = 0;
 var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
+var HUD_texture: ?[*]c.SDL_Texture = undefined;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -31,18 +32,18 @@ pub fn mode() void {
     _ = c.SDL_BlitSurface(@ptrCast(m.frames_surface), &clipped, a_surf, null);
 
     // convert the surface to a texture
-    const a_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
-    defer c.SDL_DestroyTexture(a_texture);
+    HUD_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
+    defer c.SDL_DestroyTexture(HUD_texture);
 
     // ***** "paste" the texture on the window; not using viewport
     const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture FOR any viewports
+    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &silly_putty); // put texture FOR any viewports
 
-    main_menu(silly_putty);
+    main_menu();
 }
 
 // ************************************************************************************************
-fn main_menu(silly: c.SDL_FRect) void {
+fn main_menu() void {
     // // ***** menu number
     // const num_choices: i32 = 4;
 
