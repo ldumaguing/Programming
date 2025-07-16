@@ -3,10 +3,6 @@ pub var window_w: f32 = 800.0; // var because may be redefine later.
 pub var window_h: f32 = 720.0; // var because may be redefine later.
 pub var joystick_type: i32 = 0;
 
-// *************** Toggles
-pub var toggles: u16 = 0;
-pub var toggles_old: u16 = 0;
-
 // *************** Mapboard info
 pub const Zero_Zero = [_]i32{ 293, 141 };
 pub const Lower_Right = [_]i32{ 5020, 3846 };
