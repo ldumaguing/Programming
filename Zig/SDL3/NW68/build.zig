@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
     // to our consumers. We must give it a name because a Zig package can expose
     // multiple modules and consumers will need to be able to specify which
     // module they want to access.
-    const mod = b.addModule("joystick_polling", .{
+    const mod = b.addModule("NW68", .{
         // The root source file is the "entry point" of this module. Users of
         // this module will only be able to access public declarations contained
         // in this file, which means that if you have declarations that you
@@ -59,7 +59,7 @@ pub fn build(b: *std.Build) void {
     // If neither case applies to you, feel free to delete the declaration you
     // don't need and to put everything under a single module.
     const exe = b.addExecutable(.{
-        .name = "joystick_polling",
+        .name = "NW68",
         .root_module = b.createModule(.{
             // b.createModule defines a new module just like b.addModule but,
             // unlike b.addModule, it does not expose the module to consumers of
@@ -74,26 +74,26 @@ pub fn build(b: *std.Build) void {
             // List of modules available for import in source files part of the
             // root module.
             .imports = &.{
-                // Here "joystick_polling" is the name you will use in your source code to
-                // import this module (e.g. `@import("joystick_polling")`). The name is
+                // Here "NW68" is the name you will use in your source code to
+                // import this module (e.g. `@import("NW68")`). The name is
                 // repeated because you are allowed to rename your imports, which
                 // can be extremely useful in case of collisions (which can happen
                 // importing modules from different packages).
-                .{ .name = "joystick_polling", .module = mod },
+                .{ .name = "NW68", .module = mod },
             },
         }),
     });
+
+    exe.root_module.addAnonymousImport("shims", .{ .root_source_file = b.path("src/shims.zig") });
+    exe.linkSystemLibrary("SDL3");
+    exe.linkSystemLibrary("SDL3_image");
+    exe.linkLibC();
 
     // This declares intent for the executable to be installed into the
     // install prefix when running `zig build` (i.e. when executing the default
     // step). By default the install prefix is `zig-out/` but can be overridden
     // by passing `--prefix` or `-p`.
     b.installArtifact(exe);
-
-    exe.root_module.addAnonymousImport("shims", .{ .root_source_file = b.path("src/shims.zig") });
-    exe.linkSystemLibrary("SDL3");
-    exe.linkSystemLibrary("SDL3_image");
-    exe.linkLibC();
 
     // This creates a top level step. Top level steps have a name and can be
     // invoked by name when running `zig build` (e.g. `zig build run`).
