@@ -1,0 +1,28 @@
+0	Button Down	
+1	Button Up	
+2	Button Left	
+3	Button Right	
+4	L Shoulder	
+5	R Shoulder	
+6	Center Left Button	
+7	Center Right Button	
+8	L-Axis	
+9	R-Axis	
+10	Center Button	
+11	L-Trigger	
+12	R-Trigger	
+13	Touch Pad	
+		
+Axis0	L-Trigger-Axis	
+Axis1	R-Trigger-Axis	
+Axis2	L-Stick-X	
+Axis3	L-Stick-Y	
+Axis4	R-Stick-X	
+Axis5	R-Stick-Y	
+		
+		
+	D-Pad N	1
+	D-Pad E	2
+	D-Pad S	4
+	D-Pad W	8
+
