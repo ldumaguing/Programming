@@ -38,6 +38,8 @@ pub fn mode() void {
     const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
     _ = c.SDL_RenderTexture(@ptrCast(m.renderer), a_texture, null, &silly_putty); // put texture FOR any viewports
 
+    // ***** show
+    _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
     main_menu(silly_putty);
 }
 
@@ -48,10 +50,6 @@ fn main_menu(silly: c.SDL_FRect) void {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                // [ GUI window events ========================================================== ]
-                c.SDL_EVENT_QUIT => {
-                    break :main_loop;
-                },
                 // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
@@ -66,7 +64,6 @@ fn main_menu(silly: c.SDL_FRect) void {
         }
 
         jstk.record_events();
-        print(".........{d}\n", .{jstk.button_bits});
         if ((jstk.button_bits & gv.bit_3) != 0) break :main_loop;
     }
     // // ***** menu number
