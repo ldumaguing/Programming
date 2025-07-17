@@ -40,7 +40,6 @@ pub fn mode() void {
 
     // ***** show
     _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
-
     main_menu(silly_putty);
 }
 
@@ -65,7 +64,6 @@ fn main_menu(silly: c.SDL_FRect) void {
         }
 
         jstk.record_events();
-        print(".........{d}\n", .{jstk.button_bits});
         if ((jstk.button_bits & gv.bit_3) != 0) break :main_loop;
     }
     // // ***** menu number
