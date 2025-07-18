@@ -53,16 +53,18 @@ pub fn main() !void {
     _ = c.SDL_SetHint(c.SDL_HINT_RENDER_VSYNC, "1");
 
     // [ set window and renderer ================================================================ ]
-    if (true) { // true: windowed
+    if (false) { // true: windowed without borders
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         const window_w = @as(f32, @floatFromInt(window_dim.*.w));
         const window_h = @as(f32, @floatFromInt(window_dim.*.h));
-        const percent = 0.8;
+        const percent = 0.92;
         gv.window_w = window_w * percent;
         gv.window_h = window_h * percent;
-        //gv.window_w = 1280.0;
-        //gv.window_h = 720.0;
         window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), c.SDL_WINDOW_BORDERLESS);
+    } else if (true) { // true: windowed with borders
+        gv.window_w = 1280.0;
+        gv.window_h = 720.0;
+        window = c.SDL_CreateWindow("Nuklear Winter '68", @intFromFloat(gv.window_w), @intFromFloat(gv.window_h), 0);
     } else { // false: fullscreen
         const window_dim = c.SDL_GetCurrentDisplayMode(c.SDL_GetPrimaryDisplay());
         gv.window_w = @as(f32, @floatFromInt(window_dim.*.w));
