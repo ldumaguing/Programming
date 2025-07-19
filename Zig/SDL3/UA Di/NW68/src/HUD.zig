@@ -48,14 +48,23 @@ pub fn mode() void {
 // ************************************************************************************************
 fn main_menu(silly: c.SDL_FRect) void {
     _ = silly;
+
+    var is_render_texture: bool = true;
+
+    var X: i32 = @intFromFloat(gv.window_w - frame_dim[0]);
+    X += 11;
+    const mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
+
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
+            is_render_texture = true;
             switch (event.type) {
                 // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
+                            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
                             break :main_loop;
                         },
                         else => {},
@@ -64,9 +73,17 @@ fn main_menu(silly: c.SDL_FRect) void {
                 else => {},
             }
         }
-
+        if (is_render_texture) {
+            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
+            _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
+            is_render_texture = false;
+        }
         jstk.record_events();
-        if ((jstk.button_bits & gv.bit_3) != 0) break :main_loop;
+        if ((jstk.button_bits & gv.bit_3) != 0) {
+            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
+            break :main_loop;
+        }
     }
     // // ***** menu number
     // const num_choices: i32 = 4;
