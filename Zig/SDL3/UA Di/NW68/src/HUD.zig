@@ -21,6 +21,7 @@ var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
 
 var HUD_texture: ?*c.SDL_Texture = undefined;
+var mesa_viewportness: c.SDL_FRect = undefined;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -36,29 +37,23 @@ pub fn mode() void {
     HUD_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(HUD_texture);
 
-    // ***** "paste" the texture on the window; not using viewport
-    const silly_putty = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
-    _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &silly_putty); // put texture FOR any viewports
+    mesa_viewportness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
 
-    // ***** show
-    _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
-    main_menu(silly_putty);
+    main_menu();
 }
 
 // ************************************************************************************************
-fn main_menu(silly: c.SDL_FRect) void {
-    _ = silly;
+fn main_menu() void {
+    var FLG_render_texture: bool = true;
 
-    var is_render_texture: bool = true;
-
-    var X: i32 = @intFromFloat(gv.window_w - frame_dim[0]);
+    // var X: i32 = @intFromFloat(gv.window_w - frame_dim[0]);
+    var X: i32 = @intFromFloat(mesa_viewportness.x);
     X += 11;
     const mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
-            is_render_texture = true;
             switch (event.type) {
                 // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
@@ -73,18 +68,23 @@ fn main_menu(silly: c.SDL_FRect) void {
                 else => {},
             }
         }
-        if (is_render_texture) {
+        jstk.record_events();
+
+        if (FLG_render_texture) {
+            _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &mesa_viewportness);
+
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
-            is_render_texture = false;
+            FLG_render_texture = false;
         }
-        jstk.record_events();
+
         if ((jstk.button_bits & gv.bit_3) != 0) {
-            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
             break :main_loop;
         }
     }
+
+    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // back to normal
     // // ***** menu number
     // const num_choices: i32 = 4;
 
