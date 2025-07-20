@@ -58,13 +58,14 @@ pub fn mode() void {
 
     main_menu();
 
-    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 5, 255, c.SDL_ALPHA_OPAQUE);
+    //_ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 5, 255, c.SDL_ALPHA_OPAQUE);
 }
 
 // ************************************************************************************************
 fn main_menu() void {
     var FLG_render_texture: bool = true;
     _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
+    defer _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 5, 255, c.SDL_ALPHA_OPAQUE);
 
     jstk.d_pad = d_pad_old;
 
@@ -86,6 +87,7 @@ fn main_menu() void {
         }
         jstk.record_events();
 
+        // ********** D-Pad
         if (jstk.d_pad == 1) {
             if (jstk.d_pad != d_pad_old) {
                 menu_option -= 1;
@@ -105,11 +107,9 @@ fn main_menu() void {
         if (menu_option >= 4) menu_option = 0;
         if (jstk.d_pad == 0) d_pad_old = 0;
 
+        // ********** Rendering
         if (FLG_render_texture) {
             _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &frame_viewportness);
-            // print("********* {d}\n", .{c.SDL_GetTicks()});
-            //_ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
-            //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 2.0, 2.0);
@@ -123,17 +123,15 @@ fn main_menu() void {
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, Y, "          *");
 
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
-
-            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // back to normal
-            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
             FLG_render_texture = false;
+
+            // ********** back to normal
+            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
+            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
         }
 
         if ((jstk.button_bits & gv.bit_3) != 0) {
             break :main_loop;
         }
     }
-
-    _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // back to normal
-    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
 }
