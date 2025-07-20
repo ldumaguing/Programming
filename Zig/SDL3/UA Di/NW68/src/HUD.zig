@@ -21,9 +21,9 @@ var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
 
 var HUD_texture: ?*c.SDL_Texture = undefined;
-var mesa_viewportness: c.SDL_FRect = undefined;
-const scale: f32 = 2.0;
+var frame_viewportness: c.SDL_FRect = undefined;
 var mesa_viewport: c.SDL_Rect = undefined;
+const scale: f32 = 2.0;
 var scaled_viewport: c.SDL_Rect = undefined;
 
 pub fn mode() void {
@@ -40,10 +40,10 @@ pub fn mode() void {
     HUD_texture = c.SDL_CreateTextureFromSurface(@ptrCast(m.renderer), a_surf);
     defer c.SDL_DestroyTexture(HUD_texture);
 
-    mesa_viewportness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
+    frame_viewportness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
 
     // ********** mesa_viewport
-    var X: i32 = @intFromFloat(mesa_viewportness.x);
+    var X: i32 = @intFromFloat(frame_viewportness.x);
     X += 11;
     mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
 
@@ -54,14 +54,17 @@ pub fn mode() void {
     var Wness: f32 = @as(f32, @floatFromInt(mesa_viewport.w));
     Wness /= scale;
     const W: i32 = @intFromFloat(Wness);
-    scaled_viewport = c.SDL_Rect{ .x = X + 1, .y = 5, .w = W, .h = 100 };
+    scaled_viewport = c.SDL_Rect{ .x = X + 1, .y = 5, .w = W, .h = 500 };
 
     main_menu();
+
+    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 255, 5, 255, c.SDL_ALPHA_OPAQUE);
 }
 
 // ************************************************************************************************
 fn main_menu() void {
     var FLG_render_texture: bool = true;
+    _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -83,15 +86,17 @@ fn main_menu() void {
         jstk.record_events();
 
         if (FLG_render_texture) {
-            _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &mesa_viewportness);
+            _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &frame_viewportness);
 
-            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
+            //_ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
+            //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 2.0, 2.0);
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 1, 1, "X");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 10), "            New");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 11), "            Save");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 12), "            Load");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "            Quit");
 
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
             FLG_render_texture = false;
