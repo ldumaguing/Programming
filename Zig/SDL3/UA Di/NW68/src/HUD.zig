@@ -66,11 +66,12 @@ fn main_menu() void {
     var FLG_render_texture: bool = true;
     _ = c.SDL_SetRenderDrawColor(@ptrCast(m.renderer), 5, 200, 5, c.SDL_ALPHA_OPAQUE);
 
+    jstk.d_pad = d_pad_old;
+
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
@@ -85,9 +86,28 @@ fn main_menu() void {
         }
         jstk.record_events();
 
+        if (jstk.d_pad == 1) {
+            if (jstk.d_pad != d_pad_old) {
+                menu_option -= 1;
+                d_pad_old = 1;
+                FLG_render_texture = true;
+            }
+        }
+        if (jstk.d_pad == 4) {
+            if (jstk.d_pad != d_pad_old) {
+                menu_option += 1;
+                d_pad_old = 4;
+                FLG_render_texture = true;
+            }
+        }
+
+        if (menu_option < 0) menu_option += 4;
+        if (menu_option >= 4) menu_option = 0;
+        if (jstk.d_pad == 0) d_pad_old = 0;
+
         if (FLG_render_texture) {
             _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &frame_viewportness);
-
+            // print("********* {d}\n", .{c.SDL_GetTicks()});
             //_ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
             //_ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
 
@@ -97,8 +117,15 @@ fn main_menu() void {
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 11), "            Save");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 12), "            Load");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "            Quit");
+            var Y: f32 = @floatFromInt(menu_option);
+            Y += 10.0;
+            Y *= 8.0;
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, Y, "          *");
 
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
+
+            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // back to normal
+            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
             FLG_render_texture = false;
         }
 
