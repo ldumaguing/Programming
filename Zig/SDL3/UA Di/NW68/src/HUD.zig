@@ -22,6 +22,9 @@ var d_pad_old: u16 = 0;
 
 var HUD_texture: ?*c.SDL_Texture = undefined;
 var mesa_viewportness: c.SDL_FRect = undefined;
+const scale: f32 = 2.0;
+var mesa_viewport: c.SDL_Rect = undefined;
+var scaled_viewport: c.SDL_Rect = undefined;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -39,17 +42,26 @@ pub fn mode() void {
 
     mesa_viewportness = c.SDL_FRect{ .x = gv.window_w - frame_dim[0], .y = 0.0, .w = frame_dim[0], .h = frame_dim[1] };
 
+    // ********** mesa_viewport
+    var X: i32 = @intFromFloat(mesa_viewportness.x);
+    X += 11;
+    mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
+
+    // ********** scaled_viewport
+    var Xness: f32 = @as(f32, @floatFromInt(X));
+    Xness /= scale;
+    X = @intFromFloat(Xness);
+    var Wness: f32 = @as(f32, @floatFromInt(mesa_viewport.w));
+    Wness /= scale;
+    const W: i32 = @intFromFloat(Wness);
+    scaled_viewport = c.SDL_Rect{ .x = X + 1, .y = 5, .w = W, .h = 100 };
+
     main_menu();
 }
 
 // ************************************************************************************************
 fn main_menu() void {
     var FLG_render_texture: bool = true;
-
-    // var X: i32 = @intFromFloat(gv.window_w - frame_dim[0]);
-    var X: i32 = @intFromFloat(mesa_viewportness.x);
-    X += 11;
-    const mesa_viewport = c.SDL_Rect{ .x = X, .y = 10, .w = mesa_dim[0], .h = mesa_dim[1] };
 
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
@@ -75,6 +87,12 @@ fn main_menu() void {
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &mesa_viewport);
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
+
+            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
+            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 2.0, 2.0);
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, 0, "-123456789-123456789-123456789-123456789-123456789-123456789");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 1, 1, "X");
+
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
             FLG_render_texture = false;
         }
@@ -85,6 +103,7 @@ fn main_menu() void {
     }
 
     _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null); // back to normal
+    _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
     // // ***** menu number
     // const num_choices: i32 = 4;
 
