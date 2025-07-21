@@ -57,8 +57,9 @@ pub fn newGame() void {
             }
         }
 
-        if (menu_option < 0) menu_option += 4;
-        if (menu_option >= 4) menu_option = 0;
+        // ********** Choosing a scenario
+        if (menu_option < 0) menu_option += 15;
+        if (menu_option >= 15) menu_option = 0;
         if (jstk.d_pad == 0) d_pad_old = 0;
 
         // ********** Rendering
@@ -86,6 +87,10 @@ pub fn newGame() void {
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 23), "         Scenario XIII, Day 79: Masquerade");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 24), "         Scenario XIV,  Day 86: Deal With The Devil");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 25), "         Scenario XV,   Day 88: Endsieg");
+            var Y: f32 = @floatFromInt(menu_option);
+            Y += 11.0;
+            Y *= 8.0;
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, Y, "      *");
 
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
 
