@@ -131,10 +131,12 @@ fn main_menu() void {
         }
 
         if ((jstk.button_bits & gv.bit_3) != 0) { // Button Right; remove menu
-            break :main_loop;
+            if (jstk.button_bits != jstk.button_bits_old)  break :main_loop;
         }
         if ((jstk.button_bits & gv.bit_2) != 0) { // Button Left; confirmation button
             if (menu_option == 0) hud_1new.newGame();
+            jstk.button_bits_old = jstk.button_bits;
+            FLG_render_texture = true;
         }
     }
 }
