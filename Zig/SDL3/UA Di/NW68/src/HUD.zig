@@ -3,7 +3,7 @@ const gv = @import("GlobalVariables.zig");
 const print = @import("std").debug.print;
 const m = @import("main.zig");
 const jstk = @import("joystick.zig");
-const hud_0 = @import("hud_new.zig");
+const hud_1new = @import("hud_new.zig");
 
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
@@ -20,11 +20,11 @@ var menu_option: i32 = 0;
 var menu_option_old: i32 = -1;
 var d_pad_old: u16 = 0;
 
-var HUD_texture: ?*c.SDL_Texture = undefined;
-var frame_viewportness: c.SDL_FRect = undefined;
-var mesa_viewport: c.SDL_Rect = undefined;
-const scale: f32 = 2.0;
-var scaled_viewport: c.SDL_Rect = undefined;
+pub var HUD_texture: ?*c.SDL_Texture = undefined;
+pub var frame_viewportness: c.SDL_FRect = undefined;
+pub var mesa_viewport: c.SDL_Rect = undefined;
+pub const scale: f32 = 2.0;
+pub var scaled_viewport: c.SDL_Rect = undefined;
 
 pub fn mode() void {
     const clipped = c.SDL_Rect{ .x = frame_dim[2], .y = frame_dim[3], .w = frame_dim[0], .h = frame_dim[1] }; // clipped
@@ -73,6 +73,7 @@ fn main_menu() void {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
+                // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
@@ -111,7 +112,7 @@ fn main_menu() void {
             _ = c.SDL_RenderTexture(@ptrCast(m.renderer), HUD_texture, null, &frame_viewportness);
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), &scaled_viewport);
-            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 2.0, 2.0);
+            _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), scale, scale);
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 10), "            New");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 11), "            Save");
             _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 12), "            Load");
@@ -133,7 +134,7 @@ fn main_menu() void {
             break :main_loop;
         }
         if ((jstk.button_bits & gv.bit_2) != 0) { // Button Left; confirmation button
-            if (menu_option == 0) hud_0.newGame();
+            if (menu_option == 0) hud_1new.newGame();
         }
     }
 }
