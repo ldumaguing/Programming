@@ -15,12 +15,10 @@ const c = @cImport({
 
 pub fn newGame() void {
     print("New Game...............\n", .{});
-    // [ newGame loop =========================================================================== ]
     main_loop: while (true) {
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event)) {
             switch (event.type) {
-                // [ Key down =================================================================== ]
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
@@ -33,7 +31,6 @@ pub fn newGame() void {
             }
         }
         jstk.record_events();
-        print("...{d}\n", .{jstk.button_bits});
-    } // main_loop
+    }
     print("back...............\n", .{});
 }

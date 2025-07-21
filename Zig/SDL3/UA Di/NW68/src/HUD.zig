@@ -76,7 +76,6 @@ fn main_menu() void {
                 c.SDL_EVENT_KEY_DOWN => {
                     switch (event.key.scancode) {
                         c.SDL_SCANCODE_ESCAPE => {
-                            _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
                             break :main_loop;
                         },
                         else => {},
@@ -130,8 +129,11 @@ fn main_menu() void {
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
         }
 
-        if ((jstk.button_bits & gv.bit_3) != 0) {
+        if ((jstk.button_bits & gv.bit_3) != 0) { // Button Right; remove menu
             break :main_loop;
+        }
+        if ((jstk.button_bits & gv.bit_2) != 0) { // Button Left; confirmation button
+            if (menu_option == 0) hud_0.newGame();
         }
     }
 }
