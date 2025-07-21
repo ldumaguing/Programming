@@ -67,18 +67,25 @@ pub fn newGame() void {
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), @ptrCast(&hud_0.scaled_viewport));
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), hud_0.scale, hud_0.scale);
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 10), "       Play Scenario");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 10), "        Play Scenario");
 
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), @ptrCast(&hud_0.mesa_viewport));
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, hud_0.scale);
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 11), "        Scenario I,    Day 8:  Prodigal Sons");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 12), "        Scenario II,   Day 13: Rangers Lead the Way");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "        Scenario III,  Day 15: Lifeline");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "        Scenario IV,   Day 18: Omega");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "        Scenario V,    Day 22: Empty Quiver");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 16), "        Scenario VI,   Day 36: Flytrap");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 17), "        Scenario VII,  Day 37: An Eye for an Eye");
-            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 18), "        Scenario VIII, Day 38: Cloak and Dagger");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 11), "         Scenario I,    Day 8:  Prodigal Sons");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 12), "         Scenario II,   Day 13: Rangers Lead The Way");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 13), "         Scenario III,  Day 15: Lifeline");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 14), "         Scenario IV,   Day 18: Omega");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 15), "         Scenario V,    Day 22: Empty Quiver");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 16), "         Scenario VI,   Day 36: Flytrap");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 17), "         Scenario VII,  Day 37: An Eye For An Eye");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 18), "         Scenario VIII, Day 38: Cloak And Dagger");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 19), "         Scenario IX,   Day 45: Parsifal");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 20), "         Scenario X,    Day 46: Cassino Redux");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 21), "         Scenario XI,   Day 58: Licence To Kill");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 22), "         Scenario XII,  Day 64: Reversed Knee");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 23), "         Scenario XIII, Day 79: Masquerade");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 24), "         Scenario XIV,  Day 86: Deal With The Devil");
+            _ = c.SDL_RenderDebugText(@ptrCast(m.renderer), 0, (8 * 25), "         Scenario XV,   Day 88: Endsieg");
 
             _ = c.SDL_RenderPresent(@ptrCast(m.renderer));
 
@@ -87,6 +94,10 @@ pub fn newGame() void {
             // ********** back to normal
             _ = c.SDL_SetRenderViewport(@ptrCast(m.renderer), null);
             _ = c.SDL_SetRenderScale(@ptrCast(m.renderer), 1.0, 1.0);
+        }
+
+        if ((jstk.button_bits & gv.bit_3) != 0) { // Button Right; back menu
+            break :main_loop;
         }
     }
 }
