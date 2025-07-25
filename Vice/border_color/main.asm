@@ -1,5 +1,4 @@
 BasicUpstart2(start)
-	* = $4000
 start:
 	lda #$00
 	sta $d020
