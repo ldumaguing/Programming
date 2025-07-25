@@ -1,0 +1,33 @@
+#880000 Red
+#FF7777 Light red
+#DD8855 Orange
+#EEEE77 Yellow
+#00CC55 Green
+#AAFF66 Light green
+#0000AA Blue
+#0088FF Light blue
+#CC44CC Violet / Purple
+
+#000000 Black
+#333333 Dark grey / Grey 1
+#777777 Grey 2
+#BBBBBB Light grey / Grey 3
+#FFFFFF White
+
+#AAFFEE Cyan
+#664400 Brown
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
