@@ -21,6 +21,7 @@ var d_pad_old: u16 = 0;
 pub fn newGame() void {
     var FLG_render_texture: bool = true;
 
+    // jstk.button_bits_old = jstk.button_bits;
     jstk.d_pad = d_pad_old;
 
     main_loop: while (true) {
@@ -104,5 +105,29 @@ pub fn newGame() void {
         if ((jstk.button_bits & gv.bit_3) != 0) { // Button Right; back menu
             break :main_loop;
         }
-    }
+        if ((jstk.button_bits & gv.bit_2) != 0) { // Button Right; back menu
+            if (jstk.button_bits_old != jstk.button_bits) {
+                switch (menu_option) {
+                    // [ Key down =================================================================== ]
+                    0 => scenario_1(),
+                    1 => scenario_2(),
+                    2 => scenario_3(),
+                    else => {},
+                }
+            }
+        }
+    } // ***** main loop
+}
+
+// ************************************************************************************************
+fn scenario_1() void {
+    print("1\n", .{});
+}
+
+fn scenario_2() void {
+    print("2\n", .{});
+}
+
+fn scenario_3() void {
+    print("3\n", .{});
 }
