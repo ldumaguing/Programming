@@ -32,4 +32,4 @@ loop:
 msg: .text "C64 AZWERTYUIOPLKJHGrial by digitalerr0r of Dark Codex"
 
 	* = $2000
-.import c64 "scrap_writer_iii_17.64c"
+.import binary "fish.bin"

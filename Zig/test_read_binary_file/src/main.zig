@@ -1,6 +1,6 @@
 const std = @import("std");
-// const print = @import("std").debug.print;
-const outw = @import("std").io.getStdOut().writer();
+const print = @import("std").debug.print;
+// const outw = @import("std").io.getStdOut().writer();
 const math = @import("std").math;
 
 const fs = std.fs;
@@ -8,7 +8,7 @@ const fs = std.fs;
 pub fn main() !void {
     const cwd = fs.cwd();
     const open_file_flags = fs.File.OpenFlags{ .mode = .read_only };
-    const file_path = "chargen-906143-02.bin";
+    const file_path = "fish.bin";
 
     const file = try cwd.openFile(file_path, open_file_flags);
 
@@ -28,13 +28,13 @@ pub fn main() !void {
                 const mask: i32 = math.pow(i32, 2, i);
                 const showDot: bool = ((mask & b) != 0);
                 if (showDot) {
-                    try outw.print("*", .{});
+                    print("*", .{});
                 } else {
-                    try outw.print(" ", .{});
+                    print(" ", .{});
                 }
             }
-            try outw.print("\n", .{});
+            print("\n", .{});
         }
-        try outw.print("-------- {}\n", .{x});
+        print("-------- {}\n", .{x});
     }
 }

@@ -1,0 +1,5 @@
+.label msg=$102e
+.label setcolor=$1021
+.label loop=$102b
+.label main=$1000
+.label write=$1014
