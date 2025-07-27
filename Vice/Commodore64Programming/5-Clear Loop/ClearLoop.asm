@@ -1,6 +1,8 @@
-	processor	6502
-	org	$1000
+BasicUpstart2(main)
 
+	* = $1000
+
+main:
 	lda #$00
 	sta $d020
 	sta $d021

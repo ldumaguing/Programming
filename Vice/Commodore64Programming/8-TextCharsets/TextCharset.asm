@@ -1,6 +1,7 @@
-	processor	6502
-	org	$1000
+BasicUpstart(main)
+	* = $1000
 
+main:
 	jsr $e544
 	lda #$0d
 	sta $d020
@@ -28,7 +29,11 @@ setcolor:
 loop:
 	jmp loop
 
-msg: .byte "C64 programming tutorial by digitalerr0r of Dark Codex"
+// .var msg = "C64 programming tutorial by digitalerr0r of Dark Codex"
+msg: .text "C64 programming tutorial by digitalerr0r of Dark Codex"
 
-	org	$1ffe
-	INCBIN	"scrap_writer_iii_17.64c"
+.file [name="scrap_writer_iii_17.64c", segments="fish", allowOverlap]
+	* = $2000 "fish"
+
+
+.import c64 "scrap_writer_iii_17.64c"
