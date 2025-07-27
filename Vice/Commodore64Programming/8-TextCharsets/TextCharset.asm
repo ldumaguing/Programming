@@ -9,16 +9,16 @@ main:
 	sta $d021
 	lda #$18
 	sta $d018
-	ldx #$00
 
+	ldx #$00
 write:
 	lda    msg,x
 	jsr    $ffd2
 	inx
 	cpx    #20
 	bne    write
-	ldx #$00
 
+	ldx #$00
 setcolor:
 	lda #$07
 	sta $d800,x
