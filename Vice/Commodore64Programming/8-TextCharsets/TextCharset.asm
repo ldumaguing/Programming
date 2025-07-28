@@ -13,10 +13,18 @@ main:
 //	ldx    #2
 //	lda    msg,x
 //	jsr    $ffd2
+// lda msg // .text is ascii
+// sta $0400
+
+lda #67 // letter C for $ffd2
+jsr $ffd2
+
+lda #68 // letter D for $ffd2, also $ffd2 shifts to the right
+jsr $ffd2
 
 	rts
 
-// msg: .text "C64 AZWERTYUIOPLKJHGrial by digitalerr0r of Dark Codex"
+//msg: .text "C64 AZWERTYUIOPLKJHGrial by digitalerr0r of Dark Codex"
 // msg: .byte 0,1,2,3
 
 	* = $2000
