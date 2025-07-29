@@ -2,31 +2,37 @@ BasicUpstart2(main)
 	* = $1000
 
 main:
-	jsr $e544 // clear screen
+	jsr $e544
 	lda #$0d
-	sta $d020 // border color
-	lda #$00
-	sta $d021 // background color
-	lda #$18  // 0001 100_ ( 1 * 1024 = $400; 4 * 2048 = $2000)
-	sta $d018 // VIC-II register
+	sta $d020
+	lda #$05
+	sta $d021
+	lda #$18
+	sta $d018
+	ldx #$00
 
-//	ldx    #2
-//	lda    msg,x
-//	jsr    $ffd2
-// lda msg // .text is ascii
-// sta $0400
+write:
+	lda    msg,x
+	jsr    $ffd2
+	inx
+	cpx    #54
+	bne    write
+	ldx #$00
 
-lda #67 // letter C for $ffd2
-jsr $ffd2
-
-lda #68 // letter D for $ffd2, also $ffd2 shifts to the right
-jsr $ffd2
+setcolor:
+	lda #$07
+	sta $d800,x
+	inx
+	cpx #$54
+	bne setcolor
 
 	rts
 
-//msg: .text "C64 AZWERTYUIOPLKJHGrial by digitalerr0r of Dark Codex"
-// msg: .byte 0,1,2,3
+//loop:
+//	jmp loop
+
+msg: .import c64 "astring.bin" // "C64 programming tutorial by digitalerr0r of Dark Codex"
 
 	* = $2000
-//.import c64 "scrap_writer_iii_17.64c"
-.import binary "fish.bin"
+.import c64 "scrap_writer_iii_17.64c"
+
