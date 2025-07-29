@@ -1,0 +1,21 @@
+For example - let's say the block of memory you want to save is from decimal memory locations 5000 to 6000. I'd do this: -
+
+poke 44,5000/256:poke 43,5000-256*peek(44)
+poke 46,6000/256:poke 45,6000-256*peek(46)
+save "data",8,1
+
+
+***** OR *****
+
+
+// 5000 = $1388
+//    $13 = 19
+//    $88 = 136
+// 6000 = $1770
+//    $17 = 23
+//    $70 = 112
+poke 43,136
+poke 44,19
+poke 45,112
+poke 46,23
+save "data.bin",8,1
