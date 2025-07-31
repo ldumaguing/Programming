@@ -1,6 +1,3 @@
-	processor	6502
-	org	$1000
-
 loop:
 	ldx #$20
 	lda #$03
