@@ -1,3 +1,13 @@
+cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
+cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
+
+
+
+
+
+
+
+
 For example - let's say the block of memory you want to save is from decimal memory locations 5000 to 6000. I'd do this: -
 
 poke 44,5000/256:poke 43,5000-256*peek(44)
