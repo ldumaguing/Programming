@@ -1,6 +1,6 @@
 cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
 cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
-
+da65 main.prg
 
 
 
