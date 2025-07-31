@@ -1,7 +1,6 @@
-BasicUpstart2(main)
-	* = $1000
+	processor	6502
+	org	$1000
 
-main:
 loop:
 	ldy #$03
 	sty $d020

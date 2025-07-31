@@ -1,6 +1,6 @@
-BasicUpstart2(main)
-	* = $1000
-main:
+	processor	6502
+	org	$1000
+
 loop:
 	lda $d012
 	cmp #$ff

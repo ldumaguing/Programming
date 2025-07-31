@@ -1,7 +1,6 @@
-BasicUpstart2(main)
-	* = $1000
-
-main:
+	processor	6502
+	org	$1000
+	
 	lda #$80
 	sta $07f8
 	lda #$01
@@ -13,5 +12,5 @@ main:
 loop:
 	jmp loop
 
-	* = $2000
-	.import binary "sprite2.spr"
+	org $2000
+	incbin "sprite2.spr"

@@ -1,7 +1,6 @@
-BasicUpstart2(main)
-	* = $1000
+	processor	6502
+	org	$1000
 
-main:
 	jsr $e544
 	lda #$0d
 	sta $d020
@@ -26,13 +25,10 @@ setcolor:
 	cpx #$54
 	bne setcolor
 
-	rts
+loop:
+	jmp loop
 
-//loop:
-//	jmp loop
+msg: .byte "C64 programming tutorial by digitalerr0r of Dark Codex"
 
-msg: .import c64 "astring.bin" // "C64 programming tutorial by digitalerr0r of Dark Codex"
-
-	* = $2000
-.import c64 "scrap_writer_iii_17.64c"
-
+	org	$1ffe
+	INCBIN	"scrap_writer_iii_17.64c"

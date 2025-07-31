@@ -1,7 +1,6 @@
-BasicUpstart2(main)
-	* = $1000
+	processor	6502
+	org	$1000
 
-main:
 	lda $4710
 	sta $d020
 	sta $d021
@@ -37,5 +36,5 @@ loaddccimage:
 loop:
 	jmp loop
 
-	* = $1FFE
-	.import binary "dcc.PRG"
+	org    $1FFE
+	INCBIN "dcc.PRG"
