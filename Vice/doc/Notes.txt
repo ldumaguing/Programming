@@ -1,3 +1,12 @@
+Shift, Ctrl, or Tab
+
+Letter A     just type A
+Right Glyph  hold Shift & type A
+Neg A        hold Ctrl & type A
+Left Glyph   hold Tab & type A
+Colors       hold Tab & type 1-8
+
+
 cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
 cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
 da65 main.prg
