@@ -5,7 +5,7 @@ Right Glyph  hold Shift & type A
 Neg A        hold Ctrl & type A
 Left Glyph   hold Tab & type A
 Colors       hold Tab & type 1-8
-
+RUN/STOP     ESC key to stop BASIC program
 
 cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
 cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
