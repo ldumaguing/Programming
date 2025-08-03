@@ -4,8 +4,20 @@ Letter A     just type A
 Right Glyph  hold Shift & type A
 Neg A        hold Ctrl & type A
 Left Glyph   hold Tab & type A
-Colors       hold Tab & type 1-8
+Color 1-8    hold Ctrl & type 1-8
+Color 9-16   hold Tab & type 1-8
 RUN/STOP     ESC key to stop BASIC program
+
+
+
+PRINT "{CLR/HOME}"  --- Shift & [Home]
+PRINT "{CRSR LEFT}" --- Shift & [Left Arrow]
+
+
+
+
+
+
 
 cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
 cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
