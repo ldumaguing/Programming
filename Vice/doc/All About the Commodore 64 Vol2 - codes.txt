@@ -1,0 +1,8 @@
+rem ********** p 59
+100 open 1,9,2,"hi scores,s,w"
+110 print#1,"kevin" chr$(13) 80
+120 print#1,"christine" chr$(13) 90
+130 print#1,"alisdair" chr$(13) 91
+140 print#1,"lisa" chr$(13) 87
+150 close 1
+
