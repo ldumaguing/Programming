@@ -1,0 +1,63 @@
+1st Book of Commodore 64
+========================
+64 Sound (p33)
+***************************************************************************************************
+
+10 p1=54273:p2=54272:vl=54296:ad=54277:sr=54278:wf=54276:sw=54274
+20 sc=653:kd=197
+25 poke 54275,8:poke vl,15
+30 s1=22:s2=53:attack=16:decay=8:sustain=16:release=8:square=128
+35 wave=35:dur=100:off=254:ten=10
+40 gosub 300
+100 sh=peek(sc):key=peek(kd):if key<>64 then gosub 500:gosub 365
+105 if key=255 then 200
+110 poke p1,s1:poke p2,s2
+120 poke ad,attack+decay:poke sr,sustain+release:poke wf,wave:poke sw,square
+130 for i=0 to dur:next i
+140 poke wf,wave and off
+150 for i=0 to 75:next i
+160 goto 100
+200 poke 198,0:end
+300 print chr$(147)"f1/2      = high fre down/up"
+310 print "f3/4      = low fre down/up"
+320 print "f5/6      = attack/decay"
+330 print "f7/8      = sustain/release"
+340 print "space bar = change waveform"
+350 print "crsr u/d  = duration more/less"
+355 print "crsr l/r  = square wave width"
+360 print "up-arrow  = pitch interval toggle":print "return    = stop"
+365 poke 214,10:poke 211,0:print
+370 print "high fre="str$(s1)"  "tab(20)"low fre="str$(s2)"  "
+380 print "attack="str$ (attack)" "tab(20);"decay="str$(decay)" "
+390 print "sustain="str$(sustain)" "tab(20);"release="str$(release)" "
+400 print "waveform="str$(wave)" "tab(20)"dur="str$(dur)" "
+410 print "squarewave width="str$(square)" ":return
+500 if key=1 then key=255:return
+505 if key=54 then ten=1-9*(ten<>10)
+510 if key=60 then 600
+520 if key<2 or key>7 then return
+530 key=key-1:on key gosub 540,550,560,570,580,590:return
+540 square=square-ten+2*ten*abs(sh=1)
+545 square=square-256*(abs(square>255)-abs(square <0)):return
+550 if sh=1 then release=release+1-15*abs(release=15):return
+555 sustain=sustain+16-240*abs(sustain=240):return
+560 s1=s1-ten+2*ten*abs(sh=1):sl=sl-256*(abs(s1>255)-abs(sk0)):return
+570 s2=s2-ten+2*ten*abs(sh=1):s2=s2-256*(abs(s2>255)-abs(s2<0)):return
+580 if sh=1 then decay=decay+1-15*abs(decay=15):return
+585 attack=attack+16-240*abs(attack=240):return
+590 dur=dur-25*(abs(sh=0)-abs(sh=1)):ifdur<25 then dur=25
+595 return
+600 wave=wave+16*(int(wave/16)):if wave>129 then wave=17
+610 return
+
+
+
+
+
+
+
+
+
+
+
+

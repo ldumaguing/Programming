@@ -1,14 +1,17 @@
-Shift, Ctrl, or Tab
+Shift, Ctrl, or Tab (aka C=)
+============================
 
 Letter A     just type A
 Right Glyph  hold Shift & type A
 Neg A        hold Ctrl & type A
 Left Glyph   hold Tab & type A
+
 Color 1-8    hold Ctrl & type 1-8
 Color 9-16   hold Tab & type 1-8
 RUN/STOP     ESC key to stop BASIC program
-
-
+Reverse On   Ctrl & 9 {RVS}
+Reverse Off  Ctrl & 0 {OFF}
+Lowercase    Shift & Tab
 
 PRINT "{CLR/HOME}"  --- Shift & [Home]
 PRINT "{CRSR LEFT}" --- Shift & [Left Arrow]
