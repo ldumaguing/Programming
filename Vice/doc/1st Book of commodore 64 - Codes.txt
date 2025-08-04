@@ -52,9 +52,55 @@
 
 
 
+Demo 1 (p41)
+***************************************************************************************************
+10 for x=1 to 20:next x:rem kill some time
+20 wait 197,64,64:rem waits for you to press a key to move on
+30 print "you pressed a key!!!thanks"
+40 poke 198,0:rem clears the keyboard buffer
 
 
 
+Demo 2 (p41)
+***************************************************************************************************
+
+10 rem when you run this short program hold the <return> key down to wait
+20 wait 197,64:rem waits for you to take your finger off the keyboard
+30 print "you took your finger off the keyboard"
+40 poke 198,0:rem clears the keyboard buffer
+6000 print "you win!!":print "press fire-button to play again"
+6010 wait 145,16:rem in case button is also used in the game itself
+6020 wait 145,16,16
+6030 print:run
+6040 rem press stop/run and restore to stop this demo
+
+
+
+
+Demo on p49
+***************************************************************************************************
+10 print peek (56320): rem joystick 2
+20 goto 10
+run
+
+
+
+Demo on p62
+***************************************************************************************************
+11000 dim a$(20)
+11010 for i=0 to 20:a$(i)="3":next
+
+12000 do$="1:score,s,w"
+12010 open 2,9,9,do$
+12020 print#2,a;",";b%;",";c$;chr$(13);
+
+13000 for i=0 to 20
+13010 print#2,a;",";b%;",";c$;chr$(13);
+13020 next
+
+13030 for i=0 to 20
+13040 print#2,a;",";b%;",";c$;chr$(13);
+13050 next
 
 
 
