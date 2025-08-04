@@ -6,3 +6,26 @@ rem ********** p 59
 140 print#1,"lisa" chr$(13) 87
 150 close 1
 
+100 open 1,9,2,"hi scores"
+110 input#1,n$,sc
+120 print n$,sc
+130 if st=0 goto 110
+140 close 1
+150 end
+
+100 open 1,9,2,"hi scores v2,s,w"
+110 print#1,"kevin" chr$(13) "80"
+120 print#1,"christine" chr$(13) "90"
+130 print#1,"alisdair" chr$(13) "91"
+140 print#1,"lisa" chr$(13) "87"
+150 close 1
+
+100 open 1,9,2,"hi scores v3,s,w"
+110 print#1,"kevin","80"
+120 print#1,"christine","90"
+130 print#1,"alisdair","91"
+140 print#1,"lisa","87"
+150 close 1
+
+
+
