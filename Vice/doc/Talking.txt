@@ -6,10 +6,9 @@ f3    host sent mail
 
 
 
-
 Host
 ====
-if f2:                      // I got sent mail?
+if f2:                      // I got mail?
 	f1 = true;          // I'm going to be busy
 	process mail;
 	send mail;
@@ -20,9 +19,17 @@ if f2:                      // I got sent mail?
 
 Vice
 ====
+// ***** make mail & send
 if not f2:                     // I didn't send any mail yet
 	if not f1:             // host isn't busy
-		process mail;
+		make mail;
 		send mail;
 		f2 = true;     // I sent mail
 
+// ***** process mail
+if f2:                         // I got mail?
+	process mail;
+	
+	
+	
+	
