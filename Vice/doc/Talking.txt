@@ -27,9 +27,9 @@ if not f2:                     // I didn't send any mail yet
 		f2 = true;     // I sent mail
 
 // ***** process mail
-if f2:                         // I got mail?
+if f3:                         // I got mail?
 	process mail;
-	
+	f3 = false;
 	
 	
 	
