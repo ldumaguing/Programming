@@ -1,0 +1,28 @@
+Flags
+=====
+f1    host busy
+f2    Vice sent mail
+f3    host sent mail
+
+
+
+
+Host
+====
+if f2:                      // I got sent mail?
+	f1 = true;          // I'm going to be busy
+	process mail;
+	send mail;
+	f3 = true;          // I sent mail
+	f1 = false;         // I'm not busy
+
+
+
+Vice
+====
+if not f2:                     // I didn't send any mail yet
+	if not f1:             // host isn't busy
+		process mail;
+		send mail;
+		f2 = true;     // I sent mail
+
