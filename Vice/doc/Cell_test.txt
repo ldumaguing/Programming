@@ -1,0 +1,10 @@
+10 for r=1024 to 2000:poke r,231:next
+20 poke 53272, peek(53272) or 8
+30 poke 53265, peek(53265) or 32
+
+40 for x=0 to 7
+50 poke 8192+x,85
+60 next x
+70 poke 1024,32
+run
+
