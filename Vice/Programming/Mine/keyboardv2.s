@@ -14,7 +14,7 @@ loop:
 	sta $d021   ; store what was press into background color
 	jmp loop    ; continue loop
 
-; ***** same background and foreground colors; so, bit shifting works
+; ***** same background and border colors; so, bit shifting works
 ; 17 R
 ; 34 J
 ; 51 HOME
