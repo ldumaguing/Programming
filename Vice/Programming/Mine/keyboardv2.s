@@ -4,7 +4,7 @@ loop:
 	beq loop    ; if no input, loop [--- if (key == 64) loop ---]
 
 	tax
-	eor #$f0    ; 11110000 XOR a
+	and #$0f    ; 00001111 AND accumulator
 	sta $d020   ; store what was pressed into foreground color
 	txa
 	lsr a       ; accumulator bit shift right once
