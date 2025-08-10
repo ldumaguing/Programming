@@ -1,0 +1,20 @@
+loop:
+	lda $cb     ; read keyboard
+	cmp #64     ; compare no input
+	beq loop    ; if no input, loop [--- if (key == 64) loop ---]
+
+	tax
+	eor #$f0    ; 11110000 XOR a
+	sta $d020   ; store what was pressed into foreground color
+	txa
+	lsr a       ; accumulator bit shift right once
+	lsr a
+	lsr a
+	lsr a
+	sta $d021   ; store what was press into background color
+	jmp loop    ; continue loop
+
+; ***** same background and foreground colors; so, bit shifting works
+; 17 R
+; 34 J
+; 51 HOME

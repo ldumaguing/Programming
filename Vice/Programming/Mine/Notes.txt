@@ -1,0 +1,1 @@
+cl65 -o fish2  -t c64 -C my.cfg  keyboardv2.s
