@@ -42,32 +42,32 @@
     ldy #$04        ; high byte of filename address
     jsr $ffbd       ; call SETNAM
 
-    lda #$02        ; logical file number 1
+    lda #$01        ; logical file number 1
     ldx #$09        ; device 9
-    ldy #$03        ; secondary address 2
+    ldy #$02        ; secondary address 2
     jsr $ffc0       ; call OPEN
 
-;    ldx #$01        ; logical file number 1
-;    jsr $ffc9       ; call CHKOUT
+    ldx #$01        ; logical file number 1
+    jsr $ffc9       ; call CHKOUT
 
     ; set start and end addresses in zero page for save
     ; 1024 = $0400; 1028 = $0404
-    lda #$01        ; <start_addr_low>
-    sta $c1
+    lda #$00        ; <start_addr_low>
+    sta $2a
     lda #$04        ; <start_addr_high>
-    sta $c2
+    sta $2b
 
-    lda #$04        ; <end_addr_low>
-    sta $ae
-    lda #$04        ; <end_addr_high>
-    sta $af
+    ldx #$04        ; <end_addr_low>
+    ldy #$04        ; <end_addr_high>
 
+    lda #$2a
     jsr $ffd8       ; call SAVE kernal routine
 
-;    lda #$01        ; logical file number 1
-;    jsr $ffc3       ; call CLOSE
+    ; ******************************************************
+    lda #$01        ; logical file number 1
+    jsr $ffc3       ; call CLOSE
 
-;    jsr $ffcc      ; call CLRCHN
+    jsr $ffcc      ; call CLRCHN
 
     rts
 
