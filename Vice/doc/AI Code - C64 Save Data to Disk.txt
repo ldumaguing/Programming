@@ -1,0 +1,37 @@
+        LDA #$03        ; Logical file number 3
+        LDX #$08        ; Device 8 (disk drive)
+        LDY #$00        ; Secondary address 0
+        JSR SETLFS      ; Call SETLFS
+
+        LDA #<FILENAME_LEN> ; Length of filename
+        LDX #<FILENAME_LOW> ; Low byte of filename address
+        LDY #<FILENAME_HIGH> ; High byte of filename address
+        JSR SETNAM      ; Call SETNAM
+
+        LDA #$03        ; Logical file number 3
+        LDX #$08        ; Device 8
+        LDY #$00        ; Secondary address 0
+        JSR OPEN        ; Call OPEN
+
+        LDX #$03        ; Logical file number 3
+        JSR CHKOUT      ; Call CHKOUT
+
+        ; Set start and end addresses in zero page for SAVE
+        LDA #<START_ADDR_LOW>
+        STA $C1
+        LDA #<START_ADDR_HIGH>
+        STA $C2
+        LDA #<END_ADDR_LOW>
+        STA $AE
+        LDA #<END_ADDR_HIGH>
+        STA $AF
+        JSR SAVE        ; Call SAVE Kernal routine
+
+        LDA #$03        ; Logical file number 3
+        JSR CLOSE       ; Call CLOSE
+
+        JSR CLRCHN      ; Call CLRCHN
+
+; Data section for filename
+FILENAME_TXT: .BYTE "MYPROG"
+FILENAME_LEN: .BYTE 6
