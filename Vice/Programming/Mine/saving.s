@@ -22,12 +22,12 @@
     lda #25
     sta 1028
 
-    ; ***** foo; filename
-    lda #6
+    ; ***** ABC; filename; use ASCII
+    lda #65
     sta 1064
-    lda #15
+    lda #66
     sta 1065
-    lda #15
+    lda #67
     sta 1066
 
     ; ***** saving
@@ -42,22 +42,14 @@
     ldy #$04        ; high byte of filename address
     jsr $ffbd       ; call SETNAM
 
-    lda #$01        ; logical file number 1
-    ldx #$09        ; device 9
-    ldy #$02        ; secondary address 2
-    jsr $ffc0       ; call OPEN
-
-    ldx #$01        ; logical file number 1
-    jsr $ffc9       ; call CHKOUT
-
     ; set start and end addresses in zero page for save
-    ; 1024 = $0400; 1028 = $0404
+    ; 1024 = $0400; 1028 = $0404; $0404+1 = $0405
     lda #$00        ; <start_addr_low>
     sta $2a
     lda #$04        ; <start_addr_high>
     sta $2b
 
-    ldx #$04        ; <end_addr_low>
+    ldx #$05        ; <end_addr_low>
     ldy #$04        ; <end_addr_high>
 
     lda #$2a
@@ -66,8 +58,6 @@
     ; ******************************************************
     lda #$01        ; logical file number 1
     jsr $ffc3       ; call CLOSE
-
-    jsr $ffcc      ; call CLRCHN
 
     rts
 
