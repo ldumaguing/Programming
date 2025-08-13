@@ -31,11 +31,45 @@
     sta 1066
 
     ; ***** saving
+    lda #$01        ; logical file number 1
+    ldx #$09        ; device 9 (disk drive)
+    ldy #$02        ; secondary address 2
+    jsr $ffba       ; call SETLFS
 
+    lda #3          ; length of filename
+    ; 1064 = $0428
+    ldx #$28        ; low byte of filename address
+    ldy #$04        ; high byte of filename address
+    jsr $ffbd       ; call SETNAM
 
+    lda #$02        ; logical file number 1
+    ldx #$09        ; device 9
+    ldy #$03        ; secondary address 2
+    jsr $ffc0       ; call OPEN
 
+;    ldx #$01        ; logical file number 1
+;    jsr $ffc9       ; call CHKOUT
 
+    ; set start and end addresses in zero page for save
+    ; 1024 = $0400; 1028 = $0404
+    lda #$01        ; <start_addr_low>
+    sta $c1
+    lda #$04        ; <start_addr_high>
+    sta $c2
 
+    lda #$04        ; <end_addr_low>
+    sta $ae
+    lda #$04        ; <end_addr_high>
+    sta $af
 
+    jsr $ffd8       ; call SAVE kernal routine
+
+;    lda #$01        ; logical file number 1
+;    jsr $ffc3       ; call CLOSE
+
+;    jsr $ffcc      ; call CLRCHN
 
     rts
+
+
+
