@@ -55,10 +55,6 @@
     lda #$2a
     jsr $ffd8       ; call SAVE kernal routine
 
-    ; ******************************************************
-    lda #$01        ; logical file number 1
-    jsr $ffc3       ; call CLOSE
-
     rts
 
 
