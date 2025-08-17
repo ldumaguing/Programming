@@ -8,6 +8,7 @@
 
    ; ***** Bank 0
    lda $dd00
+   and #$fc
    ora #3         ; $0000 to $3fff
    sta $dd00
 
@@ -29,8 +30,10 @@ loop1:
    dey
    bne loop1
 
-loop:
-   jmp loop
+;loop:
+;   jmp loop
+
+   rts
 
 img: .byte $28, $28, $ee, 0, $ee, $28, $28, 0
 
