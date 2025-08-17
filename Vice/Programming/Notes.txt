@@ -1,3 +1,4 @@
 cl65 -o main.prg               -t c64 -C c64-asm.cfg  main.s
 cl65 -o main.prg -u __EXEHDR__ -t c64 -C c64-asm.cfg  main.s
 
+cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg highres_test.s && mv test ~/Vice/vicefs/
