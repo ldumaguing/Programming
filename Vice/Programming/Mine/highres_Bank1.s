@@ -6,28 +6,44 @@
    ora #32
    sta $d011
 
-   ; ***** Bank
+   ; ***** Bank 1
    lda $dd00
-   ora #2         ; Bank #1; $4000 to $7fff
+   ora #2         ; $4000 to $7fff
    sta $dd00
 
-   ; ***** (high nibble; 1) Video Matrix: $400
+   ; ***** (high nibble; 2) Video Matrix: $800; refers to cell
    ; ***** (low nibble; 8)  Use upper half
-   lda #$78
+   lda #$28
    sta $d018
 
    ; ******************************************************************************** Start drawing
-   lda #$23
-   sta $1c00       ; a cell with the two colors
+   lda #$67
+   sta $800       ; a cell with the two colors
 
    ldx #$0        ; index for img array
    ldy #8         ; number of bytes to read from
 loop1:
    lda img,x
-   sta $6000,x
+   sta $2000,x
    inx
    dey
    bne loop1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 loop:
    jmp loop

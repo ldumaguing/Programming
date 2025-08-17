@@ -6,9 +6,9 @@
    ora #32
    sta $d011
 
-   ; ***** Bank
+   ; ***** Bank 0
    lda $dd00
-   ora #3         ; Bank #0; $0000 to $3fff
+   ora #3         ; $0000 to $3fff
    sta $dd00
 
    ; ***** (high nibble; 1) Video Matrix: $400
