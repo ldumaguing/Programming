@@ -12,12 +12,6 @@
    ora #2         ; $4000 to $7fff
    sta $dd00
 
-   ; ***** Bank 0
-   ;lda $dd00
-   ;and #$fc
-   ;ora #3         ; $0000 to $3fff
-   ;sta $dd00
-
    ; ***** (high nibble; 1) Video Matrix: $400
    ; ***** (low nibble; 8)  Use upper half
    lda #$18
@@ -25,31 +19,25 @@
 
    ; ******************************************************************************** Start drawing
    lda #$01       ; black & white
-   sta $400       ; a cell with the two colors
+   sta $4400      ; a cell with the two colors.  (Bank 1 value) plus (Video Matrix location)
    lda #$23
-   sta $401
+   sta $4401
    lda #$45
-   sta $402
+   sta $4402
    lda #$67
-   sta $403
+   sta $4403
 
    ldx #$0        ; index for img array
    ldy #8         ; number of bytes to read from
 loop1:
    lda img,x
-   sta $2000,x
-   sta $2008,x
-   sta $2010,x
-   sta $2018,x
+   sta $6000,x    ; (Bank 1 value) plus (Upper half (usually $2000))
+   sta $6008,x
+   sta $6010,x
+   sta $6018,x
    inx
    dey
    bne loop1
-
-
-
-
-
-
 
    rts
 

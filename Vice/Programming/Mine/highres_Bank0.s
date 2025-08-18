@@ -27,8 +27,6 @@
    lda #$67
    sta $403
 
-
-
    ldx #$0        ; index for img array
    ldy #8         ; number of bytes to read from
 loop1:
