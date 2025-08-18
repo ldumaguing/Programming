@@ -20,12 +20,23 @@
    ; ******************************************************************************** Start drawing
    lda #$01       ; black & white
    sta $400       ; a cell with the two colors
+   lda #$23
+   sta $401
+   lda #$45
+   sta $402
+   lda #$67
+   sta $403
+
+
 
    ldx #$0        ; index for img array
    ldy #8         ; number of bytes to read from
 loop1:
    lda img,x
    sta $2000,x
+   sta $2008,x
+   sta $2010,x
+   sta $2018,x
    inx
    dey
    bne loop1
