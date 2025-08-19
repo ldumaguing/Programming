@@ -1,4 +1,4 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/
+; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/ && rm graphic_tools.o
 ; run
 
    ; ***** turn off BASIC
@@ -18,38 +18,35 @@
    ora #1         ; $8000 to $bfff
    sta $dd00
 
-   ; ***** (high nibble; 1) Video Matrix: $400
+   ; ***** (high nibble; 0) Video Matrix: 0
    ; ***** (low nibble; 8)  Use upper half
-   lda #$18
+   lda #$8
    sta $d018
 
    ; ******************************************************************************** Start drawing
-   lda #$01       ; black & white
-   sta $8400      ; a cell with the two colors.  (Bank 2 value) plus (Video Matrix location)
-   lda #$23
-   sta $8401
-   lda #$45
-   sta $8402
-   lda #$67
-   sta $8403
+   lda #$b       ; dark gray
+   sta $d020     ; border
 
-   ldx #$0        ; index for img array
-   ldy #8         ; number of bytes to read from
-loop1:
-   lda img,x
-   sta $a000,x    ; (Bank 2 value) plus (Upper half (usually $2000))
-   sta $a008,x
-   sta $a010,x
-   sta $a018,x
+
+   lda #$10      ; white & black
+   ldx #0
+loop2:
+   sta $8000,x
+   sta $8100,x
+   sta $8200,x
+   sta $8300,x
    inx
-   dey
+   bne loop2
+
+
+   lda #$05      ; 0 refers to the low nibble
+   ldx #0
+loop1:
+   sta $a000,x
+   inx
    bne loop1
+
 
 main:
    jmp main
-
-img: .byte $28, $28, $ee, 0, $ee, $28, $28, 0
-
-
-
 
