@@ -1,4 +1,4 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/ && rm graphic_tools.o
+; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/
 ; run
 
    ; ***** turn off BASIC
@@ -27,26 +27,27 @@
    lda #$b       ; dark gray
    sta $d020     ; border
 
+   lda #$00
+   sta $2
+   lda #$80
+   sta $3
 
    lda #$10      ; white & black
-   ldx #0
-loop2:
-   sta $8000,x
-   sta $8100,x
-   sta $8200,x
-   sta $8300,x
-   inx
-   bne loop2
-
-
-   lda #$05      ; 0 refers to the low nibble
-   ldx #0
+   ldy #0
 loop1:
-   sta $a000,x
-   inx
+   sta ($2),y
+   iny
    bne loop1
 
+   inc $3
+   inc $3
+loop2:
+   sta ($2),y
+   iny
+   bne loop2
 
 main:
    jmp main
+
+; ******************************************************
 
