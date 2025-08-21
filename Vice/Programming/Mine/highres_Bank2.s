@@ -35,7 +35,7 @@
 
    lda #4        ; loop 4 times
    sta $4        ; use this address for looping
-   lda #$45      ; two colors
+   lda #$67      ; two colors
    ldy #0
 loop2:           ; will loop 4 times
 loop1:
@@ -46,7 +46,41 @@ loop1:
    dec $4
    bne loop2
 
+   ; ********** byte clear
+   lda #$00
+   sta $2
+   lda #$a0
+   sta $3
+   lda #31        ; loop count
+   sta $4
+   lda #$55      ; 01010101
+loop2a:
+   loop1a:
+      sta($2),y
+      iny
+      iny
+      bne loop1a
+   inc $3
+   dec $4
+   bne loop2a
 
+   ; ********** byte clear
+   lda #$01
+   sta $2
+   lda #$a0
+   sta $3
+   lda #31        ; loop count
+   sta $4
+   lda #$aa      ; 10101010
+loop2b:
+   loop1b:
+      sta($2),y
+      iny
+      iny
+      bne loop1b
+   inc $3
+   dec $4
+   bne loop2b
 
 main:
    jmp main
