@@ -1,5 +1,5 @@
 ; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/
-; cl65 -o test -u __EXEHDR__ -t c64 -C c64-asm.cfg graphic_tools.s && mv test ~/Vice/vicefs/
+; cl65 -o test -u __EXEHDR__ -t c64 -C c64-asm.cfg highres_Bank2.s && mv test ~/Vice/vicefs/
 ; run
 
    ; ***** turn off BASIC
@@ -33,15 +33,20 @@
    lda #$80
    sta $3
 
-   lda #$23
+   lda #4        ; loop 4 times
+   sta $4        ; use this address for looping
+   lda #$45      ; two colors
    ldy #0
+loop2:           ; will loop 4 times
 loop1:
    sta ($2),y
    iny
    bne loop1
+   inc $3
+   dec $4
+   bne loop2
 
-   lda #$f5
-   sta $a000     ; $8000 + $2000
+
 
 main:
    jmp main
