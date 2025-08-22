@@ -1,4 +1,4 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg foo1.s && mv test ~/Vice/vicefs/ && rm *.o
+; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg Tutorial-02.s && mv test ~/Vice/vicefs/ && rm *.o
 ; cl65 -o test -u __EXEHDR__ -t c64 -C c64-asm.cfg highres_Bank2.s && mv test ~/Vice/vicefs/
 ; run
 
