@@ -1,9 +1,11 @@
 ; cl65 -o test -u __EXEHDR__ -t c64 -I ~/cc65/include -L ~/cc65/lib -C c64-asm.cfg Tutorial-02.s && mv test ~/Vice/vicefs/ && rm *.o
-; cl65 -o test -u __EXEHDR__ -t c64 -C c64-asm.cfg highres_Bank2.s && mv test ~/Vice/vicefs/
+; cl65 -o test -u __EXEHDR__ -t c64 -C c64-asm.cfg Tutorial-02.s && mv test ~/Vice/vicefs/ && rm *.o
 ; run
 
    Bank2 = $8000
-   blacken_color = $0
+   two_colors = $01
+   draw_area = $8000 + $2000
+   byte_pattern = $aa
 
    ; ***** turn off BASIC
    lda $1
@@ -27,7 +29,7 @@
    lda #$8
    sta $d018
 
-   ; ******************************************************************************** Start drawing
+   ; ******************************************************************************** Default two color palette
    lda #$b
    sta $d020           ; border color
 
@@ -37,10 +39,10 @@
    lda #>Bank2
    sta $3
 
-blacken_screen:
+two_color_palette:
    lda #3              ; loop a number of times
    sta $4              ; use this address for looping
-   lda #blacken_color  ; two colors
+   lda #two_colors
    ldy #0
 @loop2:                ; will loop 4 times
    @loop1:
@@ -55,7 +57,7 @@ blacken_screen:
    sta $2
    lda #>Bank2 + 3
    sta $3
-   lda #blacken_color  ; two colors
+   lda #two_colors
    ldy #231
 @loop3:
    sta ($2), y
@@ -63,22 +65,42 @@ blacken_screen:
    bne @loop3
    sta ($2), y
 
+   ; ********************************************************************************
+zero_out_the_bytes:
+   lda #<draw_area
+   sta $2
+   lda #>draw_area
+   sta $3
+
+   lda #31             ; loop a number of times
+   sta $4              ; use this address for looping
+   lda #byte_pattern
+@loop2:
+   ldy #0
+   @loop1:
+      sta ($2),y
+      iny
+      bne @loop1
+   inc $3
+   dec $4
+   bne @loop2
+
 main:
    jmp main
 
 ; ******************************************************
 
 
-. ........
-1 00111111 = 319
+;. ........
+;1 00111111 = 319
 
-319/8 = 39 r7
+;319/8 = 39 r7
 
-r = 319 and 7 = 7th bit from the left
+;r = 319 and 7 = 7th bit from the left
 
 
 
-shift right 3 time
-.........
-000100111 = 39
+;shift right 3 time
+;.........
+;000100111 = 39
 
