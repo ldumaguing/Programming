@@ -138,7 +138,7 @@ zero_out_the_bytes:
    sta ($2),y
 
    lda #5       ; green
-   sta $d800    ; color memory (defines one color)
+   sta $d800    ; color memory (defines one color. Not used during hires)
 
 
 main:
