@@ -3,9 +3,9 @@
 ; run
 
    Bank2 = $8000
-   two_colors = $01
-   draw_area = $8000 + $2000
-   byte_pattern = $aa
+   two_colors = $10
+   draw_area = Bank2 + $2000
+   byte_pattern = $0
 
    ; ***** turn off BASIC
    lda $1
@@ -91,6 +91,43 @@ zero_out_the_bytes:
    sta ($2),y
    dey
    bne @loop3
+   sta ($2),y
+
+   ; ******************************************************************************** put a pixel
+   lda #<draw_area
+   sta $2
+   lda #>draw_area
+   sta $3
+
+   lda #$1
+   ldy #0
+   inc $3
+   inc $3
+   inc $3
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
    sta ($2),y
 
 main:
