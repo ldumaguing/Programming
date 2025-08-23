@@ -32,6 +32,8 @@
    ; ******************************************************************************** Default two color palette
    lda #$b
    sta $d020           ; border color
+   lda #12
+   sta $d021           ; background color (defines one color during multicolor mode. Not used during hires)
 
    ; ***** point to Bank 2 using the first byte of the within the Zero Page
    lda #<Bank2
@@ -99,76 +101,65 @@ zero_out_the_bytes:
    lda #>draw_area
    sta $3
 
-   lda #$1
-   ldy #0
-   inc $3
-   inc $3
-   inc $3
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-   iny
-   sta ($2),y
-
+   ; ***** multicolor mode
    lda $d016
    ora #$10
    sta $d016
 
+   ; 11 10 01 00
+   ldy #0
+   lda #$e4
+   sta ($2),y
    iny
-   lda #0
+   sta ($2),y
+   iny
    sta ($2),y
 
    iny
-   lda #11
+   iny
+   iny
+   iny
+   iny
+   iny
+   ; 11 10 01 00
+   lda #$e4
+   sta ($2),y
+   iny
+   sta ($2),y
+   iny
    sta ($2),y
 
-   iny
-   lda #22
+   lda #<Bank2
+   sta $2
+   lda #>Bank2
+   sta $3
+   lda #$92     ; screen memory (defines two colors)
+   ldy #0
    sta ($2),y
 
-   iny
-   lda #33
-   sta ($2),y
+   lda #5       ; green
+   sta $d800    ; color memory (defines one color)
+
 
 main:
    jmp main
 
 ; ******************************************************
-The color called for by the bit-pair 00 (color 0) will be the
-background color, which is stored in the background color
-register at 53281.
+;The color called for by the bit-pair 00 (color 0) will be the
+;background color, which is stored in the background color
+;register at 53281.
 
-The color called for by the bit-pair 01 (color 1) will be the color
-stored in the left four bits (bits 4-7) of the corresponding byte in
-screen memory.
+;The color called for by the bit-pair 01 (color 1) will be the color
+;stored in the left four bits (bits 4-7) of the corresponding byte in
+;screen memory.
 
-The color called for by the bit-pair 10 (color 2) will be the color
-stored in the right four bits (bits 0-3) of the corresponding byte in
-screen memory.
+;The color called for by the bit-pair 10 (color 2) will be the color
+;stored in the right four bits (bits 0-3) of the corresponding byte in
+;screen memory.
 
-The color called for by the bit-pair 11 (color 3) will be the color
-stored in the right four bits (bits 0-3) of the corresponding byte in
-color memory.
+;The color called for by the bit-pair 11 (color 3) will be the color
+;stored in the right four bits (bits 0-3) of the corresponding byte in
+;color memory.
 
 
 
