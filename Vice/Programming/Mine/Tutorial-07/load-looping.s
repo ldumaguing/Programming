@@ -6,7 +6,7 @@
 ; sys49152
 
     lda MESSAGE
-    and #$3f
+    and #$3f        ; turn off messages
     sta MESSAGE
 
 loop:
