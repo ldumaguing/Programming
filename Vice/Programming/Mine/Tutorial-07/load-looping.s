@@ -5,6 +5,10 @@
 ; cl65 -o loadv2 -t c64 -C ../c64-asm.cfg-MINE load-looping.s && mv loadv2 ~/Vice/vicefs/
 ; sys49152
 
+    lda MESSAGE
+    and #$3f
+    sta MESSAGE
+
 loop:
     ; ***** loading
     lda #$01        ; logical file number 1
