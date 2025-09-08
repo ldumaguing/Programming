@@ -2,9 +2,10 @@
 ; first row, first column --- 1024
 ; third row, first column --- 1104
 
-; cl65 -o loading -t c64 -C ../c64-asm.cfg-MINE loading.s && mv loading ~/Vice/vicefs/
+; cl65 -o loadv2 -t c64 -C ../c64-asm.cfg-MINE load-looping.s && mv loadv2 ~/Vice/vicefs/
 ; sys49152
 
+loop:
     ; ***** loading
     lda #$01        ; logical file number 1
     ldx #$09        ; device 9 (disk drive)
@@ -20,6 +21,11 @@
     ldx #$50        ; memory location to place datum
     ldy #$04
     jsr LOAD
+
+    lda $450
+    sta BORDER
+
+    jmp loop
 
     rts
 
