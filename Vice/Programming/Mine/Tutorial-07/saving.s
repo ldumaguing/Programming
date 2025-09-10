@@ -6,7 +6,7 @@
 ; sys49152
 
     ; ***** datum to be save
-    lda #13
+    lda #10
     sta 1024
 
     ; ***** saving
