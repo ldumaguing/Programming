@@ -23,9 +23,9 @@
    sta SCREEN_CONTROL_1
 
    ; ***** turn on multi-color
-   ;lda SCREEN_CONTROL_2
-   ;ora #16
-   ;sta SCREEN_CONTROL_2
+   lda SCREEN_CONTROL_2
+   ora #16
+   sta SCREEN_CONTROL_2
 
    ; ***** Bank
    lda VIC_BANK
@@ -62,7 +62,18 @@ loop1:
    dey
    bne loop1
 
-loop: jmp loop
+
+   lda #$1b
+   sta $6000
+   lda #$e4
+   sta $6008
+
+   ldx #0
+loop:
+   stx COLOR_RAM
+   stx COLOR_RAM + 1
+   inx
+   jmp loop
 
 img: .byte $28, $28, $ee, 0, $ee, $28, $28, 0
 
