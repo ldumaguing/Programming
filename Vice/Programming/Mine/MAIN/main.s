@@ -1,6 +1,4 @@
 .include "defs.s"
-; first row, first column --- 1024
-; third row, first column --- 1104
 
 ; cl65 -o main -u __EXEHDR__ -t c64 -C ../c64-asm.cfg main.s && mv main ~/Vice/vicefs/
 ; LOAD"MAIN",9,1
@@ -37,45 +35,53 @@
    ; ***** (low nibble; 8)  $2000
    lda MEM_SETUP
    ora #$18
-   ; lda #$18
    sta MEM_SETUP
 
    ; ******************************************************************************** Start drawing
-   lda #$01       ; black & white
-   sta $4400      ; a cell with the two colors.  (Bank 1 value) plus (Video Matrix location)
-   lda #$23
-   sta $4401
-   lda #$45
-   sta $4402
-   lda #$67
-   sta $4403
+   lda #$1b       ; 00 01 10 11
+   sta $6000      ; $4000 + $2000
+   sta $6001
+   sta $6002
+   sta $6003
+   lda #$e4       ; 11 10 01 00
+   sta $6004
+   sta $6005
+   sta $6006
+   sta $6007
 
-   ldx #$0        ; index for img array
-   ldy #8         ; number of bytes to read from
-loop1:
-   lda img,x
-   sta $6000,x    ; (Bank 1 value) plus (Upper half (usually $2000))
-   sta $6008,x
-   sta $6010,x
-   sta $6018,x
-   inx
-   dey
-   bne loop1
+   ; ***** adding color to a cell
+   lda #$01         ; 01 : 10 (BANK + MEM_SETUP high nibble)
+   sta $4400
 
+   lda #$02
+   sta COLOR_RAM    ; 11
 
-   lda #$1b
-   sta $6000
-   lda #$e4
+   lda #$03
+   sta BACKGROUND   ; 00
+
+   ; ******************************** another cell
+   lda #$1b          ; 00 01 10 11
    sta $6008
+   sta $6009
+   sta $600a
+   sta $600b
+   lda #$e4          ; 11 10 01 00
+   sta $600c
+   sta $600d
+   sta $600e
+   sta $600f
 
-   ldx #0
+   lda #$45          ; 01 : 10
+   sta $4401
+
+   lda #$06
+   sta COLOR_RAM + 1 ; 11
+
 loop:
-   stx COLOR_RAM      ; %11
-   stx COLOR_RAM + 1
-   inx
    jmp loop
 
-img: .byte $28, $28, $ee, 0, $ee, $28, $28, 0
-
-
-
+; **********************************************************
+; SUMMARY
+;
+; 00: from background color
+; 01:
