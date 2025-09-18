@@ -71,7 +71,7 @@
    sta $600e
    sta $600f
 
-   lda #$45          ; 01 : 10
+   lda #$45          ; 01 : 10 (BANK + MEM_SETUP high nibble)
    sta $4401
 
    lda #$06
@@ -84,4 +84,6 @@ loop:
 ; SUMMARY
 ;
 ; 00: from background color
-; 01:
+; 01: (BANK + MEM_SETUP high nibble)
+; 10: (BANK + MEM_SETUP high nibble)
+; 11: COLOR_RAM
