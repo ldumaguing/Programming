@@ -70,7 +70,7 @@ loop1:
 
    ldx #0
 loop:
-   stx COLOR_RAM
+   stx COLOR_RAM      ; %11
    stx COLOR_RAM + 1
    inx
    jmp loop
