@@ -30,7 +30,7 @@ put_dot:
    inc dot_X+1
 
 cont:
-   ; ***** let's deal with Y
+   ; *************** let's deal with Y
    lda dot_Y
    and #7
    sta dot_Y+2       ; store remainder
@@ -39,6 +39,24 @@ cont:
    lsr dot_Y
    lsr dot_Y
    lsr dot_Y
+
+   ; ********** multiply Y by 320
+   ; ***** multiply by 256
+   lda dot_Y
+   sta Y1
+   clc
+   asl Y1
+   asl Y1
+   asl Y1
+   asl Y1
+   asl Y1
+   asl Y1
+   asl Y1
+   asl Y1
+
+   ; ***** multiply by 64
+   clc
+
 
 
    lda dot_Y
@@ -52,6 +70,10 @@ cont:
 
 dot_X: .byte 0, 0, 0
 dot_Y: .byte 0, 0, 0
+
+Y1: .byte 0, 0
+Y2: .byte 0, 0
+
 
 
 
