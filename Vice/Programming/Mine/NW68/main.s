@@ -35,10 +35,10 @@
    lda #$8
    sta MEM_SETUP
 
+   ldx #BROWN
+   ldy #ORANGE
    jsr fill_background
 
-   lda #BROWN
-   sta BORDER
 
 loop:
    jmp loop

@@ -1,7 +1,7 @@
    ; ****************************************************** clear background with a color
 fill_background:
-   lda #BROWN
-   sta BACKGROUND
+   stx BACKGROUND
+   sty BORDER
 
    ldx #0
    lda #0
