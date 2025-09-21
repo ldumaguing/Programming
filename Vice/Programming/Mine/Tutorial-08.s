@@ -3,7 +3,7 @@
 ; LOAD"TEST",9,1
 
    ldx #159
-   ldy #76
+   ldy #75
    jsr put_dot
 
    rts
@@ -11,6 +11,8 @@
 ; ***************************************************************************************
 put_dot:
    stx dot_X
+   sty dot_Y
+
    lda dot_X
    and #3
    sta dot_X+2       ; store remainder
@@ -26,14 +28,31 @@ put_dot:
    asl dot_X
    bcc cont
    inc dot_X+1
+
 cont:
-   lda dot_X
+   ; ***** let's deal with Y
+   lda dot_Y
+   and #7
+   sta dot_Y+2       ; store remainder
+
+   ; divide Y by 8
+   lsr dot_Y
+   lsr dot_Y
+   lsr dot_Y
+
+
+   lda dot_Y
    sta 1024
-   lda dot_X+1
+   lda dot_Y+1
    sta 1025
-   lda dot_X+2
+   lda dot_Y+2
    sta 1026
 
    rts
 
 dot_X: .byte 0, 0, 0
+dot_Y: .byte 0, 0, 0
+
+
+
+
