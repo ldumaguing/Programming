@@ -3,7 +3,7 @@
 ; LOAD"TEST",9,1
 ; PRINT PEEK(49152)
 
-   ; ***** define address $c000
+   ; ***** define address $c000 in memory 2
    lda #0
    sta 2
    lda #$c0
