@@ -2,14 +2,12 @@
 ; && mv test ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
-   ldx #74
+   ldx #75
    ldy #75
-   lda #1            ; palette 0 to 3
    jsr put_dot
 
    stx 1024
    sty 1025
-   sta 1026
 
    rts
 
@@ -17,11 +15,6 @@
 put_dot:
    stx dot_X
    sty dot_Y
-
-   sta palette ; 1    00000001
-
-
-
 
    lda dot_X
    and #3
@@ -113,20 +106,14 @@ loopB:
    lda dot_X
    adc dot_Y
    tax
-
    lda dot_X+1
    adc dot_Y+1
    tay
-
-   ;lda dot_X+2       ; pixel placement
-   lda palette
 
    rts
 
 dot_X: .byte 0, 0, 0
 dot_Y: .byte 0, 0, 0
-
-palette: .byte 0
 
 Y1: .byte 0, 0
 Y2: .byte 0, 0
