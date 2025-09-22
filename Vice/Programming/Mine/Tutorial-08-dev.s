@@ -1,10 +1,10 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08.s
+; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08-dev.s
 ; && mv test ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
-   ldx #74
+   ldx #75
    ldy #75
-   lda #1            ; palette 0 to 3
+   lda #2          ; palette: 0 to 3
    jsr put_dot
 
    stx 1024
@@ -18,10 +18,18 @@ put_dot:
    stx dot_X
    sty dot_Y
 
-   sta palette ; 1    00000001
+   sta palette
+   sta palette+1
 
-
-
+   ldx #3
+:
+   rol palette
+   rol palette
+   lda palette+1
+   ora palette
+   sta palette
+   dex
+   bne :-
 
    lda dot_X
    and #3
@@ -126,7 +134,7 @@ loopB:
 dot_X: .byte 0, 0, 0
 dot_Y: .byte 0, 0, 0
 
-palette: .byte 0
+palette: .byte 0, 0
 
 Y1: .byte 0, 0
 Y2: .byte 0, 0

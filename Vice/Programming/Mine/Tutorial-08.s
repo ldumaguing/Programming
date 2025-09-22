@@ -4,10 +4,12 @@
 
    ldx #75
    ldy #75
+   lda #2          ; palette: 0 to 3
    jsr put_dot
 
    stx 1024
    sty 1025
+   sta 1026
 
    rts
 
@@ -15,6 +17,19 @@
 put_dot:
    stx dot_X
    sty dot_Y
+
+   sta palette
+   sta palette+1
+
+   ldx #3
+:
+   rol palette
+   rol palette
+   lda palette+1
+   ora palette
+   sta palette
+   dex
+   bne :-
 
    lda dot_X
    and #3
@@ -106,14 +121,20 @@ loopB:
    lda dot_X
    adc dot_Y
    tax
+
    lda dot_X+1
    adc dot_Y+1
    tay
+
+   ;lda dot_X+2       ; pixel placement
+   lda palette
 
    rts
 
 dot_X: .byte 0, 0, 0
 dot_Y: .byte 0, 0, 0
+
+palette: .byte 0, 0
 
 Y1: .byte 0, 0
 Y2: .byte 0, 0
