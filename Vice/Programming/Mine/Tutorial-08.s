@@ -26,10 +26,10 @@ put_dot:
    asl dot_X
    asl dot_X
    asl dot_X
-   bcc cont
+   bcc :+
    inc dot_X+1
 
-cont:
+:
    ; *************** let's deal with Y
    lda dot_Y
    and #7
@@ -45,26 +45,57 @@ cont:
    lda dot_Y
    sta Y1
    clc
+   ldx #8            ; loop times
+loopA:
    asl Y1
-   asl Y1
-   asl Y1
-   asl Y1
-   asl Y1
-   asl Y1
-   asl Y1
-   asl Y1
+   bcc :>
+   asl Y1+1
+   inc Y1+1
+   jmp :>>
+:
+   asl Y1+1
+:
+   dex
+   bne loopA
+
+   lda Y1
+   lda Y1+1
 
    ; ***** multiply by 64
-   clc
-
-
-
    lda dot_Y
+   sta Y2
+   clc
+   ldx #6            ; loop times
+loopB:
+   asl Y2
+   bcc :>
+   asl Y2+1
+   inc Y2+1
+   jmp :>>
+:
+   asl Y2+1
+:
+   dex
+   bne loopB
+
+   lda Y2
+   lda Y2+1
+
+
+
+
+   lda Y1
    sta 1024
-   lda dot_Y+1
+   lda Y1+1
    sta 1025
-   lda dot_Y+2
-   sta 1026
+
+
+   lda Y2
+   sta 1064
+   lda Y2+1
+   sta 1065
+
+
 
    rts
 
