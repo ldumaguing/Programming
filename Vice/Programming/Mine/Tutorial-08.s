@@ -2,9 +2,12 @@
 ; && mv test ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
-   ldx #159
+   ldx #75
    ldy #75
    jsr put_dot
+
+   stx 1024
+   sty 1025
 
    rts
 
@@ -48,10 +51,10 @@ put_dot:
    ldx #8            ; loop times
 loopA:
    asl Y1
-   bcc :>
+   bcc :+
    asl Y1+1
    inc Y1+1
-   jmp :>>
+   jmp :++
 :
    asl Y1+1
 :
@@ -68,10 +71,10 @@ loopA:
    ldx #6            ; loop times
 loopB:
    asl Y2
-   bcc :>
+   bcc :+
    asl Y2+1
    inc Y2+1
-   jmp :>>
+   jmp :++
 :
    asl Y2+1
 :
@@ -81,21 +84,31 @@ loopB:
    lda Y2
    lda Y2+1
 
-
-
-
+   ; ***** dot_Y = Y1 + Y2
+   clc
    lda Y1
-   sta 1024
+   adc Y2
+   sta dot_Y
    lda Y1+1
-   sta 1025
+   adc Y2+1
+   sta dot_Y+1
+   ; ***** dot_Y += remainder
+   clc
+   lda dot_Y
+   adc dot_Y+2
+   sta dot_Y
+   lda dot_Y+1
+   adc #0
+   sta dot_Y+1
 
-
-   lda Y2
-   sta 1064
-   lda Y2+1
-   sta 1065
-
-
+   ; ***** dot_X + dot_Y and store in registers x and y
+   clc
+   lda dot_X
+   adc dot_Y
+   tax
+   lda dot_X+1
+   adc dot_Y+1
+   tay
 
    rts
 
