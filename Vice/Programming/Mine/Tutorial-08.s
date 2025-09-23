@@ -1,8 +1,8 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08.s
+; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08-dev.s
 ; && mv test ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
-   ldx #75
+   ldx #72
    ldy #75
    lda #2          ; palette: 0 to 3
    jsr put_dot
@@ -126,18 +126,54 @@ loopB:
    adc dot_Y+1
    tay
 
-   ;lda dot_X+2       ; pixel placement
-   lda palette
+   ;lda dot_X+2
+   ;lda palette
+   lda dot_X+2
+   cmp #3
+   beq three
+   jmp :+
+three:
+   lda #3
+   rts
+:
+   cmp #2
+   beq two
+   jmp :+
+two:
+   lda #12
+   rts
+:
+   cmp #1
+   beq one
+   jmp :+
+one:
+   lda #48
+   rts
+:
+   lda #192
 
    rts
 
-dot_X: .byte 0, 0, 0
+dot_X: .byte 0, 0, 0 ; dot_X+2 is pixel placement
 dot_Y: .byte 0, 0, 0
 
 palette: .byte 0, 0
 
 Y1: .byte 0, 0
 Y2: .byte 0, 0
+
+
+; 0000 0011     3   3
+; 0000 1100    12   2
+; 0011 0000    48   1
+; 1100 0000   192   0
+
+
+
+
+
+
+
 
 
 
