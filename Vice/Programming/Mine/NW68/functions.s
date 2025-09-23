@@ -10,11 +10,14 @@ fill_background:
 
    ldy #0
    lda #0
-   ldx #3
-loop:
+   ldx #32
+:
 :
    sta (2),y
    iny
    bne :-
+   inc 3
+   dex
+   bne :--
 
    rts
