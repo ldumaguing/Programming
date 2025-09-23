@@ -6,6 +6,8 @@ BORDER     = $d020
 BACKGROUND = $d021
 MESSAGE    = $9d
 
+SCREEN_MEM = $a000           ; $8000 + $2000
+
 VIC_BANK   = $dd00
 MEM_SETUP  = $d018
 COLOR_RAM  = $d800

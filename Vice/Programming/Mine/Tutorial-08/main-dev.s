@@ -1,9 +1,11 @@
 ; cl65 -o main -u __EXEHDR__ -t c64 -C ../c64-asm.cfg main-dev.s
-; && mv test ~/Vice/vicefs/
+; && mv main ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
-   ldx #72
-   ldy #75
+.include "defs.s"
+
+   ldx #159
+   ldy #199
    lda #2          ; palette: 0 to 3
    jsr put_dot
 
@@ -120,11 +122,39 @@ loopB:
    clc
    lda dot_X
    adc dot_Y
-   tax
+   ;tax
+   sta Y1
 
    lda dot_X+1
    adc dot_Y+1
+   ;tay
+   sta Y1+1
+
+   lda #<SCREEN_MEM
+   sta Y2
+   lda #>SCREEN_MEM
+   sta Y2+1
+
+   clc
+   lda Y1
+   adc Y2
+   tax
+   lda Y1+1
+   adc Y2+1
    tay
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    ;lda dot_X+2
    ;lda palette

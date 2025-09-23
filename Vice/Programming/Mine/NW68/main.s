@@ -39,6 +39,9 @@
    ldy #ORANGE
    jsr fill_background
 
+   lda #192
+   sta $a000
+   sta $bf3f
 
 loop:
    jmp loop
