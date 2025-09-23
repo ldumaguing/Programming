@@ -1,4 +1,4 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08-dev.s
+; cl65 -o test -u __EXEHDR__ -t c64 -C ../c64-asm.cfg Tutorial-08.s
 ; && mv test ~/Vice/vicefs/
 ; LOAD"TEST",9,1
 
