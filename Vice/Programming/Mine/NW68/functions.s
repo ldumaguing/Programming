@@ -3,16 +3,16 @@ put_dot:
    stx dot_X
    sty dot_Y
 
-   sta palette
-   sta palette+1
+   sta PALETTE
+   sta PALETTE_ORIG
 
    ldx #3
 :
-   rol palette
-   rol palette
-   lda palette+1
-   ora palette
-   sta palette
+   rol PALETTE
+   rol PALETTE
+   lda PALETTE_ORIG
+   ora PALETTE
+   sta PALETTE
    dex
    bne :-
 
@@ -157,7 +157,7 @@ continue:
    eor #$ff
    sta Y1+1                  ; save ~mask
 
-   lda palette
+   lda PALETTE
    and Y1
    sta Y2
 
@@ -175,8 +175,6 @@ continue:
 
 dot_X: .byte 0, 0, 0 ; dot_X+2 is pixel placement
 dot_Y: .byte 0, 0, 0
-
-palette: .byte 0, 0
 
 Y1: .byte 0, 0
 Y2: .byte 0, 0
