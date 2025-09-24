@@ -39,37 +39,9 @@
    ldy #ORANGE
    jsr fill_background
 
-   ldx #75
-   ldy #75
-   lda #3                    ; palette 0 to 3
-   jsr put_dot
-
-   ldx #76
-   ldy #76
-   lda #3
-   jsr put_dot
-
-   ldx #77
-   ldy #77
-   lda #3
-   jsr put_dot
-
-   ldx #78
-   ldy #78
-   lda #2
-   jsr put_dot
-
-   ldx #79
-   ldy #79
-   lda #1
-   jsr put_dot
-
-   ldx #80
-   ldy #80
-   lda #3
-   jsr put_dot
-
-
+   lda #192
+   sta $a000
+   sta $bf3f
 
 loop:
    jmp loop

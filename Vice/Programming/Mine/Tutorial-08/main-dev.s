@@ -122,12 +122,10 @@ loopB:
    clc
    lda dot_X
    adc dot_Y
-   ;tax
    sta Y1
 
    lda dot_X+1
    adc dot_Y+1
-   ;tay
    sta Y1+1
 
    lda #<SCREEN_MEM
@@ -138,10 +136,12 @@ loopB:
    clc
    lda Y1
    adc Y2
-   tax
+   ; tax
+   sta 2                     ; store low byte address in zero page area
    lda Y1+1
    adc Y2+1
-   tay
+   ;tay
+   sta 3                     ; store high byte address in zero page area
 
 
 
