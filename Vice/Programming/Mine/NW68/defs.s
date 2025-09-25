@@ -6,9 +6,6 @@ BORDER     = $d020
 BACKGROUND = $d021
 MESSAGE    = $9d
 
-PALETTE      = 42
-PALETTE_ORIG = 82
-
 SCREEN_MEM = $a000           ; $8000 + $2000
 
 VIC_BANK   = $dd00
