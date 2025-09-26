@@ -91,7 +91,7 @@ put_dot:
    sta BUFFER16+8
    lda BUFFER16+11
    sta BUFFER16+9
-   ; ***** ok, add the X
+   ; ***** add the X
    clc
    lda BUFFER16+6
    adc BUFFER16+8
@@ -100,9 +100,15 @@ put_dot:
    adc BUFFER16+9
    sta BUFFER16+11
 
+   ; ******************** CELL * 8
+   clc
+   ldx #3
+:
+   dec
+   bne :-
 
 
-
+   ; print
    lda BUFFER16+10
    sta TEXT_MEM
    lda BUFFER16+11
