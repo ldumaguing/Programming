@@ -70,7 +70,45 @@ put_dot:
    dex
    bne :--
 
-   ; ******************** BUFFER16+6 plus BUFFER16+8
+   ; ******************** BUFFER16+6 plus BUFFER16+8 = BUFFER16+10
+   ; ******************** Note: Y * 40
+   clc
+   lda BUFFER16+6
+   adc BUFFER16+8
+   sta BUFFER16+10
+   lda BUFFER16+7
+   adc BUFFER16+9
+   sta BUFFER16+11
+
+   ; ******************** Add X to BUFFER16+10 to get CELL
+   ; 6,7
+   lda BUFFER16
+   sta BUFFER16+6
+   lda #0
+   sta BUFFER16+7
+   ; 8,9
+   lda BUFFER16+10
+   sta BUFFER16+8
+   lda BUFFER16+11
+   sta BUFFER16+9
+   ; ***** ok, add the X
+   clc
+   lda BUFFER16+6
+   adc BUFFER16+8
+   sta BUFFER16+10
+   lda BUFFER16+7
+   adc BUFFER16+9
+   sta BUFFER16+11
+
+
+
+
+   lda BUFFER16+10
+   sta TEXT_MEM
+   lda BUFFER16+11
+   sta TEXT_MEM+1
+
+
 
 
 
