@@ -7,6 +7,9 @@ BACKGROUND = $d021
 MESSAGE    = $9d
 
 SCREEN_MEM = $a000           ; $8000 + $2000
+MEM_TWO    = 2
+BUFFER16   = 2024
+TEXT_MEM   = 1024
 
 VIC_BANK   = $dd00
 MEM_SETUP  = $d018
