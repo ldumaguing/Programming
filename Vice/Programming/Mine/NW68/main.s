@@ -60,6 +60,11 @@
    lda #$03
    jsr put_dot
 
+   ldx #80
+   ldy #100
+   lda #$02
+   jsr put_dot
+
 loop: jmp loop
 
 .include "functions.s"

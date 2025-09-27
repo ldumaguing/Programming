@@ -149,9 +149,60 @@ put_dot:
    lda BUFFER16+11
    sta 3
 
-   ; ***** get original value from screen
+   ; ***** store original value of screen-byte in memory 4
    ldy #0
    lda (2),y
+   sta 4
+
+   ; ***** store palette in memory 5
+   lda BUFFER16+4
+   sta 5
+   ; *** duplicate palette; EG, from 0000.0010 to 1010.1010
+   asl
+   asl
+   ora 5
+   sta 5
+   asl
+   asl
+   ora 5
+   sta 5
+   asl
+   asl
+   ora 5
+   sta 5
+
+   ; ***** convert remainder X to pixel pattern and store value in memory 6
+   lda BUFFER16+1
+   cmp #3
+   beq three
+   jmp :+
+three:
+   lda #3                    ; 0000.0011
+   jmp continue
+:
+   cmp #2
+   beq two
+   jmp :+
+two:
+   lda #12                   ; 0000.1100
+   jmp continue
+:
+   cmp #1
+   beq one
+   jmp :+
+one:
+   lda #48                   ; 0011.0000
+   jmp continue
+:
+   lda #192                  ; 1100.0000
+continue:
+   sta 6
+
+
+
+
+
+
 
 
 
@@ -169,7 +220,7 @@ put_dot:
    sta 3
 
    ldy #0
-   lda #$ff                  ; the byte to place
+   lda 5                  ; the byte to place
    sta (2),y
 
    rts
