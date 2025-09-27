@@ -10,14 +10,6 @@ put_dot:
    sty BUFFER16+2
    sta BUFFER16+4
 
-   ; ***** print X, Y, A
-   ;lda BUFFER16
-   ;sta TEXT_MEM
-   ;lda BUFFER16+2
-   ;sta TEXT_MEM+2
-   ;lda BUFFER16+4
-   ;sta TEXT_MEM+4
-
    ; ************************* dealing with X
    lda BUFFER16
    sta BUFFER16+1
@@ -47,6 +39,7 @@ put_dot:
    clc
    ldx #5
 :
+   asl BUFFER16+7
    asl BUFFER16+6
    bcc :+
    inc BUFFER16+7
@@ -131,7 +124,7 @@ put_dot:
    adc BUFFER16+9
    sta BUFFER16+11
 
-      ; ********** add SCREEN_MEM
+   ; ********** add SCREEN_MEM
    ; 6,7
    lda #<SCREEN_MEM
    sta BUFFER16+6
@@ -151,31 +144,14 @@ put_dot:
    sta BUFFER16+11
 
    ; ***** put byte
-   ;lda BUFFER16+10
-   ;sta 2
-   ;lda BUFFER16+11
-   ;sta 3
-
-   ;ldy #0
-   ;lda #$ff
-   ;sta (2),y
-
-
-
-
-
-
-
-   ; print
    lda BUFFER16+10
-   sta TEXT_MEM
+   sta 2
    lda BUFFER16+11
-   sta TEXT_MEM+1
+   sta 3
 
-
-
-
-
+   ldy #0
+   lda #$ff
+   sta (2),y
 
    rts
 
