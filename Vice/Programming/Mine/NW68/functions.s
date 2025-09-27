@@ -143,6 +143,25 @@ put_dot:
    adc BUFFER16+9
    sta BUFFER16+11
 
+   ; ************************************************** define palette-pixel
+   lda BUFFER16+10
+   sta 2
+   lda BUFFER16+11
+   sta 3
+
+   ; ***** get original value from screen
+   ldy #0
+   lda (2),y
+
+
+
+
+
+
+
+
+
+
    ; ***** put byte
    lda BUFFER16+10
    sta 2
@@ -150,7 +169,7 @@ put_dot:
    sta 3
 
    ldy #0
-   lda #$ff
+   lda #$ff                  ; the byte to place
    sta (2),y
 
    rts
