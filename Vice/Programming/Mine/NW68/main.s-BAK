@@ -46,8 +46,37 @@
    lda #$03                  ; [hard code color]; palette 0 to 3
    jsr put_dot
 
-loop:
-   jmp loop
+
+   ldx #0
+   ldy #0
+   lda #$03                  ; [hard code color]; palette 0 to 3
+   jsr put_dot
+
+   ldx #159
+   ldy #150
+   lda #$03                  ; [hard code color]; palette 0 to 3
+   jsr put_dot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+loop: jmp loop
 
 .include "functions.s"
 

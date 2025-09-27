@@ -4,8 +4,8 @@
 ; LOAD"MAIN",9,1
 
    ; ************************* put a dot
-   ldx #75
-   ldy #75
+   ldx #159
+   ldy #199
    lda #$03                  ; [hard code color]; palette 0 to 3
    jsr put_dot
 

@@ -104,8 +104,66 @@ put_dot:
    clc
    ldx #3
 :
-   dec
-   bne :-
+   asl BUFFER16+11
+   asl BUFFER16+10
+   bcc :+
+   inc BUFFER16+11
+:
+   dex
+   bne :--
+
+   ; ********** add remainder Y
+   ; 6,7
+   lda BUFFER16+3
+   sta BUFFER16+6
+   lda #0
+   sta BUFFER16+7
+   ; 8,9
+   lda BUFFER16+10
+   sta BUFFER16+8
+   lda BUFFER16+11
+   sta BUFFER16+9
+   clc
+   lda BUFFER16+6
+   adc BUFFER16+8
+   sta BUFFER16+10
+   lda BUFFER16+7
+   adc BUFFER16+9
+   sta BUFFER16+11
+
+      ; ********** add SCREEN_MEM
+   ; 6,7
+   lda #<SCREEN_MEM
+   sta BUFFER16+6
+   lda #>SCREEN_MEM
+   sta BUFFER16+7
+   ; 8,9
+   lda BUFFER16+10
+   sta BUFFER16+8
+   lda BUFFER16+11
+   sta BUFFER16+9
+   clc
+   lda BUFFER16+6
+   adc BUFFER16+8
+   sta BUFFER16+10
+   lda BUFFER16+7
+   adc BUFFER16+9
+   sta BUFFER16+11
+
+   ; ***** put byte
+   ;lda BUFFER16+10
+   ;sta 2
+   ;lda BUFFER16+11
+   ;sta 3
+
+   ;ldy #0
+   ;lda #$ff
+   ;sta (2),y
+
+
+
+
+
 
 
    ; print
