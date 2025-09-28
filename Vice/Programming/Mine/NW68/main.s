@@ -39,6 +39,7 @@
    ldx #BROWN
    ldy #ORANGE
    jsr fill_background
+
    ; ************************* put a dot
    ldx #159
    ldy #199
@@ -64,6 +65,31 @@
    ldy #100
    lda #$02
    jsr put_dot
+
+   ldx #1
+   ldy #0
+   lda #$02
+   jsr put_dot
+
+   ldx #2
+   ldy #0
+   lda #$01
+   jsr put_dot
+
+   ldx #3
+   ldy #0
+   lda #$03
+   jsr put_dot
+
+   ; ***** set cell's color palette
+   ; 0: background
+   ; 1: high nibble
+   ; 2: low nibble
+   ; 3: color RAM
+   lda #$10                  ; high nibble is white, low nibble is black
+   sta $8000
+   lda #BLUE
+   sta COLOR_RAM
 
 loop: jmp loop
 
