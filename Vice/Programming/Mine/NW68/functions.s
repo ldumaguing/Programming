@@ -171,7 +171,7 @@ put_dot:
    ora 5
    sta 5
 
-   ; ***** convert remainder X to pixel pattern and store value in memory 6
+   ; ***** convert remainder X to pixel pattern and store value in memory 6; mask
    lda BUFFER16+1
    cmp #3
    beq three
@@ -196,31 +196,25 @@ one:
 :
    lda #192                  ; 1100.0000
 continue:
-   sta 6
+   sta 6                     ; mask
+   ; ***** create ~mask and store it in memory 7
+   eor #$ff
+   sta 7
 
+   ; ***** palette AND mask and store it in memory 8; aaa
+   lda 5
+   and 6
+   sta 8
 
+   ; ***** screen-byte AND ~mask and store it in memory 9; bbb
+   lda 4
+   and 7
+   sta 9
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ; ***** put byte
-   lda BUFFER16+10
-   sta 2
-   lda BUFFER16+11
-   sta 3
-
+   ; ***** aaa OR bbb and store it in screen
+   lda 8
+   ora 9
    ldy #0
-   lda 5                  ; the byte to place
    sta (2),y
 
    rts
