@@ -30,8 +30,7 @@ BUFFER = 2                   ; zero page memory address 2
    ; ***** X / Y
    ; ***** X is 2-byte integer; +0, +1
    ; ***** Y is 1-byte integer; +2
-   ; ***** store result in registers +0 & +1; low/high byte, respectively
-   ; ***** counter is +3
+   ; ***** counter is +3; this is the result
    ; ***** no remainder stored
 divide:
    lda BUFFER+2
