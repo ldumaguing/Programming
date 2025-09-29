@@ -6,6 +6,9 @@ numer = BUFFER               ; location 2 and 3
 denom = BUFFER + 4           ; location 4 and 5
 count = BUFFER + 6           ; location 6 and 7
 result = BUFFER              ; reusing memory 2 and 3
+dcount = BUFFER + 8          ; location 8 and 9
+
+LINE1 = 1024
 
    ; ***** set numer(ator) = 321; $141
    lda #$41
@@ -13,58 +16,42 @@ result = BUFFER              ; reusing memory 2 and 3
    lda #$01
    sta numer+1
 
-   ; ***** set denom(inator) = 4
-   lda #1
+   ; ***** set denom(inator) = 2
+   lda #2
    sta denom
    lda #0
    sta denom+1
 
+
+
+   ; ***** dividing
+   lda denom
+   adc denom+1
+zero: beq zero               ; if divided by 0, infinate loop
+
+   lda denom
+   and #$fe
+   beq aaa                   ; if zero, continue test
    jsr do_divide
+   jmp bbb
+aaa:
+   lda denom+1
+   and #$ff
+   beq do_nothing
 
+bbb:
    ; ***** print
-   lda result
-   sta 1024
-   lda result+1
-   sta 1025
+   lda #13
+   sta LINE1
+   lda #31
+   sta LINE1+1
 
-
+do_nothing:
    rts
 
 ; ***************************************************************************************
 do_divide:
-   ; ***** if denom is 1, do nothing
-   lda denom
-   ora #1
-   bne do_nothing
 
-zero:
-   ; ***** if denom is 0, infinite loop. LOL
-   cmp #0
-   beq zero
-
-   ; ***** clear count
-   lda #0
-   sta count
-   sta count+1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-do_nothing:
-   lda #69
-   sta result
-   sta result+1
    rts
 
 
