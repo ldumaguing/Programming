@@ -22,8 +22,6 @@ LINE1 = 1024
    lda #0
    sta denom+1
 
-
-
    ; ***** dividing
    lda denom
    adc denom+1
@@ -31,19 +29,19 @@ zero: beq zero               ; if divided by 0, infinate loop
 
    lda denom
    and #$fe
-   beq aaa                   ; if zero, continue test
+   beq :+                   ; if zero, continue test
    jsr do_divide
-   jmp bbb
-aaa:
+   jmp :++
+:
    lda denom+1
    and #$ff
    beq do_nothing
 
-bbb:
+:
    ; ***** print
-   lda #13
+   lda result
    sta LINE1
-   lda #31
+   lda result+1
    sta LINE1+1
 
 do_nothing:
@@ -51,6 +49,16 @@ do_nothing:
 
 ; ***************************************************************************************
 do_divide:
+   sec
+   lda numer
+   sbc denom
+   sta result
+   lda numer+1
+   sbc denom+1
+   sta result+1
+
+
+
 
    rts
 
