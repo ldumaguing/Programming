@@ -17,7 +17,7 @@ LINE1 = 1024
    sta numer+1
 
    ; ***** set denom(inator) = 2
-   lda #2
+   lda #100
    sta denom
    lda #0
    sta denom+1
@@ -39,9 +39,9 @@ zero: beq zero               ; if divided by 0, infinate loop
 
 :
    ; ***** print
-   lda result
+   lda numer
    sta LINE1
-   lda result+1
+   lda numer+1
    sta LINE1+1
 
 do_nothing:
@@ -52,13 +52,31 @@ do_divide:
    sec
    lda numer
    sbc denom
-   sta result
+   sta numer
    lda numer+1
    sbc denom+1
-   sta result+1
+   sta numer+1
 
+   lda numer
+   sbc denom
+   sta numer
+   lda numer+1
+   sbc denom+1
+   sta numer+1
 
+   lda numer
+   sbc denom
+   sta numer
+   lda numer+1
+   sbc denom+1
+   sta numer+1
 
+   lda numer
+   sbc denom
+   sta numer
+   lda numer+1
+   sbc denom+1
+   sta numer+1
 
    rts
 
