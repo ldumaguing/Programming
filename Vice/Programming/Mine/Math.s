@@ -2,68 +2,69 @@
 ; LOAD"MAIN",9,1
 
 BUFFER = 2                   ; zero page memory address 2
+numer = BUFFER               ; location 2 and 3
+denom = BUFFER + 4           ; location 4 and 5
+count = BUFFER + 6           ; location 6 and 7
+result = BUFFER              ; reusing memory 2 and 3
 
-   ; ***** set X = 321; $141
+   ; ***** set numer(ator) = 321; $141
    lda #$41
-   sta BUFFER
+   sta numer
    lda #$01
-   sta BUFFER+1
+   sta numer+1
 
-   ; ***** set Y = 4
+   ; ***** set denom(inator) = 4
+   lda #1
+   sta denom
    lda #0
-   sta BUFFER+2
+   sta denom+1
 
-   ; ***** execute
-   jsr divide
+   jsr do_divide
 
    ; ***** print
-   lda BUFFER
+   lda result
    sta 1024
-   lda BUFFER+1
+   lda result+1
    sta 1025
-   lda BUFFER+2
-   sta 1026
+
 
    rts
 
 ; ***************************************************************************************
-   ; ***** X / Y
-   ; ***** X is 2-byte integer; +0, +1
-   ; ***** Y is 1-byte integer; +2
-   ; ***** counter is +3; this is the result
-   ; ***** no remainder stored
-divide:
-   lda BUFFER+2
-   cmp #1
-   beq do_nothing
+do_divide:
+   ; ***** if denom is 1, do nothing
+   lda denom
+   ora #1
+   bne do_nothing
+
 zero:
+   ; ***** if denom is 0, infinite loop. LOL
    cmp #0
-   beq zero                  ; divide by zero?  Infinite loop.
+   beq zero
 
+   ; ***** clear count
    lda #0
-   sta BUFFER+3              ; clear counter
+   sta count
+   sta count+1
 
-   clc
-   ldy BUFFER+2
-:
-   dec BUFFER
-   beq :+                   ; branch to aaa when BUFFER becomes 0
-   dey                       ; loop Y times
-   bne :-
-   inc BUFFER+3              ; counter++
-   ldy BUFFER+2
-   jmp :-
-:
-   dec BUFFER+1              ; decrement high byte
-   bmi done
-   lda #$ff
-   sta BUFFER
-   jmp :--
-done:
-   inc BUFFER+3
-   lda BUFFER+3
-   sta BUFFER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 do_nothing:
+   lda #69
+   sta result
+   sta result+1
    rts
 
 
