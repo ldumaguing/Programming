@@ -4,6 +4,7 @@
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
 denom = BUFFER + 4           ; location 4 and 5
+count = BUFFER + 6
 
 LINE1 = 1024
 
@@ -14,7 +15,7 @@ LINE1 = 1024
    sta numer+1
 
    ; ***** set denom(inator) = 2
-   lda #32
+   lda #16
    sta denom
    lda #0                    ; keep this as zero
    sta denom+1
@@ -40,10 +41,11 @@ zero: beq zero               ; if divided by 0, infinate loop. LOL
 
 ; ***************************************************************************************
 do_divide:
-   ldx #0
+   lda #0
+   sta count
    sec
 :
-   inx
+   inc count
    lda numer
    sbc denom
    sta numer
@@ -52,8 +54,8 @@ do_divide:
    sta numer+1
    bpl :-                    ; if positive, loop
 
-   dex
-   txa
+   dec count
+   lda count
    sta numer
 
    rts

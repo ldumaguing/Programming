@@ -14,25 +14,20 @@ LINE1 = 1024
    sta numer+1
 
    ; ***** set denom(inator) = 2
-   lda #2
+   lda #32
    sta denom
-   lda #0
+   lda #0                    ; keep this as zero
    sta denom+1
 
-   ; ***** dividing
+   ; ***** pre-dividing
    lda denom
    adc denom+1
-zero: beq zero               ; if divided by 0, infinate loop
+zero: beq zero               ; if divided by 0, infinate loop. LOL
 
    lda denom
    and #$fe
-   beq :+                   ; if zero, continue test
+   beq :+
    jsr do_divide
-   jmp :++
-:
-   lda denom+1
-   and #$ff
-   beq do_nothing
 
 :
    ; ***** print
@@ -41,7 +36,6 @@ zero: beq zero               ; if divided by 0, infinate loop
    lda numer+1
    sta LINE1+1
 
-do_nothing:
    rts
 
 ; ***************************************************************************************
