@@ -19,7 +19,7 @@ LINE1 = 1024
    lda #0
    sta denom+1
 
-   ; ***** dividing
+   ; ***** pre-dividing
    lda denom
    adc denom+1
 zero: beq zero               ; if divided by 0, infinate loop
@@ -32,7 +32,6 @@ zero: beq zero               ; if divided by 0, infinate loop
 :
    lda denom+1
    and #$ff
-   beq do_nothing
 
 :
    ; ***** print
@@ -41,7 +40,6 @@ zero: beq zero               ; if divided by 0, infinate loop
    lda numer+1
    sta LINE1+1
 
-do_nothing:
    rts
 
 ; ***************************************************************************************
