@@ -19,10 +19,10 @@ LINE1 = 1024
    lda #0
    sta denom+1
 
-   ; ***** dividing
+   ; ***** pre-dividing
    lda denom
    adc denom+1
-zero: beq zero               ; if divided by 0, infinate loop
+zero: beq zero               ; if divided by 0, infinate loop. LOL
 
    lda denom
    and #$fe
