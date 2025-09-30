@@ -2,68 +2,66 @@
 ; LOAD"MAIN",9,1
 
 BUFFER = 2                   ; zero page memory address 2
+numer = BUFFER               ; location 2 and 3
+denom = BUFFER + 4           ; location 4 and 5
 
-   ; ***** set X = 321; $141
+LINE1 = 1024
+
+   ; ***** set numer(ator) = 321; $141
    lda #$41
-   sta BUFFER
+   sta numer
    lda #$01
-   sta BUFFER+1
+   sta numer+1
 
-   ; ***** set Y = 4
-   lda #$7f
-   sta BUFFER+2
+   ; ***** set denom(inator) = 2
+   lda #2
+   sta denom
+   lda #0
+   sta denom+1
 
-   ; ***** execute
-   jsr divide
+   ; ***** dividing
+   lda denom
+   adc denom+1
+zero: beq zero               ; if divided by 0, infinate loop
 
+   lda denom
+   and #$fe
+   beq :+                   ; if zero, continue test
+   jsr do_divide
+   jmp :++
+:
+   lda denom+1
+   and #$ff
+   beq do_nothing
+
+:
    ; ***** print
-   lda BUFFER
-   sta 1024
-   lda BUFFER+1
-   sta 1025
-   lda BUFFER+2
-   sta 1026
+   lda numer
+   sta LINE1
+   lda numer+1
+   sta LINE1+1
 
+do_nothing:
    rts
 
 ; ***************************************************************************************
-   ; ***** X / Y
-   ; ***** X is 2-byte integer; +0, +1
-   ; ***** Y is 1-byte integer; +2
-   ; ***** counter is +3; this is the result
-   ; ***** no remainder stored
-divide:
-   lda BUFFER+2
-   cmp #1
-   beq do_nothing
-zero:
-   cmp #0
-   beq zero                  ; divide by zero?  Infinite loop.
-
-   lda #0
-   sta BUFFER+3              ; clear counter
-
-   clc
-   ldy BUFFER+2
+do_divide:
+   ldx #0
+   sec
 :
-   dec BUFFER
-   beq :+                    ; branch to aaa when BUFFER becomes 0
-   dey                       ; loop Y times
-   bne :-
-   inc BUFFER+3              ; counter++
-   ldy BUFFER+2
-   jmp :-
-:
-   dec BUFFER+1              ; decrement high byte
-   bmi done
-   lda #$ff
-   sta BUFFER
-   jmp :--
-done:
-   inc BUFFER+3
-   lda BUFFER+3
-   sta BUFFER
-do_nothing:
+   inx
+   lda numer
+   sbc denom
+   sta numer
+   lda numer+1
+   sbc denom+1
+   sta numer+1
+   bpl :-                    ; if positive, loop
+
+   dex
+   txa
+   sta numer
+
    rts
 
 
