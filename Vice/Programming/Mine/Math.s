@@ -16,7 +16,7 @@ LINE1 = 1024
    ; ***** set denom(inator) = 2
    lda #32
    sta denom
-   lda #0
+   lda #0                    ; keep this as zero
    sta denom+1
 
    ; ***** pre-dividing
