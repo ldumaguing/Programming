@@ -49,34 +49,21 @@ do_nothing:
 
 ; ***************************************************************************************
 do_divide:
+   ldx #0
    sec
+:
+   inx
    lda numer
    sbc denom
    sta numer
    lda numer+1
    sbc denom+1
    sta numer+1
+   bpl :-                    ; if positive, loop
 
-   lda numer
-   sbc denom
+   dex
+   txa
    sta numer
-   lda numer+1
-   sbc denom+1
-   sta numer+1
-
-   lda numer
-   sbc denom
-   sta numer
-   lda numer+1
-   sbc denom+1
-   sta numer+1
-
-   lda numer
-   sbc denom
-   sta numer
-   lda numer+1
-   sbc denom+1
-   sta numer+1
 
    rts
 
