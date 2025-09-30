@@ -4,9 +4,6 @@
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
 denom = BUFFER + 4           ; location 4 and 5
-count = BUFFER + 6           ; location 6 and 7
-result = BUFFER              ; reusing memory 2 and 3
-dcount = BUFFER + 8          ; location 8 and 9
 
 LINE1 = 1024
 
@@ -29,7 +26,7 @@ zero: beq zero               ; if divided by 0, infinate loop
 
    lda denom
    and #$fe
-   beq :+                   ; if zero, continue test
+   beq :+                    ; if zero, continue test
    jsr do_divide
    jmp :++
 :
