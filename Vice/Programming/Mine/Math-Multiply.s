@@ -4,12 +4,12 @@
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
 multi = BUFFER+4             ; location 4 and 5
-count = BUFFER+6             ; location 6 and 7
+summy = BUFFER+6             ; location 6 and 7
 
 LINE1 = 1024
 
    ; ***** set numer(ator) = 321; $141
-   lda #$f
+   lda #$e
    sta numer
    lda #0
    sta numer+1
@@ -21,21 +21,30 @@ LINE1 = 1024
    sta multi+1
 
    ; ***** pre-multiply
+   lda #0
+   sta summy
+   sta summy+1
    jsr do_multiply
 
    ; ***** print
-   ;lda numer
-   ;sta LINE1
-   ;lda numer+1
-   ;sta LINE1+1
+   lda summy
+   sta LINE1
+   lda summy+1
+   sta LINE1+1
 
    rts
 
 ; ***************************************************************************************
 do_multiply:
-   ldx #$ff
-aaa:
-   inx
+multiply_loop:
+   clc
+   lda summy
+   adc numer
+   sta summy
+   lda summy+1
+   adc numer+1
+   sta summy+1
+
    sec
    lda multi
    sbc #1
@@ -43,19 +52,16 @@ aaa:
    lda multi+1
    sbc #0
    sta multi+1
-   beq aaa
+   beq multiply_loop
 
-   lda multi
-   sta LINE1
-   lda multi+1
-   sta LINE1+1
-   txa
-   sta LINE1+2
-
-
-
-
-
+   ; ***** correction
+   sec
+   lda summy
+   sbc numer
+   sta summy
+   lda summy+1
+   sbc numer+1
+   sta summy+1
 
    rts
 
