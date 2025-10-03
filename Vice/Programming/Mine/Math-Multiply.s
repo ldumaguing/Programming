@@ -9,13 +9,13 @@ summy = BUFFER+6             ; location 6 and 7
 LINE1 = 1024
 
    ; ***** set numer(ator) = 321; $141
-   lda #$e
+   lda #$d
    sta numer
    lda #0
    sta numer+1
 
    ; ***** set multi(plier)
-   lda #3
+   lda #5
    sta multi
    lda #0                    ; keep this as zero
    sta multi+1
@@ -27,9 +27,9 @@ LINE1 = 1024
    jsr do_multiply
 
    ; ***** print
-   lda summy
+   lda numer
    sta LINE1
-   lda summy+1
+   lda numer+1
    sta LINE1+1
 
    rts
@@ -58,10 +58,10 @@ multiply_loop:
    sec
    lda summy
    sbc numer
-   sta summy
+   sta numer
    lda summy+1
    sbc numer+1
-   sta summy+1
+   sta numer+1
 
    rts
 
