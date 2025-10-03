@@ -11,30 +11,35 @@ yB = BUFFER+6
 deltaX = BUFFER+8
 deltaY = BUFFER+10
 
+flags = BUFFER+12
+
    ; ***** set Point A
-   lda #45
+   lda #47
    sta xA
-   lda #46
+   lda #48
    sta yA
    lda #0
    sta xA+1
    sta yA+1
 
    ; ***** set Point B
-   lda #40
+   lda #45
    sta xB
-   lda #48
+   lda #46
    sta yB
    lda #0
    sta xB+1
    sta yB+1
 
-   ; ***** clear deltas
    lda #0
+   ; ***** clear deltas
    sta deltaX
    sta deltaX+1
    sta deltaY
    sta deltaY+1
+
+   ; ***** clear flags
+   sta flags
 
    ; ***** define deltaX
    sec
@@ -44,7 +49,9 @@ deltaY = BUFFER+10
    lda xB+1
    sbc xA+1
    sta deltaX+1
-
+   bpl :+
+   inc flags
+:
    ; ***** define deltaY
    sec
    lda yB
@@ -53,7 +60,12 @@ deltaY = BUFFER+10
    lda yB+1
    sbc yA+1
    sta deltaY+1
+   bpl :+
+   lda flags
+   ora #2
+   sta flags
 
+:
    ; ***** print
    lda xA
    sta LINE1
@@ -69,6 +81,9 @@ deltaY = BUFFER+10
    sta LINE3
    lda deltaX+1
    sta LINE3+1
+
+   lda flags
+   sta LINE4
 
    rts
 
