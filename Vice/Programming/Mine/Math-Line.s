@@ -3,6 +3,39 @@
 
 .include "defs.s"
 
+x1 = BUFFER
+y1 = BUFFER+2
+x2 = BUFFER+4
+y2 = BUFFER+6
+
+   ; ***** set Point A
+   lda #45
+   sta x1
+   lda #46
+   sta y1
+   lda #0
+   sta x1+1
+   sta y1+1
+
+   ; ***** set Point B
+   lda #47
+   sta x2
+   lda #48
+   sta y2
+   lda #0
+   sta x2+1
+   sta y2+1
+
+   ; ***** print
+   lda x1
+   sta LINE1
+   lda y1
+   sta LINE1+1
+
+   lda x2
+   sta LINE2
+   lda y2
+   sta LINE2+1
 
    rts
 
