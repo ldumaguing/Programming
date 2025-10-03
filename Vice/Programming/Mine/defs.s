@@ -7,6 +7,7 @@ summy = BUFFER+6             ; location 6 and 7
 count = BUFFER+6             ; location 6 and 7
 
 LINE1 = 1024
+LINE2 = 1064
 
 SETLFS     = $ffba
 SETNAM     = $ffbd
