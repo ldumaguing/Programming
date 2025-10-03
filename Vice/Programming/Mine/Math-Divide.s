@@ -3,8 +3,8 @@
 
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
-denom = BUFFER+4             ; location 4 and 5
-count = BUFFER+6             ; location 6 and 7
+denom = BUFFER+2             ; location 4 and 5
+count = BUFFER+4             ; location 6 and 7
 
 LINE1 = 1024
 
@@ -15,7 +15,7 @@ LINE1 = 1024
    sta numer+1
 
    ; ***** set denom(inator) = 2
-   lda #22
+   lda #33
    sta denom
    lda #0                    ; keep this as zero
    sta denom+1

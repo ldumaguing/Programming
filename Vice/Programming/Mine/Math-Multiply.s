@@ -3,13 +3,13 @@
 
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
-multi = BUFFER+4             ; location 4 and 5
-summy = BUFFER+6             ; location 6 and 7
+multi = BUFFER+2             ; location 4 and 5
+summy = BUFFER+4             ; location 6 and 7
 
 LINE1 = 1024
 
    ; ***** set numer(ator) = 321; $141
-   lda #$d
+   lda #$b
    sta numer
    lda #0
    sta numer+1
