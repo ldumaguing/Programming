@@ -8,6 +8,7 @@ count = BUFFER+4             ; location 6 and 7
 
 LINE1 = 1024
 LINE2 = 1064
+LINE3 = 1104
 
 SETLFS     = $ffba
 SETNAM     = $ffbd

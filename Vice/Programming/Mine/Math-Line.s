@@ -3,38 +3,48 @@
 
 .include "defs.s"
 
-x1 = BUFFER
-y1 = BUFFER+2
-x2 = BUFFER+4
-y2 = BUFFER+6
+xA = BUFFER
+yA = BUFFER+2
+xB = BUFFER+4
+yB = BUFFER+6
+
+deltaX = BUFFER+8
+deltaY = BUFFER+10
+
+   ; ***** clear deltas
+   lda #0
+   sta deltaX
+   sta deltaX+1
+   sta deltaY
+   sta deltaY+1
 
    ; ***** set Point A
    lda #45
-   sta x1
+   sta xA
    lda #46
-   sta y1
+   sta yA
    lda #0
-   sta x1+1
-   sta y1+1
+   sta xA+1
+   sta yA+1
 
    ; ***** set Point B
    lda #47
-   sta x2
+   sta xB
    lda #48
-   sta y2
+   sta yB
    lda #0
-   sta x2+1
-   sta y2+1
+   sta xB+1
+   sta yB+1
 
    ; ***** print
-   lda x1
+   lda xA
    sta LINE1
-   lda y1
+   lda yA
    sta LINE1+1
 
-   lda x2
+   lda xB
    sta LINE2
-   lda y2
+   lda yB
    sta LINE2+1
 
    rts
