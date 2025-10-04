@@ -66,6 +66,41 @@ flags = BUFFER+12
    sta flags
 
 :
+   lda flags
+   cmp #1
+   beq :+
+   cmp #2
+   beq :++
+   cmp #3
+   beq :+++
+   jmp default
+:                            ;  y,-x
+   lda #70
+   sta LINE4
+   jmp continue
+:                            ; -y, x
+   lda #80
+   sta LINE4
+   jmp continue
+:                            ; -y,-x
+   lda #90
+   sta LINE4
+   jmp continue
+default:
+   lda #69                   ;  y, x
+   sta LINE4
+continue:
+   nop
+
+
+
+
+
+
+
+
+
+
    ; ***** print
    lda xA
    sta LINE1
@@ -82,8 +117,8 @@ flags = BUFFER+12
    lda deltaX+1
    sta LINE3+1
 
-   lda flags
-   sta LINE4
+   ;lda flags
+   ;sta LINE4
 
    rts
 
