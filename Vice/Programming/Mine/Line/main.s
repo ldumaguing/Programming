@@ -10,9 +10,9 @@ main:
    jsr set_multi_color_mode
 
    ; ***** clear background
-   ;ldx #BROWN
-   ;ldy #ORANGE
-   ;jsr fill_background
+   ldx #BROWN
+   ldy #ORANGE
+   jsr fill_background
 
    ; ************************* put a dot
    ldx #159
@@ -70,8 +70,8 @@ main:
    lda #$01
    jsr put_dot
 
-   ldx #103
-   ldy #103
+   ldx #123
+   ldy #123
    lda #$03
    jsr put_dot
 
@@ -81,7 +81,7 @@ main:
    ; 2: low nibble
    ; 3: color RAM
    lda #$10                  ; high nibble is white, low nibble is black
-   sta $8000
+   sta BANK
    lda #BLUE
    sta COLOR_RAM
 

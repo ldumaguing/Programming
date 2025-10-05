@@ -1,3 +1,10 @@
+BANK_0 = $0
+BANK_1 = $4000
+BANK_2 = $8000
+BANK_3 = $c000
+
+BANK = BANK_2
+
 BUFFER = 2                   ; zero page memory address 2
 numer = BUFFER               ; location 2 and 3
 denom = BUFFER+2             ; location 4 and 5
@@ -19,7 +26,8 @@ BORDER     = $d020
 BACKGROUND = $d021
 MESSAGE    = $9d
 
-SCREEN_MEM = $a000           ; $8000 + $2000
+;SCREEN_MEM = $a000           ; $8000 + $2000
+SCREEN_MEM = BANK+$2000
 MEM_TWO    = 2
 BUFFER16   = 2024
 TEXT_MEM   = 1024
