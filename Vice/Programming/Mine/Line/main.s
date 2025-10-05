@@ -1,4 +1,5 @@
 ; cl65 -o test -u __EXEHDR__ -t c64 -C /usr/share/cc65/cfg/c64-asm.cfg main.s && mv test ~/Vice/vicefs/
+; cl65 -o test -u __EXEHDR__ -t c64 -C /usr/local/share/cc65/cfg/c64-asm.cfg main.s && mv test ~/Vice/vicefs/
 
    jmp main
 
@@ -13,6 +14,15 @@ main:
    ldx #BROWN
    ldy #ORANGE
    jsr fill_background
+
+   ; ************************* draw line
+   lda #10
+   sta x1
+   sta y1
+   lda #50
+   sta x2
+   sta y2
+   jsr draw_line
 
    ; ************************* put a dot
    ldx #159

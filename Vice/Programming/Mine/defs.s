@@ -18,6 +18,11 @@ LINE2 = 1064
 LINE3 = 1104
 LINE4 = 1144
 
+x1 = BUFFER
+y1 = BUFFER+1
+x2 = BUFFER+2
+y2 = BUFFER+3
+
 SETLFS     = $ffba
 SETNAM     = $ffbd
 SAVE       = $ffd8
