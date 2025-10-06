@@ -5,6 +5,7 @@
 
 .include "defs.s"
 .include "vol_1.s"
+.include "my_math.s"
 
 main:
    ; ***** set graphic mode
@@ -23,67 +24,6 @@ main:
    sta x2
    sta y2
    jsr draw_line
-
-   ; ************************* put a dot
-   ldx #159
-   ldy #199
-   lda #$03                  ; [hard code color]; palette 0 to 3
-   jsr put_dot
-
-   ldx #0
-   ldy #0
-   lda #$03
-   jsr put_dot
-
-   ldx #159
-   ldy #0
-   lda #$03
-   jsr put_dot
-
-   ldx #0
-   ldy #199
-   lda #$03
-   jsr put_dot
-
-   ldx #80
-   ldy #100
-   lda #$02
-   jsr put_dot
-
-   ldx #1
-   ldy #0
-   lda #$02
-   jsr put_dot
-
-   ldx #2
-   ldy #0
-   lda #$01
-   jsr put_dot
-
-   ldx #3
-   ldy #0
-   lda #$03
-   jsr put_dot
-
-   ldx #100
-   ldy #100
-   lda #$03
-   jsr put_dot
-
-   ldx #101
-   ldy #101
-   lda #$02
-   jsr put_dot
-
-   ldx #102
-   ldy #102
-   lda #$01
-   jsr put_dot
-
-   ldx #123
-   ldy #123
-   lda #$03
-   jsr put_dot
 
    ; ***** set cell's color palette
    ; 0: background

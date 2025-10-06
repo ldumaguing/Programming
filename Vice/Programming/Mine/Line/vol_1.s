@@ -1,7 +1,71 @@
 ; ***************************************************************************************
 draw_line:
-   ldx x1
-   ldy y1
+   ; ***** clear deltas and flags
+   lda #0
+   sta delta_X
+   sta delta_Y
+   sta flags
+
+   ; ***** define deltaX
+   sec
+   lda x2
+   sbc x1
+   sta delta_X
+   bpl :+
+   inc flags
+:
+   ; ***** define deltaY
+   sec
+   lda y2
+   sbc y1
+   sta delta_Y
+   bpl :+
+   lda flags
+   ora #2
+   sta flags
+
+:
+   lda flags
+   cmp #1
+   beq :+
+   cmp #2
+   beq :++
+   cmp #3
+   beq :+++
+   jmp default
+:                            ;  y,-x
+   ldx #30
+   ldy #1
+   jmp continue0
+:                            ; -y, x
+   ldx #20
+   ldy #1
+   jmp continue0
+:                            ; -y,-x
+   ldx #10
+   ldy #1
+   jmp continue0
+default:                     ;  y, x
+   ldx #0
+   ldy #1
+continue0:
+   nop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ;ldx x1
+   ;ldy y1
    lda #$03
    jsr put_dot
 

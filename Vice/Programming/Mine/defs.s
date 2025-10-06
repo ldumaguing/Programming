@@ -23,6 +23,10 @@ y1 = BUFFER+1
 x2 = BUFFER+2
 y2 = BUFFER+3
 
+flags = BUFFER+4
+delta_X = BUFFER+5
+delta_Y = BUFFER+6
+
 SETLFS     = $ffba
 SETNAM     = $ffbd
 SAVE       = $ffd8
