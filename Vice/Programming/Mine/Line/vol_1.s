@@ -46,8 +46,7 @@ draw_line:
    ldy #1
    jmp continue0
 default:                     ;  y, x
-   ldx #0
-   ldy #1
+   jsr do_quad_I
 continue0:
    nop
 

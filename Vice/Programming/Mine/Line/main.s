@@ -6,6 +6,7 @@
 .include "defs.s"
 .include "vol_1.s"
 .include "my_math.s"
+.include "quadrants.s"
 
 main:
    ; ***** set graphic mode
@@ -19,11 +20,11 @@ main:
    ; ************************* draw line
    lda #10
    sta x1
-   lda #50
+   lda #10
    sta y1
    lda #50
    sta x2
-   lda #10
+   lda #49
    sta y2
    jsr draw_line
 
