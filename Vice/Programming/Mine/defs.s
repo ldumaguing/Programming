@@ -26,6 +26,7 @@ y2 = BUFFER+3
 flags = BUFFER+4
 delta_X = BUFFER+5
 delta_Y = BUFFER+6
+tmp     = BUFFER+8
 
 SETLFS     = $ffba
 SETNAM     = $ffbd

@@ -52,8 +52,8 @@ continue0:
 
    ;ldx x1
    ;ldy y1
-   lda #$03
-   jsr put_dot
+   ;lda #$03
+   ;jsr put_dot
 
    rts
 
