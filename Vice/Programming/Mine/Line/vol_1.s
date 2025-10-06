@@ -51,19 +51,6 @@ default:                     ;  y, x
 continue0:
    nop
 
-
-
-
-
-
-
-
-
-
-
-
-
-
    ;ldx x1
    ;ldy y1
    lda #$03
