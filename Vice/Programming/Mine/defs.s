@@ -18,15 +18,16 @@ LINE2 = 1064
 LINE3 = 1104
 LINE4 = 1144
 
-x1 = BUFFER+5
-y1 = BUFFER+6
-x2 = BUFFER+7
-y2 = BUFFER+8
+x1 = BUFFER+6
+y1 = BUFFER+8
+x2 = BUFFER+10
+y2 = BUFFER+12
 
-flags = BUFFER+9
-delta_X = BUFFER+10
-delta_Y = BUFFER+11
-tmp     = BUFFER+12
+flags = BUFFER+14
+delta_X = BUFFER+16
+delta_Y = BUFFER+18
+tmp_X   = BUFFER+20
+tmp_Y   = BUFFER+22
 
 SETLFS     = $ffba
 SETNAM     = $ffbd

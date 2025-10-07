@@ -34,26 +34,28 @@ draw_line:
    beq :+++
    jmp default
 :                            ;  y,-x
-   ldx #30
-   ldy #1
+   ldx #0
+   ldy #199
    jmp continue0
 :                            ; -y, x
-   ldx #20
-   ldy #1
+   ldx #159
+   ldy #0
    jmp continue0
 :                            ; -y,-x
-   ldx #10
-   ldy #1
+   ldx #159
+   ldy #199
    jmp continue0
 default:                     ;  y, x
-   jsr do_quad_I
+   ldx #0
+   ldy #0
+   ;jsr do_quad_I
 continue0:
    nop
 
    ;ldx x1
    ;ldy y1
-   ;lda #$03
-   ;jsr put_dot
+   lda #$03
+   jsr put_dot
 
    rts
 

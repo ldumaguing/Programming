@@ -8,13 +8,11 @@ do_quad_I:
    rts
 :
    ; ***** X >= Y
-@LoopX:
-   ldx delta_X
+   ldx #80
    ldy #100
    lda #$03
    jsr put_dot
-   dec delta_X
-   bne @LoopX
+
 
    ; ***** done
    ldx #159

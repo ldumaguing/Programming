@@ -19,14 +19,16 @@ main:
    jsr fill_background
 
    ; ************************* draw line
-   lda #10
+   lda #0
    sta x1
-   lda #10
+   lda #0
    sta y1
-   lda #50
+
+   lda #150
    sta x2
-   lda #49
+   lda #150
    sta y2
+
    jsr draw_line
 
    ; ***** set cell's color palette
