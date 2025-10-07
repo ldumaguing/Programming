@@ -16,13 +16,51 @@ draw_line:
    bpl :+
    inc flags
 :
+   ; ***** define deltaY
+   sec
+   lda y2
+   sbc y1
+   sta delta_Y
+   bpl :+
+   lda flags
+   ora #2
+   sta flags
+:
+   lda flags
+   cmp #1
+   beq :+
+   cmp #2
+   beq :++
+   cmp #3
+   beq :+++
+   jmp default
+:                            ;  y,-x
+   ldx #0
+   ldy #199
+   jmp continue0
+:                            ; -y, x
+   ldx #159
+   ldy #0
+   jmp continue0
+:                            ; -y,-x
+   ldx #159
+   ldy #199
+   jmp continue0
+default:                     ;  y, x
+   ldx #0
+   ldy #0
+   ;jsr do_quad_I
+continue0:
    nop
 
-   ldx delta_X
-   ldy #2
+
+
+   ldx #159
+   ldy #159
    lda #$03
    jsr put_dot
 
+   rts
 
 
 
@@ -31,10 +69,9 @@ draw_line:
 
 
 
-
-
-
-   ; ***** dots
+; ***************************************************************************************
+draw_scores:
+   ; ***** X
    ldx #0
    ldy #0
    lda #$03
@@ -115,7 +152,7 @@ draw_line:
    lda #$03
    jsr put_dot
 
-   ; ***** dots y
+   ; Y
    ldx #0
    ldy #10
    lda #$03
@@ -215,12 +252,6 @@ draw_line:
    ldy #190
    lda #$03
    jsr put_dot
-
-
-
-
-
-
 
    rts
 

@@ -18,8 +18,11 @@ main:
    ldy #ORANGE
    jsr fill_background
 
+   ; ***** draw X,Y tick marks
+   jsr draw_scores
+
    ; ************************* draw line
-   lda #10
+   lda #0
    sta x1
    lda #0
    sta y1
@@ -36,10 +39,10 @@ main:
    ; 1: high nibble
    ; 2: low nibble
    ; 3: color RAM
-   lda #$10                  ; high nibble is white, low nibble is black
-   sta BANK
-   lda #BLUE
-   sta COLOR_RAM
+   ;lda #$10                  ; high nibble is white, low nibble is black
+   ;sta BANK
+   ;lda #BLUE
+   ;sta COLOR_RAM
 
 loop: jmp loop
 
