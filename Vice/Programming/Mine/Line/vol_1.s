@@ -1,5 +1,17 @@
 ; ***************************************************************************************
 draw_line:
+   ;ldx #66
+   ;ldy #66
+   ;lda #$03
+   ;jsr put_dot
+
+
+
+   ldx #66
+   ldy #66
+   lda #$00
+   jsr put_dot
+
    ; ***** clear deltas and flags
    lda #0
    sta delta_X
@@ -35,39 +47,32 @@ draw_line:
    beq :+++
    jmp default
 :                            ;  y,-x
-   ldx #0
-   ldy #199
+   ldx #66
+   ldy #66
+   jsr put_dot
    jmp continue0
 :                            ; -y, x
-   ldx #159
-   ldy #0
+   ldx #66
+   ldy #66
+   jsr put_dot
    jmp continue0
 :                            ; -y,-x
-   ldx #159
-   ldy #199
+   ldx #66
+   ldy #66
+   jsr put_dot
    jmp continue0
 default:                     ;  y, x
-   ldx #0
-   ldy #0
    ;jsr do_quad_I
+   ldx #66
+   ldy #66
+   jsr put_dot
 continue0:
    nop
 
 
 
-   ldx #159
-   ldy #159
-   lda #$03
-   jsr put_dot
 
    rts
-
-
-
-
-
-
-
 
 ; ***************************************************************************************
 draw_scores:
@@ -526,12 +531,46 @@ fill_background:
    lda #0
    ldx #32
 :
+   sta (MEM_TWO),y
+   iny
+   bne :-
+   inc MEM_TWO+1
+   dex
+   bne :-
+
+   rts
+
+; ***************************************************************************************
+set_color_ram:
+   sta TMP
+
+   lda #<COLOR_RAM
+   sta MEM_TWO
+   lda #>COLOR_RAM
+   sta MEM_TWO+1
+
+   lda TMP
+   ldy #0
+   ldx #4
 :
    sta (MEM_TWO),y
    iny
    bne :-
    inc MEM_TWO+1
    dex
-   bne :--
+   bne :-
+
+
+
+
+
 
    rts
+
+
+
+
+
+
+
+

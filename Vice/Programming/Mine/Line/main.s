@@ -22,14 +22,14 @@ main:
    jsr draw_scores
 
    ; ************************* draw line
-   lda #0
+   lda #5
    sta x1
-   lda #0
+   lda #5
    sta y1
 
-   lda #150
+   lda #130
    sta x2
-   lda #150
+   lda #130
    sta y2
 
    jsr draw_line
