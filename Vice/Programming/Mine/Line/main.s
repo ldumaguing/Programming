@@ -19,7 +19,7 @@ main:
    jsr fill_background
 
    ; ************************* draw line
-   lda #0
+   lda #10
    sta x1
    lda #0
    sta y1
