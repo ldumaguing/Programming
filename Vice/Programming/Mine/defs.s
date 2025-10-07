@@ -42,6 +42,7 @@ SCREEN_MEM = BANK+$2000
 MEM_TWO    = 2
 BUFFER16   = 2024
 TEXT_MEM   = 1024
+TMP        = 4
 
 VIC_BANK   = $dd00
 MEM_SETUP  = $d018
