@@ -519,6 +519,8 @@ continue:
 
 ; ********************************************************* clear background with a color
 fill_background:
+   ldx #BLACK
+   ldy #ORANGE
    stx BACKGROUND
    sty BORDER
 
@@ -542,6 +544,7 @@ fill_background:
 
 ; ***************************************************************************************
 set_color_ram:
+   lda #WHITE
    sta TMP
 
    lda #<COLOR_RAM

@@ -10,30 +10,29 @@
 .include "quadrants.s"
 
 main:
+   ; ***** set graphic mode
    jsr set_multi_color_mode
 
-   jsr set_color_ram
-
-   jsr set_color_cells
-
+   ; ***** clear background
+   ldx #BROWN
+   ldy #ORANGE
    jsr fill_background
 
-   jsr draw_ticks
+   ; ***** draw X,Y tick marks
+   jsr draw_scores
 
-   ldx #66
-   ldy #66
-   lda #$3
-   jsr put_dot
+   ; ************************* draw line
+   lda #5
+   sta x1
+   lda #5
+   sta y1
 
-   ldx #67
-   ldy #67
-   lda #$2
-   jsr put_dot
+   lda #130
+   sta x2
+   lda #130
+   sta y2
 
-   ldx #68
-   ldy #68
-   lda #$1
-   jsr put_dot
+   jsr draw_line
 
    ; ***** set cell's color palette
    ; 0: background
