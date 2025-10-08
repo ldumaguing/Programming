@@ -75,7 +75,7 @@ continue0:
    rts
 
 ; ***************************************************************************************
-draw_scores:
+draw_ticks:
    ; ***** X
    ldx #0
    ldy #0
@@ -563,9 +563,22 @@ set_color_ram:
    rts
 
 ; ***************************************************************************************
-set_color_ram:
-   nop
+set_color_cells:
+   lda #<BANK
+   sta MEM_TWO
+   lda #>BANK
+   sta MEM_TWO+1
 
+   lda #$26              ; red / blue
+   ldy #0
+   ldx #4
+:
+   sta (MEM_TWO),y
+   iny
+   bne :-
+   inc MEM_TWO+1
+   dex
+   bne :-
    rts
 
 

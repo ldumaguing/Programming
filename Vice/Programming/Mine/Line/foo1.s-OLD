@@ -19,13 +19,39 @@ main:
    jsr set_color_cells
 
    ; ***** clear background
-   ldx #BLACK
-   ldy #ORANGE
-   jsr fill_background
+   ;ldx #BROWN
+   ;ldy #ORANGE
+   ;jsr fill_background
 
+   lda #$e4
+   sta SCREEN_MEM
+   lda #$e4
+   sta SCREEN_MEM+1
+   lda #$e4
+   sta SCREEN_MEM+2
+   lda #$e4
+   sta SCREEN_MEM+3
 
-   jsr draw_ticks
+   lda #$4e
+   sta SCREEN_MEM+4
+   lda #$4e
+   sta SCREEN_MEM+5
+   lda #$4e
+   sta SCREEN_MEM+6
+   lda #$4e
+   sta SCREEN_MEM+7
 
+   ; ***** background
+   lda #BLACK
+   sta BACKGROUND
+
+   ; ***** color RAM
+   ;lda #WHITE
+   ;sta COLOR_RAM
+
+   ; ***** memory setup
+   lda #$5a              ; green / pink
+   sta BANK
 
 
    ; ***** set cell's color palette
