@@ -44,8 +44,9 @@ main:
    lda #WHITE
    sta COLOR_RAM
 
+   ; ***** memory setup
    lda #$5a
-   sta BANK_2
+   sta BANK
 
 
    ; ***** set cell's color palette
