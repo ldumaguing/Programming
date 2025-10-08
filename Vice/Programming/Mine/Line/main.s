@@ -11,13 +11,9 @@
 
 main:
    jsr set_multi_color_mode
-
    jsr set_color_ram
-
    jsr set_color_cells
-
    jsr fill_background
-
    jsr draw_ticks
 
    ldx #66
