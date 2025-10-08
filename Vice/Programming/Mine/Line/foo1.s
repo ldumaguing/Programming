@@ -13,6 +13,9 @@ main:
    ; ***** set graphic mode
    jsr set_multi_color_mode
 
+   lda #CYAN
+   jsr set_color_ram
+
    ; ***** clear background
    ;ldx #BROWN
    ;ldy #ORANGE
