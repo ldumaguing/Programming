@@ -48,7 +48,7 @@ main:
    sta COLOR_RAM
 
    ; ***** memory setup
-   lda #$5a
+   lda #$5a              ; green / pink
    sta BANK
 
 
