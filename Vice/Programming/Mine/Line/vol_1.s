@@ -1,17 +1,5 @@
 ; ***************************************************************************************
 draw_line:
-   ;ldx #66
-   ;ldy #66
-   ;lda #$03
-   ;jsr put_dot
-
-
-
-   ldx #66
-   ldy #66
-   lda #$00
-   jsr put_dot
-
    ; ***** clear deltas and flags
    lda #0
    sta delta_X
@@ -122,6 +110,11 @@ draw_ticks:
    lda #$03
    jsr put_dot
 
+   ldx #80
+   ldy #1
+   lda #$03
+   jsr put_dot
+
    ldx #90
    ldy #0
    lda #$03
@@ -208,7 +201,7 @@ draw_ticks:
    lda #$03
    jsr put_dot
 
-   ldx #2
+   ldx #1
    ldy #100
    lda #$03
    jsr put_dot
