@@ -30,6 +30,9 @@ main:
    lda #$1
    jsr put_dot
 
+   lda #CYAN
+   sta COLOR_RAM+336
+
    ; ***** set cell's color palette
    ; 0: background
    ; 1: high nibble
