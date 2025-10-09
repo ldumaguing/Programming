@@ -30,8 +30,19 @@ main:
    lda #$1
    jsr put_dot
 
+   ; ***** test color RAM
    lda #CYAN
    sta COLOR_RAM+336
+
+   ; ***** test color memory
+   lda #$e5           ; light blue / green
+   sta BANK+336
+   sta BANK+337
+
+   ldx #69
+   ldy #69
+   lda #$3
+   jsr put_dot
 
    ; ***** set cell's color palette
    ; 0: background
