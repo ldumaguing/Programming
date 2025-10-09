@@ -1,2 +1,0 @@
-BORDER = $d020
-BACKGROUND = $d021
