@@ -53,11 +53,7 @@ draw_line:
    jsr put_dot
    jmp continue0
 default:                     ;  y, x
-   ;jsr do_quad_I
-   ldx #20
-   ldy #20
-   lda #3
-   jsr put_dot
+   jsr do_quad_I
 continue0:
    nop
 
