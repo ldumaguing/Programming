@@ -7,12 +7,21 @@
 .include "vol_1.s"
 .include "my_math.s"
 .include "quadrants.s"
+.include "draw_ticks.s"
 
 main:
    jsr set_multi_color_mode
+
+   lda #WHITE
    jsr set_color_ram
+
+   lda #$26                  ; red / blue
    jsr set_color_cells
+
+   ldx #BROWN
+   ldy #PINK
    jsr fill_background
+
    jsr draw_ticks
 
    ldx #66
