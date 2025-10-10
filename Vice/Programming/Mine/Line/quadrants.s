@@ -1,35 +1,33 @@
+; *************************************************************************************************
 do_quad_I:
-   ldx #30
-   ldy #30
-   lda #3
-   jsr put_dot
-
    lda delta_X
    cmp delta_Y
    bpl :+
-   ldx #30
-   ldy #40
-   lda #3
-   jsr put_dot
+   jsr do_q1_b               ; X < Y
    rts
 :
-   jsr do_q1_a
-
-
-
+   jsr do_q1_a               ; X >= Y
    rts
 
 ; ***** Quad_I: X >= Y
 do_q1_a:
-   ldx #100
-   ldy #100
-   lda #3
+   ldx x1
+   ldy y1
+   lda #1
    jsr put_dot
 
+   ldx x2
+   ldy y2
+   lda #2
+   jsr put_dot
 
    rts
 
+; ***** Quad_I: X < Y
+do_q1_b:
+   nop
 
+   rts
 
-
+; *************************************************************************************************
 
