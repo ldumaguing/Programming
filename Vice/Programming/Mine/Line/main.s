@@ -8,6 +8,7 @@
 .include "my_math.s"
 .include "quadrants.s"
 .include "draw_ticks.s"
+.include "draw_line.s"
 
 main:
    jsr set_multi_color_mode
@@ -18,50 +19,23 @@ main:
    lda #$26                  ; red / blue
    jsr set_color_cells
 
-   ldx #BROWN
-   ldy #PINK
+   ldx #BLACK
+   ldy #DARK_GREY
    jsr fill_background
 
    jsr draw_ticks
 
-   ldx #66
-   ldy #66
-   lda #$3
-   jsr put_dot
+   ; ***** draw line
+   lda #90
+   sta x1
+   lda #10
+   sta y1
 
-   ldx #67
-   ldy #67
-   lda #$2
-   jsr put_dot
-
-   ldx #68
-   ldy #68
-   lda #$1
-   jsr put_dot
-
-   ; ***** test color RAM
-   lda #CYAN
-   sta COLOR_RAM+336
-
-   ; ***** test color memory
-   lda #$e5           ; light blue / green
-   sta BANK+336
-   sta BANK+337
-
-   ldx #69
-   ldy #69
-   lda #$3
-   jsr put_dot
-
-   ; ***** set cell's color palette
-   ; 0: background
-   ; 1: high nibble
-   ; 2: low nibble
-   ; 3: color RAM
-   ;lda #$10                  ; high nibble is white, low nibble is black
-   ;sta BANK
-   ;lda #BLUE
-   ;sta COLOR_RAM
+   lda #10
+   sta x2
+   lda #90
+   sta y2
+   jsr draw_line
 
 loop: jmp loop
 

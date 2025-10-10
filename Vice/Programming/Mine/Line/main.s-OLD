@@ -1,4 +1,3 @@
-; cl65 -o test -u __EXEHDR__ -t c64 -C /usr/share/cc65/cfg/c64-asm.cfg main.s && mv test ~/Vice/vicefs/
 ; cl65 -o test -u __EXEHDR__ -t c64 -C /usr/local/share/cc65/cfg/c64-asm.cfg main.s && mv test ~/Vice/vicefs/
 ; ~/github/cc65/bin/cl65 -o test -u __EXEHDR__ -t c64 -C ~/github/cc65/cfg/c64-asm.cfg main.s && mv test ~/Vice/vicefs/
 
@@ -8,31 +7,52 @@
 .include "vol_1.s"
 .include "my_math.s"
 .include "quadrants.s"
+.include "draw_ticks.s"
+.include "draw_line.s"
 
 main:
-   ; ***** set graphic mode
    jsr set_multi_color_mode
 
-   ; ***** clear background
+   lda #WHITE
+   jsr set_color_ram
+
+   lda #$26                  ; red / blue
+   jsr set_color_cells
+
    ldx #BROWN
-   ldy #ORANGE
+   ldy #PINK
    jsr fill_background
 
-   ; ***** draw X,Y tick marks
-   jsr draw_scores
+   jsr draw_ticks
 
-   ; ************************* draw line
-   lda #5
-   sta x1
-   lda #5
-   sta y1
+   ldx #66
+   ldy #66
+   lda #$3
+   jsr put_dot
 
-   lda #130
-   sta x2
-   lda #130
-   sta y2
+   ldx #67
+   ldy #67
+   lda #$2
+   jsr put_dot
 
-   jsr draw_line
+   ldx #68
+   ldy #68
+   lda #$1
+   jsr put_dot
+
+   ; ***** test color RAM
+   lda #CYAN
+   sta COLOR_RAM+336
+
+   ; ***** test color memory
+   lda #$e5           ; light blue / green
+   sta BANK+336
+   sta BANK+337
+
+   ldx #69
+   ldy #69
+   lda #$3
+   jsr put_dot
 
    ; ***** set cell's color palette
    ; 0: background
