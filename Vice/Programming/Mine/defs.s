@@ -5,20 +5,20 @@ BANK_3 = $c000
 
 BANK = BANK_2
 
-BUFFER = 2                   ; zero page memory address 2
-numer = BUFFER               ; location 2 and 3
-denom = BUFFER+2             ; location 4 and 5
-multi = BUFFER+2             ; location 4 and 5
+BUFFER = 10
+numer = BUFFER
+denom = BUFFER+2
+multi = BUFFER+2
 
-summy = BUFFER+4             ; location 6 and 7
-count = BUFFER+4             ; location 6 and 7
+summy = BUFFER+4
+count = BUFFER+4
 
 LINE1 = 1024
 LINE2 = 1064
 LINE3 = 1104
 LINE4 = 1144
 
-x1 = BUFFER+24               ; problem with BUFFER+6 (memory address 8)
+x1 = BUFFER+24
 y1 = BUFFER+8
 x2 = BUFFER+10
 y2 = BUFFER+12
