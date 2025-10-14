@@ -36,10 +36,9 @@ do_q1_a:
    ;ldx x1
 @loop:
    ldx x1
-   ldy y1
+   ldy #15
    lda #3
    jsr put_dot
-   inc y1
    inc x1
    lda x1
    cmp x2
