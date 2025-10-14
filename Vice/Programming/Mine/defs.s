@@ -18,7 +18,7 @@ LINE2 = 1064
 LINE3 = 1104
 LINE4 = 1144
 
-x1 = BUFFER+6
+x1 = BUFFER+24               ; problem with BUFFER+6 (memory address 8)
 y1 = BUFFER+8
 x2 = BUFFER+10
 y2 = BUFFER+12

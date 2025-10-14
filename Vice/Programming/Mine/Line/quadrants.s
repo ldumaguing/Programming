@@ -21,6 +21,32 @@ do_q1_a:
    lda #2
    jsr put_dot
 
+
+   ;ldx x1
+   ;ldy #15
+   ;lda #3
+   ;jsr put_dot
+   ;
+   ;inc x1
+   ;ldx x1
+   ;ldy #15
+   ;lda #3
+   ;jsr put_dot
+
+   ;ldx x1
+@loop:
+   ldx x1
+   ldy #15
+   lda #3
+   jsr put_dot
+   inc x1
+   lda x1
+   cmp x2
+   bne @loop
+
+
+
+
    rts
 
 ; ***** Quad_I: X < Y
