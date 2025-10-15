@@ -14,7 +14,8 @@ do_q1_a:
    ldx x1
    stx tmp_X
    ldy y1
-   lda #1
+   sty tmp_Y
+   lda #2
    jsr put_dot
 
    ldx x2
@@ -45,13 +46,38 @@ do_q1_b:
 
 ; =================================================================================================
 redefine_Y1:
+   ; A(10,10)
+   ; B(90,80)
+
+   ; ***** x1 - Ax
    sec
    lda x1
    sbc tmp_X
+
+   ; ***** multiply by delta_Y
+   sta numer
+   lda #0
+   sta numer+1
+   sta multi+1
+   lda delta_Y
+   sta multi
+   jsr do_multiply
+
+   ; ***** divide by delta_X
+   lda delta_X
+   sta denom
+   lda #0
+   sta denom+1
+   jsr do_divide
+
+   lda numer
    sta y1
 
-
-
+   ; ***** add Ay
+   clc
+   lda numer
+   adc tmp_Y
+   sta y1
 
    ;lda #15
    ;sta y1
