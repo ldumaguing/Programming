@@ -13,15 +13,14 @@ do_quad_I:
 do_q1_a:
    ldx x1
    stx tmp_X
+   stx old_X
    ldy y1
    sty tmp_Y
-   lda #2
-   jsr put_dot
+   sty old_Y
+   ;lda #1
+   ;jsr put_dot
 
-   ldx x2
-   ldy y2
-   lda #2
-   jsr put_dot
+
 
 
 
@@ -35,6 +34,19 @@ do_q1_a:
    lda x1
    cmp x2
    bne @loop
+
+   ;ldx old_X
+   ;ldy old_Y
+   ;lda #1
+   ;jsr put_dot
+
+   ldx x2
+   ldy y2
+   lda #2
+   jsr put_dot
+
+
+
 
    rts
 
