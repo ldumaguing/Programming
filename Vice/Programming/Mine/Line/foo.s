@@ -33,7 +33,7 @@ main:
 
    lda #90
    sta x2
-   lda #90
+   lda #80
    sta y2
    jsr draw_line
 

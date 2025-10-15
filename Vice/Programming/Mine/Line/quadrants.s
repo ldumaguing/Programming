@@ -12,6 +12,7 @@ do_quad_I:
 ; ***** Quad_I: X >= Y
 do_q1_a:
    ldx x1
+   stx tmp_X
    ldy y1
    lda #1
    jsr put_dot
@@ -22,31 +23,17 @@ do_q1_a:
    jsr put_dot
 
 
-   ;ldx x1
-   ;ldy #15
-   ;lda #3
-   ;jsr put_dot
-   ;
-   ;inc x1
-   ;ldx x1
-   ;ldy #15
-   ;lda #3
-   ;jsr put_dot
 
-   ;ldx x1
 @loop:
    ldx x1
    ldy y1
    lda #3
    jsr put_dot
-   inc y1
+   jsr redefine_Y1
    inc x1
    lda x1
    cmp x2
    bne @loop
-
-
-
 
    rts
 
@@ -56,5 +43,22 @@ do_q1_b:
 
    rts
 
-; *************************************************************************************************
+; =================================================================================================
+redefine_Y1:
+   sec
+   lda x1
+   sbc tmp_X
+   sta y1
+
+
+
+
+   ;lda #15
+   ;sta y1
+
+   rts
+
+
+
+
 
