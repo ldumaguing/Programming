@@ -31,21 +31,12 @@ do_q1_a:
    cmp x2
    bne :-
 
-
    ldx x2
    ldy y2
    lda #2
    jsr put_dot
 
-
-
-
-
-
-
-
    rts
-
 :
    ldx x1
    ldy y1
@@ -57,18 +48,10 @@ do_q1_a:
    cmp x2
    bne :-
 
-   ;ldx old_X
-   ;ldy old_Y
-   ;lda #1
-   ;jsr put_dot
-
    ldx x2
    ldy y2
    lda #2
    jsr put_dot
-
-
-
 
    rts
 
@@ -113,9 +96,6 @@ redefine_Y1:
    adc old_Y
    sta y1
 
-   ;lda #15
-   ;sta y1
-
    rts
 
 ; =================================================================================================
@@ -154,9 +134,6 @@ redefine_Y1_a:
    sta y1
 
    inc y1
-
-   ;lda #15
-   ;sta y1
 
    rts
 
