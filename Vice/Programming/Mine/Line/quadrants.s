@@ -13,18 +13,15 @@ do_quad_I:
 do_q1_a:
    ldx x1
    stx old_X
-   stx half
-   lsr half                  ; divide old_X by 2
    ldy y1
    sty old_Y
-   ;lda #1
-   ;jsr put_dot
 
 
 
 
 
-@loop:
+
+:
    ldx x1
    ldy y1
    lda #3
@@ -33,7 +30,7 @@ do_q1_a:
    inc x1
    lda x1
    cmp x2
-   bne @loop
+   bne :-
 
    ;ldx old_X
    ;ldy old_Y
