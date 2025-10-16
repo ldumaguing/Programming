@@ -12,10 +12,8 @@ do_quad_I:
 ; ***** Quad_I: X >= Y
 do_q1_a:
    ldx x1
-   stx tmp_X
    stx old_X
    ldy y1
-   sty tmp_Y
    sty old_Y
    ;lda #1
    ;jsr put_dot
@@ -64,7 +62,7 @@ redefine_Y1:
    ; ***** x1 - Ax
    sec
    lda x1
-   sbc tmp_X
+   sbc old_X
 
    ; ***** multiply by delta_Y
    sta numer
@@ -88,7 +86,7 @@ redefine_Y1:
    ; ***** add Ay
    clc
    lda numer
-   adc tmp_Y
+   adc old_Y
    sta y1
 
    ;lda #15
