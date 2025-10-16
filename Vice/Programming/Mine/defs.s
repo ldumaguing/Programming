@@ -26,8 +26,9 @@ y2 = BUFFER+12
 flags = BUFFER+14
 delta_X = BUFFER+16
 delta_Y = BUFFER+18
-tmp_X   = BUFFER+20
-tmp_Y   = BUFFER+22
+old_X   = BUFFER+20
+old_Y   = BUFFER+22
+half    = BUFFER+24
 
 SETLFS     = $ffba
 SETNAM     = $ffbd
