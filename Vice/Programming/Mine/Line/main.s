@@ -31,9 +31,20 @@ main:
    lda #10
    sta y1
 
-   lda #85
+   lda #90
    sta x2
-   lda #85
+   lda #20
+   sta y2
+   jsr draw_line
+
+   lda #10
+   sta x1
+   lda #10
+   sta y1
+
+   lda #90
+   sta x2
+   lda #90
    sta y2
    jsr draw_line
 

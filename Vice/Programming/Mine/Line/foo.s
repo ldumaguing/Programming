@@ -11,48 +11,28 @@
 .include "draw_line.s"
 
 main:
-   jsr set_multi_color_mode
+   lda #31
+   sta half
+   sta LINE1
 
-   lda #WHITE
-   jsr set_color_ram
+   lsr half
+   lda half
+   sta LINE2
 
-   lda #$26                  ; red / blue
-   jsr set_color_cells
+   lda #14
+   cmp LINE2
+   bpl :+
+   lda #0
+   sta LINE1
+   rts
+:
+   lda #1
+   sta LINE1
 
-   ldx #BLACK
-   ldy #DARK_GREY
-   jsr fill_background
 
-   jsr draw_ticks
 
-   ; ***** draw line
-   lda #10
-   sta x1
-   lda #10
-   sta y1
+   rts
 
-   lda #90
-   sta x2
-   lda #20
-   sta y2
-   jsr draw_line
 
-   lda #10
-   sta x1
-   lda #10
-   sta y1
 
-   lda #90
-   sta x2
-   lda #90
-   sta y2
-   jsr draw_line
-loop: jmp loop
 
-; **********************************************************
-; SUMMARY
-;
-; 00: from background color
-; 01: (BANK + MEM_SETUP high nibble)
-; 10: (BANK + MEM_SETUP high nibble)
-; 11: COLOR_RAM

@@ -13,6 +13,8 @@ do_quad_I:
 do_q1_a:
    ldx x1
    stx old_X
+   stx half
+   lsr half                  ; divide old_X by 2
    ldy y1
    sty old_Y
    ;lda #1
