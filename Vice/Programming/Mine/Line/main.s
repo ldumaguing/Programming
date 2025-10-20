@@ -26,6 +26,19 @@ main:
    jsr draw_ticks
 
    ; ***** draw line
+   ; --------------------------------
+   ;lda #10
+   ;sta x1
+   ;lda #10
+   ;sta y1
+
+   ;lda #90
+   ;sta x2
+   ;lda #20
+   ;sta y2
+   ;jsr draw_line
+
+   ; --------------------------------
    lda #10
    sta x1
    lda #10
@@ -33,31 +46,31 @@ main:
 
    lda #90
    sta x2
-   lda #20
+   lda #90
    sta y2
    jsr draw_line
 
+   ; ----------------------------------
+   ;lda #10
+   ;sta x1
+   ;lda #10
+   ;sta y1
 
+   ;lda #90
+   ;sta x2
+   ;lda #10
+   ;sta y2
+   ;jsr draw_line
+
+   ; ==================================
    lda #10
    sta x1
    lda #10
    sta y1
 
-   lda #90
+   lda #80
    sta x2
-   lda #90
-   sta y2
-   jsr draw_line
-
-
-   lda #10
-   sta x1
-   lda #10
-   sta y1
-
-   lda #90
-   sta x2
-   lda #10
+   lda #110
    sta y2
    jsr draw_line
 

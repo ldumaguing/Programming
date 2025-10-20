@@ -55,9 +55,42 @@ do_q1_a:
 
    rts
 
-; ***** Quad_I: X < Y
+; ***** Quad_I: X < Y *********************************************************************** DOING
 do_q1_b:
-   nop
+   ldx x1
+   stx old_X
+   ldy y1
+   sty old_Y
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ldx #80
+   ldy #110
+   lda #2
+   jsr put_dot
 
    rts
 
