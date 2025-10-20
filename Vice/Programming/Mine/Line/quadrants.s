@@ -62,7 +62,16 @@ do_q1_b:
    ldy y1
    sty old_Y
 
-
+:
+   ldx x1
+   ldy y1
+   lda #3
+   jsr put_dot
+   jsr redefine_X1
+   inc y1
+   lda y1
+   cmp y2
+   bne :-
 
 
 
@@ -91,6 +100,12 @@ do_q1_b:
    ldy #110
    lda #2
    jsr put_dot
+
+   rts
+
+; =================================================================================================
+redefine_X1:
+   inc x1
 
    rts
 
