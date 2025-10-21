@@ -34,7 +34,7 @@ draw_line:
    cmp #3
    beq :+++
    jmp default
-:                            ;  y,-x
+:                            ;  y,-x (NE)
    ldx #5
    ldy #5
    lda #2
@@ -52,7 +52,7 @@ draw_line:
    lda #2
    jsr put_dot
    jmp continue0
-default:                     ;  y, x
+default:                     ;  y, x (SE)
    jsr do_quad_I
 continue0:
    nop
