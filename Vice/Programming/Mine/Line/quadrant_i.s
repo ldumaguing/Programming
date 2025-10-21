@@ -62,6 +62,11 @@ do_q1_b:
    ldy y1
    sty old_Y
 
+   lda delta_Y
+   lsr
+   cmp delta_X
+   bpl :++
+
 :
    ldx x1
    ldy y1
@@ -77,6 +82,61 @@ do_q1_b:
    ldy y2
    lda #2
    jsr put_dot
+
+   rts
+
+:
+   ldx x1
+   ldy y1
+   lda #3
+   jsr put_dot
+   jsr redefine_X1_a
+   inc y1
+   lda y1
+   cmp y2
+   bne :-
+
+   ldx x2
+   ldy y2
+   lda #2
+   jsr put_dot
+
+   rts
+
+; =================================================================================================
+redefine_X1_a:
+   ; A(10,10)
+   ; B(80,110)
+
+   ; ***** y1 - Ay
+   sec
+   lda y1
+   sbc old_Y
+
+   ; ***** multiply by delta_X
+   sta numer
+   lda #0
+   sta numer+1
+   sta multi+1
+   lda delta_X
+   sta multi
+   jsr do_multiply
+
+   ; ***** divide by delta_Y
+   lda delta_Y
+   sta denom
+   lda #0
+   sta denom+1
+   jsr do_divide
+
+   lda numer
+   sta x1
+
+   ; ***** add Ax
+   clc
+   lda numer
+   adc old_X
+   sta x1
 
    rts
 
@@ -114,6 +174,8 @@ redefine_X1:
    lda numer
    adc old_X
    sta x1
+
+   inc x1
 
    rts
 
