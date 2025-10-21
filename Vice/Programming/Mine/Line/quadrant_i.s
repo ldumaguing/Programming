@@ -73,31 +73,8 @@ do_q1_b:
    cmp y2
    bne :-
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ldx #80
-   ldy #110
+   ldx x2
+   ldy y2
    lda #2
    jsr put_dot
 
