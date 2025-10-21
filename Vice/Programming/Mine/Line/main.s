@@ -6,7 +6,7 @@
 .include "defs.s"
 .include "vol_1.s"
 .include "my_math.s"
-.include "quadrants.s"
+.include "quadrant_i.s"
 .include "draw_ticks.s"
 .include "draw_line.s"
 
@@ -19,8 +19,8 @@ main:
    lda #$26                  ; red / blue
    jsr set_color_cells
 
-   ldx #BLACK
-   ldy #DARK_GREY
+   ldx #LIGHT_GREY
+   ldy #PINK
    jsr fill_background
 
    jsr draw_ticks
