@@ -1,4 +1,3 @@
-; ***************************************************************************************
 set_multi_color_mode:
    ; ***** disable I/O & error messages
    lda MESSAGE
