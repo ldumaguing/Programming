@@ -33,21 +33,15 @@ draw_line:
    cmp #3
    beq :+++
    jmp default
-:                            ;  y,-x
-   ldx #30
-   ldy #10
-   lda #2
-   jsr put_dot
-   jmp continue0
-:                            ; -y, x (NE)
+:                            ;  y,-x (NE)
+   jsr dir_NE
+   rts
+:                            ; -y, x
    jsr dir_NE
    rts
 :                            ; -y,-x
-   ldx #50
-   ldy #10
-   lda #2
-   jsr put_dot
-   jmp continue0
+   jsr dir_NE
+   rts
 default:                     ;  y, x (SE)
    jsr dir_SE
 continue0:

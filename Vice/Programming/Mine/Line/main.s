@@ -29,10 +29,10 @@ main:
    ; ***** draw line
    lda #10
    sta x1
-   lda #100
+   lda #190
    sta y1
 
-   lda #100
+   lda #20
    sta x2
    lda #10
    sta y2

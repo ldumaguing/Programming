@@ -12,12 +12,22 @@
 ;.include "draw_line.s"
 
 main:
-   ; ***** draw line
-   lda #10
-   sta x1
+   lda #0
+   sta x1+1
+   sta x2+2
+   sta y1+1
+   sta y2+2
 
-   lda #100
+   ; ***** draw line
+   lda #50
+   sta x1
+   lda #50
+   sta y1
+
+   lda #10
    sta x2
+   lda #10
+   sta y2
 
    jsr fook
 
@@ -33,7 +43,7 @@ fook:
    sta delta_Y+1
    sta flags
 
-   ; ***** define deltaX
+   ; ***** define delta_X
    sec
    lda x2
    sbc x1
@@ -41,10 +51,47 @@ fook:
    lda x2+1
    sbc x1+1
    sta delta_X+1
+   bpl :+
+   lda delta_X
+   eor #$ff
+   sta delta_X
+   lda delta_X+1
+   eor #$ff
+   sta delta_X+1
+   inc delta_X
+   lda #2
+   sta flags
 
+:
+   ; ***** define delta_Y
+   sec
+   lda y2
+   sbc y1
+   sta delta_Y
+   lda y2+1
+   sbc y1+1
+   sta delta_Y+1
+   bpl :+
+   lda delta_Y
+   eor #$ff
+   sta delta_Y
+   lda delta_Y+1
+   eor #$ff
+   sta delta_Y+1
+   inc delta_Y
+   inc flags
+:
    lda delta_X
    sta LINE1
    lda delta_X+1
    sta LINE1+1
+
+   lda delta_Y
+   sta LINE2
+   lda delta_Y+1
+   sta LINE2+1
+
+   lda flags
+   sta LINE2+2
 
    rts
