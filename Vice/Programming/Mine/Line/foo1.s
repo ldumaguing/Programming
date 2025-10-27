@@ -19,12 +19,12 @@ main:
    sta y2+2
 
    ; ***** draw line
-   lda #50
+   lda #150
    sta x1
-   lda #50
+   lda #100
    sta y1
 
-   lda #10
+   lda #20
    sta x2
    lda #10
    sta y2
@@ -81,6 +81,7 @@ fook:
    inc delta_Y
    inc flags
 :
+   ; ***** printing
    lda delta_X
    sta LINE1
    lda delta_X+1
