@@ -1,0 +1,3 @@
+sudo npm install -g perlnavigator-server
+sudo dnf install  perl-Unicode-Normalize
+sudo dnf install  perl-diagnostics
