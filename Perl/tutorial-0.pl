@@ -116,12 +116,14 @@ do {
 say "you got it.";
 
 say "";
-# aka, switch
-local $a = 50;
-
-
-
-
+my @anArray = ("Moe", "Curly", "Larry", 1, 2, 3);
+say $anArray[1], " ", $anArray[4];
+push(@anArray, 100);
+say $anArray[6];
+say scalar(@anArray);
+pop(@anArray);
+say scalar(@anArray);
+say $#anArray;   # index of the last element
 
 
 
