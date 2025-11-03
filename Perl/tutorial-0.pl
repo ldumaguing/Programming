@@ -4,9 +4,8 @@ use strict;
 use warnings;
 use diagnostics;
 
-use feature 'say';
-use feature 'switch';
-use v5.40;
+#use feature 'say';
+use v5.40.3;
 
 # *************************************************************************************************
 print "yo\n";
@@ -48,22 +47,22 @@ printf("%.3f\n", $aFloat);
 printf("%.3f\n", $aFloat + .1);
 
 say "";
-my $a = 123;
-my $b = 456;
+local $a = 123;
+local $b = 456;
 say $a, " ", $b;
-($a, $b) = ($b, $a);
+local ($a, $b) = ($b, $a);
 say $a, " ", $b;
 
 say "";
 say 5**4;
 say "Random from 0 to 10 = ", int(rand 11);
-$a = 6;
+local $a = 6;
 say "6++ = ", $a++;
-$a = 6;
+local $a = 6;
 say "++6 = ", ++$a;
 
 say "";
-$a = 6;
+local $a = 6;
 if ($a < 6) {
    say "<6";
 } else {
@@ -77,6 +76,52 @@ if ('a' eq 'b') {
 } else {
    say "false";
 }
+
+unless(!1) {   # enter block if condition is false; opposite of IF
+   say "not true";
+} else {
+   say "test";
+}
+
+local $a = 100;
+say (($a == 100) ? "true 100" : "false 100");
+say (($a == 90) ? "true 90" : "false 90");
+
+say "";
+for(my $i = 0; $i < 5; $i++) {
+   say $i;
+}
+
+say "";
+my $i = 1;
+while ($i < 10000) {
+   if($i % 2 == 0) {   # skip even numbers
+      $i++;
+      next;   # aka, continue
+   }
+
+   if($i == 7) {last;}   # aka, break; exit while loop
+
+   say $i;
+   $i++;
+}
+
+say "";
+my $TheNumber = 7;
+my $guess;   # note: no value is assigned
+do {
+   say "Guess a number between 1 and 10";
+   $guess = <ARGV>;   # input from keyboard
+} while $guess != $TheNumber;
+say "you got it.";
+
+say "";
+# aka, switch
+local $a = 50;
+
+
+
+
 
 
 
