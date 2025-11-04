@@ -124,7 +124,29 @@ say scalar(@anArray);
 pop(@anArray);
 say scalar(@anArray);
 say $#anArray;   # index of the last element
+say @anArray;
 
+say "";
+my %character = (
+   "name" => "Redner",
+   "STA" => 10,
+   "INT" => 10,
+   "WIS" => 10,
+   "class" => "Magic User"
+);
+say $character{'name'} . ' - ' . $character{'class'};
+$character{'DEX'} = 10;
+say %character;
+say $character{'name'} if exists $character{'name'};
+say $character{'name'} if exists $character{'xxx'};
+delete $character{'STA'};
+say %character;
+
+say "";
+my $aString = "abcdefghijklmnopqrstuvwxyz";
+say substr($aString, 7, 4);   # hijk
+$aString =~ s/def/FISH123/;
+say $aString;
 
 
 
