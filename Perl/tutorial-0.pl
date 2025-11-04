@@ -148,7 +148,21 @@ say substr($aString, 7, 4);   # hijk
 $aString =~ s/def/FISH123/;
 say $aString;
 
+say "";
+my $stuff = "Moe, Curly, Larry, Shemp, 1, 2, 3";
+@anArray = split(",", $stuff);
+say @anArray;
+@anArray = split(", ", $stuff);
+say @anArray;
+my $stuff2 = "'" . join("','", @anArray) . "'";
+say $stuff2;
 
-
+say "";
+say "Enter multiple lines and type 'STOP' to end";
+while(my $line = <ARGV>) {
+   chomp($line);
+   last if $line eq "STOP";   # "last" exits the WHILE loop
+   say "You typed: " . $line;
+}
 
 
