@@ -165,4 +165,19 @@ while(my $line = <ARGV>) {
    say "You typed: " . $line;
 }
 
+say "";
+foreach my $x (@anArray) {
+   say $x;
+}
+
+
+
+
+
+
+
+
+
+
+
 
