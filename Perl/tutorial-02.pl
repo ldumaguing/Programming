@@ -23,7 +23,13 @@ say @anArray;
 my @x = shift @anArray;
 say @anArray;
 
+say "";
+@anArray = ("Moe", "Curly", "Larry", 1, 2, 3);
+say $anArray[1];
+say "Curly has " . length($anArray[1]) . " letters.";
 
+say "";
+say int(rand(10)) + 1;
 
 # *************************************************************************************************
 sub foo4 {
