@@ -1,3 +1,7 @@
+https://perldoc.perl.org/perlfunc#Non-function-Keywords-by-Cross-reference
+
+
+
 sudo npm install -g perlnavigator-server
 sudo dnf install perl-Unicode-Normalize
 sudo dnf install perl-diagnostics
