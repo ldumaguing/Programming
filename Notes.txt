@@ -1,104 +1,97 @@
-https://vassalengine.org/wiki/Module:Nuklear_Winter_%2768
-
-"id","name","formation","front","back"
-
-
-create table units (
-	id int not null,
-	name varchar(80) not null,
-	formation varchar(80),
-	front int,
-	back int,
-	primary key (id)
-
+CREATE TABLE IF NOT EXISTS crap (
+   id     INTEGER PRIMARY KEY NOT NULL,
+   stuffs JSON
 );
 
 
-LOAD DATA local INFILE 'Units.csv'
-INTO TABLE units
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-(id,name,formation,front,back);
-
-
-
-
-
-
-
-
-create table images (
-	name varchar(80),
-	UNIQUE KEY name (name)
+INSERT INTO crap
+(id, stuffs)
+VALUES
+(
+   100,
+   json_object()
 );
 
 
-
-LOAD DATA LOCAL INFILE '/home/ayeka/xxx/Panzer/images.txt'
-INTO TABLE images;
-
-
+UPDATE crap
+SET stuffs = jsonb_insert('{"a":2,"c":4}')   -- note: binary mode
+WHERE id = 100;
 
 
-alter table images add column (
-	type varchar(80)
+SELECT
+json_extract(stuffs, '$')   -- note: using non-binary to print the binary to text
+FROM crap
+WHERE id = 100;
+
+
+SELECT
+json_extract(stuffs, '$.c')
+FROM crap
+WHERE id = 100;
+
+
+SELECT
+stuffs -> '$'
+FROM crap
+WHERE id = 100;
+
+
+SELECT
+stuffs -> '$.c'
+FROM crap
+WHERE id = 100;
+
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$';
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c';
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> 'c';
+
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c[2]';
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c[2].f';   -- '7'
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' ->> '$.c[2].f';   -- 7
+
+
+SELECT json_type('{"a":2,"c":[4,5,{"f":7}]}');   -- object
+
+
+SELECT (
+   json_type(
+      json_extract('{"a":2,"c":[4,5,{"f":7}]}', '$.c[2].f')
+   )
+);   -- integer
+
+
+
+SELECT (
+   json_type(
+      json_extract('{"a":2,"c":[4,5,{"f":7}]}', '$.c')
+   )
+);   -- array
+
+
+
+
+
+INSERT INTO crap
+(id, stuffs)
+VALUES
+(
+   200,
+   json_object()
 );
 
-alter table images add column (
-	country varchar(80)
-);
+UPDATE crap
+SET stuffs = jsonb_insert('{"a":2,"c":4}')   -- note: binary mode
+WHERE id = 200;
 
-alter table images add column (
-	formation varchar(80)
-);
-
-
-
-alter table images
-	add column 
-	id int
-	first
-;
-
-create sequence s1;
-update images set id = nextval(s1);
+SELECT
+id,
+json_extract(stuffs, '$')
+FROM crap;
 
 
-
-
-
-
-
-
-
-
-
-alter table images add column (
-
-);
-
-
-
-
-
-
-
-
-
-
-
-
-update images set type = 'map' where name regexp '^Panzer[0-9]';
-
-
-
-
-FrontFiringArc.png
-update images set type = 'marker' where name = 'FrontFiringArc.png';
-
-TurnTrack.jpg
-update images set type = 'tableau' where name = 'TurnTrack.jpg';
 
 
 
