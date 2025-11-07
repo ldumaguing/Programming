@@ -14,7 +14,7 @@ VALUES
 
 
 UPDATE crap
-SET stuffs = jsonb_insert('{"a":2,"c":4}', '$.a', 99)   -- note: binary mode
+SET stuffs = jsonb_insert('{"a":2,"c":4}')   -- note: binary mode
 WHERE id = 100;
 
 
@@ -30,13 +30,66 @@ FROM crap
 WHERE id = 100;
 
 
+SELECT
+stuffs -> '$'
+FROM crap
+WHERE id = 100;
+
+
+SELECT
+stuffs -> '$.c'
+FROM crap
+WHERE id = 100;
+
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$';
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c';
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> 'c';
+
+
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c[2]';
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' -> '$.c[2].f';   -- '7'
+SELECT '{"a":2,"c":[4,5,{"f":7}]}' ->> '$.c[2].f';   -- 7
+
+
+SELECT json_type('{"a":2,"c":[4,5,{"f":7}]}');   -- object
+
+
+SELECT (
+   json_type(
+      json_extract('{"a":2,"c":[4,5,{"f":7}]}', '$.c[2].f')
+   )
+);   -- integer
+
+
+
+SELECT (
+   json_type(
+      json_extract('{"a":2,"c":[4,5,{"f":7}]}', '$.c')
+   )
+);   -- array
 
 
 
 
 
+INSERT INTO crap
+(id, stuffs)
+VALUES
+(
+   200,
+   json_object()
+);
 
+UPDATE crap
+SET stuffs = jsonb_insert('{"a":2,"c":4}')   -- note: binary mode
+WHERE id = 200;
 
+SELECT
+id,
+json_extract(stuffs, '$')
+FROM crap;
 
 
 
