@@ -1,0 +1,44 @@
+CREATE TABLE IF NOT EXISTS crap (
+   id     INTEGER PRIMARY KEY NOT NULL,
+   stuffs JSON
+);
+
+
+INSERT INTO crap
+(id, stuffs)
+VALUES
+(
+   100,
+   json_object()
+);
+
+
+UPDATE crap
+SET stuffs = jsonb_insert('{"a":2,"c":4}', '$.a', 99)   -- note: binary mode
+WHERE id = 100;
+
+
+SELECT
+json_extract(stuffs, '$')   -- note: using non-binary to print the binary to text
+FROM crap
+WHERE id = 100;
+
+
+SELECT
+json_extract(stuffs, '$.c')
+FROM crap
+WHERE id = 100;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
