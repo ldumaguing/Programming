@@ -1,0 +1,258 @@
+STR:
+INT:
+WIT:
+AGL:
+TOU:
+CHA:
+
+*******************************************************************************
+Fringe Survivor
+   Scavenger
+   Drifter
+   Stowaway
+   Smuggler
+   Tinkerer
+   Outcast Colonist
+
+Laborer
+   Asteroid Miner
+   Factory Drone
+   Starport Hauler
+   Maintenance Tech
+   Enforcer
+   Cantina Keeper
+
+Specialist
+   Starship Engineer
+   Cyberneticist
+   Comms Specialist
+   Federation Marshal
+   Field Medic
+   Astrogator
+
+Corporate Climber
+   Corporate Agent
+   Implant Designer
+   Jurist
+   Market Speculator
+   Corporate Enforcer
+   Spin Doctor
+
+Privileged Elite
+   Stellar Tycoon
+   Colony Overseer
+   Tech Innovator
+   Trade Magnate
+   Holo-Star
+   Celebrity Artist
+
+Galactic Power
+   Dynastic Heir
+   Scientific Luminary
+   Media Titan
+   Exotic Broker
+   Faction Envoy
+   Station Owner
+
+*******************************************************************************
+Adityan Diplomacy (41)
+Adityan Encounter (4)
+Adityan Exile (78)
+Adityan Psychic Probe (26)
+Adityan Relic Theft (54)
+Adityan Training (67)
+Adityan Vision (98)
+AI Sabotage (63)
+AI Uprising Veteran (17)
+Alien Artifact Hunt (88)
+Alien Contact (0)
+Ancient Artifact Discovery (32)
+Betrayed by a Comrade (1)
+Black Market Deal (22)
+Blight Assassin (74)
+Blight Conspiracy (94)
+Blight Dealings (8)
+Blight Enforcer (46)
+CES Artifact Hunt (48)
+CES Betrayal (96)
+CES Discovery (86)
+CES Expedition (19)
+CES Shipwreck (76)
+Colony Uprising (91)
+Consortium Defector (57)
+Consortium Experiment (38)
+Corporate Blackmail (3)
+Corporate Espionage (33)
+Corporate Rising Star (14)
+Corporate Sabotage (52)
+Corporate Whistleblower (66)
+Drug Addiction (60)
+Federation Court-Martial (29)
+Federation Defector (89)
+Federation Experiment (79)
+Federation Hero (68)
+Federation Medal (99)
+Federation Propaganda (42)
+Federation Service (11)
+Federation Spy (55)
+Fold-Gate Sabotage (50)
+Fold-Space Anomaly (24)
+Galactic Wanderer (100)
+Gladiux Champion (16)
+Great Secret Show Survivor (45)
+Hapsburg Alliance (92)
+Hapsburg Betrayal (36)
+Hapsburg Duel (58)
+Hapsburg Intrigue (20)
+Hapsburg Marriage (72)
+Hapsburg Scandal (82)
+Jihad Brigades Clash (35)
+Jihad Brigades Recruit (64)
+Klarish Alliance (49)
+Klarish Arena Fight (23)
+Klarish Blood Oath (77)
+Klarish Defeat (87)
+Klarish Ritual (97)
+Knights’ Betrayal (59)
+Knights’ Crusade (70)
+Knights’ Mission (34)
+Knights’ Training (9)
+Lost Colony Survivor (12)
+Nobleman Duel (28)
+Outer Rim Ambush (56)
+Outer Rim Exile (65)
+Outer Rim Plague (37)
+Pirate Alliance (31)
+Pirate Betrayal (53)
+Pirate Mutiny (80)
+Pirate Navigator (69)
+Pirate Raid Survivor (2)
+Pirate Treasure (90)
+Psionic Natural (13)
+Ragnite Heist (27)
+Ragnite Smuggling (40)
+Rebel Heist (83)
+Rebel Martyr (73)
+Rebel Propaganda (51)
+Rebel Sabotage (25)
+Rebel Sympathizer (6)
+Rebel Training (93)
+Seraphani Rescue (61)
+Seraphani Uprising (30)
+Shogunate Artisan (75)
+Shogunate Betrayal4 (85)
+Shogunate Exile (95)
+Shogunate Oath (18)
+Shogunate Pilgrimage (47)
+Smuggler’s Run (15)
+Smuggling Career (84)
+Spy Business (81)
+Starport Fight (39)
+Starship Heist (62)
+Starship Wreck (21)
+Tech Breakthrough (7)
+Visions (71)
+War Veteran (43)
+Wormhole Mishap (5)
+Xeran Trade Deal (44)
+
+*******************************************************************************
+Adityan
+Android/Bioroid
+Dolphar
+Gustora
+Human
+Jegarni
+Klarish
+Pherat
+Seraphani
+Tzangi
+
+*******************************************************************************
+Android/Bioroid
+Knight of Cydonnia
+Leader
+Psionic
+Scholar
+Specialist
+Warrior
+
+*******************************************************************************
+Climb
+Hide
+Sneak
+Search
+Speak Native Tongue
+
+Animal Handling
+Art
+Athletics
+Hand-to-Hand Combat
+Influence
+Investigation
+Knowledge
+Linguistic Proficiency
+Maelstrom Mastery (Knights of Cydonnia only)
+Medicine
+Melee Combat
+Performance
+Pilot
+Psionics
+Ranged Combat
+Stealth
+Street Savvy
+Survival
+Technical
+Vehicle Combat
+Vortex Blade (Knights of Cydonnia only)
+
+*******************************************************************************
+Animal Empath
+Allies & Network
+Battle Instinct
+Born Athlete
+Charming Presence
+Cultural Chameleon
+Fast Reflexes
+Fast Healer
+Heightened Sense
+Immunity
+Iron Resolve
+Lucky
+Night Vision
+Photographic Memory
+Psionic Potential
+Shadow
+Tech Adept
+Untraceable
+Vehicle Ace
+Wealth’s Edge
+Weapon Specialist
+
+Addicted
+Bad Luck
+Broken Mind
+Dark Secret
+Enemy
+Frail Body
+Haunted Past
+Poor
+Reckless
+Social Stain
+Timid Spirit
+Unfit Frame
+Vowed Duty
+
+
+
+
+
+
+
+
+
+
+
+
+
+
