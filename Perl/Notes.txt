@@ -1,9 +1,9 @@
 sudo npm install -g perlnavigator-server
-sudo dnf install perl-Unicode-Normalize
-sudo dnf install perl-diagnostics
-sudo dnf install perl-Switch
-sudo dnf install perl-Perl-Critic
-sudo dnf install perl-CPAN
+sudo dnf -y install perl-Unicode-Normalize
+sudo dnf -y install perl-diagnostics
+sudo dnf -y install perl-Switch
+sudo dnf -y install perl-Perl-Critic
+sudo dnf -y install perl-CPAN
 
 
 
