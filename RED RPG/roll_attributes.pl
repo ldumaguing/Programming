@@ -5,8 +5,9 @@ use warnings;
 use diagnostics;
 
 use v5.40.3;
-# *************************************************************************************************
-my %attribute = (
+
+# ***************************************************************************************
+my %attributes = (
    "STR" => (int(rand 6)+1)+(int(rand 6)+1)+(int(rand 6)+1),
    "INT" => (int(rand 6)+1)+(int(rand 6)+1)+(int(rand 6)+1),
    "WIT" => (int(rand 6)+1)+(int(rand 6)+1)+(int(rand 6)+1),
@@ -15,28 +16,29 @@ my %attribute = (
    "CHA" => (int(rand 6)+1)+(int(rand 6)+1)+(int(rand 6)+1)
 );
 
-print "STR: " . $attribute{"STR"};
-modifier($attribute{"STR"});
-print "INT: " . $attribute{"INT"};
-modifier($attribute{"INT"});
-print "WIT: " . $attribute{"WIT"};
-modifier($attribute{"WIT"});
-print "AGL: " . $attribute{"AGL"};
-modifier($attribute{"AGL"});
-print "TOU: " . $attribute{"TOU"};
-modifier($attribute{"TOU"});
-print "CHA: " . $attribute{"CHA"};
-modifier($attribute{"CHA"});
+print "STR: " . $attributes{"STR"};
+modifier($attributes{"STR"});
+print "INT: " . $attributes{"INT"};
+modifier($attributes{"INT"});
+print "WIT: " . $attributes{"WIT"};
+modifier($attributes{"WIT"});
+print "AGL: " . $attributes{"AGL"};
+modifier($attributes{"AGL"});
+print "TOU: " . $attributes{"TOU"};
+modifier($attributes{"TOU"});
+print "CHA: " . $attributes{"CHA"};
+modifier($attributes{"CHA"});
 
-my $total = $attribute{"STR"} +
-$attribute{"INT"} +
-$attribute{"WIT"} +
-$attribute{"AGL"} +
-$attribute{"TOU"} +
-$attribute{"CHA"};
+my $total = $attributes{"STR"} +
+$attributes{"INT"} +
+$attributes{"WIT"} +
+$attributes{"AGL"} +
+$attributes{"TOU"} +
+$attributes{"CHA"};
 
-say $total/60 . " (1.8 max; 0.3 min)";
+say "     " . ($total - 60) . " total";
 
+# ***************************************************************************************
 sub modifier {
    my ($x) = @_;
    if ($x == 3) {
