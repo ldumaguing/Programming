@@ -15,11 +15,8 @@ while (<ARGV>) {
    if ($count > 6) {last;}
    my $aString = $_;
    my @anArray = split(" ", $aString);
-   #say $anArray[0] . " --- " . $anArray[1];
-   my $attrib = $anArray[0];
-   $attrib =~ s/://;
-   say $attrib;
-   $attributes{$attrib} = $anArray[1];
+   $anArray[0] =~ s/://;
+   $attributes{$anArray[0]} = $anArray[1];
 }
 
 say %attributes;
