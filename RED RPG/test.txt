@@ -1,0 +1,7 @@
+STR: 90
+INT: 110
+WIT: 100
+AGL: 10
+TOU: 16
+CHA: 41
+
