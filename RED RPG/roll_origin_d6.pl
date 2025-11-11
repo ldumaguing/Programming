@@ -82,12 +82,31 @@ sub r5_4 {
    say "Art Collector";
    say "   +1 Influence";
    say "   +1 Art";
-   say "   Specialization in ...." . foo();
+   say "   Specialization in " . roll_art();
 }
 
 # ...............
-sub foo {
-   return "xxx";
+sub roll_art {
+   my $d9 = int(rand 9) + 1;
+   if ($d9 == 1) {
+      return "Augmented Reality Installations";
+   } elsif ($d9 == 2) {
+      return "Digital Arts";
+   } elsif ($d9 == 3) {
+      return "Elemental Manipulation";
+   } elsif ($d9 == 4) {
+      return "Holographic Art";
+   } elsif ($d9 == 5) {
+      return "Nanotech Sculpting";
+   } elsif ($d9 == 6) {
+      return "Painting";
+   } elsif ($d9 == 7) {
+      return "Psychic Imagery";
+   } elsif ($d9 == 8) {
+      return "Sculpture";
+   } else {
+      return "Performance Art";
+   }
 }
 
 
