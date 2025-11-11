@@ -109,7 +109,6 @@ sub roll_art {
    }
 }
 
-
 # -------------------------------
 sub r5_5 {
    say "Dillettante";
