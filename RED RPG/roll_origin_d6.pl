@@ -19,17 +19,149 @@ while (<ARGV>) {
    $attributes{$anArray[0]} = $anArray[1];
 }
 
-#say %attributes;
-#say $attributes{'STR'};
-my $d4 = int(rand 4) + 1;
-if ($d4 == 1) {
+my $d6 = int(rand 6) + 1;
+if ($d6 == 1) {
    roll_1();
-} elsif ($d4 == 2) {
+} elsif ($d6 == 2) {
    roll_2();
-} elsif ($d4 == 3) {
+} elsif ($d6 == 3) {
    roll_3();
-} else {
+} elsif ($d6 == 4) {
    roll_4();
+} elsif ($d6 == 5) {
+   roll_5();
+} else {
+   roll_6();
+}
+
+# ***********************************************
+sub roll_5 {
+   #say "Destitute";
+   $attributes{'TOU'} += 1;
+   mod_attrib();
+   my $d6  = int(rand 6) + 1;
+   if ($d6 == 1) {
+      r5_1();
+   } elsif ($d6 == 2) {
+      r5_2();
+   } elsif ($d6 == 3) {
+      r5_3();
+   } elsif ($d6 == 4) {
+      r5_4();
+   } elsif ($d6 == 5) {
+      r5_5();
+   } else {
+      r5_6();
+   }
+}
+
+# -------------------------------
+sub r5_1 {
+   say "Heir to a Business Empire";
+   say "   +2 Influence";
+   say "   Specialization in Leadership";
+}
+
+# -------------------------------
+sub r5_2 {
+   say "Celebrity";
+   say "   +1 Influence";
+   say "   +1 Performance";
+}
+
+# -------------------------------
+sub r5_3 {
+   say "Entrepreneur";
+   say "   +1 Influence";
+   say "   +1 Technical";
+   say "   Specialization in Advanced Computing";
+}
+
+# -------------------------------
+sub r5_4 {
+   say "Art Collector";
+   say "   +1 Influence";
+   say "   +1 Art";
+   say "   Specialization in ...." . foo();
+}
+
+# ...............
+sub foo {
+   return "xxx";
+}
+
+
+# -------------------------------
+sub r5_5 {
+   say "Dillettante";
+   say "   +2 Influence";
+   say "   Specialization in Charm";
+}
+
+# -------------------------------
+sub r5_6 {
+   say "Banker";
+   say "   +1 Influence";
+   say "   +1 Knowledge";
+}
+
+# ***********************************************
+sub roll_6 {
+   $attributes{'CHA'} += 1;
+   mod_attrib();
+   my $d6  = int(rand 6) + 1;
+   if ($d6 == 1) {
+      r6_1();
+   } elsif ($d6 == 2) {
+      r6_2();
+   } elsif ($d6 == 3) {
+      r6_3();
+   } elsif ($d6 == 4) {
+      r6_4();
+   } elsif ($d6 == 5) {
+      r6_5();
+   } else {
+      r6_6();
+   }
+}
+   
+# -------------------------------
+sub r6_1 {
+   say "Heir to a Royal Title";
+   say "   +1 Influence";
+}
+   
+# -------------------------------
+sub r6_2 {
+   say "Large Company Owner";
+   say "   +1 Influence";
+   say "   Specialization in Diplomacy";
+}
+   
+# -------------------------------
+sub r6_3 {
+   say "High-Powered Lawyer";
+   say "   +1 Knowledge";
+   say "   Specialization in Law";
+}
+   
+# -------------------------------
+sub r6_4 {
+   say "Political Operative";
+   say "   +1 Influence";
+   say "   Specialization in Deception";
+}
+   
+# -------------------------------
+sub r6_5 {
+   say "Major Shareholder";
+   say "   +1 Knowledge";
+}
+
+# -------------------------------
+sub r6_6 {
+   say "Major Celebrity";
+   say "   +1 Performance";
 }
 
 # ***********************************************
