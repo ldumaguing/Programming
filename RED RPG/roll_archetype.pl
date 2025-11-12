@@ -13,94 +13,98 @@ while (<ARGV>) {
 
 say "";
 
-#my $d43 = int(rand 43) + 1;
-my $d43 = 16;
-if ($d43 == 1) {
+my $d45 = int(rand 45) + 1;
+# my $d45 = 44;
+if ($d45 == 1) {
    roll_01();
-} elsif ($d43 == 2) {
+} elsif ($d45 == 2) {
    roll_02();
-} elsif ($d43 == 3) {
+} elsif ($d45 == 3) {
    roll_03();
-} elsif ($d43 == 4) {
+} elsif ($d45 == 4) {
    roll_04();
-} elsif ($d43 == 5) {
+} elsif ($d45 == 5) {
    roll_05();
-} elsif ($d43 == 6) {
+} elsif ($d45 == 6) {
    roll_06();
-} elsif ($d43 == 7) {
+} elsif ($d45 == 7) {
    roll_07();
-} elsif ($d43 == 8) {
+} elsif ($d45 == 8) {
    roll_08();
-} elsif ($d43 == 9) {
+} elsif ($d45 == 9) {
    roll_09();
-} elsif ($d43 == 10) {
+} elsif ($d45 == 10) {
    roll_10();
-} elsif ($d43 == 11) {
+} elsif ($d45 == 11) {
    roll_11();
-} elsif ($d43 == 12) {
+} elsif ($d45 == 12) {
    roll_12();
-} elsif ($d43 == 13) {
+} elsif ($d45 == 13) {
    roll_13();
-} elsif ($d43 == 14) {
+} elsif ($d45 == 14) {
    roll_14();
-} elsif ($d43 == 15) {
+} elsif ($d45 == 15) {
    roll_15();
-} elsif ($d43 == 16) {
+} elsif ($d45 == 16) {
    roll_16();
-} elsif ($d43 == 17) {
+} elsif ($d45 == 17) {
    roll_17();
-} elsif ($d43 == 18) {
+} elsif ($d45 == 18) {
    roll_18();
-} elsif ($d43 == 19) {
+} elsif ($d45 == 19) {
    roll_19();
-} elsif ($d43 == 20) {
+} elsif ($d45 == 20) {
    roll_20();
-} elsif ($d43 == 21) {
+} elsif ($d45 == 21) {
    roll_21();
-} elsif ($d43 == 22) {
+} elsif ($d45 == 22) {
    roll_22();
-} elsif ($d43 == 23) {
+} elsif ($d45 == 23) {
    roll_23();
-} elsif ($d43 == 24) {
+} elsif ($d45 == 24) {
    roll_24();
-} elsif ($d43 == 25) {
+} elsif ($d45 == 25) {
    roll_25();
-} elsif ($d43 == 26) {
+} elsif ($d45 == 26) {
    roll_26();
-} elsif ($d43 == 27) {
+} elsif ($d45 == 27) {
    roll_27();
-} elsif ($d43 == 28) {
+} elsif ($d45 == 28) {
    roll_28();
-} elsif ($d43 == 29) {
+} elsif ($d45 == 29) {
    roll_29();
-} elsif ($d43 == 30) {
+} elsif ($d45 == 30) {
    roll_30();
-} elsif ($d43 == 31) {
+} elsif ($d45 == 31) {
    roll_31();
-} elsif ($d43 == 32) {
+} elsif ($d45 == 32) {
    roll_32();
-} elsif ($d43 == 33) {
+} elsif ($d45 == 33) {
    roll_33();
-} elsif ($d43 == 34) {
+} elsif ($d45 == 34) {
    roll_34();
-} elsif ($d43 == 35) {
+} elsif ($d45 == 35) {
    roll_35();
-} elsif ($d43 == 36) {
+} elsif ($d45 == 36) {
    roll_36();
-} elsif ($d43 == 37) {
+} elsif ($d45 == 37) {
    roll_37();
-} elsif ($d43 == 38) {
+} elsif ($d45 == 38) {
    roll_38();
-} elsif ($d43 == 39) {
+} elsif ($d45 == 39) {
    roll_39();
-} elsif ($d43 == 40) {
+} elsif ($d45 == 40) {
    roll_40();
-} elsif ($d43 == 41) {
+} elsif ($d45 == 41) {
    roll_41();
-} elsif ($d43 == 42) {
+} elsif ($d45 == 42) {
    roll_42();
-} else {
+} elsif ($d45 == 43) {
    roll_43();
+} elsif ($d45 == 44) {
+   roll_44();
+} else {
+   roll_45();
 }
 
 # ***************************************************************************************
@@ -296,32 +300,307 @@ sub roll_16 {
    say "\nStarting Gear: Medical kit, surgical tools, field manual, first aid supplies, protective gear, portable defibrillator";
 }
 
-sub roll_17 { say "Mercenary"; }
-sub roll_18 { say "Mobster"; }
-sub roll_19 { say "Necromancer"; }
-sub roll_20 { say "Occultist"; }
-sub roll_21 { say "Pagan Conjurer"; }
-sub roll_22 { say "Paranormal Investigator"; }
-sub roll_23 { say "Performer"; }
-sub roll_24 { say "Pilot"; }
-sub roll_25 { say "Politician"; }
-sub roll_26 { say "Priest"; }
-sub roll_27 { say "Private Eye"; }
-sub roll_28 { say "Professor"; }
-sub roll_29 { say "Psychic"; }
-sub roll_30 { say "Reporter"; }
-sub roll_31 { say "Serial Killer"; }
-sub roll_32 { say "Sex Magician"; }
-sub roll_33 { say "Shaman"; }
-sub roll_34 { say "Smuggler"; }
-sub roll_35 { say "Soldier"; }
-sub roll_36 { say "Spy"; }
-sub roll_37 { say "Terrorist"; }
-sub roll_38 { say "Thief"; }
-sub roll_39 { say "Traditional Conjurer"; }
-sub roll_40 { say "Urbanomancer"; }
-sub roll_41 { say "War Veteran"; }
+sub roll_17 {
+   say "\nMercenary";
+   say "=========";
+   say "Mercenaries are the pragmatists of the battlefield, skilled in warfare but loyal only to the highest bidder. Their expertise is for sale, and their allegiance is as fluid as the ever-changing dynamics of conflict.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Strength";
+   say "\nSkill Set: Ranged Combat, Melee Combat, Survival, Technical, Vehicle Combat, Pilot";
+   say "\nChoice of Free Perk: Heightened Sense, Commanding Aura, Danger Sense, Fast Healer, Gunslinger, Iron Will";
+   say "\nUnique Feat: Mercenary Tactics: With a deep understanding of guerrilla warfare and combat strategy, Mercenaries gain a +1 bonus to Ranged Combat and Vehicle Combat rolls.";
+   say "\nStarting Gear: Tactical vest, assault rifle, night vision goggles, combat knife, satellite phone, field rations";
+}
 
+sub roll_18 {
+   say "\nMobster";
+   say "=======";
+   say "From the back alleys to the mansions of power, Mobsters wield influence and fear.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Influence, Investigation, Stealth, Melee Combat, Urban Savvy, Hand-to-Hand Combat";
+   say "\nChoice of Free Perk: Allies, Network of Contacts, Iron Will, Membership, Retainers, Wealthy";
+   say "\nUnique Feat: Made Man: Mobsters have a network of obligations and favours that they can call upon, granting them a +3 bonus on related rolls 2d4 times per session, ensuring their command within the criminal hierarchy is unchallenged.";
+   say "\nStarting Gear: Revolver, brass knuckles, business cards of ‘associates', hidden safe, luxury car, tailor-made suit";
+}
+
+sub roll_19 {
+   say "\nNecromancer";
+   say "===========";
+   say "Necromancers commune with the spirits of the departed, wield the energies of the netherworld and perform ghastly rituals to bend the dead to their will.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Occult, Knowledge, Medicine, Linguistic Proficiency, Investigation, Survival";
+   say "\nChoice of Free Perk: Heightened Sense, Commanding Aura, Network of Contacts, Danger Sense, Immunity, Night Vision";
+   say "\nUnique Feat: Talk to the Dead: Necromancers can converse with the dead without rituals, extracting truths and lies alike, with a spectre guiding their actions. They can call upon the spirit 1d4 times per session.";
+   say "\nStarting Gear: Ritual dagger, ancient tomes, bone charms, dark cloak, preservation salts, handgun";
+}
+
+sub roll_20 {
+   say "\nOccultist";
+   say "=========";
+   say "Occultists delve into the dark spheres of magic and mysticism. With books as their bastions, they navigate the arcane with an insatiable curiosity for the unknown.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Occult, Investigation, Knowledge, Linguistic Proficiency, Technical, Performance";
+   say "\nChoice of Free Perk: Allies, Membership, Polyglot, Retainers, Wealthy, Sexually Alluring";
+   say "\nUnique Feat: Keeper of Secrets: Occultists wield their vast knowledge with precision, gaining a +2 bonus on Occult rolls, and their extensive network grants them an additional Perk, Network of Contacts.";
+   say "\nStarting Gear: Occult library, ceremonial robes, divination tools, esoteric amulets, candle set";
+}
+
+sub roll_21 {
+   say "\nPagan Conjurer";
+   say "==============";
+   say "Pagan Conjurers call upon the elemental spirits and the raw forces of nature. They perform their sacred rites in the wild, where the land's power is strongest.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Occult, Survival, Medicine, Knowledge, Linguistic Proficiency, Animal Handling";
+   say "\nChoice of Free Perk: Heightened Sense, Natural Athlete, Danger Sense, Immunity, Iron Will, Lucky";
+   say "\nUnique Feat: Spirit of the Wild: Pagan Conjurers can invoke natural spirits to aid them, manifesting environmental phenomena to obscure, shelter, or entangle (three times per session).";
+   say "\nStarting Gear: Ritualistic herbs, nature-themed robes, elemental talismans, ceremonial staff";
+}
+
+sub roll_22 {
+   say "\nParanormal Investigator";
+   say "=======================";
+   say "They delve into the paranormal seeking to uncover and understand the unexplainable phenomena that haunt our world. Equipped with both scientific and occult knowledge, they are on the front lines of confronting the unknown.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Investigation, Occult, Knowledge, Technical, Survival, Influence";
+   say "\nChoice of Free Perk: Danger Sense, Fast Healer, Immunity, Photographic Memory, Network of Contacts, Lucky";
+   say "\nUnique Feat: Attuned Senses: Paranormal Investigators gain a +2 bonus to Investigation and Occult rolls related to paranormal or supernatural phenomena.";
+   say "\nStarting Gear: EMF detector, spirit box, protective amulets, occult tomes, digital recorder, flashlight";
+}
+
+sub roll_23 {
+   say "\nPerformer";
+   say "=========";
+   say "Performers are the chameleons of the social world, adept at adopting personas and captivating audiences, whether they are actors, singers, musicians, or models.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Charisma";
+   say "\nSkill Set: Performance, Stealth, Influence, Art, Linguistic Proficiency, Investigation";
+   say "\nChoice of Free Perk: Heightened Sense, Network of Contacts, Fame, Iron Will, Sexually Alluring, Wealthy";
+   say "\nUnique Feat: Chameleon: Performers excel in adopting new identities and captivating their audience, gaining a +2 bonus to all Performance rolls.";
+   say "\nStarting Gear: Costumes, make-up kit, script collection, prop box, microphone, musical instruments, model portfolio, little black book";
+}
+
+sub roll_24 {
+   say "\nPilot";
+   say "=====";
+   say "Whether at the helm of a jet fighter or a commercial airliner, Pilots master the skies with unrivalled skill and precision. Their lives are lines drawn across the heavens, charting courses that others only dream of.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Agility";
+   say "\nSkill Set: Technical, Survival, Vehicle Combat, Stealth, Investigation, Pilot/Drive";
+   say "\nChoice of Free Perk: Ambidextrous, Danger Sense, Daredevil, Feline Agility, Lightning Reflexes, Lucky";
+   say "\nUnique Feat: Ace Pilot: Pilots navigate the most challenging conditions with ease, receiving a +2 bonus on all Pilot rolls, demonstrating their elite training and nerves of steel.";
+   say "\nStarting Gear: Aviator sunglasses, leather flight jacket, aeronautical maps, pilot logbook, parachute, toolkit";
+}
+
+sub roll_25 {
+   say "\nPolitician";
+   say "==========";
+   say "Whether champions of the people or power-hungry opportunists, they play the game of thrones with cunning and guile.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Charisma";
+   say "\nSkill Set: Influence, Performance, Knowledge, Urban Savvy, Linguistic Proficiency, Stealth";
+   say "\nChoice of Free Perk: Fame, Guileful, Lucky, Polyglot, Retainers, Wealthy";
+   say "\nUnique Feat: Political Maneuvering: Politicians are adept at playing the political game, receiving a +2 bonus on Influence rolls, effectively swaying public and political opinion.";
+   say "\nStarting Gear: Tailored suits, laptop, campaign buttons, confidential dossiers, encrypted smartphone, luxury watch";
+}
+
+sub roll_26 {
+   say "\nPriest";
+   say "======";
+   say "Spiritual leaders and moral guides providing solace to their congregations. Whether delivering impassioned sermons or performing sacred rites, they are pillars of their communities.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Charisma";
+   say "\nSkill Set: Influence, Performance, Knowledge, Occult, Medicine, Linguistic Proficiency";
+   say "\nChoice of Free Perk: Allies, Photographic Memory, Fame, Enhanced Pain Tolerance, Lucky, Polyglot";
+   say "\nUnique Feat: Divine Ecstasy: In moments of spiritual fervor, Priests can invoke divine ecstasy, granting them a +3 bonus to all rolls for 1d6+2 rounds, inspiring awe and fear in equal measure (it can be used three times per game session).";
+   say "\nStarting Gear: Holy book, clerical robes, religious symbols, community outreach materials, sermon notes";
+}
+
+sub roll_27 {
+   say "\nPrivate Eye";
+   say "===========";
+   say "Operating at the margin of the law, Private Eyes are the seekers of hidden truths in a world that thrives on secrecy. They tackle the cases too dirty or too dangerous for others.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Investigation, Stealth, Urban Savvy, Influence, Technical, Hand-to-Hand Combat";
+   say "\nChoice of Free Perk: Allies, Fast Healer, Gunslinger, Enhanced Pain Tolerance, Immunity, Lucky";
+   say "\nUnique Feat: Investigator's Intuition: Private Eyes have a knack for sensing when things aren't quite right; they receive a +2 bonus to all Investigation rolls.";
+   say "\nStarting Gear: Binoculars, concealed recorder, case files, handgun, mini camera, toolkit";
+}
+
+sub roll_28 {
+   say "\nProfessor";
+   say "=========";
+   say "Professors are dedicated to education and research and possess a deep knowledge of their particular field, contributing to the world's understanding of complex subjects.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Knowledge, Linguistic Proficiency, Investigation, Influence, Technical";
+   say "\nChoice of Free Perk: Network of Contacts, Photographic Memory, Iron Will, Membership, Polyglot, Wealthy";
+   say "\nUnique Feat: Scholarly Authority: Professors apply their extensive academic knowledge to gain a +2 bonus on all Knowledge rolls.";
+   say "\nStarting Gear: Academic literature, lecture notes, research grants paperwork, laboratory equipment, laptop, expensive fountain pen";
+}
+
+sub roll_29 {
+   say "\nPsychic";
+   say "=======";
+   say "Harnessing the latent powers of the mind, Psychics explore the deeper realms of consciousness to manipulate reality. Whether foreseeing the future or moving objects with a thought, their abilities are both mysterious and profound.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Influence, Psychics/Psionics, Stealth, Investigation, Linguistic Proficiency, Survival";
+   say "\nChoice of Free Perk: Allies, Danger Sense, Iron Will, Fame, Lucky, Sexually Alluring";
+   say "\nUnique Feat: Mental Mastery: Psychics enhance their mental faculties to extraordinary levels, gaining a +2 bonus on Influence rolls, bending others' wills with ease.";
+   say "\nStarting Gear: Crystal ball, tarot cards, aura-reading glasses, psychic shield amulet, spirit channelling board";
+}
+
+sub roll_30 {
+   say "\nReporter";
+   say "========";
+   say "Chasing leads and deadlines, Reporters are the heralds of truth in an age of misinformation.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Investigation, Influence, Pilot, Performance, Urban Savvy, Knowledge";
+   say "\nChoice of Free Perk: Network of Contacts, Immunity, Lucky, Membership, Polyglot, Stunt Driver";
+   say "\nUnique Feat: Scoop: With an unerring nose for news, Reporters gain a +2 bonus to all Investigation rolls, always managing to be at the right place at the right time.";
+   say "\nStarting Gear: Press badge, voice recorder, camera, notepad and pens, contact list of informants, press jacket";
+}
+
+sub roll_31 {
+   say "\nSerial Killer";
+   say "=============";
+   say "Hunting their next victim with cold delight they blend into the crowd, their true nature hidden behind a veneer of normalcy.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Agility";
+   say "\nSkill Set: Stealth, Investigation, Hand-to-Hand Combat, Performance, Survival, Medicine";
+   say "\nChoice of Free Perk: Ambidextrous, Danger Sense, Photographic Memory, Enhanced Pain Tolerance, Shadow, Night Vision";
+   say "\nUnique Feat: Predator's Instinct: With an uncanny ability to sense vulnerability, Serial Killers gain a tactical advantage, enhancing their stealth and surprise attacks with a +3 bonus.";
+   say "\nStarting Gear: Custom knife set, clean-up kit, trophies from victims, fake documents, lockpick kit, dark clothing";
+}
+
+sub roll_32 {
+   say "\nSex Magician";
+   say "============";
+   say "Wielders of the arcane power of eros, Sex Magicians use the potent energies of desire and pleasure to fuel their magical rites.";
+   say "\nStarting Skill Points: 4";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Performance, Influence, Occult, Stealth, Linguistic Proficiency, Knowledge";
+   say "\nChoice of Free Perk: Natural Athlete, Feline Agility, Fame, Iron Will, Sexually Alluring";
+   say "\nUnique Feat: Enchanting Aura: With an allure almost magical, Sex Magicians gain a +2 bonus on all rolls related to Influence (seduction and charm), their charisma as potent as a spell.";
+   say "\nStarting Gear: Consecrated candles, silk robes, book of erotic spells, expensive clothing, luxurious bed sheets";
+}
+
+sub roll_33 {
+   say "\nShaman";
+   say "======";
+   say "Bridging the physical and spirit worlds, Shamans enter trance states to interact with spirits to heal, divine, and guide.";
+   say "\nStarting Skill Points: 4";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Occult, Survival, Medicine, Linguistic Proficiency, Animal Handling, Knowledge";
+   say "\nChoice of Free Perk: Heightened Sense, Danger Sense, Photographic Memory, Polyglot, Lucky, Sexually Alluring";
+   say "\nUnique Feat: Spirit Guardian: Shamans can call upon their spirit guides to protect and guide them, granting a mystical insight that provides a +2 bonus in critical moments of spiritual or physical conflict (they can call upon the spirits three times per session).";
+   say "\nStarting Gear: Shamanic drum, ritual feathers, spirit masks, herbal medicine pouch, ancestral totems, ritual scrolls";
+}
+
+sub roll_34 {
+   say "\nSmuggler";
+   say "========";
+   say "Whether it's running contraband across borders or negotiating shady deals, smugglers thrive where risk meets reward.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Stealth, Urban Savvy, Investigation, Vehicle Combat, Technical, Influence";
+   say "\nChoice of Free Perk: Allies, Network of Contacts, Danger Sense, Fame, Immunity, Iron Will";
+   say "\nUnique Feat: Contraband Specialist: Smugglers excel in the acquisition and distribution of forbidden goods, gaining a +2 bonus to all Urban Savvy rolls and ensuring access to one illegal item per game session.";
+   say "\nStarting Gear: Hidden compartments bag, forged documents, stealthy attire, contraband list, fast getaway vehicle, bribe cash";
+}
+
+sub roll_35 {
+   say "\nSoldier";
+   say "=======";
+   say "Soldiers are battle-hardened warriors trained to handle weapons and tactics with expert proficiency.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Strength";
+   say "\nSkill Set: Ranged Combat, Melee Combat, Survival, Technical, Vehicle Combat, Hand-to-Hand Combat";
+   say "\nChoice of Free Perk: Allies, Natural Athlete, Danger Sense, Enhanced Pain Tolerance, Lucky, Night Vision";
+   say "\nUnique Feat: Tactical Expert: Soldiers execute combat maneuvers with lethal precision, gaining a third action in each combat round.";
+   say "\nStarting Gear: Combat boots, camouflage uniform, service rifle, tactical radio, combat helmet, MREs";
+}
+
+sub roll_36 {
+   say "\nSpy";
+   say "===";
+   say "Spies are the unseen movers; masters of disguise and deception, they gather secrets that sway wars and shift the balance of power from the shadows.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Stealth, Influence, Linguistic Proficiency, Investigation, Ranged Combat, Technical";
+   say "\nChoice of Free Perk: Allies, Network of Contacts, Danger Sense, Polyglot, Shadow, Wealthy";
+   say "\nUnique Feat: Master of Espionage: Skilled in the arts of subterfuge, Spies gain a +1 bonus to Stealth and Influence rolls, excelling in undercover operations and intelligence gathering.";
+   say "\nStarting Gear: Forged passports, discreet camera, poison pen, encrypted data storage device, disguise collection, handgun";
+}
+
+sub roll_37 {
+   say "\nTerrorist";
+   say "=========";
+   say "Driven by ideology or desperation, Terrorists are agents of chaos, challenging the status quo through fear and violence.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Wits";
+   say "\nSkill Set: Technical, Survival, Stealth, Urban Savvy, Ranged Combat, Investigation";
+   say "\nChoice of Free Perk: Network of Contacts, Danger Sense, Fame, Enhanced Pain Tolerance, Iron Will, Membership";
+   say "\nUnique Feat: Demolitions Expert: Terrorists excel in the use of explosives, gaining a +3 bonus on all rolls related to planting or defusing bombs, and they suffer 1/2 damage from explosions.";
+   say "\nStarting Gear: Explosive devices, disguise kit, propaganda materials, safe house key, encrypted communication devices, survival gear";
+}
+
+sub roll_38 {
+   say "\nThief";
+   say "=====";
+   say "Thieves are masters of stealth and subterfuge, excelling in the art of taking what isn't theirs without being noticed. They operate in the shadows, navigating the criminal underworld with ease and precision.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Agility";
+   say "\nSkill Set: Stealth, Investigation, Urban Savvy, Technical, Performance, Hand-to-Hand Combat";
+   say "\nChoice of Free Perk: Ambidextrous, Danger Sense, Guileful, Lucky, Night Vision, Scavenger";
+   say "\nUnique Feat: Silent Intrusion: Thieves gain a +2 bonus to all Stealth rolls, and they can bypass locks and security systems with a +1 bonus.";
+   say "\nStarting Gear: Lockpicks, grappling hook, dark clothing, thief's tools, fake IDs, hidden blades";
+}
+
+sub roll_39 {
+   say "\nTraditional Conjurer";
+   say "====================";
+   say "They practice rites that are unchanged since their conception in the old world. Their magic draws from various mystical traditions.";
+   say "\nStarting Skill Points: 4";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Occult, Linguistic Proficiency, Knowledge, Investigation, Performance, Art";
+   say "\nChoice of Free Perk: Allies, Membership, Polyglot, Retainers, Wealthy, Sexually Alluring";
+   say "\nUnique Feat: Arcane Heritage: Traditional Conjurers have a profound connection to their magical lineage, granting them a +3 bonus on all Occult rolls.";
+   say "\nStarting Gear: Grimoire, ritual candles, alchemical set, warding charms, ceremonial dagger";
+}
+
+sub roll_40 {
+   say "\nUrbanomancer";
+   say "============";
+   say "Masters of the metropolitan mystique, Urbanomancers draw their power from the city's heartbeat. From the labyrinthine underground to the dizzying skyscrapers, they manipulate the urban energies, turning the cityscape into both weapon and shield.";
+   say "\nStarting Skill Points: 4";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Urban Savvy, Stealth, Technical, Knowledge, Influence, Investigation";
+   say "\nChoice of Free Perk: Untraceable, Grease Monkey, Shadow, Scavenger, Stunt Driver, Tech Savant";
+   say "\nUnique Feat: Concrete Communion: Urbanomancers can channel the chaotic energy of the city, gaining a +2 bonus to all Urban Savvy rolls within city limits.";
+   say "\nStarting Gear: Graffiti spray cans, city maps, digital recorder, urban camouflage attire, subway pass, rooftop access keys";
+}
+
+sub roll_41 {
+   say "\nWar Veteran";
+   say "===========";
+   say "War Veterans carry the scars of battle, both seen and unseen. They've survived conflicts that broke others, hardened by experiences that forge the strongest steel in the fire of warfare.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Strength";
+   say "\nSkill Set: Ranged Combat, Melee Combat, Survival, Technical, Vehicle Combat, Athletics";
+   say "\nChoice of Free Perk: Allies, Danger Sense, Gunslinger, Enhanced Pain Tolerance, Lucky, Night Vision";
+   say "\nUnique Feat: Combat Savvy: War Veterans use their extensive combat experience to gain a third action in each combat round.";
+   say "\nStarting Gear: Service medals, old uniform, personal firearm, military gear, war journal, survival gear";
+}
+
+# ******************************************************************************************
 sub roll_42 {
    say "\nCriminal Lawyer";
    say "===============";
@@ -345,5 +624,37 @@ sub roll_43 {
    say "\nUnique Feat: Occult Lore: Gain a +2 bonus to relevant rolls about the supernatural.";
    say "\nStarting Gear: Consecrated weaponry (e.g., blessed sword or silver bullets), holy water, exorcism kit, ancient texts on demonology, protective amulet, survival gear.";
 }
+
+sub roll_44 {
+   say "\nScientist";
+   say "=========";
+   say "The intellectual pioneers of the modern age, dedicated to unravelling the mysteries of the universe.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Intelligence";
+   say "\nSkill Set: Knowledge, Technical, Investigation, Medicine, Occult, Linguistic Proficiency";
+   say "\nChoice of Free Perk: Photographic Memory, Tech Savant, Healing Hands, Fast Healer, Wealthy, Mystic Insight";
+   say "\nUnique Feat: Scientific Method: Scientists apply a methodical approach to their work, gaining a +2 bonus to all Knowledge and Investigation rolls when conducting research or experiments, ensuring accuracy and precision in their findings.";
+   say "\nStarting Gear: Lab coat, scientific journal, portable lab kit, digital microscope, advanced calculator";
+}
+
+sub roll_45 {
+   say "\nUrban Explorer";
+   say "==============";
+   say "Urban Explorers delve into the forgotten corners of cities, uncovering secrets and hidden places.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Agility";
+   say "\nSkill Set: Urban Savvy, Stealth, Athletics, Investigation, Survival, Technical";
+   say "\nChoice of Free Perk: Urban Explorer, Scavenger, Heightened Sense, Lucky, Danger Sense, Fearless";
+   say "\nUnique Feat: City Knowledge: Urban Explorers receive a +2 bonus to all Urban Savvy rolls, allowing them to efficiently navigate and uncover secrets within the cityscape.";
+   say "\nStarting Gear: Flashlight, multi-tool, climbing gear, city maps, urban camouflage attire, backpack";
+}
+
+
+
+
+
+
+
+
 
 
