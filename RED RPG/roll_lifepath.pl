@@ -57,6 +57,8 @@ if ($d20 == 1) {
    roll_20();
 }
 
+say "\nBasic Skills: Climb, Hide, Native Language, Search, Sneak";
+
 # ***************************************************************************************
 sub roll_1 {
    say "Uncovered old letters revealing a family " .

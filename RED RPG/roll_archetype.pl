@@ -14,7 +14,7 @@ while (<ARGV>) {
 say "";
 
 #my $d41 = int(rand 41) + 1;
-my $d41 = 1;
+my $d41 = 3;
 if ($d41 == 1) {
    roll_01();
 } elsif ($d41 == 2) {
@@ -101,8 +101,9 @@ if ($d41 == 1) {
 
 # ***************************************************************************************
 sub roll_01 {
-   say "\n***** Archaeologist *****";
-   say "\nArchaeologists dig through the sands of time, unearthing relics of bygone civilizations and piecing together the stories of the past.";
+   say "\nArchaeologist";
+   say "=============";
+   say "Archaeologists dig through the sands of time, unearthing relics of bygone civilizations and piecing together the stories of the past.";
    say "\nStarting Skill Points: 6";
    say "\nPrimary Attribute: Intelligence";
    say "\nSkill Set: Art, Investigation, Survival, Knowledge, Technical, Linguistic Proficiency";
@@ -111,8 +112,30 @@ sub roll_01 {
    say "\nStarting Gear: Ancient maps, digging tools, rugged backpack, dictionaries, survival kit.";
 }
 
-sub roll_02 { say "Avenging Angel"; }
-sub roll_03 { say "Conspiracy Theorist"; }
+sub roll_02 {
+   say "\nAvenging Angel";
+   say "==============";
+   say "Marked by tragedy and fuelled by vengeance, Avenging Angels are solitary warriors who walk the path of retribution.";
+   say "\nStarting Skill Points: 6";
+   say "\nPrimary Attribute: Strength";
+   say "\nSkill Set: Melee Combat, Ranged Combat, Athletics, Survival, Influence, Stealth";
+   say "\nChoice of Free Perk: Ambidextrous, Network of Contacts, Danger Sense, Fast Healer, Lightning Reflexes, Lucky";
+   say "\nUnique Feat: Vengeful Fury: Avenging Angels can tap into their deep reservoirs of anger to overwhelm their foes, granting them a +3 bonus to all combat-related rolls for 3 combat rounds (can be used once per combat).";
+   say "\nStarting Gear: Reinforced coat, custom handgun, tracker device, amulet/heirloom, night vision goggles, personal diary.";
+}
+
+sub roll_03 {
+   say "\nConspiracy Theorist";
+   say "===================";
+   say "Conspiracy Theorists seek the hidden truths behind the façades of everyday normalcy. They aim to expose the secret workings of powers that manipulate the world from behind the scenes.";
+   say "\nStarting Skill Points: 5";
+   say "\nPrimary Attribute: Charisma";
+   say "\nSkill Set: Investigation, Technical, Knowledge, Urban Savvy, Linguistic Proficiency, Stealth";
+   say "\nChoice of Free Perk: Network of Contacts, Photographic Memory, Untraceable, Grease Monkey, Lucky, Scavenger";
+   say "\nUnique Feat: Pattern Recognition: Conspiracy Theorists have a keen eye for connections others miss, gaining a +3 bonus to Investigation rolls when linking seemingly unrelated events.";
+   say "\nStarting Gear: Encrypted laptop, conspiracy books, bug detector, disguise kit, secure phone, mask.";
+}
+
 sub roll_04 { say "Cop"; }
 sub roll_05 { say "Cult Leader"; }
 sub roll_06 { say "Cybermancer"; }
