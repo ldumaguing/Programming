@@ -1,0 +1,31 @@
+STR: 14 (+1)
+INT: 9
+WIT: 9
+AGL: 9
+TOU: 14 (+1)
+CHA: 15 (+1)
+
+Professional Athlete
+   +1 Athletics
+   Specialization in Carousing
+
+Broke a significant sports record in an unexpected victory.
+   +1 Athletics
+   Natural Athlete
+
+
+***** Archaeologist *****
+
+Archaeologists dig through the sands of time, unearthing relics of bygone civilizations and piecing together the stories of the past.
+
+Starting Skill Points: 6
+
+Primary Attribute: Intelligence
+
+Skill Set: Art, Investigation, Survival, Knowledge, Technical, Linguistic Proficiency
+
+Choice of Free Perk: Network of Contacts, Danger Sense, Fast Healer, Polyglot, Scavenger, Wealthy
+
+Unique Feat: Relic Hunter: Archaeologists possess a unique expertise in discovering and preserving ancient artefacts, receiving a +1 bonus to Knowledge and Survival rolls related to archaeological explorations.
+
+Starting Gear: Ancient maps, digging tools, rugged backpack, dictionaries, survival kit.

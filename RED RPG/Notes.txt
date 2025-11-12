@@ -1,0 +1,5 @@
+./roll_attributes.pl | ./roll_origin_d6.pl | ./roll_lifepath.pl | ./roll_archetype.pl
+
+
+
+
