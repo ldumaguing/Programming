@@ -37,9 +37,9 @@ say "";
 
 # ***********************************************
 sub roll_5 {
-   #say "Destitute";
    $attributes{'TOU'} += 1;
    mod_attrib();
+   say "Your wealth was almost limitless.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r5_1();
@@ -128,6 +128,7 @@ sub r5_6 {
 sub roll_6 {
    $attributes{'CHA'} += 1;
    mod_attrib();
+   say "Your beginnings were marked by extreme wealth and power.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r6_1();
@@ -185,9 +186,9 @@ sub r6_6 {
 
 # ***********************************************
 sub roll_1 {
-   #say "Destitute";
    $attributes{'TOU'} += 1;
    mod_attrib();
+   say "Life began in the grip of poverty, where every day was a struggle for survival.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r1_1();
@@ -246,9 +247,9 @@ sub r1_6 {
 
 # *************************************
 sub roll_2 {
-   # say "Struggling";
    $attributes{'WIT'} += 1;
    mod_attrib();
+   say "Raised in a working-class environment with constant financial uncertainty.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r2_1();
@@ -309,9 +310,9 @@ sub r2_6 {
 
 # *************************************
 sub roll_3 {
-   #say "Comfortable";
    $attributes{'INT'} += 1;
    mod_attrib();
+   say "A stable middle-class upbringing offered a balanced and secure early life.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r3_1();
@@ -371,9 +372,9 @@ sub r3_6 {
 
 # *************************************
 sub roll_4 {
-   # say "Wealthy";
    $attributes{'CHA'} += 1;
    mod_attrib();
+   say "Affluence and a superior education characterized your early years.";
    my $d6  = int(rand 6) + 1;
    if ($d6 == 1) {
       r4_1();
