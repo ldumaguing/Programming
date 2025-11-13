@@ -19,8 +19,6 @@ while (<ARGV>) {
    $attributes{$anArray[0]} = $anArray[1];
 }
 
-#say %attributes;
-#say $attributes{'STR'};
 my $d4 = int(rand 4) + 1;
 if ($d4 == 1) {
    roll_1();
@@ -31,22 +29,23 @@ if ($d4 == 1) {
 } else {
    roll_4();
 }
+say "";
 
 # ***********************************************
 sub roll_1 {
-   #say "Destitute";
    $attributes{'TOU'} += 1;
    mod_attrib();
-   my $d6  = int(rand 6) + 1;
-   if ($d6 == 1) {
+   say "Life began in the grip of poverty, where every day was a struggle for survival.";
+   my $d4  = int(rand 6) + 1;
+   if ($d4 == 1) {
       r1_1();
-   } elsif ($d6 == 2) {
+   } elsif ($d4 == 2) {
       r1_2();
-   } elsif ($d6 == 3) {
+   } elsif ($d4 == 3) {
       r1_3();
-   } elsif ($d6 == 4) {
+   } elsif ($d4 == 4) {
       r1_4();
-   } elsif ($d6 == 5) {
+   } elsif ($d4 == 5) {
       r1_5();
    } else {
       r1_6();
@@ -95,19 +94,19 @@ sub r1_6 {
 
 # *************************************
 sub roll_2 {
-   # say "Struggling";
    $attributes{'WIT'} += 1;
    mod_attrib();
-   my $d6  = int(rand 6) + 1;
-   if ($d6 == 1) {
+   say "Raised in a working-class environment with constant financial uncertainty.";
+   my $d4  = int(rand 6) + 1;
+   if ($d4 == 1) {
       r2_1();
-   } elsif ($d6 == 2) {
+   } elsif ($d4 == 2) {
       r2_2();
-   } elsif ($d6 == 3) {
+   } elsif ($d4 == 3) {
       r2_3();
-   } elsif ($d6 == 4) {
+   } elsif ($d4 == 4) {
       r2_4();
-   } elsif ($d6 == 5) {
+   } elsif ($d4 == 5) {
       r2_5();
    } else {
       r2_6();
@@ -158,19 +157,19 @@ sub r2_6 {
 
 # *************************************
 sub roll_3 {
-   #say "Comfortable";
    $attributes{'INT'} += 1;
    mod_attrib();
-   my $d6  = int(rand 6) + 1;
-   if ($d6 == 1) {
+   say "A stable middle-class upbringing offered a balanced and secure early life.";
+   my $d4  = int(rand 6) + 1;
+   if ($d4 == 1) {
       r3_1();
-   } elsif ($d6 == 2) {
+   } elsif ($d4 == 2) {
       r3_2();
-   } elsif ($d6 == 3) {
+   } elsif ($d4 == 3) {
       r3_3();
-   } elsif ($d6 == 4) {
+   } elsif ($d4 == 4) {
       r3_4();
-   } elsif ($d6 == 5) {
+   } elsif ($d4 == 5) {
       r3_5();
    } else {
       r3_6();
@@ -220,19 +219,19 @@ sub r3_6 {
 
 # *************************************
 sub roll_4 {
-   # say "Wealthy";
    $attributes{'CHA'} += 1;
    mod_attrib();
-   my $d6  = int(rand 6) + 1;
-   if ($d6 == 1) {
+   say "Affluence and a superior education characterized your early years.";
+   my $d4  = int(rand 6) + 1;
+   if ($d4 == 1) {
       r4_1();
-   } elsif ($d6 == 2) {
+   } elsif ($d4 == 2) {
       r4_2();
-   } elsif ($d6 == 3) {
+   } elsif ($d4 == 3) {
       r4_3();
-   } elsif ($d6 == 4) {
+   } elsif ($d4 == 4) {
       r4_4();
-   } elsif ($d6 == 5) {
+   } elsif ($d4 == 5) {
       r4_5();
    } else {
       r4_6();
