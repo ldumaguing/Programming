@@ -7,7 +7,7 @@ sudo dnf -y install perl-CPAN
 
 
 
-
+https://metacpan.org/release/FROGGS/SDL-2.548/source/INSTALL
 
 
 
