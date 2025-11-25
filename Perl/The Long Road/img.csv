@@ -1,0 +1,400 @@
+id,name
+1001,"Champions Back icon.png"
+1002,"Compass Button.png"
+1007,"Disrupted yellow.png"
+1008,"Fired Yellow.png"
+1010,Graveyard-button.png
+1011,Graveyard.png
+1012,Gunari-button.png
+1014,Katarina-button.png
+1017,"LOS Private.png"
+1018,"LOS Public.png"
+1015,"Landed yellow.png"
+1016,Leditta-button.png
+1019,"Moved yellow.png"
+1020,NOM_Arty_Strike.png
+1021,OST2_zoom_custom_sm.png
+1022,OST2_zoom_in_sm.png
+1023,OST2_zoom_out_sm.png
+1025,OSTv2_Hide_01.png
+1026,OSTv2_Hide_02.png
+1027,OSTv2_LOS_icon.png
+1029,OSTv2_Notes_Button.png
+1030,OSTv2_Retire_Button.png
+1031,OSTv2_Server_Button.png
+1024,OSTv2_camera_icon.png
+1028,OSTv2_mini_map_icon.png
+1032,"PAC LR-02_0321.jpg"
+1033,"PAC LR-1_June_2022.jpg"
+1034,PAC_LR-2.png
+1035,PAH-1-back.png
+1036,PAH-1-front.png
+1037,Radu-button.png
+1039,Schmidt-back.png
+1040,Schmidt-front.png
+1042,TLR_Armies_Button.jpg
+1043,TLR_Basic_Deck_01.png
+1044,TLR_Basic_Deck_02.png
+1045,TLR_Basic_Deck_03.png
+1046,TLR_Basic_Deck_04.png
+1047,TLR_Basic_Deck_05.png
+1048,TLR_Basic_Deck_06.png
+1049,TLR_Basic_Deck_07.png
+1050,TLR_Basic_Deck_08.png
+1051,TLR_Basic_Deck_09.png
+1052,TLR_Basic_Deck_10.png
+1053,TLR_Basic_Deck_11.png
+1054,TLR_Basic_Deck_12.png
+1055,TLR_Basic_Deck_13.png
+1056,TLR_Basic_Deck_14.png
+1057,TLR_Basic_Deck_15.png
+1058,TLR_Basic_Deck_16.png
+1059,TLR_Basic_Deck_17.png
+1060,TLR_Basic_Deck_18.png
+1061,TLR_Basic_Deck_19.png
+1062,TLR_Basic_Deck_20.png
+1063,TLR_Basic_Deck_21.png
+1064,TLR_Basic_Deck_22.png
+1065,TLR_Basic_Deck_23.png
+1066,TLR_Basic_Deck_24.png
+1067,TLR_Basic_Deck_25.png
+1068,TLR_Basic_Deck_26.png
+1069,TLR_Basic_Deck_27.png
+1070,TLR_Basic_Deck_28.png
+1071,TLR_Basic_Deck_29.png
+1072,TLR_Basic_Deck_30.png
+1073,TLR_Basic_Deck_31.png
+1074,TLR_Basic_Deck_32.png
+1075,TLR_Basic_Deck_33.png
+1076,TLR_Basic_Deck_34.png
+1077,TLR_Basic_Deck_35.png
+1078,TLR_Basic_Deck_36.png
+1079,TLR_Bevel_158.png
+1080,TLR_Card_Outline.png
+1081,TLR_Champion_Card_Gunari-Hunter.png
+1082,TLR_Champion_Card_Katarina_Ubirek.png
+1083,TLR_Champion_Card_Leditta.png
+1084,TLR_Champion_Card_Radu.png
+1085,TLR_Champion_Card_Tentani.png
+1086,TLR_Champion_Card_Udvoske.png
+1087,TLR_Compass_Rose.png
+1088,TLR_Core_Soviet_Initiative.png
+1089,TLR_Core_US_Initiative.png
+1090,TLR_D10_Button_Alt_2.png
+1091,TLR_D10_Button_Alt_3.png
+1092,TLR_D10_Button_Alt_4.png
+1093,TLR_D10_Button_Alt_5.png
+1094,TLR_D10_Button_Alt_6.png
+1095,TLR_D10_Button_Alt_7.png
+1096,TLR_D10_Button_Alt_8.png
+1097,TLR_D10_Button_Alt_9.png
+1098,TLR_D10_Button_Alt_Base.png
+1099,TLR_D10x10_Button_Alt.png
+1100,TLR_D10x1_Button_Alt.png
+1101,TLR_DS_158.png
+1103,TLR_EG_Aid.png
+1102,TLR_EG_Aid_b.png
+1105,TLR_EG_BMP-2.png
+1104,TLR_EG_BMP-2_b.png
+1107,TLR_EG_BTR-70.png
+1106,TLR_EG_BTR-70_b.png
+1109,TLR_EG_Focus.png
+1108,TLR_EG_Focus_b.png
+1111,TLR_EG_Infantry.png
+1110,TLR_EG_Infantry_b.png
+1113,TLR_EG_LStR-40.png
+1112,TLR_EG_LStR-40_b.png
+1115,TLR_EG_M37-M.png
+1114,TLR_EG_M37-M_b.png
+1117,TLR_EG_T-72M.png
+1116,TLR_EG_T-72M_b.png
+1119,TLR_GE_Aid.png
+1118,TLR_GE_Aid_b.png
+1121,TLR_GE_Focus.png
+1120,TLR_GE_Focus_b.png
+1123,TLR_GE_Infantry.png
+1122,TLR_GE_Infantry_b.png
+1125,TLR_GE_Jaguar_2.png
+1124,TLR_GE_Jaguar_2_b.png
+1127,TLR_GE_KanJPz.png
+1126,TLR_GE_KanJPz_b.png
+1131,TLR_GE_Leopard_I.png
+1130,TLR_GE_Leopard_II.png
+1129,TLR_GE_Leopard_II_b.png
+1128,TLR_GE_Leopard_I_b.png
+1133,TLR_GE_Luchs.png
+1132,TLR_GE_Luchs_b.png
+1135,TLR_GE_M113.png
+1134,TLR_GE_M113_b.png
+1137,TLR_GE_Marder.png
+1136,TLR_GE_Marder_b.png
+1139,TLR_GE_Milan.png
+1138,TLR_GE_Milan_b.png
+1141,TLR_GE_Mortar.png
+1140,TLR_GE_Mortar_b.png
+1143,TLR_GE_PAH-1.png
+1142,TLR_GE_PAH-1_b.png
+1144,TLR_GE_Tornado.png
+1146,TLR_GE_Wiesel_1.png
+1145,TLR_GE_Wiesel_1_b.png
+1148,TLR_GE_Wiesel_TOW.png
+1147,TLR_GE_Wiesel_TOW_b.png
+1149,TLR_Housekeeping_Button.png
+1150,TLR_Lycan_Deck_01_incite_ferocity.png
+1151,TLR_Lycan_Deck_02_incite_ferocity.png
+1152,TLR_Lycan_Deck_03_incite_ferocity.png
+1153,TLR_Lycan_Deck_04_forcethechange_panic.png
+1154,TLR_Lycan_Deck_05_forcethechange_panic.png
+1155,TLR_Lycan_Deck_06_cover_burstofspeed.png
+1156,TLR_Lycan_Deck_07_nai_burstofspeed.png
+1157,TLR_Lycan_Deck_08_sniper_regenerate.png
+1158,TLR_Lycan_Deck_09_rally_regenerate.png
+1159,TLR_Lycan_Deck_card_back.png
+1160,TLR_Map_D_Final.jpg
+1161,TLR_Map_Edge.png
+1162,TLR_OTHER_corpses_0621.png
+1163,TLR_OTHER_corpses_b_0621.png
+1166,TLR_OTHER_gun_bike_0621.png
+1167,TLR_OTHER_gun_bike_b_0621.png
+1164,TLR_OTHER_gunari_0621.png
+1165,TLR_OTHER_gunari_b_0621.png
+1168,TLR_OTHER_hunters_0621.png
+1169,TLR_OTHER_hunters_b_0621.png
+1170,TLR_OTHER_katarina_0621.png
+1171,TLR_OTHER_katarina_b_0621.png
+1172,TLR_OTHER_leditta_01_0621.png
+1173,TLR_OTHER_leditta_01_b_0621.png
+1174,TLR_OTHER_leditta_02_0621.png
+1175,TLR_OTHER_leditta_02_b_0621.png
+1176,TLR_OTHER_lycan_0621.png
+1177,TLR_OTHER_lycan_b_0621.png
+1181,TLR_OTHER_matuya_0621_V2.png
+1178,TLR_OTHER_matuya_0621_b_V2.png
+1180,TLR_OTHER_matuya_0621_hover_V2.png
+1179,TLR_OTHER_matuya_0621_hover_b_V2.png
+1182,TLR_OTHER_militia_0621.png
+1183,TLR_OTHER_militia_b_0621.png
+1184,TLR_OTHER_protector_0621.png
+1185,TLR_OTHER_protector_b_0621.png
+1186,TLR_OTHER_puker_0621.png
+1187,TLR_OTHER_puker_b_0621.png
+1188,TLR_OTHER_radu_0621.png
+1189,TLR_OTHER_radu_b_0621.png
+1190,TLR_OTHER_rpd_0621.png
+1191,TLR_OTHER_rpd_b_0621.png
+1192,TLR_OTHER_rpg_0621.png
+1193,TLR_OTHER_rpg_b_0621.png
+1194,TLR_OTHER_slayer_0621.png
+1195,TLR_OTHER_slayer_b_0621.png
+1196,TLR_OTHER_stalker_0621.png
+1197,TLR_OTHER_stalker_b_0621.png
+1198,TLR_OTHER_technical_mg_0621.png
+1199,TLR_OTHER_technical_mg_b_0621.png
+1200,TLR_OTHER_technical_rr_0621.png
+1201,TLR_OTHER_technical_rr_b_0621.png
+1202,TLR_OTHER_tentani_0621.png
+1203,TLR_OTHER_tentani_b_0621.png
+1204,TLR_OTHER_truck_0621.png
+1205,TLR_OTHER_truck_b_0621.png
+1206,TLR_OTHER_udvoske_0621.png
+1207,TLR_OTHER_udvoske_b_0621.png
+1208,TLR_OTHER_zombies_0621.png
+1209,TLR_OTHER_zombies_b_0621.png
+1211,TLR_PAC_Turn_Deck.png
+1212,TLR_PAC_Turn_Track_Button.jpg
+1210,TLR_PAC_button_0321.png
+1214,TLR_Para_Deck_Window.jpg
+1213,TLR_Para_Deck_Window_button.png
+1215,"TLR_Player_Hand _Background.jpg"
+1216,TLR_Player_Hand_Button.png
+1218,"TLR_SOV_aid reroll_0321.png"
+1219,"TLR_SOV_aid reroll_b_0321.png"
+1220,TLR_SOV_bmp-1p_0321.png
+1221,TLR_SOV_bmp-1p_b_0321.png
+1222,TLR_SOV_bmp-2_0321.png
+1223,TLR_SOV_bmp-2_b_0321.png
+1224,TLR_SOV_brdm-2_0321.png
+1225,TLR_SOV_brdm-2_b_0321.png
+1226,TLR_SOV_btr-70_0321.png
+1227,TLR_SOV_btr-70_b_0321.png
+1228,TLR_SOV_dramonovitch_0321.png
+1229,TLR_SOV_dramonovitch_b_0321.png
+1230,TLR_SOV_engineer_0321.png
+1231,TLR_SOV_engineer_b_0321.png
+1232,"TLR_SOV_focus reroll_0321.png"
+1233,"TLR_SOV_focus reroll_b_0321.png"
+1234,"TLR_SOV_game turn_0321.png"
+1235,TLR_SOV_infantry_0321.png
+1236,TLR_SOV_infantry_b_0321.png
+1237,TLR_SOV_kastet_0321.png
+1238,"TLR_SOV_konkurs atgm_0321.png"
+1239,"TLR_SOV_konkurs atgm_b_0321.png"
+1240,"TLR_SOV_mi-24 hind_1_0321.png"
+1241,"TLR_SOV_mi-24 hind_2_0321.png"
+1242,"TLR_SOV_mi-24 hind_3_0321.png"
+1243,"TLR_SOV_mi-24 hind_4_0321.png"
+1244,TLR_SOV_mineroller_0321.png
+1245,TLR_SOV_mineroller_b_0321.png
+1246,TLR_SOV_morozov_0321.png
+1247,TLR_SOV_mortar_0321.png
+1248,TLR_SOV_mortar_b_0321.png
+1249,TLR_SOV_mt-55a_0321.png
+1250,TLR_SOV_mt-55a_b_0321.png
+1251,TLR_SOV_petrova_0321.png
+1252,TLR_SOV_petrova_b_0321.png
+1253,TLR_SOV_spetsnaz_0321.png
+1254,TLR_SOV_spetsnaz_b_0321.png
+1255,TLR_SOV_su-24_0321.png
+1256,"TLR_SOV_t-12 atg_0321.png"
+1257,"TLR_SOV_t-12 atg_b_0321.png"
+1258,TLR_SOV_t-62_0321.png
+1259,TLR_SOV_t-62_b_0321.png
+1260,TLR_SOV_t-64b_0321.png
+1261,TLR_SOV_t-64b_2_0321.png
+1262,TLR_SOV_t-64b_2_b_0321.png
+1263,TLR_SOV_t-64b_b_0321.png
+1264,TLR_SOV_t-80_0321.png
+1265,TLR_SOV_t-80_b_0321.png
+1266,"TLR_SOV_ural truck_0321.png"
+1267,"TLR_SOV_ural truck_b_0321.png"
+1268,TLR_SOV_vorishnov_0321.png
+1269,TLR_SOV_vorishnov_b_0321.png
+1271,"TLR_SYS_-1 hit_0321.png"
+1276,TLR_SYS_Control_Lycan.png
+1275,TLR_SYS_Control_Lycan_b.png
+1277,TLR_SYS_Control_NATO.png
+1278,TLR_SYS_Control_Soviet.png
+1280,TLR_SYS_Control_Vampire.png
+1279,TLR_SYS_Control_Vampire_b.png
+1282,TLR_SYS_Control_Zombie.png
+1281,TLR_SYS_Control_Zombie_b.png
+1290,"TLR_SYS_LOS A_0621.png"
+1291,"TLR_SYS_LOS B_0621.png"
+1301,TLR_SYS_Red_Star.png
+1308,TLR_SYS_White_Star.png
+1272,"TLR_SYS_armed mob_0321_v2.png"
+1273,"TLR_SYS_at ditch_0321.png"
+1274,TLR_SYS_blast_0321_v2.png
+1283,TLR_SYS_disrupted_0321.png
+1284,TLR_SYS_ecm_0321.png
+1285,TLR_SYS_fired_0321.png
+1286,TLR_SYS_flanked_0321.png
+1287,"TLR_SYS_gun and run_0321.png"
+1288,"TLR_SYS_in tunnel_0321.png"
+1289,TLR_SYS_landed_0321.png
+1292,"TLR_SYS_lose 1 hit_0321.png"
+1293,"TLR_SYS_mine 6fp_0321.png"
+1294,"TLR_SYS_mines 4fp_0321.png"
+1295,TLR_SYS_moved_0321.png
+1296,TLR_SYS_mss_0321.png
+1297,"TLR_SYS_occupation A_0621.png"
+1298,"TLR_SYS_occupation B_0621.png"
+1299,"TLR_SYS_out of ammunition_0321.png"
+1300,TLR_SYS_overwatch_0321.png
+1302,TLR_SYS_refugees_0321_v2.png
+1303,TLR_SYS_rubble_0321.png
+1306,"TLR_SYS_smoke expended_0321.png"
+1304,TLR_SYS_smoke_1_0321.png
+1305,TLR_SYS_smoke_2_0321.png
+1307,"TLR_SYS_smoking wreck_0321.png"
+1309,TLR_SYS_wire_0321.png
+1310,TLR_SYS_wreck_0321.png
+1311,TLR_SYS_wreck_2_0321.png
+1312,TLR_SYS_wreck_3_0321.png
+1313,TLR_SYS_wreck_4_0321.png
+1270,TLR_Splash.jpg
+1314,"TLR_US_a-10 thunderbolt_0321.png"
+1315,TLR_US_abrams_0321.png
+1316,TLR_US_abrams_b_0321.png
+1317,"TLR_US_ah-1 cobra_1_0321.png"
+1318,"TLR_US_ah-1 cobra_2_0321.png"
+1319,"TLR_US_ah-1 cobra_3_0321.png"
+1320,"TLR_US_ah-1 cobra_4_0321.png"
+1321,"TLR_US_aid reroll_0321.png"
+1322,"TLR_US_aid reroll_b_0321.png"
+1323,"TLR_US_bgm-71 tow_0321.png"
+1324,"TLR_US_bgm-71 tow_b_0321.png"
+1325,TLR_US_dahl_0321.png
+1326,TLR_US_dragon_0321.png
+1327,TLR_US_dragon_b_0321.png
+1328,"TLR_US_focus reroll_0321.png"
+1329,"TLR_US_focus reroll_b_0321.png"
+1330,"TLR_US_game turn_0321.png"
+1333,"TLR_US_hmmwv tow_0321.png"
+1334,"TLR_US_hmmwv tow_b_0321.png"
+1331,TLR_US_hmmwv_0321.png
+1332,TLR_US_hmmwv_b_0321.png
+1335,TLR_US_hood_0321.png
+1336,TLR_US_hood_b_0321.png
+1337,TLR_US_hudson_0321.png
+1338,TLR_US_hudson_b_0321.png
+1339,TLR_US_infantry_0321.png
+1340,TLR_US_infantry_b_0321.png
+1347,"TLR_US_m-2 bradley_0321.png"
+1348,"TLR_US_m-2 bradley_b_0321.png"
+1349,"TLR_US_m-3 bradley_0321.png"
+1350,"TLR_US_m-3 bradley_b_0321.png"
+1341,TLR_US_m106_0321.png
+1342,TLR_US_m106_b_0321.png
+1343,TLR_US_m113_0321.png
+1344,TLR_US_m113_b_0321.png
+1345,TLR_US_m29_0321.png
+1346,TLR_US_m29_b_0321.png
+1351,"TLR_US_m551 sheridan_0321.png"
+1352,"TLR_US_m551 sheridan_b_0321.png"
+1353,"TLR_US_m60a3 patton_0321.png"
+1354,"TLR_US_m60a3 patton_b_0321.png"
+1355,TLR_US_m901_0321.png
+1356,TLR_US_m901_b_0321.png
+1357,TLR_US_recon_b_0621.png
+1358,TLR_US_recon_f_0621.png
+1359,TLR_US_tiny_0321_v2.png
+1360,TLR_US_tiny_b_0321_v2.png
+1361,TLR_Vampire_Deck_01_empblast_bloodsucker.png
+1362,TLR_Vampire_Deck_02_opfire_mindcontrol.png
+1363,TLR_Vampire_Deck_03_opfire_mindcontrol.png
+1364,TLR_Vampire_Deck_04_superiortargeting_transmogrify.png
+1365,TLR_Vampire_Deck_05_superiortargeting_bloodsucker.png
+1366,TLR_Vampire_Deck_06_electricarmor_bloodsucker.png
+1367,TLR_Vampire_Deck_07_electricarmor_agility.png
+1368,TLR_Vampire_Deck_08_seekershells_confusion.png
+1369,TLR_Vampire_Deck_09_nem_fear.png
+1370,TLR_Vampire_Deck_carde_back.png
+1371,TLR_Witch_Deck_01_boltsoflightning.png
+1372,TLR_Witch_Deck_02_boltsoflightning.png
+1373,TLR_Witch_Deck_03_chainit.png
+1374,TLR_Witch_Deck_04_fireball.png
+1375,TLR_Witch_Deck_05_fireball.png
+1376,TLR_Witch_Deck_06_fireball.png
+1377,TLR_Witch_Deck_07_ecktoplasmicshield.png
+1378,TLR_Witch_Deck_08_ecktoplasmicshield.png
+1379,TLR_Witch_Deck_09_glacio.png
+1380,TLR_Witch_Deck_card_back.png
+1381,TLR_Zombie_Deck_01_ohmygod_itsjonesy_hesturned.png
+1382,TLR_Zombie_Deck_02_sharpjustbitthesarge.png
+1383,TLR_Zombie_Deck_03_damntheyrefasterthanwethink.png
+1384,TLR_Zombie_Deck_04_damntheyrefasterthanwethink.png
+1385,TLR_Zombie_Deck_05_icanttakeitanymore.png
+1386,TLR_Zombie_Deck_06_icanttakeitanymore.png
+1387,TLR_Zombie_Deck_07_wheredidtheycomefrom.png
+1388,TLR_Zombie_Deck_08_wheredidtheycomefrom.png
+1389,TLR_Zombie_Deck_09_whatisthat.png
+1390,TLR_Zombie_Deck_card_back.png
+1217,TLR_red_cube.png
+1391,TRL_Map_A_Final.jpg
+1392,TRL_Map_B_Final.jpg
+1393,TRL_Map_C_Final.jpg
+1041,Tentani-button.png
+1394,Udvoske-button.png
+1396,Whitman.png
+1398,Zombie-back.png
+1397,Zombie-back2.png
+1000,back_outlined.png
+1004,cup-icon.png
+1005,cup.jpg
+1003,cup2.jpg
+1006,d6-button.png
+1009,forward-button.png
+1013,"helicopter button.png"
+1038,refugee-button.png
+1395,undo-button.png

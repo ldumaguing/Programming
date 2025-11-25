@@ -1,0 +1,20 @@
+CREATE TABLE img (
+   id INTEGER PRIMARY KEY,
+   name TEXT NOT NULL
+);
+
+
+
+.mode csv
+.import img.csv img
+
+
+
+
+
+.mode csv
+.headers on
+.output img.csv
+SELECT * FROM img;
+.output stdout
+.quit
