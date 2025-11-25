@@ -18,3 +18,12 @@ CREATE TABLE img (
 SELECT * FROM img;
 .output stdout
 .quit
+
+
+
+
+
+ALTER TABLE img ADD COLUMN flag1 NUMBER;
+
+
+
