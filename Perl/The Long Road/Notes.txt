@@ -41,7 +41,7 @@ where id in
 
 update img
 set flag1 = flag1 | 2
-where id >= 1104 and id <= 1107;
+where id >= 1164 and id <= 1209;
 
 
 
