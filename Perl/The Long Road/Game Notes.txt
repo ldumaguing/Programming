@@ -1,6 +1,6 @@
 flag1
 =====
 bit 0:   image is a chit (158x158 pixels)
-bit 1:   unit (vehicle, man, hero)
+bit 1:   combatant
 
 

@@ -20,6 +20,39 @@ SELECT * FROM img;
 .quit
 
 
+select name, flag1 & 2 from img where id = 1035;
+
+update img
+set flag1 = flag1 | 2
+where id = 1035;
+
+
+
+update img
+set flag1 = flag1 | 2
+where id in
+(
+1036,1039, 1040
+);
+
+
+
+
+
+update img
+set flag1 = flag1 | 2
+where id >= 1104 and id <= 1107;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
