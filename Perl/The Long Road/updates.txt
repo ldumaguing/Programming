@@ -1,0 +1,7 @@
+UPDATE img SET apf_val = 6        where id = 1104;
+UPDATE img SET apf_rng = 'blue'   where id = 1104;
+
+
+
+
+
