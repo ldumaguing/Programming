@@ -32,7 +32,11 @@ my $post_text = q{
 # ***************************************************************************************
 say $pre_text;
 while (my @row = $stmt->fetchrow_array()) {
-   say  "<tr><td>" . $row[0] . "</td><td><img src=\"TLR/" . $row[1] . "\"></td></tr>";
+   say  "<tr><td>" . $row[0] . "</td><td><img src=\"TLR/" . $row[1] . "\"></td>"
+   . "<td>" . $row[2] . "-</td>"
+   . "<td>" . $row[3] . "</td>"
+   . "<td>" . $row[4] . "</td>"
+   . "</tr>";
 }
 say $post_text;
 
@@ -43,5 +47,22 @@ $stmt->finish();
 
 
 $conn->disconnect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -2,6 +2,26 @@ flag1
 =====
 bit 0:   image is a chit (158x158 pixels)
 bit 1:   combatant
+bit 2:   may fire wire guided missiles
+bit 4,3:
+   01: -1 APF superscript
+   10: +1 APF superscript
 
-flag2
-=====
+
+CREATE TABLE img (
+   id   INTEGER PRIMARY KEY,
+   name TEXT NOT NULL,
+   flag1 NUMBER,
+   apf_val NUMBER,
+   apf_rng TEXT
+);
+
+
+
+
+
+
+
+
+
+
