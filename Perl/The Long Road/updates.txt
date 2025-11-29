@@ -1,5 +1,5 @@
-UPDATE img SET hef_val = 2                where id = 1039;
-UPDATE img SET hef_rng = 'green'           where id = 1039;
+UPDATE img SET hef_val = 2                where id = 1040;
+UPDATE img SET hef_rng = 'green'           where id = 1040;
 
 
 
@@ -16,16 +16,16 @@ UPDATE img SET hef_rng = 'green'           where id = 1039;
 
 
 
-UPDATE img SET flag1 = flag1 | (1 << 5)   where id = 1039;    -- APF value with white font
+UPDATE img SET flag1 = flag1 | (1 << 5)   where id = 1040;    -- APF value with white font
 
 
 
 
-UPDATE img SET flag1 = flag1 | (1 << 2)   where id = 1039;    -- wire guided missle
+UPDATE img SET flag1 = flag1 | (1 << 2)   where id = 1040;    -- wire guided missle
 
 
 
-UPDATE img SET flag1 = flag1 | (2 << 3)   where id = 1039;    -- APF superscript
+UPDATE img SET flag1 = flag1 | (2 << 3)   where id = 1040;    -- APF superscript
 
 
 

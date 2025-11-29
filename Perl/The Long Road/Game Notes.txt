@@ -7,6 +7,12 @@ bit 4,3:
    01: -1 APF superscript
    10: +1 APF superscript
 bit 5:   range effects DO NOT apply.  Normal Range = Max Range.  (white font)
+bit 7,6:
+   01: -1 HEF superscript
+   10: +1 HEF superscript
+
+
+
 
 CREATE TABLE img (
    id   INTEGER PRIMARY KEY,
