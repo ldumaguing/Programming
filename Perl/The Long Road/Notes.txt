@@ -49,8 +49,8 @@ where id >= 1164 and id <= 1209;
 
 
 
-
-
+ALTER TABLE img ADD COLUMN hef_val NUMBER;
+ALTER TABLE img ADD COLUMN hef_rng TEXT;
 
 
 
