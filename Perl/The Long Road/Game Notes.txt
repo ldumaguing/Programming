@@ -10,7 +10,7 @@ bit 5:   range effects DO NOT apply.  Normal Range = Max Range.  (white font)
 bit 7,6:
    01: -1 HEF superscript
    10: +1 HEF superscript
-
+bit 8:   use HEF to attack Armor of 4 or less. (yellow outline)
 
 
 
