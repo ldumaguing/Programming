@@ -1,5 +1,44 @@
-UPDATE img SET hef_val = 8                where id = 1127;
-UPDATE img SET hef_rng = 'green'           where id = 1127;
+UPDATE img SET flag1 = flag1 | (1 << 6)   where id in (
+1220,
+1221,
+1222,
+1223,
+1347,
+1348,
+1349,
+1350
+);
+UPDATE img SET flag1 = flag1 | (2 << 6)   where id in (
+1104,
+1106,
+1116,
+1117,
+1225,
+1227,
+1260,
+1261,
+1262,
+1263,
+1353,
+1354
+);
+
+
+
+   -- HEF superscript
+
+
+
+
+
+
+
+
+
+
+
+UPDATE img SET hef_val = 0                where id = 1357;
+UPDATE img SET hef_rng = 'black'           where id = 1193;
 
 
 
