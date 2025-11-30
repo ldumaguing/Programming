@@ -1,13 +1,23 @@
 UPDATE img SET flag1 = flag1 | (1 << 13)   where id in (    -- solid circle
-
-);
-UPDATE img SET flag1 = flag1 | (3 << 13)   where id in (    -- broken circle
-
+1343,
+1344,
+1347,
+1348
 );
 UPDATE img SET flag1 = flag1 | (1 << 15)   where id in (    -- white rifle
-
+1331,
+1332,
+1347,
+1348,
+1349,
+1350
 );
-
+UPDATE img SET flag1 = flag1 | (3 << 13)   where id in (    -- broken circle
+1331,
+1332,
+1349,
+1350
+);
 
 
 
