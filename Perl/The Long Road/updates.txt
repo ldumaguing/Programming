@@ -1,21 +1,22 @@
-UPDATE img SET flag1 = flag1 | (1 << 9)   where id in (
+UPDATE img SET mf_val = 1 where id in (
 1140,
-1141,
-1341,
-1342
-);   -- white frame around HEF
-UPDATE img SET flag1 = flag1 | (1 << 10)   where id in (
-1114,
-1115,
-1140,
-1141,
-1247,
-1248,
-1341,
-1342,
-1345,
-1346
-);   -- white font
+1141
+);
+UPDATE img SET mf_val = 2 where id in (
+1139
+);
+UPDATE img SET mf_val = 3 where id in (
+
+);
+UPDATE img SET mf_val = 5 where id in (
+
+);
+UPDATE img SET mf_val = 6 where id in (
+
+);
+UPDATE img SET mf_val = 8 where id in (
+
+);
 
 
 
@@ -27,11 +28,7 @@ UPDATE img SET flag1 = flag1 | (1 << 10)   where id in (
 
 
 
-
-
-
-
-UPDATE img SET hef_val = 0                where id = 1357;
+UPDATE img SET mf_val = 1                where id = 1115;
 UPDATE img SET hef_rng = 'black'           where id = 1193;
 
 

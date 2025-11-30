@@ -39,6 +39,8 @@ while (my @row = $stmt->fetchrow_array()) {
    . "<td>,</td>"
    . "<td>" . $row[5] . "</td>"
    . "<td>" . $row[6] . "</td>"
+   . "<td>,</td>"
+   . "<td>" . $row[7] . "</td>"
    . "</tr>";
 }
 say $post_text;

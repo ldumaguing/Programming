@@ -14,15 +14,19 @@ bit  8:   use HEF to attack Armor of 4 or less. (yellow frame)
 bit  9:   HEF cannot fire into adjacent hex (white frame)
 bit 10:   HEF value in white font (can't find the meaning)
 
+
+
 CREATE TABLE img (
-   id   INTEGER PRIMARY KEY,
-   name TEXT NOT NULL,
-   flag1 NUMBER,
+   id      INTEGER PRIMARY KEY,
+   name    TEXT NOT NULL,
+   flag1   NUMBER,
    apf_val NUMBER,
    apf_rng TEXT,
    hef_val NUMBER,
-   hef_rng TEXT
+   hef_rng TEXT,
+   mf_val  NUMBER
 );
+
 
 
 0:1
