@@ -1,3 +1,10 @@
+flag2
+=====
+bit  0:     +HEF
+bit  1:     +CAF
+bit  2:     (white font)
+bit  3:     CAF*
+
 flag1
 =====
 bit  0:     image is a chit (158x158 pixels)
@@ -23,17 +30,20 @@ bit 15:     Leg units may fire (white rifle)
 
 
 
-
 CREATE TABLE img (
-   id      INTEGER PRIMARY KEY,
-   name    TEXT NOT NULL,
-   flag1   NUMBER,
+   id INTEGER PRIMARY KEY,
+   name TEXT NOT NULL,
+   flag1 NUMBER,
    apf_val NUMBER,
    apf_rng TEXT,
    hef_val NUMBER,
    hef_rng TEXT,
-   mf_val  NUMBER
+   mf_val NUMBER,
+   caf_val NUMBER
 );
+
+
+
 
 
 
