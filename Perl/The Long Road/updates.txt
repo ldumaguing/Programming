@@ -1,34 +1,13 @@
-UPDATE img SET mf_val = 1 where id in (
-1140,
-1141
-);
-UPDATE img SET mf_val = 2 where id in (
-1139
-);
-UPDATE img SET mf_val = 3 where id in (
-
-);
-UPDATE img SET mf_val = 5 where id in (
-
-);
-UPDATE img SET mf_val = 6 where id in (
-
-);
-UPDATE img SET mf_val = 8 where id in (
-
-);
 
 
 
 
+UPDATE img SET mf_val = 0                where id = 1142;
+UPDATE img SET mf_val = 12                where id = 1143;
 
 
 
 
-
-
-
-UPDATE img SET mf_val = 1                where id = 1115;
 UPDATE img SET hef_rng = 'black'           where id = 1193;
 
 
