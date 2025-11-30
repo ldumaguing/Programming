@@ -1,18 +1,26 @@
 flag1
 =====
-bit  0:   image is a chit (158x158 pixels)
-bit  1:   combatant
-bit  2:   APF may fire wire guided missiles
-bit  4,3:
-   01: -1 APF superscript
-   10: +1 APF superscript
-bit  5:   APF range effects DO NOT apply.  Normal Range = Max Range.  (white font)
-bit  7,6:
-   01: -1 HEF superscript
-   10: +1 HEF superscript
-bit  8:   use HEF to attack Armor of 4 or less. (yellow frame)
-bit  9:   HEF cannot fire into adjacent hex (white frame)
-bit 10:   HEF value in white font (can't find the meaning)
+bit  0:     image is a chit (158x158 pixels)
+bit  1:     combatant
+bit  2:     APF may fire wire guided missiles
+bit  4,3:   APF superscript
+   01: -1
+   10: +1
+bit  5:     APF range effects DO NOT apply.  Normal Range = Max Range.  (white font)
+bit  7,6:   HEF superscript
+   01: -1
+   10: +1
+bit  8:     use HEF to attack Armor of 4 or less. (yellow frame)
+bit  9:     HEF cannot fire into adjacent hex (white frame)
+bit 10:     HEF value in white font (can't find the meaning)
+bit 12,11:  can move & fire
+   01: 1-column shift (orange)
+   10: 2-column shift (blue)
+bit 14,13:  circle
+   01: may transport Leg units (solid circle)
+   11: may only transport Leg Recon (broken circle)
+bit 15:     Leg units may fire (white rifle)
+
 
 
 

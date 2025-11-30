@@ -1,3 +1,13 @@
+UPDATE img SET flag1 = flag1 | (1 << 13)   where id in (    -- solid circle
+
+);
+UPDATE img SET flag1 = flag1 | (3 << 13)   where id in (    -- broken circle
+
+);
+UPDATE img SET flag1 = flag1 | (1 << 15)   where id in (    -- white rifle
+
+);
+
 
 
 
