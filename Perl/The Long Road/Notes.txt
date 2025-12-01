@@ -46,7 +46,7 @@ where id >= 1164 and id <= 1209;
 
 
 
-
+ALTER TABLE img ADD COLUMN armor_val NUMBER default -1;
 
 
 

@@ -2,8 +2,8 @@ flag2
 =====
 bit  0:     +HEF
 bit  1:     +CAF
-bit  2:     (white font)
-bit  3:     CAF*
+bit  2:     same hex combat (white font)
+bit  3:     (CAF*)
 
 flag1
 =====
@@ -29,18 +29,21 @@ bit 14,13:  circle
 bit 15:     Leg units may fire (white rifle)
 
 
-
 CREATE TABLE img (
    id INTEGER PRIMARY KEY,
-   name TEXT NOT NULL,
-   flag1 NUMBER,
-   apf_val NUMBER,
-   apf_rng TEXT,
-   hef_val NUMBER,
-   hef_rng TEXT,
-   mf_val NUMBER,
-   caf_val NUMBER
+   name      TEXT NOT NULL,
+   flag1     NUMBER default 0,
+   apf_val   NUMBER default -100,
+   apf_rng   TEXT,
+   hef_val   NUMBER default -100,
+   hef_rng   TEXT,
+   mf_val    NUMBER default -100,
+   caf_val   NUMBER default -100,
+   flag2     NUMBER default 0,
+   armor_val NUMBER default -100
 );
+
+
 
 
 
