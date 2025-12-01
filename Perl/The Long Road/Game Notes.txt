@@ -57,32 +57,31 @@ CREATE TABLE img (
 
 
 
-
-Activate Twice
-Aggressive
-Brutal
-Concealed
-Courageous
-Fearsome Howl
-Fireball
-Frenzied
-Leap
-Lightning Strike
-Reanimate
-Recon
-Silver Bullet
-Sniper
-Steady
-Tough
-Veteran
-Wolf Speed
-Lucky
-Rally
-Regenerate
-Fly
-Explosive Decomposition
-Acid Bile
-Blood Thirsty
+ 0  Activate Twice
+ 1  Aggressive
+ 2  Brutal
+ 3  Concealed
+ 4  Courageous
+ 5  Fearsome Howl
+ 6  Fireball
+ 7  Frenzied
+ 8  Leap
+ 9  Lightning Strike
+10  Reanimate
+11  Recon
+12  Silver Bullet
+13  Sniper
+14  Steady
+15  Tough
+16  Veteran
+17  Wolf Speed
+18  Lucky
+19  Rally
+20  Regenerate
+21  Fly
+22  Explosive Decomposition
+23  Acid Bile
+24  Blood Thirsty
 
 
 
