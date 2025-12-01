@@ -56,12 +56,48 @@ CREATE TABLE img (
 
 
 
-0:1
-1:1
-2:0
-3:0
-4:0
-5:1
+
+
+Activate Twice
+Aggressive
+Brutal
+Concealed
+Courageous
+Fearsome Howl
+Fireball
+Frenzied
+Leap
+Lightning Strike
+Reanimate
+Recon
+Silver Bullet
+Sniper
+Steady
+Tough
+Veteran
+Wolf Speed
+Lucky
+Rally
+Regenerate
+Fly
+Explosive Decomposition
+Acid Bile
+Blood Thirsty
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
