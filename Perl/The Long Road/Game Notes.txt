@@ -4,6 +4,12 @@ bit  0:     +HEF
 bit  1:     +CAF
 bit  2:     same hex combat (white font)
 bit  3:     (CAF*)
+bit  5,4:   armor superscript
+   01: -1
+   10: +1
+bit  6:     armor value in white font
+bit  7:     armor value with a "+" sign
+
 
 flag1
 =====
