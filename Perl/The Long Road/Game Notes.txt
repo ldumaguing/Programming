@@ -25,7 +25,7 @@ bit  7,6:   HEF superscript
    10: +1
 bit  8:     use HEF to attack Armor of 4 or less. (yellow frame)
 bit  9:     HEF cannot fire into adjacent hex (white frame)
-bit 10:     HEF value in white font (can't find the meaning)
+bit 10:     infer: HEF has mortar capabilities (white font)
 bit 12,11:  can move & fire
    01: 1-column shift (orange)
    10: 2-column shift (blue)
