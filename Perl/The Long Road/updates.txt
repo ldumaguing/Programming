@@ -1,16 +1,12 @@
-UPDATE img SET flag3 = flag3 | (1 << 2)   where id in (    
-1164,
-1165,
+UPDATE img SET ability1 = ability1 | (1 << 2)   where id in (    
+1168,
+1169,
 1170,
 1171,
-1172,
-1173,
 1188,
 1189,
-1202,
-1203,
-1206,
-1207
+1196,
+1197
 );
 
 
