@@ -1,3 +1,10 @@
+flag3
+=====
+bit  0:     Commander
+bit  1:     Hero
+bit  2:     Champion
+
+
 flag2
 =====
 bit  0:     +HEF
@@ -43,6 +50,9 @@ bit 14,13:  circle
 bit 15:     Leg units may fire (white rifle)
 
 
+
+
+
 CREATE TABLE img (
    id INTEGER PRIMARY KEY,
    name      TEXT NOT NULL,
@@ -54,12 +64,9 @@ CREATE TABLE img (
    mf_val    NUMBER default -100,
    caf_val   NUMBER default -100,
    flag2     NUMBER default 0,
-   armor_val NUMBER default -100
+   armor_val NUMBER default -100,
+   flag3     NUMBER default 0
 );
-
-
-
-
 
 
 

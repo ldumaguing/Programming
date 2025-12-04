@@ -50,7 +50,7 @@ ALTER TABLE img ADD COLUMN armor_val NUMBER default -1;
 
 
 
-ALTER TABLE img ADD COLUMN flag2 NUMBER default 0;
+ALTER TABLE img ADD COLUMN flag3 NUMBER default 0;
 
 
 ALTER TABLE img ADD COLUMN caf_val NUMBER;
