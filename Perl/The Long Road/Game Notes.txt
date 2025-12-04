@@ -11,6 +11,12 @@ bit  6:     armor value in white font
 bit  7:     armor value with a "+" sign
 bit  8:     recon              ("R" icon)
 bit  9:     Advanced Targeting ("A" icon)
+bit 10:     Lycan              ("L" icon)
+bit 11:     Vampire            ("V" icon)
+bit 12:     Zombie combatant
+bit 13:     Helicopter/Drone
+bit 14:     Airplane
+bit 15:     Leg
 
 
 flag1
