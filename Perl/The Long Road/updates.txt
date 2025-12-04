@@ -1,16 +1,5 @@
-UPDATE img SET flag2 = flag2 | (1 << 6)   where id in (    -- armor in white font
-1198,
-1199,
-1200,
-1201,
-1204,
-1205,
-1266,
-1267,
-1331,
-1332,
-1333,
-1334
+UPDATE img SET flag2 = flag2 | (1 << 9)   where id in (    -- advanced targeting
+
 );
 
 update img set armor_val = 2 where id = 1246;

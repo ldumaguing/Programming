@@ -9,6 +9,8 @@ bit  5,4:   armor superscript
    10: +1
 bit  6:     armor value in white font
 bit  7:     armor value with a "+" sign
+bit  8:     recon              ("R" icon)
+bit  9:     Advanced Targeting ("A" icon)
 
 
 flag1
