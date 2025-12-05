@@ -3,6 +3,18 @@ Find vampires
 select id, flag2 from img
      where flag2 & (1 << 11);
 
+Find combatants with these abilities
+====================================
+select id from img where
+   (ability2 & (1 << 4)) |   -- Regenerate
+   (ability1 & (1 << 7));    -- Frenzied
+
+
+
+
+
+
+
 
 CREATE TABLE img (
    id INTEGER PRIMARY KEY,
