@@ -1,33 +1,33 @@
 ability1
 ========
-bit  0:     Activate Twice
-bit  1:     Aggressive
+bit  0:     Activate Twice           (Green arrow)
+bit  1:     Aggressive               (KA-BAR)
 bit  2:     Brutal                   (d6)
-bit  3:     Concealed
-bit  4:     Courageous
-bit  5:     Fearsome Howl
+bit  3:     Concealed                (Eye slashed)
+bit  4:     Courageous               (Red heart)
+bit  5:     Fearsome Howl            (Wolf howling at the moon)
 bit  6:     Fireball
 bit  7:     Frenzied                 (Wolf Howling)
 bit  8:     Leap
 bit  9:     Lightning Strike
-bit 10:     Reanimate
-bit 11:     Recon
-bit 12:     Silver Bullet
-bit 13:     Sniper
-bit 14:     Steady
-bit 15:     Tough
+bit 10:     Reanimate                (White arm)
+bit 11:     Recon                    (Binocular)
+bit 12:     Silver Bullet            (Silver Bullet)
+bit 13:     Sniper                   (Red crosshair)
+bit 14:     Steady                   (Black crosshair)
+bit 15:     Tough                    (Shield)
 
 ability2
 ========
-bit  0:     Veteran
-bit  1:     Wolf Speed
-bit  2:     Lucky
+bit  0:     Veteran                  (Chevron)
+bit  1:     Wolf Speed               (Running red wolf)
+bit  2:     Lucky                    (2d10)
 bit  3:     Rally                    (Trumpet)
 bit  4:     Regenerate               (Red Cross)
-bit  5:     Fly
-bit  6:     Explosive Decomposition
-bit  7:     Acid Bile
-bit  8:     Blood Thirsty
+bit  5:     Fly                      (White wings)
+bit  6:     Explosive Decomposition  (Black skull on green)
+bit  7:     Acid Bile                (Biohazard)
+bit  8:     Blood Thirsty            (Rifle on red)
 
 
 flag3

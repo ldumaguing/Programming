@@ -1,12 +1,5 @@
-UPDATE img SET ability1 = ability1 | (1 << 2)   where id in (    
-1168,
-1169,
-1170,
-1171,
-1188,
-1189,
-1196,
-1197
+UPDATE img SET ability1 = ability1 | (1 << 0)   where id in (    
+1325
 );
 
 
