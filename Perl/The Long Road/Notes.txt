@@ -1,3 +1,9 @@
+Find vampires
+=============
+select id, flag2 from img
+     where flag2 & (1 << 11);
+
+
 CREATE TABLE img (
    id INTEGER PRIMARY KEY,
    name TEXT NOT NULL
