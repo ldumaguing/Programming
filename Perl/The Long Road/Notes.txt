@@ -1,3 +1,11 @@
+CREATE TABLE chit (
+   id    INTEGER PRIMARY KEY,
+   name  TEXT NOT NULL,
+   front NUMBER DEFAULT 0,
+   back  NUMBER DEFAULT 0
+);
+
+
 CREATE TABLE img (
    id INTEGER PRIMARY KEY,
    name TEXT NOT NULL
@@ -18,6 +26,20 @@ CREATE TABLE img (
 SELECT * FROM img;
 .output stdout
 .quit
+
+
+
+
+
+.mode csv
+.output chit.csv
+SELECT * FROM chit;
+.output stdout
+.quit
+
+
+
+
 
 
 select name, flag1 & 2 from img where id = 1035;
