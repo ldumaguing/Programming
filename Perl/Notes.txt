@@ -12,11 +12,11 @@ https://metacpan.org/release/FROGGS/SDL-2.548/source/INSTALL
 
 
 
-pkg install p5-Unicode-Normalize
-pkg install p5-IPC-System-Simple
-pkg install p5-Switch
-pkg install p5-Perl-Critic
-pkg install p5-DBD-SQLite p5-Class-DBI-SQLite
+pkg install -y p5-Unicode-Normalize
+pkg install -y p5-IPC-System-Simple
+pkg install -y p5-Switch
+pkg install -y p5-Perl-Critic
+pkg install -y p5-DBD-SQLite p5-Class-DBI-SQLite
 
 
 
