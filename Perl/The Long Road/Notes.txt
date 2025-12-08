@@ -1,12 +1,18 @@
-select chit_id, chit_name, file0, img.name
+select aaa.id, aaa.name, file0, img.name
 from 
-(select chit.id as chit_id, chit.name as chit_name, img.name as file0, chit.back as back
+(select chit.id, chit.name, img.name as file0, chit.back as back
 from img, chit
 where
 chit.front = img.id) as aaa,
 img
 where
 img.id = aaa.back;
+
+
+
+
+
+
 
 
 
