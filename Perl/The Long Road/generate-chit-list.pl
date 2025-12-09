@@ -35,8 +35,8 @@ while (my @row = $stmt->fetchrow_array()) {
 	# say  "<tr><td>" . $row[0] . "</td><td><img src=\"TLR/" . $row[1] . "\"></td></tr>";
    say "<tr>"
    . "<td>" . $row[0] . "</td>"
-   . "</td><td><img src=\"TLR/" . $row[2] . "\"></td>"
-   . "</td><td><img src=\"TLR/" . $row[3] . "\"></td>"
+   . "<td><img src=\"TLR/" . $row[2] . "\"></td>"
+   . "<td><img src=\"TLR/" . $row[3] . "\"></td>"
    . "<td>" . $row[1] . "</td>"
    . "</tr>";
 }
