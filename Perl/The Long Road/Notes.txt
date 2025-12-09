@@ -1,3 +1,22 @@
+create view v_chit_img as
+select aaa.id, aaa.name, file0, img.name
+from 
+(select chit.id, chit.name, img.name as file0, chit.back as back
+from img, chit
+where
+chit.front = img.id) as aaa,
+img
+where
+img.id = aaa.back;
+
+
+
+
+
+
+
+
+
 select aaa.id, aaa.name, file0, img.name
 from 
 (select chit.id, chit.name, img.name as file0, chit.back as back
