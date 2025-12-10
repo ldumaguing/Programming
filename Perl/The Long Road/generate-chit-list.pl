@@ -9,7 +9,9 @@ use v5.42;
 use DBI;
 my $conn = DBI->connect("dbi:SQLite:dbname=TLR.db","","");
 
-my $stmt = $conn->prepare("SELECT * FROM v_chit_img order by id");
+my $stmt = $conn->prepare("SELECT * FROM v_chit_img order by flag1");
+# my $stmt = $conn->prepare("SELECT * FROM v_chit_img where flag1 = 0 order by id");
+# my $stmt = $conn->prepare("SELECT * FROM v_chit_img where flag1 = 2 order by id");
 $stmt->execute();
 
 my $pre_text = q{

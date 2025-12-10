@@ -1,5 +1,6 @@
-UPDATE img SET ability1 = ability1 | (1 << 0)   where id in (    
-1325
+UPDATE chit SET flag1 = flag1 | (1 << 7)   where id in (      -- civilians
+1004,
+1065
 );
 
 

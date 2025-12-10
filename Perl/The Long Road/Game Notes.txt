@@ -1,3 +1,15 @@
+chit flag1
+==========
+bit  0:     American
+bit  1:     Soviet
+bit  2:     East Germany
+bit  3:     West Germany
+bit  4:     Blue (Vampire)
+bit  5:     Green (Lycan)
+bit  6:     Red (Zombie)
+bit  7:     Civilians
+
+
 ability1
 ========
 bit  0:     Activate Twice           (Green arrow)
