@@ -13,12 +13,12 @@
 
 <body>
    <div style="display:none;">
-      <img src="TLR/TRL_Map_A_Final.jpg" id="map0">
+      <img src="TLR/mine/Scenario 1.png" id="map0">
       <img src="TLR/TLR_GE_KanJPz.png" id="vehicle0">
    </div>
 
 
-   <canvas id="myCanvas"  width="3629" height="2801">
+   <canvas id="myCanvas"  width="7258" height="2801">
       Sorry, your browser does not support canvas.
    </canvas>
 
@@ -31,6 +31,8 @@
       map0.addEventListener("load", (e) => {
         ctx.drawImage(map0, 0, 0);
         ctx.drawImage(vehicle0, 121, 39);
+        ctx.drawImage(vehicle0, 6984, 39);
+        ctx.drawImage(vehicle0, 6984, 2606);
       });
    </script> 
 </body>
