@@ -1,4 +1,12 @@
-select *
+create view v_unit_states as
+select
+   ccc.id        as id,
+   ccc.name      as name,
+   ccc.flag1     as flag1,
+   ccc.filename1 as filename1,
+   ccc.filename2 as filename2,
+   ccc.filename3 as filename3,
+   img.name      as filename4
 from
 (select
    bbb.id        as id,
@@ -38,6 +46,15 @@ bbb.front1 = img.id) as ccc,
 img
 where
 ccc.back1 = img.id;
+
+
+1033|Leditta|32|
+TLR_OTHER_leditta_02_0621.png|
+TLR_OTHER_leditta_02_b_0621.png|
+TLR_OTHER_leditta_01_0621.png|
+TLR_OTHER_leditta_01_b_0621.png
+
+
 
 
 1033|Leditta|32|1173|
