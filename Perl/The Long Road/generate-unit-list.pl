@@ -9,7 +9,7 @@ use v5.42;
 use DBI;
 my $conn = DBI->connect("dbi:SQLite:dbname=TLR.db","","");
 
-my $stmt = $conn->prepare("SELECT * FROM img WHERE flag3 & (1 << 2) order by id");
+my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by flag1, name");
 $stmt->execute();
 
 my $pre_text = q{
@@ -32,19 +32,25 @@ my $post_text = q{
 # ***************************************************************************************
 say $pre_text;
 while (my @row = $stmt->fetchrow_array()) {
-   say  "<tr><td>" . $row[0] . "</td><td><img src=\"TLR/" . $row[1] . "\"></td>"
-   . "<td>(" . $row[2] . ")</td>"
-   . "<td>" . $row[3] . "</td>"
-   . "<td>" . $row[4] . "</td>"
-   . "<td>,</td>"
-   . "<td>" . $row[5] . "</td>"
-   . "<td>" . $row[6] . "</td>"
-   . "<td>,</td>"
-   . "<td>" . $row[7] . "</td>"
-   . "<td>,</td>"
-   . "<td>" . $row[8] . "</td>"
-   . "<td>(" . $row[9] . ")</td>"
-   . "<td>" . $row[10] . "</td>"
+   say  "<tr>"
+   . "<td>" . $row[0] . "</td>"
+   . "<td>" . "<img src=\"TLR/" . $row[3] . "\"></td>"
+   . "<td>" . "<img src=\"TLR/" . $row[4] . "\"></td>"
+   . "<td>" . "<img src=\"TLR/" . $row[5] . "\"></td>"
+   . "<td>" . "<img src=\"TLR/" . $row[6] . "\"></td>"
+   . "<td>" . $row[1] . "</td>"
+#   . "<td>(" . $row[2] . ")</td>"
+#   . "<td>" . $row[3] . "</td>"
+#   . "<td>" . $row[4] . "</td>"
+#   . "<td>,</td>"
+#   . "<td>" . $row[5] . "</td>"
+#   . "<td>" . $row[6] . "</td>"
+#   . "<td>,</td>"
+#   . "<td>" . $row[7] . "</td>"
+#   . "<td>,</td>"
+#   . "<td>" . $row[8] . "</td>"
+#   . "<td>(" . $row[9] . ")</td>"
+#   . "<td>" . $row[10] . "</td>"
    . "</tr>";
 }
 say $post_text;
