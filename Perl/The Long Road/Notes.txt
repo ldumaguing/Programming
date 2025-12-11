@@ -84,14 +84,34 @@ SELECT * FROM img;
 .quit
 
 
-
+.mode csv
+.import chit.csv chit
 
 
 .mode csv
+.headers on
 .output chit.csv
 SELECT * FROM chit;
 .output stdout
 .quit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -121,6 +141,10 @@ update img
 set flag1 = flag1 | 2
 where id >= 1164 and id <= 1209;
 
+
+
+ALTER TABLE chit ADD COLUMN front1 NUMBER default 0;
+ALTER TABLE chit ADD COLUMN back1 NUMBER default 0;
 
 
 

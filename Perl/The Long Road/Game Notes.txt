@@ -1,5 +1,5 @@
-chit flag1
-==========
+chit/unit flag1
+===============
 bit  0:     American
 bit  1:     Soviet
 bit  2:     East Germany
@@ -113,25 +113,14 @@ CREATE TABLE img (
    ability2  NUMBER default 0
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CREATE TABLE chit (
+   id     INTEGER PRIMARY KEY,
+   name   TEXT NOT NULL,
+   front  NUMBER DEFAULT 0,
+   back   NUMBER DEFAULT 0,
+   flag1  NUMBER default 0,
+   front1 NUMBER default 0,
+   back1  NUMBER default 0
+);
 
 
