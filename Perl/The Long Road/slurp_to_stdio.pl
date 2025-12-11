@@ -21,10 +21,11 @@ sub foo {
 
    while (my $line = <$fh>) {
      chomp $line; # Remove trailing newline character
-     print "Read line: $line\n";
+     last if($line =~ /END/);
+     say $line;
    }
 
-close $fh;
+   close $fh;
 }
 
 
