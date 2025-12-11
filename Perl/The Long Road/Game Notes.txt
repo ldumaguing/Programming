@@ -113,7 +113,7 @@ CREATE TABLE img (
    ability2  NUMBER default 0
 );
 
-CREATE TABLE chit (
+CREATE TABLE unit (
    id     INTEGER PRIMARY KEY,
    name   TEXT NOT NULL,
    front  NUMBER DEFAULT 0,
@@ -122,5 +122,14 @@ CREATE TABLE chit (
    front1 NUMBER default 0,
    back1  NUMBER default 0
 );
+
+
+
+
+
+
+
+
+
 
 
