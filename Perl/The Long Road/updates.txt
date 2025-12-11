@@ -1,10 +1,30 @@
-UPDATE chit SET flag1 = flag1 | (1 << 7)   where id in (      -- civilians
-1004,
-1065
+UPDATE img SET flag3 = flag3 | (1 << 4)   where id in (      -- wheel
+1106,
+1107,
+1132,
+1133,
+1194,
+1195,
+1198,
+1199,
+1200,
+1201,
+1204,
+1205,
+1224,
+1225,
+1226,
+1227,
+1266,
+1267,
+1331,
+1332,
+1333,
+1334
 );
 
 
-
+select * from img where (flag3 & (1 << 4));
 
 
 
