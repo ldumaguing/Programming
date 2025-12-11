@@ -1,0 +1,194 @@
+select *
+from
+(select
+   bbb.id        as id,
+   bbb.name      as name,
+   bbb.flag1     as flag1,
+   bbb.back1     as back1,
+   bbb.filename1 as filename1,
+   bbb.filename2 as filename2,
+   img.name      as filename3
+from
+(select
+   aaa.id        as id,
+   aaa.name      as name,
+   aaa.flag1     as flag1,
+   aaa.front1    as front1,
+   aaa.back1     as back1,
+   aaa.filename1 as filename1,
+   img.name      as filename2
+from 
+(select
+   unit.id      as id,
+   unit.name    as name,
+   unit.back    as back,
+   unit.flag1   as flag1,
+   unit.front1  as front1,
+   unit.back1   as back1,
+   img.name     as filename1
+from unit, img
+where
+unit.front = img.id) as aaa,
+img
+where
+aaa.back = img.id) as bbb,
+img
+where
+bbb.front1 = img.id) as ccc,
+img
+where
+ccc.back1 = img.id;
+
+
+1033|Leditta|32|1173|
+TLR_OTHER_leditta_02_0621.png|
+TLR_OTHER_leditta_02_b_0621.png|
+TLR_OTHER_leditta_01_0621.png|1173|
+TLR_OTHER_leditta_01_b_0621.png|
+3|-100||-100||5|8|33796|-100|4|128|4
+
+
+
+
+
+select
+   bbb.id        as id,
+   bbb.name      as name,
+   bbb.flag1     as flag1,
+   bbb.back1     as back1,
+   bbb.filename1 as filename1,
+   bbb.filename2 as filename2,
+   img.name      as filename3
+from
+(select
+   aaa.id        as id,
+   aaa.name      as name,
+   aaa.flag1     as flag1,
+   aaa.front1    as front1,
+   aaa.back1     as back1,
+   aaa.filename1 as filename1,
+   img.name      as filename2
+from 
+(select
+   unit.id      as id,
+   unit.name    as name,
+   unit.back    as back,
+   unit.flag1   as flag1,
+   unit.front1  as front1,
+   unit.back1   as back1,
+   img.name     as filename1
+from unit, img
+where
+unit.front = img.id) as aaa,
+img
+where
+aaa.back = img.id) as bbb,
+img
+where
+bbb.front1 = img.id;
+
+
+
+
+
+1033|Leditta|32|1173|
+TLR_OTHER_leditta_02_0621.png|
+TLR_OTHER_leditta_02_b_0621.png|
+TLR_OTHER_leditta_01_0621.png
+
+
+
+
+
+
+
+
+
+
+select
+   aaa.id        as id,
+   aaa.name      as name,
+   aaa.back      as back,
+   aaa.flag1     as flag1,
+   aaa.front1    as front1,
+   aaa.back1     as back1,
+   aaa.filename1 as filename1,
+   img.name      as filename2
+from 
+(select
+   unit.id      as id,
+   unit.name    as name,
+   unit.back    as back,
+   unit.flag1   as flag1,
+   unit.front1  as front1,
+   unit.back1   as back1,
+   img.name     as filename1
+from unit, img
+where
+unit.front = img.id) as aaa,
+img
+where
+aaa.back = img.id;
+
+
+
+
+
+
+select
+   aaa.id        as id,
+   aaa.name      as name,
+   aaa.back      as back,
+   aaa.flag1     as flag1,
+   aaa.front1    as front1,
+   aaa.back1     as back1,
+   aaa.filename1 as filename1,
+   img.name      as filename2
+from 
+(select
+   unit.id      as id,
+   unit.name    as name,
+   unit.back    as back,
+   unit.flag1   as flag1,
+   unit.front1  as front1,
+   unit.back1   as back1,
+   img.name     as filename1
+from unit, img
+where
+unit.front = img.id) as aaa,
+img;
+
+
+
+
+
+
+
+select
+   unit.id      as id,
+   unit.name    as name,
+   unit.back    as back,
+   unit.flag1   as flag1,
+   unit.front1  as front1,
+   unit.back1   as back1,
+   img.name     as filename1
+from unit, img
+where
+unit.front = img.id;
+
+
+
+
+select
+   unit.id,
+   unit.name,
+   unit.front,
+   unit.back,
+   unit.flag1,
+   unit.front1,
+   unit.back1
+from unit, img;
+
+
+
+
