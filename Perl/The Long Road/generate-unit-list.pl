@@ -39,18 +39,6 @@ while (my @row = $stmt->fetchrow_array()) {
    . "<td>" . "<img src=\"TLR/" . $row[5] . "\"></td>"
    . "<td>" . "<img src=\"TLR/" . $row[6] . "\"></td>"
    . "<td>" . $row[1] . "</td>"
-#   . "<td>(" . $row[2] . ")</td>"
-#   . "<td>" . $row[3] . "</td>"
-#   . "<td>" . $row[4] . "</td>"
-#   . "<td>,</td>"
-#   . "<td>" . $row[5] . "</td>"
-#   . "<td>" . $row[6] . "</td>"
-#   . "<td>,</td>"
-#   . "<td>" . $row[7] . "</td>"
-#   . "<td>,</td>"
-#   . "<td>" . $row[8] . "</td>"
-#   . "<td>(" . $row[9] . ")</td>"
-#   . "<td>" . $row[10] . "</td>"
    . "</tr>";
 }
 say $post_text;
