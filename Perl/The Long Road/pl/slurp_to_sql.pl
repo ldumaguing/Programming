@@ -9,6 +9,11 @@ use v5.40.3;
 my $scenario_num = 0;
 my $name = "";
 my $map = "";
+my $zeroXzero = "";
+my $upperRight = "";
+my $lowerRight = "";
+my $hexCountX = 0;
+my $hexCountY = 0;
 
 # ***************************************************************************************
 use DBI;
@@ -45,6 +50,36 @@ sub slurp {
         my @A = $map =~ /[a-zA-Z0-9].*/g;
         $map = $A[0];
      }
+     if($line =~ /0x0/) {
+        my @vals = $line =~ /\ [a-zA-Z0-9].*/g;
+        my $foo = $vals[0];
+        $foo =~ s/^\s+//;
+        $zeroXzero = $foo;
+     }
+     if($line =~ /upperRight/) {
+        my @vals = $line =~ /\ [a-zA-Z0-9].*/g;
+        my $foo = $vals[0];
+        $foo =~ s/^\s+//;
+        $upperRight = $foo;
+     }
+     if($line =~ /lowerRight/) {
+        my @vals = $line =~ /\ [a-zA-Z0-9].*/g;
+        my $foo = $vals[0];
+        $foo =~ s/^\s+//;
+        $lowerRight = $foo;
+     }
+     if($line =~ /hexCountX/) {
+        my @vals = $line =~ /\ [0-9].*/g;
+        my $foo = $vals[0];
+        $foo =~ s/^\s+//;
+        $hexCountX = $foo;
+     }
+     if($line =~ /hexCountY/) {
+        my @vals = $line =~ /\ [0-9].*/g;
+        my $foo = $vals[0];
+        $foo =~ s/^\s+//;
+        $hexCountY = $foo;
+     }
    }
    
    close $fh;
@@ -52,6 +87,11 @@ sub slurp {
    say "scenarion_num: " . $scenario_num;
    say "name:          " . $name;
    say "map:           " . $map;
+   say "0x0:           " . $zeroXzero;
+   say "upperRight:    " . $upperRight;
+   say "lowerRight:    " . $lowerRight;
+   say "hexCountX:     " . $hexCountX;
+   say "hexCountY:     " . $hexCountY;
 }
 
 
