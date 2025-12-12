@@ -1,0 +1,190 @@
+create view v_chit_img as
+select aaa.id, aaa.name, file0, img.name, aaa.flag1
+from 
+(select chit.id, chit.name, img.name as file0, chit.back as back, chit.flag1 as flag1
+from img, chit
+where
+chit.front = img.id) as aaa,
+img
+where
+img.id = aaa.back;
+
+
+
+
+
+
+
+
+create view v_chit_img as
+select aaa.id, aaa.name, file0, img.name
+from 
+(select chit.id, chit.name, img.name as file0, chit.back as back
+from img, chit
+where
+chit.front = img.id) as aaa,
+img
+where
+img.id = aaa.back;
+
+
+
+
+
+
+
+
+
+select aaa.id, aaa.name, file0, img.name
+from 
+(select chit.id, chit.name, img.name as file0, chit.back as back
+from img, chit
+where
+chit.front = img.id) as aaa,
+img
+where
+img.id = aaa.back;
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE chit (
+   id    INTEGER PRIMARY KEY,
+   name  TEXT NOT NULL,
+   front NUMBER DEFAULT 0,
+   back  NUMBER DEFAULT 0
+);
+
+
+CREATE TABLE img (
+   id INTEGER PRIMARY KEY,
+   name TEXT NOT NULL
+);
+
+
+
+.mode csv
+.import img.csv img
+
+
+
+
+
+.mode csv
+.headers on
+.output img.csv
+SELECT * FROM img;
+.output stdout
+.quit
+
+
+.mode csv
+.import chit.csv chit
+
+
+.mode csv
+.headers on
+.output chit.csv
+SELECT * FROM chit;
+.output stdout
+.quit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select name, flag1 & 2 from img where id = 1035;
+
+update img
+set flag1 = flag1 | 2
+where id = 1035;
+
+
+
+update img
+set flag1 = flag1 | 2
+where id in
+(
+1036,1039, 1040
+);
+
+
+
+
+
+update img
+set flag1 = flag1 | 2
+where id >= 1164 and id <= 1209;
+
+
+
+ALTER TABLE chit ADD COLUMN front1 NUMBER default 0;
+ALTER TABLE chit ADD COLUMN back1 NUMBER default 0;
+
+
+
+ALTER TABLE chit ADD COLUMN flag1 NUMBER default 0;
+
+
+ALTER TABLE img ADD COLUMN armor_val NUMBER default -1;
+
+
+
+ALTER TABLE img ADD COLUMN ability1 NUMBER default 0;
+
+
+ALTER TABLE img ADD COLUMN caf_val NUMBER;
+
+
+ALTER TABLE img ADD COLUMN mf_val NUMBER;
+
+
+ALTER TABLE img ADD COLUMN hef_val NUMBER;
+ALTER TABLE img ADD COLUMN hef_rng TEXT;
+
+
+
+
+
+ALTER TABLE img ADD COLUMN flag1 NUMBER;
+
+
+
+
+
+update img set flag1 = 1
+where id in
+(
+
+1039,1040,1087,1088,1089,1102,1103,1104,1105,1106,1107,1108,1109,
+1110,1111,1112,1113,1114,1115,1116,1117,1118,1119,1120,1121
+
+);
+
+
+
