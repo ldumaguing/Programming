@@ -1,0 +1,34 @@
+*****************************************************************************************
+unit flag1
+==========
+bit  0:     American
+bit  1:     Soviet
+bit  2:     East Germany
+bit  3:     West Germany
+bit  4:     Blue (Vampire)
+bit  5:     Green (Lycan)
+bit  6:     Red (Zombie)
+bit  7:     Civilians
+
+
+
+CREATE TABLE unit (
+   id     INTEGER PRIMARY KEY,
+   name   TEXT NOT NULL,
+   front  NUMBER DEFAULT 0,
+   back   NUMBER DEFAULT 0,
+   flag1  NUMBER DEFAULT 0,
+   front1 NUMBER DEFAULT 0,
+   back1  NUMBER DEFAULT 0
+);
+
+
+
+
+
+
+
+
+
+
+

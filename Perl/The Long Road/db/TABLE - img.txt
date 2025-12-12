@@ -1,0 +1,115 @@
+*****************************************************************************************
+ability1
+========
+bit  0:     Activate Twice           (Green arrow)
+bit  1:     Aggressive               (KA-BAR)
+bit  2:     Brutal                   (d6)
+bit  3:     Concealed                (Eye slashed)
+bit  4:     Courageous               (Red heart)
+bit  5:     Fearsome Howl            (Wolf howling at the moon)
+bit  6:     Fireball
+bit  7:     Frenzied                 (Wolf Howling)
+bit  8:     Leap
+bit  9:     Lightning Strike
+bit 10:     Reanimate                (White arm)
+bit 11:     Recon                    (Binocular)
+bit 12:     Silver Bullet            (Silver Bullet)
+bit 13:     Sniper                   (Red crosshair)
+bit 14:     Steady                   (Black crosshair)
+bit 15:     Tough                    (Shield)
+
+ability2
+========
+bit  0:     Veteran                  (Chevron)
+bit  1:     Wolf Speed               (Running red wolf)
+bit  2:     Lucky                    (2d10)
+bit  3:     Rally                    (Trumpet)
+bit  4:     Regenerate               (Red Cross)
+bit  5:     Fly                      (White wings)
+bit  6:     Explosive Decomposition  (Black skull on green)
+bit  7:     Acid Bile                (Biohazard)
+bit  8:     Blood Thirsty            (Rifle on red)
+
+
+flag3
+=====
+bit  0:     Commander
+bit  1:     Hero
+bit  2:     Champion
+bit  3:     Track
+bit  4:     Wheel
+
+flag2
+=====
+bit  0:     +HEF
+bit  1:     +CAF
+bit  2:     same hex combat (white font)
+bit  3:     (CAF*)
+bit  5,4:   armor superscript
+   01: -1
+   10: +1
+bit  6:     armor value in white font
+bit  7:     armor value with a "+" sign
+bit  8:     recon              ("R" icon)
+bit  9:     Advanced Targeting ("A" icon)
+bit 10:     Lycan              ("L" icon)
+bit 11:     Vampire            ("V" icon)
+bit 12:     Zombie combatant
+bit 13:     VTOL (Helicopter/Drone)
+bit 14:     Airplane
+bit 15:     Leg
+
+
+flag1
+=====
+bit  0:     image is a chit (158x158 pixels)
+bit  1:     combatant
+bit  2:     APF may fire wire guided missiles
+bit  4,3:   APF superscript
+   01: -1
+   10: +1
+bit  5:     APF range effects DO NOT apply.  Normal Range = Max Range.  (white font)
+bit  7,6:   HEF superscript
+   01: -1
+   10: +1
+bit  8:     use HEF to attack Armor of 4 or less. (yellow frame)
+bit  9:     HEF cannot fire into adjacent hex (white frame)
+bit 10:     infer: HEF has mortar capabilities (white font)
+bit 12,11:  can move & fire
+   01: 1-column shift (orange)
+   10: 2-column shift (blue)
+bit 14,13:  circle
+   01: may transport Leg units (solid circle)
+   11: may only transport Leg Recon (broken circle)
+bit 15:     Leg units may fire (white rifle)
+
+
+
+CREATE TABLE img (
+   id INTEGER PRIMARY KEY,
+   name      TEXT NOT NULL,
+   flag1     NUMBER default 0,
+   apf_val   NUMBER default -100,
+   apf_rng   TEXT,
+   hef_val   NUMBER default -100,
+   hef_rng   TEXT,
+   mf_val    NUMBER default -100,
+   caf_val   NUMBER default -100,
+   flag2     NUMBER default 0,
+   armor_val NUMBER default -100,
+   flag3     NUMBER default 0,
+   ability1  NUMBER default 0,
+   ability2  NUMBER default 0
+);
+
+
+
+
+
+
+
+
+
+
+
+
