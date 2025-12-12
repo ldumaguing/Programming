@@ -23,8 +23,35 @@ my $filename = $ARGV[0];
 
 if (defined $filename) {
    slurp();
+   spew();
 } else {
    say "empty";
+}
+
+# *********************************************************
+sub spew {
+   # ********** name
+   my $sql_stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
+                   . $scenario_num . ", "
+                   . "'name'" . ", "
+                   . "'" . $name . "'"
+                   . ")";
+   my $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
+   
+   # ********** map
+   $sql_stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
+                   . $scenario_num . ", "
+                   . "'map'" . ", "
+                   . "'" . $map . "'"
+                   . ")";
+   $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
+   
+   # ********** 0x0
+   my @data = split(/,/, $zeroXzero);
+   say $data[0];
+   say $data[1];
 }
 
 # *********************************************************
