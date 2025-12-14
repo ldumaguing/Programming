@@ -7,7 +7,7 @@ use diagnostics;
 use v5.42;
 
 use DBI;
-my $conn = DBI->connect("dbi:SQLite:dbname=TLR.db","","");
+my $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
 
 my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by flag1, name");
 $stmt->execute();
