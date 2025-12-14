@@ -4,8 +4,7 @@ map: Scenario 1.png
 0x0: 121,39
 upperRight: 6984,39
 lowerRight: 6984,2606
-hexCountX: 35
-hexCountY: 12
+hexCount: 35,12
 
 
 END *************************************************************************************

@@ -12,8 +12,7 @@ my $map = "";
 my $zeroXzero = "";
 my $upperRight = "";
 my $lowerRight = "";
-my $hexCountX = 0;
-my $hexCountY = 0;
+my $hexCount = "";
 
 # ***************************************************************************************
 use DBI;
@@ -50,8 +49,47 @@ sub spew {
    
    # ********** 0x0
    my @data = split(/,/, $zeroXzero);
-   say $data[0];
-   say $data[1];
+   $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
+                   . $scenario_num . ", "
+                   . "'0x0'" . ", "
+                   . $data[0] . ", "
+                   . $data[1]
+                   . ")";
+   $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
+   
+   # ********** upperRight
+   my @data = split(/,/, $upperRight);
+   $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
+                   . $scenario_num . ", "
+                   . "'upperRight'" . ", "
+                   . $data[0] . ", "
+                   . $data[1]
+                   . ")";
+   $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
+   
+   # ********** lowerRight
+   my @data = split(/,/, $lowerRight);
+   $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
+                   . $scenario_num . ", "
+                   . "'lowerRight'" . ", "
+                   . $data[0] . ", "
+                   . $data[1]
+                   . ")";
+   $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
+   
+   # ********** hexCount
+   my @data = split(/,/, $hexCount);
+   $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
+                   . $scenario_num . ", "
+                   . "'hexCount'" . ", "
+                   . $data[0] . ", "
+                   . $data[1]
+                   . ")";
+   $stmt = $conn->prepare($sql_stmt);
+   $stmt->execute();
 }
 
 # *********************************************************
@@ -95,17 +133,11 @@ sub slurp {
         $foo =~ s/^\s+//;
         $lowerRight = $foo;
      }
-     if($line =~ /hexCountX/) {
+     if($line =~ /hexCount/) {
         my @vals = $line =~ /\ [0-9].*/g;
         my $foo = $vals[0];
         $foo =~ s/^\s+//;
-        $hexCountX = $foo;
-     }
-     if($line =~ /hexCountY/) {
-        my @vals = $line =~ /\ [0-9].*/g;
-        my $foo = $vals[0];
-        $foo =~ s/^\s+//;
-        $hexCountY = $foo;
+        $hexCount = $foo;
      }
    }
    
@@ -117,8 +149,7 @@ sub slurp {
    say "0x0:           " . $zeroXzero;
    say "upperRight:    " . $upperRight;
    say "lowerRight:    " . $lowerRight;
-   say "hexCountX:     " . $hexCountX;
-   say "hexCountY:     " . $hexCountY;
+   say "hexCount:      " . $hexCount;
 }
 
 
