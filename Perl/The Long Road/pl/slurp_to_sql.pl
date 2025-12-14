@@ -28,6 +28,8 @@ if (defined $filename) {
    say "empty";
 }
 
+$conn->disconnect();
+
 # *********************************************************
 sub spew_derivitives {
    say "yo";
@@ -96,6 +98,8 @@ sub spew {
                    . ")";
    $stmt = $conn->prepare($sql_stmt);
    $stmt->execute();
+   
+   $stmt->finish();
 }
 
 # *********************************************************
