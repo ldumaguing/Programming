@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 
-use v5.40.3;
+use v5.42;
 
 my $scenario_num = 0;
 my $name = "";
@@ -23,8 +23,14 @@ my $filename = $ARGV[0];
 if (defined $filename) {
    slurp();
    spew();
+   spew_derivitives();
 } else {
    say "empty";
+}
+
+# *********************************************************
+sub spew_derivitives {
+   say "yo";
 }
 
 # *********************************************************
@@ -59,7 +65,7 @@ sub spew {
    $stmt->execute();
    
    # ********** upperRight
-   my @data = split(/,/, $upperRight);
+   @data = split(/,/, $upperRight);
    $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
                    . $scenario_num . ", "
                    . "'upperRight'" . ", "
@@ -70,7 +76,7 @@ sub spew {
    $stmt->execute();
    
    # ********** lowerRight
-   my @data = split(/,/, $lowerRight);
+   @data = split(/,/, $lowerRight);
    $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
                    . $scenario_num . ", "
                    . "'lowerRight'" . ", "
@@ -81,7 +87,7 @@ sub spew {
    $stmt->execute();
    
    # ********** hexCount
-   my @data = split(/,/, $hexCount);
+   @data = split(/,/, $hexCount);
    $sql_stmt = "INSERT INTO scenario (id, key, num1, num2) VALUES ("
                    . $scenario_num . ", "
                    . "'hexCount'" . ", "
@@ -143,13 +149,13 @@ sub slurp {
    
    close $fh;
    
-   say "scenarion_num: " . $scenario_num;
-   say "name:          " . $name;
-   say "map:           " . $map;
-   say "0x0:           " . $zeroXzero;
-   say "upperRight:    " . $upperRight;
-   say "lowerRight:    " . $lowerRight;
-   say "hexCount:      " . $hexCount;
+   # say "scenarion_num: " . $scenario_num;
+   # say "name:          " . $name;
+   # say "map:           " . $map;
+   # say "0x0:           " . $zeroXzero;
+   # say "upperRight:    " . $upperRight;
+   # say "lowerRight:    " . $lowerRight;
+   # say "hexCount:      " . $hexCount;
 }
 
 
