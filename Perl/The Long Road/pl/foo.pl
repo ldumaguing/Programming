@@ -7,7 +7,7 @@ use diagnostics;
 use v5.42;
 
 my $scenario_num = 1;
-my $faction = "";
+my $faction = 0;
 
 # ***************************************************************************************
 use DBI;
@@ -36,16 +36,16 @@ sub slurp2 {
 
 
      if($line =~ /Soviet/) {
-        $faction = $line;
+        $faction = (1 << 1);
         next;
      }
      if($line =~ /American/) {
-        $faction = $line;
+        $faction = (1 << 0);
         next;
      }
      
 
-       if (($line =~ /:/) & ($faction ne "")) {
+     if (($line =~ /:/) & ($faction != 0)) {
         say $line;
      }   
      
@@ -58,6 +58,8 @@ sub slurp2 {
    }
    
    close $fh;
+   
+   say "> " . $faction;
 }
 
 
