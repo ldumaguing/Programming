@@ -7,82 +7,58 @@ use diagnostics;
 use v5.42;
 
 my $scenario_num = 1;
+my $faction = "";
 
 # ***************************************************************************************
 use DBI;
 my $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
 
+my $filename = $ARGV[0];
 
-spew_derivitives();
-
-
+if (defined $filename) {
+   slurp2();
+} else {
+   say "empty";
+}
 
 $conn->disconnect();
 
+# THE END
 # *********************************************************
-sub spew_derivitives {
-   # ********** 0x0   
-   my $stmt = "select num1, num2 from scenario where id = ? and key = '0x0' limit 1";
-   my $rs = $conn->prepare($stmt);
-   $rs->execute($scenario_num);
-   my ($Ax, $Ay) = $rs->fetchrow_array();
-   say "A";
-   say $Ax;
-   say $Ay;
+sub slurp2 {
+   open my $fh, '<', $filename or die "Cannot open $filename: $!";
+
+   while (my $line = <$fh>) {
+     chomp $line; # Remove trailing newline character
+     last if($line =~ /END/);
+
+
+
+
+     if($line =~ /Soviet/) {
+        $faction = $line;
+        next;
+     }
+     if($line =~ /American/) {
+        $faction = $line;
+        next;
+     }
+     
+
+       if (($line =~ /:/) & ($faction ne "")) {
+        say $line;
+     }   
+     
+     
+     
+     
+     
+     
+     
+   }
    
-   $stmt = "select num1, num2 from scenario where id = ? and key = 'lowerRight' limit 1";
-   $rs = $conn->prepare($stmt);
-   $rs->execute($scenario_num);
-   my ($Bx, $By) = $rs->fetchrow_array();
-   say "B";
-   say $Bx;
-   say $By;
-   
-   $stmt = "select num1, num2 from scenario where id = ? and key = 'hexCount' limit 1";
-   $rs = $conn->prepare($stmt);
-   $rs->execute($scenario_num);
-   my ($Cx, $Cy) = $rs->fetchrow_array();
-   $Cx -= 1;
-   $Cy -= 1;
-   say "C";
-   say $Cx;
-   say $Cy;
-   
-   say "===";
-   my $hex_width = ($Bx - $Ax) / $Cx;
-   my $hex_height = ($By - $Ay) / $Cy;
-
-   say ".";
-   say $hex_width;
-   say $hex_height;
-
-   my $shift_down = $hex_height / 2.0;
-
-   say $shift_down;
-
-
-   $stmt = "INSERT INTO scenario (id, key, num1, num2, num3) VALUES ("
-                   . $scenario_num . ", "
-                   . "'hexInfo'" . ", "
-                   . $hex_width . ", "
-                   . $hex_height . ", "
-                   . $shift_down
-                   . ")";
-   $rs = $conn->prepare($stmt);
-   $rs->execute();
-
-
-
-
-
-
-
-   $rs->finish();
-   
-   
-   
-   
-   
-   
+   close $fh;
 }
+
+
 
