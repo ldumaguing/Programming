@@ -6,6 +6,8 @@ use diagnostics;
 
 use v5.42;
 
+require "./pl/populate_scenario_table.pl";
+
 my $scenario_num = 0;
 my $name = "";
 my $map = "";
@@ -24,6 +26,7 @@ if (defined $filename) {
    slurp();
    spew();
    spew_derivitives();
+   foo();
 } else {
    say "empty";
 }
