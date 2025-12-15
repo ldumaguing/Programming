@@ -1,18 +1,33 @@
 *****************************************************************************************
 unit flag1
 ==========
-bit  0:     American
-bit  1:     Soviet
-bit  2:     East Germany
-bit  3:     West Germany
-bit  4:     Blue (Vampire)
-bit  5:     Green (Lycan)
-bit  6:     Red (Zombie)
-bit  7:     Civilians
-bit  9,8:   Number of steps
-   00: 2 steps
-   01: 1 step
-   10: 4 steps
+bit  0:      American
+bit  1:      Soviet
+bit  2:      East Germany
+bit  3:      West Germany
+bit  4:      Blue (Vampire)
+bit  5:      Green (Lycan)
+bit  6:      Red (Zombie)
+bit  7:      Civilians
+bit  10,9,8: Flippage, steps, states, faces, whatever
+   000: N/A
+   001: 1 side
+   010: 2 steps
+        set_reduce()
+        set_good_order()
+   Four (4) sides
+   011: Reduction / Good Order
+        set_reduce_2()
+        set_good_order_2()
+   100: Lycan
+        set_human()
+        set_werewolf()
+   101: Helicopter / Drone
+        set_moving()
+        set_hovering()
+   110: Wired Missile
+        set_with()
+        set_without()
 
 
 CREATE TABLE unit (
