@@ -9,7 +9,8 @@ use v5.42;
 use DBI;
 my $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
 
-my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by flag1, name");
+# my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by flag1, name");
+my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by filename4, id");
 $stmt->execute();
 
 my $pre_text = q{
