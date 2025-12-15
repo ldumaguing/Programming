@@ -9,7 +9,10 @@ bit  4:     Blue (Vampire)
 bit  5:     Green (Lycan)
 bit  6:     Red (Zombie)
 bit  7:     Civilians
-
+bit  9,8:   Number of steps
+   00: 2 steps
+   01: 1 step
+   10: 4 steps
 
 
 CREATE TABLE unit (
