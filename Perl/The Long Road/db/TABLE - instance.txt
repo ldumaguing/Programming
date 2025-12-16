@@ -1,12 +1,12 @@
 CREATE TABLE instance (
-   id         INTEGER PRIMARY KEY,
-   name       TEXT NOT NULL,
-   unit_id    INTEGER DEFAULT 0,   -- refering to 'unit' table
-   faction    TEXT NOT NULL,
-   loc_x      INTEGER DEFAULT 0,
-   loc_y      INTEGER DEFAULT 0,
-   loc_z      INTEGER DEFAULT 0,
-   status_img INTEGER DEFAULT 1
+   scenario_id INTEGER,
+   unit_name   TEXT NOT NULL,
+   unit_id     INTEGER DEFAULT 0,
+   faction     TEXT NOT NULL,
+   loc_x       INTEGER DEFAULT 0,
+   loc_y       INTEGER DEFAULT 0,
+   loc_z       INTEGER DEFAULT 0,
+   status_img  INTEGER DEFAULT 1
 );
 
 
