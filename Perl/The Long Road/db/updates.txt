@@ -1,5 +1,5 @@
-UPDATE unit SET flag1 = flag1 | (3 << 8)   where id in (      -- 1 steps
-1033
+UPDATE unit SET flag1 = flag1 | (5 << 8)   where id in (      --  vtol
+1075
 );
 
 
@@ -18,6 +18,22 @@ update img set flag2 = flag2 | (1 << 7) where id = 1246;
 
 
 
+
+
+select * from unit
+where (flag1 & (7 << 8)) = (2 << 8);
+
+
+
+
+
+
+
+
+
+
+UPDATE unit SET flag1 = flag1 | (2 << 8)
+where (flag1 & (7 << 8)) = 0;
 
 
 
@@ -59,10 +75,13 @@ UPDATE img SET flag1 = flag1 | (1 << 2)   where id = 1127;    -- wire guided mis
 UPDATE img SET flag1 = flag1 | (2 << 3)   where id = 1127;    -- APF superscript
 
 
+***************************************************************************************************
+select * from unit where (flag1 & (7 << 8)) = (1 << 8): what unit has 1 state?
+(7 << 8): bits I want to query
+(X << 8): X specifies conditions
 
 
-
-
+select * from unit where (flag1 & (3 << 8));
 
 
 
