@@ -15,13 +15,13 @@ our $lowerRight;
 our $hexCount;
 our $filename;
 
-my $faction = 0;
+my $faction = -1;
 
 # ***************************************************************************************
 use DBI;
 our $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
 
-sub add_units {
+sub register_units {
    open my $fh, '<', $filename or die "Cannot open $filename: $!";
 
    while (my $line = <$fh>) {
@@ -29,26 +29,30 @@ sub add_units {
       last if($line =~ /END/);
       
       if($line =~ /American/) {
-         $faction = 1;
+         $faction = 0;
          next;
       }
       if($line =~ /Soviet/) {
-         $faction = 2;
+         $faction = 1;
          next;
       }
 
       if($line eq '') {
-         $faction = 0;
+         $faction = -1;
       }
 
-      if($faction > 0) {
+      if($faction >= 0) {
          if($line =~ /:/) {
-            say $line;
+            $_ = $line;
+            my @unit = split /:/, $_;
+            my $name = $unit[0];
+            my $num = $unit[1];
+            say "select * from unit where name = '" . $name . "' and flag1 & (1 << " . $faction . ")";
          }
       }
 
       
-      
+#    select * from unit where name = 'Infantry' and flag1 & (1 << 0);
       
       
       

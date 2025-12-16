@@ -27,7 +27,7 @@ if (defined $filename) {
    slurp();
    spew();
    spew_derivitives();
-   add_units();
+   register_units();
 } else {
    say "empty";
 }
