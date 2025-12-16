@@ -6,11 +6,15 @@ use diagnostics;
 
 use v5.42;
 
-use lib "pl/module";
-use Bar;
+our $X;
 
-our $X = 3;
+sub crap {
+   say "yo crap";
+   say $X;
+}
 
-crap();
+1;
+
+
 
 

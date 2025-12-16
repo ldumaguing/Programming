@@ -6,27 +6,28 @@ use diagnostics;
 
 use v5.42;
 
-require "./pl/populate_scenario_table.pl";
+use lib "pl/module";
+use Populate;
 
-my $scenario_num = 0;
-my $name = "";
-my $map = "";
-my $zeroXzero = "";
-my $upperRight = "";
-my $lowerRight = "";
-my $hexCount = "";
+our $scenario_num = 0;
+our $name = "";
+our $map = "";
+our $zeroXzero = "";
+our $upperRight = "";
+our $lowerRight = "";
+our $hexCount = "";
 
 # ***************************************************************************************
 use DBI;
-my $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
+our $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
 
-my $filename = $ARGV[0];
+our $filename = $ARGV[0];
 
 if (defined $filename) {
    slurp();
    spew();
    spew_derivitives();
-   foo();
+   add_units();
 } else {
    say "empty";
 }
