@@ -1,3 +1,4 @@
+************************************************************************* TABLE - request
 CREATE TABLE request (
    turn_num INTEGER DEFAULT 0,
    subject  INTEGER DEFAULT 0,      -- instance's ID

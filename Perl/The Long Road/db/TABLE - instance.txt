@@ -1,3 +1,4 @@
+************************************************************************ TABLE - instance
 CREATE TABLE instance (
    scenario_id INTEGER,
    unit_name   TEXT NOT NULL,

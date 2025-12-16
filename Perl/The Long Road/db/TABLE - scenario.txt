@@ -1,3 +1,4 @@
+************************************************************************ TABLE - scenario
 CREATE TABLE scenario (
    id      NUMBER DEFAULT 0,
    key     TEXT NOT NULL,
