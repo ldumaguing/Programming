@@ -15,17 +15,16 @@ bit  10,9,8: Flippage, steps, states, faces, whatever
    010: 2 steps
         set_reduce()
         set_good_order()
-   Four (4) sides
-   011: Reduction / Good Order
+   Four (4) sides: Reduction / Good Order
         set_reduce_2()
         set_good_order_2()
-   100: Lycan
+   011: Lycan
         set_human()
         set_werewolf()
-   101: Helicopter / Drone
+   100: Helicopter / Drone
         set_moving()
         set_hovering()
-   110: Wired Missile
+   101: Wired Missile
         set_with()
         set_without()
 

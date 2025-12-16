@@ -1,12 +1,5 @@
-UPDATE unit SET flag1 = flag1 | (1 << 8)   where id in (      -- 1 steps
-1000,
-1004,
-1013,
-1057,
-1065,
-1072,
-1082,
-1087
+UPDATE unit SET flag1 = flag1 | (3 << 8)   where id in (      -- 1 steps
+1033
 );
 
 
