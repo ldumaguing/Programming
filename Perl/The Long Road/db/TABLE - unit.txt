@@ -24,7 +24,7 @@ bit  10,9,8: Flippage, steps, states, faces, whatever
    100: Helicopter / Drone
         set_moving()
         set_hovering()
-   101: Wired Missile
+   101: AFV is using wired missile
         set_with()
         set_without()
 
