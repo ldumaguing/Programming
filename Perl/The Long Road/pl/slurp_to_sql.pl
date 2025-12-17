@@ -76,14 +76,17 @@ sub spew_derivitives {
 
 # *********************************************************
 sub spew {
-
+    my $sql_stmt = "delete from scenario where id = " . $scenario_num;
+    my $stmt = $conn->prepare($sql_stmt);
+    $stmt->execute();
+    
     # ********** name
-    my $sql_stmt =
+    $sql_stmt =
         "INSERT INTO scenario (id, key, txt_val) VALUES ("
       . $scenario_num . ", "
       . "'name'" . ", " . "'"
       . $name . "'" . ")";
-    my $stmt = $conn->prepare($sql_stmt);
+    $stmt = $conn->prepare($sql_stmt);
     $stmt->execute();
 
     # ********** map

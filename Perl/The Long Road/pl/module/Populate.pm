@@ -16,6 +16,7 @@ our $hexCount;
 our $filename;
 
 my $faction = -1;
+my $faction_name = "";
 
 # ***************************************************************************************
 use DBI;
@@ -23,17 +24,19 @@ our $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
 sub register_units {
     open my $fh, '<', $filename or die "Cannot open $filename: $!";
-
+    
     while ( my $line = <$fh> ) {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
         if ( $line =~ /American/ ) {
             $faction = 0;
+            $faction_name = "American";
             next;
         }
         if ( $line =~ /Soviet/ ) {
             $faction = 1;
+            $faction_name = "Soviet";
             next;
         }
 
@@ -47,10 +50,7 @@ sub register_units {
                 my @unit = split /:/, $_;
                 my $name = $unit[0];
                 my $num  = $unit[1];
-                say "select * from unit where name = '"
-                  . $name
-                  . "' and flag1 & (1 << "
-                  . $faction . ")";
+                say $name . ": " . $faction_name;
             }
         }
 
