@@ -7,9 +7,10 @@ use diagnostics;
 use v5.42;
 
 use DBI;
-my $conn = DBI->connect("dbi:SQLite:dbname=TLR.db","","");
+my $conn = DBI->connect( "dbi:SQLite:dbname=TLR.db", "", "" );
 
-my $stmt = $conn->prepare("SELECT * FROM img WHERE name like '%champion_card%' order by id");
+my $stmt = $conn->prepare(
+    "SELECT * FROM img WHERE name like '%champion_card%' order by id");
 $stmt->execute();
 
 my $pre_text = q{
@@ -31,17 +32,16 @@ my $post_text = q{
 
 # ***************************************************************************************
 say $pre_text;
-while (my @row = $stmt->fetchrow_array()) {
-   say  "<tr><td>" . $row[0] . "</td><td><img src=\"TLR/" . $row[1] . "\"></td></tr>";
+while ( my @row = $stmt->fetchrow_array() ) {
+    say "<tr><td>"
+      . $row[0]
+      . "</td><td><img src=\"TLR/"
+      . $row[1]
+      . "\"></td></tr>";
 }
 say $post_text;
 
-
-
-
 $stmt->finish();
 
-
 $conn->disconnect();
-
 

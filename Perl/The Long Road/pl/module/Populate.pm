@@ -19,54 +19,47 @@ my $faction = -1;
 
 # ***************************************************************************************
 use DBI;
-our $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
+our $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
 sub register_units {
-   open my $fh, '<', $filename or die "Cannot open $filename: $!";
+    open my $fh, '<', $filename or die "Cannot open $filename: $!";
 
-   while (my $line = <$fh>) {
-      chomp $line; # Remove trailing newline character
-      last if($line =~ /END/);
-      
-      if($line =~ /American/) {
-         $faction = 0;
-         next;
-      }
-      if($line =~ /Soviet/) {
-         $faction = 1;
-         next;
-      }
+    while ( my $line = <$fh> ) {
+        chomp $line;    # Remove trailing newline character
+        last if ( $line =~ /END/ );
 
-      if($line eq '') {
-         $faction = -1;
-      }
+        if ( $line =~ /American/ ) {
+            $faction = 0;
+            next;
+        }
+        if ( $line =~ /Soviet/ ) {
+            $faction = 1;
+            next;
+        }
 
-      if($faction >= 0) {
-         if($line =~ /:/) {
-            $_ = $line;
-            my @unit = split /:/, $_;
-            my $name = $unit[0];
-            my $num = $unit[1];
-            say "select * from unit where name = '" . $name . "' and flag1 & (1 << " . $faction . ")";
-         }
-      }
+        if ( $line eq '' ) {
+            $faction = -1;
+        }
 
-      
-#    select * from unit where name = 'Infantry' and flag1 & (1 << 0);
-      
-      
-      
-      
-      
-      
-      
-   }
+        if ( $faction >= 0 ) {
+            if ( $line =~ /:/ ) {
+                $_ = $line;
+                my @unit = split /:/, $_;
+                my $name = $unit[0];
+                my $num  = $unit[1];
+                say "select * from unit where name = '"
+                  . $name
+                  . "' and flag1 & (1 << "
+                  . $faction . ")";
+            }
+        }
 
-   close $fh;
+        #    select * from unit where name = 'Infantry' and flag1 & (1 << 0);
+
+    }
+
+    close $fh;
 }
 
 1;
-
-
-
 

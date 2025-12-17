@@ -7,7 +7,7 @@ use diagnostics;
 use v5.42;
 
 use DBI;
-my $conn = DBI->connect("dbi:SQLite:dbname=db/TLR.db","","");
+my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
 # my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by flag1, name");
 my $stmt = $conn->prepare("SELECT * FROM v_unit_states order by filename4, id");
@@ -32,41 +32,26 @@ my $post_text = q{
 
 # ***************************************************************************************
 say $pre_text;
-while (my @row = $stmt->fetchrow_array()) {
-   say  "<tr>"
-   . "<td>" . $row[0] . "</td>"
-   . "<td>" . "<img src=\"TLR/" . $row[3] . "\"></td>"
-   . "<td>" . "<img src=\"TLR/" . $row[4] . "\"></td>"
-   . "<td>" . "<img src=\"TLR/" . $row[5] . "\"></td>"
-   . "<td>" . "<img src=\"TLR/" . $row[6] . "\"></td>"
-   . "<td>" . $row[1] . "</td>"
-   . "</tr>";
+while ( my @row = $stmt->fetchrow_array() ) {
+    say "<tr>" . "<td>"
+      . $row[0] . "</td>" . "<td>"
+      . "<img src=\"TLR/"
+      . $row[3]
+      . "\"></td>" . "<td>"
+      . "<img src=\"TLR/"
+      . $row[4]
+      . "\"></td>" . "<td>"
+      . "<img src=\"TLR/"
+      . $row[5]
+      . "\"></td>" . "<td>"
+      . "<img src=\"TLR/"
+      . $row[6]
+      . "\"></td>" . "<td>"
+      . $row[1] . "</td>" . "</tr>";
 }
 say $post_text;
 
-
-
-
 $stmt->finish();
 
-
 $conn->disconnect();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
