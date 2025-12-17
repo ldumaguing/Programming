@@ -1,23 +1,27 @@
 ************************************************************************ TABLE - instance
 CREATE TABLE instance (
-   scenario_id INTEGER,
+   id          INTEGER NOT NULL,
+   scenario_id INTEGER NOT NULL,
    unit_name   TEXT NOT NULL,
    unit_id     INTEGER DEFAULT 0,
    faction     TEXT NOT NULL,
    loc_x       INTEGER DEFAULT 0,
    loc_y       INTEGER DEFAULT 0,
    loc_z       INTEGER DEFAULT 0,
-   status_img  INTEGER DEFAULT 1
+   status      INTEGER DEFAULT 1,
+   img_id      INTEGER DEFAULT 0    -- reflects the status
+   PRIMARY KEY (id, scenario_id)
 );
 
+status
+======
+bit 0: visible
+bit 1: reduced
+bit 2: hovering
+bit 3: werewolf
+bit 4: using wired missile
 
 
-status_img
-==========
-1: unit.front
-2: unit.back
-3: unit.front1
-4: unit.back1
 
 
 

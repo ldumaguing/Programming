@@ -32,11 +32,11 @@ bit  10,9,8: Flippage, steps, states, faces, whatever
 CREATE TABLE unit (
    id     INTEGER PRIMARY KEY,
    name   TEXT NOT NULL,
-   front  NUMBER DEFAULT 0,
-   back   NUMBER DEFAULT 0,
+   front  NUMBER DEFAULT 0,    -- img ID
+   back   NUMBER DEFAULT 0,    -- img ID
    flag1  NUMBER DEFAULT 0,
-   front1 NUMBER DEFAULT 0,
-   back1  NUMBER DEFAULT 0
+   front1 NUMBER DEFAULT 0,    -- img ID
+   back1  NUMBER DEFAULT 0     -- img ID
 );
 
 

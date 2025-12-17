@@ -86,7 +86,7 @@ bit 15:     Leg units may fire (white rifle)
 
 
 CREATE TABLE img (
-   id INTEGER PRIMARY KEY,
+   id        INTEGER PRIMARY KEY,
    name      TEXT NOT NULL,
    flag1     NUMBER default 0,
    apf_val   NUMBER default -100,
