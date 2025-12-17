@@ -25,6 +25,13 @@ our $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 sub register_units {
     open my $fh, '<', $filename or die "Cannot open $filename: $!";
     
+    # my $sql_stmt = "delete from scenario where id = " . $scenario_num;
+    # my $stmt = $conn->prepare($sql_stmt);
+    # $stmt->execute();
+    my $sql_stmt = "";
+    my $stmt = undef;
+    my $count = 1000;
+
     while ( my $line = <$fh> ) {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
@@ -50,7 +57,7 @@ sub register_units {
                 my @unit = split /:/, $_;
                 my $name = $unit[0];
                 my $num  = $unit[1];
-                say $name . ": " . $faction_name;
+                say ">>> " . $name . ": " . $num;
             }
         }
 

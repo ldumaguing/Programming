@@ -1,3 +1,16 @@
+
+
+
+
+select id from chit where name = 'Infantry' and (flag1 & 1);
+
+
+
+
+
+
+
+
 UPDATE unit SET flag1 = flag1 | (5 << 8)   where id in (      --  vtol
 1075
 );

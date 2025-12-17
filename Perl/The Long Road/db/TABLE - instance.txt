@@ -15,8 +15,6 @@ CREATE TABLE instance (
 );
 
 status
-
-
 ======
 bit 0: visible
 bit 1: reduced
