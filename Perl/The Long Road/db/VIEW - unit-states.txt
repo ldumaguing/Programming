@@ -1,50 +1,50 @@
-create view v_unit_states as
-select
-   ccc.id        as id,
-   ccc.name      as name,
-   ccc.flag1     as flag1,
-   ccc.filename1 as filename1,
-   ccc.filename2 as filename2,
-   ccc.filename3 as filename3,
-   img.name      as filename4
-from
-(select
-   bbb.id        as id,
-   bbb.name      as name,
-   bbb.flag1     as flag1,
-   bbb.back1     as back1,
-   bbb.filename1 as filename1,
-   bbb.filename2 as filename2,
-   img.name      as filename3
-from
-(select
-   aaa.id        as id,
-   aaa.name      as name,
-   aaa.flag1     as flag1,
-   aaa.front1    as front1,
-   aaa.back1     as back1,
-   aaa.filename1 as filename1,
-   img.name      as filename2
-from 
-(select
-   unit.id      as id,
-   unit.name    as name,
-   unit.back    as back,
-   unit.flag1   as flag1,
-   unit.front1  as front1,
-   unit.back1   as back1,
-   img.name     as filename1
-from unit, img
-where
-unit.front = img.id) as aaa,
+CREATE VIEW v_unit_states AS
+SELECT
+   ccc.id        AS id,
+   ccc.name      AS name,
+   ccc.flag1     AS flag1,
+   ccc.filename1 AS filename1,
+   ccc.filename2 AS filename2,
+   ccc.filename3 AS filename3,
+   img.name      AS filename4
+FROM
+(SELECT
+   bbb.id        AS id,
+   bbb.name      AS name,
+   bbb.flag1     AS flag1,
+   bbb.back1     AS back1,
+   bbb.filename1 AS filename1,
+   bbb.filename2 AS filename2,
+   img.name      AS filename3
+FROM
+(SELECT
+   aaa.id        AS id,
+   aaa.name      AS name,
+   aaa.flag1     AS flag1,
+   aaa.front1    AS front1,
+   aaa.back1     AS back1,
+   aaa.filename1 AS filename1,
+   img.name      AS filename2
+FROM 
+(SELECT
+   unit.id      AS id,
+   unit.name    AS name,
+   unit.back    AS back,
+   unit.flag1   AS flag1,
+   unit.front1  AS front1,
+   unit.back1   AS back1,
+   img.name     AS filename1
+FROM unit, img
+WHERE
+unit.front = img.id) AS aaa,
 img
-where
-aaa.back = img.id) as bbb,
+WHERE
+aaa.back = img.id) AS bbb,
 img
-where
-bbb.front1 = img.id) as ccc,
+WHERE
+bbb.front1 = img.id) AS ccc,
 img
-where
+WHERE
 ccc.back1 = img.id;
 
 
@@ -68,40 +68,40 @@ TLR_OTHER_leditta_01_b_0621.png|
 
 
 
-select
-   bbb.id        as id,
-   bbb.name      as name,
-   bbb.flag1     as flag1,
-   bbb.back1     as back1,
-   bbb.filename1 as filename1,
-   bbb.filename2 as filename2,
-   img.name      as filename3
-from
-(select
-   aaa.id        as id,
-   aaa.name      as name,
-   aaa.flag1     as flag1,
-   aaa.front1    as front1,
-   aaa.back1     as back1,
-   aaa.filename1 as filename1,
-   img.name      as filename2
-from 
-(select
-   unit.id      as id,
-   unit.name    as name,
-   unit.back    as back,
-   unit.flag1   as flag1,
-   unit.front1  as front1,
-   unit.back1   as back1,
-   img.name     as filename1
-from unit, img
-where
-unit.front = img.id) as aaa,
+SELECT
+   bbb.id        AS id,
+   bbb.name      AS name,
+   bbb.flag1     AS flag1,
+   bbb.back1     AS back1,
+   bbb.filename1 AS filename1,
+   bbb.filename2 AS filename2,
+   img.name      AS filename3
+FROM
+(SELECT
+   aaa.id        AS id,
+   aaa.name      AS name,
+   aaa.flag1     AS flag1,
+   aaa.front1    AS front1,
+   aaa.back1     AS back1,
+   aaa.filename1 AS filename1,
+   img.name      AS filename2
+FROM 
+(SELECT
+   unit.id      AS id,
+   unit.name    AS name,
+   unit.back    AS back,
+   unit.flag1   AS flag1,
+   unit.front1  AS front1,
+   unit.back1   AS back1,
+   img.name     AS filename1
+FROM unit, img
+WHERE
+unit.front = img.id) AS aaa,
 img
-where
-aaa.back = img.id) as bbb,
+WHERE
+aaa.back = img.id) AS bbb,
 img
-where
+WHERE
 bbb.front1 = img.id;
 
 
@@ -122,29 +122,29 @@ TLR_OTHER_leditta_01_0621.png
 
 
 
-select
-   aaa.id        as id,
-   aaa.name      as name,
-   aaa.back      as back,
-   aaa.flag1     as flag1,
-   aaa.front1    as front1,
-   aaa.back1     as back1,
-   aaa.filename1 as filename1,
-   img.name      as filename2
-from 
-(select
-   unit.id      as id,
-   unit.name    as name,
-   unit.back    as back,
-   unit.flag1   as flag1,
-   unit.front1  as front1,
-   unit.back1   as back1,
-   img.name     as filename1
-from unit, img
-where
-unit.front = img.id) as aaa,
+SELECT
+   aaa.id        AS id,
+   aaa.name      AS name,
+   aaa.back      AS back,
+   aaa.flag1     AS flag1,
+   aaa.front1    AS front1,
+   aaa.back1     AS back1,
+   aaa.filename1 AS filename1,
+   img.name      AS filename2
+FROM 
+(SELECT
+   unit.id      AS id,
+   unit.name    AS name,
+   unit.back    AS back,
+   unit.flag1   AS flag1,
+   unit.front1  AS front1,
+   unit.back1   AS back1,
+   img.name     AS filename1
+FROM unit, img
+WHERE
+unit.front = img.id) AS aaa,
 img
-where
+WHERE
 aaa.back = img.id;
 
 
@@ -152,27 +152,27 @@ aaa.back = img.id;
 
 
 
-select
-   aaa.id        as id,
-   aaa.name      as name,
-   aaa.back      as back,
-   aaa.flag1     as flag1,
-   aaa.front1    as front1,
-   aaa.back1     as back1,
-   aaa.filename1 as filename1,
-   img.name      as filename2
-from 
-(select
-   unit.id      as id,
-   unit.name    as name,
-   unit.back    as back,
-   unit.flag1   as flag1,
-   unit.front1  as front1,
-   unit.back1   as back1,
-   img.name     as filename1
-from unit, img
-where
-unit.front = img.id) as aaa,
+SELECT
+   aaa.id        AS id,
+   aaa.name      AS name,
+   aaa.back      AS back,
+   aaa.flag1     AS flag1,
+   aaa.front1    AS front1,
+   aaa.back1     AS back1,
+   aaa.filename1 AS filename1,
+   img.name      AS filename2
+FROM 
+(SELECT
+   unit.id      AS id,
+   unit.name    AS name,
+   unit.back    AS back,
+   unit.flag1   AS flag1,
+   unit.front1  AS front1,
+   unit.back1   AS back1,
+   img.name     AS filename1
+FROM unit, img
+WHERE
+unit.front = img.id) AS aaa,
 img;
 
 
@@ -181,22 +181,22 @@ img;
 
 
 
-select
-   unit.id      as id,
-   unit.name    as name,
-   unit.back    as back,
-   unit.flag1   as flag1,
-   unit.front1  as front1,
-   unit.back1   as back1,
-   img.name     as filename1
-from unit, img
-where
+SELECT
+   unit.id      AS id,
+   unit.name    AS name,
+   unit.back    AS back,
+   unit.flag1   AS flag1,
+   unit.front1  AS front1,
+   unit.back1   AS back1,
+   img.name     AS filename1
+FROM unit, img
+WHERE
 unit.front = img.id;
 
 
 
 
-select
+SELECT
    unit.id,
    unit.name,
    unit.front,
@@ -204,7 +204,7 @@ select
    unit.flag1,
    unit.front1,
    unit.back1
-from unit, img;
+FROM unit, img;
 
 
 
