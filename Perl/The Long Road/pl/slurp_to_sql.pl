@@ -80,6 +80,10 @@ sub spew {
     my $stmt = $conn->prepare($sql_stmt);
     $stmt->execute();
     
+    $sql_stmt = "delete from instance where scenario_id = " . $scenario_num;
+    $stmt = $conn->prepare($sql_stmt);
+    $stmt->execute();
+    
     # ********** name
     $sql_stmt =
         "INSERT INTO scenario (id, key, txt_val) VALUES ("

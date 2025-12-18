@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use diagnostics;
-use List::Util qw(uniq);
 
 use v5.42;
 
@@ -18,7 +17,6 @@ our $filename;
 
 my $faction      = -1;
 my $faction_name = "";
-my @img_ids      = qw();
 
 # ***************************************************************************************
 use DBI;
@@ -58,20 +56,19 @@ sub register_units {
                 my @unit = split /:/, $_;
                 my $name = $unit[0];
                 my $num  = $unit[1];
-
-                $sql_stmt =
-"SELECT id, front, back, front1, back1, name from unit where name = '"
-                  . $name
-                  . "' and flag1 & (1 << "
-                  . $faction
-                  . ") limit 1";
-                $stmt = $conn->prepare($sql_stmt);
-                $stmt->execute();
-                my ( $unit_id, $front_id, $back_id, $front1_id, $back1_id ) =
-                  $stmt->fetchrow_array();
-                push( @img_ids, $front_id, $back_id, $front1_id, $back1_id );
-
                 for ( 1 .. $num ) {
+
+# say ">>> " . $instanceID . ":" . $scenario_num . ":" . $name . ":" . $faction_name;
+                    $sql_stmt =
+                        "SELECT id, front from unit where name = '"
+                      . $name
+                      . "' and flag1 & (1 << "
+                      . $faction
+                      . ") limit 1";
+                    $stmt = $conn->prepare($sql_stmt);
+                    $stmt->execute();
+                    my ( $unit_id, $front_id ) = $stmt->fetchrow_array();
+
                     $sql_stmt =
 "INSERT INTO instance (id, scenario_id, unit_name, faction, unit_id, img_id) values ("
                       . $instanceID . ", "
@@ -90,17 +87,6 @@ sub register_units {
     }
 
     close $fh;
-
-    my @uniq_ids = uniq @img_ids;
-    foreach my $ids (@uniq_ids) {
-        $sql_stmt =
-            "INSERT INTO scenario (id, key, num4) VALUES ("
-          . $scenario_num . ", " . "'"
-          . $ids . "', "
-          . -1 . ")";
-        $stmt = $conn->prepare($sql_stmt);
-        $stmt->execute();
-    }
 }
 
 1;
