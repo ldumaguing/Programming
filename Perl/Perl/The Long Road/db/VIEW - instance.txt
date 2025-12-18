@@ -1,0 +1,23 @@
+CREATE VIEW v_instance AS
+SELECT
+   instance.id,
+   instance.scenario_id,
+   instance.unit_name,
+   instance.unit_id,
+   img.name              AS filename,
+   instance.faction,
+   instance.loc_x,
+   instance.loc_y,
+   instance.loc_z,
+   instance.status
+FROM
+   img, instance
+WHERE
+   instance.img_id = img.id;
+
+
+
+
+
+
+
