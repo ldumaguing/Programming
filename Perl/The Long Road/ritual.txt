@@ -1,0 +1,17 @@
+cd The\ Long\ Road/
+
+
+pl/slurp_to_sql.pl scenario/1-Recon.txt
+pl/generate-canvas.pl > canvas.html
+
+
+***** list units
+sqlite3 db/TLR.db  "select * from instance"
+
+
+
+
+
+
+
+

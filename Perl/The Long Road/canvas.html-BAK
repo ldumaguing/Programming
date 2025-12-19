@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>The Long Road</title>
+   <style type="text/css">
+      body {
+         margin: 0;
+      }
+   </style>
+</head>
+
+<body>
+   <div style="display:none;">
+      <img src="TLR/Scenario 1.png" id="map0">
+      <img src="TLR/TLR_GE_KanJPz.png" id="vehicle0">
+   </div>
+
+
+   <canvas id="myCanvas"  width="7258" height="2801">
+      Sorry, your browser does not support canvas.
+   </canvas>
+
+   <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+      const map0 = document.getElementById("map0");
+      const vehicle0 = document.getElementById("vehicle0");
+
+      map0.addEventListener("load", (e) => {
+        ctx.drawImage(map0, 0, 0);
+        ctx.drawImage(vehicle0, 121, 39);
+        ctx.drawImage(vehicle0, 6984, 39);
+        ctx.drawImage(vehicle0, 6984, 2606);
+      });
+   </script> 
+</body>
+</html>
+
+

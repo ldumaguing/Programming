@@ -6,6 +6,9 @@ upperRight: 6984,39
 lowerRight: 6984,2606
 hexCount: 35,12
 map_dim: 7258,2801
+turns: 8
+
+
 
 
 
@@ -27,7 +30,15 @@ Recon: 3
 Hood: 1
 
 
-Turns: 8
+*** cmd   instance_id   x   y
+[place]   1000          20  0
+
+
+
+
+
+
+
 
 
 
