@@ -7,6 +7,8 @@ use diagnostics;
 use v5.42;
 
 my $scenario_num = 1;
+my @zeroXzero = ();
+my @hexInfo = ();
 
 # ***************************************************************************************
 use DBI;
@@ -16,7 +18,6 @@ my $stmt = "select txt_val from scenario where id = " . $scenario_num . " and ke
 my $rs = $conn->prepare($stmt);
 $rs->execute();
 my $img_map = $rs->fetchrow_array();
-$rs->finish();
 
 my $html_1 = <<"END";
 <!DOCTYPE html>
@@ -37,24 +38,28 @@ my $html_1 = <<"END";
       <img src="TLR/$img_map" id="map0">
 END
 
+# ******************************************
+$stmt = "select num1, num2 from scenario where id = " . $scenario_num . " and key = '0x0'";
+$rs = $conn->prepare($stmt);
+$rs->execute();
+my ($A, $B) = $rs->fetchrow_array();
+push(@zeroXzero, $A, $B);
 
+$stmt = "select num1, num2, num3 from scenario where id = " . $scenario_num . " and key = 'hexInfo'";
+$rs = $conn->prepare($stmt);
+$rs->execute();
+($A, $B, my $C) = $rs->fetchrow_array();
+push(@hexInfo, $A, $B, $C);
 
-
-
-
-
-
-
-
+# ******************************************
 $stmt = "select num1, num2 from scenario where id = " . $scenario_num . " and key = 'map_dim'";
 $rs = $conn->prepare($stmt);
 $rs->execute();
 my ($dimX, $dimY) = $rs->fetchrow_array();
-$rs->finish();
+# $rs->finish();
 
 my $html_2 = <<"END";
    </div>
-
 
    <canvas id="myCanvas"  width="$dimX" height="$dimY">
       Sorry, your browser does not support canvas.
@@ -69,31 +74,56 @@ END
 # ***************************************************************************************
 print $html_1;
 
-my $stmt = "select img_id, name from v_img_filename where scenario_id = " . $scenario_num;
-my $rs = $conn->prepare($stmt);
+$stmt = "select img_id, name from v_img_filename where scenario_id = " . $scenario_num;
+$rs = $conn->prepare($stmt);
 $rs->execute();
-
 while ( my ($A, $B) = $rs->fetchrow_array() ) {
     say "      <img src=\"TLR/" . $B . "\"" .  " id=\"img" . $A . "\">";
 }
 
-say $html_2;
+print $html_2;
 
+$stmt = "select img_id, name from v_img_filename where scenario_id = " . $scenario_num;
+$rs = $conn->prepare($stmt);
+$rs->execute();
+while ( my ($A, $B) = $rs->fetchrow_array() ) {
+    say "      const img" . $A . " = document.getElementById(\"img" . $A . "\");";
+}
 
+say "";
+say "      map0.addEventListener(\"load\", (e) => {";
+say "        ctx.drawImage(map0, 0, 0);";
 
+place_imgs();
 
+say "      });";
+say "   </script> ";
+say "</body>";
+say "</html>";
 
-
-
-
-
-
-
-
-
-
-
+$rs->finish();
 $conn->disconnect();
+# ***** THE END
+
+# ***************************************************************************************
+sub place_imgs {
+say "yo";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
