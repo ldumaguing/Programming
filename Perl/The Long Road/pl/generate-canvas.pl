@@ -92,7 +92,7 @@ while ( my ($A, $B) = $rs->fetchrow_array() ) {
 
 say "";
 say "      map0.addEventListener(\"load\", (e) => {";
-say "        ctx.drawImage(map0, 0, 0);";
+say "         ctx.drawImage(map0, 0, 0);";
 
 place_imgs();
 
@@ -107,7 +107,17 @@ $conn->disconnect();
 
 # ***************************************************************************************
 sub place_imgs {
-say "yo";
+    $stmt = "select img_id, loc_x, loc_y from instance where status = (1 << 0) and scenario_id = " . $scenario_num;
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+    while ( my ($A, $B, $C) = $rs->fetchrow_array() ) {
+        my $x = ($B * $hexInfo[0]) + $zeroXzero[0];
+        my $y = ($C * $hexInfo[1]) + $zeroXzero[1];
+        if($B % 2 != 0) {
+            $y += $hexInfo[2];
+        }
+        say "         ctx.drawImage(img" . $A . ", " . $x . ", " . $y . ");";
+    }
 }
 
 
