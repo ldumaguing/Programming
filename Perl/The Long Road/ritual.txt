@@ -10,7 +10,8 @@ sqlite3 db/TLR.db  "select * from instance"
 
 
 
-
+pl-cmd/placement.pl scenario/1-Recon.txt
+pl/generate-canvas.pl > canvas.html
 
 
 

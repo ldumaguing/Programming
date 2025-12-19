@@ -22,6 +22,7 @@ $conn->disconnect();
 # *********************************************************
 sub foo {
     open my $fh, '<', $filename or die "Cannot open $filename: $!";
+    my $rs = undef;
 
     while ( my $line = <$fh> ) {
         chomp $line;    # Remove trailing newline character
@@ -29,13 +30,16 @@ sub foo {
         
         if ( $line =~ /\[place\]/ ) {
             my @aArray = split(' ', $line);
-            say $aArray[0];
-            say $aArray[1];
-            say $aArray[2];
-            say $aArray[3];
+            my $stmt = "UPDATE instance set loc_x = " . $aArray[2] . ", "
+                . "loc_y = " . $aArray[3] . ", "
+                . "status = 1 "
+                . "WHERE id = " . $aArray[1];
+            $rs = $conn->prepare($stmt);
+            $rs->execute();
         }
     }
 
+    $rs->finish();
     close $fh;
 }
 
