@@ -63,6 +63,7 @@ my $html_2 = <<"END";
    <script>
       const canvas = document.getElementById("myCanvas");
       const ctx = canvas.getContext("2d");
+      const map0 = document.getElementById("map0");
 END
 
 # ***************************************************************************************
