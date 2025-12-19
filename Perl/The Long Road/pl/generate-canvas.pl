@@ -56,7 +56,6 @@ $stmt = "select num1, num2 from scenario where id = " . $scenario_num . " and ke
 $rs = $conn->prepare($stmt);
 $rs->execute();
 my ($dimX, $dimY) = $rs->fetchrow_array();
-# $rs->finish();
 
 my $html_2 = <<"END";
    </div>
