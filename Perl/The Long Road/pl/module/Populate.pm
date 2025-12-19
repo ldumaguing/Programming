@@ -9,11 +9,6 @@ use v5.42;
 
 our $scenario_num;
 our $name;
-our $map;
-our $zeroXzero;
-our $upperRight;
-our $lowerRight;
-our $hexCount;
 our $filename;
 
 my $faction      = -1;

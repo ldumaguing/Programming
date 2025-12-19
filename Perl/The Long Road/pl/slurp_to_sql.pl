@@ -11,12 +11,13 @@ use Populate;
 
 our $scenario_num = 0;
 our $name         = "";
-our $map          = "";
-our $zeroXzero    = "";
-our $upperRight   = "";
-our $lowerRight   = "";
-our $hexCount     = "";
-our $map_dim      = "";
+
+my $map_dim      = "";
+my $map          = "";
+my $zeroXzero    = "";
+my $upperRight   = "";
+my $lowerRight   = "";
+my $hexCount     = "";
 
 # ***************************************************************************************
 use DBI;
@@ -145,10 +146,6 @@ sub spew {
     $stmt = $conn->prepare($sql_stmt);
     $stmt->execute();
 
-
-
-
-
     # ********** map_dim
     @data = split( /,/, $map_dim );
     $sql_stmt =
@@ -159,12 +156,6 @@ sub spew {
       . $data[1] . ")";
     $stmt = $conn->prepare($sql_stmt);
     $stmt->execute();
-
-
-
-
-
-
 
 
     $stmt->finish();
@@ -187,7 +178,7 @@ sub slurp {
             $name = $vals[0];
             $name =~ tr/ //d;
         }
-        if ( $line =~ /map/ ) {
+        if ( $line =~ /map:/ ) {
             my @vals = $line =~ /\ [a-zA-Z0-9].*/g;
             $map = $vals[0];
             my @A = $map =~ /[a-zA-Z0-9].*/g;
@@ -218,7 +209,7 @@ sub slurp {
             $hexCount = $foo;
         }
         if ( $line =~ /map_dim/ ) {
-            my @vals = $line =~ /\ [0-9].*/g;
+            my @vals = $line =~ /\ [a-zA-Z0-9].*/g;
             my $foo  = $vals[0];
             $foo =~ s/^\s+//;
             $map_dim = $foo;
