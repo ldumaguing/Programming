@@ -10,5 +10,3 @@ use v5.40.3;
 my $fish = `ls`;
 say $fish;
 
-
-

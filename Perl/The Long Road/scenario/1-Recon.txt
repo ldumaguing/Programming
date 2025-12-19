@@ -5,7 +5,7 @@ map: Scenario 1.png
 upperRight: 6984,39
 lowerRight: 6984,2606
 hexCount: 35,12
-
+map_dim: 7258,2801
 
 
 

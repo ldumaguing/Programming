@@ -16,6 +16,7 @@ our $zeroXzero    = "";
 our $upperRight   = "";
 our $lowerRight   = "";
 our $hexCount     = "";
+our $map_dim      = "";
 
 # ***************************************************************************************
 use DBI;
@@ -144,6 +145,28 @@ sub spew {
     $stmt = $conn->prepare($sql_stmt);
     $stmt->execute();
 
+
+
+
+
+    # ********** map_dim
+    @data = split( /,/, $map_dim );
+    $sql_stmt =
+        "INSERT INTO scenario (id, key, num1, num2) VALUES ("
+      . $scenario_num . ", "
+      . "'map_dim'" . ", "
+      . $data[0] . ", "
+      . $data[1] . ")";
+    $stmt = $conn->prepare($sql_stmt);
+    $stmt->execute();
+
+
+
+
+
+
+
+
     $stmt->finish();
 }
 
@@ -193,6 +216,12 @@ sub slurp {
             my $foo  = $vals[0];
             $foo =~ s/^\s+//;
             $hexCount = $foo;
+        }
+        if ( $line =~ /map_dim/ ) {
+            my @vals = $line =~ /\ [0-9].*/g;
+            my $foo  = $vals[0];
+            $foo =~ s/^\s+//;
+            $map_dim = $foo;
         }
     }
 
