@@ -55,6 +55,23 @@ Hood: 1
 [place] 1019            32    3
 
 
+*********************************** In-Game Commands
+******** instance_id   instance_id
+<embark> 1000          1004
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

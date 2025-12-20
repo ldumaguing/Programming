@@ -10,7 +10,7 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 my $filename = $ARGV[0];
 
 if ( defined $filename ) {
-    place_instance();
+    foo();
 }
 else {
     say "empty";
@@ -19,9 +19,8 @@ else {
 
 $conn->disconnect();
 
-# ********** THE END
 # *********************************************************
-sub place_instance {
+sub foo {
     open my $fh, '<', $filename or die "Cannot open $filename: $!";
     my $rs = undef;
 
