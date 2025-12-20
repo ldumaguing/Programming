@@ -12,4 +12,13 @@ rType
 2:    Aye "has commander" Bee
 
 
+is inside
+=========
+[embark]    Aye Bee
+[disembark] Aye
+
+
+has commander
+=============
+[assign] Aye Bee
 
