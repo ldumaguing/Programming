@@ -18,16 +18,16 @@ say get_degrees( 10, 10, 12, 12 );
 #say get_degrees( 10, 10, 12, 10 );
 my @foo = get_adjacent_hex ( 10, 10, 0 );
 say $foo[0] . ", " .$foo[1] . " --- N";
-my @foo = get_adjacent_hex ( 10, 10, 1 );
+@foo = get_adjacent_hex ( 10, 10, 1 );
 say $foo[0] . ", " .$foo[1] . " --- NE";
-my @foo = get_adjacent_hex ( 10, 10, 2 );
+@foo = get_adjacent_hex ( 10, 10, 2 );
 say $foo[0] . ", " .$foo[1] . " --- SE";
-my @foo = get_adjacent_hex ( 10, 10, 3 );
+@foo = get_adjacent_hex ( 10, 10, 3 );
 say $foo[0] . ", " .$foo[1] . " --- S";
-my @foo = get_adjacent_hex ( 10, 10, 4 );
+@foo = get_adjacent_hex ( 10, 10, 4 );
 say $foo[0] . ", " .$foo[1] . " --- SW";
-my @foo = get_adjacent_hex ( 10, 10, 5 );
+@foo = get_adjacent_hex ( 10, 10, 5 );
 say $foo[0] . ", " .$foo[1] . " --- NW";
 
-get_hex_distance( 10, 10, 20, 20 );
+get_hex_distance( 10, 10, 11, 9 );
 

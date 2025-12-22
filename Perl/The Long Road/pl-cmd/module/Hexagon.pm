@@ -167,8 +167,10 @@ sub get_hex_distance {
     }
 
     my $dir_ang     = get_degrees( $args[0], $args[1], $args[2], $args[3] );
+    say $dir_ang . " degs";
+    #my $degMOD90 = $dir_ang % 90.0;
+    #say $degMOD90 . " (degs % 90)";
     my @three_hexes = ( 0, 0, 0 );
-    say $dir_ang;
     if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
         say "A";
         @three_hexes = ( 5, 0, 1 );
@@ -195,8 +197,8 @@ sub get_hex_distance {
     }
 
     my @adj_hex = (0,0);
-    foreach my $adjacent_hex (@three_hexes) {
-        @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex );
+    foreach my $adjacent_hex_dir (@three_hexes) {
+        @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
         say $adj_hex[0] . ", " . $adj_hex[1];
     }
 }
