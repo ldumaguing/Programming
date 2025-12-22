@@ -145,8 +145,6 @@ sub get_hex_distance {
     my @hex_to     = ( $args[2], $args[3] );
     if ( $hex_cursor[0] == $hex_to[0] ) {
         if ( $hex_cursor[1] == $hex_to[1] ) {
-            #say "you're here: " . $counter;
-            #return;
             return $counter;
         }
     }
@@ -178,40 +176,27 @@ sub get_hex_distance {
     #say $degMOD90 . " (degs % 90)";
     my @three_hexes = ( 0, 0, 0 );
     if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
-
-        #say "A";
         @three_hexes = ( 5, 0, 1 );
     }
     if ( ( 0 <= $dir_ang ) and ( 60 > $dir_ang ) ) {
-
-        #say "B";
         @three_hexes = ( 0, 1, 2 );
     }
     if ( ( 300 <= $dir_ang ) ) {
-
-        #say "C";
         @three_hexes = ( 1, 2, 3 );
     }
     if ( ( 240 <= $dir_ang ) and ( 300 > $dir_ang ) ) {
-
-        #say "D";
         @three_hexes = ( 2, 3, 4 );
     }
     if ( ( 180 <= $dir_ang ) and ( 240 > $dir_ang ) ) {
-
-        #say "E";
         @three_hexes = ( 3, 4, 5 );
     }
     if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
-
-        #say "F";
         @three_hexes = ( 4, 5, 0 );
     }
 
     my @adj_hex = ( 0, 0 );
     my $ref_deg = $dir_ang % 180.0;
 
-    #say $ref_deg;
     my $most_acute = 360;
     foreach my $adjacent_hex_dir (@three_hexes) {
         @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
@@ -224,7 +209,6 @@ sub get_hex_distance {
             ) - $ref_deg
         );
 
-        #say $delta;
         if ( $most_acute > $delta ) {
             $most_acute = $delta;
             @hex_cursor = ( $adj_hex[0], $adj_hex[1] );
