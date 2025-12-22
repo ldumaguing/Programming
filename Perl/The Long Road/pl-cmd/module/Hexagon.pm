@@ -197,9 +197,13 @@ sub get_hex_distance {
     }
 
     my @adj_hex = (0,0);
+    my $ref_deg = $dir_ang % 180.0;
+    say $ref_deg;
     foreach my $adjacent_hex_dir (@three_hexes) {
         @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
-        say $adj_hex[0] . ", " . $adj_hex[1];
+        print $adj_hex[0] . ", " . $adj_hex[1] . " --- ";
+        my $delta = abs(((get_degrees( $args[0], $args[1], $adj_hex[0], $adj_hex[1])) % 180) - $ref_deg);
+        say $delta;
     }
 }
 
