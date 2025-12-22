@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use diagnostics;
+
 #use Math::Trig;
 # use List::Util qw(uniq);
 
@@ -11,28 +12,22 @@ use v5.42;
 use lib "pl-cmd/module";
 use Hexagon;
 
+say get_cart_distance( 10, 10, 12, 10 );
+say get_degrees( 10, 10, 12, 12 );
 
-
-
-
-#my $dist = get_cart_distance( 10, 10, 12, 10 );
-#$dist = get_cart_distance( 20, 20, 0, 0 );
-#say $dist;
-
-say "---";
-#get_degrees( 10, 10, 12, 12 );
 #say get_degrees( 10, 10, 12, 10 );
+my @foo = get_adjacent_hex ( 10, 10, 0 );
+say $foo[0] . ", " .$foo[1] . " --- N";
+my @foo = get_adjacent_hex ( 10, 10, 1 );
+say $foo[0] . ", " .$foo[1] . " --- NE";
+my @foo = get_adjacent_hex ( 10, 10, 2 );
+say $foo[0] . ", " .$foo[1] . " --- SE";
+my @foo = get_adjacent_hex ( 10, 10, 3 );
+say $foo[0] . ", " .$foo[1] . " --- S";
+my @foo = get_adjacent_hex ( 10, 10, 4 );
+say $foo[0] . ", " .$foo[1] . " --- SW";
+my @foo = get_adjacent_hex ( 10, 10, 5 );
+say $foo[0] . ", " .$foo[1] . " --- NW";
 
-
-
-
-
-
-
-
-get_hex_distance( 11, 10, 20, 20 );
-
-
-
-
+get_hex_distance( 10, 10, 20, 20 );
 
