@@ -21,6 +21,11 @@ my $From_Y = 0;
 my $To_X   = 0;
 my $To_Y   = 0;
 
+my $dir_ang     = 0;
+my @three_hexes = ( 0, 1, 2 );
+my @hex_cursor  = ( 0, 0 );
+my @hex_to      = ( 0, 0 );
+
 # ***************************************************************************************
 sub get_cart_distance {
     @args   = @_;
@@ -120,8 +125,50 @@ sub getDeg {
 }
 
 # *********************************************************
+sub get_adjacent_hex {
+    @args = @_;
+    my $adjacent = $args[0];
+    say $adjacent;
+
+    #say @hex_cursor;
+    my @adjHex = ( 0, 0 );
+    if ( $hex_cursor[0] % 2 ) { }
+    else {
+        if ( $adjacent == 0 ) {    # N
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
+        }
+        elsif ( $adjacent == 1 ) {    # NE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] - 1 );
+        }
+        elsif ( $adjacent == 2 ) {    # SE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] );
+        }
+        elsif ( $adjacent == 3 ) {    # S
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] + 1 );
+        }
+        elsif ( $adjacent == 4 ) {    # SW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] );
+        }
+        else {                        # NW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] - 1 );
+        }
+    }
+    say $adjHex[0] . ", " . $adjHex[1];
+}
+
+# *********************************************************
 sub get_hex_distance {
-    @args   = @_;
+    @args = @_;
+
+    @hex_cursor = ( $args[0], $args[1] );
+    @hex_to     = ( $args[2], $args[3] );
+    if ( $hex_cursor[0] == $hex_to[0] ) {
+        if ( $hex_cursor[1] == $hex_to[1] ) {
+            say "you're here";
+            return;
+        }
+    }
+
     $From_X = $args[0] * $X_hex;
     $To_X   = $args[2] * $X_hex;
     if ( $args[0] % 2 ) {    # is From_X odd
@@ -137,7 +184,46 @@ sub get_hex_distance {
         $To_Y = $args[3];
     }
 
-    say "yo";
+    $dir_ang = getDeg();
+    say $dir_ang;
+    if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
+        say "A";
+        @three_hexes = ( 5, 0, 1 );
+    }
+    if ( ( 0 <= $dir_ang ) and ( 60 > $dir_ang ) ) {
+        say "B";
+        @three_hexes = ( 0, 1, 2 );
+    }
+    if ( ( 300 <= $dir_ang ) ) {
+        say "C";
+        @three_hexes = ( 1, 2, 3 );
+    }
+    if ( ( 240 <= $dir_ang ) and ( 300 > $dir_ang ) ) {
+        say "D";
+        @three_hexes = ( 2, 3, 4 );
+    }
+    if ( ( 180 <= $dir_ang ) and ( 240 > $dir_ang ) ) {
+        say "E";
+        @three_hexes = ( 3, 4, 5 );
+    }
+    if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
+        say "F";
+        @three_hexes = ( 4, 5, 0 );
+    }
 
+    foreach my $adjacent_hex (@three_hexes) {
+        get_adjacent_hex($adjacent_hex);
+    }
 }
+
+# ***************************************************************************************
+# ************* NOTES
+
+# Hexagon
+# A   0   N    ( 60 <= deg) and (120 > deg)
+# B   1   NE   (  0 <= deg) and ( 60> deg)
+# C   2   SE   (300 <= deg)
+# D   3   S    (240 <= deg) and (300 > deg)
+# E   4   SW   (180 <= deg) and (240 > deg)
+# F   5   NW   (120 <= deg) and (180 > deg)
 
