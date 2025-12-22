@@ -30,7 +30,7 @@ say "---";
 
 
 
-get_hex_distance( 10, 10, 20, 20 );
+get_hex_distance( 11, 10, 20, 20 );
 
 
 

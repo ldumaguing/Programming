@@ -128,13 +128,30 @@ sub getDeg {
 sub get_adjacent_hex {
     @args = @_;
     my $adjacent = $args[0];
-    say $adjacent;
 
-    #say @hex_cursor;
     my @adjHex = ( 0, 0 );
-    if ( $hex_cursor[0] % 2 ) { }
-    else {
+    if ( $hex_cursor[0] % 2 ) {
         if ( $adjacent == 0 ) {    # N
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
+        }
+        elsif ( $adjacent == 1 ) {    # NE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] );
+        }
+        elsif ( $adjacent == 2 ) {    # SE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] + 1 );
+        }
+        elsif ( $adjacent == 3 ) {    # S
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] + 1 );
+        }
+        elsif ( $adjacent == 4 ) {    # SW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] + 1 );
+        }
+        else {                        # NW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] );
+        }
+    }
+    else {
+        if ( $adjacent == 0 ) {       # N
             @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
         }
         elsif ( $adjacent == 1 ) {    # NE
@@ -153,7 +170,8 @@ sub get_adjacent_hex {
             @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] - 1 );
         }
     }
-    say $adjHex[0] . ", " . $adjHex[1];
+
+    @adjHex;
 }
 
 # *********************************************************
@@ -212,7 +230,7 @@ sub get_hex_distance {
     }
 
     foreach my $adjacent_hex (@three_hexes) {
-        get_adjacent_hex($adjacent_hex);
+        say get_adjacent_hex($adjacent_hex);
     }
 }
 
