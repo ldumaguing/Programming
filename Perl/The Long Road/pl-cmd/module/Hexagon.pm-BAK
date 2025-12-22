@@ -16,21 +16,13 @@ my $X_hex = cos( ( ( 4 * atan2( 1, 1 ) ) / 180.0 ) * 30.0 );
 
 my @args = ();
 
-my $From_X = 0;
-my $From_Y = 0;
-my $To_X   = 0;
-my $To_Y   = 0;
-
-my $dir_ang     = 0;
-my @three_hexes = ( 0, 1, 2 );
-my @hex_cursor  = ( 0, 0 );
-my @hex_to      = ( 0, 0 );
-
 # ***************************************************************************************
 sub get_cart_distance {
-    @args   = @_;
-    $From_X = $args[0] * $X_hex;
-    $To_X   = $args[2] * $X_hex;
+    @args = @_;
+    my $From_X = $args[0] * $X_hex;
+    my $To_X   = $args[2] * $X_hex;
+    my $From_Y = 0;
+    my $To_Y   = 0;
     if ( $args[0] % 2 ) {    # is From_X odd
         $From_Y = $args[1] + 0.5;
     }
@@ -44,16 +36,6 @@ sub get_cart_distance {
         $To_Y = $args[3];
     }
 
-    my $X = $To_X - $From_X;
-    my $Y = $To_Y - $From_Y;
-    $X *= $X;
-    $Y *= $Y;
-
-    sqrt( $X + $Y );
-}
-
-# **********
-sub getCartDist {
     my $X = $To_X - $From_X;
     my $Y = $To_Y - $From_Y;
     $X *= $X;
@@ -64,9 +46,11 @@ sub getCartDist {
 
 # *********************************************************
 sub get_degrees {
-    @args   = @_;
-    $From_X = $args[0] * $X_hex;
-    $To_X   = $args[2] * $X_hex;
+    @args = @_;
+    my $From_X = $args[0] * $X_hex;
+    my $To_X   = $args[2] * $X_hex;
+    my $From_Y = 0;
+    my $To_Y   = 0;
     if ( $args[0] % 2 ) {    # is From_X odd
         $From_Y = $args[1] + 0.5;
     }
@@ -80,29 +64,6 @@ sub get_degrees {
         $To_Y = $args[3];
     }
 
-    my $X    = $To_X - $From_X;
-    my $Y    = $To_Y - $From_Y;
-    my $degs = rad2deg( atan2( abs($Y), abs($X) ) );
-
-    if ( ( $X >= 0 ) and ( $Y >= 0 ) ) {
-        $degs = 360.0 - $degs;
-    }
-    if ( ( $X < 0 ) and ( $Y >= 0 ) ) {
-        $degs = 180.0 + $degs;
-    }
-    if ( ( $X < 0 ) and ( $Y < 0 ) ) {
-        $degs = 180.0 - $degs;
-    }
-
-    if ( $degs >= 360.0 ) {
-        $degs = 0.0;
-    }
-
-    $degs;
-}
-
-# **********
-sub getDeg {
     my $X    = $To_X - $From_X;
     my $Y    = $To_Y - $From_Y;
     my $degs = rad2deg( atan2( abs($Y), abs($X) ) );
@@ -127,7 +88,8 @@ sub getDeg {
 # *********************************************************
 sub get_adjacent_hex {
     @args = @_;
-    my $adjacent = $args[0];
+    my @hex_cursor = ( $args[0], $args[1] );
+    my $adjacent   = $args[2];
 
     my @adjHex = ( 0, 0 );
     if ( $hex_cursor[0] % 2 ) {
@@ -178,8 +140,8 @@ sub get_adjacent_hex {
 sub get_hex_distance {
     @args = @_;
 
-    @hex_cursor = ( $args[0], $args[1] );
-    @hex_to     = ( $args[2], $args[3] );
+    my @hex_cursor = ( $args[0], $args[1] );
+    my @hex_to     = ( $args[2], $args[3] );
     if ( $hex_cursor[0] == $hex_to[0] ) {
         if ( $hex_cursor[1] == $hex_to[1] ) {
             say "you're here";
@@ -187,8 +149,10 @@ sub get_hex_distance {
         }
     }
 
-    $From_X = $args[0] * $X_hex;
-    $To_X   = $args[2] * $X_hex;
+    my $From_X = $args[0] * $X_hex;
+    my $To_X   = $args[2] * $X_hex;
+    my $From_Y = 0;
+    my $To_Y   = 0;
     if ( $args[0] % 2 ) {    # is From_X odd
         $From_Y = $args[1] + 0.5;
     }
@@ -202,8 +166,12 @@ sub get_hex_distance {
         $To_Y = $args[3];
     }
 
-    $dir_ang = getDeg();
-    say $dir_ang;
+    my $dir_ang = get_degrees( $args[0], $args[1], $args[2], $args[3] );
+    say $dir_ang . " degs";
+
+    #my $degMOD90 = $dir_ang % 90.0;
+    #say $degMOD90 . " (degs % 90)";
+    my @three_hexes = ( 0, 0, 0 );
     if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
         say "A";
         @three_hexes = ( 5, 0, 1 );
@@ -229,9 +197,27 @@ sub get_hex_distance {
         @three_hexes = ( 4, 5, 0 );
     }
 
-    foreach my $adjacent_hex (@three_hexes) {
-        say get_adjacent_hex($adjacent_hex);
+    my @adj_hex = ( 0, 0 );
+    my $ref_deg = $dir_ang % 180.0;
+    say $ref_deg;
+    my $most_acute = 360;
+    foreach my $adjacent_hex_dir (@three_hexes) {
+        @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
+        print $adj_hex[0] . ", " . $adj_hex[1] . " --- ";
+        my $delta = abs(
+            (
+                ( get_degrees( $args[0], $args[1], $adj_hex[0], $adj_hex[1] ) )
+                % 180
+            ) - $ref_deg
+        );
+        say $delta;
+        if ( $most_acute > $delta ) {
+            $most_acute = $delta;
+            @hex_cursor = ( $adj_hex[0], $adj_hex[1] );
+        }
     }
+    say "most acute: " . $most_acute;
+    say $hex_cursor[0] . " " . $hex_cursor[1];
 }
 
 # ***************************************************************************************

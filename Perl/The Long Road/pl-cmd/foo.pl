@@ -28,5 +28,12 @@ use Hexagon;
 #@foo = get_adjacent_hex ( 10, 10, 5 );
 #say $foo[0] . ", " .$foo[1] . " --- NW";
 
-get_hex_distance( 10, 10, 12, 12 );
+my $foo = get_hex_distance( 10, 10, 20, 20 );
+say ">>> " . $foo;
+
+
+
+
+
+
 

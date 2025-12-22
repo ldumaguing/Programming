@@ -14,7 +14,8 @@ use v5.42;
 # my $X_hex = cos($deg2rad * 30.0);
 my $X_hex = cos( ( ( 4 * atan2( 1, 1 ) ) / 180.0 ) * 30.0 );
 
-my @args = ();
+my @args    = ();
+my $counter = 0;
 
 # ***************************************************************************************
 sub get_cart_distance {
@@ -144,10 +145,13 @@ sub get_hex_distance {
     my @hex_to     = ( $args[2], $args[3] );
     if ( $hex_cursor[0] == $hex_to[0] ) {
         if ( $hex_cursor[1] == $hex_to[1] ) {
-            say "you're here";
-            return;
+            #say "you're here: " . $counter;
+            #return;
+            return $counter;
         }
     }
+
+    $counter += 1;
 
     my $From_X = $args[0] * $X_hex;
     my $To_X   = $args[2] * $X_hex;
@@ -166,45 +170,71 @@ sub get_hex_distance {
         $To_Y = $args[3];
     }
 
-    my $dir_ang     = get_degrees( $args[0], $args[1], $args[2], $args[3] );
-    say $dir_ang . " degs";
+    my $dir_ang = get_degrees( $args[0], $args[1], $args[2], $args[3] );
+
+    #say $dir_ang . " degs";
+
     #my $degMOD90 = $dir_ang % 90.0;
     #say $degMOD90 . " (degs % 90)";
     my @three_hexes = ( 0, 0, 0 );
     if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
-        say "A";
+
+        #say "A";
         @three_hexes = ( 5, 0, 1 );
     }
     if ( ( 0 <= $dir_ang ) and ( 60 > $dir_ang ) ) {
-        say "B";
+
+        #say "B";
         @three_hexes = ( 0, 1, 2 );
     }
     if ( ( 300 <= $dir_ang ) ) {
-        say "C";
+
+        #say "C";
         @three_hexes = ( 1, 2, 3 );
     }
     if ( ( 240 <= $dir_ang ) and ( 300 > $dir_ang ) ) {
-        say "D";
+
+        #say "D";
         @three_hexes = ( 2, 3, 4 );
     }
     if ( ( 180 <= $dir_ang ) and ( 240 > $dir_ang ) ) {
-        say "E";
+
+        #say "E";
         @three_hexes = ( 3, 4, 5 );
     }
     if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
-        say "F";
+
+        #say "F";
         @three_hexes = ( 4, 5, 0 );
     }
 
-    my @adj_hex = (0,0);
+    my @adj_hex = ( 0, 0 );
     my $ref_deg = $dir_ang % 180.0;
-    say $ref_deg;
+
+    #say $ref_deg;
+    my $most_acute = 360;
     foreach my $adjacent_hex_dir (@three_hexes) {
         @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
-        print $adj_hex[0] . ", " . $adj_hex[1] . " --- ";
-        my $delta = abs(((get_degrees( $args[0], $args[1], $adj_hex[0], $adj_hex[1])) % 180) - $ref_deg);
-        say $delta;
+
+        #print $adj_hex[0] . ", " . $adj_hex[1] . " --- ";
+        my $delta = abs(
+            (
+                ( get_degrees( $args[0], $args[1], $adj_hex[0], $adj_hex[1] ) )
+                % 180
+            ) - $ref_deg
+        );
+
+        #say $delta;
+        if ( $most_acute > $delta ) {
+            $most_acute = $delta;
+            @hex_cursor = ( $adj_hex[0], $adj_hex[1] );
+        }
     }
+
+    #say "most acute: " . $most_acute;
+    #say $hex_cursor[0] . " " . $hex_cursor[1];
+
+    get_hex_distance( $hex_cursor[0], $hex_cursor[1], $hex_to[0], $hex_to[1] );
 }
 
 # ***************************************************************************************
