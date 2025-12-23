@@ -58,7 +58,7 @@ Hood: 1
 
 *********************************** In-Game Commands
 ******** instance_id   instance_id
-<embark> 1000          1004
+<load> 1000          1004
 
 
 
