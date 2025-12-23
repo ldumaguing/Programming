@@ -1,6 +1,7 @@
 scenario_num: 1
 name: Recon
 map: Scenario 1.png
+mapID: 1
 0x0: 121,39
 upperRight: 6984,39
 lowerRight: 6984,2606
