@@ -8,9 +8,10 @@ use v5.42;
 
 use lib "pl-cmd/module";
 use Hexagon;
-use Loading;
 
-load_Leg_to_Transporter(123, 456);
+my $foo = get_hex_distance( 1, 0, 7, 10 );
+say ">>> " . $foo;
+
 
 
 
