@@ -7,6 +7,7 @@ use diagnostics;
 use v5.42;
 
 my $line = "";
+my $stmt = "";
 
 # ***************************************************************************************
 use DBI;
@@ -47,36 +48,28 @@ sub register_hill {
     my $A = ord('A');
     $line =~ s/hill:\ *//;
     $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
 
     my @hexes = split /,/, $line;
     foreach my $hexID (@hexes) {
-        my $letter = substr($hexID, 0, 1);
-        my $x = ord($letter);
+        my $letter = substr( $hexID, 0, 1 );
+        my $x      = ord($letter);
         $x -= $A;
-        my $y = substr($hexID, 1);
-        say "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y, flag1) values "
-            . "('" . $fname . "', "
-            . "'" . $hexID . "', "
-            . $x . ", "
-            . $y . ", 1)";
+        $x -= 1;
+        my $y = substr( $hexID, 1 );
+        $stmt =
+            "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y, flag1) values "
+          . "('"
+          . $fname . "', " . "'"
+          . $hexID . "', "
+          . $x . ", "
+          . $y . ", 1)";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
     }
+
+    $rs->finish();
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
