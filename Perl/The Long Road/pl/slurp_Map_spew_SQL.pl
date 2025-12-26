@@ -15,6 +15,7 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 my $filename = $ARGV[0];
 my $fname    = $filename;
 $fname =~ s/db\///;
+$fname =~ s/\.txt//;
 
 if ( defined $filename ) {
     slurp();
@@ -43,11 +44,21 @@ sub slurp {
 
 # *********************************************************
 sub register_hill {
+    my $A = ord('A');
     $line =~ s/hill:\ *//;
+    $line =~ tr/[a-z]/[A-Z]/;
 
     my @hexes = split /,/, $line;
     foreach my $hexID (@hexes) {
-        say $hexID;
+        my $letter = substr($hexID, 0, 1);
+        my $x = ord($letter);
+        $x -= $A;
+        my $y = substr($hexID, 1);
+        say "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y, flag1) values "
+            . "('" . $fname . "', "
+            . "'" . $hexID . "', "
+            . $x . ", "
+            . $y . ", 1)";
     }
 }
 
