@@ -1,0 +1,41 @@
+************************************************************************ TABLE - instance
+DROP TABLE instance;
+CREATE TABLE instance (
+   id          INTEGER NOT NULL,
+   scenario_id INTEGER NOT NULL,
+   unit_name   TEXT NOT NULL,
+   unit_id     INTEGER DEFAULT 0,
+   img_id      INTEGER DEFAULT 0,   -- reflects the status
+   faction     TEXT NOT NULL,
+   loc_x       INTEGER DEFAULT 0,
+   loc_y       INTEGER DEFAULT 0,
+   loc_z       INTEGER DEFAULT 0,
+   status      INTEGER DEFAULT 0,
+   curr_MF     INTEGER DEFAULT 0,
+   PRIMARY KEY (id, scenario_id)
+);
+
+status
+======
+bit 0: visible
+bit 1: reduced
+bit 2: hovering
+bit 3: werewolf
+bit 4: AFV using wired missile
+
+
+
+
+.mode csv
+.output instance.csv
+SELECT * FROM instance;
+.output stdout
+.quit
+
+
+
+
+.mode csv
+.import instance.csv instance
+
+

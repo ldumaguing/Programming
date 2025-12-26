@@ -1,0 +1,40 @@
+************************************************************************* TABLE - terrain
+DROP TABLE IF EXISTS terrain;
+CREATE TABLE terrain (
+   mapFile TEXT NOT NULL,      -- Map A, Map B, etc.
+   hexID   TEXT NOT NULL,      -- A1, B1, C2, etc
+   loc_x   INTEGER DEFAULT 0,
+   loc_y   INTEGER DEFAULT 0,
+   loc_z   INTEGER DEFAULT 0,
+   flag1   INTEGER DEFAULT 0,
+   PRIMARY KEY (mapFile, hexID)
+);
+
+
+B1 is (0, 0)
+
+
+Unregistered hexIDs are assumed an Open terrain.
+flag1
+=====
+bit 0: Hill
+
+
+
+.mode csv
+.output terrain.csv
+SELECT * FROM terrain;
+.output stdout
+.quit
+
+
+
+.mode csv
+.import terrain.csv terrain
+
+
+
+
+
+
+
