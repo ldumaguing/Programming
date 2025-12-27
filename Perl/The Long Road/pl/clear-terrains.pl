@@ -30,6 +30,7 @@ foreach my $mapLetter ( 'A' .. 'D' ) {
         }
     }
 }
+
 $rs->finish();
 $conn->disconnect();
 
