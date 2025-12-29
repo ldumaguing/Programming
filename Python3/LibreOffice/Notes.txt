@@ -1,0 +1,12 @@
+pip install python-lsp-server
+{
+    "servers": {
+        "python": {
+            "command": ["/home/ayeka/.local/bin/pylsp", "--check-parent-process"],
+            "url": "https://github.com/python-lsp/python-lsp-server",
+            "highlightingModeRegex": "^Python$"
+        }
+    }
+}
+
+
