@@ -11,3 +11,7 @@ pip install python-lsp-server
 }
 
 
+
+
+
+https://help.libreoffice.org/latest/en-US/text/sbasic/shared/03/sf_toc.html?DbPAR=BASIC
