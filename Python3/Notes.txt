@@ -1,3 +1,30 @@
+pip install python-lsp-server
+{
+    "servers": {
+        "python": {
+            "command": ["/home/ayeka/.local/bin/pylsp", "--check-parent-process"],
+            "url": "https://github.com/python-lsp/python-lsp-server",
+            "highlightingModeRegex": "^Python$"
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Commodor 64 TV: 480x400
 Character: 12x16 (2 colors and a background color)
 
