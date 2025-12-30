@@ -11,7 +11,7 @@ pip install python-lsp-server
 }
 
 mkdir -p .config/libreoffice/4/user/Scripts/python/pythonpath
-
+dnf install python3-requests
 
 
 
