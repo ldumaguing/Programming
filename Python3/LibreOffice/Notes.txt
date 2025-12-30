@@ -21,3 +21,4 @@ https://help.libreoffice.org/latest/en-US/text/sbasic/shared/03/sf_toc.html?DbPA
 
 https://github.com/Nasdaq/data-link-python
 
+https://gist.github.com/stonefullstm/cbc789565cc521df89c29ead836c8cef
