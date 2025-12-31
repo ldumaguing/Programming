@@ -10,6 +10,7 @@ def HelloWorld():
     doc.SetValue("B8", "Hello World")
     return None
 
+# calling an external program.
 def get_stock_price():
     cmd = [
         "/usr/bin/python",
