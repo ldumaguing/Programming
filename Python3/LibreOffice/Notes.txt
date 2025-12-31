@@ -24,3 +24,70 @@ https://help.libreoffice.org/latest/en-US/text/sbasic/shared/03/sf_toc.html?DbPA
 https://github.com/Nasdaq/data-link-python
 
 https://gist.github.com/stonefullstm/cbc789565cc521df89c29ead836c8cef
+
+
+
+
+
+
+******************************************************************************************
+**************** Using BASIC to call external commands
+Sub RunExternalCommand
+    Dim ProgramPath As String
+    Dim Parameters As String
+    
+    ' Define the path to your external program (adjust for your OS)
+    ' Example for Windows:
+    ' ProgramPath = "C:\Python\Python39\python.exe"
+    ' Example for Linux/macOS:
+    ProgramPath = "/usr/bin/python3"
+    
+    ' Define parameters to pass to the program
+    Parameters = "get_data.py my_parameter"
+    
+    ' Call the external command and wait for it (bSync = True)
+    ' The result is a Long integer representing the task ID, but you can ignore it for simple execution
+    Shell(ProgramPath, 1, Parameters, True) ' 1 means normal window style
+    
+    MsgBox "External command finished executing."
+End Sub
+
+
+
+
+Sub ReadLocalFile
+    Dim sFilePath As String
+    Dim sFileUrl As String
+    Dim iFileNum As Integer
+    Dim sLine As String
+    Dim sContent As String
+    
+    ' 1. Define the local file path
+    '    (Update this path to your specific file)
+    sFilePath = "C:\Users\YourUser\Documents\example.txt"
+    
+    ' 2. Convert the system path to a LibreOffice URL format (e.g., "file:///C:/...")
+    sFileUrl = convertToUrl(sFilePath)
+    
+    ' 3. Get the next available free file number
+    iFileNum = FreeFile()
+    
+    ' 4. Open the file for input
+    Open sFileUrl For Input As #iFileNum
+    
+    ' 5. Read the file content line by line until the end of the file (EOF)
+    Do While Not Eof(iFileNum)
+        Line Input #iFileNum, sLine
+        sContent = sContent & sLine & vbCrLf
+    Loop
+    
+    ' 6. Close the file
+    Close #iFileNum
+    
+    ' 7. Display the read content (or process it further)
+    MsgBox "File Content:" & vbCrLf & sContent, 0, "Read File Macro"
+End Sub
+
+
+
+
