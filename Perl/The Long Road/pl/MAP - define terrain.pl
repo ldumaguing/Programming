@@ -9,12 +9,17 @@ use v5.42;
 my $line = "";
 my $stmt = "";
 
+my $modeNum = 0;
+
+# 1: Hill
+
 # ***************************************************************************************
 use DBI;
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
 my $filename = $ARGV[0];
 my $fname    = $filename;
+
 $fname =~ s/db\///;
 $fname =~ s/\.txt//;
 
@@ -35,9 +40,11 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
-        if ( $line =~ /hill:/ ) {
-            register_hill();
+        if ( $line =~ /HILL \*/ ) {
+            $modeNum = 1;
         }
+
+        if ( $modeNum == 1 ) { register_hill(); }
     }
 
     close $fh;
@@ -46,7 +53,6 @@ sub slurp {
 # *********************************************************
 sub register_hill {
     my $A = ord('A');
-    $line =~ s/hill:\ *//;
     $line =~ tr/[a-z]/[A-Z]/;
     my $rs = undef;
 
@@ -67,9 +73,7 @@ sub register_hill {
 
         $rs = $conn->prepare($stmt);
         $rs->execute();
+        $rs->finish();
     }
-
-    $rs->finish();
-
 }
 
