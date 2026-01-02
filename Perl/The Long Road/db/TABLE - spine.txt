@@ -1,0 +1,49 @@
+*************************************************************************** TABLE - spine
+DROP TABLE IF EXISTS spine;
+CREATE TABLE spine (
+   mapFile TEXT NOT NULL,
+   hexID   TEXT NOT NULL,
+   loc_x   INTEGER DEFAULT 0,
+   loc_y   INTEGER DEFAULT 0,
+   flag1   INTEGER DEFAULT 0,
+   PRIMARY KEY (mapFile, hexID)
+);
+
+
+
+flag1
+=====
+bit 0: River
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mode csv
+.output terrain.csv
+SELECT * FROM terrain;
+.output stdout
+.quit
+
+
+
+.mode csv
+.import terrain.csv terrain
+
+
+
+
+
+
+
