@@ -54,22 +54,35 @@ sub slurp {
 # *********************************************************
 sub register_road {
     if ( $line =~ /^$/ ) { return; }
-    say ".";
+
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
     my @hexes = split /:/, $line;
 
-    say $hexes[0] . ", " . $hexes[1];
+    if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
+    if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
+    if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
+    if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
+    if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
+    if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
+    $exits = $exits << 1;
 
-    #foreach my $hexID (@hexes) {
-    #if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
-    #if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
-    #if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
-    #if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
-    #if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
-    #if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
-    #say $hexID . ": " . $hexes[1] . ", " . $exits;
-    #}
+    #say $hexes[0] . ": " . $hexes[1] . ", " . $exits;
+    $stmt =
+        "UPDATE terrain set flag1 = (flag1 | "
+      . $exits
+      . ") WHERE "
+      . "mapFile = '"
+      . $fname
+      . "' and "
+      . "hexID = '"
+      . $hexes[0] . "'";
+
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+
+    #say $stmt;
 }
 
 # *********************************************************
