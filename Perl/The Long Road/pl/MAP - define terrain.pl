@@ -40,29 +40,48 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
-        if ( $line =~ /HILL \*/ ) {
-            $modeNum = 1;
-        }
+        if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
+        if ( $line =~ /ROAD \*/ ) { $modeNum = 2; }
 
         if ( $modeNum == 1 ) { register_hill(); }
+        if ( $modeNum == 2 ) { register_road(); }
     }
 
     close $fh;
 }
 
 # *********************************************************
+sub register_road {
+    if ( $line =~ /^$/ )      { return; }
+    if ( $line =~ /ROAD \*/ ) { return; }
+
+    my $exits = 0;
+    $line =~ tr/[a-z]/[A-Z]/;
+    my @hexes = split /:/, $line;
+
+    foreach my $hexID (@hexes) {
+        say $hexID . ", " . $hexes[0];
+
+        if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
+        if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
+        if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
+        if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
+        if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
+        if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
+        say $hexID . ": " . $hexes[1] . ", " . $exits;
+    }
+}
+
+# *********************************************************
 sub register_hill {
-    my $A = ord('A');
+    if ( $line =~ /^$/ )      { return; }
+    if ( $line =~ /HILL \*/ ) { return; }
+
     $line =~ tr/[a-z]/[A-Z]/;
     my $rs = undef;
 
     my @hexes = split /,/, $line;
     foreach my $hexID (@hexes) {
-        my $letter = substr( $hexID, 0, 1 );
-        my $x      = ord($letter);
-        $x -= $A;
-        $x -= 1;
-        my $y = substr( $hexID, 1 );
         $stmt =
             "UPDATE terrain set flag1 = (flag1 | (1 << 0)) WHERE "
           . "mapFile = '"
