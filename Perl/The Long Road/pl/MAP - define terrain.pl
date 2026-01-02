@@ -40,11 +40,12 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
-        if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
-        if ( $line =~ /ROAD \*/ ) { $modeNum = 2; }
-
         if ( $modeNum == 1 ) { register_hill(); }
         if ( $modeNum == 2 ) { register_road(); }
+
+        #if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
+        if ( $line =~ /ROAD \*/ ) { $modeNum = 2; }
+
     }
 
     close $fh;
@@ -52,30 +53,28 @@ sub slurp {
 
 # *********************************************************
 sub register_road {
-    if ( $line =~ /^$/ )      { return; }
-    if ( $line =~ /ROAD \*/ ) { return; }
-
+    if ( $line =~ /^$/ ) { return; }
+    say ".";
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
     my @hexes = split /:/, $line;
 
-    foreach my $hexID (@hexes) {
-        say $hexID . ", " . $hexes[0];
+    say $hexes[0] . ", " . $hexes[1];
 
-        if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
-        if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
-        if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
-        if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
-        if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
-        if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
-        say $hexID . ": " . $hexes[1] . ", " . $exits;
-    }
+    #foreach my $hexID (@hexes) {
+    #if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
+    #if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
+    #if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
+    #if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
+    #if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
+    #if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
+    #say $hexID . ": " . $hexes[1] . ", " . $exits;
+    #}
 }
 
 # *********************************************************
 sub register_hill {
-    if ( $line =~ /^$/ )      { return; }
-    if ( $line =~ /HILL \*/ ) { return; }
+    if ( $line =~ /^$/ ) { return; }
 
     $line =~ tr/[a-z]/[A-Z]/;
     my $rs = undef;
