@@ -58,12 +58,12 @@ sub register_hill {
         $x -= 1;
         my $y = substr( $hexID, 1 );
         $stmt =
-            "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y, flag1) values "
-          . "('"
-          . $fname . "', " . "'"
-          . $hexID . "', "
-          . $x . ", "
-          . $y . ", 1)";
+            "UPDATE terrain set flag1 = (flag1 | (1 << 0)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
 
         $rs = $conn->prepare($stmt);
         $rs->execute();
