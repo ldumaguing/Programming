@@ -17,8 +17,14 @@ B1 is (0, 0)
 Unregistered hexIDs are assumed an Open terrain.
 flag1
 =====
-bit 0: Hill
-
+bit 0:   Hill
+bit 1-6: Road exits
+    1: A (N)
+    2: B (NE)
+    3: C (SE)
+    4: D (S)
+    5: E (SW)
+    6: F (NW)
 
 
 .mode csv

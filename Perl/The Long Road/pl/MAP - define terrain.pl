@@ -11,8 +11,6 @@ my $stmt = "";
 
 my $modeNum = 0;
 
-# 1: Hill
-
 # ***************************************************************************************
 use DBI;
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
@@ -43,7 +41,7 @@ sub slurp {
         if ( $modeNum == 1 ) { register_hill(); }
         if ( $modeNum == 2 ) { register_road(); }
 
-        #if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
+        if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
         if ( $line =~ /ROAD \*/ ) { $modeNum = 2; }
 
     }
@@ -67,7 +65,6 @@ sub register_road {
     if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
     $exits = $exits << 1;
 
-    #say $hexes[0] . ": " . $hexes[1] . ", " . $exits;
     $stmt =
         "UPDATE terrain set flag1 = (flag1 | "
       . $exits
@@ -81,8 +78,6 @@ sub register_road {
     my $rs = $conn->prepare($stmt);
     $rs->execute();
     $rs->finish();
-
-    #say $stmt;
 }
 
 # *********************************************************

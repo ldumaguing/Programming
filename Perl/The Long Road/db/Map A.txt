@@ -30,8 +30,8 @@ d5:be
 e4:be
 f4:be
 g3:be
-h3:e
-l1:c
+h3:eb
+l1:ce
 l2:b
 m1:bef
 n1:ce
