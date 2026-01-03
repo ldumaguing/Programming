@@ -15,9 +15,9 @@ my $modeNum = 0;
 use DBI;
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
-my $filename = $ARGV[0];
-my $fname    = $filename;
-my $letterA  = ord('A');
+my $filename  = $ARGV[0];
+my $fname     = $filename;
+my $letterRef = ord('A') + 1;
 
 $fname =~ s/db\///;
 $fname =~ s/\.txt//;
@@ -56,12 +56,25 @@ sub slurp {
 # B1: 0,0
 sub register_river {
     $line =~ tr/[a-z]/[A-Z]/;
+    say $line;
     my ( $hex, $spines ) = split /:/, $line;
-    say $hex . ", " . $spines;
-    my $X = ord( substr( $hex, 0, 1 ) );
-    my $Y = substr( $hex, 1 );
-    say $X;
-    say $Y;
+    my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
+    my $Y = int( substr( $hex, 1 ) ) - 1;
+
+    #say $X;
+    #say $Y;
+    if   ( $X % 2 ) { odd_X(); }
+    else            { even_X( $X, $Y, $spines ); }
+}
+
+# ***************************
+sub odd_X {
+}
+
+# ***************************
+sub even_X {
+    my ( $X, $Y, $spines ) = @_;
+    say "yo: " . $spines;
 }
 
 # *********************************************************
