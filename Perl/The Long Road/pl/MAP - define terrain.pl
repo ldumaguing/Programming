@@ -17,6 +17,7 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
 my $filename = $ARGV[0];
 my $fname    = $filename;
+my $letterA  = ord('A');
 
 $fname =~ s/db\///;
 $fname =~ s/\.txt//;
@@ -38,21 +39,33 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
+        if ( $line =~ /^$/ )       { $modeNum = 0; next; }
+        if ( $line =~ /HILL \*/ )  { $modeNum = 1; next; }
+        if ( $line =~ /ROAD \*/ )  { $modeNum = 2; next; }
+        if ( $line =~ /RIVER \*/ ) { $modeNum = 3; next; }
+
         if ( $modeNum == 1 ) { register_hill(); }
         if ( $modeNum == 2 ) { register_road(); }
-
-        if ( $line =~ /HILL \*/ ) { $modeNum = 1; }
-        if ( $line =~ /ROAD \*/ ) { $modeNum = 2; }
-
+        if ( $modeNum == 3 ) { register_river(); }
     }
 
     close $fh;
 }
 
 # *********************************************************
-sub register_road {
-    if ( $line =~ /^$/ ) { return; }
+# B1: 0,0
+sub register_river {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my ( $hex, $spines ) = split /:/, $line;
+    say $hex . ", " . $spines;
+    my $X = ord( substr( $hex, 0, 1 ) );
+    my $Y = substr( $hex, 1 );
+    say $X;
+    say $Y;
+}
 
+# *********************************************************
+sub register_road {
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
     my @hexes = split /:/, $line;
@@ -82,8 +95,6 @@ sub register_road {
 
 # *********************************************************
 sub register_hill {
-    if ( $line =~ /^$/ ) { return; }
-
     $line =~ tr/[a-z]/[A-Z]/;
     my $rs = undef;
 
