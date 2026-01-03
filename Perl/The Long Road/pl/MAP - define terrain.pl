@@ -60,8 +60,6 @@ sub register_river {
     my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
     my $Y = int( substr( $hex, 1 ) ) - 1;
 
-    #say $X;
-    #say $Y;
     if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines ); }
     else          { even_X( $hex, $X, $Y, $spines ); }
 }
@@ -75,27 +73,63 @@ sub odd_X {
 # ***************************
 sub even_X {
     my ( $hex, $X, $Y, $spines ) = @_;
+    my $stmt = "";
 
-    say "   " . $hex . ": " . $X . "," . $Y . "," . $spines;
     if ( $spines =~ /A/ ) {
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 1 . ")";
+        say $stmt;
     }
     if ( $spines =~ /B/ ) {
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 2;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 2 . ")";
+        say $stmt;
     }
     if ( $spines =~ /C/ ) {
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 3;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 3 . ")";
+        say $stmt;
     }
 
     if ( $spines =~ /D/ ) {
         $Y += 1;
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 1 . ")";
+        say $stmt;
     }
     if ( $spines =~ /E/ ) {
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 5;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 5 . ")";
+        say $stmt;
     }
     if ( $spines =~ /F/ ) {
-        say "   ." . $hex . ": " . $X . "," . $Y . "," . 6;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $X . ", "
+          . $Y . ", "
+          . 6 . ")";
+        say $stmt;
     }
 }
 
