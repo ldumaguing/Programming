@@ -53,28 +53,50 @@ sub slurp {
 }
 
 # *********************************************************
-# B1: 0,0
+# Game map B1 is 0,0.
 sub register_river {
     $line =~ tr/[a-z]/[A-Z]/;
-    say $line;
     my ( $hex, $spines ) = split /:/, $line;
     my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
     my $Y = int( substr( $hex, 1 ) ) - 1;
 
     #say $X;
     #say $Y;
-    if   ( $X % 2 ) { odd_X(); }
-    else            { even_X( $X, $Y, $spines ); }
+    if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines ); }
+    else          { even_X( $hex, $X, $Y, $spines ); }
 }
 
 # ***************************
 sub odd_X {
+    my ( $hex, $X, $Y, $spines ) = @_;
+    say " - " . $hex . ": " . $X . "," . $Y . "," . $spines;
 }
 
 # ***************************
 sub even_X {
-    my ( $X, $Y, $spines ) = @_;
-    say "yo: " . $spines;
+    my ( $hex, $X, $Y, $spines ) = @_;
+
+    say "   " . $hex . ": " . $X . "," . $Y . "," . $spines;
+    if ( $spines =~ /A/ ) {
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 1;
+    }
+    if ( $spines =~ /B/ ) {
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 2;
+    }
+    if ( $spines =~ /C/ ) {
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 3;
+    }
+
+    if ( $spines =~ /D/ ) {
+        $Y += 1;
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 1;
+    }
+    if ( $spines =~ /E/ ) {
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 5;
+    }
+    if ( $spines =~ /F/ ) {
+        say "   ." . $hex . ": " . $X . "," . $Y . "," . 6;
+    }
 }
 
 # *********************************************************
