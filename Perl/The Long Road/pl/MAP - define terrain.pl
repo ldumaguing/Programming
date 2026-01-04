@@ -61,17 +61,19 @@ sub register_river {
     my $Y = int( substr( $hex, 1 ) ) - 1;
 
     if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines ); }
-
-    #else          { even_X( $hex, $X, $Y, $spines ); }
+    else          { even_X( $hex, $X, $Y, $spines ); }
 }
 
-# *************************** DOING
+# ***************************
 sub odd_X {
     my ( $hex, $X, $Y, $spines ) = @_;
     my $stmt = "";
     my $rs   = undef;
-    say " - " . $hex . ": " . $X . "," . $Y . "," . $spines;
+
+    #say " - " . $hex . ": " . $X . "," . $Y . "," . $spines;
     if ( $spines =~ /A/ ) {
+
+        #say " -." . $hex . ": " . $X . "," . $Y . "," . $spines;
         my $modX = $X - 1;
         $stmt =
             "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
@@ -79,7 +81,8 @@ sub odd_X {
           . $modX . ", "
           . $Y . ", "
           . 4 . ")";
-        say " -." . $stmt;
+
+        #say " -." . $stmt;
         $rs = $conn->prepare($stmt);
         $rs->execute();
 
