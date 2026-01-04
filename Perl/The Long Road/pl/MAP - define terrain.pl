@@ -61,13 +61,181 @@ sub register_river {
     my $Y = int( substr( $hex, 1 ) ) - 1;
 
     if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines ); }
-    else          { even_X( $hex, $X, $Y, $spines ); }
+
+    #else          { even_X( $hex, $X, $Y, $spines ); }
 }
 
-# ***************************
+# *************************** DOING
 sub odd_X {
     my ( $hex, $X, $Y, $spines ) = @_;
+    my $stmt = "";
+    my $rs   = undef;
     say " - " . $hex . ": " . $X . "," . $Y . "," . $spines;
+    if ( $spines =~ /A/ ) {
+        my $modX = $X - 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $Y . ", "
+          . 4 . ")";
+        say " -." . $stmt;
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $Y . " and "
+          . "spine = 4";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
+
+    if ( $spines =~ /B/ ) {
+        my $modX = $X + 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $Y . ", "
+          . 5 . ")";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $Y . " and "
+          . "spine = 5";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
+
+    if ( $spines =~ /C/ ) {
+        my $modX = $X + 1;
+        my $modY = $Y + 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $modY . ", "
+          . 6 . ")";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $modY . " and "
+          . "spine = 6";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
+
+    if ( $spines =~ /D/ ) {
+        my $modX = $X - 1;
+        my $modY = $Y + 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $modY . ", "
+          . 4 . ")";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $modY . " and "
+          . "spine = 4";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
+
+    if ( $spines =~ /E/ ) {
+        my $modX = $X - 1;
+        my $modY = $Y + 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $modY . ", "
+          . 2 . ")";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $modY . " and "
+          . "spine = 2";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
+
+    if ( $spines =~ /F/ ) {
+        my $modX = $X - 1;
+        $stmt =
+            "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
+          . $fname . "', "
+          . $modX . ", "
+          . $Y . ", "
+          . 3 . ")";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $stmt =
+            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "loc_x = "
+          . $modX . " and "
+          . "loc_y = "
+          . $Y . " and "
+          . "spine = 3";
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+
+        $rs->finish();
+    }
 }
 
 # ***************************
@@ -155,12 +323,12 @@ sub even_X {
     }
 
     if ( $spines =~ /D/ ) {
-        $Y += 1;
+        my $modY = $Y + 1;
         $stmt =
             "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
           . $fname . "', "
           . $X . ", "
-          . $Y . ", "
+          . $modY . ", "
           . 1 . ")";
         $rs = $conn->prepare($stmt);
         $rs->execute();
@@ -173,7 +341,7 @@ sub even_X {
           . "loc_x = "
           . $X . " and "
           . "loc_y = "
-          . $Y . " and "
+          . $modY . " and "
           . "spine = 1";
         $rs = $conn->prepare($stmt);
         $rs->execute();

@@ -9,6 +9,8 @@ CREATE TABLE spine (
    PRIMARY KEY (mapFile, loc_x, loc_y, spine)
 );
 
+
+
 flag1
 =====
 bit 0: river
