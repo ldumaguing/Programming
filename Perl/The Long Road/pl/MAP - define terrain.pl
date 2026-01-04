@@ -70,10 +70,7 @@ sub odd_X {
     my $stmt = "";
     my $rs   = undef;
 
-    #say " - " . $hex . ": " . $X . "," . $Y . "," . $spines;
     if ( $spines =~ /A/ ) {
-
-        #say " -." . $hex . ": " . $X . "," . $Y . "," . $spines;
         my $modX = $X - 1;
         $stmt =
             "INSERT INTO spine (mapFile, loc_x, loc_y, spine) VALUES (" . "'"
