@@ -41,25 +41,94 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
-        if ( $line =~ /^$/ )              { $modeNum = 0; next; }
-        if ( $line =~ /^HILL \*/ )        { $modeNum = 1; next; }
-        if ( $line =~ /^ROAD \*/ )        { $modeNum = 2; next; }
-        if ( $line =~ /^RIVER \*/ )       { $modeNum = 3; next; }
-        if ( $line =~ /^TUNNEL ROAD \*/ ) { $modeNum = 4; next; }
-        if ( $line =~ /^ROLLING \*/ )     { $modeNum = 5; next; }
-        if ( $line =~ /^FOREST \*/ )      { $modeNum = 6; next; }
-        if ( $line =~ /^TOWN \*/ )        { $modeNum = 7; next; }
+        if ( $line =~ /^$/ )              { $modeNum = 0;  next; }
+        if ( $line =~ /^HILL \*/ )        { $modeNum = 1;  next; }
+        if ( $line =~ /^ROAD \*/ )        { $modeNum = 2;  next; }
+        if ( $line =~ /^RIVER \*/ )       { $modeNum = 3;  next; }
+        if ( $line =~ /^TUNNEL ROAD \*/ ) { $modeNum = 4;  next; }
+        if ( $line =~ /^ROLLING \*/ )     { $modeNum = 5;  next; }
+        if ( $line =~ /^FOREST \*/ )      { $modeNum = 6;  next; }
+        if ( $line =~ /^TOWN \*/ )        { $modeNum = 7;  next; }
+        if ( $line =~ /^CITY \*/ )        { $modeNum = 8;  next; }
+        if ( $line =~ /^CULTIVATED \*/ )  { $modeNum = 9;  next; }
+        if ( $line =~ /^LAKE \*/ )        { $modeNum = 10; next; }
 
-        if ( $modeNum == 1 ) { register_hill(); }
-        if ( $modeNum == 2 ) { register_road(); }
-        if ( $modeNum == 3 ) { register_river(); }
-        if ( $modeNum == 4 ) { register_tunnel_road(); }
-        if ( $modeNum == 5 ) { register_rolling(); }
-        if ( $modeNum == 6 ) { register_forest(); }
-        if ( $modeNum == 7 ) { register_town(); }
+        if ( $modeNum == 1 )  { register_hill(); }
+        if ( $modeNum == 2 )  { register_road(); }
+        if ( $modeNum == 3 )  { register_river(); }
+        if ( $modeNum == 4 )  { register_tunnel_road(); }
+        if ( $modeNum == 5 )  { register_rolling(); }
+        if ( $modeNum == 6 )  { register_forest(); }
+        if ( $modeNum == 7 )  { register_town(); }
+        if ( $modeNum == 8 )  { register_city(); }
+        if ( $modeNum == 9 )  { register_cultivated(); }
+        if ( $modeNum == 10 ) { register_lake(); }
     }
 
     close $fh;
+}
+
+# *********************************************************
+sub register_lake {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag2 = (flag2 | (1 << 2)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
+}
+
+# *********************************************************
+sub register_cultivated {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag2 = (flag2 | (1 << 1)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
+}
+
+# *********************************************************
+sub register_city {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag2 = (flag2 | (1 << 0)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
 }
 
 # *********************************************************
