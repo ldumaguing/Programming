@@ -11,6 +11,8 @@ my $stmt = "";
 
 my $modeNum = 0;
 
+# Game map B1 is 0,0.
+
 # ***************************************************************************************
 use DBI;
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
@@ -39,23 +41,56 @@ sub slurp {
         chomp $line;    # Remove trailing newline character
         last if ( $line =~ /END/ );
 
-        if ( $line =~ /^$/ )       { $modeNum = 0; next; }
-        if ( $line =~ /HILL \*/ )  { $modeNum = 1; next; }
-        if ( $line =~ /ROAD \*/ )  { $modeNum = 2; next; }
-        if ( $line =~ /RIVER \*/ ) { $modeNum = 3; next; }
+        if ( $line =~ /^$/ )              { $modeNum = 0; next; }
+        if ( $line =~ /^HILL \*/ )        { $modeNum = 1; next; }
+        if ( $line =~ /^ROAD \*/ )        { $modeNum = 2; next; }
+        if ( $line =~ /^RIVER \*/ )       { $modeNum = 3; next; }
+        if ( $line =~ /^TUNNEL ROAD \*/ ) { $modeNum = 4; next; }
 
         if ( $modeNum == 1 ) { register_hill(); }
         if ( $modeNum == 2 ) { register_road(); }
         if ( $modeNum == 3 ) { register_river(); }
+        if ( $modeNum == 4 ) { register_tunnel_road(); }
     }
 
     close $fh;
 }
 
 # *********************************************************
-# Game map B1 is 0,0.
+sub register_tunnel_road {
+    my $exits = 0;
+    $line =~ tr/[a-z]/[A-Z]/;
+    say $line;
+    my @hexes = split /:/, $line;
+
+    if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
+    if ( $hexes[1] =~ /B/ ) { $exits = $exits | ( 1 << 1 ); }
+    if ( $hexes[1] =~ /C/ ) { $exits = $exits | ( 1 << 2 ); }
+    if ( $hexes[1] =~ /D/ ) { $exits = $exits | ( 1 << 3 ); }
+    if ( $hexes[1] =~ /E/ ) { $exits = $exits | ( 1 << 4 ); }
+    if ( $hexes[1] =~ /F/ ) { $exits = $exits | ( 1 << 5 ); }
+    $exits = $exits << 7;
+
+    $stmt =
+        "UPDATE terrain set flag1 = (flag1 | "
+      . $exits
+      . ") WHERE "
+      . "mapFile = '"
+      . $fname
+      . "' and "
+      . "hexID = '"
+      . $hexes[0] . "'";
+
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+
+}
+
+# *********************************************************
 sub register_river {
     $line =~ tr/[a-z]/[A-Z]/;
+    say $line;
     my ( $hex, $spines ) = split /:/, $line;
     my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
     my $Y = int( substr( $hex, 1 ) ) - 1;
@@ -406,6 +441,7 @@ sub even_X {
 sub register_road {
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
+    say $line;
     my @hexes = split /:/, $line;
 
     if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
@@ -434,6 +470,7 @@ sub register_road {
 # *********************************************************
 sub register_hill {
     $line =~ tr/[a-z]/[A-Z]/;
+    say $line;
     my $rs = undef;
 
     my @hexes = split /,/, $line;

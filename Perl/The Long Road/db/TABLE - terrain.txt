@@ -24,6 +24,17 @@ bit 1-6: Road exits
     4: D (S)
     5: E (SW)
     6: F (NW)
+bit 7-12: Tunnel road exits
+    7: A (N)
+    8: B (NE)
+    9: C (SE)
+   10: D (S)
+   11: E (SW)
+   12: F (NW)
+
+
+
+
 
 
 .mode csv
