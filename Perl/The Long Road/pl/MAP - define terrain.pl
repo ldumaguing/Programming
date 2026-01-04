@@ -46,21 +46,89 @@ sub slurp {
         if ( $line =~ /^ROAD \*/ )        { $modeNum = 2; next; }
         if ( $line =~ /^RIVER \*/ )       { $modeNum = 3; next; }
         if ( $line =~ /^TUNNEL ROAD \*/ ) { $modeNum = 4; next; }
+        if ( $line =~ /^ROLLING \*/ )     { $modeNum = 5; next; }
+        if ( $line =~ /^FOREST \*/ )      { $modeNum = 6; next; }
+        if ( $line =~ /^TOWN \*/ )        { $modeNum = 7; next; }
 
         if ( $modeNum == 1 ) { register_hill(); }
         if ( $modeNum == 2 ) { register_road(); }
         if ( $modeNum == 3 ) { register_river(); }
         if ( $modeNum == 4 ) { register_tunnel_road(); }
+        if ( $modeNum == 5 ) { register_rolling(); }
+        if ( $modeNum == 6 ) { register_forest(); }
+        if ( $modeNum == 7 ) { register_town(); }
     }
 
     close $fh;
 }
 
 # *********************************************************
+sub register_town {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag1 = (flag1 | (1 << 15)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
+}
+
+# *********************************************************
+sub register_forest {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag1 = (flag1 | (1 << 14)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
+}
+
+# *********************************************************
+sub register_rolling {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my $rs = undef;
+
+    my @hexes = split /,/, $line;
+    foreach my $hexID (@hexes) {
+        $stmt =
+            "UPDATE terrain set flag1 = (flag1 | (1 << 13)) WHERE "
+          . "mapFile = '"
+          . $fname
+          . "' and "
+          . "hexID = '"
+          . $hexID . "'";
+
+        $rs = $conn->prepare($stmt);
+        $rs->execute();
+        $rs->finish();
+    }
+}
+
+# *********************************************************
 sub register_tunnel_road {
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
-    say $line;
     my @hexes = split /:/, $line;
 
     if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
@@ -90,7 +158,6 @@ sub register_tunnel_road {
 # *********************************************************
 sub register_river {
     $line =~ tr/[a-z]/[A-Z]/;
-    say $line;
     my ( $hex, $spines ) = split /:/, $line;
     my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
     my $Y = int( substr( $hex, 1 ) ) - 1;
@@ -441,7 +508,6 @@ sub even_X {
 sub register_road {
     my $exits = 0;
     $line =~ tr/[a-z]/[A-Z]/;
-    say $line;
     my @hexes = split /:/, $line;
 
     if ( $hexes[1] =~ /A/ ) { $exits = $exits | ( 1 << 0 ); }
@@ -470,7 +536,6 @@ sub register_road {
 # *********************************************************
 sub register_hill {
     $line =~ tr/[a-z]/[A-Z]/;
-    say $line;
     my $rs = undef;
 
     my @hexes = split /,/, $line;
