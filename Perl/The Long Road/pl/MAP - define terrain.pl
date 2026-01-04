@@ -52,6 +52,7 @@ sub slurp {
         if ( $line =~ /^CITY \*/ )        { $modeNum = 8;  next; }
         if ( $line =~ /^CULTIVATED \*/ )  { $modeNum = 9;  next; }
         if ( $line =~ /^LAKE \*/ )        { $modeNum = 10; next; }
+        if ( $line =~ /^BRIDGE \*/ )      { $modeNum = 11; next; }
 
         if ( $modeNum == 1 )  { register_hill(); }
         if ( $modeNum == 2 )  { register_road(); }
@@ -63,6 +64,7 @@ sub slurp {
         if ( $modeNum == 8 )  { register_city(); }
         if ( $modeNum == 9 )  { register_cultivated(); }
         if ( $modeNum == 10 ) { register_lake(); }
+        if ( $modeNum == 11 ) { register_bridge(); }
     }
 
     close $fh;
@@ -225,19 +227,30 @@ sub register_tunnel_road {
 }
 
 # *********************************************************
+sub register_bridge {
+    $line =~ tr/[a-z]/[A-Z]/;
+    my ( $hex, $spines ) = split /:/, $line;
+    my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
+    my $Y = int( substr( $hex, 1 ) ) - 1;
+
+    if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines, ( 1 << 1 ) ); }
+    else          { even_X( $hex, $X, $Y, $spines, ( 1 << 1 ) ); }
+}
+
+# *********************************************************
 sub register_river {
     $line =~ tr/[a-z]/[A-Z]/;
     my ( $hex, $spines ) = split /:/, $line;
     my $X = ord( substr( $hex, 0, 1 ) ) - $letterRef;
     my $Y = int( substr( $hex, 1 ) ) - 1;
 
-    if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines ); }
-    else          { even_X( $hex, $X, $Y, $spines ); }
+    if ( $X % 2 ) { odd_X( $hex, $X, $Y, $spines, ( 1 << 0 ) ); }
+    else          { even_X( $hex, $X, $Y, $spines, ( 1 << 0 ) ); }
 }
 
 # ***************************
 sub odd_X {
-    my ( $hex, $X, $Y, $spines ) = @_;
+    my ( $hex, $X, $Y, $spines, $bit ) = @_;
     my $stmt = "";
     my $rs   = undef;
 
@@ -255,7 +268,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -282,7 +297,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -310,7 +327,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -338,7 +357,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -366,7 +387,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -393,7 +416,9 @@ sub odd_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -411,7 +436,7 @@ sub odd_X {
 
 # ***************************
 sub even_X {
-    my ( $hex, $X, $Y, $spines ) = @_;
+    my ( $hex, $X, $Y, $spines, $bit ) = @_;
     my $stmt = "";
     my $rs   = undef;
 
@@ -426,7 +451,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -452,7 +479,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -478,7 +507,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -505,7 +536,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -531,7 +564,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
@@ -557,7 +592,9 @@ sub even_X {
         $rs->execute();
 
         $stmt =
-            "UPDATE spine set flag1 = (flag1 | 1) WHERE "
+            "UPDATE spine set flag1 = (flag1 | "
+          . $bit
+          . ") WHERE "
           . "mapFile = '"
           . $fname
           . "' and "
