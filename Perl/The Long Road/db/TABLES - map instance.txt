@@ -1,4 +1,16 @@
 ******************************************************************** TABLE - map instance
+DROP TABLE IF EXISTS terrain_instance;
+CREATE TABLE terrain_instance (
+   gameName TEXT NOT NULL,
+   loc_x    INTEGER DEFAULT 0,
+   loc_y    INTEGER DEFAULT 0,
+   loc_z    INTEGER DEFAULT 0,
+   flag1    INTEGER DEFAULT 0,
+   flag2    INTEGER DEFAULT 0,
+   PRIMARY KEY (gameName, loc_x, loc_y)
+);
+
+
 DROP TABLE IF EXISTS spine_instance;
 CREATE TABLE spine_instance (
    gameName TEXT NOT NULL,
@@ -9,17 +21,6 @@ CREATE TABLE spine_instance (
    PRIMARY KEY (gameName, loc_x, loc_y, spine)
 );
 
-DROP TABLE IF EXISTS terrain_instance;
-CREATE TABLE terrain_instance (
-   gameName TEXT NOT NULL,
-   hexID    TEXT NOT NULL,      -- A1, B1, C2, etc
-   loc_x    INTEGER DEFAULT 0,
-   loc_y    INTEGER DEFAULT 0,
-   loc_z    INTEGER DEFAULT 0,
-   flag1    INTEGER DEFAULT 0,
-   flag2    INTEGER DEFAULT 0,
-   PRIMARY KEY (gameName, hexID)
-);
 
 
 

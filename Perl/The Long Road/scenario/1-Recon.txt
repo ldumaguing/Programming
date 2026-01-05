@@ -1,18 +1,32 @@
 name:Recon
 map_dim:3629x2801
-maps:A,B
-
+#maps:A,B,_,C
+maps:A,B,_,.,C
 
 
 
 END *************************************************************************************
 maps:A,B,C,D      # maps are appended based on the sequence
 
-maps:A,B_C,D      # underscore indicates that the maps are stacked
+maps:A,B,_,C,D    # underscore indicates that the maps are stacked
 
-maps:A,B_C*,D     # asterisk indicates that the map is rotated 180 degress
+maps:A,B,_,c,D   # lowercase indicates that the map is rotated 180 degress
+
+maps:A,B,_,.,C    # '.' indicates an empty map data
+maps:.,A,_,B,C
 
 
 
+ABCD
 
+AB
+CD
 
+AB
+cD
+
+AB
+.C
+
+.A
+BC
