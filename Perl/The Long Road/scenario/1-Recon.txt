@@ -1,94 +1,17 @@
-scenario_num: 1
-name: Recon
-map: Scenario 1.png
-mapID: 1
-0x0: 121,39
-upperRight: 6984,39
-lowerRight: 6984,2606
-hexCount: 35,12
-map_dim: 7258,2801
-turns: 8
-
-
-
-
-
-Soviet
-*** Set up on the D and E hex row of Map B.
-Infantry: 4
-BMP-1P: 4
-T-64B: 2
-BRDM-2: 1
-Morozov: 1
-
-
-American
-*** Set up first on or west of the Q hex row of Map C.
-Abrams: 1
-M901: 1
-M-3 Bradley: 2
-Recon: 3
-Hood: 1
-
-
-*********************************** Commands
-******* instance_id     x     y
-[place] 1000            2     0
-[place] 1001            2     1
-[place] 1002            2     2
-[place] 1003            2     3
-[place] 1004            2     4
-[place] 1005            2     5
-[place] 1006            3     0
-[place] 1007            3     1
-[place] 1008            3     2
-[place] 1009            3     3
-[place] 1010            3     4
-[place] 1011            3     5
-
-[place] 1012            33    0
-[place] 1013            33    1
-[place] 1014            33    2
-[place] 1015            33    3
-[place] 1016            32    0
-[place] 1017            32    1
-[place] 1018            32    2
-[place] 1019            32    3
-
-
-*********************************** In-Game Commands
-******** instance_id   instance_id
-<load> 1000          1004
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+name:Recon
+map_dim:3629x2801
+maps:A,B
 
 
 
 
 END *************************************************************************************
-x = 6984 - 121: 6863
-y = 2606 - 39:  2567
+maps:A,B,C,D      # maps are appended based on the sequence
 
-len_X = 6863 / 34: 201.852941177
-len_Y = 2567 / 11: 233.363636364
+maps:A,B_C,D      # underscore indicates that the maps are stacked
 
+maps:A,B_C*,D     # asterisk indicates that the map is rotated 180 degress
 
-
-(201.852941177 * 11) + 121 = 2341
-(233.363636364 * 11) + 39 + (233.363636364 / 2) = 2722
 
 
 
