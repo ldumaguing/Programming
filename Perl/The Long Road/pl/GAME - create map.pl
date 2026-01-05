@@ -77,13 +77,19 @@ sub new_map {
     say $gameName . "," . $col . "," . $row . ": " . $mapFile;
     my $sqlSTMT =
       "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE mapFile = '"
-      . $mapFile . "'";
+      . $mapFile . "' order by loc_x, loc_y";
     my $stmt = $conn->prepare($sqlSTMT);
     $stmt->execute();
 
-    #while ( my @sqlROW = $stmt->fetchrow_array() ) {
-        #say $sqlROW[0] . "," . $sqlROW[1] . "," . $sqlROW[2] . "," . $sqlROW[3];
-    #}
+    say "***************************************************";
+    while ( my @sqlROW = $stmt->fetchrow_array() ) {
+        my $a = $sqlROW[0] + (19 * $col);
+        my $b = $sqlROW[1] + (13 * $row);
+        my $c = $sqlROW[2];
+        my $d = $sqlROW[3];
+
+        say $a . "," . $b . "," . $c . "," . $d;
+    }
 
     $stmt->finish();
 }
