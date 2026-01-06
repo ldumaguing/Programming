@@ -54,13 +54,6 @@ sub instantiate_map {
     my @maps     = split /,/, $mapStr;
     my $row      = 0;
     my $col      = 0;
-
-    my $stmt =
-      "DELETE FROM terrain_instance WHERE gameName = '" . $gameName . "'";
-    my $rs = $conn->prepare($stmt);
-    $rs->execute();
-    $rs->finish();
-
     foreach my $letter (@maps) {
 
         if ( $letter =~ /_/ ) {
@@ -114,7 +107,7 @@ sub new_map {
               . $d . ".."
               . $sqlROW[4] . " .. "
               . $actual_col;
-            my $stmt1 =
+            say
 "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) values ("
               . "'"
               . $gameName . "', "
@@ -122,9 +115,6 @@ sub new_map {
               . $b . ", "
               . $c . ", "
               . $d . ")";
-            my $rs1 = $conn->prepare($stmt1);
-            $rs1->execute();
-            $rs1->finish();
         }
     }
 
