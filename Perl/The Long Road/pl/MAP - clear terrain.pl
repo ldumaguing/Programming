@@ -18,16 +18,19 @@ $rs->execute();
 foreach my $mapLetter ( 'A' .. 'D' ) {
     foreach my $letter ( 'A' .. 'S' ) {
         my $x = ord($letter) - $A_val - 1;
-        foreach my $num ( 0 .. 12 ) {
+        foreach my $num ( -1 .. 11 ) {
+            my $numY = $num + 1;
             $stmt =
                 "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y) values ("
               . "'Map "
               . $mapLetter . "', '"
               . $letter
-              . ( $num + 1 ) . "', "
+              . $numY . "', "
               . $x . ", "
               . $num . ")";
-
+            if ( !( $x % 2 ) ) {
+                if ( $num < 0 ) { next; }
+            }
             $rs = $conn->prepare($stmt);
             $rs->execute();
         }
