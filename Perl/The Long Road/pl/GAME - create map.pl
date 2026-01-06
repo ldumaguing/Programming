@@ -102,26 +102,21 @@ sub new_map {
             $trigger_x = $a;
             $hexSlot_x += 1;
         }
-
+        my $actual_col = $hexSlot_x + ( $col * 18 );
         if ( ( $col > 0 ) and ( $a < 0 ) ) {
-            say "--";
+            say $a . ": " . ($actual_col) . "," . $b . "- " . $c . "," . $d;
         }
         else {
             my $actual_col = $hexSlot_x + ( $col * 18 );
-            say $a . ","
-              . $b . ","
-              . $c . ","
-              . $d . ".."
-              . $sqlROW[4] . " .. "
-              . $actual_col;
             my $stmt1 =
-"INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) values ("
-              . "'"
+                "INSERT INTO terrain_instance "
+              . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
               . $gameName . "', "
               . $actual_col . ", "
               . $b . ", "
               . $c . ", "
               . $d . ")";
+            say $stmt1;
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
             $rs1->finish();
