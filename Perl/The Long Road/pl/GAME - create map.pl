@@ -43,8 +43,6 @@ while ( $line = <$fh> ) {
     }
 }
 
-# say $map_dim;
-
 close $fh;
 $conn->disconnect();
 
@@ -62,7 +60,6 @@ sub instantiate_map {
     $rs->finish();
 
     foreach my $letter (@maps) {
-
         if ( $letter =~ /_/ ) {
             $col = 0;
             $row += 1;
@@ -103,8 +100,52 @@ sub new_map {
             $hexSlot_x += 1;
         }
         my $actual_col = $hexSlot_x + ( $col * 18 );
-        if ( ( $col > 0 ) and ( $a < 0 ) ) {
-            say $a . ": " . ($actual_col) . "," . $b . "- " . $c . "," . $d;
+        if ( ( $col > 0 ) and ( $a < 0 ) ) {    # ----- lacing
+            my $stmt1 =
+                "SELECT flag1 "
+              . "FROM terrain_instance WHERE gameName = '"
+              . $gameName
+              . "' and "
+              . "loc_x = "
+              . ( 19 + $a ) . " and "
+              . "loc_y = "
+              . $b;
+
+            #say $stmt1;
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+
+            my $flag1 = "";
+            while ( my @oldROW = $rs1->fetchrow_array() ) {
+                $flag1 = $oldROW[0];
+            }
+
+            say ">>>>>>>>>>>> " . $flag1;
+
+            $rs1->finish();
+
+            # **************
+            $stmt1 =
+                "SELECT flag1 "
+              . "FROM terrain WHERE mapFile = '"
+              . $mapFile
+              . "' and "
+              . "loc_x = "
+              . $a . " and "
+              . "loc_y = "
+              . $b;
+
+            #say $stmt1;
+            $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+
+            my $flag1a = "";
+            while ( my @oldROW = $rs1->fetchrow_array() ) {
+                $flag1a = $oldROW[0];
+            }
+            say ">>>>>>>>>>>>> " . $flag1a;
+
+            $rs1->finish();
         }
         else {
             my $actual_col = $hexSlot_x + ( $col * 18 );
@@ -116,7 +157,8 @@ sub new_map {
               . $b . ", "
               . $c . ", "
               . $d . ")";
-            say $stmt1;
+
+            # say $stmt1;
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
             $rs1->finish();
