@@ -78,7 +78,6 @@ sub new_map {
 
     my $mapFile = "Map " . $letter;
 
-    say $gameName . "," . $col . "," . $row . ": " . $mapFile;
     my $sqlSTMT =
       "SELECT loc_x, loc_y, flag1, flag2, hexID FROM terrain WHERE mapFile = '"
       . $mapFile
@@ -88,7 +87,6 @@ sub new_map {
 
     my $hexSlot_x = 0;
     my $trigger_x = -1;
-    say "***************************************************";
     while ( my @sqlROW = $stmt->fetchrow_array() ) {
         my $a = $sqlROW[0];
         my $b = $sqlROW[1] + ( 13 * $row );
@@ -111,7 +109,6 @@ sub new_map {
               . "loc_y = "
               . $b;
 
-            #say $stmt1;
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
 
@@ -119,8 +116,6 @@ sub new_map {
             while ( my @oldROW = $rs1->fetchrow_array() ) {
                 $flag1 = $oldROW[0];
             }
-
-            say ">>>>>>>>>>>> " . $flag1;
 
             $rs1->finish();
 
@@ -135,7 +130,6 @@ sub new_map {
               . "loc_y = "
               . $b;
 
-            #say $stmt1;
             $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
 
@@ -143,9 +137,24 @@ sub new_map {
             while ( my @oldROW = $rs1->fetchrow_array() ) {
                 $flag1a = $oldROW[0];
             }
-            say ">>>>>>>>>>>>> " . $flag1a;
 
             $rs1->finish();
+
+            if ( $flag1a != $flag1 ) {
+                $stmt1 =
+                    "UPDATE terrain_instance SET flag1 = "
+                  . ( $flag1a | $flag1 )
+                  . " WHERE gameName = '"
+                  . $gameName
+                  . "' and "
+                  . "loc_x = "
+                  . $actual_col . " and "
+                  . "loc_y = "
+                  . $b;
+                $rs1 = $conn->prepare($stmt1);
+                $rs1->execute();
+                $rs1->finish();
+            }
         }
         else {
             my $actual_col = $hexSlot_x + ( $col * 18 );
@@ -158,7 +167,6 @@ sub new_map {
               . $c . ", "
               . $d . ")";
 
-            # say $stmt1;
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
             $rs1->finish();
