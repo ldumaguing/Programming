@@ -93,7 +93,7 @@ sub imprint_map {
     }
 }
 
-# *************************************
+# ************************************* TODO
 sub placement_B {
     my ( $col, $row, $letter ) = @_;
 
@@ -105,7 +105,40 @@ sub placement_B {
         "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
       . "mapFile = '"
       . $mapFile . "'";
-    say $stmt;
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = $ROW[0] + ( $col * 18 ) + 1;
+        my $b = $ROW[1];
+        my $c = $ROW[2];
+        my $d = $ROW[3];
+        if ( $ROW[0] < 0 ) {
+            say $a . "," . $b . "," . $c . "," . $d;
+            say $a . "..." . $ROW[0];
+            my $stmt1 =
+                "SELECT flag1, flag2 from terrain WHERE "
+              . "mapFile = '" . $mapFile . "' AND "
+              . "loc_x = " . $ROW[0] . " AND "
+              . "loc_y = " . $ROW[1];
+            say $stmt1;
+            say "------------------------------------";
+        }
+        else {
+            my $stmt1 =
+                "INSERT INTO terrain_instance "
+              . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
+              . $gameName . "', "
+              . $a . ", "
+              . $b . ", "
+              . $c . ", "
+              . $d . ")";
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+            $rs1->finish();
+        }
+    }
+    $rs->finish();
 }
 
 # *************************************

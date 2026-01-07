@@ -43,8 +43,6 @@ while ( $line = <$fh> ) {
     }
 }
 
-# say $map_dim;
-
 close $fh;
 $conn->disconnect();
 
@@ -62,7 +60,6 @@ sub instantiate_map {
     $rs->finish();
 
     foreach my $letter (@maps) {
-
         if ( $letter =~ /_/ ) {
             $col = 0;
             $row += 1;
@@ -81,18 +78,16 @@ sub new_map {
 
     my $mapFile = "Map " . $letter;
 
-    say $gameName . "," . $col . "," . $row . ": " . $mapFile;
-    my $sqlSTMT =
+    my $stmt =
       "SELECT loc_x, loc_y, flag1, flag2, hexID FROM terrain WHERE mapFile = '"
       . $mapFile
       . "' order by loc_x, loc_y";
-    my $stmt = $conn->prepare($sqlSTMT);
-    $stmt->execute();
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
 
     my $hexSlot_x = 0;
     my $trigger_x = -1;
-    say "***************************************************";
-    while ( my @sqlROW = $stmt->fetchrow_array() ) {
+    while ( my @sqlROW = $rs->fetchrow_array() ) {
         my $a = $sqlROW[0];
         my $b = $sqlROW[1] + ( 13 * $row );
         my $c = $sqlROW[2];
@@ -102,32 +97,82 @@ sub new_map {
             $trigger_x = $a;
             $hexSlot_x += 1;
         }
+        my $instance_col = $hexSlot_x + ( $col * 18 );
+        if ( ( $col > 0 ) and ( $a < 0 ) ) {    # ----- lacing
+            my $stmt1 =
+                "SELECT flag1 "
+              . "FROM terrain_instance WHERE gameName = '"
+              . $gameName
+              . "' and "
+              . "loc_x = "
+              . ( 19 + $a ) . " and "
+              . "loc_y = "
+              . $b;
 
-        if ( ( $col > 0 ) and ( $a < 0 ) ) {
-            say "--";
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+
+            my $flag1 = "";
+            while ( my @oldROW = $rs1->fetchrow_array() ) {
+                $flag1 = $oldROW[0];
+            }
+
+            $rs1->finish();
+
+            # **************
+            $stmt1 =
+                "SELECT flag1 "
+              . "FROM terrain WHERE mapFile = '"
+              . $mapFile
+              . "' and "
+              . "loc_x = "
+              . $a . " and "
+              . "loc_y = "
+              . $b;
+
+            $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+
+            my $flag1a = "";
+            while ( my @oldROW = $rs1->fetchrow_array() ) {
+                $flag1a = $oldROW[0];
+            }
+
+            $rs1->finish();
+
+            if ( $flag1a != $flag1 ) {
+                $stmt1 =
+                    "UPDATE terrain_instance SET flag1 = "
+                  . ( $flag1a | $flag1 )
+                  . " WHERE gameName = '"
+                  . $gameName
+                  . "' and "
+                  . "loc_x = "
+                  . $instance_col . " and "
+                  . "loc_y = "
+                  . $b;
+                $rs1 = $conn->prepare($stmt1);
+                $rs1->execute();
+                $rs1->finish();
+            }
         }
         else {
-            my $actual_col = $hexSlot_x + ( $col * 18 );
-            say $a . ","
-              . $b . ","
-              . $c . ","
-              . $d . ".."
-              . $sqlROW[4] . " .. "
-              . $actual_col;
+            my $instance_col = $hexSlot_x + ( $col * 18 );
             my $stmt1 =
-"INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) values ("
-              . "'"
+                "INSERT INTO terrain_instance "
+              . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
               . $gameName . "', "
-              . $actual_col . ", "
+              . $instance_col . ", "
               . $b . ", "
               . $c . ", "
               . $d . ")";
+
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
             $rs1->finish();
         }
     }
 
-    $stmt->finish();
+    $rs->finish();
 }
 
