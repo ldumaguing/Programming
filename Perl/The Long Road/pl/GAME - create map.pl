@@ -78,16 +78,16 @@ sub new_map {
 
     my $mapFile = "Map " . $letter;
 
-    my $sqlSTMT =
+    my $stmt =
       "SELECT loc_x, loc_y, flag1, flag2, hexID FROM terrain WHERE mapFile = '"
       . $mapFile
       . "' order by loc_x, loc_y";
-    my $stmt = $conn->prepare($sqlSTMT);
-    $stmt->execute();
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
 
     my $hexSlot_x = 0;
     my $trigger_x = -1;
-    while ( my @sqlROW = $stmt->fetchrow_array() ) {
+    while ( my @sqlROW = $rs->fetchrow_array() ) {
         my $a = $sqlROW[0];
         my $b = $sqlROW[1] + ( 13 * $row );
         my $c = $sqlROW[2];
@@ -97,7 +97,7 @@ sub new_map {
             $trigger_x = $a;
             $hexSlot_x += 1;
         }
-        my $actual_col = $hexSlot_x + ( $col * 18 );
+        my $instance_col = $hexSlot_x + ( $col * 18 );
         if ( ( $col > 0 ) and ( $a < 0 ) ) {    # ----- lacing
             my $stmt1 =
                 "SELECT flag1 "
@@ -148,7 +148,7 @@ sub new_map {
                   . $gameName
                   . "' and "
                   . "loc_x = "
-                  . $actual_col . " and "
+                  . $instance_col . " and "
                   . "loc_y = "
                   . $b;
                 $rs1 = $conn->prepare($stmt1);
@@ -157,12 +157,12 @@ sub new_map {
             }
         }
         else {
-            my $actual_col = $hexSlot_x + ( $col * 18 );
+            my $instance_col = $hexSlot_x + ( $col * 18 );
             my $stmt1 =
                 "INSERT INTO terrain_instance "
               . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
               . $gameName . "', "
-              . $actual_col . ", "
+              . $instance_col . ", "
               . $b . ", "
               . $c . ", "
               . $d . ")";
@@ -173,6 +173,6 @@ sub new_map {
         }
     }
 
-    $stmt->finish();
+    $rs->finish();
 }
 
