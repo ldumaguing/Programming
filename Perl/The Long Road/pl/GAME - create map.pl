@@ -65,14 +65,87 @@ sub instantiate_map {
             $row += 1;
             next;
         }
-
-        new_map( $col, $row, $letter );
+        imprint_map( $col, $row, $letter );
         $col += 1;
     }
 }
 
+# ********************************************************* TODO
+sub imprint_map {
+    my ( $col, $row, $letter ) = @_;
+    return if ( $letter =~ /\./ );
+
+    if ( ( $col == 0 ) and ( $row == 0 ) ) {
+        placement_A( $col, $row, $letter );
+    }
+    else {
+        if ( $row == 0 ) {
+            placement_B( $col, $row, $letter );
+        }
+        else {
+            if ( $col == 0 ) {
+                say "blend top side: " . $letter;
+            }
+            else {
+                say "blend top & left sides: " . $letter;
+            }
+        }
+    }
+}
+
+# *************************************
+sub placement_B {
+    my ( $col, $row, $letter ) = @_;
+
+    say "blend left side: " . $letter;
+
+    my $mapFile = "Map " . $letter;
+
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    say $stmt;
+}
+
+# *************************************
+sub placement_A {
+    my ( $col, $row, $letter ) = @_;
+
+    # say "upper/left corner - stamp it: " . $letter;
+
+    my $mapFile = "Map " . $letter;
+
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = $ROW[0] + 1;
+        my $b = $ROW[1];
+        my $c = $ROW[2];
+        my $d = $ROW[3];
+
+        my $stmt1 =
+            "INSERT INTO terrain_instance "
+          . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
+          . $gameName . "', "
+          . $a . ", "
+          . $b . ", "
+          . $c . ", "
+          . $d . ")";
+        my $rs1 = $conn->prepare($stmt1);
+        $rs1->execute();
+        $rs1->finish();
+    }
+    $rs->finish();
+}
+
 # *********************************************************
-sub new_map {
+sub fooness {
     my ( $col, $row, $letter ) = @_;
     return if ( $letter =~ /\./ );
 
