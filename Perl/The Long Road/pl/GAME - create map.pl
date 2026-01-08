@@ -87,13 +87,19 @@ sub imprint_map {
                 placement_C( $col, $row, $letter );
             }
             else {
-                say "blend top & left sides: " . $letter;
+                placement_D( $col, $row, $letter );
             }
         }
     }
 }
 
 # ************************************* todo
+sub placement_D {
+    my ( $col, $row, $letter ) = @_;
+    say "blend top & left sides: " . $letter;
+}
+
+# *************************************
 # sqlite> select * from terrain_instance where loc_x = 6 and loc_y = 11;
 # Recon|6|11|0|0|0
 # sqlite> select * from terrain where mapFile = 'Map C' and loc_x = 5 and loc_y = -1;
@@ -125,11 +131,6 @@ sub placement_C {
         my $d = $ROW[3];                       # ----- terrain flag2
 
         if ( $ROW[1] < 0 ) {
-
-            #say $a . " " . $b . " " . $c . " " . $d;
-            #say "   " . $mapFile . ": " . $ROW[0] . " " . $ROW[1];
-            #say "----";
-
             my $stmt1 =
                 "SELECT flag1, flag2 FROM terrain_instance WHERE "
               . "gameName = '"
@@ -182,7 +183,6 @@ sub placement_C {
         }
     }
     $rs->finish();
-
 }
 
 # *************************************
