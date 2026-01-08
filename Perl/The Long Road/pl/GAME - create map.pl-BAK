@@ -65,14 +65,147 @@ sub instantiate_map {
             $row += 1;
             next;
         }
-
-        new_map( $col, $row, $letter );
+        imprint_map( $col, $row, $letter );
         $col += 1;
     }
 }
 
+# ********************************************************* TODO
+sub imprint_map {
+    my ( $col, $row, $letter ) = @_;
+    return if ( $letter =~ /\./ );
+
+    if ( ( $col == 0 ) and ( $row == 0 ) ) {
+        placement_A( $col, $row, $letter );
+    }
+    else {
+        if ( $row == 0 ) {
+            placement_B( $col, $row, $letter );
+        }
+        else {
+            if ( $col == 0 ) {
+                say "blend top side: " . $letter;
+            }
+            else {
+                say "blend top & left sides: " . $letter;
+            }
+        }
+    }
+}
+
+# ************************************* TODO
+sub placement_B {
+    my ( $col, $row, $letter ) = @_;
+
+    # say "blend left side: " . $letter;
+
+    my $mapFile = "Map " . $letter;
+
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = $ROW[0] + ( $col * 18 ) + 1;
+        my $b = $ROW[1];
+        my $c = $ROW[2];
+        my $d = $ROW[3];
+        if ( $ROW[0] < 0 ) {
+            my $stmt1 =
+                "SELECT flag1, flag2 FROM terrain_instance WHERE "
+              . "gameName = '"
+              . $gameName
+              . "' AND "
+              . "loc_x = "
+              . $a . " AND "
+              . "loc_y = "
+              . $b;
+
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+            my $flag1 = 0;
+            my $flag2 = 0;
+
+            while ( my @oldROW = $rs1->fetchrow_array() ) {
+                $flag1 = $oldROW[0];
+                $flag2 = $oldROW[1];
+            }
+
+            $stmt1 =
+                "UPDATE terrain_instance SET "
+              . "flag1 = "
+              . ( $flag1 | $c )
+              . " WHERE "
+              . "gameName = '"
+              . $gameName
+              . "' AND "
+              . "loc_x = "
+              . $a . " AND "
+              . "loc_y = "
+              . $b;
+            $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+
+            $rs1->finish();
+        }
+        else {
+            my $stmt1 =
+                "INSERT INTO terrain_instance "
+              . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
+              . $gameName . "', "
+              . $a . ", "
+              . $b . ", "
+              . $c . ", "
+              . $d . ")";
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+            $rs1->finish();
+        }
+    }
+    $rs->finish();
+}
+
+# *************************************
+sub placement_A {
+    my ( $col, $row, $letter ) = @_;
+
+    # say "upper/left corner - stamp it: " . $letter;
+
+    my $mapFile = "Map " . $letter;
+
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = $ROW[0] + 1;
+        my $b = $ROW[1];
+        my $c = $ROW[2];
+        my $d = $ROW[3];
+
+        my $stmt1 =
+            "INSERT INTO terrain_instance "
+          . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
+          . $gameName . "', "
+          . $a . ", "
+          . $b . ", "
+          . $c . ", "
+          . $d . ")";
+        my $rs1 = $conn->prepare($stmt1);
+        $rs1->execute();
+        $rs1->finish();
+    }
+    $rs->finish();
+}
+
 # *********************************************************
-sub new_map {
+sub fooness {
     my ( $col, $row, $letter ) = @_;
     return if ( $letter =~ /\./ );
 
