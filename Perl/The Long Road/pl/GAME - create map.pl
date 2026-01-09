@@ -87,7 +87,7 @@ sub imprint_map {
                 placement_C( $col, $row, $letter );
             }
             else {
-                placement_D( $col, $row, $letter );
+                # placement_D( $col, $row, $letter );
             }
         }
     }
@@ -97,18 +97,45 @@ sub imprint_map {
 sub placement_D {
     my ( $col, $row, $letter ) = @_;
     say "blend top & left sides: " . $letter;
+
+    my $mapFile = "Map " . $letter;
+
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    say $stmt;
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = $ROW[0] + ( $col * 18 ) + 1;
+        my $b = $ROW[1] + ( $row * 12 );
+        my $c = $ROW[2];                       # ----- terrain flag1
+        my $d = $ROW[3];                       # ----- terrain flag2
+
+        if ( ( $ROW[0] < 0 ) and ( $ROW[1] < 0 ) ) {
+        }
+        else {
+            my $stmt1 =
+                "INSERT INTO terrain_instance "
+              . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
+              . $gameName . "', "
+              . $a . ", "
+              . $b . ", "
+              . $c . ", "
+              . $d . ")";
+            say ".. " . $stmt1;
+            my $rs1 = $conn->prepare($stmt1);
+            $rs1->execute();
+            $rs1->finish();
+        }
+    }
+    $rs->finish();
+
 }
 
 # *************************************
-# sqlite> select * from terrain_instance where loc_x = 6 and loc_y = 11;
-# Recon|6|11|0|0|0
-# sqlite> select * from terrain where mapFile = 'Map C' and loc_x = 5 and loc_y = -1;
-# Map C|G0|5|-1|0|0|0
-#
-# 6 11 0 0
-#    Map C: 5 -1
-# ----
-
 sub placement_C {
     my ( $col, $row, $letter ) = @_;
 
