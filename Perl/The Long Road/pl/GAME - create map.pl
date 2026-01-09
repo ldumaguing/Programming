@@ -87,7 +87,7 @@ sub imprint_map {
                 placement_C( $col, $row, $letter );
             }
             else {
-                # placement_D( $col, $row, $letter );
+                placement_D( $col, $row, $letter );
             }
         }
     }
@@ -114,7 +114,14 @@ sub placement_D {
         my $c = $ROW[2];                       # ----- terrain flag1
         my $d = $ROW[3];                       # ----- terrain flag2
 
-        if ( ( $ROW[0] < 0 ) and ( $ROW[1] < 0 ) ) {
+        if ( ( $ROW[0] < 0 ) or ( $ROW[1] < 0 ) ) {
+            say ".. "
+              . $a . ","
+              . $b . ","
+              . $c . ","
+              . $d . ": "
+              . $ROW[0] . ","
+              . $ROW[1];
         }
         else {
             my $stmt1 =
@@ -125,7 +132,6 @@ sub placement_D {
               . $b . ", "
               . $c . ", "
               . $d . ")";
-            say ".. " . $stmt1;
             my $rs1 = $conn->prepare($stmt1);
             $rs1->execute();
             $rs1->finish();
