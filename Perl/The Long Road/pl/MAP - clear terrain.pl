@@ -15,6 +15,12 @@ my $stmt  = "delete from terrain";
 $rs = $conn->prepare($stmt);
 $rs->execute();
 
+# ***********************
+# x: -1 to 17 (19)
+# y: -1 to 11 (13)
+#
+# ***********************
+
 foreach my $mapLetter ( 'A' .. 'D' ) {
     foreach my $letter ( 'A' .. 'S' ) {
         my $x = ord($letter) - $A_val - 1;
