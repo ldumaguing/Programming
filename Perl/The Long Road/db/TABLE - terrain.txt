@@ -59,7 +59,14 @@ SELECT * FROM terrain;
 
 
 
-
+************************************************************************* TABLE - terrain_temp
+DROP TABLE IF EXISTS terrain_temp;
+CREATE TABLE terrain_temp (
+   loc_x   INTEGER DEFAULT 0,
+   loc_y   INTEGER DEFAULT 0,
+   flag1   INTEGER DEFAULT 0,
+   flag2   INTEGER DEFAULT 0
+);
 
 
 
