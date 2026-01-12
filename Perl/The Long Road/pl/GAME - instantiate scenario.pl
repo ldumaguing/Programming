@@ -401,7 +401,7 @@ sub placement_180 {
 
     while ( my @ROW = $rs->fetchrow_array() ) {
         my $a = 16 - $ROW[0];
-        my $b = 10 - $ROW[1];
+        my $b = 11 - $ROW[1];
         my $c = rotate_180( $ROW[2] );
         my $d = $ROW[3];
 
