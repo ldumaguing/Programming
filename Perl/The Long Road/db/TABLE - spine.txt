@@ -26,6 +26,21 @@ bit 2,1,0:
    101: E
    110: F
 
+
+
+
+
+*************************************************************************** TABLE - spine_temp
+DROP TABLE IF EXISTS spine_temp;
+CREATE TABLE spine_temp (
+   loc_x     INTEGER DEFAULT 0,
+   loc_y     INTEGER DEFAULT 0,
+   spine     INTEGER DEFAULT 0,
+   flag1     INTEGER DEFAULT 0
+);
+
+
+
                           .
     _________             .    _________
    /    A    \            .   /    A    \

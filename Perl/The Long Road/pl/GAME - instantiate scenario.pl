@@ -83,10 +83,21 @@ sub spine_placement {
 
     my $mapFile = "Map " . $letter;
 
-    my $stmt =
-        "SELECT loc_x, loc_y, spine, flag1 FROM spine WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
+    my $X = $letter;
+    $X =~ tr/A-Z/a-z/;
+
+    my $stmt = "";
+    if ( $X eq $letter ) {
+        spine_180( $col, $row, $letter );
+        $stmt = "SELECT loc_x, loc_y, spine, flag1 FROM spine_temp";
+    }
+    else {
+        $stmt =
+            "SELECT loc_x, loc_y, spine, flag1 FROM spine WHERE "
+          . "mapFile = '"
+          . $mapFile . "'";
+    }
+
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -100,6 +111,50 @@ sub spine_placement {
             "INSERT INTO spine_instance "
           . "(gameName, loc_x, loc_y, spine, flag1) values (" . "'"
           . $gameName . "', "
+          . $a . ", "
+          . $b . ", "
+          . $c . ", "
+          . $d . ")";
+        my $rs1 = $conn->prepare($stmt1);
+        $rs1->execute();
+        $rs1->finish();
+    }
+    $rs->finish();
+}
+
+# ************************************* TODO
+sub spine_180 {
+    my ( $col, $row, $letter ) = @_;
+
+    $letter =~ tr/a-z/A-Z/;
+    my $mapFile = "Map " . $letter;
+
+    my $stmt = "DELETE FROM terrain_temp";
+    my $rs   = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+
+    $stmt =
+        "SELECT loc_x, loc_y, spine, flag1 FROM spine WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = 16 - $ROW[0];
+        my $b = 11 - $ROW[1];
+        my $c = $ROW[2];
+        my $d = $ROW[3];
+        if    ( $c == 1 ) { $b += 1; }
+        elsif ( $c == 2 ) { $c = 5; }
+        elsif ( $c == 3 ) { $c = 6; }
+        elsif ( $c == 4 ) { $b -= 2 }
+        elsif ( $c == 5 ) { $c = 2; }
+        else              { $c = 3; }
+
+        my $stmt1 =
+            "INSERT INTO spine_temp (loc_x, loc_y, spine, flag1) VALUES ("
           . $a . ", "
           . $b . ", "
           . $c . ", "
