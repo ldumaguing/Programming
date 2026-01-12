@@ -341,22 +341,10 @@ sub placement_A {
 
     my $mapFile = "Map " . $letter;
 
-    my $X = $letter;
-    $X =~ tr/A-Z/a-z/;
-
-    my $stmt = "";
-    if ( $X eq $letter ) {
-        placement_180( $col, $row, $letter );
-        $stmt =
-            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain_temp"
-    }
-    else {
-        $stmt =
-            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-          . "mapFile = '"
-          . $mapFile . "'";
-    }
-
+    my $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -370,45 +358,6 @@ sub placement_A {
             "INSERT INTO terrain_instance "
           . "(gameName, loc_x, loc_y, flag1, flag2) values (" . "'"
           . $gameName . "', "
-          . $a . ", "
-          . $b . ", "
-          . $c . ", "
-          . $d . ")";
-        my $rs1 = $conn->prepare($stmt1);
-        $rs1->execute();
-        $rs1->finish();
-    }
-    $rs->finish();
-}
-
-# ************************************* TODO
-sub placement_180 {
-    my ( $col, $row, $letter ) = @_;
-
-    $letter =~ tr/a-z/A-Z/;
-    my $mapFile = "Map " . $letter;
-
-    my $stmt = "DELETE FROM terrain_temp";
-    my $rs   = $conn->prepare($stmt);
-    $rs->execute();
-    $rs->finish();
-
-    $stmt =
-        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
-    $rs = $conn->prepare($stmt);
-    $rs->execute();
-
-    while ( my @ROW = $rs->fetchrow_array() ) {
-        my $a = 16 - $ROW[0];
-        my $b = 10 - $ROW[1];
-        my $c = $ROW[2];    # ------ TODO: need to rotate
-        my $d = $ROW[3];    # ------ TODO: need to rotate
-        #local $a = 16 - $a;
-        #local $b = 10 - $b;
-        my $stmt1 =
-            "INSERT INTO terrain_temp (loc_x, loc_y, flag1, flag2) VALUES ("
           . $a . ", "
           . $b . ", "
           . $c . ", "

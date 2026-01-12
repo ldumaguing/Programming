@@ -341,10 +341,21 @@ sub placement_A {
 
     my $mapFile = "Map " . $letter;
 
-    my $stmt =
-        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
+    my $X = $letter;
+    $X =~ tr/A-Z/a-z/;
+
+    my $stmt = "";
+    if ( $X eq $letter ) {
+        placement_180( $col, $row, $letter );
+        $stmt = "SELECT loc_x, loc_y, flag1, flag2 FROM terrain_temp";
+    }
+    else {
+        $stmt =
+            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+          . "mapFile = '"
+          . $mapFile . "'";
+    }
+
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -367,5 +378,69 @@ sub placement_A {
         $rs1->finish();
     }
     $rs->finish();
+}
+
+# *************************************
+sub placement_180 {
+    my ( $col, $row, $letter ) = @_;
+
+    $letter =~ tr/a-z/A-Z/;
+    my $mapFile = "Map " . $letter;
+
+    my $stmt = "DELETE FROM terrain_temp";
+    my $rs   = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+
+    $stmt =
+        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+      . "mapFile = '"
+      . $mapFile . "'";
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        my $a = 16 - $ROW[0];
+        my $b = 10 - $ROW[1];
+        my $c = rotate_180( $ROW[2] );
+        my $d = $ROW[3];
+
+        my $stmt1 =
+            "INSERT INTO terrain_temp (loc_x, loc_y, flag1, flag2) VALUES ("
+          . $a . ", "
+          . $b . ", "
+          . $c . ", "
+          . $d . ")";
+        my $rs1 = $conn->prepare($stmt1);
+        $rs1->execute();
+        $rs1->finish();
+    }
+    $rs->finish();
+}
+
+# *************************************
+sub rotate_180 {
+    my ($word) = @_;
+
+    # ***
+    my $no_roads = $word & 57345;
+    my $road     = $word & 126;
+    $road = $road >> 1;
+
+    my $rd = $road << 3;
+    $rd = $rd & 63;
+    my $b        = $road >> 3;
+    my $road_180 = $rd | $b;
+
+    # ***
+    my $tunnel_road = $word & 8064;
+    $tunnel_road = $tunnel_road >> 7;
+
+    my $tn = $tunnel_road << 3;
+    $tn = $tn & 63;
+    my $bb              = $tunnel_road >> 3;
+    my $tunnel_road_180 = $tn | $bb;
+
+    return ( $road_180 << 1 ) | $no_roads | ( $tunnel_road_180 << 7 );
 }
 
