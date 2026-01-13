@@ -3,7 +3,7 @@ map_dim:3629x2801
 #maps:A,B,_,C
 #maps:A,B,_,.,C
 #maps:A,B,A
-maps:a
+maps:A
 
 END *************************************************************************************
 maps:A,B,C,D      # maps are appended based on the sequence

@@ -1,5 +1,19 @@
 cd The\ Long\ Road/
 
+pl/'GAME - instantiate scenario map.pl' scenario/1-Recon.txt
+
+
+
+
+
+
+
+
+
+
+
+
+*****************************************************************************************
 
 pl/slurp_to_sql.pl scenario/1-Recon.txt
 pl/generate-canvas.pl > canvas.html
