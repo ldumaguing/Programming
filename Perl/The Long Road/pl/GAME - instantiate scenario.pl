@@ -122,7 +122,7 @@ sub spine_placement {
     $rs->finish();
 }
 
-# ************************************* TODO
+# *************************************
 sub spine_180 {
     my ( $col, $row, $letter ) = @_;
 
@@ -189,7 +189,7 @@ sub imprint_map {
     }
 }
 
-# ************************************* todo
+# *************************************
 sub placement_D {
     my ( $col, $row, $letter ) = @_;
     say "blend top & left sides: " . $letter;
