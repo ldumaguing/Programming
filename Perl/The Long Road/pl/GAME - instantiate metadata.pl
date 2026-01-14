@@ -48,13 +48,20 @@ while ( $line = <$fh> ) {
         next;
     }
     if ( $line =~ /^upperLeft/ ) {
-        my @X         = split /:/, $line;
-        my $upperLeft = $X[1];
-        my @Y         = split /,/, $upperLeft;
-        say "INSERT INTO scenario (key, id, num1, num2) VALUES ('upperLeft', "
-          . $scenario_id . ", "
-          . $Y[0] . ", "
-          . $Y[1] . ")";
+        twoValues( $line, "upperLeft" );
+        next;
+    }
+    if ( $line =~ /^upperRight/ ) {
+        twoValues( $line, "upperRight" );
+        next;
+    }
+    if ( $line =~ /^lowerRight/ ) {
+        twoValues( $line, "lowerRight" );
+        next;
+    }
+    if ( $line =~ /^hexCount/ ) {
+        twoValues( $line, "hexCount" );
+        next;
     }
 }
 
@@ -62,3 +69,19 @@ close $fh;
 $conn->disconnect();
 
 # ***************************************************************************************
+sub twoValues {
+    my ( $line, $key ) = @_;
+    my @X         = split /:/, $line;
+    my $upperLeft = $X[1];
+    my @Y         = split /,/, $upperLeft;
+    $stmt =
+        "INSERT INTO scenario (key, id, num1, num2) VALUES ('"
+      . $key . "', "
+      . $scenario_id . ", "
+      . $Y[0] . ", "
+      . $Y[1] . ")";
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+}
+
