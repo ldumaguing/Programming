@@ -10,7 +10,22 @@ turns:8
 
 
 
+Soviet
+*** Set up on the D and E hex row of Map B.
+Infantry:4
+BMP-1P:4
+T-64B:2
+BRDM-2:1
+Morozov:1
 
+
+American
+*** Set up first on or west of the Q hex row of Map C.
+Abrams:1
+M901:1
+M-3 Bradley:2
+Recon:3
+Hood:1
 
 
 

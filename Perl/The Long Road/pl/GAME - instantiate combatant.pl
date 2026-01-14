@@ -21,21 +21,10 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
 
-my $gameName  = "";
-my $stmt = "";
+my $gameName = "";
+my $stmt     = "";
 
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
-
-
-
-
-
-
-
-
-
-
-
 
 my $line = "";
 while ( $line = <$fh> ) {
