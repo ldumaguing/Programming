@@ -1,12 +1,14 @@
 ************************************************************************ TABLE - scenario
+DROP TABLE IF EXISTS scenario;
 CREATE TABLE scenario (
    id      NUMBER DEFAULT 0,
    key     TEXT NOT NULL,
-   txt_val TEXT DEFAULT NULL,
+   txt_val TEXT DEFAULT '',
    num1    NUMBER DEFAULT 0,
    num2    NUMBER DEFAULT 0,
    num3    NUMBER DEFAULT 0,
-   num4    NUMBER DEFAULT 0
+   num4    NUMBER DEFAULT 0,
+   PRIMARY KEY (id, key)
 );
 
 

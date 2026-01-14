@@ -1,8 +1,8 @@
 ************************************************************************ TABLE - instance
-DROP TABLE instance;
+DROP TABLE IF EXISTS instance;
 CREATE TABLE instance (
    id          INTEGER NOT NULL,
-   scenario_id INTEGER NOT NULL,
+   scenario_id INTEGER NOT NULL,    -- "foreign key" from _scenario_ table
    unit_name   TEXT NOT NULL,
    unit_id     INTEGER DEFAULT 0,
    img_id      INTEGER DEFAULT 0,   -- reflects the status

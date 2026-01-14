@@ -1,7 +1,11 @@
 name:Recon
 map_dim:3629x2801
 maps:A
-
+upperLeft:121,39
+upperRight:3354,39
+lowerRight:3354,2606
+hexCount:17,12
+turns:8
 
 
 

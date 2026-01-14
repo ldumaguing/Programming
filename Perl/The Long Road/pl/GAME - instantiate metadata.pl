@@ -21,21 +21,15 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
 
-my $gameName  = "";
-my $stmt = "";
+my $gameName = "";
+my $stmt     = "";
 
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
 
-
-
-
-
-
-
-
-
-
-
+$stmt = "delete from scenario where id = " . $scenario_id;
+my $rs = $conn->prepare($stmt);
+$rs->execute();
+$rs->finish();
 
 my $line = "";
 while ( $line = <$fh> ) {
