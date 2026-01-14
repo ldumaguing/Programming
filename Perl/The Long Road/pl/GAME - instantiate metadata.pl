@@ -6,12 +6,12 @@ use diagnostics;
 use DBI;
 use v5.42;
 
-# pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1
+# pl/'GAME - instantiate metadata.pl'   scenario/1-Recon.txt   1
 
 # ***************************************************************************************
 my $argNum = @ARGV;
 if ( $argNum < 2 ) {
-    say "pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1";
+    say "pl/'GAME - instantiate metadata.pl'   scenario/1-Recon.txt   1";
     exit;
 }
 
@@ -63,10 +63,46 @@ while ( $line = <$fh> ) {
         twoValues( $line, "hexCount" );
         next;
     }
+    if ( $line =~ /^maps/ ) {
+        stringValue( $line, "maps" );
+        next;
+    }
+    if ( $line =~ /^turns/ ) {
+        oneValue( $line, "turns" );
+        next;
+    }
 }
 
 close $fh;
 $conn->disconnect();
+
+# ***************************************************************************************
+sub oneValue {
+    my ( $line, $key ) = @_;
+    my @X = split /:/, $line;
+    $stmt =
+        "INSERT INTO scenario (key, id, num1) VALUES ('"
+      . $key . "', "
+      . $scenario_id . ", '"
+      . $X[1] . "')";
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+}
+
+# ***************************************************************************************
+sub stringValue {
+    my ( $line, $key ) = @_;
+    my @X = split /:/, $line;
+    $stmt =
+        "INSERT INTO scenario (key, id, txt_val) VALUES ('"
+      . $key . "', "
+      . $scenario_id . ", '"
+      . $X[1] . "')";
+    $rs = $conn->prepare($stmt);
+    $rs->execute();
+    $rs->finish();
+}
 
 # ***************************************************************************************
 sub twoValues {

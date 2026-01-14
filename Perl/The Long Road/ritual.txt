@@ -1,10 +1,8 @@
 cd The\ Long\ Road/
 
-pl/'GAME - instantiate scenario map.pl'   scenario/1-Recon.txt
-
-
-
-
+pl/'GAME - instantiate map.pl'         scenario/1-Recon.txt
+pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1
+pl/'GAME - instantiate metadata.pl'    scenario/1-Recon.txt   1
 
 
 
