@@ -20,12 +20,18 @@ my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
 
-my $gameName    = "";
-my $stmt        = "";
-my $faction     = 0;      # _flag1_ field of the _unit_ table
-my $instance_id = 1000;
+my $gameName     = "";
+my $stmt         = "";
+my $faction      = 0;      # _flag1_ field of the _unit_ table
+my $faction_name = "";
+my $instance_id  = 1000;
 
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
+
+$stmt = "DELETE FROM instance";
+my $rs = $conn->prepare($stmt);
+$rs->execute();
+$rs->finish();
 
 my $line = "";
 while ( $line = <$fh> ) {
@@ -40,11 +46,13 @@ while ( $line = <$fh> ) {
         next;
     }
     if ( $line =~ /^Soviet/ ) {
-        $faction = 2;
+        $faction      = 2;
+        $faction_name = "Soviet";
         next;
     }
     if ( $line =~ /^American/ ) {
-        $faction = 1;
+        $faction      = 1;
+        $faction_name = "American";
         next;
     }
 
@@ -62,7 +70,7 @@ sub instantiate {
 
     # ***** get unit's ID
     my $stmt =
-        "SELECT id FROM unit WHERE name = '"
+        "SELECT id, front FROM unit WHERE name = '"
       . $unit
       . "' and (flag1 & "
       . $faction . ")";
@@ -70,9 +78,21 @@ sub instantiate {
     $rs->execute();
 
     while ( my @ROW = $rs->fetchrow_array() ) {
-        say ">>> " . $ROW[0] . ", " . $unit . ": " . $count;
         for ( my $i = 0 ; $i < $count ; $i++ ) {
-            say $instance_id;
+            $stmt =
+                "INSERT INTO instance"
+              . " (id, scenario_id, unit_name, unit_id, img_id, faction)"
+              . " VALUES ("
+              . $instance_id . ", "
+              . $scenario_id . ", '"
+              . $unit . "', "
+              . $ROW[0] . ", "
+              . $ROW[1] . ", '"
+              . $faction_name . "'" . ")";
+            my $rs1 = $conn->prepare($stmt);
+            $rs1->execute();
+            $rs1->finish();
+
             $instance_id++;
         }
     }

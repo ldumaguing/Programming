@@ -71,19 +71,11 @@ while ( $line = <$fh> ) {
         oneValue( $line, "turns" );
         next;
     }
+    if ( $line =~ /^scenario_id/ ) {
+        oneValue( $line, "scenario_id" );
+        next;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 close $fh;
 $conn->disconnect();
