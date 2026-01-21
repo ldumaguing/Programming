@@ -1,8 +1,8 @@
 INSERT INTO scenario (id, key, txt_val) VALUES
-(0, 'Map A', 'TRL_Map_A_Final.jpg'),
-(0, 'Map B', 'TRL_Map_B_Final.jpg'),
-(0, 'Map C', 'TRL_Map_C_Final.jpg'),
-(0, 'Map D', 'TLR_Map_D_Final.jpg');
+(0, 'Map_A', 'TRL_Map_A_Final.jpg'),
+(0, 'Map_B', 'TRL_Map_B_Final.jpg'),
+(0, 'Map_C', 'TRL_Map_C_Final.jpg'),
+(0, 'Map_D', 'TLR_Map_D_Final.jpg');
 
 
 

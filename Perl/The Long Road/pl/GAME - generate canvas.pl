@@ -21,8 +21,11 @@ my $rs   = undef;
 
 my $row_count    = 0;
 my $column_count = 0;
+my $map_w        = 0;
+my $map_h        = 0;
 my $pix_x        = 0;
 my $pix_y        = 0;
+my $line         = "";
 
 my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
@@ -34,8 +37,8 @@ $stmt =
 $rs = $conn->prepare($stmt);
 $rs->execute();
 while ( my @ROW = $rs->fetchrow_array() ) {
-    my $line = $ROW[0];
-    define_dims($line);
+    $line = $ROW[0];
+    define_dims();
 }
 $rs->finish();
 
@@ -45,20 +48,26 @@ $stmt =
 $rs = $conn->prepare($stmt);
 $rs->execute();
 while ( my @ROW = $rs->fetchrow_array() ) {
-    $pix_x = $ROW[0] * $column_count;
-    $pix_y = $ROW[1] * $row_count;
-
+    $map_h = $ROW[1];
+    $map_w = $ROW[0];
+    $pix_x = $map_w * $column_count;
+    $pix_y = $map_h * $row_count;
 }
 $rs->finish();
 
 say $pix_x;
 say $pix_y;
 
+# ***************************************************************
+my @plates = split /,/, $line;
+foreach my $plate (@plates) {
+    say $plate;
+}
+
 $conn->disconnect();
 
-# ***************************************************************
+# ***************************************************************************************
 sub define_dims {
-    my ($line) = @_;
     $row_count = split /_/, $line;
     my @rows = split /_/, $line;
     foreach my $x (@rows) {
