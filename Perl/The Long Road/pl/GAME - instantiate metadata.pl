@@ -75,6 +75,10 @@ while ( $line = <$fh> ) {
         oneValue( $line, "scenario_id" );
         next;
     }
+    if ( $line =~ /^map_dim/ ) {
+        twoValues( $line, "map_dim" );
+        next;
+    }
 }
 
 close $fh;

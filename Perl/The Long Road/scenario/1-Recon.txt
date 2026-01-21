@@ -1,6 +1,6 @@
 name:Recon
-map_dim:3629x2801
-maps:A
+map_dim:3629,2801
+maps:A,_,C,C
 upperLeft:121,39
 upperRight:3354,39
 lowerRight:3354,2606
