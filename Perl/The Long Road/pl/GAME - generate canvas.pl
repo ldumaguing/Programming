@@ -9,6 +9,10 @@ use v5.42;
 # pl/'GAME - generate canvas.pl'   scenario/1-Recon.txt   1
 
 # ***************************************************************************************
+my @map_imgs =
+  qw(TRL_Map_A_Final.jpg TRL_Map_B_Final.jpg TRL_Map_C_Final.jpg TLR_Map_D_Final.jpg);
+
+# *****
 my $html_1 = <<"END";
 <!DOCTYPE html>
 <html>
@@ -34,9 +38,10 @@ if ( $argNum < 2 ) {
     exit;
 }
 
-my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
-my $stmt = "";
-my $rs   = undef;
+my $conn  = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+my $stmt  = "";
+my $rs    = undef;
+my $count = 0;
 
 my $row_count    = 0;
 my $column_count = 0;
@@ -74,20 +79,44 @@ while ( my @ROW = $rs->fetchrow_array() ) {
 }
 $rs->finish();
 
+say $html_1;
+$count = 0;
+foreach my $m (@map_imgs) {
+    say "      <img src=\"TLR/" . $m . "\"" . " id=\"map" . $count . "\">";
+    $count++;
+}
+say "   </div>";
+
 # ***************************************************************
 my @plates     = split /,/, $line;
 my $x_multiply = 0;
 my $y_multiply = 0;
 foreach my $plate (@plates) {
-    say $plate . " " . $x_multiply . "," . $y_multiply;
+
+    #say $plate . " " . $x_multiply . "," . $y_multiply;
     $x_multiply++;
     if ( $plate =~ /_/ ) { $y_multiply++; $x_multiply = 0; }
 }
 
-say $map_w;
-say $map_h;
-say $pix_x;
-say $pix_y;
+#say $map_w;
+#say $map_h;
+#say $pix_x;
+#say $pix_y;
+
+say "   <canvas id=\"myCanvas\" width=" . $pix_x . " height=" . $pix_y . ">";
+say "      Sorry, your browser does not support canvas.\n   </canvas>";
+say "   <script>";
+say "      const canvas = document.getElementById(\"myCanvas\");";
+say "      const ctx = canvas.getContext(\"2d\");";
+for my $i ( 1 .. scalar(@map_imgs) ) {
+    say "      const map"
+      . ( $i - 1 )
+      . " = document.getElementById(\"map"
+      . ( $i - 1 ) . "\");";
+}
+say "\n      map0.addEventListener(\"load\", (e) => {";
+say "      });";
+say "   </script>\n</body>\n</html>";
 
 $conn->disconnect();
 
