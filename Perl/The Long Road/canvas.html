@@ -74,7 +74,17 @@
       map0.addEventListener("load", (e) => {
          ctx.drawImage(map0, 0, 0);
          ctx.drawImage(img1235, 524.705882352942, 39);
-         ctx.drawImage(img1235, 524.705882352942, 272.363636363636);
+         
+
+        ctx.save();
+        ctx.translate(524.705882352942, 272.363636363636);
+        ctx.rotate(180*Math.PI/180);
+        ctx.drawImage(img1235, -158,-158);
+        ctx.restore();
+         
+         
+         
+         // ctx.drawImage(img1235, 524.705882352942, 272.363636363636);
          ctx.drawImage(img1235, 524.705882352942, 505.727272727272);
          ctx.drawImage(img1235, 524.705882352942, 739.090909090908);
          ctx.drawImage(img1220, 524.705882352942, 972.454545454544);

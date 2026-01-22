@@ -9,6 +9,25 @@ use v5.42;
 # pl/'GAME - generate canvas.pl'   scenario/1-Recon.txt   1
 
 # ***************************************************************************************
+my $html_1 = <<"END";
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>The Long Road</title>
+   <style type="text/css">
+      body {
+         margin: 0;
+      }
+   </style>
+</head>
+
+<body>
+   <div style="display:none;">
+END
+
+# ***************************************************************************************
 my $argNum = @ARGV;
 if ( $argNum < 2 ) {
     say "pl/'GAME - generate canvas.pl'   scenario/1-Recon.txt   1";
@@ -55,14 +74,20 @@ while ( my @ROW = $rs->fetchrow_array() ) {
 }
 $rs->finish();
 
+# ***************************************************************
+my @plates     = split /,/, $line;
+my $x_multiply = 0;
+my $y_multiply = 0;
+foreach my $plate (@plates) {
+    say $plate . " " . $x_multiply . "," . $y_multiply;
+    $x_multiply++;
+    if ( $plate =~ /_/ ) { $y_multiply++; $x_multiply = 0; }
+}
+
+say $map_w;
+say $map_h;
 say $pix_x;
 say $pix_y;
-
-# ***************************************************************
-my @plates = split /,/, $line;
-foreach my $plate (@plates) {
-    say $plate;
-}
 
 $conn->disconnect();
 
