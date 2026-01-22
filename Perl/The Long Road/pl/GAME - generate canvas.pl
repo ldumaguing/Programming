@@ -5,6 +5,7 @@ use warnings;
 use diagnostics;
 use DBI;
 use v5.42;
+use List::Util qw(uniq);
 
 # pl/'GAME - generate canvas.pl'   scenario/1-Recon.txt   1
 
@@ -85,24 +86,10 @@ foreach my $m (@map_imgs) {
     say "      <img src=\"TLR/" . $m . "\"" . " id=\"map" . $count . "\">";
     $count++;
 }
+register_imgs();
 say "   </div>";
 
 # ***************************************************************
-my @plates     = split /,/, $line;
-my $x_multiply = 0;
-my $y_multiply = 0;
-foreach my $plate (@plates) {
-
-    #say $plate . " " . $x_multiply . "," . $y_multiply;
-    $x_multiply++;
-    if ( $plate =~ /_/ ) { $y_multiply++; $x_multiply = 0; }
-}
-
-#say $map_w;
-#say $map_h;
-#say $pix_x;
-#say $pix_y;
-
 say "   <canvas id=\"myCanvas\" width=" . $pix_x . " height=" . $pix_y . ">";
 say "      Sorry, your browser does not support canvas.\n   </canvas>";
 say "   <script>";
@@ -115,10 +102,61 @@ for my $i ( 1 .. scalar(@map_imgs) ) {
       . ( $i - 1 ) . "\");";
 }
 say "\n      map0.addEventListener(\"load\", (e) => {";
+place_maps();
 say "      });";
 say "   </script>\n</body>\n</html>";
 
 $conn->disconnect();
+
+# ***************************************************************************************
+sub register_imgs {
+    my @unit_ids1 = ();
+    $stmt = "SELECT distinct(unit_id) FROM instance";
+    my $rs1 = $conn->prepare($stmt);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        $stmt =
+          "SELECT front, back, front1, back1 FROM unit WHERE id = " . $ROW[0];
+        my $rs2 = $conn->prepare($stmt);
+        $rs2->execute();
+        while ( my @ROW1 = $rs2->fetchrow_array() ) {
+            push( @unit_ids1, $ROW1[0], $ROW1[1], $ROW1[2], $ROW1[3] );
+        }
+        $rs2->finish();
+    }
+    $rs1->finish();
+
+    my @uniq_unit_ids1 = uniq @unit_ids1;
+    foreach my $i (@uniq_unit_ids1) {
+        $stmt = "SELECT name FROM img WHERE id = " . $i;
+        my $rs2 = $conn->prepare($stmt);
+        $rs2->execute();
+        while ( my @ROW1 = $rs2->fetchrow_array() ) {
+            say "      <img src=\"TLR/"
+              . $ROW1[0] . "\""
+              . " id=\"img"
+              . $i . "\">";
+        }
+        $rs2->finish();
+    }
+}
+
+# ***************************************************************************************
+sub place_maps {
+    my @plates     = split /,/, $line;
+    my $x_multiply = 0;
+    my $y_multiply = 0;
+    foreach my $plate (@plates) {
+        if ( $plate =~ /_/ ) { $y_multiply++; $x_multiply = 0; }
+        else {
+            say "         ctx.drawImage(map"
+              . ( ord($plate) - ord('A') ) . ", "
+              . ( $map_w * $x_multiply ) . ", "
+              . ( $map_h * $y_multiply ) . ");";
+            $x_multiply++;
+        }
+    }
+}
 
 # ***************************************************************************************
 sub define_dims {
