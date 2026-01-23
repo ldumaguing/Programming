@@ -55,9 +55,34 @@
 
       map0.addEventListener("load", (e) => {
          ctx.drawImage(map0, 0, 0);
-         ctx.drawImage(map2, 0, 2801);
-         ctx.drawImage(map2, 3629, 2801);
+         //ctx.drawImage(map1, 3629, 2801);
+         //ctx.drawImage(map2, 0, 2801);
+
+       //  ctx.drawImage(map3, 0, 2801);
+
       });
+      map1.addEventListener("load", (e) => {
+
+               ctx.save();
+ctx.translate(3629, 2801*2);
+ctx.rotate(180*Math.PI/180);
+ctx.drawImage(map1, 0, 0);
+ctx.restore();
+        
+   
+        
+        
+        
+        
+        
+      });
+       map1.addEventListener("load", (e) => {
+            ctx.drawImage(map1, 3629, 2801);
+       
+        });
+      //map2.addEventListener("load", (e) => {
+      //  ctx.drawImage(map2, 3629, 2801);
+      //});
    </script>
 </body>
 </html>

@@ -149,6 +149,10 @@ sub place_maps {
     foreach my $plate (@plates) {
         if ( $plate =~ /_/ ) { $y_multiply++; $x_multiply = 0; }
         else {
+            if ( $plate =~ /[abcd]/ ) {
+                rotate_map( $plate, $x_multiply, $y_multiply );
+                next;
+            }
             say "         ctx.drawImage(map"
               . ( ord($plate) - ord('A') ) . ", "
               . ( $map_w * $x_multiply ) . ", "
@@ -156,6 +160,23 @@ sub place_maps {
             $x_multiply++;
         }
     }
+}
+
+# *****************
+sub rotate_map {
+    my ( $plate, $x_multiply, $y_multiply ) = @_;
+    $plate = uc($plate);
+
+    say "ctx.save();";
+    say "ctx.translate("
+      . ( $map_w * $x_multiply ) . ", "
+      . ( $map_h * $y_multiply ) . ");";
+    say "ctx.rotate(1*Math.PI/180);";
+    say "ctx.drawImage(map"
+      . ( ord($plate) - ord('A') ) . ", "
+      . $map_w . ", "
+      . $map_h . ");";
+    say "ctx.restore();";
 }
 
 # ***************************************************************************************
