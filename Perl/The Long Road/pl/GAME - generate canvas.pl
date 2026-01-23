@@ -27,9 +27,6 @@ my $html_1 = <<"END";
       }
    </style>
 </head>
-
-<body>
-   <div style="display:none;">
 END
 
 # ***************************************************************************************
@@ -81,17 +78,18 @@ while ( my @ROW = $rs->fetchrow_array() ) {
 $rs->finish();
 
 say $html_1;
+say "<body>\n   <div style=\"display:none;\">";
 $count = 0;
 foreach my $m (@map_imgs) {
     say "      <img src=\"TLR/" . $m . "\"" . " id=\"map" . $count . "\">";
     $count++;
 }
 register_imgs();
-say "   </div>";
+say "   </div>\n";
 
 # ***************************************************************
 say "   <canvas id=\"myCanvas\" width=" . $pix_x . " height=" . $pix_y . ">";
-say "      Sorry, your browser does not support canvas.\n   </canvas>";
+say "      Sorry, your browser does not support canvas.\n   </canvas>\n";
 say "   <script>";
 say "      const canvas = document.getElementById(\"myCanvas\");";
 say "      const ctx = canvas.getContext(\"2d\");";
@@ -101,9 +99,9 @@ for my $i ( 1 .. scalar(@map_imgs) ) {
       . " = document.getElementById(\"map"
       . ( $i - 1 ) . "\");";
 }
-say "\n      map0.addEventListener(\"load\", (e) => {";
+
 place_maps();
-say "      });";
+
 say "   </script>\n</body>\n</html>";
 
 $conn->disconnect();
@@ -151,12 +149,17 @@ sub place_maps {
         else {
             if ( $plate =~ /[abcd]/ ) {
                 rotate_map( $plate, $x_multiply, $y_multiply );
+                $x_multiply++;
                 next;
             }
+            say "\n      map"
+              . ( ord($plate) - ord('A') )
+              . ".addEventListener(\"load\", (e) => {";
             say "         ctx.drawImage(map"
               . ( ord($plate) - ord('A') ) . ", "
               . ( $map_w * $x_multiply ) . ", "
               . ( $map_h * $y_multiply ) . ");";
+            say "      });";
             $x_multiply++;
         }
     }
@@ -167,16 +170,18 @@ sub rotate_map {
     my ( $plate, $x_multiply, $y_multiply ) = @_;
     $plate = uc($plate);
 
-    say "ctx.save();";
-    say "ctx.translate("
-      . ( $map_w * $x_multiply ) . ", "
-      . ( $map_h * $y_multiply ) . ");";
-    say "ctx.rotate(1*Math.PI/180);";
-    say "ctx.drawImage(map"
-      . ( ord($plate) - ord('A') ) . ", "
-      . $map_w . ", "
-      . $map_h . ");";
-    say "ctx.restore();";
+    say "\n      map"
+      . ( ord($plate) - ord('A') )
+      . ".addEventListener(\"load\", (e) => {";
+    say "         ctx.save();";
+    say "         ctx.translate("
+      . ( ( $map_w * $x_multiply ) + $map_w ) . ", "
+      . ( ( $map_h * $y_multiply ) + $map_h ) . ");";
+    say "         ctx.rotate(180*Math.PI/180);";
+    say "         ctx.drawImage(map"
+      . ( ord($plate) - ord('A') ) . ", " . "0, 0" . ");";
+    say "         ctx.restore();";
+    say "      });";
 }
 
 # ***************************************************************************************
