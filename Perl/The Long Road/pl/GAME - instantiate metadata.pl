@@ -8,6 +8,10 @@ use v5.42;
 
 # pl/'GAME - instantiate metadata.pl'   scenario/1-Recon.txt   1
 
+my @upLeft  = ();
+my @loRight = ();
+my @hxCount = ();
+
 # ***************************************************************************************
 my $argNum = @ARGV;
 if ( $argNum < 2 ) {
@@ -81,6 +85,24 @@ while ( $line = <$fh> ) {
     }
 }
 
+my $hexWidth = ( ( $loRight[0] - $upLeft[0] ) / ( $hxCount[0] - 1 ) );
+$stmt =
+    "INSERT INTO scenario (key, id, num1) VALUES ('hexWidth', "
+  . $scenario_id . ", "
+  . $hexWidth . ")";
+$rs = $conn->prepare($stmt);
+$rs->execute();
+$rs->finish();
+
+my $hexHeight = ( ( $loRight[1] - $upLeft[1] ) / ( $hxCount[1] - 1 ) );
+$stmt =
+    "INSERT INTO scenario (key, id, num1) VALUES ('hexHeight', "
+  . $scenario_id . ", "
+  . $hexHeight . ")";
+$rs = $conn->prepare($stmt);
+$rs->execute();
+$rs->finish();
+
 close $fh;
 $conn->disconnect();
 
@@ -115,9 +137,9 @@ sub stringValue {
 # ***************************************************************************************
 sub twoValues {
     my ( $line, $key ) = @_;
-    my @X         = split /:/, $line;
-    my $upperLeft = $X[1];
-    my @Y         = split /,/, $upperLeft;
+    my @X  = split /:/, $line;
+    my $rt = $X[1];
+    my @Y  = split /,/, $rt;
     $stmt =
         "INSERT INTO scenario (key, id, num1, num2) VALUES ('"
       . $key . "', "
@@ -127,5 +149,15 @@ sub twoValues {
     $rs = $conn->prepare($stmt);
     $rs->execute();
     $rs->finish();
+
+    if ( $key =~ /upperLeft/ ) {
+        @upLeft = ( $Y[0], $Y[1] );
+    }
+    if ( $key =~ /lowerRight/ ) {
+        @loRight = ( $Y[0], $Y[1] );
+    }
+    if ( $key =~ /hexCount/ ) {
+        @hxCount = ( $Y[0], $Y[1] );
+    }
 }
 

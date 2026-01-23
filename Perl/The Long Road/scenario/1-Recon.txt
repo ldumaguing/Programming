@@ -1,6 +1,6 @@
 name:Recon
 map_dim:3629,2801
-maps:A,B,_,c,C
+maps:C
 upperLeft:121,39
 upperRight:3354,39
 lowerRight:3354,2606
@@ -27,8 +27,35 @@ M-3 Bradley:2
 Recon:3
 Hood:1
 
+/ sdfasdf
+# asdfasdf
+; asdfasdf
+- sdfasdf
+* sdfasdf
 
+*********************************** Commands
+******* instance_id     x     y
+[place] 1000            2     0
+[place] 1001            2     1
+[place] 1002            2     2
+[place] 1003            2     3
+[place] 1004            2     4
+[place] 1005            2     5
+[place] 1006            3     0
+[place] 1007            3     1
+[place] 1008            3     2
+[place] 1009            3     3
+[place] 1010            3     4
+[place] 1011            3     5
 
+[place] 1012            16    0
+[place] 1013            16    1
+[place] 1014            16    2
+[place] 1015            16    3
+[place] 1016            15    0
+[place] 1017            15    1
+[place] 1018            15    2
+[place] 1019            15    3
 
 
 

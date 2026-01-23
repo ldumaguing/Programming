@@ -3,11 +3,10 @@ cd The\ Long\ Road/
 pl/'GAME - instantiate map.pl'         scenario/1-Recon.txt
 pl/'GAME - instantiate metadata.pl'    scenario/1-Recon.txt   1
 pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1
+pl/'GAME - execute commands.pl'        scenario/1-Recon.txt   1
 
 
-
-
-
+pl/'GAME - generate canvas.pl'
 
 
 
@@ -26,6 +25,10 @@ sqlite3 db/TLR.db  "select * from instance"
 pl-cmd/placement.pl scenario/1-Recon.txt
 pl/generate-canvas.pl > canvas.html
 
+
+
+
+SELECT * FROM instance WHERE scenario_id = 1 and (status & 1);
 
 
 
