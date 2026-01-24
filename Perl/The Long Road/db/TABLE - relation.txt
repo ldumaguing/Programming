@@ -8,9 +8,9 @@ CREATE TABLE relation (
 
 rType
 =====
-1:    Aye "is inside"     Bee
-2:    Aye "has commander" Bee
-
+1:    Aye "(leg unit) is inside"     Bee
+2:    Aye "has commander"            Bee
+3:    Aye "(vehicle) is inside"      Bee
 
 is inside
 =========

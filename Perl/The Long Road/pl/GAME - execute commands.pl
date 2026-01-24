@@ -6,6 +6,9 @@ use diagnostics;
 use DBI;
 use v5.42;
 
+use lib "pl/module";
+use Embark;
+
 # pl/'GAME - execute commands.pl'   scenario/1-Recon.txt   1
 
 # ***************************************************************************************
@@ -28,7 +31,11 @@ while ( $line = <$fh> ) {
     next if ( $line =~ /^$/ );
 
     if ( $line =~ /\[place\]/ ) {
-        placement();
+        #placement();
+        next;
+    }
+    if ( $line =~ /\[embark\]/ ) {
+        embarking( $conn, $line );
         next;
     }
 }
