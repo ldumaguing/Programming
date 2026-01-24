@@ -32,6 +32,7 @@ Hood:1
 ; asdfasdf
 - sdfasdf
 * sdfasdf
+= sdfasdfs
 
 *********************************** Commands
 ******* instance_id     x     y

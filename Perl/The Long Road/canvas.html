@@ -13,7 +13,10 @@
 
 <body>
    <div style="display:none;">
-      <img src="TLR/Scenario 1.png" id="map0">
+      <img src="TLR/TRL_Map_A_Final.jpg" id="map0">
+      <img src="TLR/TRL_Map_B_Final.jpg" id="map1">
+      <img src="TLR/TRL_Map_C_Final.jpg" id="map2">
+      <img src="TLR/TLR_Map_D_Final.jpg" id="map3">
       <img src="TLR/TLR_SOV_infantry_0321.png" id="img1235">
       <img src="TLR/TLR_SOV_infantry_b_0321.png" id="img1236">
       <img src="TLR/blank A.png" id="img0">
@@ -39,7 +42,7 @@
       <img src="TLR/TLR_US_hood_b_0321.png" id="img1336">
    </div>
 
-   <canvas id="myCanvas"  width=7258 height=2801>
+   <canvas id="myCanvas" width=3629 height=2801>
       Sorry, your browser does not support canvas.
    </canvas>
 
@@ -47,63 +50,70 @@
       const canvas = document.getElementById("myCanvas");
       const ctx = canvas.getContext("2d");
       const map0 = document.getElementById("map0");
-      const img1235 = document.getElementById("img1235");
-      const img1236 = document.getElementById("img1236");
-      const img0 = document.getElementById("img0");
-      const img1220 = document.getElementById("img1220");
-      const img1221 = document.getElementById("img1221");
-      const img1260 = document.getElementById("img1260");
-      const img1261 = document.getElementById("img1261");
-      const img1263 = document.getElementById("img1263");
-      const img1262 = document.getElementById("img1262");
-      const img1224 = document.getElementById("img1224");
-      const img1225 = document.getElementById("img1225");
-      const img1246 = document.getElementById("img1246");
-      const img4 = document.getElementById("img4");
-      const img1315 = document.getElementById("img1315");
-      const img1316 = document.getElementById("img1316");
-      const img1355 = document.getElementById("img1355");
-      const img1356 = document.getElementById("img1356");
-      const img1349 = document.getElementById("img1349");
-      const img1350 = document.getElementById("img1350");
-      const img1358 = document.getElementById("img1358");
-      const img1357 = document.getElementById("img1357");
-      const img1335 = document.getElementById("img1335");
-      const img1336 = document.getElementById("img1336");
+      const map1 = document.getElementById("map1");
+      const map2 = document.getElementById("map2");
+      const map3 = document.getElementById("map3");
 
-      map0.addEventListener("load", (e) => {
-         ctx.drawImage(map0, 0, 0);
-         ctx.drawImage(img1235, 524.705882352942, 39);
-         
-
-        ctx.save();
-        ctx.translate(524.705882352942, 272.363636363636);
-        ctx.rotate(180*Math.PI/180);
-        ctx.drawImage(img1235, -158,-158);
-        ctx.restore();
-         
-         
-         
-         // ctx.drawImage(img1235, 524.705882352942, 272.363636363636);
-         ctx.drawImage(img1235, 524.705882352942, 505.727272727272);
-         ctx.drawImage(img1235, 524.705882352942, 739.090909090908);
-         ctx.drawImage(img1220, 524.705882352942, 972.454545454544);
-         ctx.drawImage(img1220, 524.705882352942, 1205.81818181818);
-         ctx.drawImage(img1220, 726.558823529413, 155.681818181818);
-         ctx.drawImage(img1220, 726.558823529413, 389.045454545454);
-         ctx.drawImage(img1260, 726.558823529413, 622.40909090909);
-         ctx.drawImage(img1260, 726.558823529413, 855.772727272726);
-         ctx.drawImage(img1224, 726.558823529413, 1089.13636363636);
-         ctx.drawImage(img1246, 726.558823529413, 1322.5);
-         ctx.drawImage(img1315, 6782.14705882354, 155.681818181818);
-         ctx.drawImage(img1355, 6782.14705882354, 389.045454545454);
-         ctx.drawImage(img1349, 6782.14705882354, 622.40909090909);
-         ctx.drawImage(img1349, 6782.14705882354, 855.772727272726);
-         ctx.drawImage(img1358, 6580.29411764707, 39);
-         ctx.drawImage(img1358, 6580.29411764707, 272.363636363636);
-         ctx.drawImage(img1358, 6580.29411764707, 505.727272727272);
-         ctx.drawImage(img1335, 6580.29411764707, 739.090909090908);
+      map2.addEventListener("load", (e) => {
+         ctx.drawImage(map2, 0, 0);
       });
-   </script> 
+      img1235.addEventListener("load", (e) => {
+         ctx.drawImage(img1235, 525.125, 39);
+      });
+      img1235.addEventListener("load", (e) => {
+         ctx.drawImage(img1235, 525.125, 272.363636363636);
+      });
+      img1235.addEventListener("load", (e) => {
+         ctx.drawImage(img1235, 525.125, 505.727272727272);
+      });
+      img1235.addEventListener("load", (e) => {
+         ctx.drawImage(img1235, 525.125, 739.090909090908);
+      });
+      img1220.addEventListener("load", (e) => {
+         ctx.drawImage(img1220, 525.125, 972.454545454544);
+      });
+      img1220.addEventListener("load", (e) => {
+         ctx.drawImage(img1220, 525.125, 1205.81818181818);
+      });
+      img1220.addEventListener("load", (e) => {
+         ctx.drawImage(img1220, 727.1875, 155.681818181818);
+      });
+      img1220.addEventListener("load", (e) => {
+         ctx.drawImage(img1220, 727.1875, 389.045454545454);
+      });
+      img1260.addEventListener("load", (e) => {
+         ctx.drawImage(img1260, 727.1875, 622.40909090909);
+      });
+      img1260.addEventListener("load", (e) => {
+         ctx.drawImage(img1260, 727.1875, 855.772727272726);
+      });
+      img1224.addEventListener("load", (e) => {
+         ctx.drawImage(img1224, 727.1875, 1089.13636363636);
+      });
+      img1246.addEventListener("load", (e) => {
+         ctx.drawImage(img1246, 727.1875, 1322.5);
+      });
+      img1315.addEventListener("load", (e) => {
+         ctx.drawImage(img1315, 3354, 39);
+      });
+      img1355.addEventListener("load", (e) => {
+         ctx.drawImage(img1355, 3354, 272.363636363636);
+      });
+      img1349.addEventListener("load", (e) => {
+         ctx.drawImage(img1349, 3354, 505.727272727272);
+      });
+      img1349.addEventListener("load", (e) => {
+         ctx.drawImage(img1349, 3354, 739.090909090908);
+      });
+      img1358.addEventListener("load", (e) => {
+         ctx.drawImage(img1358, 3151.9375, 155.681818181818);
+      });
+      img1358.addEventListener("load", (e) => {
+         ctx.drawImage(img1358, 3151.9375, 389.045454545454);
+      });
+      img1335.addEventListener("load", (e) => {
+         ctx.drawImage(img1335, 3151.9375, 855.772727272726);
+      });
+   </script>
 </body>
 </html>

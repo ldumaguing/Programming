@@ -52,7 +52,38 @@ my $line         = "";
 my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
 
+my @upperLeft = ();
+my $hexWidth  = 0.0;
+my $hexHeight = 0.0;
+
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
+
+$stmt =
+  "SELECT num1 FROM scenario WHERE key = 'hexWidth' AND id = " . $scenario_id;
+$rs = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    $hexWidth = $ROW[0];
+}
+$rs->finish();
+
+$stmt =
+  "SELECT num1 FROM scenario WHERE key = 'hexHeight' AND id = " . $scenario_id;
+$rs = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    $hexHeight = $ROW[0];
+}
+$rs->finish();
+
+$stmt = "SELECT num1, num2 FROM scenario WHERE key = 'upperLeft' AND id = "
+  . $scenario_id;
+$rs = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    @upperLeft = ( $ROW[0], $ROW[1] );
+}
+$rs->finish();
 
 $stmt =
   "SELECT txt_val FROM scenario WHERE key = 'maps' AND id = " . $scenario_id;
@@ -101,10 +132,33 @@ for my $i ( 1 .. scalar(@map_imgs) ) {
 }
 
 place_maps();
+place_combatant();
 
 say "   </script>\n</body>\n</html>";
 
 $conn->disconnect();
+
+# ***************************************************************************************
+sub place_combatant {
+    $stmt = "SELECT img_id, loc_x, loc_y FROM instance WHERE (status & 1)";
+    my $rs1 = $conn->prepare($stmt);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        say "      img" . $ROW[0] . ".addEventListener(\"load\", (e) => {";
+        my $x = ( $ROW[1] * $hexWidth ) + $upperLeft[0];
+        my $y = ( $ROW[2] * $hexHeight ) + $upperLeft[1];
+        if ( $ROW[1] % 2 ) {
+            $y = $y + ( $hexHeight / 2.0 );
+        }
+
+        say "         ctx.drawImage(img"
+          . $ROW[0] . ", "
+          . $x . ", "
+          . $y . ");";
+        say "      });";
+    }
+    $rs1->finish();
+}
 
 # ***************************************************************************************
 sub register_imgs {

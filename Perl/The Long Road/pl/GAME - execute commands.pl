@@ -24,7 +24,7 @@ my $line = "";
 while ( $line = <$fh> ) {
     chomp $line;
     last if ( $line =~ /^END/ );
-    next if ( $line =~ /^[\*#\/;\-]/ );
+    next if ( $line =~ /^[\*#\/;\-=]/ );
     next if ( $line =~ /^$/ );
 
     if ( $line =~ /\[place\]/ ) {
@@ -39,16 +39,16 @@ $conn->disconnect();
 # ***************************************************************************************
 sub placement {
     $line =~ s/\ *\ /\ /g;
-    my @args = split /\ /, $line;
+    my @fields = split /\ /, $line;
 
     my $stmt =
         "UPDATE instance set loc_x = "
-      . $args[2]
+      . $fields[2]
       . ", loc_y = "
-      . $args[3]
+      . $fields[3]
       . ", status = 1"
       . " WHERE id = "
-      . $args[1];
+      . $fields[1];
     my $rs = $conn->prepare($stmt);
     $rs->execute();
     $rs->finish();
