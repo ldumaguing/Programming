@@ -36,8 +36,7 @@ while ( $line = <$fh> ) {
     next if ( $line =~ /^$/ );
 
     if ( $line =~ /\[place\]/ ) {
-
-        #placement();
+        placement();
         next;
     }
     if ( $line =~ /\[embark\]/ ) {

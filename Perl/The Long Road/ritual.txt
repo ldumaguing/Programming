@@ -6,7 +6,7 @@ pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1
 pl/'GAME - execute commands.pl'        scenario/1-Recon.txt   1
 
 
-pl/'GAME - generate canvas.pl'
+pl/'GAME - generate canvas.pl'         scenario/1-Recon.txt   1
 
 
 
