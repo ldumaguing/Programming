@@ -82,8 +82,9 @@ sub instantiate {
             my $curr_MF = get_MF( $ROW[1] );
             $stmt =
                 "INSERT INTO instance"
-              . " (curr_MF, id, scenario_id, unit_name, unit_id, img_id, faction)"
+              . " (status, curr_MF, id, scenario_id, unit_name, unit_id, img_id, faction)"
               . " VALUES ("
+              . "1, "
               . $curr_MF . ", "
               . $instance_id . ", "
               . $scenario_id . ", '"
