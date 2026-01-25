@@ -23,6 +23,11 @@ my $filename    = $ARGV[0];
 my $scenario_id = $ARGV[1];
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
 
+my $stmt = "DELETE FROM relation";
+my $rs   = $conn->prepare($stmt);
+$rs->execute();
+$rs->finish();
+
 my $line = "";
 while ( $line = <$fh> ) {
     chomp $line;
@@ -31,6 +36,7 @@ while ( $line = <$fh> ) {
     next if ( $line =~ /^$/ );
 
     if ( $line =~ /\[place\]/ ) {
+
         #placement();
         next;
     }
@@ -48,7 +54,7 @@ sub placement {
     $line =~ s/\ *\ /\ /g;
     my @fields = split /\ /, $line;
 
-    my $stmt =
+    $stmt =
         "UPDATE instance set loc_x = "
       . $fields[2]
       . ", loc_y = "
