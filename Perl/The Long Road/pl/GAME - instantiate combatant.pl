@@ -79,10 +79,12 @@ sub instantiate {
 
     while ( my @ROW = $rs->fetchrow_array() ) {
         for ( my $i = 0 ; $i < $count ; $i++ ) {
+            my $curr_MF = get_MF( $ROW[1] );
             $stmt =
                 "INSERT INTO instance"
-              . " (id, scenario_id, unit_name, unit_id, img_id, faction)"
+              . " (curr_MF, id, scenario_id, unit_name, unit_id, img_id, faction)"
               . " VALUES ("
+              . $curr_MF . ", "
               . $instance_id . ", "
               . $scenario_id . ", '"
               . $unit . "', "
@@ -98,5 +100,23 @@ sub instantiate {
     }
 
     $rs->finish();
+}
+
+# ***************************************************************************************
+sub get_MF {
+    my ($img_id) = @_;
+
+    my $MF = 0;
+
+    $stmt = "SELECT mf_val FROM img WHERE id = " . $img_id;
+    my $rs1 = $conn->prepare($stmt);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        $MF = $ROW[0];
+    }
+
+    $rs1->finish();
+
+    return $MF;
 }
 
