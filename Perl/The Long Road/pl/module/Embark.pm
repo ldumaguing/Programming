@@ -42,6 +42,11 @@ sub embark {
       . $bee . ")";
     my $rs = $conn->prepare($stmt);
     $rs->execute();
+
+    $stmt = "UPDATE instance SET status = (status & ~(1)) where id = " . $aye;
+    $rs   = $conn->prepare($stmt);
+    $rs->execute();
+
     $rs->finish();
 }
 
