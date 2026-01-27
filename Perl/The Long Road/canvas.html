@@ -42,7 +42,7 @@
       <img src="TLR/TLR_US_hood_b_0321.png" id="img1336">
    </div>
 
-   <canvas id="myCanvas" width=3629 height=2801>
+   <canvas id="myCanvas" width=7258 height=2801>
       Sorry, your browser does not support canvas.
    </canvas>
 
@@ -54,8 +54,12 @@
       const map2 = document.getElementById("map2");
       const map3 = document.getElementById("map3");
 
+      map0.addEventListener("load", (e) => {
+         ctx.drawImage(map0, 0, 0);
+      });
+
       map2.addEventListener("load", (e) => {
-         ctx.drawImage(map2, 0, 0);
+         ctx.drawImage(map2, 3629, 0);
       });
       img1235.addEventListener("load", (e) => {
          ctx.drawImage(img1235, 525.125, 272.363636363636);

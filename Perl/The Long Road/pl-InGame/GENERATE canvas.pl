@@ -7,7 +7,7 @@ use DBI;
 use v5.42;
 use List::Util qw(uniq);
 
-# pl/'GAME - generate canvas.pl' 1
+# pl-InGame/'GAME - generate canvas.pl' 1
 
 # ***************************************************************************************
 my @map_imgs =
