@@ -29,11 +29,12 @@ while ( my @ROW = $rs->fetchrow_array() ) {
         $faction = $ROW[4];
         say "****************************** " . $faction;
     }
-    if ( get_carrier( $ROW[0] ) > 0 ) {
-        say $ROW[0] . ": " . $ROW[1] . " (" . $ROW[5] . ", " . $ROW[6] . ")";
+    my $carrier_id = get_carrier( $ROW[0] );
+    if ( $carrier_id <= 0 ) {
+        say $ROW[0] . ": " . $ROW[1] . " (" . $ROW[5] . "," . $ROW[6] . ")";
     }
     else {
-        say "yo---";
+        say $ROW[0] . ": " . $ROW[1] . " (inside " . $carrier_id . ")";
     }
 }
 $rs->finish();
@@ -46,15 +47,14 @@ sub get_carrier {
     my $carrier_id = 0;
 
     my $stmt_1 = "SELECT Bee FROM relation WHERE Aye = " . $carree_id;
-    my $rs1    = $conn->prepare($stmt);
+    my $rs1    = $conn->prepare($stmt_1);
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {
-        say "yo " . $stmt_1;
         $carrier_id = $ROW[0];
     }
 
     $rs1->finish();
 
-    return 0;
+    return $carrier_id;
 }
 
