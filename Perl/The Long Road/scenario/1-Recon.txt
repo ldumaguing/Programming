@@ -42,7 +42,7 @@ Hood:1
 [place] 1003            2     3
 [place] 1004            2     4
 [place] 1005            2     5
-[place] 1006            3     0
+[place] 1006            2     0
 [place] 1007            3     1
 [place] 1008            3     2
 [place] 1009            3     3

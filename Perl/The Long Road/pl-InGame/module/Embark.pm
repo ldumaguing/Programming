@@ -13,23 +13,64 @@ sub embarking {
     my @args = @_;
 
     $conn = $args[0];
-    my @fields = split /\ /, $args[1];
+    my @fields      = split /\ /, $args[1];
+    my $scenario_id = $args[2];
 
     #say $fields[1];    # Aye
     #say $fields[2];    # Bee
-    if ( is_leg_unit( $fields[1] ) ) {
-        if ( is_can_carry_leg_unit( $fields[2] ) ) {
-            embark( $fields[1], 1, $fields[2] );
+    if ( is_same_hex( $fields[1], $fields[2] ) ) {
+        if ( is_leg_unit( $fields[1] ) ) {
+            if ( is_can_carry_leg_unit( $fields[2] ) ) {
+                embark( $fields[1], 1, $fields[2] );
+            }
+            else { say "can't carry'"; }
+            return;
         }
-        else { say "can't carry'"; }
+        if ( is_leg_recon_unit( $fields[1] ) ) {
+            if ( is_can_carry_leg_recon_unit( $fields[2] ) ) {
+                embark( $fields[1], 1, $fields[2] );
+            }
+            else { say "can't carry'"; }
+        }
         return;
     }
-    if ( is_leg_recon_unit( $fields[1] ) ) {
-        if ( is_can_carry_leg_recon_unit( $fields[2] ) ) {
-            embark( $fields[1], 1, $fields[2] );
-        }
-        else { say "can't carry'"; }
+    say "they must be in the same hex location";
+}
+
+# ***************************************************************************************
+sub is_same_hex {
+    my ( $aye, $bee ) = @_;
+    my $is_it = 0;
+    my @A     = ();
+    my @B     = ();
+
+    # ***** get aye's loc_x, loc_y
+    $stmt = "SELECT loc_x, loc_y FROM instance where id = " . $aye;
+    my $rs = $conn->prepare($stmt);
+    $rs->execute();
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        push @A, $ROW[0];
+        push @A, $ROW[1];
     }
+
+    # ***** get bee's loc_x, loc_y
+    $stmt = "SELECT loc_x, loc_y FROM instance where id = " . $bee;
+    $rs   = $conn->prepare($stmt);
+    $rs->execute();
+    while ( my @ROW = $rs->fetchrow_array() ) {
+        push @B, $ROW[0];
+        push @B, $ROW[1];
+    }
+    $rs->finish();
+    say $A[0];
+    say $A[1];
+    say $B[0];
+    say $B[1];
+    if ( ( $A[0] == $B[0] ) and ( $A[1] == $B[1] ) ) {
+        $is_it = 1;
+    }
+
+    return $is_it;
 }
 
 # ***************************************************************************************
