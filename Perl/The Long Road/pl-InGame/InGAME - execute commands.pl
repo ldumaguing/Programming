@@ -9,22 +9,30 @@ use v5.42;
 use lib "pl-InGame/module";
 use Embark;
 
-# pl-InGame/'InGAME - execute commands.pl'   scenario/1-Recon.txt   1
-
 # ***************************************************************************************
 my $argNum = @ARGV;
-if ( $argNum < 2 ) {
-    say "pl/'GAME - execute commands.pl'   scenario/1-Recon.txt   1";
+if ( $argNum < 1 ) {
+    say "pl/'GAME - execute commands.pl'   scenario/1-Recon.txt";
     exit;
 }
 
-my $conn        = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
-my $filename    = $ARGV[0];
-my $scenario_id = $ARGV[1];
+my $scenario_id = 0;
+
+my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+
+my $stmt = "SELECT num1 FROM scenario WHERE key = 'currScenario'";
+my $rs   = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    $scenario_id = $ROW[0];
+}
+
+my $filename = $ARGV[0];
+
 open my $fh, '<', $filename or die "Cannot open $filename: $!";
 
-my $stmt = "DELETE FROM relation";
-my $rs   = $conn->prepare($stmt);
+$stmt = "DELETE FROM relation";
+$rs   = $conn->prepare($stmt);
 $rs->execute();
 $rs->finish();
 

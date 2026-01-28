@@ -7,20 +7,24 @@ use DBI;
 use v5.42;
 
 # ***************************************************************************************
-my $argNum = @ARGV;
-if ( $argNum < 1 ) {
-    say "pl-InGame/'LIST units.pl' 1";
-    exit;
-}
+my $scenario_id = 0;
 
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
-my $stmt =
+
+my $stmt = "SELECT num1 FROM scenario WHERE key = 'currScenario'";
+my $rs   = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    $scenario_id = $ROW[0];
+}
+
+$stmt =
     "SELECT id, unit_name, unit_id, img_id, faction, "
   . "loc_x, loc_y, status, curr_MF FROM instance WHERE "
   . "scenario_id = "
-  . $ARGV[0]
+  . $scenario_id
   . " ORDER BY faction, unit_name";
-my $rs = $conn->prepare($stmt);
+$rs = $conn->prepare($stmt);
 $rs->execute();
 
 my $faction = "";

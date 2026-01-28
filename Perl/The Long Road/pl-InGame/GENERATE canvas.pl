@@ -7,8 +7,6 @@ use DBI;
 use v5.42;
 use List::Util qw(uniq);
 
-# pl-InGame/'GAME - generate canvas.pl' 1
-
 # ***************************************************************************************
 my @map_imgs =
   qw(TRL_Map_A_Final.jpg TRL_Map_B_Final.jpg TRL_Map_C_Final.jpg TLR_Map_D_Final.jpg);
@@ -30,15 +28,17 @@ my $html_1 = <<"END";
 END
 
 # ***************************************************************************************
-my $argNum = @ARGV;
-if ( $argNum < 1 ) {
-    say "pl/'GAME - generate canvas.pl' 1";
-    exit;
+my $scenario_id = 0;
+
+my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+
+my $stmt = "SELECT num1 FROM scenario WHERE key = 'currScenario'";
+my $rs   = $conn->prepare($stmt);
+$rs->execute();
+while ( my @ROW = $rs->fetchrow_array() ) {
+    $scenario_id = $ROW[0];
 }
 
-my $conn  = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
-my $stmt  = "";
-my $rs    = undef;
 my $count = 0;
 
 my $row_count    = 0;
@@ -48,8 +48,6 @@ my $map_h        = 0;
 my $pix_x        = 0;
 my $pix_y        = 0;
 my $line         = "";
-
-my $scenario_id = $ARGV[0];
 
 my @upperLeft = ();
 my $hexWidth  = 0.0;
