@@ -13,8 +13,13 @@ use Hexagon;
 my @args = @ARGV;
 
 my $x = @ARGV;
-say $x;
-
+if ( $x < 2 ) {
+    say "pl-InGame/QUERY\ distance.pl '0,0'  '10,10'   hex locations";
+    say "                            '1234' '5678'    unit ids";
+    say "                            '1234' '10,10'   mix";
+    say "                            '0,0'  '5678'    mix";
+    exit;
+}
 
 my $scenario_id = 0;
 
@@ -27,10 +32,58 @@ while ( my @ROW = $rs->fetchrow_array() ) {
     $scenario_id = $ROW[0];
 }
 
+my @from = ();
+my @to   = ();
 
+# ***** from
+if ( $args[0] =~ /,/ ) {
+    my @Aye = split /,/, $args[0];
+    push @from, $Aye[0];
+    push @from, $Aye[1];
+}
+else {
+    @from = get_hex_loc( $args[0] );
+}
 
-say $args[0];
-say $args[1];
+# ***** to
+if ( $args[1] =~ /,/ ) {
+    my @Aye = split /,/, $args[1];
+    push @to, $Aye[0];
+    push @to, $Aye[1];
+}
+else {
+    @to = get_hex_loc( $args[1] );
+}
 
-say get_hex_distance( 0, 0, 10, 10 );
+$rs->finish();
+$conn->disconnect();
+
+say "hex distance: " . get_hex_distance( $from[0], $from[1], $to[0], $to[1] );
+
+# ***************************************************************************************
+sub get_hex_loc {
+    my @args    = @_;
+    my @hex_loc = ();
+
+    my $stmt_1 =
+        "SELECT loc_x, loc_y FROM instance WHERE scenario_id = "
+      . $scenario_id
+      . " AND id = "
+      . $args[0];
+    my $rs1 = $conn->prepare($stmt_1);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        push @hex_loc, $ROW[0];
+        push @hex_loc, $ROW[1];
+    }
+    $rs1->finish();
+
+    $x = @hex_loc;
+    if ( $x == 0 ) {
+        say "unit id " . $args[0] . " doesn't exist";
+        exit;
+    }
+
+    return @hex_loc;
+}
 
