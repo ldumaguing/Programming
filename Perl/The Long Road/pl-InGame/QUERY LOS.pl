@@ -58,18 +58,19 @@ else {
     @to = get_hex_loc( $args[1] );
 }
 
+clear_path( $from[0], $from[1], $to[0], $to[1] );
 my @path1 = get_path( $from[0], $from[1], $to[0], $to[1] );
-clear_path();
-my @path2 = get_path( $to[0], $to[1], $from[0], $from[1] );
+#clear_path( $to[0], $to[1], $from[0], $from[1] );
+#my @path2 = get_path( $to[0], $to[1], $from[0], $from[1] );
 foreach my ( $i, $j ) (@path1) {
     say $i . "," . $j;
     next;    # increment one more iteration
 }
-say "---";
-foreach my ( $i1, $j1 ) (@path2) {
-    say $i1 . "," . $j1;
-    next;    # increment one more iteration
-}
+#say "---";
+#foreach my ( $i1, $j1 ) (@path2) {
+#    say $i1 . "," . $j1;
+#    next;    # increment one more iteration
+#}
 
 # ***************************************************************************************
 sub get_hex_loc {

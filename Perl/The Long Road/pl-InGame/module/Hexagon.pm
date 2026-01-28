@@ -14,9 +14,10 @@ use v5.42;
 # my $X_hex = cos($deg2rad * 30.0);
 my $X_hex = cos( ( ( 4 * atan2( 1, 1 ) ) / 180.0 ) * 30.0 );
 
-my @args    = ();
-my $counter = 0;
-my @path    = ();
+my @args        = ();
+my $counter     = 0;
+my @path        = ();
+my @three_hexes = ( 0, 0, 0 );
 
 # ***************************************************************************************
 sub get_cart_distance {
@@ -224,7 +225,30 @@ sub get_hex_distance {
 
 # *********************************************************
 sub clear_path {
-    @path = ();    # seems variables are static
+    @args = @_;
+    my $dir_ang = get_degrees( $args[0], $args[1], $args[2], $args[3] );
+
+    @path        = ();            # seems variables are static
+    @three_hexes = ( 0, 0, 0 );
+
+    if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
+        @three_hexes = ( 5, 0, 1 );
+    }
+    if ( ( 0 <= $dir_ang ) and ( 60 > $dir_ang ) ) {
+        @three_hexes = ( 0, 1, 2 );
+    }
+    if ( ( 300 <= $dir_ang ) ) {
+        @three_hexes = ( 1, 2, 3 );
+    }
+    if ( ( 240 <= $dir_ang ) and ( 300 > $dir_ang ) ) {
+        @three_hexes = ( 2, 3, 4 );
+    }
+    if ( ( 180 <= $dir_ang ) and ( 240 > $dir_ang ) ) {
+        @three_hexes = ( 3, 4, 5 );
+    }
+    if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
+        @three_hexes = ( 4, 5, 0 );
+    }
 }
 
 # *********************************************************
@@ -265,27 +289,7 @@ sub get_path {
 
     #say $dir_ang . " degs";
 
-    #my $degMOD90 = $dir_ang % 90.0;
-    #say $degMOD90 . " (degs % 90)";
-    my @three_hexes = ( 0, 0, 0 );
-    if ( ( 60 <= $dir_ang ) and ( 120 > $dir_ang ) ) {
-        @three_hexes = ( 5, 0, 1 );
-    }
-    if ( ( 0 <= $dir_ang ) and ( 60 > $dir_ang ) ) {
-        @three_hexes = ( 0, 1, 2 );
-    }
-    if ( ( 300 <= $dir_ang ) ) {
-        @three_hexes = ( 1, 2, 3 );
-    }
-    if ( ( 240 <= $dir_ang ) and ( 300 > $dir_ang ) ) {
-        @three_hexes = ( 2, 3, 4 );
-    }
-    if ( ( 180 <= $dir_ang ) and ( 240 > $dir_ang ) ) {
-        @three_hexes = ( 3, 4, 5 );
-    }
-    if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
-        @three_hexes = ( 4, 5, 0 );
-    }
+    say $three_hexes[0] . "," . $three_hexes[1] . "," . $three_hexes[2];
 
     my @adj_hex = ( 0, 0 );
     my $ref_deg = $dir_ang % 180.0;
@@ -302,7 +306,7 @@ sub get_path {
             ) - $ref_deg
         );
 
-        if ( $most_acute > $delta ) {
+        if ( $most_acute >= $delta ) {
             $most_acute = $delta;
             @hex_cursor = ( $adj_hex[0], $adj_hex[1] );
         }
