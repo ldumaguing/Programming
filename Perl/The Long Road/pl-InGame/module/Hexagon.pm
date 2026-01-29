@@ -22,6 +22,33 @@ my $dir_ang     = 0;
 my @nearest_hex = ();
 
 # ***************************************************************************************
+sub is_hill {
+    @args = @_;
+
+    my $is_it = 0;
+
+    my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+    my $stmt1 =
+        "SELECT * FROM terrain_instance WHERE "
+      . "gameName = '"
+      . $args[0] . "'" . " AND "
+      . "loc_x = "
+      . $args[1] . " AND "
+      . "loc_y = "
+      . $args[2] . " AND "
+      . "(flag1 & (1 << 0))";
+    my $rs1 = $conn1->prepare($stmt1);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        $is_it = 1;
+    }
+
+    $conn1->disconnect();
+
+    return $is_it;
+}
+
+# ***************************************************************************************
 sub get_cart_distance {
     @args = @_;
     my $From_X = $args[0] * $X_hex;

@@ -1,0 +1,56 @@
+**************************************************************** TABLE - terrain instance
+DROP TABLE IF EXISTS terrain_instance;
+CREATE TABLE terrain_instance (
+   gameName TEXT NOT NULL,
+   loc_x    INTEGER DEFAULT 0,
+   loc_y    INTEGER DEFAULT 0,
+   loc_z    INTEGER DEFAULT 0,
+   flag1    INTEGER DEFAULT 0,
+   flag2    INTEGER DEFAULT 0,
+   PRIMARY KEY (gameName, loc_x, loc_y)
+);
+
+
+DROP TABLE IF EXISTS spine_instance;
+CREATE TABLE spine_instance (
+   gameName TEXT NOT NULL,
+   loc_x    INTEGER DEFAULT 0,   -- must be even
+   loc_y    INTEGER DEFAULT 0,
+   spine    INTEGER DEFAULT 0,
+   flag1    INTEGER DEFAULT 0,
+   PRIMARY KEY (gameName, loc_x, loc_y, spine)
+);
+
+
+
+
+B1 is (0, 0)
+
+
+flag2
+=====
+bit 0:   City
+bit 1:   Cultivated
+bit 2:   Lake
+
+
+flag1
+=====
+bit 0:   Hill
+bit 1-6: Road exits
+    1: A (N)
+    2: B (NE)
+    3: C (SE)
+    4: D (S)
+    5: E (SW)
+    6: F (NW)
+bit 7-12: Tunnel road exits
+    7: A (N)
+    8: B (NE)
+    9: C (SE)
+   10: D (S)
+   11: E (SW)
+   12: F (NW)
+bit 13:  Rolling
+bit 14:  Forest
+bit 15:  Town
