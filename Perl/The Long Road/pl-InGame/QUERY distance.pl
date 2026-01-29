@@ -58,6 +58,7 @@ else {
 $rs->finish();
 $conn->disconnect();
 
+init_path( $from[0], $from[1], $to[0], $to[1] );
 say "hex distance: " . get_hex_distance( $from[0], $from[1], $to[0], $to[1] );
 
 # ***************************************************************************************

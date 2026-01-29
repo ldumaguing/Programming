@@ -19,6 +19,7 @@ my $counter     = 0;
 my @path        = ();
 my @three_hexes = ( 0, 0, 0 );
 my $dir_ang     = 0;
+my @nearest_hex = ();
 
 # ***************************************************************************************
 sub get_cart_distance {
@@ -141,11 +142,66 @@ sub get_adjacent_hex {
 }
 
 # *********************************************************
+sub get_hex_distance {
+    @args = @_;
+
+    my @hex_cursor = ( $args[0], $args[1] );
+    my @hex_to     = ( $args[2], $args[3] );
+
+    if (
+        get_cart_distance( $hex_cursor[0], $hex_cursor[1], $hex_to[0],
+            $hex_to[1] ) <= 1.1
+      )
+    {
+        $counter++;
+        return $counter;
+    }
+
+    $counter++;
+
+    my $From_X = $hex_cursor[0] * $X_hex;
+    my $To_X   = $hex_to[0] * $X_hex;
+    my $From_Y = 0;
+    my $To_Y   = 0;
+    if ( $From_X % 2 ) {    # is From_X odd
+        $From_Y = $hex_cursor[1] + 0.5;
+    }
+    else {
+        $From_Y = $hex_cursor[1];
+    }
+    if ( $hex_to[0] % 2 ) {    # is To_X odd
+        $To_Y = $hex_to[1] + 0.5;
+    }
+    else {
+        $To_Y = $hex_to[1];
+    }
+
+    my @adj_hex = ( 0, 0 );
+
+    my $most_acute = 360;
+    foreach my $adjacent_hex_dir (@three_hexes) {
+        @adj_hex =
+          get_adjacent_hex( $hex_cursor[0], $hex_cursor[1], $adjacent_hex_dir );
+        my $degs =
+          get_degrees( $adj_hex[0], $adj_hex[1], $hex_to[0], $hex_to[1] );
+
+        my $delta = abs( $degs - $dir_ang );
+
+        if ( $delta < $most_acute ) {
+            $most_acute  = $delta;
+            @nearest_hex = ( $adj_hex[0], $adj_hex[1] );
+        }
+    }
+
+    get_hex_distance( $nearest_hex[0], $nearest_hex[1], $hex_to[0],
+        $hex_to[1] );
+}
 
 # *********************************************************
-sub clear_path {
+sub init_path {
     @args    = @_;
     $dir_ang = get_degrees( $args[0], $args[1], $args[2], $args[3] );
+    $counter = 0;
 
     @path        = ();            # seems variables are static
     @three_hexes = ( 0, 0, 0 );
@@ -168,9 +224,8 @@ sub clear_path {
     if ( ( 120 <= $dir_ang ) and ( 180 > $dir_ang ) ) {
         @three_hexes = ( 4, 5, 0 );
     }
-    say $three_hexes[0] . "," . $three_hexes[1] . "," . $three_hexes[2];
-    say $dir_ang;
-    exit;
+
+    $dir_ang %= 360;
 }
 
 # *********************************************************
@@ -179,61 +234,56 @@ sub get_path {
 
     my @hex_cursor = ( $args[0], $args[1] );
     my @hex_to     = ( $args[2], $args[3] );
-    if ( $hex_cursor[0] == $hex_to[0] ) {
-        if ( $hex_cursor[1] == $hex_to[1] ) {
-            push @path, $args[2];
-            push @path, $args[3];
-            return @path;
-        }
-    }
 
     push @path, $args[0];
     push @path, $args[1];
 
-    my $From_X = $args[0] * $X_hex;
-    my $To_X   = $args[2] * $X_hex;
+    if (
+        get_cart_distance( $hex_cursor[0], $hex_cursor[1], $hex_to[0],
+            $hex_to[1] ) <= 1.1
+      )
+    {
+        push @path, $hex_to[0];
+        push @path, $hex_to[1];
+
+        return @path;
+    }
+
+    my $From_X = $hex_cursor[0] * $X_hex;
+    my $To_X   = $hex_to[0] * $X_hex;
     my $From_Y = 0;
     my $To_Y   = 0;
-    if ( $args[0] % 2 ) {    # is From_X odd
-        $From_Y = $args[1] + 0.5;
+    if ( $From_X % 2 ) {    # is From_X odd
+        $From_Y = $hex_cursor[1] + 0.5;
     }
     else {
-        $From_Y = $args[1];
+        $From_Y = $hex_cursor[1];
     }
-    if ( $args[2] % 2 ) {    # is To_X odd
-        $To_Y = $args[3] + 0.5;
+    if ( $hex_to[0] % 2 ) {    # is To_X odd
+        $To_Y = $hex_to[1] + 0.5;
     }
     else {
-        $To_Y = $args[3];
+        $To_Y = $hex_to[1];
     }
-
-    say $three_hexes[0] . "," . $three_hexes[1] . "," . $three_hexes[2];
 
     my @adj_hex = ( 0, 0 );
-    my $ref_deg = $dir_ang % 180.0;
 
     my $most_acute = 360;
     foreach my $adjacent_hex_dir (@three_hexes) {
-        @adj_hex = get_adjacent_hex( $args[0], $args[1], $adjacent_hex_dir );
+        @adj_hex =
+          get_adjacent_hex( $hex_cursor[0], $hex_cursor[1], $adjacent_hex_dir );
+        my $degs =
+          get_degrees( $adj_hex[0], $adj_hex[1], $hex_to[0], $hex_to[1] );
 
-        #print $adj_hex[0] . ", " . $adj_hex[1] . " --- ";
-        my $delta = abs(
-            (
-                ( get_degrees( $args[0], $args[1], $adj_hex[0], $adj_hex[1] ) )
-                % 180
-            ) - $ref_deg
-        );
+        my $delta = abs( $degs - $dir_ang );
 
-        if ( $most_acute >= $delta ) {
-            $most_acute = $delta;
-            @hex_cursor = ( $adj_hex[0], $adj_hex[1] );
+        if ( $delta < $most_acute ) {
+            $most_acute  = $delta;
+            @nearest_hex = ( $adj_hex[0], $adj_hex[1] );
         }
     }
 
-    #say "most acute: " . $most_acute;
-    #say $hex_cursor[0] . " " . $hex_cursor[1];
-
-    get_path( $hex_cursor[0], $hex_cursor[1], $hex_to[0], $hex_to[1] );
+    get_path( $nearest_hex[0], $nearest_hex[1], $hex_to[0], $hex_to[1] );
 }
 
 # ***************************************************************************************
