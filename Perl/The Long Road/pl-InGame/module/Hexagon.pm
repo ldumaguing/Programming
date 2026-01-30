@@ -7,7 +7,7 @@ use diagnostics;
 # use List::Util qw(uniq);
 use Math::Trig;
 
-use v5.42;
+use v5.38.2;
 
 # my $pi = 4 * atan2(1, 1);
 # my $deg2rad = $pi / 180.0;
@@ -56,8 +56,6 @@ sub is_hill {
 
     say $args[0] . "," . $args[1] . "," . $args[2];
 
-
-
     my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
     my $stmt1 =
         "SELECT * FROM terrain_instance WHERE "
@@ -68,6 +66,7 @@ sub is_hill {
       . "loc_y = "
       . $args[2] . " AND "
       . "(flag1 & (1 << 0))";
+    say $stmt1;
     my $rs1 = $conn1->prepare($stmt1);
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {

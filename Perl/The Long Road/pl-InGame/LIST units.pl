@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 use DBI;
-use v5.42;
+use v5.38.2;
 
 # ***************************************************************************************
 my $scenario_id = 0;

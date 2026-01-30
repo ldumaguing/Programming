@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 use DBI;
-use v5.42;
+use v5.38.2;
 
 # pl/'GAME - instantiate metadata.pl'   scenario/1-Recon.txt   1
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 use DBI;
-use v5.42;
+use v5.38.2;
 
 # pl/'GAME - instantiate map.pl'   scenario/1-Recon.txt
 
@@ -168,17 +168,21 @@ sub imprint_map {
     return if ( $letter =~ /\./ );
 
     if ( ( $col == 0 ) and ( $row == 0 ) ) {
+        say "placement_A";
         placement_A( $col, $row, $letter );
     }
     else {
         if ( $row == 0 ) {
+            say "placement_B";
             placement_B( $col, $row, $letter );
         }
         else {
             if ( $col == 0 ) {
+                say "placement_C";
                 placement_C( $col, $row, $letter );
             }
             else {
+                say "placement_D";
                 placement_D( $col, $row, $letter );
             }
         }
