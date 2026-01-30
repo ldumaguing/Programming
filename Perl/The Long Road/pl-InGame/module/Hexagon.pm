@@ -69,6 +69,7 @@ sub is_hill {
     say $stmt1;
     my $rs1 = $conn1->prepare($stmt1);
     $rs1->execute();
+
     while ( my @ROW = $rs1->fetchrow_array() ) {
         $is_it = 1;
     }
@@ -85,17 +86,21 @@ sub get_cart_distance {
     my $To_X   = $args[2] * $X_hex;
     my $From_Y = 0;
     my $To_Y   = 0;
-    if ( $args[0] % 2 ) {    # is From_X odd
-        $From_Y = $args[1] + 0.5;
-    }
-    else {
+    say $From_X . "," . $From_Y;
+    say $To_X . "," . $To_Y;
+    say "---";
+
+    if ( $args[0] % 2 ) {    # is From_X even
         $From_Y = $args[1];
     }
-    if ( $args[2] % 2 ) {    # is To_X odd
-        $To_Y = $args[3] + 0.5;
+    else {
+        $From_Y = $args[1] + 0.5;
+    }
+    if ( $args[2] % 2 ) {    # is To_X even
+        $To_Y = $args[3];
     }
     else {
-        $To_Y = $args[3];
+        $To_Y = $args[3] + 0.5;
     }
 
     my $X = $To_X - $From_X;
@@ -113,17 +118,17 @@ sub get_degrees {
     my $To_X   = $args[2] * $X_hex;
     my $From_Y = 0;
     my $To_Y   = 0;
-    if ( $args[0] % 2 ) {    # is From_X odd
-        $From_Y = $args[1] + 0.5;
-    }
-    else {
+    if ( $args[0] % 2 ) {    # is From_X even
         $From_Y = $args[1];
     }
-    if ( $args[2] % 2 ) {    # is To_X odd
-        $To_Y = $args[3] + 0.5;
+    else {
+        $From_Y = $args[1] + 0.5;
+    }
+    if ( $args[2] % 2 ) {    # is To_X even
+        $To_Y = $args[3];
     }
     else {
-        $To_Y = $args[3];
+        $To_Y = $args[3] + 0.5;
     }
 
     my $X    = $To_X - $From_X;
