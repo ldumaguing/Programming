@@ -145,10 +145,11 @@ sub place_combatant {
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {
         say "      img" . $ROW[0] . ".addEventListener(\"load\", (e) => {";
-        my $x = ( $ROW[1] * $hexWidth ) + $upperLeft[0];
+        my $x = ( ($ROW[1] - 1) * $hexWidth ) + $upperLeft[0];
         my $y = ( $ROW[2] * $hexHeight ) + $upperLeft[1];
-        if ( $ROW[1] % 2 ) {
-            $y = $y + ( $hexHeight / 2.0 );
+        if ( $ROW[1] % 2 ) { }
+        else {
+           $y = $y + ( $hexHeight / 2.0 );
         }
 
         say "         ctx.drawImage(img"
