@@ -51,12 +51,8 @@ else {
     @from = get_hex_loc( $args[0] );
 }
 
-if ( is_hill( $game_name, $from[0], $from[1] ) ) {
-    say "hill";
-}
-if ( is_cultivated( $game_name, $from[0], $from[1] ) ) {
-    say "cultivated";
-}
+
+scan_terrain( $game_name, $from[0], $from[1] );
 
 $rs->finish();
 $conn->disconnect();

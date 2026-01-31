@@ -22,6 +22,39 @@ my $dir_ang     = 0;
 my @nearest_hex = ();
 
 # ***************************************************************************************
+sub scan_terrain {
+    @args = @_;
+
+    my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+    my $stmt1 =
+        "SELECT flag1, flag2 FROM terrain_instance WHERE "
+      . "gameName = '"
+      . $args[0] . "'" . " AND "
+      . "loc_x = "
+      . $args[1] . " AND "
+      . "loc_y = "
+      . $args[2];
+    my $rs1 = $conn1->prepare($stmt1);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        translate_flags($ROW[0], $ROW[1]);
+    }
+
+    $conn1->disconnect();
+}
+# ***********************************************
+sub translate_flags {
+    @args = @_;
+    my $flag1 = $args[0];
+    my $flag2 = $args[1];
+
+    if ($flag1 & (1<<0)) { say "hill"; }
+    if ($flag1 & (1<<13)) { say "rolling"; }
+    if ($flag1 & (1<<14)) { say "forest"; }
+    if ($flag1 & (1<<15)) { say "town"; }
+}
+
+# ***************************************************************************************
 sub is_cultivated {
     @args = @_;
 
@@ -54,7 +87,7 @@ sub is_hill {
 
     my $is_it = 0;
 
-    say $args[0] . "," . $args[1] . "," . $args[2];
+    #say $args[0] . "," . $args[1] . "," . $args[2];
 
     my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
     my $stmt1 =
@@ -66,7 +99,7 @@ sub is_hill {
       . "loc_y = "
       . $args[2] . " AND "
       . "(flag1 & (1 << 0))";
-    say $stmt1;
+    #say $stmt1;
     my $rs1 = $conn1->prepare($stmt1);
     $rs1->execute();
 
