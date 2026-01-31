@@ -373,7 +373,7 @@ sub get_path {
 
         my $delta = abs( $degs - $dir_ang );
 
-        if ( $delta < $most_acute ) {
+        if ( $delta <= $most_acute ) {
             $most_acute  = $delta;
             @nearest_hex = ( $adj_hex[0], $adj_hex[1] );
         }
