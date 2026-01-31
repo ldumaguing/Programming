@@ -65,7 +65,6 @@ foreach my ( $i, $j ) (@path1) {
     next;    # increment one more iteration
 }
 
-
 # ***************************************************************************************
 sub get_hex_loc {
     my @args    = @_;

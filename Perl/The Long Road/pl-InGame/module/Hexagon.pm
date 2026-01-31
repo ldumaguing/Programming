@@ -86,9 +86,10 @@ sub get_cart_distance {
     my $To_X   = $args[2] * $X_hex;
     my $From_Y = 0;
     my $To_Y   = 0;
-    say $From_X . "," . $From_Y;
-    say $To_X . "," . $To_Y;
-    say "---";
+
+    #say $From_X . "," . $From_Y;
+    #say $To_X . "," . $To_Y;
+    #say "---";
 
     if ( $args[0] % 2 ) {    # is From_X even
         $From_Y = $args[1];
@@ -164,26 +165,6 @@ sub get_adjacent_hex {
             @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
         }
         elsif ( $adjacent == 1 ) {    # NE
-            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] );
-        }
-        elsif ( $adjacent == 2 ) {    # SE
-            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] + 1 );
-        }
-        elsif ( $adjacent == 3 ) {    # S
-            @adjHex = ( $hex_cursor[0], $hex_cursor[1] + 1 );
-        }
-        elsif ( $adjacent == 4 ) {    # SW
-            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] + 1 );
-        }
-        else {                        # NW
-            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] );
-        }
-    }
-    else {
-        if ( $adjacent == 0 ) {       # N
-            @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
-        }
-        elsif ( $adjacent == 1 ) {    # NE
             @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] - 1 );
         }
         elsif ( $adjacent == 2 ) {    # SE
@@ -197,6 +178,26 @@ sub get_adjacent_hex {
         }
         else {                        # NW
             @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] - 1 );
+        }
+    }
+    else {
+        if ( $adjacent == 0 ) {       # N
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] - 1 );
+        }
+        elsif ( $adjacent == 1 ) {    # NE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] );
+        }
+        elsif ( $adjacent == 2 ) {    # SE
+            @adjHex = ( $hex_cursor[0] + 1, $hex_cursor[1] + 1 );
+        }
+        elsif ( $adjacent == 3 ) {    # S
+            @adjHex = ( $hex_cursor[0], $hex_cursor[1] + 1 );
+        }
+        elsif ( $adjacent == 4 ) {    # SW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] + 1 );
+        }
+        else {                        # NW
+            @adjHex = ( $hex_cursor[0] - 1, $hex_cursor[1] );
         }
     }
 
