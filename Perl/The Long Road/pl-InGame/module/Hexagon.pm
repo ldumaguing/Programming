@@ -22,7 +22,7 @@ my $dir_ang     = 0;
 my @nearest_hex = ();
 
 # ***************************************************************************************
-sub is_rolling {
+sub is_cultivated {
     @args = @_;
 
     my $is_it = 0;
@@ -36,7 +36,7 @@ sub is_rolling {
       . $args[1] . " AND "
       . "loc_y = "
       . $args[2] . " AND "
-      . "(flag1 & (1 << 13))";
+      . "(flag2 & (1 << 1))";
     my $rs1 = $conn1->prepare($stmt1);
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {
