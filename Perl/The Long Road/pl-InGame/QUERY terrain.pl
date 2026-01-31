@@ -54,6 +54,9 @@ else {
 if ( is_hill( $game_name, $from[0], $from[1] ) ) {
     say "hill";
 }
+if ( is_rolling( $game_name, $from[0], $from[1] ) ) {
+    say "hill";
+}
 
 $rs->finish();
 $conn->disconnect();
