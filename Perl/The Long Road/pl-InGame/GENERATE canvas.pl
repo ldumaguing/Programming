@@ -104,7 +104,7 @@ while ( my @ROW = $rs->fetchrow_array() ) {
 $rs->finish();
 
 say $html_1;
-say "<body>\n   <div style=\"display:none;\">";
+say "<body onload=\"pageLoad();\">\n   <div style=\"display:none;\">";
 $count = 0;
 foreach my $m (@map_imgs) {
     say "      <img src=\"TLR/" . $m . "\"" . " id=\"map" . $count . "\">";
@@ -116,19 +116,21 @@ say "   </div>\n";
 # ***************************************************************
 say "   <canvas id=\"myCanvas\" width=" . $pix_x . " height=" . $pix_y . ">";
 say "      Sorry, your browser does not support canvas.\n   </canvas>\n";
-say "   <script>";
-say "      const canvas = document.getElementById(\"myCanvas\");";
-say "      const ctx = canvas.getContext(\"2d\");";
-for my $i ( 1 .. scalar(@map_imgs) ) {
-    say "      const map"
-      . ( $i - 1 )
-      . " = document.getElementById(\"map"
-      . ( $i - 1 ) . "\");";
-}
+say "   <script type=\"text/javascript\">";
+say "      function pageLoad() {";
+say "         const canvas = document.getElementById(\"myCanvas\");";
+say "         const ctx = canvas.getContext(\"2d\");";
+#for my $i ( 1 .. scalar(@map_imgs) ) {
+#    say "      const map"
+#      . ( $i - 1 )
+#      . " = document.getElementById(\"map"
+#      . ( $i - 1 ) . "\");";
+#}
 
 place_maps();
 place_combatant();
 
+say "      }";
 say "   </script>\n</body>\n</html>";
 
 $conn->disconnect();
@@ -139,7 +141,7 @@ sub place_combatant {
     my $rs1 = $conn->prepare($stmt);
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {
-        say "      img" . $ROW[0] . ".addEventListener(\"load\", (e) => {";
+        #say "      img" . $ROW[0] . ".addEventListener(\"load\", (e) => {";
         my $x = ( $ROW[1] * $hexWidth ) + $upperLeft[0];
         my $y = ( $ROW[2] * $hexHeight ) + $upperLeft[1];
         if ( $ROW[1] % 2 ) {
@@ -150,7 +152,7 @@ sub place_combatant {
           . $ROW[0] . ", "
           . $x . ", "
           . $y . ");";
-        say "      });";
+        #say "      });";
     }
     $rs1->finish();
 }
@@ -201,14 +203,10 @@ sub place_maps {
                 $x_multiply++;
                 next;
             }
-            say "\n      map"
-              . ( ord($plate) - ord('A') )
-              . ".addEventListener(\"load\", (e) => {";
             say "         ctx.drawImage(map"
               . ( ord($plate) - ord('A') ) . ", "
               . ( $map_w * $x_multiply ) . ", "
               . ( $map_h * $y_multiply ) . ");";
-            say "      });";
             $x_multiply++;
         }
     }
