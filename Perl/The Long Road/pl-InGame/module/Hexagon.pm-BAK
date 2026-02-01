@@ -37,40 +37,79 @@ sub scan_terrain {
     my $rs1 = $conn1->prepare($stmt1);
     $rs1->execute();
     while ( my @ROW = $rs1->fetchrow_array() ) {
-        translate_flags( $ROW[0], $ROW[1] );
+        translate_flags($ROW[0], $ROW[1]);
     }
 
     $conn1->disconnect();
 }
-
 # ***********************************************
 sub translate_flags {
     @args = @_;
     my $flag1 = $args[0];
     my $flag2 = $args[1];
 
-    if ( $flag1 & ( 1 << 0 ) )  { say "hill"; }
-    if ( $flag1 & ( 1 << 13 ) ) { say "rolling"; }
-    if ( $flag1 & ( 1 << 14 ) ) { say "forest"; }
-    if ( $flag1 & ( 1 << 15 ) ) { say "town"; }
+    if ($flag1 & (1<<0)) { say "hill"; }
+    if ($flag1 & (1<<13)) { say "rolling"; }
+    if ($flag1 & (1<<14)) { say "forest"; }
+    if ($flag1 & (1<<15)) { say "town"; }
+}
 
-    if ( $flag2 & ( 1 << 0 ) ) { say "city"; }
-    if ( $flag2 & ( 1 << 1 ) ) { say "cultivated"; }
-    if ( $flag2 & ( 1 << 2 ) ) { say "lake"; }
+# ***************************************************************************************
+sub is_cultivated {
+    @args = @_;
 
-    if ( $flag1 & ( 1 << 1 ) ) { say "road N"; }
-    if ( $flag1 & ( 1 << 2 ) ) { say "road NE"; }
-    if ( $flag1 & ( 1 << 3 ) ) { say "road SE"; }
-    if ( $flag1 & ( 1 << 4 ) ) { say "road S"; }
-    if ( $flag1 & ( 1 << 5 ) ) { say "road SW"; }
-    if ( $flag1 & ( 1 << 6 ) ) { say "road NW"; }
+    my $is_it = 0;
 
-    if ( $flag1 & ( 1 << 7 ) )  { say "tunnel N"; }
-    if ( $flag1 & ( 1 << 8 ) )  { say "tunnel NE"; }
-    if ( $flag1 & ( 1 << 9 ) )  { say "tunnel SE"; }
-    if ( $flag1 & ( 1 << 10 ) ) { say "tunnel S"; }
-    if ( $flag1 & ( 1 << 11 ) ) { say "tunnel SW"; }
-    if ( $flag1 & ( 1 << 12 ) ) { say "tunnel NW"; }
+    my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+    my $stmt1 =
+        "SELECT * FROM terrain_instance WHERE "
+      . "gameName = '"
+      . $args[0] . "'" . " AND "
+      . "loc_x = "
+      . $args[1] . " AND "
+      . "loc_y = "
+      . $args[2] . " AND "
+      . "(flag2 & (1 << 1))";
+    my $rs1 = $conn1->prepare($stmt1);
+    $rs1->execute();
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        $is_it = 1;
+    }
+
+    $conn1->disconnect();
+
+    return $is_it;
+}
+
+# ***************************************************************************************
+sub is_hill {
+    @args = @_;
+
+    my $is_it = 0;
+
+    #say $args[0] . "," . $args[1] . "," . $args[2];
+
+    my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
+    my $stmt1 =
+        "SELECT * FROM terrain_instance WHERE "
+      . "gameName = '"
+      . $args[0] . "'" . " AND "
+      . "loc_x = "
+      . $args[1] . " AND "
+      . "loc_y = "
+      . $args[2] . " AND "
+      . "(flag1 & (1 << 0))";
+    #say $stmt1;
+    my $rs1 = $conn1->prepare($stmt1);
+    $rs1->execute();
+
+    while ( my @ROW = $rs1->fetchrow_array() ) {
+        $is_it = 1;
+    }
+
+    $conn1->disconnect();
+
+    return $is_it;
 }
 
 # ***************************************************************************************
@@ -109,7 +148,6 @@ sub get_cart_distance {
 # *********************************************************
 sub get_degrees {
     @args = @_;
-
     my $From_X = $args[0] * $X_hex;
     my $To_X   = $args[2] * $X_hex;
     my $From_Y = 0;
@@ -151,7 +189,6 @@ sub get_degrees {
 # *********************************************************
 sub get_adjacent_hex {
     @args = @_;
-
     my @hex_cursor = ( $args[0], $args[1] );
     my $adjacent   = $args[2];
 
@@ -258,8 +295,7 @@ sub get_hex_distance {
 
 # *********************************************************
 sub init_path {
-    @args = @_;
-
+    @args    = @_;
     $dir_ang = get_degrees( $args[0], $args[1], $args[2], $args[3] );
     $counter = 0;
 
