@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 
-use v5.38.2;
+use v5.42;
 
 use DBI;
 my $conn = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
