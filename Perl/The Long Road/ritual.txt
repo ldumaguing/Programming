@@ -8,6 +8,7 @@ pl/'GAME - execute commands.pl'        scenario/1-Recon.txt   1
 
 pl/'GAME - generate canvas.pl'         scenario/1-Recon.txt   1
 
+pl-InGame/'GENERATE canvas.pl'   >   canvas.html
 
 
 
