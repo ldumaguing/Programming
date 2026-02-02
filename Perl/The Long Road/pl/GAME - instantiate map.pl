@@ -456,14 +456,15 @@ sub placement_180 {
 
     while ( my @ROW = $rs->fetchrow_array() ) {
         my $a = 16 - $ROW[0];
-        my $b = 11 - $ROW[1];
+        my $bb = 11 - $ROW[1];
+        if ($a % 2) { $bb = (10 - $ROW[1]); }
         my $c = rotate_180( $ROW[2] );
         my $d = $ROW[3];
 
         my $stmt1 =
             "INSERT INTO terrain_temp (loc_x, loc_y, flag1, flag2) VALUES ("
           . $a . ", "
-          . $b . ", "
+          . $bb . ", "
           . $c . ", "
           . $d . ")";
         my $rs1 = $conn->prepare($stmt1);

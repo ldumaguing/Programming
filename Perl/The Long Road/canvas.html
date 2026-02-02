@@ -50,7 +50,11 @@
       function pageLoad() {
          const canvas = document.getElementById("myCanvas");
          const ctx = canvas.getContext("2d");
+         ctx.save();
+         ctx.translate(3629, 2801);
+         ctx.rotate(180*Math.PI/180);
          ctx.drawImage(map2, 0, 0);
+         ctx.restore();
          ctx.drawImage(img1235, 525.125, 39);
          ctx.drawImage(img1235, 525.125, 272.363636363636);
          ctx.drawImage(img1235, 525.125, 505.727272727272);
