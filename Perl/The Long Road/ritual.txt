@@ -1,14 +1,27 @@
 cd The\ Long\ Road/
 
-pl/'GAME - instantiate map.pl'         scenario/1-Recon.txt
-pl/'GAME - instantiate metadata.pl'    scenario/1-Recon.txt   1
-pl/'GAME - instantiate combatant.pl'   scenario/1-Recon.txt   1
-pl/'GAME - execute commands.pl'        scenario/1-Recon.txt   1
+pl/'GAME - instantiate map.pl'         scenario/'1 - Recon.txt'
+pl/'GAME - instantiate metadata.pl'    scenario/'1 - Recon.txt'   1
+pl/'GAME - instantiate combatant.pl'   scenario/'1 - Recon.txt'   1
+pl/'GAME - execute commands.pl'        scenario/'1 - Recon.txt'   1
 
-
-pl/'GAME - generate canvas.pl'         scenario/1-Recon.txt   1
-
+pl-InGame/'SET scenario.pl' 1
 pl-InGame/'GENERATE canvas.pl'   >   canvas.html
+
+*****************************************************************************************
+pl/'GAME - instantiate map.pl'         scenario/'12 - Awoke.txt'
+pl/'GAME - instantiate metadata.pl'    scenario/'12 - Awoke.txt'   2
+pl/'GAME - instantiate combatant.pl'   scenario/'12 - Awoke.txt'   2
+pl/'GAME - execute commands.pl'        scenario/'12 - Awoke.txt'   2
+
+pl-InGame/'SET scenario.pl' 2
+pl-InGame/'GENERATE canvas.pl'   >   canvas.html
+
+
+
+
+
+
 
 
 

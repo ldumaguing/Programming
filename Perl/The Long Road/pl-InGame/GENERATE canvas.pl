@@ -217,9 +217,9 @@ sub rotate_map {
     my ( $plate, $x_multiply, $y_multiply ) = @_;
     $plate = uc($plate);
 
-    say "\n      map"
-      . ( ord($plate) - ord('A') )
-      . ".addEventListener(\"load\", (e) => {";
+    #say "\n      map"
+    #  . ( ord($plate) - ord('A') )
+    #  . ".addEventListener(\"load\", (e) => {";
     say "         ctx.save();";
     say "         ctx.translate("
       . ( ( $map_w * $x_multiply ) + $map_w ) . ", "
@@ -228,7 +228,7 @@ sub rotate_map {
     say "         ctx.drawImage(map"
       . ( ord($plate) - ord('A') ) . ", " . "0, 0" . ");";
     say "         ctx.restore();";
-    say "      });";
+    #say "      });";
 }
 
 # ***************************************************************************************
