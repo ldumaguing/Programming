@@ -51,7 +51,7 @@ else {
     @from = get_hex_loc( $args[0] );
 }
 
-scan_terrain( $game_name, $from[0] + 1, $from[1] );
+scan_terrain( $game_name, $from[0], $from[1] ); # ************************
 
 $rs->finish();
 $conn->disconnect();

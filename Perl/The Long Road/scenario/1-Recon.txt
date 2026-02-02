@@ -36,18 +36,18 @@ Hood:1
 
 *********************************** Commands
 ******* instance_id     x     y
-[place] 1000            2     0
-[place] 1001            2     1
-[place] 1002            2     2
-[place] 1003            2     3
-[place] 1004            2     4
-[place] 1005            2     5
-[place] 1006            3     0
-[place] 1007            3     1
-[place] 1008            3     2
-[place] 1009            3     3
-[place] 1010            3     4
-[place] 1011            3     5
+[place] 1000            3     0
+[place] 1001            3     1
+[place] 1002            3     2
+[place] 1003            3     3
+[place] 1004            3     4
+[place] 1005            3     5
+[place] 1006            4     0
+[place] 1007            4     1
+[place] 1008            4     2
+[place] 1009            4     3
+[place] 1010            4     4
+[place] 1011            4     5
 
 [place] 1012            16    0
 [place] 1013            16    1
