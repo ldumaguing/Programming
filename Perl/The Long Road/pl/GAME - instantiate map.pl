@@ -125,7 +125,7 @@ sub spine_180 {
     $letter =~ tr/a-z/A-Z/;
     my $mapFile = "Map " . $letter;
 
-    my $stmt = "DELETE FROM terrain_temp";
+    my $stmt = "DELETE FROM spine_temp";
     my $rs   = $conn->prepare($stmt);
     $rs->execute();
     $rs->finish();
