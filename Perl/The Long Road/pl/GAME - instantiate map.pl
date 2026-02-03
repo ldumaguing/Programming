@@ -85,7 +85,8 @@ sub spine_placement {
     my $stmt = "";
     if ( $X eq $letter ) {
         spine_180( $col, $row, $letter );
-        $stmt = "SELECT loc_x, loc_y, spine, flag1 FROM spine_temp";
+        $stmt =
+            "SELECT loc_x, loc_y, spine, flag1 FROM spine_temp";
     }
     else {
         $stmt =
@@ -98,7 +99,7 @@ sub spine_placement {
     $rs->execute();
 
     while ( my @ROW = $rs->fetchrow_array() ) {
-        my $a = $ROW[0] + ( $col * 18 ) + 1;
+        my $a = $ROW[0] + ( $col * 18 );
         my $b = $ROW[1] + ( $row * 12 );
         my $c = $ROW[2];                       # ----- terrain spine
         my $d = $ROW[3];                       # ----- terrain flag1
@@ -138,17 +139,19 @@ sub spine_180 {
     $rs->execute();
 
     while ( my @ROW = $rs->fetchrow_array() ) {
-        my $a = 16 - $ROW[0];
+        my $a = 17 - $ROW[0];
         my $b = 11 - $ROW[1];
         my $c = $ROW[2];
         my $d = $ROW[3];
+        say $ROW[0] . "->" . $a . "   " . $ROW[1] . "->" . $b . "   " . $c;
         if    ( $c == 1 ) { $b += 1; }
         elsif ( $c == 2 ) { $c = 5; }
         elsif ( $c == 3 ) { $c = 6; }
         elsif ( $c == 4 ) { $b -= 2 }
         elsif ( $c == 5 ) { $c = 2; }
         else              { $c = 3; }
-
+say "   " . $b;
+say "   " . $c;
         my $stmt1 =
             "INSERT INTO spine_temp (loc_x, loc_y, spine, flag1) VALUES ("
           . $a . ", "

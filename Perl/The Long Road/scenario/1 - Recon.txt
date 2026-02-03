@@ -1,5 +1,5 @@
 name:Recon
-maps:c
+maps:b
 turns:8
 
 map_dim:3629,2801
