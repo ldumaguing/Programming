@@ -20,10 +20,13 @@ pl-InGame/'GENERATE canvas.pl'   >   canvas.html
 
 
 
+*****************************************************************************************
+pl/'MAP - clear terrain.pl'
 
-
-
-
+pl/'MAP - define terrain-n-spine.pl' db/'Map A.txt'
+pl/'MAP - define terrain-n-spine.pl' db/'Map B.txt'
+pl/'MAP - define terrain-n-spine.pl' db/'Map C.txt'
+pl/'MAP - define terrain-n-spine.pl' db/'Map D.txt'
 
 *****************************************************************************************
 

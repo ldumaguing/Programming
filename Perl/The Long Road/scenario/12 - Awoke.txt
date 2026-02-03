@@ -4,7 +4,7 @@ turns:8
 
 map_dim:3629,2801
 upperLeft:121,39
-lowerRight:6980,2606
+lowerRight:6983,2606
 hexCount:35,12
 
 

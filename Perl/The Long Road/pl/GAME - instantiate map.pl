@@ -196,11 +196,21 @@ sub placement_D {
 
     my $mapFile = "Map " . $letter;
 
-    my $stmt =
-        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
-    say $stmt;
+    my $X = $letter;
+    $X =~ tr/A-Z/a-z/;
+
+    my $stmt = "";
+    if ( $X eq $letter ) {
+        placement_180( $col, $row, $letter );
+        $stmt = "SELECT loc_x, loc_y, flag1, flag2 FROM terrain_temp";
+    }
+    else {
+        $stmt =
+            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+          . "mapFile = '"
+          . $mapFile . "'";
+    }
+
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -244,11 +254,21 @@ sub placement_C {
 
     my $mapFile = "Map " . $letter;
 
-    my $stmt =
-        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
-    say $stmt;
+    my $X = $letter;
+    $X =~ tr/A-Z/a-z/;
+
+    my $stmt = "";
+    if ( $X eq $letter ) {
+        placement_180( $col, $row, $letter );
+        $stmt = "SELECT loc_x, loc_y, flag1, flag2 FROM terrain_temp";
+    }
+    else {
+        $stmt =
+            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+          . "mapFile = '"
+          . $mapFile . "'";
+    }
+
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -321,10 +341,21 @@ sub placement_B {
 
     my $mapFile = "Map " . $letter;
 
-    my $stmt =
-        "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
-      . "mapFile = '"
-      . $mapFile . "'";
+    my $X = $letter;
+    $X =~ tr/A-Z/a-z/;
+
+    my $stmt = "";
+    if ( $X eq $letter ) {
+        placement_180( $col, $row, $letter );
+        $stmt = "SELECT loc_x, loc_y, flag1, flag2 FROM terrain_temp";
+    }
+    else {
+        $stmt =
+            "SELECT loc_x, loc_y, flag1, flag2 FROM terrain WHERE "
+          . "mapFile = '"
+          . $mapFile . "'";
+    }
+
     my $rs = $conn->prepare($stmt);
     $rs->execute();
 
@@ -455,9 +486,9 @@ sub placement_180 {
     $rs->execute();
 
     while ( my @ROW = $rs->fetchrow_array() ) {
-        my $a = 16 - $ROW[0];
+        my $a  = 16 - $ROW[0];
         my $bb = 11 - $ROW[1];
-        if ($a % 2) { $bb = (10 - $ROW[1]); }
+        if ( $a % 2 ) { $bb = ( 10 - $ROW[1] ); }
         my $c = rotate_180( $ROW[2] );
         my $d = $ROW[3];
 
