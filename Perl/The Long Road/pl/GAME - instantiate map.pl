@@ -99,7 +99,7 @@ sub spine_placement {
     $rs->execute();
 
     while ( my @ROW = $rs->fetchrow_array() ) {
-        my $a = $ROW[0] + ( $col * 18 );
+        my $a = $ROW[0] + ( $col * 18 ) + 1;
         my $b = $ROW[1] + ( $row * 12 );
         my $c = $ROW[2];                       # ----- terrain spine
         my $d = $ROW[3];                       # ----- terrain flag1
