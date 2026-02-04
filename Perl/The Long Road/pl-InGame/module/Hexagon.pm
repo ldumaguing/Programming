@@ -42,6 +42,7 @@ sub scan_terrain {
         query_spines( $ROW[2], $ROW[3], $gameName );
     }
 
+    $rs1->finish();
     $conn1->disconnect();
 }
 
@@ -142,6 +143,7 @@ sub is_bridge {
         $it_is = 1;
     }
 
+    $rs1->finish();
     $conn1->disconnect();
 
     return $it_is;
@@ -212,6 +214,7 @@ sub is_river {
         $it_is = 1;
     }
 
+    $rs1->finish();
     $conn1->disconnect();
 
     return $it_is;
