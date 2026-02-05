@@ -54,24 +54,28 @@ sub query_spines {
     my $gameName   = $args[2];
     if ( $args[0] % 2 ) {    # odd x
         for ( my $i = 1 ; $i <= 6 ; $i++ ) {
-            if ( is_river( $args[0], $args[1], $i, 0, $gameName ) ) {
+            if ( is_it( $args[0], $args[1], $i, 0, $gameName, "(1<<0)" ) )
+            {                # river
                 say "river " . $directions[ $i - 1 ];
             }
         }
         for ( my $i = 1 ; $i <= 6 ; $i++ ) {
-            if ( is_bridge( $args[0], $args[1], $i, 0, $gameName ) ) {
+            if ( is_it( $args[0], $args[1], $i, 0, $gameName, "(1<<1)" ) )
+            {                # bridge
                 say "bridge " . $directions[ $i - 1 ];
             }
         }
     }
     else {
         for ( my $i = 1 ; $i <= 6 ; $i++ ) {
-            if ( is_river( $args[0], $args[1], $i, 1, $gameName ) ) {
+            if ( is_it( $args[0], $args[1], $i, 1, $gameName, "(1<<0)" ) )
+            {                # river
                 say "river " . $directions[ $i - 1 ];
             }
         }
         for ( my $i = 1 ; $i <= 6 ; $i++ ) {
-            if ( is_bridge( $args[0], $args[1], $i, 1, $gameName ) ) {
+            if ( is_it( $args[0], $args[1], $i, 1, $gameName, "(1<<1)" ) )
+            {                # bridge
                 say "bridge " . $directions[ $i - 1 ];
             }
         }
@@ -79,7 +83,7 @@ sub query_spines {
 }
 
 # ***************************
-sub is_bridge {
+sub is_it {
     @args = @_;
 
     my $it_is = 0;
@@ -133,78 +137,8 @@ sub is_bridge {
     $stmt1 .= " AND loc_x = " . $locX;
     $stmt1 .= " AND loc_Y = " . $locY;
     $stmt1 .= " AND spine = " . $spine;
-    $stmt1 .= " AND flag1 & (1<<1)";
-
-    my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
-
-    my $rs1 = $conn1->prepare($stmt1);
-    $rs1->execute();
-    while ( my @ROW = $rs1->fetchrow_array() ) {
-        $it_is = 1;
-    }
-
-    $rs1->finish();
-    $conn1->disconnect();
-
-    return $it_is;
-}
-
-# ***************************
-sub is_river {
-    @args = @_;
-
-    my $it_is = 0;
-
-    my $gameName = $args[4];
-
-    my $locX  = $args[0];
-    my $locY  = $args[1];
-    my $spine = $args[2];
-
-    my $stmt1 =
-        "SELECT flag1 FROM spine_instance WHERE "
-      . "gameName = '"
-      . $gameName . "'";
-
-    if ( $args[3] ) {
-        if ( $spine == 1 ) {
-            $spine = 4;
-            $locX--;
-        }
-        elsif ( $spine == 2 ) {
-            $spine = 5;
-            $locX++;
-        }
-        elsif ( $spine == 3 ) {
-            $spine = 6;
-            $locX++;
-            $locY++;
-        }
-        elsif ( $spine == 4 ) {
-            $locX--;
-            $locY++;
-        }
-        elsif ( $spine == 5 ) {
-            $spine = 2;
-            $locX--;
-            $locY++;
-        }
-        elsif ( $spine == 6 ) {
-            $spine = 3;
-            $locX--;
-        }
-    }
-    else {
-        if ( $spine == 4 ) {
-            $locY++;
-            $spine = 1;
-        }
-    }
-
-    $stmt1 .= " AND loc_x = " . $locX;
-    $stmt1 .= " AND loc_Y = " . $locY;
-    $stmt1 .= " AND spine = " . $spine;
-    $stmt1 .= " AND flag1 & (1<<0)";
+    $stmt1 .= " AND flag1 & ";
+    $stmt1 .= $args[5];
 
     my $conn1 = DBI->connect( "dbi:SQLite:dbname=db/TLR.db", "", "" );
 
@@ -527,10 +461,10 @@ sub get_path {
 # ************* NOTES
 
 # Hexagon
-# A   0   N    ( 60 <= deg) and (120 > deg)
-# B   1   NE   (  0 <= deg) and ( 60> deg)
-# C   2   SE   (300 <= deg)
-# D   3   S    (240 <= deg) and (300 > deg)
-# E   4   SW   (180 <= deg) and (240 > deg)
-# F   5   NW   (120 <= deg) and (180 > deg)
+# A   1   N    ( 60 <= deg) and (120 > deg)
+# B   2   NE   (  0 <= deg) and ( 60> deg)
+# C   3   SE   (300 <= deg)
+# D   4   S    (240 <= deg) and (300 > deg)
+# E   5   SW   (180 <= deg) and (240 > deg)
+# F   6   NW   (120 <= deg) and (180 > deg)
 
