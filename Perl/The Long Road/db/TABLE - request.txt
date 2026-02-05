@@ -1,12 +1,18 @@
 ************************************************************************* TABLE - request
+DROP TABLE IF EXISTS request;
 CREATE TABLE request (
-   turn_num INTEGER DEFAULT 0,
-   subject  INTEGER DEFAULT 0,      -- instance's ID
-   verb     TEXT DEFAULT NULL,
-   object   TEXT DEFAULT NULL
+   scenario_id INTEGER DEFAULT 0,
+   turn_num    INTEGER DEFAULT 0,
+   sub_turn    INTEGER DEFAULT 0,
+   subject     INTEGER DEFAULT 0,      -- instance's ID
+   verb        TEXT DEFAULT NULL,
+   object      TEXT DEFAULT NULL,
+   flag1       INTEGER DEFAULT 0
 );
 
 
-
+flag1
+=====
+bit 0:   done
 
 
