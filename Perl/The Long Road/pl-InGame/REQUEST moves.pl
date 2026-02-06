@@ -14,7 +14,7 @@ my @args = @ARGV;
 
 my $x = @ARGV;
 if ( $x < 2 ) {
-    say "pl-InGame/REQUEST\ movement.pl '1234'  'direction'";
+    say "pl-InGame/REQUEST\ moves.pl '1234'  'S3'  'SE3' ...";
     say "                              unit id";
     say "                              N, S, NW, NE, SW, or SE";
     exit;
@@ -47,13 +47,6 @@ $stmt =
   . $args[0] . ", "
   . "'move'" . ", " . "'"
   . $args[1] . "')";
-say $stmt;
-
 $rs->finish();
 $conn->disconnect();
-
-
-
-
-
 

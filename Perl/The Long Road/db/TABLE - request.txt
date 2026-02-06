@@ -7,7 +7,8 @@ CREATE TABLE request (
    subject     INTEGER DEFAULT 0,      -- instance's ID
    verb        TEXT DEFAULT NULL,
    object      TEXT DEFAULT NULL,
-   flag1       INTEGER DEFAULT 0
+   flag1       INTEGER DEFAULT 0,
+   comment     TEXT DEFAULT NULL
 );
 
 
