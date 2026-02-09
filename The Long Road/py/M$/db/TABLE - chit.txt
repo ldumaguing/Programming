@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS chit;
+CREATE TABLE chit (
+   id    INT         PRIMARY KEY,
+   name  VARCHAR(80) NOT NULL,
+   front INT         DEFAULT 0,
+   back  INT         DEFAULT 0,
+   flag1 INT         DEFAULT 0
+);
+
+
+
+
+
+

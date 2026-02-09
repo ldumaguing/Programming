@@ -1,0 +1,72 @@
+************************************************************************* TABLE - terrain
+DROP TABLE IF EXISTS terrain;
+CREATE TABLE terrain (
+   mapFile VARCHAR(80) NOT NULL,      -- Map A, Map B, etc.
+   hexID   VARCHAR(80) NOT NULL,      -- A1, B1, C2, etc
+   loc_x   INT         DEFAULT 0,
+   loc_y   INT         DEFAULT 0,
+   loc_z   INT         DEFAULT 0,
+   flag1   INT         DEFAULT 0,
+   flag2   INT         DEFAULT 0,
+   PRIMARY KEY (mapFile, hexID)
+);
+
+
+B1 is (0, 0)
+
+
+flag2
+=====
+bit 0:   City
+bit 1:   Cultivated
+bit 2:   Lake
+
+
+flag1
+=====
+bit 0:   Hill
+bit 1-6: Road exits
+    1: A (N)
+    2: B (NE)
+    3: C (SE)
+    4: D (S)
+    5: E (SW)
+    6: F (NW)
+bit 7-12: Tunnel road exits
+    7: A (N)
+    8: B (NE)
+    9: C (SE)
+   10: D (S)
+   11: E (SW)
+   12: F (NW)
+bit 13:  Rolling
+bit 14:  Forest
+bit 15:  Town
+
+
+
+
+.mode csv
+.output terrain.csv
+SELECT * FROM terrain;
+.output stdout
+.quit
+
+
+
+.mode csv
+.import terrain.csv terrain
+
+
+
+************************************************************************* TABLE - terrain_temp
+DROP TABLE IF EXISTS terrain_temp;
+CREATE TABLE terrain_temp (
+   loc_x   INTEGER DEFAULT 0,
+   loc_y   INTEGER DEFAULT 0,
+   flag1   INTEGER DEFAULT 0,
+   flag2   INTEGER DEFAULT 0
+);
+
+
+
