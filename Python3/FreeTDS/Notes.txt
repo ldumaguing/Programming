@@ -1,4 +1,4 @@
-conn_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=vssqldmb01.bmcc.cuny.edu;DATABASE=Tenchi;UID=tenchi;PWD=Ilovethem123"
+conn_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=vssqldmb01.bmcc.cuny.edu;DATABASE=Tenchi;UID=tenchi;PWD=xxx"
 
 
 # /etc/odbc.ini
