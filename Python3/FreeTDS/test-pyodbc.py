@@ -1,7 +1,7 @@
 import pyodbc
 
 #conn_string = r"DSN=fooness;" r"UID=tenchi;" r"PWD=Ilovethem123"
-conn_string = "DSN=fooness;UID=tenchi;PWD=Ilovethem123"
+conn_string = "DSN=fooness;UID=tenchi;PWD=xxxxxx"
 
 try:
     conn = pyodbc.connect(conn_string)
