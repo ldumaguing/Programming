@@ -24,7 +24,7 @@ Port            = 1433
 
 
 
-isql -v fooness tenchi Ilovethem123
+isql -v fooness tenchi vvv
 
 
 
