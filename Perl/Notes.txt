@@ -24,6 +24,35 @@ pkg install -y p5-DBD-SQLite p5-Class-DBI-SQLite
 
 
 
+# ***************************************************************************************
+/usr/local/etc/odbcinst.ini
+===========================
+[FreeTDS]
+Description     = Free Sybase & MS SQL Driver
+Driver          = /usr/local/lib/libtdsodbc.so
+Port            = 1433
+
+
+
+/usr/local/etc/odbc.ini
+=======================
+[fooness]
+Description = Fishing IT
+Driver = FreeTDS
+Server = vssqldmb01.bmcc.cuny.edu
+Port = 1433
+Database = Tenchi
+
+
+
+
+# ***************************************************************************************
+FreeTDS
+p5-DBD-ODBC
+p5-DBI
+
+
+
 
 
 
