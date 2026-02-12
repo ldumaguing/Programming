@@ -98,6 +98,10 @@ Driver = FreeTDS
 Server = vssqldmb01.bmcc.cuny.edu
 Port = 1433
 Database = Tenchi
+
+
+
+
 ayeka@at-work ~> cat /etc/odbcinst.ini 
 # Example driver definitions
 
@@ -159,4 +163,44 @@ Driver          = /usr/lib/libmaodbc.so
 Driver64        = /usr/lib64/libmaodbc.so
 FileUsage       = 1
 ayeka@at-work ~> 
+
+
+
+
+
+
+
+
+/usr/local/etc/odbc.ini
+=======================
+[fooness]
+Description = Fishing IT
+Driver = MariaDB
+Server = 192.168.1.181
+Port = 3306
+Database = luciano
+
+/usr/local/etc/odbcinst.ini 
+===========================
+[MariaDB]
+Description     = ODBC for MariaDB
+Driver          = /usr/local/lib/mariadb/libmaodbc.so
+Driver64        = /usr/local/lib/mariadb/libmaodbc.so
+FileUsage       = 1
+
+
+isql -v fooness tenchi vvv
+
+
+* MariaDB server seems ODBC enabled.
+
+
+
+
+
+
+
+
+
+
 
