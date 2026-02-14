@@ -4,6 +4,8 @@ import re
 import sqlite3
 
 # ***************************************************************************************
+
+
 def save_info(line, map_mode):
     if re.search("\\*", line):
         return
@@ -32,7 +34,7 @@ def save_info(line, map_mode):
     # print(X[0])
 
 
-# *************************************************************************************** main
+# ************************************************************************ main
 if len(sys.argv) < 2:
     print("py/'slurp Map.py'  db/'Map A.txt'")
     exit()
@@ -51,19 +53,11 @@ conn.commit()
 
 for loc_x in range(19):
     for y in range(13):
-        loc_y = y - 1;
+        loc_y = y - 1
         if (loc_x % 2) & (loc_y < 0):
             pass
         else:
             print(str(loc_x) + ", " + str(loc_y))
-
-
-
-
-
-
-
-
 
 
 conn.close()
