@@ -6,6 +6,7 @@ import sqlite3
 
 def save_spine_info(line, terrain_type, conn, filename):
     line = line.upper()
+    print(line)
     hexagons = line.split(",")
     A_ref = ord("A")
     for hexagon in hexagons:
@@ -15,9 +16,8 @@ def save_spine_info(line, terrain_type, conn, filename):
         Y = int(y[0]) - 1
         print(str(X) + "," + str(Y))
 
+
 # *****************************************************************************
-
-
 def save_info(line, terrain_type, conn, filename):
     if re.search("\\*", line):
         return
@@ -66,10 +66,6 @@ def save_info(line, terrain_type, conn, filename):
         cursor.execute(stmt)
     conn.commit()
 
-    # print(hexagons)
-    # X = re.search("[0-9]+", hexagons[0])
-    # print(X[0])
-
 
 # *****************************************************************************
 def put_empty_hexagon(loc_x, loc_y, filename, conn):
@@ -94,9 +90,10 @@ cursor = conn.cursor()
 filename = sys.argv[1]
 filename = filename.replace("db/", "")
 filename = filename.replace(".txt", "")
-stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
-cursor.execute(stmt)
-conn.commit()
+
+# stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
+# cursor.execute(stmt)
+# conn.commit()
 
 for loc_x in range(19):
     for y in range(13):
@@ -104,8 +101,8 @@ for loc_x in range(19):
         if (loc_x % 2) & (loc_y < 0):
             pass
         else:
-            # pass
-            put_empty_hexagon(loc_x, loc_y, filename, conn)
+            pass
+            # put_empty_hexagon(loc_x, loc_y, filename, conn)
 
 
 terrain_type = ""

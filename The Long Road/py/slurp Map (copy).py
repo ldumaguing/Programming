@@ -4,46 +4,79 @@ import re
 import sqlite3
 
 
-def save_info(line, map_mode):
+def save_spine_info(line, terrain_type, conn, filename):
+    line = line.upper()
+    print(line)
+    hexagons = line.split(",")
+    A_ref = ord("A")
+    for hexagon in hexagons:
+        alpha = re.search("[A-Z]+", hexagon)
+        X = ord(alpha[0]) - A_ref
+        y = re.search("[0-9]+", hexagon)
+        Y = int(y[0]) - 1
+        print(str(X) + "," + str(Y))
+
+
+# *****************************************************************************
+def save_info(line, terrain_type, conn, filename):
     if re.search("\\*", line):
         return
 
-    if re.search("^TUNNEL ROAD", map_mode):
+    if re.search("^TUNNEL ROAD", terrain_type):
+        save_spine_info(line, "TUNNEL ROAD", conn, filename)
         return
-    if re.search("^ROAD", map_mode):
+    if re.search("^ROAD", terrain_type):
+        save_spine_info(line, "ROAD", conn, filename)
         return
-    if re.search("^RIVER", map_mode):
+    if re.search("^RIVER", terrain_type):
+        save_spine_info(line, "RIVER", conn, filename)
         return
-    if re.search("^BRIDGE", map_mode):
+    if re.search("^BRIDGE", terrain_type):
+        save_spine_info(line, "BRIDGE", conn, filename)
         return
 
     line = line.upper()
     hexagons = line.split(",")
     A_ref = ord("A")
     for hexagon in hexagons:
+        stmt = "UPDATE terrain SET "
         alpha = re.search("[A-Z]+", hexagon)
         X = ord(alpha[0]) - A_ref
         Y = re.search("[0-9]+", hexagon)
 
-        print(str(X) + " " + Y[0])
+        if terrain_type == "HILL":
+            stmt += "flag1 = (flag1 | (1 << 0)) "
+        if terrain_type == "ROLLING":
+            stmt += "flag1 = (flag1 | (1 << 13)) "
+        if terrain_type == "FOREST":
+            stmt += "flag1 = (flag1 | (1 << 14)) "
+        if terrain_type == "TOWN":
+            stmt += "flag1 = (flag1 | (1 << 15)) "
+        if terrain_type == "CITY":
+            stmt += "flag2 = (flag2 | (1 << 0)) "
+        if terrain_type == "CULTIVATED":
+            stmt += "flag2 = (flag2 | (1 << 1)) "
+        if terrain_type == "LAKE":
+            stmt += "flag2 = (flag2 | (1 << 2)) "
+        stmt += "WHERE loc_x = " + str(X) + " AND "
+        stmt += "loc_y = " + str(int(Y[0]) - 1) + " AND "
+        stmt += "mapFile = '" + filename + "'"
 
-    # print(hexagons)
-    # X = re.search("[0-9]+", hexagons[0])
-    # print(X[0])
+        cursor = conn.cursor()
+        cursor.execute(stmt)
+    conn.commit()
 
 
-# ************************************************************************
-def put_empty_hexagon(loc_x, loc_y, filename):
+# *****************************************************************************
+def put_empty_hexagon(loc_x, loc_y, filename, conn):
     stmt = "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y) VALUES ('" \
         + filename + "', " \
         + "'" + chr(ord('A') + loc_x) + str(loc_y + 1) + "', " \
         + str(loc_x) + ", " + str(loc_y) + ")"
 
-    conn = sqlite3.connect("db/TLR.db")
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()
-    conn.close()
 
 
 # ************************************************************************ main
@@ -51,17 +84,16 @@ if len(sys.argv) < 2:
     print("py/'slurp Map.py'  db/'Map A.txt'")
     exit()
 
-
 conn = sqlite3.connect("db/TLR.db")
 cursor = conn.cursor()
 
 filename = sys.argv[1]
 filename = filename.replace("db/", "")
 filename = filename.replace(".txt", "")
-stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
-cursor.execute(stmt)
-conn.commit()
 
+# stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
+# cursor.execute(stmt)
+# conn.commit()
 
 for loc_x in range(19):
     for y in range(13):
@@ -69,12 +101,11 @@ for loc_x in range(19):
         if (loc_x % 2) & (loc_y < 0):
             pass
         else:
-            put_empty_hexagon(loc_x, loc_y, filename)
+            pass
+            # put_empty_hexagon(loc_x, loc_y, filename, conn)
 
-conn.close()
 
-
-map_mode = ""
+terrain_type = ""
 with open(sys.argv[1], "r") as file:
     for line in file:
         line = line.strip()
@@ -82,27 +113,29 @@ with open(sys.argv[1], "r") as file:
             pass
         else:
             if re.search("^HILL", line):
-                map_mode = "HILL"
+                terrain_type = "HILL"
             if re.search("^ROLLING", line):
-                map_mode = "ROLLING"
+                terrain_type = "ROLLING"
             if re.search("^FOREST", line):
-                map_mode = "FOREST"
+                terrain_type = "FOREST"
             if re.search("^TOWN", line):
-                map_mode = "TOWN"
+                terrain_type = "TOWN"
             if re.search("^CITY", line):
-                map_mode = "CITY"
+                terrain_type = "CITY"
             if re.search("^LAKE", line):
-                map_mode = "LAKE"
+                terrain_type = "LAKE"
             if re.search("^CULTIVATED", line):
-                map_mode = "CULTIVATED"
+                terrain_type = "CULTIVATED"
 
             if re.search("^TUNNEL ROAD", line):
-                map_mode = "TUNNEL ROAD"
+                terrain_type = "TUNNEL ROAD"
             if re.search("^ROAD", line):
-                map_mode = "ROAD"
+                terrain_type = "ROAD"
             if re.search("^RIVER", line):
-                map_mode = "RIVER"
+                terrain_type = "RIVER"
             if re.search("^BRIDGE", line):
-                map_mode = "BRIDGE"
+                terrain_type = "BRIDGE"
 
-            save_info(line, map_mode)
+            save_info(line, terrain_type, conn, filename)
+
+conn.close()
