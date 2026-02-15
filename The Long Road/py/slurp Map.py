@@ -4,17 +4,113 @@ import re
 import sqlite3
 
 
+def insert_spine(X, Y, conn, filename, spine, stmt, spine_type):
+    if spine == 4:
+        spine = 1
+        Y += 1
+        stmt += str(X) + ", "
+        stmt += str(Y) + ", "
+        stmt += str(spine) + ", "
+        stmt += spine_type + ")"
+        print("." + stmt)
+        cursor = conn.cursor()
+        cursor.execute(stmt)
+        conn.commit()
+        return
+
+    stmt += str(X) + ", "
+    stmt += str(Y) + ", "
+    stmt += str(spine) + ", "
+    stmt += spine_type + ")"
+    print("." + stmt)
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+
+
+# ***********************************************
+def even_hex(X, Y, spines, conn, filename, spine_type):
+    stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) VALUES ('"
+    stmt += filename + "', "
+
+    if re.search("A", spines):
+        insert_spine(X, Y, conn, filename, 1, stmt, spine_type)
+    if re.search("B", spines):
+        insert_spine(X, Y, conn, filename, 2, stmt, spine_type)
+    if re.search("C", spines):
+        insert_spine(X, Y, conn, filename, 3, stmt, spine_type)
+    if re.search("D", spines):
+        insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
+    if re.search("E", spines):
+        insert_spine(X, Y, conn, filename, 5, stmt, spine_type)
+    if re.search("F", spines):
+        insert_spine(X, Y, conn, filename, 6, stmt, spine_type)
+
+
+# *****************************************************************************
 def save_spine_info(line, terrain_type, conn, filename):
     line = line.upper()
-    print(line)
-    hexagons = line.split(",")
-    A_ref = ord("A")
-    for hexagon in hexagons:
-        alpha = re.search("[A-Z]+", hexagon)
-        X = ord(alpha[0]) - A_ref
-        y = re.search("[0-9]+", hexagon)
-        Y = int(y[0]) - 1
-        print(str(X) + "," + str(Y))
+    foo = line.split(":")
+    hexagon = foo[0]
+    spines = foo[1]
+    spine_type = "(1 << 0)"
+
+    if terrain_type == "BRIDGE":
+        return
+        # spine_type = "(1 << 1)"
+
+    alpha = re.search("[A-Z]+", hexagon)
+    X = ord(alpha[0]) - ord("A")
+    y = re.search("[0-9]+", hexagon)
+    Y = int(y[0]) - 1
+    print(spines)
+    if X % 2:
+        print("odd")
+    else:
+        print("even")
+        even_hex(X, Y, spines, conn, filename, spine_type)
+
+
+# ***********************************************
+def insert_path(X, Y, shift, conn, filename, spine):
+    stmt = "UPDATE terrain SET flag1 = (flag1 | (1 << "
+    stmt += str(shift + spine) + ")) WHERE "
+    stmt += "loc_x = " + str(X) + " AND "
+    stmt += "loc_y = " + str(Y) + " AND "
+    stmt += "mapFile = '" + filename + "'"
+
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+
+
+# *****************************************************************************
+def save_path_info(line, terrain_type, conn, filename):
+    line = line.upper()
+    foo = line.split(":")
+    hexagon = foo[0]
+    spines = foo[1]
+
+    alpha = re.search("[A-Z]+", hexagon)
+    X = ord(alpha[0]) - ord("A")
+    y = re.search("[0-9]+", hexagon)
+    Y = int(y[0]) - 1
+    shift = 0
+    if terrain_type == "TUNNEL ROAD":
+        shift = 6
+
+    if re.search("A", spines):
+        insert_path(X, Y, shift, conn, filename, 1)
+    if re.search("B", spines):
+        insert_path(X, Y, shift, conn, filename, 2)
+    if re.search("C", spines):
+        insert_path(X, Y, shift, conn, filename, 3)
+    if re.search("D", spines):
+        insert_path(X, Y, shift, conn, filename, 4)
+    if re.search("E", spines):
+        insert_path(X, Y, shift, conn, filename, 5)
+    if re.search("F", spines):
+        insert_path(X, Y, shift, conn, filename, 6)
 
 
 # *****************************************************************************
@@ -23,11 +119,12 @@ def save_info(line, terrain_type, conn, filename):
         return
 
     if re.search("^TUNNEL ROAD", terrain_type):
-        save_spine_info(line, "TUNNEL ROAD", conn, filename)
+        save_path_info(line, "TUNNEL ROAD", conn, filename)
         return
     if re.search("^ROAD", terrain_type):
-        save_spine_info(line, "ROAD", conn, filename)
+        save_path_info(line, "ROAD", conn, filename)
         return
+
     if re.search("^RIVER", terrain_type):
         save_spine_info(line, "RIVER", conn, filename)
         return
@@ -92,6 +189,10 @@ filename = filename.replace("db/", "")
 filename = filename.replace(".txt", "")
 
 # stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
+# cursor.execute(stmt)
+# conn.commit()
+
+# stmt = "DELETE FROM spine WHERE mapFile = '" + filename + "'"
 # cursor.execute(stmt)
 # conn.commit()
 
