@@ -5,33 +5,47 @@ import sqlite3
 
 
 def insert_spine(X, Y, conn, filename, spine, stmt, spine_type):
-    if spine == 4:
-        spine = 1
-        Y += 1
-        stmt += str(X) + ", "
-        stmt += str(Y) + ", "
-        stmt += str(spine) + ", "
-        stmt += spine_type + ")"
-        print("." + stmt)
-        cursor = conn.cursor()
-        cursor.execute(stmt)
-        conn.commit()
-        return
-
     stmt += str(X) + ", "
     stmt += str(Y) + ", "
     stmt += str(spine) + ", "
     stmt += spine_type + ")"
-    print("." + stmt)
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()
 
 
 # ***********************************************
+def odd_hex(X, Y, spines, conn, filename, spine_type):
+    stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) "
+    stmt += "VALUES ('" + filename + "', "
+
+    if re.search("A", spines):
+        X -= 1
+        Y -= 1
+        insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
+    if re.search("B", spines):
+        X += 1
+        Y -= 1
+        insert_spine(X, Y, conn, filename, 5, stmt, spine_type)
+    if re.search("C", spines):
+        X += 1
+        insert_spine(X, Y, conn, filename, 6, stmt, spine_type)
+    if re.search("D", spines):
+        X -= 1
+        insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
+    if re.search("E", spines):
+        X -= 1
+        insert_spine(X, Y, conn, filename, 2, stmt, spine_type)
+    if re.search("F", spines):
+        X -= 1
+        Y -= 1
+        insert_spine(X, Y, conn, filename, 3, stmt, spine_type)
+
+
+# ***********************************************
 def even_hex(X, Y, spines, conn, filename, spine_type):
-    stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) VALUES ('"
-    stmt += filename + "', "
+    stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) "
+    stmt += "VALUES ('" + filename + "', "
 
     if re.search("A", spines):
         insert_spine(X, Y, conn, filename, 1, stmt, spine_type)
@@ -40,7 +54,8 @@ def even_hex(X, Y, spines, conn, filename, spine_type):
     if re.search("C", spines):
         insert_spine(X, Y, conn, filename, 3, stmt, spine_type)
     if re.search("D", spines):
-        insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
+        Y += 1
+        insert_spine(X, Y, conn, filename, 1, stmt, spine_type)
     if re.search("E", spines):
         insert_spine(X, Y, conn, filename, 5, stmt, spine_type)
     if re.search("F", spines):
@@ -66,8 +81,8 @@ def save_spine_info(line, terrain_type, conn, filename):
     print(spines)
     if X % 2:
         print("odd")
+        odd_hex(X, Y, spines, conn, filename, spine_type)
     else:
-        print("even")
         even_hex(X, Y, spines, conn, filename, spine_type)
 
 
