@@ -4,17 +4,35 @@ import re
 import sqlite3
 
 
+def save_spine_info(line, terrain_type, conn, filename):
+    line = line.upper()
+    hexagons = line.split(",")
+    A_ref = ord("A")
+    for hexagon in hexagons:
+        alpha = re.search("[A-Z]+", hexagon)
+        X = ord(alpha[0]) - A_ref
+        y = re.search("[0-9]+", hexagon)
+        Y = int(y[0]) - 1
+        print(str(X) + "," + str(Y))
+
+# *****************************************************************************
+
+
 def save_info(line, terrain_type, conn, filename):
     if re.search("\\*", line):
         return
 
     if re.search("^TUNNEL ROAD", terrain_type):
+        save_spine_info(line, "TUNNEL ROAD", conn, filename)
         return
     if re.search("^ROAD", terrain_type):
+        save_spine_info(line, "ROAD", conn, filename)
         return
     if re.search("^RIVER", terrain_type):
+        save_spine_info(line, "RIVER", conn, filename)
         return
     if re.search("^BRIDGE", terrain_type):
+        save_spine_info(line, "BRIDGE", conn, filename)
         return
 
     line = line.upper()
@@ -26,7 +44,6 @@ def save_info(line, terrain_type, conn, filename):
         X = ord(alpha[0]) - A_ref
         Y = re.search("[0-9]+", hexagon)
 
-        print(str(X) + " " + Y[0])
         if terrain_type == "HILL":
             stmt += "flag1 = (flag1 | (1 << 0)) "
         if terrain_type == "ROLLING":
@@ -45,7 +62,6 @@ def save_info(line, terrain_type, conn, filename):
         stmt += "loc_y = " + str(int(Y[0]) - 1) + " AND "
         stmt += "mapFile = '" + filename + "'"
 
-        print(stmt)
         cursor = conn.cursor()
         cursor.execute(stmt)
     conn.commit()
@@ -55,7 +71,7 @@ def save_info(line, terrain_type, conn, filename):
     # print(X[0])
 
 
-# ************************************************************************
+# *****************************************************************************
 def put_empty_hexagon(loc_x, loc_y, filename, conn):
     stmt = "INSERT INTO terrain (mapFile, hexID, loc_x, loc_y) VALUES ('" \
         + filename + "', " \
