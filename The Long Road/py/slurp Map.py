@@ -62,6 +62,66 @@ def even_hex(X, Y, spines, conn, filename, spine_type):
         insert_spine(X, Y, conn, filename, 6, stmt, spine_type)
 
 
+# ***********************************************
+def update_spine(X, Y, conn, filename, spine, stmt, spine_type):
+    stmt += " WHERE "
+    stmt += "spine = " + str(spine) + " AND "
+    stmt += "loc_x = " + str(X) + " AND "
+    stmt += "loc_y = " + str(Y) + " AND "
+    stmt += "mapFile = '" + filename + "'"
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+
+
+# *****************************************************************************
+def odd_hex_update(X, Y, spines, conn, filename, spine_type):
+    stmt = "UPDATE spine SET flag1 = (flag1 | "
+    stmt += spine_type + ")"
+
+    if re.search("A", spines):
+        X -= 1
+        Y -= 1
+        update_spine(X, Y, conn, filename, 4, stmt, spine_type)
+    if re.search("B", spines):
+        X += 1
+        Y -= 1
+        update_spine(X, Y, conn, filename, 5, stmt, spine_type)
+    if re.search("C", spines):
+        X += 1
+        update_spine(X, Y, conn, filename, 6, stmt, spine_type)
+    if re.search("D", spines):
+        X -= 1
+        update_spine(X, Y, conn, filename, 4, stmt, spine_type)
+    if re.search("E", spines):
+        X -= 1
+        update_spine(X, Y, conn, filename, 2, stmt, spine_type)
+    if re.search("F", spines):
+        X -= 1
+        Y -= 1
+        update_spine(X, Y, conn, filename, 3, stmt, spine_type)
+
+
+# *****************************************************************************
+def even_hex_update(X, Y, spines, conn, filename, spine_type):
+    stmt = "UPDATE spine SET flag1 = (flag1 | "
+    stmt += spine_type + ")"
+
+    if re.search("A", spines):
+        update_spine(X, Y, conn, filename, 1, stmt, spine_type)
+    if re.search("B", spines):
+        update_spine(X, Y, conn, filename, 2, stmt, spine_type)
+    if re.search("C", spines):
+        update_spine(X, Y, conn, filename, 3, stmt, spine_type)
+    if re.search("D", spines):
+        Y += 1
+        update_spine(X, Y, conn, filename, 1, stmt, spine_type)
+    if re.search("E", spines):
+        update_spine(X, Y, conn, filename, 5, stmt, spine_type)
+    if re.search("F", spines):
+        update_spine(X, Y, conn, filename, 6, stmt, spine_type)
+
+
 # *****************************************************************************
 def save_spine_info(line, terrain_type, conn, filename):
     line = line.upper()
@@ -70,17 +130,20 @@ def save_spine_info(line, terrain_type, conn, filename):
     spines = foo[1]
     spine_type = "(1 << 0)"
 
-    if terrain_type == "BRIDGE":
-        return
-        # spine_type = "(1 << 1)"
-
     alpha = re.search("[A-Z]+", hexagon)
     X = ord(alpha[0]) - ord("A")
     y = re.search("[0-9]+", hexagon)
     Y = int(y[0]) - 1
-    print(spines)
+
+    if terrain_type == "BRIDGE":
+        spine_type = "(1 << 1)"
+        if X % 2:
+            odd_hex_update(X, Y, spines, conn, filename, spine_type)
+        else:
+            even_hex_update(X, Y, spines, conn, filename, spine_type)
+        return
+
     if X % 2:
-        print("odd")
         odd_hex(X, Y, spines, conn, filename, spine_type)
     else:
         even_hex(X, Y, spines, conn, filename, spine_type)
@@ -203,13 +266,13 @@ filename = sys.argv[1]
 filename = filename.replace("db/", "")
 filename = filename.replace(".txt", "")
 
-# stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
-# cursor.execute(stmt)
-# conn.commit()
+stmt = "DELETE FROM terrain WHERE mapFile = '" + filename + "'"
+cursor.execute(stmt)
+conn.commit()
 
-# stmt = "DELETE FROM spine WHERE mapFile = '" + filename + "'"
-# cursor.execute(stmt)
-# conn.commit()
+stmt = "DELETE FROM spine WHERE mapFile = '" + filename + "'"
+cursor.execute(stmt)
+conn.commit()
 
 for loc_x in range(19):
     for y in range(13):
@@ -217,8 +280,8 @@ for loc_x in range(19):
         if (loc_x % 2) & (loc_y < 0):
             pass
         else:
-            pass
-            # put_empty_hexagon(loc_x, loc_y, filename, conn)
+            # pass
+            put_empty_hexagon(loc_x, loc_y, filename, conn)
 
 
 terrain_type = ""
