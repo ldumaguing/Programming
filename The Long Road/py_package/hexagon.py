@@ -122,24 +122,52 @@ def get_3adjs(f_hx, t_hx):
 
 
 # *****************************************************************************
-def generate_path(f_hx, t_hx, ref_degs, threeHexes):
+def get_hex_dist(f_hx, t_hx):
+    if f_hx == t_hx:
+        return 0
+
+    path = generate_path(f_hx, t_hx, -1, [], [])
+
+    return len(path) - 1
+
+
+# *****************************************************************************
+def get_pathLH(f_hx, t_hx):
+    # Left hand
+    rPath = generate_path(t_hx, f_hx, -1, [], [])
+    rPath.reverse()
+
+    return rPath
+
+
+# *****************************************************************************
+def get_pathRH(f_hx, t_hx):
+    # Right hand
+    return generate_path(f_hx, t_hx, -1, [], [])
+
+
+# *****************************************************************************
+def generate_path(f_hx, t_hx, ref_degs, threeHexes, thePath):
+    if f_hx == t_hx:
+        # print("end")
+        thePath.append(f_hx)
+        return thePath
+
     if ref_degs < 0:
-        print(str(f_hx))
+        # print(str(f_hx))
+        thePath.append(f_hx)
         ref_degs = get_degrees(f_hx, t_hx)
         threeHexes = get_3adjs(f_hx, t_hx)
 
     if get_distance(f_hx, t_hx) <= 1.0:
-        print(str(t_hx))
-        return
-
-    if f_hx == t_hx:
-        print("end")
-        return
+        # print(str(t_hx))
+        thePath.append(t_hx)
+        return thePath
 
     # print(str(f_hx) + " " + str(ref_degs) + " " + str(threeHexes))
 
     curr_degs = 360.0
-    curr_arry = 0
+    # curr_arry = 0
     curr_hex = []
     for i in range(3):
         adj_hex = get_adj_hex(f_hx, threeHexes[i])
@@ -147,24 +175,13 @@ def generate_path(f_hx, t_hx, ref_degs, threeHexes):
         delta_degs = get_delta_degs(ref_degs, degs)
         if curr_degs >= delta_degs:
             curr_degs = delta_degs
-            curr_arry = i
+            # curr_arry = i
             curr_hex = adj_hex
         # print(str(threeHexes[i]) + " >" + str(adj_hex)
         #      + " " + str(degs) + " " + str(delta_degs))
     # print("...")
-    print(str(curr_arry) + ": " + str(curr_hex))
-    generate_path(curr_hex, t_hx, ref_degs, threeHexes)
+    thePath.append(curr_hex)
+    # print(str(curr_arry) + ": " + str(curr_hex))
+    generate_path(curr_hex, t_hx, ref_degs, threeHexes, thePath)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return thePath

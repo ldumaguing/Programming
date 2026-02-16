@@ -3,7 +3,7 @@ import py_package.hexagon as hx
 
 
 from_hex = [10, 0]
-to_hex = [10, 10]
+to_hex = [0, 0]
 
 dist = hx.get_distance(from_hex, to_hex)
 print(dist)
@@ -28,4 +28,8 @@ print("----------")
 # threeAdjs = hx.get_3adjs(from_hex, to_hex)
 # print(threeAdjs)
 
-hx.generate_path(from_hex, to_hex, -1, [])
+path = hx.get_pathRH(from_hex, to_hex)
+print(path)
+path2 = hx.get_pathLH(from_hex, to_hex)
+print(path2)
+print(hx.get_hex_dist(from_hex, to_hex))
