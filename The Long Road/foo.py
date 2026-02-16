@@ -2,7 +2,7 @@
 import py_package.hexagon as hx
 
 
-from_hex = [0, 0]
+from_hex = [10, 0]
 to_hex = [10, 10]
 
 dist = hx.get_distance(from_hex, to_hex)
