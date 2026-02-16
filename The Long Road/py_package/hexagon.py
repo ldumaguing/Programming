@@ -1,7 +1,18 @@
 import math
+
 cos30 = 0.86602540378
 
 
+def get_delta_degs(ref_degs, degs):
+    delta = abs(ref_degs - degs)
+    delta = delta * 1.0
+    if delta >= 180.0:
+        delta = 360.0 - delta
+
+    return delta
+
+
+# *****************************************************************************
 def get_adj_hex(f_hx, direction):
     # 1: N
     # 2: NE
@@ -87,3 +98,68 @@ def get_distance(f_hx, t_hx):
     deltaX = abs(x0 - x1)
     deltaY = abs(y0 - y1)
     return (math.hypot(deltaX, deltaY))
+
+
+# *****************************************************************************
+def get_3adjs(f_hx, t_hx):
+    threeHexes = []
+    degs = get_degrees(f_hx, t_hx)
+
+    if degs >= 300.0:
+        threeHexes = [2, 3, 4]
+    elif degs >= 240.0:
+        threeHexes = [3, 4, 5]
+    elif degs >= 180.0:
+        threeHexes = [4, 5, 6]
+    elif degs >= 120.0:
+        threeHexes = [5, 6, 1]
+    elif degs >= 60.0:
+        threeHexes = [6, 1, 2]
+    else:
+        threeHexes = [1, 2, 3]
+
+    return threeHexes
+
+
+# *****************************************************************************
+def generate_path(f_hx, t_hx, ref_degs, threeHexes):
+    if ref_degs < 0:
+        ref_degs = get_degrees(f_hx, t_hx)
+        threeHexes = get_3adjs(f_hx, t_hx)
+
+    if f_hx == t_hx:
+        print("end")
+        return
+
+    # print(str(f_hx) + " " + str(ref_degs) + " " + str(threeHexes))
+
+    curr_degs = 360.0
+    curr_arry = 0
+    curr_hex = []
+    for i in range(3):
+        adj_hex = get_adj_hex(f_hx, threeHexes[i])
+        degs = get_degrees(adj_hex, t_hx)
+        delta_degs = get_delta_degs(ref_degs, degs)
+        if curr_degs > delta_degs:
+            curr_degs = delta_degs
+            curr_arry = i
+            curr_hex = adj_hex
+        # print(str(threeHexes[i]) + " >" + str(adj_hex)
+        #      + " " + str(degs) + " " + str(delta_degs))
+    # print("...")
+    print(str(curr_arry) + ": " + str(curr_hex))
+    generate_path(curr_hex, t_hx, ref_degs, threeHexes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
