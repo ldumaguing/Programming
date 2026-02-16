@@ -17,12 +17,11 @@ def get_degrees(f_hx, t_hx):
         y1 -= 0.5
 
     dx = x1 - x0
-    dy = y1 - y0
+    dy = y0 - y1
     rads = math.atan2(dy, dx)
     degs = math.degrees(rads)
     if degs < 0:
         degs += 360.0
-    degs = 360.0 - degs
 
     return round(degs)
 
