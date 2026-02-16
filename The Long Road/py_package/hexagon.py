@@ -2,6 +2,49 @@ import math
 cos30 = 0.86602540378
 
 
+def get_adj_hex(f_hx, direction):
+    # 1: N
+    # 2: NE
+    # 3: SE
+    # 4: S
+    # 5: SW
+    # 6: NW
+    hex_loc = [f_hx[0], f_hx[1]]
+    if f_hx[0] % 2:
+        if direction == 1:
+            hex_loc[1] -= 1
+        if direction == 2:
+            hex_loc[0] += 1
+            hex_loc[1] -= 1
+        if direction == 3:
+            hex_loc[0] += 1
+        if direction == 4:
+            hex_loc[1] += 1
+        if direction == 5:
+            hex_loc[0] -= 1
+        if direction == 6:
+            hex_loc[0] -= 1
+            hex_loc[1] -= 1
+    else:
+        if direction == 1:
+            hex_loc[1] -= 1
+        if direction == 2:
+            hex_loc[0] += 1
+        if direction == 3:
+            hex_loc[0] += 1
+            hex_loc[1] += 1
+        if direction == 4:
+            hex_loc[1] += 1
+        if direction == 5:
+            hex_loc[0] -= 1
+            hex_loc[1] += 1
+        if direction == 6:
+            hex_loc[0] -= 1
+
+    return hex_loc
+
+
+# *****************************************************************************
 def get_degrees(f_hx, t_hx):
     if f_hx == t_hx:
         return -1.0
