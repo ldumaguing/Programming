@@ -7,7 +7,6 @@ missionName = ""
 
 
 def plate_0x0(map_plate, row, col, conn):
-    print("plate 0x0")
     stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', loc_x, loc_y, flag1, flag2 FROM "
     stmt += "terrain WHERE mapFile = '" + map_plate + "'"
@@ -17,7 +16,6 @@ def plate_0x0(map_plate, row, col, conn):
 
 
 def plate_0x1(map_plate, row, col, conn):
-    print("plate 0x1")
     col_shift = 18 * col
     stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', loc_x + " + str(col_shift) + ", "
@@ -29,7 +27,6 @@ def plate_0x1(map_plate, row, col, conn):
 
 
 def plate_1x0(map_plate, row, col, conn):
-    print("plage 1x0")
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', loc_x, loc_y + "
@@ -41,7 +38,6 @@ def plate_1x0(map_plate, row, col, conn):
 
 
 def plate_1x1(map_plate, row, col, conn):
-    print("plage 1x1")
     col_shift = 18 * col
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
