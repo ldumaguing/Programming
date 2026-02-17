@@ -8,6 +8,12 @@ def get_distance(f_hx, t_hx):
 
 def get_3adjs(f_hx, t_hx):
 
+def get_hex_dist(f_hx, t_hx):
+
+def get_pathLH(f_hx, t_hx):
+
+def get_pathRH(f_hx, t_hx):
+
 def generate_path(f_hx, t_hx, ref_degs):
 
 
