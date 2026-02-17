@@ -6,18 +6,36 @@ import sqlite3
 missionName = ""
 
 
-def plate_0x0(map_plate, row, col, conn):
-    stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT '" + missionName + "', loc_x, loc_y, flag1, flag2 FROM "
-    stmt += "terrain WHERE mapFile = '" + map_plate + "'"
+def clear_temp(conn):
+    stmt = "DELETE FROM terrain_temp"
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()
 
 
-def plate_0x1(map_plate, row, col, conn):
+def plate_0x0(map_plate, row, col, conn, r):
+    stmt = ""
+    if r:
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "'"
+    else:
+        stmt = "INSERT INTO terrain_instance "
+        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT '" + missionName
+        stmt += "', loc_x, loc_y, flag1, flag2 FROM "
+        stmt += "terrain WHERE mapFile = '" + map_plate + "'"
+    # cursor = conn.cursor()
+    # cursor.execute(stmt)
+    # conn.commit()
+    print(stmt)
+
+
+def plate_0x1(map_plate, row, col, conn, r):
     col_shift = 18 * col
-    stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
+    stmt = "INSERT INTO terrain_instance "
+    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', loc_x + " + str(col_shift) + ", "
     stmt += "loc_y, flag1, flag2 FROM "
     stmt += "terrain WHERE mapFile = '" + map_plate + "' AND loc_x > 0"
@@ -26,9 +44,10 @@ def plate_0x1(map_plate, row, col, conn):
     conn.commit()
 
 
-def plate_1x0(map_plate, row, col, conn):
+def plate_1x0(map_plate, row, col, conn, r):
     row_shift = 12 * row
-    stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
+    stmt = "INSERT INTO terrain_instance "
+    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', loc_x, loc_y + "
     stmt += str(row_shift) + ", flag1, flag2 FROM terrain WHERE mapFile = '"
     stmt += map_plate + "' AND loc_y >= 0"
@@ -37,10 +56,11 @@ def plate_1x0(map_plate, row, col, conn):
     conn.commit()
 
 
-def plate_1x1(map_plate, row, col, conn):
+def plate_1x1(map_plate, row, col, conn, r):
     col_shift = 18 * col
     row_shift = 12 * row
-    stmt = "INSERT INTO terrain_instance (gameName, loc_x, loc_y, flag1, flag2) "
+    stmt = "INSERT INTO terrain_instance "
+    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     stmt += "loc_x + " + str(col_shift) + ", "
     stmt += "loc_y + " + str(row_shift) + ", flag1, flag2 FROM terrain WHERE "
@@ -52,22 +72,28 @@ def plate_1x1(map_plate, row, col, conn):
 
 
 def put_plate(letter, row, col, conn):
-    map_plate = "Map " + letter
+    rotate180 = 0
+    if re.search("[a-z]+", letter):
+        print("lower case")
+        clear_temp(conn)
+        rotate180 = 1
+
+    map_plate = "Map " + letter.upper()
 
     if row == 0 and col == 0:
-        plate_0x0(map_plate, row, col, conn)
+        plate_0x0(map_plate, row, col, conn, rotate180)
         return
 
     if row == 0 and col >= 1:
-        plate_0x1(map_plate, row, col, conn)
+        plate_0x1(map_plate, row, col, conn, rotate180)
         return
 
     if row >= 1 and col == 0:
-        plate_1x0(map_plate, row, col, conn)
+        plate_1x0(map_plate, row, col, conn, rotate180)
         return
 
     if row >= 1 and col >= 1:
-        plate_1x1(map_plate, row, col, conn)
+        plate_1x1(map_plate, row, col, conn, rotate180)
         return
 
 
@@ -111,7 +137,7 @@ with open(sys.argv[1], "r") as file:
                 missionName = define_mission_name(line)
                 stmt = "DELETE FROM terrain_instance WHERE gameName = '" \
                     + missionName + "'"
-                print(stmt)
+                # print(stmt)
                 cursor = conn.cursor()
                 cursor.execute(stmt)
                 conn.commit()
