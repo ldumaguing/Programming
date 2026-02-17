@@ -1,5 +1,5 @@
 name:Awoke
-maps:B,C
+maps:A,B_C,D
 turns:8
 
 map_dim:3629,2801
