@@ -24,7 +24,7 @@ CREATE TABLE spine_instance (
 
 
 
-B1 is (0, 0)
+A1 is (0, 0)
 
 
 flag2

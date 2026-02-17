@@ -1,5 +1,5 @@
 name:Awoke
-maps:b,c
+maps:B,C
 turns:8
 
 map_dim:3629,2801
@@ -66,12 +66,12 @@ Hood:1
 END *************************************************************************************
 maps:A,B,C,D      # maps are appended based on the sequence
 
-maps:A,B,_,C,D    # underscore indicates that the maps are stacked
+maps:A,B_C,D    # underscore indicates that the maps are stacked
 
-maps:A,B,_,c,D   # lowercase indicates that the map is rotated 180 degress
+maps:A,B_c,D   # lowercase indicates that the map is rotated 180 degress
 
-maps:A,B,_,.,C    # '.' indicates an empty map data
-maps:.,A,_,B,C
+maps:A,B_.,C    # '.' indicates an empty map data
+maps:.,A_B,C
 
 
 
