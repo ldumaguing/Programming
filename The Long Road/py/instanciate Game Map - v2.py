@@ -17,7 +17,7 @@ def clear_temp(conn):
     sql_exec_stmt(conn, stmt)
 
 
-def populate_temp(map_plate, conn):
+def populate_terrain_temp(map_plate, conn):
     stmt = "INSERT INTO terrain_temp "
     stmt += "(loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
@@ -33,16 +33,14 @@ def populate_temp(map_plate, conn):
 
 
 def plate_0x0(map_plate, row, col, conn, r):
-    populate_temp(map_plate, conn)
+    populate_terrain_temp(map_plate, conn)
+    stmt = "INSERT INTO terrain_instance "
+    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     if r:
-        stmt = "INSERT INTO terrain_instance "
-        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT '" + missionName
         stmt += "', loc_x, loc_y, flag1, flag2 FROM terrain_temp"
         sql_exec_stmt(conn, stmt)
     else:
-        stmt = "INSERT INTO terrain_instance "
-        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT '" + missionName
         stmt += "', loc_x, loc_y, flag1, flag2 FROM "
         stmt += "terrain WHERE mapFile = '" + map_plate + "'"
@@ -50,31 +48,17 @@ def plate_0x0(map_plate, row, col, conn, r):
 
 
 def plate_0x1(map_plate, row, col, conn, r):
-    print("0x1: " + str(col))
+    populate_terrain_temp(map_plate, conn)
     col_shift = 18 * col
+    stmt = "INSERT INTO terrain_instance "
+    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     if r:
-        stmt = "INSERT INTO terrain_temp "
-        stmt += "(loc_x, loc_y, flag1, flag2) "
-        stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
-        stmt += "WHERE mapFile = '" + map_plate + "' AND "
-        stmt += "(loc_x % 2) = 0"
-        sql_exec_stmt(conn, stmt)
-        stmt = "INSERT INTO terrain_temp "
-        stmt += "(loc_x, loc_y, flag1, flag2) "
-        stmt += "SELECT 18 - loc_x, 11 - loc_y, flag1, flag2 FROM terrain "
-        stmt += "WHERE mapFile = '" + map_plate + "' AND "
-        stmt += "(loc_x % 2) = 1"
-        sql_exec_stmt(conn, stmt)
-        stmt = "INSERT INTO terrain_instance "
-        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT '" + missionName
         stmt += "', loc_x + " + str(col_shift)
         stmt += ", loc_y, flag1, flag2 FROM terrain_temp "
         stmt += "WHERE loc_x > 0"
         sql_exec_stmt(conn, stmt)
     else:
-        stmt = "INSERT INTO terrain_instance "
-        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT '" + missionName + "', loc_x + "
         stmt += str(col_shift) + ", "
         stmt += "loc_y, flag1, flag2 FROM "
@@ -83,26 +67,36 @@ def plate_0x1(map_plate, row, col, conn, r):
 
 
 def plate_1x0(map_plate, row, col, conn, r):
+    populate_terrain_temp(map_plate, conn)
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT '" + missionName + "', loc_x, loc_y + "
-    stmt += str(row_shift) + ", flag1, flag2 FROM terrain WHERE mapFile = '"
-    stmt += map_plate + "' AND loc_y >= 0"
-    sql_exec_stmt(conn, stmt)
+    if r:
+        pass
+    else:
+        stmt += "SELECT '" + missionName + "', loc_x, loc_y + "
+        stmt += str(row_shift) + ", flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '"
+        stmt += map_plate + "' AND loc_y >= 0"
+        sql_exec_stmt(conn, stmt)
 
 
 def plate_1x1(map_plate, row, col, conn, r):
+    populate_terrain_temp(map_plate, conn)
     col_shift = 18 * col
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT '" + missionName + "', "
-    stmt += "loc_x + " + str(col_shift) + ", "
-    stmt += "loc_y + " + str(row_shift) + ", flag1, flag2 FROM terrain WHERE "
-    stmt += "mapFile = '" + map_plate + "' "
-    stmt += " AND loc_x > 0 AND loc_y >= 0"
-    sql_exec_stmt(conn, stmt)
+    if r:
+        pass
+    else:
+        stmt += "SELECT '" + missionName + "', "
+        stmt += "loc_x + " + str(col_shift) + ", "
+        stmt += "loc_y + " + str(row_shift)
+        stmt += ", flag1, flag2 FROM terrain WHERE "
+        stmt += "mapFile = '" + map_plate + "' "
+        stmt += " AND loc_x > 0 AND loc_y >= 0"
+        sql_exec_stmt(conn, stmt)
 
 
 def put_plate(letter, row, col, conn):
