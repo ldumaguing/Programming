@@ -6,42 +6,76 @@ import sqlite3
 missionName = ""
 
 
-def clear_temp(conn):
-    stmt = "DELETE FROM terrain_temp"
+def sql_exec_stmt(conn, stmt):
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()
 
 
+def clear_temp(conn):
+    stmt = "DELETE FROM terrain_temp"
+    sql_exec_stmt(conn, stmt)
+
+
 def plate_0x0(map_plate, row, col, conn, r):
-    stmt = ""
     if r:
         stmt = "INSERT INTO terrain_temp "
         stmt += "(loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
-        stmt += "WHERE mapFile = '" + map_plate + "'"
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 0"
+        sql_exec_stmt(conn, stmt)
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 11 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 1"
+        sql_exec_stmt(conn, stmt)
+        stmt = "INSERT INTO terrain_instance "
+        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT '" + missionName
+        stmt += "', loc_x, loc_y, flag1, flag2 FROM terrain_temp"
+        sql_exec_stmt(conn, stmt)
     else:
         stmt = "INSERT INTO terrain_instance "
         stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
         stmt += "SELECT '" + missionName
         stmt += "', loc_x, loc_y, flag1, flag2 FROM "
         stmt += "terrain WHERE mapFile = '" + map_plate + "'"
-    # cursor = conn.cursor()
-    # cursor.execute(stmt)
-    # conn.commit()
-    print(stmt)
+        sql_exec_stmt(conn, stmt)
 
 
 def plate_0x1(map_plate, row, col, conn, r):
+    print("0x1: " + str(col))
     col_shift = 18 * col
-    stmt = "INSERT INTO terrain_instance "
-    stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT '" + missionName + "', loc_x + " + str(col_shift) + ", "
-    stmt += "loc_y, flag1, flag2 FROM "
-    stmt += "terrain WHERE mapFile = '" + map_plate + "' AND loc_x > 0"
-    cursor = conn.cursor()
-    cursor.execute(stmt)
-    conn.commit()
+    if r:
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 0"
+        sql_exec_stmt(conn, stmt)
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 11 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 1"
+        sql_exec_stmt(conn, stmt)
+        stmt = "INSERT INTO terrain_instance "
+        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT '" + missionName
+        stmt += "', loc_x + " + str(col_shift)
+        stmt += ", loc_y, flag1, flag2 FROM terrain_temp "
+        stmt += "WHERE loc_x > 0"
+        sql_exec_stmt(conn, stmt)
+    else:
+        stmt = "INSERT INTO terrain_instance "
+        stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT '" + missionName + "', loc_x + "
+        stmt += str(col_shift) + ", "
+        stmt += "loc_y, flag1, flag2 FROM "
+        stmt += "terrain WHERE mapFile = '" + map_plate + "' AND loc_x > 0"
+        sql_exec_stmt(conn, stmt)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
@@ -51,9 +85,7 @@ def plate_1x0(map_plate, row, col, conn, r):
     stmt += "SELECT '" + missionName + "', loc_x, loc_y + "
     stmt += str(row_shift) + ", flag1, flag2 FROM terrain WHERE mapFile = '"
     stmt += map_plate + "' AND loc_y >= 0"
-    cursor = conn.cursor()
-    cursor.execute(stmt)
-    conn.commit()
+    sql_exec_stmt(conn, stmt)
 
 
 def plate_1x1(map_plate, row, col, conn, r):
@@ -66,9 +98,7 @@ def plate_1x1(map_plate, row, col, conn, r):
     stmt += "loc_y + " + str(row_shift) + ", flag1, flag2 FROM terrain WHERE "
     stmt += "mapFile = '" + map_plate + "' "
     stmt += " AND loc_x > 0 AND loc_y >= 0"
-    cursor = conn.cursor()
-    cursor.execute(stmt)
-    conn.commit()
+    sql_exec_stmt(conn, stmt)
 
 
 def put_plate(letter, row, col, conn):
@@ -138,9 +168,7 @@ with open(sys.argv[1], "r") as file:
                 stmt = "DELETE FROM terrain_instance WHERE gameName = '" \
                     + missionName + "'"
                 # print(stmt)
-                cursor = conn.cursor()
-                cursor.execute(stmt)
-                conn.commit()
+                sql_exec_stmt(conn, stmt)
             if re.search("maps", line):
                 instanciate_terrain(line, conn)
                 conn.close()
