@@ -38,16 +38,13 @@ mapFile = 'Map A';
 
    
    
-   
-select * from 
+
+
+select AAA.loc_x, AAA.loc_y, AAA.flag1, BBB.flag1 from 
 (select loc_x, loc_y, flag1 from terrain_instance where loc_x = 18) as AAA,
 (select loc_x, loc_y, flag1 from terrain where mapFile = 'Map B' and loc_x = 0) as BBB
 where
-AAA.loc_x = BBB.loc_x
-and
-AAA.loc_y = BBB.loc_y;
-
-
-
+AAA.loc_y = BBB.loc_y
+order by AAA.loc_y;
 
 
