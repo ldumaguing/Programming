@@ -1,3 +1,32 @@
+select * from terrain_instance where loc_x = 18;
+select * from terrain where mapFile = 'Map B' and loc_x = 0;
+
+*******************************************************************************
+UPDATE terrain_instance as AAA
+SET flag1 = (
+   select AAA.flag1 | flag1 from terrain
+   where
+      loc_x = 0
+      and
+      loc_y = 0
+      and
+      mapFile = 'Map B'
+)
+where
+   loc_x = 18
+   and
+   loc_y = 0;
+
+
+*******************************************************************************
+
+
+
+
+
+
+
+
 select hexID, loc_x, loc_y,
    flag1 & 57345,        -- hill, rolling, forest, town
    (flag1 & 16510) >> 1,                                                 -- road
