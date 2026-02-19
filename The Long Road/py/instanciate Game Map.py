@@ -44,6 +44,44 @@ def plate_0x0(map_plate, row, col, conn, r):
         sql_exec_stmt(conn, stmt)
 
 
+def seam_0x1(map_plate, col, conn, r):
+    stmt = ""
+    for y in range(12):
+        if r:
+            stmt = f"""
+                UPDATE terrain_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM terrain_temp
+                WHERE
+                loc_x = 0
+                AND
+                loc_y = {y}
+                )
+                WHERE
+                loc_x = {col * 18}
+                AND
+                loc_y = {y}
+            """
+        else:
+            stmt = f"""
+                UPDATE terrain_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM terrain
+                WHERE
+                loc_x = 0
+                AND
+                loc_y = {y}
+                AND
+                mapFile = '{map_plate}'
+                )
+                WHERE
+                loc_x = {col * 18}
+                AND
+                loc_y = {y}
+            """
+        sql_exec_stmt(conn, stmt)
+
+
 def plate_0x1(map_plate, row, col, conn, r):
     print("0x1")
     populate_terrain_temp(map_plate, conn)
@@ -64,6 +102,7 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0"
         sql_exec_stmt(conn, stmt)
+        seam_0x1(map_plate, col, conn, r)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
@@ -177,8 +216,11 @@ with open(sys.argv[1], "r") as file:
         else:
             if re.search("^name", line):
                 missionName = define_mission_name(line)
-                stmt = "DELETE FROM terrain_instance WHERE gameName = '" \
-                    + missionName + "'"
+                stmt = (
+                    "DELETE FROM terrain_instance WHERE gameName = '"
+                    + missionName
+                    + "'"
+                )
                 # print(stmt)
                 sql_exec_stmt(conn, stmt)
             if re.search("maps", line):
