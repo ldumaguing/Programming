@@ -12,24 +12,35 @@ def sql_exec_stmt(conn, stmt):
     conn.commit()
 
 
-def populate_terrain_temp(map_plate, conn):
-    stmt = "INSERT INTO terrain_temp "
-    stmt += "(loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
-    stmt += "WHERE mapFile = '" + map_plate + "' AND "
-    stmt += "(loc_x % 2) = 0"
-    sql_exec_stmt(conn, stmt)
-    stmt = "INSERT INTO terrain_temp "
-    stmt += "(loc_x, loc_y, flag1, flag2) "
-    stmt += "SELECT 18 - loc_x, 11 - loc_y, flag1, flag2 FROM terrain "
-    stmt += "WHERE mapFile = '" + map_plate + "' AND "
-    stmt += "(loc_x % 2) = 1"
-    sql_exec_stmt(conn, stmt)
+def populate_terrain_temp(map_plate, conn, r):
+    if r:
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 0"
+        sql_exec_stmt(conn, stmt)
+        stmt = "INSERT INTO terrain_temp "
+        stmt += "(loc_x, loc_y, flag1, flag2) "
+        stmt += "SELECT 18 - loc_x, 11 - loc_y, flag1, flag2 FROM terrain "
+        stmt += "WHERE mapFile = '" + map_plate + "' AND "
+        stmt += "(loc_x % 2) = 1"
+        sql_exec_stmt(conn, stmt)
+        # ***** rotate each hexes
+        stmt = """
+            update terrain_temp set flag1 =
+            (flag1 & 57345) |
+            ((((((flag1 & 16510) >> 1) >> 3) |
+            (((flag1 & 16510) >> 1) << 3)) & 63) << 1) |
+            ((((((flag1 & 8064) >> 7) >> 3) |
+            (((flag1 & 8064) >> 7) << 3)) & 63) << 7)
+            """
+        sql_exec_stmt(conn, stmt)
 
 
 def plate_0x0(map_plate, row, col, conn, r):
     print("0x0")
-    populate_terrain_temp(map_plate, conn)
+    populate_terrain_temp(map_plate, conn, r)
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
@@ -44,7 +55,7 @@ def plate_0x0(map_plate, row, col, conn, r):
         sql_exec_stmt(conn, stmt)
 
 
-def seam_0x1(map_plate, col, conn, r):
+def seam_0x1(map_plate, col_shift, conn, r):
     stmt = ""
     for y in range(12):
         if r:
@@ -58,10 +69,10 @@ def seam_0x1(map_plate, col, conn, r):
                 loc_y = {y}
                 )
                 WHERE
-                loc_x = {col * 18}
+                loc_x = {col_shift}
                 AND
                 loc_y = {y}
-            """
+                """
         else:
             stmt = f"""
                 UPDATE terrain_instance AS aaa
@@ -75,16 +86,16 @@ def seam_0x1(map_plate, col, conn, r):
                 mapFile = '{map_plate}'
                 )
                 WHERE
-                loc_x = {col * 18}
+                loc_x = {col_shift}
                 AND
                 loc_y = {y}
-            """
+                """
         sql_exec_stmt(conn, stmt)
 
 
 def plate_0x1(map_plate, row, col, conn, r):
     print("0x1")
-    populate_terrain_temp(map_plate, conn)
+    populate_terrain_temp(map_plate, conn, r)
     col_shift = 18 * col
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
@@ -102,12 +113,12 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0"
         sql_exec_stmt(conn, stmt)
-        seam_0x1(map_plate, col, conn, r)
+        seam_0x1(map_plate, col_shift, conn, r)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
     print("1x0")
-    populate_terrain_temp(map_plate, conn)
+    populate_terrain_temp(map_plate, conn, r)
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
@@ -131,7 +142,7 @@ def plate_1x0(map_plate, row, col, conn, r):
 
 def plate_1x1(map_plate, row, col, conn, r):
     print("1x1")
-    populate_terrain_temp(map_plate, conn)
+    populate_terrain_temp(map_plate, conn, r)
     col_shift = 18 * col
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
