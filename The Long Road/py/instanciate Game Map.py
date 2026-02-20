@@ -181,8 +181,8 @@ def plate_1x0(map_plate, row, col, conn, r):
 
 def seam_1x1(map_plate, row_shift, col_shift, conn, r):
     print("yo: " + str(row_shift) + "," + str(col_shift))
-    seam_0x1(map_plate, 0, col_shift, conn, r)
-    seam_1x0(map_plate, row_shift, 0, conn, r)
+    seam_0x1(map_plate, row_shift, col_shift, conn, r)
+    seam_1x0(map_plate, row_shift, col_shift, conn, r)
 
 
 def plate_1x1(map_plate, row, col, conn, r):
