@@ -113,7 +113,7 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0"
         sql_exec_stmt(conn, stmt)
-        seam_0x1(map_plate, col_shift, conn, r)
+    seam_0x1(map_plate, col_shift, conn, r)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
