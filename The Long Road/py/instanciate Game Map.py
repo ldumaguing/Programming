@@ -55,7 +55,7 @@ def plate_0x0(map_plate, row, col, conn, r):
         sql_exec_stmt(conn, stmt)
 
 
-def seam_0x1(map_plate, col_shift, conn, r):
+def seam_0x1(map_plate, row_shift, col_shift, conn, r):
     stmt = ""
     for y in range(12):
         if r:
@@ -66,12 +66,12 @@ def seam_0x1(map_plate, col_shift, conn, r):
                 WHERE
                 loc_x = 0
                 AND
-                loc_y = {y}
+                loc_y = {y+row_shift}
                 )
                 WHERE
                 loc_x = {col_shift}
                 AND
-                loc_y = {y}
+                loc_y = {y+row_shift}
                 """
         else:
             stmt = f"""
@@ -81,14 +81,14 @@ def seam_0x1(map_plate, col_shift, conn, r):
                 WHERE
                 loc_x = 0
                 AND
-                loc_y = {y}
+                loc_y = {y+row_shift}
                 AND
                 mapFile = '{map_plate}'
                 )
                 WHERE
                 loc_x = {col_shift}
                 AND
-                loc_y = {y}
+                loc_y = {y+row_shift}
                 """
         sql_exec_stmt(conn, stmt)
 
@@ -113,10 +113,10 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0"
         sql_exec_stmt(conn, stmt)
-    seam_0x1(map_plate, col_shift, conn, r)
+    seam_0x1(map_plate, 0, col_shift, conn, r)
 
 
-def seam_1x0(map_plate, row_shift, conn, r):
+def seam_1x0(map_plate, row_shift, col_shift, conn, r):
     print("yo: " + str(row_shift))
     stmt = ""
     for x in range(0, 20, 2):
@@ -126,12 +126,12 @@ def seam_1x0(map_plate, row_shift, conn, r):
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain_temp
                 WHERE
-                loc_x = {x}
+                loc_x = {x+col_shift}
                 AND
                 loc_y = -1
                 )
                 WHERE
-                loc_x = {x}
+                loc_x = {x+col_shift}
                 AND
                 loc_y = {row_shift}
                 """
@@ -141,14 +141,14 @@ def seam_1x0(map_plate, row_shift, conn, r):
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain
                 WHERE
-                loc_x = {x}
+                loc_x = {x+col_shift}
                 AND
                 loc_y = -1
                 AND
                 mapFile = '{map_plate}'
                 )
                 WHERE
-                loc_x = {x}
+                loc_x = {x+col_shift}
                 AND
                 loc_y = {row_shift}
                 """
@@ -176,11 +176,13 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
-    seam_1x0(map_plate, row_shift, conn, r)
+    seam_1x0(map_plate, row_shift, 0, conn, r)
 
 
 def seam_1x1(map_plate, row_shift, col_shift, conn, r):
-    print("yo")
+    print("yo: " + str(row_shift) + "," + str(col_shift))
+    seam_0x1(map_plate, 0, col_shift, conn, r)
+    seam_1x0(map_plate, row_shift, 0, conn, r)
 
 
 def plate_1x1(map_plate, row, col, conn, r):
