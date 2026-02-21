@@ -14,6 +14,13 @@ def sql_exec_stmt(conn, stmt):
 
 def populate_spine_temp(map_plate, conn):
     print("yo")
+    # ***** rotate plate
+    stmt = "INSERT INTO spine_temp "
+    stmt += "(loc_x, loc_y, flag1, spine) "
+    stmt += "SELECT 18 - loc_x, 10 - loc_y, flag1, spine FROM spine "
+    stmt += "WHERE mapFile = '" + map_plate + "' AND "
+    stmt += "(loc_x % 2) = 0"
+    sql_exec_stmt(conn, stmt)
 
 
 def populate_terrain_temp(map_plate, conn):

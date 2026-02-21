@@ -1,5 +1,6 @@
 name:Awoke
-maps:b,c_b,c
+maps:a
+# maps:b,c_b,c
 # maps:A,B
 # maps:A,D_B,C
 turns:8
