@@ -152,6 +152,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
                 AND
                 loc_y = {row_shift}
                 """
+        sql_exec_stmt(conn, stmt)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
