@@ -12,36 +12,8 @@ def sql_exec_stmt(conn, stmt):
     conn.commit()
 
 
-def rotate_spine(conn, row):
-    X = row[0]
-    Y = row[1]
-    S = row[2]
-    if S == 1:
-        Y += 1
-    elif S == 2:
-        S = 5
-    elif S == 3:
-        S = 6
-    elif S == 4:
-        X -= 2
-    elif S == 5:
-        S = 2
-    else:
-        S = 3
-    stmt = "UPDATE spine_temp SET "
-    stmt += f"loc_x = {X}, "
-    stmt += f"loc_y = {Y}, "
-    stmt += f"spine = {S} "
-    stmt += "WHERE "
-    stmt += f"loc_x = {row[0]} AND "
-    stmt += f"loc_y = {row[1]} AND "
-    stmt += f"spine = {row[2]}"
-    print(stmt)
-    sql_exec_stmt(conn, stmt)
-
-
 def populate_spine_temp(map_plate, conn):
-    sql_exec_stmt(conn, "DELETE FROM spine_temp")
+    print("yo")
     # ***** rotate plate
     stmt = "INSERT INTO spine_temp "
     stmt += "(loc_x, loc_y, flag1, spine) "
@@ -49,13 +21,6 @@ def populate_spine_temp(map_plate, conn):
     stmt += "WHERE mapFile = '" + map_plate + "' AND "
     stmt += "(loc_x % 2) = 0"
     sql_exec_stmt(conn, stmt)
-    stmt = "SELECT loc_x, loc_y, spine FROM spine_temp"
-    cursor = conn.cursor()
-    cursor.execute(stmt)
-    rows = cursor.fetchall()
-    for row in rows:
-        rotate_spine(conn, row)
-    cursor.close()
 
 
 def populate_terrain_temp(map_plate, conn):
@@ -90,15 +55,31 @@ def plate_0x0(map_plate, row, col, conn, r):
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        stmt = "DELETE FROM spine_temp"
+        sql_exec_stmt(conn, stmt)
         populate_terrain_temp(map_plate, conn)
         populate_spine_temp(map_plate, conn)
         stmt += "loc_x, loc_y, flag1, flag2 "
         stmt += "FROM terrain_temp"
         sql_exec_stmt(conn, stmt)
+        # ***** spine rotated
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
+        stmt += "FROM spine_temp"
+        print(stmt)
+        sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x, loc_y, flag1, flag2 "
         stmt += "FROM terrain "
         stmt += "WHERE mapFile = '" + map_plate + "'"
+        sql_exec_stmt(conn, stmt)
+        # ***** spine
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
+        stmt += "FROM spine WHERE "
+        stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
 
 
@@ -328,6 +309,9 @@ with open(sys.argv[1], "r") as file:
                     + "'"
                 )
                 # print(stmt)
+                sql_exec_stmt(conn, stmt)
+                stmt = "DELETE FROM spine_instance WHERE gameName = "
+                stmt += f"'{missionName}'"
                 sql_exec_stmt(conn, stmt)
             if re.search("maps", line):
                 instanciate_terrain(line, conn)

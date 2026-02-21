@@ -1,0 +1,14 @@
+        # ***** spine rotated
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
+        stmt += "FROM spine_temp"
+        sql_exec_stmt(conn, stmt)
+        
+        # ***** spine
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
+        stmt += "FROM spine WHERE "
+        stmt += f"mapFile = '{map_plate}'"
+        sql_exec_stmt(conn, stmt)
