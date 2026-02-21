@@ -1,5 +1,5 @@
 name:Awoke
-maps:a
+maps:a,a_a,a
 # maps:b,c_b,c
 # maps:A,B
 # maps:A,D_B,C

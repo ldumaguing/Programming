@@ -55,8 +55,7 @@ def plate_0x0(map_plate, row, col, conn, r):
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
-        stmt = "DELETE FROM spine_temp"
-        sql_exec_stmt(conn, stmt)
+        sql_exec_stmt(conn, "DELETE FROM spine_temp")
         populate_terrain_temp(map_plate, conn)
         populate_spine_temp(map_plate, conn)
         stmt += "loc_x, loc_y, flag1, flag2 "
@@ -67,7 +66,6 @@ def plate_0x0(map_plate, row, col, conn, r):
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
         stmt += "FROM spine_temp"
-        print(stmt)
         sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x, loc_y, flag1, flag2 "
@@ -128,6 +126,7 @@ def plate_0x1(map_plate, row, col, conn, r):
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        sql_exec_stmt(conn, "DELETE FROM spine_temp")
         populate_terrain_temp(map_plate, conn)
         populate_spine_temp(map_plate, conn)
         stmt += "loc_x + " + str(col_shift) + ", "
@@ -135,12 +134,25 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "FROM terrain_temp "
         stmt += "WHERE loc_x > 0"
         sql_exec_stmt(conn, stmt)
+        # ***** spine rotated
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, loc_y, spine, flag1 "
+        stmt += "FROM spine_temp"
+        sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x + " + str(col_shift) + ", "
         stmt += "loc_y, flag1, flag2 "
         stmt += "FROM terrain "
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0"
+        sql_exec_stmt(conn, stmt)
+        # ***** spine
+        stmt = "INSERT INTO spine_instance "
+        stmt += f"(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, loc_y, spine, flag1 "
+        stmt += "FROM spine WHERE "
+        stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
     seam_0x1(map_plate, 0, col_shift, conn, r)
 
@@ -190,6 +202,7 @@ def plate_1x0(map_plate, row, col, conn, r):
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        sql_exec_stmt(conn, "DELETE FROM spine_temp")
         populate_terrain_temp(map_plate, conn)
         populate_spine_temp(map_plate, conn)
         stmt += "loc_x, "
@@ -198,6 +211,12 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "FROM terrain_temp "
         stmt += "WHERE loc_y >= 0"
         sql_exec_stmt(conn, stmt)
+        # ***** spine rotated
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, spine, flag1 "
+        stmt += "FROM spine_temp"
+        sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x, "
         stmt += "loc_y + " + str(row_shift) + ", "
@@ -205,6 +224,13 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "FROM terrain "
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_y >= 0"
+        sql_exec_stmt(conn, stmt)
+        # ***** spine
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, spine, flag1 "
+        stmt += "FROM spine WHERE "
+        stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
     seam_1x0(map_plate, row_shift, 0, conn, r)
 
@@ -221,6 +247,7 @@ def plate_1x1(map_plate, row, col, conn, r):
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     if r:
+        sql_exec_stmt(conn, "DELETE FROM spine_temp")
         populate_terrain_temp(map_plate, conn)
         populate_spine_temp(map_plate, conn)
         stmt += "SELECT '" + missionName + "', "
@@ -229,6 +256,13 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "flag1, flag2 FROM terrain_temp "
         stmt += "WHERE loc_x > 0 AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
+        # ***** spine rotated
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', "
+        stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
+        stmt += "spine, flag1 FROM spine_temp"
+        sql_exec_stmt(conn, stmt)
     else:
         stmt += "SELECT '" + missionName + "', "
         stmt += "loc_x + " + str(col_shift) + ", "
@@ -236,6 +270,14 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "flag1, flag2 FROM terrain "
         stmt += "WHERE mapFile = '" + map_plate + "' "
         stmt += "AND loc_x > 0 AND loc_y >= 0"
+        sql_exec_stmt(conn, stmt)
+        # ***** spine
+        stmt = "INSERT INTO spine_instance "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', "
+        stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
+        stmt += "spine, flag1 FROM spine WHERE "
+        stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
     seam_1x1(map_plate, row_shift, col_shift, conn, r)
 
