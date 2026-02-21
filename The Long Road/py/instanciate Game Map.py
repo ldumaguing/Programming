@@ -12,6 +12,10 @@ def sql_exec_stmt(conn, stmt):
     conn.commit()
 
 
+def populate_spine_temp(map_plate, conn):
+    print("yo")
+
+
 def populate_terrain_temp(map_plate, conn):
     # ***** rotate plate
     stmt = "INSERT INTO terrain_temp "
@@ -40,11 +44,12 @@ def populate_terrain_temp(map_plate, conn):
 
 def plate_0x0(map_plate, row, col, conn, r):
     print("0x0")
-    populate_terrain_temp(map_plate, conn)
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        populate_terrain_temp(map_plate, conn)
+        populate_spine_temp(map_plate, conn)
         stmt += "loc_x, loc_y, flag1, flag2 "
         stmt += "FROM terrain_temp"
         sql_exec_stmt(conn, stmt)
@@ -95,12 +100,13 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
 
 def plate_0x1(map_plate, row, col, conn, r):
     print("0x1")
-    populate_terrain_temp(map_plate, conn)
     col_shift = 18 * col
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        populate_terrain_temp(map_plate, conn)
+        populate_spine_temp(map_plate, conn)
         stmt += "loc_x + " + str(col_shift) + ", "
         stmt += "loc_y, flag1, flag2 "
         stmt += "FROM terrain_temp "
@@ -117,7 +123,6 @@ def plate_0x1(map_plate, row, col, conn, r):
 
 
 def seam_1x0(map_plate, row_shift, col_shift, conn, r):
-    print("yo: " + str(row_shift))
     stmt = ""
     for x in range(0, 20, 2):
         if r:
@@ -157,12 +162,13 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
 
 def plate_1x0(map_plate, row, col, conn, r):
     print("1x0")
-    populate_terrain_temp(map_plate, conn)
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
+        populate_terrain_temp(map_plate, conn)
+        populate_spine_temp(map_plate, conn)
         stmt += "loc_x, "
         stmt += "loc_y + " + str(row_shift) + ", "
         stmt += "flag1, flag2 "
@@ -181,19 +187,19 @@ def plate_1x0(map_plate, row, col, conn, r):
 
 
 def seam_1x1(map_plate, row_shift, col_shift, conn, r):
-    print("yo: " + str(row_shift) + "," + str(col_shift))
     seam_0x1(map_plate, row_shift, col_shift, conn, r)
     seam_1x0(map_plate, row_shift, col_shift, conn, r)
 
 
 def plate_1x1(map_plate, row, col, conn, r):
     print("1x1")
-    populate_terrain_temp(map_plate, conn)
     col_shift = 18 * col
     row_shift = 12 * row
     stmt = "INSERT INTO terrain_instance "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     if r:
+        populate_terrain_temp(map_plate, conn)
+        populate_spine_temp(map_plate, conn)
         stmt += "SELECT '" + missionName + "', "
         stmt += "loc_x + " + str(col_shift) + ", "
         stmt += "loc_y + " + str(row_shift) + ", "
