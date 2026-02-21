@@ -12,8 +12,36 @@ def sql_exec_stmt(conn, stmt):
     conn.commit()
 
 
+def rotate_spine(conn, row):
+    X = row[0]
+    Y = row[1]
+    S = row[2]
+    if S == 1:
+        Y += 1
+    elif S == 2:
+        S = 5
+    elif S == 3:
+        S = 6
+    elif S == 4:
+        X -= 2
+    elif S == 5:
+        S = 2
+    else:
+        S = 3
+    stmt = "UPDATE spine_temp SET "
+    stmt += f"loc_x = {X}, "
+    stmt += f"loc_y = {Y}, "
+    stmt += f"spine = {S} "
+    stmt += "WHERE "
+    stmt += f"loc_x = {row[0]} AND "
+    stmt += f"loc_y = {row[1]} AND "
+    stmt += f"spine = {row[2]}"
+    print(stmt)
+    sql_exec_stmt(conn, stmt)
+
+
 def populate_spine_temp(map_plate, conn):
-    print("yo")
+    sql_exec_stmt(conn, "DELETE FROM spine_temp")
     # ***** rotate plate
     stmt = "INSERT INTO spine_temp "
     stmt += "(loc_x, loc_y, flag1, spine) "
@@ -21,6 +49,13 @@ def populate_spine_temp(map_plate, conn):
     stmt += "WHERE mapFile = '" + map_plate + "' AND "
     stmt += "(loc_x % 2) = 0"
     sql_exec_stmt(conn, stmt)
+    stmt = "SELECT loc_x, loc_y, spine FROM spine_temp"
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    rows = cursor.fetchall()
+    for row in rows:
+        rotate_spine(conn, row)
+    cursor.close()
 
 
 def populate_terrain_temp(map_plate, conn):
