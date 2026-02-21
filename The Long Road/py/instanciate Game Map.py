@@ -99,6 +99,23 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
                 AND
                 loc_y = {y+row_shift}
                 """
+            sql_exec_stmt(conn, stmt)
+            # ***** spine rotated
+            stmt = f"""
+                UPDATE spine_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM spine_temp
+                WHERE
+                loc_x = 0
+                AND
+                loc_y = {y+row_shift}
+                )
+                WHERE
+                loc_x = {col_shift}
+                AND
+                loc_y = {y+row_shift}
+                """
+            sql_exec_stmt(conn, stmt)
         else:
             stmt = f"""
                 UPDATE terrain_instance AS aaa
@@ -116,7 +133,25 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
                 AND
                 loc_y = {y+row_shift}
                 """
-        sql_exec_stmt(conn, stmt)
+            sql_exec_stmt(conn, stmt)
+            # ***** spine
+            stmt = f"""
+                UPDATE spine_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM spine
+                WHERE
+                loc_x = 0
+                AND
+                loc_y = {y+row_shift}
+                AND
+                mapFile = '{map_plate}'
+                )
+                WHERE
+                loc_x = {col_shift}
+                AND
+                loc_y = {y+row_shift}
+                """
+            sql_exec_stmt(conn, stmt)
 
 
 def plate_0x1(map_plate, row, col, conn, r):
@@ -175,6 +210,23 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
                 AND
                 loc_y = {row_shift}
                 """
+            sql_exec_stmt(conn, stmt)
+            # ***** spine rotated
+            stmt = f"""
+                UPDATE spine_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM spine_temp
+                WHERE
+                loc_x = {x+col_shift}
+                AND
+                loc_y = -1
+                )
+                WHERE
+                loc_x = {x+col_shift}
+                AND
+                loc_y = {row_shift}
+                """
+            sql_exec_stmt(conn, stmt)
         else:
             stmt = f"""
                 UPDATE terrain_instance AS aaa
@@ -192,7 +244,25 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
                 AND
                 loc_y = {row_shift}
                 """
-        sql_exec_stmt(conn, stmt)
+            sql_exec_stmt(conn, stmt)
+            # ***** spine
+            stmt = f"""
+                UPDATE spine_instance AS aaa
+                SET flag1 = (
+                select aaa.flag1 | flag1 FROM spine
+                WHERE
+                loc_x = {x+col_shift}
+                AND
+                loc_y = -1
+                AND
+                mapFile = '{map_plate}'
+                )
+                WHERE
+                loc_x = {x+col_shift}
+                AND
+                loc_y = {row_shift}
+                """
+            sql_exec_stmt(conn, stmt)
 
 
 def plate_1x0(map_plate, row, col, conn, r):
