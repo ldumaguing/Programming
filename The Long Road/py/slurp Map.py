@@ -15,37 +15,43 @@ def insert_spine(X, Y, conn, filename, spine, stmt, spine_type):
 
 
 # ***********************************************
-def odd_hex(X, Y, spines, conn, filename, spine_type):
+def odd_hex(loc_x, loc_y, spines, conn, filename, spine_type):
     stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) "
     stmt += "VALUES ('" + filename + "', "
 
     if re.search("A", spines):
-        X -= 1
-        Y -= 1
+        X = loc_x - 1
+        Y = loc_y - 1
         insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
     if re.search("B", spines):
-        X += 1
-        Y -= 1
+        X = loc_x + 1
+        Y = loc_y - 1
         insert_spine(X, Y, conn, filename, 5, stmt, spine_type)
     if re.search("C", spines):
-        X += 1
+        X = loc_x + 1
+        Y = loc_y
         insert_spine(X, Y, conn, filename, 6, stmt, spine_type)
     if re.search("D", spines):
-        X -= 1
+        X = loc_x - 1
+        Y = loc_y
         insert_spine(X, Y, conn, filename, 4, stmt, spine_type)
     if re.search("E", spines):
-        X -= 1
+        X = loc_x - 1
+        Y = loc_y
         insert_spine(X, Y, conn, filename, 2, stmt, spine_type)
     if re.search("F", spines):
-        X -= 1
-        Y -= 1
+        X = loc_x - 1
+        Y = loc_y - 1
         insert_spine(X, Y, conn, filename, 3, stmt, spine_type)
 
 
 # ***********************************************
-def even_hex(X, Y, spines, conn, filename, spine_type):
+def even_hex(loc_x, loc_y, spines, conn, filename, spine_type):
     stmt = "INSERT OR IGNORE INTO spine (mapFile, loc_x, loc_y, spine, flag1) "
     stmt += "VALUES ('" + filename + "', "
+
+    X = loc_x
+    Y = loc_y
 
     if re.search("A", spines):
         insert_spine(X, Y, conn, filename, 1, stmt, spine_type)
@@ -54,7 +60,7 @@ def even_hex(X, Y, spines, conn, filename, spine_type):
     if re.search("C", spines):
         insert_spine(X, Y, conn, filename, 3, stmt, spine_type)
     if re.search("D", spines):
-        Y += 1
+        Y = loc_y + 1
         insert_spine(X, Y, conn, filename, 1, stmt, spine_type)
     if re.search("E", spines):
         insert_spine(X, Y, conn, filename, 5, stmt, spine_type)
@@ -75,30 +81,33 @@ def update_spine(X, Y, conn, filename, spine, stmt, spine_type):
 
 
 # *****************************************************************************
-def odd_hex_update(X, Y, spines, conn, filename, spine_type):
+def odd_hex_update(loc_x, loc_y, spines, conn, filename, spine_type):
     stmt = "UPDATE spine SET flag1 = (flag1 | "
     stmt += spine_type + ")"
 
+    X = loc_x
+    Y = loc_y
+
     if re.search("A", spines):
-        X -= 1
-        Y -= 1
+        X = loc_x - 1
+        Y = loc_y - 1
         update_spine(X, Y, conn, filename, 4, stmt, spine_type)
     if re.search("B", spines):
-        X += 1
-        Y -= 1
+        X = loc_x + 1
+        Y = loc_y - 1
         update_spine(X, Y, conn, filename, 5, stmt, spine_type)
     if re.search("C", spines):
-        X += 1
+        X = loc_x + 1
         update_spine(X, Y, conn, filename, 6, stmt, spine_type)
     if re.search("D", spines):
-        X -= 1
+        X = loc_x - 1
         update_spine(X, Y, conn, filename, 4, stmt, spine_type)
     if re.search("E", spines):
-        X -= 1
+        X = loc_x - 1
         update_spine(X, Y, conn, filename, 2, stmt, spine_type)
     if re.search("F", spines):
-        X -= 1
-        Y -= 1
+        X = loc_x - 1
+        Y = loc_y - 1
         update_spine(X, Y, conn, filename, 3, stmt, spine_type)
 
 
@@ -107,6 +116,9 @@ def even_hex_update(X, Y, spines, conn, filename, spine_type):
     stmt = "UPDATE spine SET flag1 = (flag1 | "
     stmt += spine_type + ")"
 
+    X = loc_x
+    Y = loc_y
+
     if re.search("A", spines):
         update_spine(X, Y, conn, filename, 1, stmt, spine_type)
     if re.search("B", spines):
@@ -114,7 +126,7 @@ def even_hex_update(X, Y, spines, conn, filename, spine_type):
     if re.search("C", spines):
         update_spine(X, Y, conn, filename, 3, stmt, spine_type)
     if re.search("D", spines):
-        Y += 1
+        Y = loc_y + 1
         update_spine(X, Y, conn, filename, 1, stmt, spine_type)
     if re.search("E", spines):
         update_spine(X, Y, conn, filename, 5, stmt, spine_type)
