@@ -10,6 +10,34 @@ def sql_exec_stmt(conn, stmt):
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()
+    cursor.close()
+
+
+def rotateSpine(conn, row):
+    X = row[0]
+    Y = row[1]
+    S = row[2]
+    if S == 1:
+        Y += 1
+    elif S == 2:
+        S = 5
+    elif S == 3:
+        S = 6
+    elif S == 4:
+        X -= 2
+    elif S == 5:
+        S = 2
+    else:
+        S = 3
+    stmt = "UPDATE spine_temp SET "
+    stmt += f"loc_x = {X}, "
+    stmt += f"loc_y = {Y}, "
+    stmt += f"spine = {S} "
+    stmt += "WHERE "
+    stmt += f"loc_x = {row[0]} AND "
+    stmt += f"loc_y = {row[1]} AND "
+    stmt += f"spine = {row[2]}"
+    sql_exec_stmt(conn, stmt)
 
 
 def populate_spine_temp(map_plate, conn):
@@ -21,6 +49,13 @@ def populate_spine_temp(map_plate, conn):
     stmt += "WHERE mapFile = '" + map_plate + "' AND "
     stmt += "(loc_x % 2) = 0"
     sql_exec_stmt(conn, stmt)
+    # ***** rotate each hex
+    cursor = conn.cursor()
+    cursor.execute("SELECT loc_x, loc_y, spine from spine_temp")
+    rows = cursor.fetchall()
+    for row in rows:
+        rotateSpine(conn, row)
+    cursor.close()
 
 
 def populate_terrain_temp(map_plate, conn):
@@ -62,7 +97,7 @@ def plate_0x0(map_plate, row, col, conn, r):
         stmt += "FROM terrain_temp"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
         stmt += "FROM spine_temp"
@@ -170,7 +205,7 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE loc_x > 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x + {col_shift}, loc_y, spine, flag1 "
         stmt += "FROM spine_temp"
@@ -282,7 +317,7 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "WHERE loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, spine, flag1 "
         stmt += "FROM spine_temp"
@@ -327,7 +362,7 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "WHERE loc_x > 0 AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', "
         stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
@@ -342,7 +377,7 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "AND loc_x > 0 AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', "
         stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
@@ -378,16 +413,11 @@ def put_plate(letter, row, col, conn):
 
 
 def instanciate_terrain(line, conn):
-    # print(missionName)
     X = (line.split(":"))[1]
     rows = X.split("_")
-    # print(len(rows))
     for i in range(len(rows)):
-        # print(rows[i])
         X = rows[i].split(",")
-        # print(X)
         for j in range(len(X)):
-            # print(X[j])
             put_plate(X[j], i, j, conn)
 
 
@@ -420,7 +450,6 @@ with open(sys.argv[1], "r") as file:
                     + missionName
                     + "'"
                 )
-                # print(stmt)
                 sql_exec_stmt(conn, stmt)
                 stmt = "DELETE FROM spine_instance WHERE gameName = "
                 stmt += f"'{missionName}'"
