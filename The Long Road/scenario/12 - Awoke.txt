@@ -3,14 +3,6 @@ maps:b,c
 # maps:b,c_b,c
 # maps:A,B
 # maps:A,D_B,C
-turns:8
-
-map_dim:3629,2801
-upperLeft:121,39
-lowerRight:6983,2606
-hexCount:35,12
-
-
 
 
 
