@@ -1,27 +1,76 @@
 name:Awoke
 maps:b,c
-# maps:b,c_b,c
-# maps:A,B
-# maps:A,D_B,C
-
 
 
 Soviet
-*** Set up on the D and E hex row of Map B.
-Infantry:4
-BMP-1P:4
-T-64B:2
-BRDM-2:1
-Morozov:1
+1000 BRDM-1
+1001 T-80
+1002 T-80
+1003 T-80
+1004 T-80
+1005 T-80
+1006 T-80
+1007 T-80
+1008 T-80
+1009 T-80
+1010 BTR-70
+1011 BTR-70
+1012 BTR-70
+1013 URAL Truck
+1014 URAL Truck
+1015 URAL Truck
+1016 Infantry
+1017 Infantry
+1018 Infantry
+1019 Infantry
+1020 Mortar
+1021 Konkurs ATGM
+1022 MT-55A
+1023 MT-55A
+1024 Petrova
+1025 Vorishnov
+1026 Dramonovitch
+1027 Morozov
+
+
 
 
 American
-*** Set up first on or west of the Q hex row of Map C.
-Abrams:1
-M901:1
-M-3 Bradley:2
-Recon:3
-Hood:1
+1028 Infantry
+1029 Infantry
+1030 Infantry
+1031 Infantry
+1032 Infantry
+1033 Infantry
+1034 Infantry
+1035 Infantry
+1036 HMMWV
+1037 HMMWV
+1038 HMMWV TOW
+1039 HMMWV TOW
+1040 Dragon
+1041 Dragon
+1042 TOW
+1043 Mortar
+1044 Recon
+1045 Recon
+1046 Mortar
+1047 Tiny
+1048 Hood
+1049 Abrams
+1050 Sheridan
+1051 Sheridan
+1052 Sheridan
+1053 Dahl
+
+German Militia
+1054 Armed Mob
+1055 Armed Mob
+1056 Armed Mob
+1057 Armed Mob
+1058 ATG-12 (without Kastet)
+1059 BMP-2 (reduced and no missiles)
+
 
 / sdfasdf
 # asdfasdf
@@ -32,29 +81,7 @@ Hood:1
 
 *********************************** Commands
 ******* instance_id     x     y
-[place] 1000            3     0
-[place] 1001            3     1
-[place] 1002            3     2
-[place] 1003            3     3
-[place] 1004            3     4
-[place] 1005            3     5
-[place] 1006            4     0
-[place] 1007            4     1
-[place] 1008            4     2
-[place] 1009            4     3
-[place] 1010            4     4
-[place] 1011            4     5
 
-[place] 1012            17    0
-[place] 1013            18    1
-[place] 1014            19    2
-[place] 1015            20    3
-[place] 1016            21    0
-[place] 1017            22    1
-[place] 1018            35    2
-[place] 1019            36    3
-
-[embark] 1000 1006
 
 
 

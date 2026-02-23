@@ -2,24 +2,30 @@ name:Recon
 maps:C
 
 
-
-
 Soviet
-*** Set up on the D and E hex row of Map B.
-Infantry:4
-BMP-1P:4
-T-64B:2
-BRDM-2:1
-Morozov:1
+1000 Infantry
+1001 Infantry
+1002 Infantry
+1003 Infantry
+1004 BMP-1P
+1005 BMP-1P
+1006 BMP-1P
+1007 BMP-1P
+1008 T-64B
+1009 T-64B
+1010 BRDM-2
+1011 Morozov
 
 
 American
-*** Set up first on or west of the Q hex row of Map C.
-Abrams:1
-M901:1
-M-3 Bradley:2
-Recon:3
-Hood:1
+1012 Abrams
+1013 M901
+1014 M-3 Bradley
+1015 M-3 Bradley
+1016 Recon
+1017 Recon
+1018 Recon
+1019 Hood
 
 / sdfasdf
 # asdfasdf
