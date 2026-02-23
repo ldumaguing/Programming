@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# import py_package.hexagon as hx
+import py_package.combatants as cmbat
 import sys
 import re
 import sqlite3
@@ -22,15 +22,19 @@ with open(sys.argv[1], "r") as file:
             exit()
 
         if re.search("^$", line) or re.search("^[\\*/#;\\-=]+", line):
-            if re.search("^$", line):
-                faction = ""
+            faction = ""
             continue
         else:
             if re.search("^American", line):
-                faction = "American"
+                if re.search(faction, line) != 0:
+                    faction = "American"
+                    continue
             if re.search("^Soviet", line):
-                faction = "Soviet"
+                if re.search(faction, line) != 0:
+                    faction = "Soviet"
+                    continue
+            cmbat.foo(faction, line)
 
-            print(f"{faction}: " + line)
+            # print(f"{faction}: " + line)
 
 conn.close()
