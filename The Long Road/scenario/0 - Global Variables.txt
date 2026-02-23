@@ -11,8 +11,10 @@ INSERT INTO scenario (id, key, txt_val, num1, num2) VALUES
 (0, 'currScenario', '', 0, 0),        -- current scenarioID, 'currScenario', '<player>', save_iteration
 (1, 'scenarioName', 'Recon', 1, 1),   -- scenarioID, 'scenarioName', 'scenario name', row, column
 (1, 'turns',        ''     , 8, 0),
-(2, 'scenarioName', 'Awoke', 1, 2),
-(2, 'turns',        '',      8, 0);
+(12, 'scenarioName', 'Awoke', 1, 2),
+(12, 'turns',        '',      8, 0);
+(2, 'scenarioName', 'Screening Force', 0, 0),
+(2, 'turns', '', 10, 0),
 SELECT * FROM scenario;
 
 
