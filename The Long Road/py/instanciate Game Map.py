@@ -207,8 +207,8 @@ def plate_0x1(map_plate, row, col, conn, r):
         # ***** spine rotated
         stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
-        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, loc_y, spine, flag1 "
-        stmt += "FROM spine_temp"
+        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, "
+        stmt += "loc_y, spine, flag1 FROM spine_temp"
         sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x + " + str(col_shift) + ", "
@@ -219,9 +219,9 @@ def plate_0x1(map_plate, row, col, conn, r):
         sql_exec_stmt(conn, stmt)
         # ***** spine
         stmt = "INSERT INTO spine_instance "
-        stmt += f"(gameName, loc_x, loc_y, spine, flag1) "
-        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, loc_y, spine, flag1 "
-        stmt += "FROM spine WHERE "
+        stmt += "(gameName, loc_x, loc_y, spine, flag1) "
+        stmt += f"SELECT '{missionName}', loc_x + {col_shift}, "
+        stmt += "loc_y, spine, flag1 FROM spine WHERE "
         stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
     seam_0x1(map_plate, 0, col_shift, conn, r)
@@ -319,8 +319,8 @@ def plate_1x0(map_plate, row, col, conn, r):
         # ***** spine rotated
         stmt = "INSERT OR IGNORE INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
-        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, spine, flag1 "
-        stmt += "FROM spine_temp"
+        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, "
+        stmt += "spine, flag1 FROM spine_temp"
         sql_exec_stmt(conn, stmt)
     else:
         stmt += "loc_x, "
@@ -333,8 +333,8 @@ def plate_1x0(map_plate, row, col, conn, r):
         # ***** spine
         stmt = "INSERT INTO spine_instance "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
-        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, spine, flag1 "
-        stmt += "FROM spine WHERE "
+        stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, "
+        stmt += "spine, flag1 FROM spine WHERE "
         stmt += f"mapFile = '{map_plate}'"
         sql_exec_stmt(conn, stmt)
     seam_1x0(map_plate, row_shift, 0, conn, r)

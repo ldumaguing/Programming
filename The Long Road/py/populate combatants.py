@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+# import py_package.hexagon as hx
+import sys
+import re
+import sqlite3
+
+
+# ************************************************************************ main
+if len(sys.argv) < 2:
+    print("append <scenario file>")
+    exit()
+
+faction = ""
+
+conn = sqlite3.connect("db/TLR.db")
+
+with open(sys.argv[1], "r") as file:
+    for line in file:
+        line = line.strip()
+        if re.search("^END", line):
+            conn.close()
+            exit()
+
+        if re.search("^$", line) or re.search("^[\\*/#;\\-=]+", line):
+            if re.search("^$", line):
+                faction = ""
+            continue
+        else:
+            if re.search("^American", line):
+                faction = "American"
+            if re.search("^Soviet", line):
+                faction = "Soviet"
+
+            print(f"{faction}: " + line)
+
+conn.close()
