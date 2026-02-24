@@ -49,4 +49,4 @@ with open(sys.argv[1], "r") as file:
                 if re.search(faction, line) != 0:
                     faction = "Soviet"
                     continue
-            cmbat.place(conn, faction, line)
+            cmbat.place(conn, faction, line, scenario_id)

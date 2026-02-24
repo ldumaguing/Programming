@@ -50,9 +50,9 @@ Soviet
 
 
 American
-1037;Sheridan;1
-1038;Sheridan;1
-1039;Sheridan;1
+1037;M551 Sheridan;1
+1038;M551 Sheridan;1
+1039;M551 Sheridan;1
 1040;Abrams;1
 1041;Abrams;1
 1042;M901;1
@@ -60,16 +60,16 @@ American
 1044;Infantry;1
 1045;Infantry;1
 1046;Dragon;1
-1047;M29 Mortar;1
+1047;Mortar;1
 1048;M-3 Bradley;1
 1049;M-3 Bradley;1
 1050;M-3 Bradley;1
 1051;Recon;1
 1052;Recon;1
 1053;Recon;1
-1054;M-113;1
-1055;M-113;1
-1056;M-113;1
+1054;M113;1
+1055;M113;1
+1056;M113;1
 1057;Hood;1
 1058;Dahl;1
 

@@ -3,16 +3,17 @@ DROP TABLE IF EXISTS instance;
 CREATE TABLE instance (
    id          INTEGER NOT NULL,
    scenario_id INTEGER NOT NULL,    -- "foreign key" from _scenario_ table
-   unit_name   TEXT NOT NULL,
    unit_id     INTEGER DEFAULT 0,
+   unit_name   TEXT NOT NULL,
    img_id      INTEGER DEFAULT 0,   -- reflects the status
    faction     TEXT NOT NULL,
+   element     TEXT,                -- sub faction/group
    loc_x       INTEGER DEFAULT 0,
    loc_y       INTEGER DEFAULT 0,
    loc_z       INTEGER DEFAULT 0,
    status      INTEGER DEFAULT 0,
    curr_MF     INTEGER DEFAULT 0,
-   PRIMARY KEY (id, scenario_id)
+   PRIMARY KEY (id, scenario_id, unit_id)
 );
 
 status

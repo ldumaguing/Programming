@@ -59,9 +59,9 @@ American
 1047;Tiny;1
 1048;Hood;1
 1049;Abrams;1
-1050;Sheridan;1
-1051;Sheridan;1
-1052;Sheridan;1
+1050;M551 Sheridan;1
+1051;M551 Sheridan;1
+1052;M551 Sheridan;1
 1053;Dahl;1
 
 German Militia
