@@ -22,7 +22,8 @@ bit 1: reduced
 bit 2: hovering
 bit 3: werewolf
 bit 4: AFV using wired missile
-bit 5: with Songster (T-64B)
+bit 5: with Songster (T-64B) or use a unit stat/img with a missile icon
+bit 6: missile used up
 
 
 

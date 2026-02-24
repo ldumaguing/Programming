@@ -5,43 +5,43 @@ maps:A_b
 
 
 Soviet
-1000 Infantry
-1001 Infantry
-1002 Infantry
-1003 Infantry
-1004 Infantry
-1005 Infantry
-1006 Infantry
-1007 Infantry
-1008 Infantry
-1009 BMP-1P
-1000 BMP-1P
-1011 BMP-1P
-1012 BMP-1P
-1013 BMP-1P
-1014 BMP-1P
-1015 BMP-1P
-1016 BMP-1P
-1017 BMP-1P
-1018 T-64B w/Songster
-1019 T-64B w/Songster
-1020 T-64B w/Songster
-1021 T-64B
-1022 T-64B
-1023 T-64B
-1024 T-64B
-1025 T-64B
-1026 T-64B
-1027 T-64B
-1028 T-64B
-1029 T-64B
-1030 MT-55A
-1031 MT-55A
-1032 BRDM-2
-1033 BRDM-2
-1034 BRDM-2
-1035 Morozov
-1036 Vorishnov
+1000;Infantry;1
+1001;Infantry;1
+1002;Infantry;1
+1003;Infantry;1
+1004;Infantry;1
+1005;Infantry;1
+1006;Infantry;1
+1007;Infantry;1
+1008;Infantry;1
+1009;BMP-1P;1
+1000;BMP-1P;1
+1011;BMP-1P;1
+1012;BMP-1P;1
+1013;BMP-1P;1
+1014;BMP-1P;1
+1015;BMP-1P;1
+1016;BMP-1P;1
+1017;BMP-1P;1
+1018;T-64B;33
+1019;T-64B;33
+1020;T-64B;33
+1021;T-64B;
+1022;T-64B;1
+1023;T-64B;1
+1024;T-64B;1
+1025;T-64B;1
+1026;T-64B;1
+1027;T-64B;1
+1028;T-64B;1
+1029;T-64B;1
+1030;MT-55A;1
+1031;MT-55A;1
+1032;BRDM-2;1
+1033;BRDM-2;1
+1034;BRDM-2;1
+1035;Morozov;1
+1036;Vorishnov;1
 
 
 
@@ -49,28 +49,29 @@ Soviet
 
 
 American
-1037 Sheridan
-1038 Sheridan
-1039 Sheridan
-1040 Abrams
-1041 Abrams
-1042 M901
-1043 Infantry
-1044 Infantry
-1045 Infantry
-1046 Dragon
-1047 M29 Mortar
-1048 M-3 Bradley
-1049 M-3 Bradley
-1050 M-3 Bradley
-1051 Recon
-1052 Recon
-1053 Recon
-1054 M-113
-1055 M-113
-1056 M-113
-1057 Hood
-1058 Dahl
+1037;Sheridan;1
+1038;Sheridan;1
+1039;Sheridan;1
+1040;Abrams;1
+1041;Abrams;1
+1042;M901;1
+1043;Infantry;1
+1044;Infantry;1
+1045;Infantry;1
+1046;Dragon;1
+1047;M29 Mortar;1
+1048;M-3 Bradley;1
+1049;M-3 Bradley;1
+1050;M-3 Bradley;1
+1051;Recon;1
+1052;Recon;1
+1053;Recon;1
+1054;M-113;1
+1055;M-113;1
+1056;M-113;1
+1057;Hood;1
+1058;Dahl;1
+
 
 
 / sdfasdf

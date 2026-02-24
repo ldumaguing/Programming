@@ -3,29 +3,29 @@ maps:C
 
 
 Soviet
-1000 Infantry
-1001 Infantry
-1002 Infantry
-1003 Infantry
-1004 BMP-1P
-1005 BMP-1P
-1006 BMP-1P
-1007 BMP-1P
-1008 T-64B
-1009 T-64B
-1010 BRDM-2
-1011 Morozov
+1000;Infantry;1
+1001;Infantry;1
+1002;Infantry;1
+1003;Infantry;1
+1004;BMP-1P;1
+1005;BMP-1P;1
+1006;BMP-1P;1
+1007;BMP-1P;1
+1008;T-64B;1
+1009;T-64B;1
+1010;BRDM-2;1
+1011;Morozov;1
 
 
 American
-1012 Abrams
-1013 M901
-1014 M-3 Bradley
-1015 M-3 Bradley
-1016 Recon
-1017 Recon
-1018 Recon
-1019 Hood
+1012;Abrams;1
+1013;M901;1
+1014;M-3 Bradley;1
+1015;M-3 Bradley;1
+1016;Recon;1
+1017;Recon;1
+1018;Recon;1
+1019;Hood;1
 
 / sdfasdf
 # asdfasdf
