@@ -33,8 +33,4 @@ with open(sys.argv[1], "r") as file:
                 if re.search(faction, line) != 0:
                     faction = "Soviet"
                     continue
-            cmbat.foo(faction, line)
-
-            # print(f"{faction}: " + line)
-
-conn.close()
+            cmbat.foo(conn, faction, line)

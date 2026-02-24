@@ -1,7 +1,10 @@
 import re
+# import sqlite3
 
 
-def foo(faction, line):
+def foo(conn, faction, line):
     if re.search("^$", faction):
         return
-    print("yo: " + faction + ":" + line)
+
+    stmt = f"{faction} - {line}"
+    print(stmt)
