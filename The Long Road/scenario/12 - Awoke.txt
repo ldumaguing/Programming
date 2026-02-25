@@ -1,7 +1,7 @@
 name:Awoke
 id:12
 maps:b,c
-
+turns:8
 
 Soviet
 1000;BRDM-2

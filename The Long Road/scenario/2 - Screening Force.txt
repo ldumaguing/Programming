@@ -1,7 +1,7 @@
 name:Screening Force
 id:2
 maps:A_b
-
+turns:10
 
 
 

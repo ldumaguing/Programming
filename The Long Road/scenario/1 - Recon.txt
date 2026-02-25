@@ -1,7 +1,7 @@
 name:Recon
 id:1
 maps:C
-
+turns:8
 
 Soviet
 1000;Infantry

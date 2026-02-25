@@ -433,6 +433,9 @@ if len(sys.argv) < 2:
 
 conn = sqlite3.connect("db/TLR.db")
 
+scenario_id = 0
+missionName = ""
+
 with open(sys.argv[1], "r") as file:
     for line in file:
         line = line.strip()
@@ -454,8 +457,26 @@ with open(sys.argv[1], "r") as file:
                 stmt = "DELETE FROM spine_instance WHERE gameName = "
                 stmt += f"'{missionName}'"
                 sql_exec_stmt(conn, stmt)
-            if re.search("maps", line):
+            elif re.search("^maps", line):
+                X = line.split(":")
+                stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
+                stmt += f"{scenario_id}, 'maps', '{X[1]}')"
+                sql_exec_stmt(conn, stmt)
                 instanciate_terrain(line, conn)
+            elif re.search("^id", line):
+                X = line.split(":")
+                scenario_id = int(X[1])
+                stmt = f"DELETE FROM scenario WHERE id = {scenario_id}"
+                sql_exec_stmt(conn, stmt)
+                stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
+                stmt += f"{scenario_id}, 'scenarioName', '{missionName}')"
+                sql_exec_stmt(conn, stmt)
+            elif re.search("^turns", line):
+                print("****************")
+                X = line.split(":")
+                stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
+                stmt += f"{scenario_id}, 'turns', '{X[1]}')"
+                sql_exec_stmt(conn, stmt)
                 conn.close()
                 exit()
             # print(line)
