@@ -15,9 +15,7 @@ def place(conn, faction, line, scenario_id):
 
     X = line.split(";")
 
-    # element = ""
     infos = get_unit_infos(conn, X[1], faction)
-    # print(infos)
 
     stmt = "INSERT INTO instance (id, scenario_id, unit_id, unit_name, "
     stmt += "img_id, faction) VALUES ("
@@ -32,10 +30,10 @@ def get_unit_infos(conn, unit_name, faction):
     stmt = ""
     if re.search("Infantry", unit_name):
         stmt = get_stmt_infantry_faction_id(conn, faction)
-        print(stmt)
     else:
         stmt = f"SELECT id, front FROM unit WHERE name = '{unit_name}'"
 
+    print(stmt)
     cursor = conn.cursor()
     cursor.execute(stmt)
     conn.commit()

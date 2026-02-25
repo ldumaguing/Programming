@@ -4,73 +4,73 @@ maps:b,c
 
 
 Soviet
-1000;BRDM-1;1
-1001;T-80;1
-1002;T-80;1
-1003;T-80;1
-1004;T-80;1
-1005;T-80;1
-1006;T-80;1
-1007;T-80;1
-1008;T-80;1
-1009;T-80;1
-1010;BTR-70;1
-1011;BTR-70;1
-1012;BTR-70;1
-1013;URAL Truck;1
-1014;URAL Truck;1
-1015;URAL Truck;1
-1016;Infantry;1
-1017;Infantry;1
-1018;Infantry;1
-1019;Infantry;1
-1020;Mortar;1
-1021;Konkurs ATGM;1
-1022;MT-55A;1
-1023;MT-55A;1
-1024;Petrova;1
-1025;Vorishnov;1
-1026;Dramonovitch;1
-1027;Morozov;1
+1000;BRDM-2
+1001;T-80
+1002;T-80
+1003;T-80
+1004;T-80
+1005;T-80
+1006;T-80
+1007;T-80
+1008;T-80
+1009;T-80
+1010;BTR-70
+1011;BTR-70
+1012;BTR-70
+1013;URAL Truck
+1014;URAL Truck
+1015;URAL Truck
+1016;Infantry
+1017;Infantry
+1018;Infantry
+1019;Infantry
+1020;Mortar
+1021;Konkurs ATGM
+1022;MT-55A
+1023;MT-55A
+1024;Petrova
+1025;Vorishnov
+1026;Dramonovitch
+1027;Morozov
 
 
 
 
 American
-1028;Infantry;1
-1029;Infantry;1
-1030;Infantry;1
-1031;Infantry;1
-1032;Infantry;1
-1033;Infantry;1
-1034;Infantry;1
-1035;Infantry;1
-1036;HMMWV;1
-1037;HMMWV;1
-1038;HMMWV TOW;1
-1039;HMMWV TOW;1
-1040;Dragon;1
-1041;Dragon;1
-1042;TOW;1
-1043;Mortar;1
-1044;Recon;1
-1045;Recon;1
-1046;Mortar;1
-1047;Tiny;1
-1048;Hood;1
-1049;Abrams;1
-1050;M551 Sheridan;1
-1051;M551 Sheridan;1
-1052;M551 Sheridan;1
-1053;Dahl;1
+1028;Infantry
+1029;Infantry
+1030;Infantry
+1031;Infantry
+1032;Infantry
+1033;Infantry
+1034;Infantry
+1035;Infantry
+1036;HMMWV
+1037;HMMWV
+1038;HMMWV TOW
+1039;HMMWV TOW
+1040;Dragon
+1041;Dragon
+1042;BGM-71 TOW
+1043;Mortar
+1044;Recon
+1045;Recon
+1046;Mortar
+1047;Tiny
+1048;Hood
+1049;Abrams
+1050;M551 Sheridan
+1051;M551 Sheridan
+1052;M551 Sheridan
+1053;Dahl
 
 German Militia
-1054;Armed Mob;1
-1055;Armed Mob;1
-1056;Armed Mob;1
-1057;Armed Mob;1
-1058;T-12 ATG;1;ATG-12 (without Kastet)
-1059;BMP-2;66;reduced and no missiles (1<<1)+(1<<6)
+1054;Armed Mob
+1055;Armed Mob
+1056;Armed Mob
+1057;Armed Mob
+1058;T-12 ATG;ATG-12 (without Kastet)
+1059;BMP-2;reduced and no missiles (1<<1)+(1<<6)
 
 
 

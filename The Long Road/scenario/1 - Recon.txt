@@ -4,29 +4,29 @@ maps:C
 
 
 Soviet
-1000;Infantry;1
-1001;Infantry;1
-1002;Infantry;1
-1003;Infantry;1
-1004;BMP-1P;1
-1005;BMP-1P;1
-1006;BMP-1P;1
-1007;BMP-1P;1
-1008;T-64B;1
-1009;T-64B;1
-1010;BRDM-2;1
-1011;Morozov;1
+1000;Infantry
+1001;Infantry
+1002;Infantry
+1003;Infantry
+1004;BMP-1P
+1005;BMP-1P
+1006;BMP-1P
+1007;BMP-1P
+1008;T-64B
+1009;T-64B
+1010;BRDM-2
+1011;Morozov
 
 
 American
-1012;Abrams;1
-1013;M901;1
-1014;M-3 Bradley;1
-1015;M-3 Bradley;1
-1016;Recon;1
-1017;Recon;1
-1018;Recon;1
-1019;Hood;1
+1012;Abrams
+1013;M901
+1014;M-3 Bradley
+1015;M-3 Bradley
+1016;Recon
+1017;Recon
+1018;Recon
+1019;Hood
 
 / sdfasdf
 # asdfasdf
@@ -61,17 +61,61 @@ American
 
 [embark] 1000 1006
 
+[visible] 1000
+[visible] 1001
+[visible] 1002
+[visible] 1003
+[visible] 1004
+[visible] 1005
+[visible] 1006
+[visible] 1007
+[visible] 1008
+[visible] 1009
+[visible] 1010
+[visible] 1011
 
+[visible] 1012
+[visible] 1013
+[visible] 1014
+[visible] 1015
+[visible] 1016
+[visible] 1017
+[visible] 1018
+[visible] 1019
+
+[invisible] 1018
+
+[reset_MF] 1000
+[reset_MF] 1001
+[reset_MF] 1002
+[reset_MF] 1003
+[reset_MF] 1004
+[reset_MF] 1005
+[reset_MF] 1006
+[reset_MF] 1007
+[reset_MF] 1008
+[reset_MF] 1009
+[reset_MF] 1010
+[reset_MF] 1011
+
+[reset_MF] 1012
+[reset_MF] 1013
+[reset_MF] 1014
+[reset_MF] 1015
+[reset_MF] 1016
+[reset_MF] 1017
+[reset_MF] 1018
+[reset_MF] 1019
 
 END *************************************************************************************
 maps:A,B,C,D      # maps are appended based on the sequence
 
-maps:A,B,_,C,D    # underscore indicates that the maps are stacked
+maps:A,B_C,D    # underscore indicates that the maps are stacked
 
-maps:A,B,_,c,D   # lowercase indicates that the map is rotated 180 degress
+maps:A,B_c,D   # lowercase indicates that the map is rotated 180 degress
 
-maps:A,B,_,.,C    # '.' indicates an empty map data
-maps:.,A,_,B,C
+maps:A,B_.,C    # '.' indicates an empty map data
+maps:.,A_B,C
 
 
 

@@ -22,7 +22,6 @@ faction = ""
 
 conn = sqlite3.connect("db/TLR.db")
 
-
 with open(sys.argv[1], "r") as file:
     for line in file:
         line = line.strip()
@@ -39,3 +38,10 @@ with open(sys.argv[1], "r") as file:
         else:
             if re.search("^\\[place", line):
                 cmd.place(conn, line, scenario_id)
+            elif re.search("^\\[visible", line):
+                cmd.visible(conn, line, scenario_id)
+            elif re.search("^\\[invisible", line):
+                cmd.invisible(conn, line, scenario_id)
+            elif re.search("^\\[reset_MF", line):
+                cmd.reset_MF(conn, line, scenario_id)
+
