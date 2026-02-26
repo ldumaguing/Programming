@@ -1,11 +1,31 @@
 #!/usr/bin/env python3
-import py_package.SQL as sql
+import py_package.SQL as SQL
 import sys
 import re
 import sqlite3
 
 
-scenario_id = 0
+SCENARIO_ID = 0
+html_0 = """
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>The Long Road</title>
+   <style type="text/css">
+      body {
+         margin: 0;
+      }
+   </style>
+</head>
+
+<body onload="pageLoad();">
+   <div style="display:none;"> """
+html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="map0">
+      <img src="TLR/TRL_Map_B_Final.jpg" id="map1">
+      <img src="TLR/TRL_Map_C_Final.jpg" id="map2">
+      <img src="TLR/TLR_Map_D_Final.jpg" id="map3">"""
 
 
 def get_scenario_id(line):
@@ -18,21 +38,28 @@ if len(sys.argv) < 2:
     print("append <scenario file>")
     exit()
 
-conn = sqlite3.connect("db/TLR.db")
+CONN = sqlite3.connect("db/TLR.db")
 
 with open(sys.argv[1], "r") as file:
     for line in file:
         line = line.strip()
         if re.search("^END", line):
-            conn.close()
+            CONN.close()
             exit()
         if re.search("^id", line):
-            scenario_id = get_scenario_id(line)
+            SCENARIO_ID = get_scenario_id(line)
             break
 
-print(f"yo: {scenario_id}")
 fields = "id, scenario_id, faction"
 table = "instance"
 where = "id = 1014"
-rs = sql.get_row(conn, scenario_id, fields, table, where)
-print(rs[2])
+row = SQL.get_row(CONN, SCENARIO_ID, fields, table, where)
+print(row[2])
+print(html_0)
+print(html_maps)
+imgs = SQL.get_imgs(CONN, SCENARIO_ID)
+for img in imgs:
+    X = img.split(":")
+    line = f"      <img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
+    print(line)
+print("   </div>")
