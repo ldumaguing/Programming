@@ -11,26 +11,26 @@ html_0 = """<!DOCTYPE html>
 <html>
 
 <head>
-   <meta charset="UTF-8">
-   <title>The Long Road</title>
-   <style type="text/css">
-      body {
-         margin: 0;
-      }
-   </style>
+\t<meta charset="UTF-8">
+\t<title>The Long Road</title>
+\t<style type="text/css">
+\t\tbody {
+\t\t\tmargin: 0;
+\t\t}
+\t</style>
 </head>
 
 <body onload="pageLoad();">
-   <div style="display:none;"> """
-html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
-      <img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
-      <img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
-      <img src="TLR/TLR_Map_D_Final.jpg" id="mapD">"""
+\t<div style="display:none;"> """
+html_maps = """\t\t<img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
+\t\t<img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
+\t\t<img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
+\t\t<img src="TLR/TLR_Map_D_Final.jpg" id="mapD">"""
 html_script = """
-   <script type="text/javascript">
-      function pageLoad() {
-         const canvas = document.getElementById("myCanvas");
-         const ctx = canvas.getContext("2d");"""
+\t<script type="text/javascript">
+\t\tfunction pageLoad() {
+\t\t\tconst canvas = document.getElementById("myCanvas");
+\t\t\tconst ctx = canvas.getContext("2d");"""
 
 
 def get_scenario_id(line):
@@ -65,9 +65,9 @@ print(html_maps)
 imgs = SQL.get_imgs(CONN, SCENARIO_ID)
 for img in imgs:
     X = img.split(":")
-    line = f"      <img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
+    line = f"\t\t<img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
     print(line)
-print("   </div>")
+print("\t</div>")
 print(html_script)
 
 fields = "num1, num2"
@@ -100,7 +100,5 @@ for y in range(rowNum):
         colNum = len(cols)
     for x in range(colNum):
         letter = cols[x]
-        HTML.print_map(f"{letter}", x, y, plateMap_dim)
+        HTML.print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
 HTML.print_html_end(rowNum, colNum, plateMap_dim)
-# print(rowNum)
-# print(colNum)
