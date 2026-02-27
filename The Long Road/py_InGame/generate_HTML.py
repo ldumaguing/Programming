@@ -63,3 +63,33 @@ for img in imgs:
     line = f"      <img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
     print(line)
 print("   </div>")
+
+fields = "num1, num2"
+table = "scenario"
+where = f"key = 'plateMap_dim' AND id = 0"
+plateMap_dim = SQL.get_row(CONN, 0, fields, table, where)
+
+where = f"key = 'upperLeft' AND id = 0"
+upperLeft = SQL.get_row(CONN, 0, fields, table, where)
+
+where = f"key = 'lowerRight' AND id = 0"
+lowerRight = SQL.get_row(CONN, 0, fields, table, where)
+
+where = f"key = 'hexCount' AND id = 0"
+hexCount = SQL.get_row(CONN, 0, fields, table, where)
+
+fields = "txt_val"
+where = f"key = 'maps' AND id = {SCENARIO_ID}"
+maps = SQL.get_row(CONN, 0, fields, table, where)[0]
+rows = maps.split("_")
+rowNum = len(rows)
+colNum = 0
+for y in range(rowNum):
+    cols = rows[y].split(",")
+    if colNum < len(cols):
+        colNum = len(cols)
+    for x in range(colNum):
+        letter = cols[x]
+        print(letter)
+print(rowNum)
+print(colNum)

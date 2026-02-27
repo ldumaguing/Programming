@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>The Long Road</title>
+   <style type="text/css">
+      body {
+         margin: 0;
+      }
+   </style>
+</head>
+
+<body onload="pageLoad();">
+   <div style="display:none;">
+      <img src="TLR/TRL_Map_A_Final.jpg" id="map0">
+      <img src="TLR/TRL_Map_B_Final.jpg" id="map1">
+      <img src="TLR/TRL_Map_C_Final.jpg" id="map2">
+      <img src="TLR/TLR_Map_D_Final.jpg" id="map3">
+      <img src="TLR/TLR_SOV_infantry_0321.png" id="img1235">
+      <img src="TLR/TLR_SOV_infantry_b_0321.png" id="img1236">
+      <img src="TLR/blank A.png" id="img0">
+      <img src="TLR/TLR_SOV_bmp-1p_0321.png" id="img1220">
+      <img src="TLR/TLR_SOV_bmp-1p_b_0321.png" id="img1221">
+      <img src="TLR/TLR_SOV_t-64b_0321.png" id="img1260">
+      <img src="TLR/TLR_SOV_t-64b_2_0321.png" id="img1261">
+      <img src="TLR/TLR_SOV_t-64b_b_0321.png" id="img1263">
+      <img src="TLR/TLR_SOV_t-64b_2_b_0321.png" id="img1262">
+      <img src="TLR/TLR_SOV_brdm-2_0321.png" id="img1224">
+      <img src="TLR/TLR_SOV_brdm-2_b_0321.png" id="img1225">
+      <img src="TLR/TLR_SOV_morozov_0321.png" id="img1246">
+      <img src="TLR/blank E.png" id="img4">
+      <img src="TLR/TLR_US_abrams_0321.png" id="img1315">
+      <img src="TLR/TLR_US_abrams_b_0321.png" id="img1316">
+      <img src="TLR/TLR_US_m901_0321.png" id="img1355">
+      <img src="TLR/TLR_US_m901_b_0321.png" id="img1356">
+      <img src="TLR/TLR_US_m-3 bradley_0321.png" id="img1349">
+      <img src="TLR/TLR_US_m-3 bradley_b_0321.png" id="img1350">
+      <img src="TLR/TLR_US_recon_f_0621.png" id="img1358">
+      <img src="TLR/TLR_US_recon_b_0621.png" id="img1357">
+      <img src="TLR/TLR_US_hood_0321.png" id="img1335">
+      <img src="TLR/TLR_US_hood_b_0321.png" id="img1336">
+   </div>
+
+   <canvas id="myCanvas" width=7258 height=2801>
+      Sorry, your browser does not support canvas.
+   </canvas>
+
+   <script type="text/javascript">
+      function pageLoad() {
+         const canvas = document.getElementById("myCanvas");
+         const ctx = canvas.getContext("2d");
+         ctx.save();
+         ctx.translate(3629, 2801);
+         ctx.rotate(180*Math.PI/180);
+         ctx.drawImage(map1, 0, 0);
+         ctx.restore();
+         ctx.save();
+         ctx.translate(7258, 2801);
+         ctx.rotate(180*Math.PI/180);
+         ctx.drawImage(map2, 0, 0);
+         ctx.restore();
+         ctx.drawImage(img1235, 524.64705882353, 39);
+         ctx.drawImage(img1235, 524.64705882353, 272.363636363636);
+         ctx.drawImage(img1235, 524.64705882353, 505.727272727272);
+         ctx.drawImage(img1235, 524.64705882353, 739.090909090908);
+         ctx.drawImage(img1220, 524.64705882353, 972.454545454544);
+         ctx.drawImage(img1220, 524.64705882353, 1205.81818181818);
+         ctx.drawImage(img1220, 726.470588235295, 155.681818181818);
+         ctx.drawImage(img1220, 726.470588235295, 389.045454545454);
+         ctx.drawImage(img1260, 726.470588235295, 622.40909090909);
+         ctx.drawImage(img1260, 726.470588235295, 855.772727272726);
+         ctx.drawImage(img1224, 726.470588235295, 1089.13636363636);
+         ctx.drawImage(img1246, 726.470588235295, 1322.5);
+         ctx.drawImage(img1315, 3350.17647058824, 39);
+         ctx.drawImage(img1355, 3552.00000000001, 389.045454545454);
+         ctx.drawImage(img1349, 3753.82352941177, 505.727272727272);
+         ctx.drawImage(img1349, 3955.64705882354, 855.772727272726);
+         ctx.drawImage(img1358, 4157.4705882353, 39);
+         ctx.drawImage(img1358, 4359.29411764706, 389.045454545454);
+         ctx.drawImage(img1358, 6983.00000000001, 505.727272727272);
+         ctx.drawImage(img1335, 7184.82352941177, 855.772727272726);
+      }
+   </script>
+</body>
+</html>
