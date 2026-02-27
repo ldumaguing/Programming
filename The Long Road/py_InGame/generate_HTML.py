@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import py_package.SQL as SQL
+import py_package.HTML as HTML
 import sys
 import re
 import sqlite3
 
 
 SCENARIO_ID = 0
-html_0 = """
-<!DOCTYPE html>
+html_0 = """<!DOCTYPE html>
 <html>
 
 <head>
@@ -22,7 +22,7 @@ html_0 = """
 
 <body onload="pageLoad();">
    <div style="display:none;"> """
-html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="mapA>
+html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
       <img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
       <img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
       <img src="TLR/TLR_Map_D_Final.jpg" id="mapD">"""
@@ -31,6 +31,7 @@ html_script = """
       function pageLoad() {
          const canvas = document.getElementById("myCanvas");
          const ctx = canvas.getContext("2d");"""
+
 
 def get_scenario_id(line):
     X = line.split(":")
@@ -58,7 +59,7 @@ fields = "id, scenario_id, faction"
 table = "instance"
 where = "id = 1014"
 row = SQL.get_row(CONN, SCENARIO_ID, fields, table, where)
-print(row[2])
+# print(row[2])
 print(html_0)
 print(html_maps)
 imgs = SQL.get_imgs(CONN, SCENARIO_ID)
@@ -71,6 +72,7 @@ print(html_script)
 
 fields = "num1, num2"
 table = "scenario"
+
 where = f"key = 'plateMap_dim' AND id = 0"
 plateMap_dim = SQL.get_row(CONN, 0, fields, table, where)
 
@@ -82,6 +84,9 @@ lowerRight = SQL.get_row(CONN, 0, fields, table, where)
 
 where = f"key = 'hexCount' AND id = 0"
 hexCount = SQL.get_row(CONN, 0, fields, table, where)
+
+hexW = (lowerRight[0] - upperLeft[0]) / (hexCount[0] - 1)
+hexH = (lowerRight[1] - upperLeft[1]) / (hexCount[1] - 1)
 
 fields = "txt_val"
 where = f"key = 'maps' AND id = {SCENARIO_ID}"
@@ -95,6 +100,7 @@ for y in range(rowNum):
         colNum = len(cols)
     for x in range(colNum):
         letter = cols[x]
-        print("map" + letter)
-print(rowNum)
-print(colNum)
+        HTML.print_map(f"{letter}", x, y, plateMap_dim)
+HTML.print_html_end(rowNum, colNum, plateMap_dim)
+# print(rowNum)
+# print(colNum)
