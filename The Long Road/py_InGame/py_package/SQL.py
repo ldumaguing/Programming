@@ -26,7 +26,6 @@ def get_imgs(conn, scenario_id):
     # get imgs used in the game
     stuffs = []
     stmt = f"SELECT unit_id FROM instance WHERE scenario_id = {scenario_id}"
-    # print(stmt)
     cursor = conn.cursor()
     cursor.execute(stmt)
     rows = cursor.fetchall()
@@ -56,10 +55,8 @@ def get_imgs(conn, scenario_id):
 
         cursor1.close()
 
-    # print(stuffs)
     uniqs = list(set(stuffs))
-    # print("***************************************")
-    # print(uniqs)
+
     cursor.close()
 
     return uniqs

@@ -22,11 +22,15 @@ html_0 = """
 
 <body onload="pageLoad();">
    <div style="display:none;"> """
-html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="map0">
-      <img src="TLR/TRL_Map_B_Final.jpg" id="map1">
-      <img src="TLR/TRL_Map_C_Final.jpg" id="map2">
-      <img src="TLR/TLR_Map_D_Final.jpg" id="map3">"""
-
+html_maps = """      <img src="TLR/TRL_Map_A_Final.jpg" id="mapA>
+      <img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
+      <img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
+      <img src="TLR/TLR_Map_D_Final.jpg" id="mapD">"""
+html_script = """
+   <script type="text/javascript">
+      function pageLoad() {
+         const canvas = document.getElementById("myCanvas");
+         const ctx = canvas.getContext("2d");"""
 
 def get_scenario_id(line):
     X = line.split(":")
@@ -63,6 +67,7 @@ for img in imgs:
     line = f"      <img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
     print(line)
 print("   </div>")
+print(html_script)
 
 fields = "num1, num2"
 table = "scenario"
@@ -90,6 +95,6 @@ for y in range(rowNum):
         colNum = len(cols)
     for x in range(colNum):
         letter = cols[x]
-        print(letter)
+        print("map" + letter)
 print(rowNum)
 print(colNum)
