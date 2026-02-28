@@ -73,16 +73,16 @@ print(html_script)
 fields = "num1, num2"
 table = "scenario"
 
-where = f"key = 'plateMap_dim' AND id = 0"
+where = "key = 'plateMap_dim' AND id = 0"
 plateMap_dim = SQL.get_row(CONN, 0, fields, table, where)
 
-where = f"key = 'upperLeft' AND id = 0"
+where = "key = 'upperLeft' AND id = 0"
 upperLeft = SQL.get_row(CONN, 0, fields, table, where)
 
-where = f"key = 'lowerRight' AND id = 0"
+where = "key = 'lowerRight' AND id = 0"
 lowerRight = SQL.get_row(CONN, 0, fields, table, where)
 
-where = f"key = 'hexCount' AND id = 0"
+where = "key = 'hexCount' AND id = 0"
 hexCount = SQL.get_row(CONN, 0, fields, table, where)
 
 hexW = (lowerRight[0] - upperLeft[0]) / (hexCount[0] - 1)
