@@ -1,6 +1,16 @@
 import re
 
 
+def get_combatants(conn, stmt):
+    stuffs = []
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    rows = cursor.fetchall()
+    for row in rows:
+        stuffs.append((row[0], row[1], row[2]))
+    return stuffs
+
+
 def get_row(conn, scenario_id, fields, table, where):
     stmt = f"SELECT {fields} FROM {table} WHERE scenario_id = {scenario_id}"
     if scenario_id <= 0:

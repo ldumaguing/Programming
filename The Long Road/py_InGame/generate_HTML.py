@@ -65,7 +65,7 @@ print(html_maps)
 imgs = SQL.get_imgs(CONN, SCENARIO_ID)
 for img in imgs:
     X = img.split(":")
-    line = f"\t\t<img src=\"TLR/{X[0]}\" id=\"img{X[1]}\">"
+    line = f'\t\t<img src="TLR/{X[0]}" id="img{X[1]}">'
     print(line)
 print("\t</div>")
 print(html_script)
@@ -101,4 +101,7 @@ for y in range(rowNum):
     for x in range(colNum):
         letter = cols[x]
         HTML.print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
+
+HTML.place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH)
+
 HTML.print_html_end(rowNum, colNum, plateMap_dim)

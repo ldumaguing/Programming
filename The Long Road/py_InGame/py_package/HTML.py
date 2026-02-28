@@ -1,4 +1,20 @@
 import re
+import py_package.SQL as SQL
+
+def place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
+    stmt = "SELECT img_id, loc_x, loc_y FROM instance WHERE scenario_id = "
+    stmt += f"{scenario_id}"
+    combatants = SQL.get_combatants(conn, stmt)
+    half = hexH / 2.0
+    for i in combatants:
+        img = f"img{i[0]}"
+        x = i[1] - 1
+        y = i[2]
+        x = (x * hexW) + upperLeft[0]
+        y = (y * hexH) + upperLeft[1]
+        if i[1]%2 == 0:
+            y += half
+        print(f"\t\t\tctx.drawImage({img}, {x}, {y})")
 
 
 def print_map(plate, x, y, plateMap_dim, rowNum, colNum):
