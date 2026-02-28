@@ -1,13 +1,28 @@
 import re
 
 
+def is_visible(conn, scenario_id, iid):
+    stmt = "SELECT * FROM instance WHERE "
+    stmt += f"scenario_id = {scenario_id} AND "
+    stmt += f"id = {iid} AND "
+    stmt += "(status & 1)"
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    rs = cursor.fetchone()
+    if rs is None:
+        cursor.close()
+        return 0
+    cursor.close()
+    return 1
+
+
 def get_combatants(conn, stmt):
     stuffs = []
     cursor = conn.cursor()
     cursor.execute(stmt)
     rows = cursor.fetchall()
     for row in rows:
-        stuffs.append((row[0], row[1], row[2]))
+        stuffs.append((row[0], row[1], row[2], row[3]))
     return stuffs
 
 

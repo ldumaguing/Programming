@@ -44,4 +44,3 @@ with open(sys.argv[1], "r") as file:
                 cmd.invisible(conn, line, scenario_id)
             elif re.search("^\\[reset_MF", line):
                 cmd.reset_MF(conn, line, scenario_id)
-
