@@ -105,3 +105,5 @@ for y in range(rowNum):
 HTML.place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH)
 
 HTML.print_html_end(rowNum, colNum, plateMap_dim)
+
+CONN.close()

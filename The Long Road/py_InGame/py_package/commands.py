@@ -1,6 +1,14 @@
 import re
 
 
+def get_combatants_in_hex(conn, scenario_id, hex_loc):
+    stmt = "SELECT count(*) FROM instance WHERE "
+    stmt += f"loc_x = {hex_loc[0]} AND loc_y = {hex_loc[1]} "
+    stmt += f"AND scenario_id = {scenario_id}"
+    print(stmt)
+    return 0
+
+
 def place(conn, line, scenario_id):
     X = re.sub("\\ +", ";", line)
     X = X.split(";")
