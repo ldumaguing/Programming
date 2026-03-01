@@ -1,6 +1,20 @@
 import re
 
 
+def is_same_place(conn, scenario_id, unit):
+    stmt = "SELECT count(*) FROM instance WHERE "
+    stmt += f"id = {unit[0]} "
+    stmt += f"AND loc_x = {unit[1]} "
+    stmt += f"AND loc_y = {unit[2]} "
+    stmt += f"AND scenario_id = {scenario_id}"
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+    rs = cursor.fetchone()
+    cursor.close()
+    return rs[0]
+
+
 def is_visible(conn, scenario_id, iid):
     stmt = "SELECT * FROM instance WHERE "
     stmt += f"scenario_id = {scenario_id} AND "
@@ -14,6 +28,16 @@ def is_visible(conn, scenario_id, iid):
         return 0
     cursor.close()
     return 1
+
+
+def get_2columns(conn, stmt):
+    stuffs = []
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    rows = cursor.fetchall()
+    for row in rows:
+        stuffs.append((row[0], row[1]))
+    return stuffs
 
 
 def get_combatants(conn, stmt):
