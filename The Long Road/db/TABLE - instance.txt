@@ -11,6 +11,7 @@ CREATE TABLE instance (
    loc_x       INTEGER DEFAULT 0,
    loc_y       INTEGER DEFAULT 0,
    loc_z       INTEGER DEFAULT 0,
+   stack_lvl   INTEGER DEFAULT 0,
    status      INTEGER DEFAULT 0,
    curr_MF     INTEGER DEFAULT 0,
    PRIMARY KEY (id, scenario_id, unit_id)

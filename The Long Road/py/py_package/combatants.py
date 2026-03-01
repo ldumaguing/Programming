@@ -52,11 +52,7 @@ def get_stmt_infantry_faction_id(conn, faction):
         bit = "(flag1 & (1<<0))"
     else:
         bit = "(flag1 & (1<<1))"
-    stmt = f"SELECT id, front FROM unit WHERE name = 'Infantry' AND "
+    stmt = "SELECT id, front FROM unit WHERE name = 'Infantry' AND "
     stmt += f"{bit}"
 
     return stmt
-
-
-
-
