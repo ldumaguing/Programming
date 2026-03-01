@@ -40,12 +40,14 @@ def reset_MF(conn, line, scenario_id):
     X = get_one_val(conn, stmt)
     stmt = f"SELECT mf_val FROM img WHERE id = {X}"
     X = get_one_val(conn, stmt)
-    stmt = f"UPDATE instance SET curr_MF = {X} WHERE id = {instanceID}"
+    stmt = f"UPDATE instance SET curr_MF = {X} WHERE id = {instanceID} AND "
+    stmt += f"scenario_id = {scenario_id}"
     sql_exec_stmt(conn, stmt)
 
 
 # *****************************************************************************
 def get_one_val(conn, stmt):
+    print(stmt)
     cursor = conn.cursor()
     cursor.execute(stmt)
     X = cursor.fetchone()
