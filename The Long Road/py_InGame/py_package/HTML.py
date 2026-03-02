@@ -20,6 +20,7 @@ def place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
             if i[1] % 2 == 0:
                 y += half
             print(f"\t\t\tctx.drawImage({img}, {x}, {y})")
+            print(f"\t\t\tctx.drawImage(bev, {x}, {y})")
 
 
 def print_map(plate, x, y, plateMap_dim, rowNum, colNum):

@@ -25,7 +25,8 @@ html_0 = """<!DOCTYPE html>
 html_maps = """\t\t<img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
 \t\t<img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
 \t\t<img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
-\t\t<img src="TLR/TLR_Map_D_Final.jpg" id="mapD">"""
+\t\t<img src="TLR/TLR_Map_D_Final.jpg" id="mapD">
+\t\t<img src="TLR/LAR_Bevel.png" id="bev">"""
 html_script = """
 \t<script type="text/javascript">
 \t\tfunction pageLoad() {
