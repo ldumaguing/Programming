@@ -30,6 +30,16 @@ def is_visible(conn, scenario_id, iid):
     return 1
 
 
+def get_3columns(conn, stmt):
+    stuffs = []
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    rows = cursor.fetchall()
+    for row in rows:
+        stuffs.append((row[0], row[1], row[2]))
+    return stuffs
+
+
 def get_2columns(conn, stmt):
     stuffs = []
     cursor = conn.cursor()
