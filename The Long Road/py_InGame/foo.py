@@ -16,6 +16,6 @@ cmd.place(CONN, scenario_id, (unit_id, loc_x, loc_y))
 cmd.place(CONN, scenario_id, (unit_id + 1, loc_x, loc_y))
 cmd.place(CONN, scenario_id, (unit_id + 2, loc_x, loc_y))
 cmd.place(CONN, scenario_id, (unit_id + 3, loc_x, loc_y))
-cmd.remove_combatant(CONN, scenario_id, (unit_id + 1))
+# cmd.remove_combatant(CONN, scenario_id, (unit_id + 1))
 
 CONN.close()

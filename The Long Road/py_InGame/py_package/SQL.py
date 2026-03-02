@@ -56,7 +56,7 @@ def get_combatants(conn, stmt):
     cursor.execute(stmt)
     rows = cursor.fetchall()
     for row in rows:
-        stuffs.append((row[0], row[1], row[2], row[3]))
+        stuffs.append((row[0], row[1], row[2], row[3], row[4]))
     return stuffs
 
 

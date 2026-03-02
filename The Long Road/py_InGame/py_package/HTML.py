@@ -3,7 +3,7 @@ import py_package.SQL as SQL
 
 
 def place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
-    stmt = "SELECT img_id, loc_x, loc_y, id "
+    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl "
     stmt += "FROM instance WHERE scenario_id = "
     stmt += f"{scenario_id}"
     combatants = SQL.get_combatants(conn, stmt)
@@ -14,7 +14,9 @@ def place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
             x = i[1] - 1
             y = i[2]
             x = (x * hexW) + upperLeft[0]
+            x += (i[4] * 10)
             y = (y * hexH) + upperLeft[1]
+            y -= (i[4] * 10)
             if i[1] % 2 == 0:
                 y += half
             print(f"\t\t\tctx.drawImage({img}, {x}, {y})")
