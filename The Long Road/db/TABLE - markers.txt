@@ -1,0 +1,11 @@
+************************************************************************* TABLE - markers
+DROP TABLE IF EXISTS markers;
+CREATE TABLE markers (
+   img      TEXT,
+   rotation INTEGER DEFAULT 0,
+   loc_x    INTEGER DEFAULT 0,
+   loc_y    INTEGER DEFAULT 0,
+   flag1    INTEGER DEFAULT 0
+);
+
+
