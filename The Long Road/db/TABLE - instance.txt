@@ -31,7 +31,8 @@ bit  7: fired
 bit  8: moved
 bit  9: disrupted
 bit 10: has infintry/recon
-
+bit 11: has hero 1
+bit 12: has hero 2
 
 .mode csv
 .output instance.csv

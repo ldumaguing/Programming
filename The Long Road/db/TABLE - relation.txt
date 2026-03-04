@@ -1,10 +1,11 @@
 ************************************************************************ TABLE - relation
 DROP TABLE IF EXISTS relation;
 CREATE TABLE relation (
-   Aye      INTEGER,     -- instance id
-   rType    INTEGER,     -- relationship type
-   Bee      INTEGER,     -- instance id
-   PRIMARY KEY (Aye, rType, Bee)
+   Aye         INTEGER,     -- instance id
+   rType       INTEGER,     -- relationship type
+   Bee         INTEGER,     -- instance id
+   scenario_id INTEGER,
+   PRIMARY KEY (Aye, rType, Bee, scenario_id)
 );
 
 rType

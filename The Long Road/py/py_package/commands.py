@@ -52,6 +52,7 @@ def embark(conn, line, scenario_id):
     if unit_type == 0:
         return
     if is_occupied(conn, scenario_id, X[2]):
+        print("occupied")
         return
     carrier_type = get_carrier_type(conn, scenario_id, X[2])
     stmt = ""
@@ -64,6 +65,30 @@ def embark(conn, line, scenario_id):
             print("embark recon")
     if re.search("^$", stmt):
         return
+    sql_exec_stmt(conn, stmt)  # moved the carried to loc_x -1001
+
+    stmt = "SELECT COUNT(*) FROM relation WHERE "
+    stmt += f"Aye = {X[1]} AND "
+    stmt += f"Bee = {X[2]} AND "
+    stmt += "rType = 1 AND "
+    stmt += f"scenario_id = {scenario_id}"
+    if get_one_val(conn, stmt) > 0:
+        print("already have relation")
+        return
+
+    # create relation
+    stmt = "INSERT INTO relation (Aye, Bee, rType, scenario_id) "
+    stmt += "VALUES ("
+    stmt += f"{X[1]}, "
+    stmt += f"{X[2]}, "
+    stmt += "1, "
+    stmt += f"{scenario_id})"
+    sql_exec_stmt(conn, stmt)
+
+    # set carrier status
+    stmt = "UPDATE instance SET status = (status | (1<<10)) "
+    stmt += f"WHERE scenario_id = {scenario_id} AND "
+    stmt += f"id = {X[2]}"
     sql_exec_stmt(conn, stmt)
 
 
@@ -75,11 +100,11 @@ def get_carrier_type(CONN, scenario_id, carrier):
     stmt = "SELECT count(*) FROM img WHERE (flag1 & (3<<13)) = (1<<13) AND "
     stmt += f"id = {img_id}"
     if get_one_val(CONN, stmt) > 0:
-        return 1   # infantry
+        return 1  # infantry
     stmt = "SELECT count(*) FROM img WHERE (flag1 & (3<<13)) = (3<<13) AND "
     stmt += f"id = {img_id}"
     if get_one_val(CONN, stmt) > 0:
-        return 2   # Recon
+        return 2  # Recon
     return 0
 
 
