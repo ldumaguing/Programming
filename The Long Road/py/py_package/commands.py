@@ -45,13 +45,64 @@ def reset_MF(conn, line, scenario_id):
     sql_exec_stmt(conn, stmt)
 
 
+def embark(conn, line, scenario_id):
+    X = re.sub("\\ +", ";", line)
+    X = X.split(";")
+    unit_type = is_infantry_or_recon(conn, scenario_id, X[1])
+    if unit_type == 0:
+        return
+    if is_occupied(conn, scenario_id, X[2]):
+        return
+    carrier_type = get_carrier_type(conn, scenario_id, X[2])
+    print(carrier_type)
+
+
+def get_carrier_type(CONN, scenario_id, carrier):
+    stmt = f"SELECT img_id FROM instance WHERE id = {carrier} AND "
+    stmt += f"scenario_id = {scenario_id}"
+    img_id = get_one_val(CONN, stmt)
+
+    stmt = "SELECT count(*) FROM img WHERE (flag1 & (3<<13)) = (1<<13) AND "
+    stmt += f"id = {img_id}"
+    if get_one_val(CONN, stmt) > 0:
+        return 1   # infantry
+    stmt = "SELECT count(*) FROM img WHERE (flag1 & (3<<13)) = (3<<13) AND "
+    stmt += f"id = {img_id}"
+    if get_one_val(CONN, stmt) > 0:
+        return 2   # Recon
+    return 0
+
+
+def is_occupied(CONN, scenario_id, carrier):
+    stmt = f"SELECT unit_name FROM instance WHERE id = {carrier} AND "
+    stmt += f"scenario_id = {scenario_id} AND "
+    stmt += "(status & (1<<10))"
+    X = get_one_val(CONN, stmt)
+    if X is None:
+        return 0
+    return 1
+
+
+def is_infantry_or_recon(CONN, scenario_id, unit_id):
+    stmt = f"SELECT unit_name FROM instance WHERE id = {unit_id} AND "
+    stmt += f"scenario_id = {scenario_id}"
+    X = get_one_val(CONN, stmt)
+    if X is None:
+        return 0
+    if re.search("Infantry", X):
+        return 1
+    if re.search("Recon", X):
+        return 2
+
+
 # *****************************************************************************
 def get_one_val(conn, stmt):
-    print(stmt)
     cursor = conn.cursor()
     cursor.execute(stmt)
     X = cursor.fetchone()
     cursor.close()
+    if X is None:
+        return None
     return X[0]
 
 
