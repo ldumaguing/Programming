@@ -54,7 +54,17 @@ def embark(conn, line, scenario_id):
     if is_occupied(conn, scenario_id, X[2]):
         return
     carrier_type = get_carrier_type(conn, scenario_id, X[2])
-    print(carrier_type)
+    stmt = ""
+    if carrier_type == 1:
+        if unit_type == 1:
+            stmt = "UPDATE instance SET loc_x = -1001 WHERE "
+            stmt += f"id = {X[1]} AND scenario_id = {scenario_id}"
+    else:
+        if unit_type == 2:
+            print("embark recon")
+    if re.search("^$", stmt):
+        return
+    sql_exec_stmt(conn, stmt)
 
 
 def get_carrier_type(CONN, scenario_id, carrier):
