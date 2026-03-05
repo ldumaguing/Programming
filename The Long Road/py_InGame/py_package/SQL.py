@@ -1,6 +1,15 @@
 import re
 
 
+def get_field_value(CONN, stmt):
+    cursor = CONN.cursor()
+    cursor.execute(stmt)
+    CONN.commit()
+    rs = cursor.fetchone()
+    cursor.close()
+    return rs[0]
+
+
 def is_same_place(conn, scenario_id, unit):
     stmt = "SELECT count(*) FROM instance WHERE "
     stmt += f"id = {unit[0]} "

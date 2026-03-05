@@ -14,5 +14,28 @@ CREATE TABLE scenario (
 
 Use this for storing meta data.
 
+DELETE FROM scenario WHERE id = 0;
+INSERT INTO scenario (id, key, txt_val) VALUES
+(0, 'Map_A', 'TRL_Map_A_Final.jpg'),
+(0, 'Map_B', 'TRL_Map_B_Final.jpg'),
+(0, 'Map_C', 'TRL_Map_C_Final.jpg'),
+(0, 'Map_D', 'TLR_Map_D_Final.jpg');
+
+INSERT INTO scenario (id, key, num1, num2, num3, num4) VALUES
+(0, 'plateMap_dim', 3625, 2801, 0, 0),
+(0, 'upperLeft', 121, 39, 0, 0),
+(0, 'lowerRight', 3354, 2606, 0, 0),
+(0, 'hexCount', 17, 12, 0, 0),
+(0, 'currScenario', 0, 0, 0, 0),
+(0, 'unitFocus', 0, 0, 0, 0);
+
+
+
+
+(0, '', 0, 0, 0, 0),
+(0, '', 0, 0, 0, 0),
+(0, '', 0, 0, 0, 0),
+(0, '', 0, 0, 0, 0),
+
 
 
