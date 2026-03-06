@@ -10,7 +10,7 @@ SCENARIO_ID = 0
 html_0 = """<!DOCTYPE html>
 <html>
 
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="3">
 
 <head>
 \t<meta charset="UTF-8">
