@@ -4,6 +4,7 @@ import py_package.HTML as HTML
 import sys
 import re
 import sqlite3
+import time
 
 
 SCENARIO_ID = 0
@@ -36,80 +37,69 @@ html_script = """
 \t\t\tconst ctx = canvas.getContext("2d");\n"""
 
 
-def get_scenario_id(line):
-    X = line.split(":")
-    return int(X[1])
-
-
 # ************************************************************************ main
-if len(sys.argv) < 2:
-    print("append <scenario file>")
-    exit()
+while 1:
+    CONN = sqlite3.connect("db/TLR.db")
+    hview = ""
 
-CONN = sqlite3.connect("db/TLR.db")
-hview = ""
-with open(sys.argv[1], "r") as file:
-    for line in file:
-        line = line.strip()
-        if re.search("^END", line):
-            CONN.close()
-            exit()
-        if re.search("^id", line):
-            SCENARIO_ID = get_scenario_id(line)
-            break
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'unitFocus'"
+    unit_id = SQL.get_field_value(CONN, stmt)
 
-fields = "id, scenario_id, faction"
-table = "instance"
-where = "id = 1014"
-row = SQL.get_row(CONN, SCENARIO_ID, fields, table, where)
-# print(row[2])
-hview = html_0
-hview += html_maps
-imgs = SQL.get_imgs(CONN, SCENARIO_ID)
-for img in imgs:
-    X = img.split(":")
-    line = f'\t\t<img src="TLR/{X[0]}" id="img{X[1]}">\n'
-    hview += line
-hview += "\t</div>"
-hview += html_script
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'currScenario'"
+    SCENARIO_ID = SQL.get_field_value(CONN, stmt)
 
-fields = "num1, num2"
-table = "scenario"
+    hview = html_0
+    hview += html_maps
+    imgs = SQL.get_imgs(CONN, SCENARIO_ID)
+    for img in imgs:
+        X = img.split(":")
+        line = f'\t\t<img src="TLR/{X[0]}" id="img{X[1]}">\n'
+        hview += line
+    hview += "\t</div>"
+    hview += html_script
 
-where = "key = 'plateMap_dim' AND id = 0"
-plateMap_dim = SQL.get_row(CONN, 0, fields, table, where)
+    fields = "num1, num2"
+    table = "scenario"
 
-where = "key = 'upperLeft' AND id = 0"
-upperLeft = SQL.get_row(CONN, 0, fields, table, where)
+    where = "key = 'plateMap_dim' AND id = 0"
+    plateMap_dim = SQL.get_row(CONN, 0, fields, table, where)
 
-where = "key = 'lowerRight' AND id = 0"
-lowerRight = SQL.get_row(CONN, 0, fields, table, where)
+    where = "key = 'upperLeft' AND id = 0"
+    upperLeft = SQL.get_row(CONN, 0, fields, table, where)
 
-where = "key = 'hexCount' AND id = 0"
-hexCount = SQL.get_row(CONN, 0, fields, table, where)
+    where = "key = 'lowerRight' AND id = 0"
+    lowerRight = SQL.get_row(CONN, 0, fields, table, where)
 
-hexW = (lowerRight[0] - upperLeft[0]) / (hexCount[0] - 1)
-hexH = (lowerRight[1] - upperLeft[1]) / (hexCount[1] - 1)
+    where = "key = 'hexCount' AND id = 0"
+    hexCount = SQL.get_row(CONN, 0, fields, table, where)
 
-fields = "txt_val"
-where = f"key = 'maps' AND id = {SCENARIO_ID}"
-maps = SQL.get_row(CONN, 0, fields, table, where)[0]
-rows = maps.split("_")
-rowNum = len(rows)
-colNum = 0
-for y in range(rowNum):
-    cols = rows[y].split(",")
-    if colNum < len(cols):
-        colNum = len(cols)
-    for x in range(colNum):
-        letter = cols[x]
-        hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
-        hview += "\n"
+    hexW = (lowerRight[0] - upperLeft[0]) / (hexCount[0] - 1)
+    hexH = (lowerRight[1] - upperLeft[1]) / (hexCount[1] - 1)
 
-hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH)
+    fields = "txt_val"
+    where = f"key = 'maps' AND id = {SCENARIO_ID}"
+    maps = SQL.get_row(CONN, 0, fields, table, where)[0]
+    rows = maps.split("_")
+    rowNum = len(rows)
+    colNum = 0
+    for y in range(rowNum):
+        cols = rows[y].split(",")
+        if colNum < len(cols):
+            colNum = len(cols)
+        for x in range(colNum):
+            letter = cols[x]
+            hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
+            hview += "\n"
 
-hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
+    hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH)
 
-CONN.close()
+    hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
 
-print(hview)
+    CONN.close()
+
+    with open("view.html", "w") as f:
+        f.write(hview)
+
+    time.sleep(3)
