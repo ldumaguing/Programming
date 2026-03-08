@@ -102,4 +102,4 @@ while 1:
     with open("view.html", "w") as f:
         f.write(hview)
 
-    time.sleep(3)
+    time.sleep(2)
