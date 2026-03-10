@@ -33,6 +33,14 @@ bit  9: disrupted
 bit 10: has infintry/recon
 bit 11: has hero 1
 bit 12: has hero 2
+facing 15-13:
+   000: N
+   001: NE
+   010: SE
+   011: S
+   100: SW
+   101: NW
+
 
 .mode csv
 .output instance.csv

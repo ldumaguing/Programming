@@ -29,6 +29,12 @@ html_maps = """\t\t<img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
 \t\t<img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
 \t\t<img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
 \t\t<img src="TLR/TLR_Map_D_Final.jpg" id="mapD">
+\t\t<img src="TLR/LAR_facing_1.png" id="face0">
+\t\t<img src="TLR/LAR_facing_2.png" id="face1">
+\t\t<img src="TLR/LAR_facing_3.png" id="face2">
+\t\t<img src="TLR/LAR_facing_4.png" id="face3">
+\t\t<img src="TLR/LAR_facing_5.png" id="face4">
+\t\t<img src="TLR/LAR_facing_6.png" id="face5">
 \t\t<img src="TLR/LAR_Bevel.png" id="bev">\n"""
 html_script = """
 \t<script type="text/javascript">
@@ -93,13 +99,15 @@ while 1:
             hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
             hview += "\n"
 
-    hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH)
+    hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH, unit_id)
 
     hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
 
     CONN.close()
 
-    with open("view.html", "w") as f:
+    with open("VIEW.html", "w") as f:
         f.write(hview)
 
-    time.sleep(2)
+    # time.sleep(2)
+    exit()
+

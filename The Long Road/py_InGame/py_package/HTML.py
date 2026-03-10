@@ -2,9 +2,18 @@ import re
 import py_package.SQL as SQL
 
 
-def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
+def get_facing(CONN, scenario_id, unit_id, x, y):
     hview = ""
-    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl "
+    stmt = "SELECT status FROM instance WHERE "
+    stmt += f"id = {unit_id} AND "
+    stmt += f"scenario_id = {scenario_id}"
+    print(stmt)
+    X = SQL.get_field_value(CONN, stmt)
+    return hview
+
+def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
+    hview = ""
+    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status, id "
     stmt += "FROM instance WHERE scenario_id = "
     stmt += f"{scenario_id}"
     combatants = SQL.get_combatants(conn, stmt)
@@ -22,6 +31,8 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH):
                 y += half
             hview += f"\t\t\tctx.drawImage({img}, {x}, {y})\n"
             hview += f"\t\t\tctx.drawImage(bev, {x}, {y})\n"
+            if unit_id == i[6]:
+                hview += get_facing(conn, scenario_id, unit_id, x, y)
     return hview
 
 
