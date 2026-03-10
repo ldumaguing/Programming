@@ -13,7 +13,7 @@ def get_facing(CONN, scenario_id, unit_id, x, y):
 
 def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
     hview = ""
-    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status, id "
+    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status "
     stmt += "FROM instance WHERE scenario_id = "
     stmt += f"{scenario_id}"
     combatants = SQL.get_combatants(conn, stmt)
@@ -31,7 +31,7 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
                 y += half
             hview += f"\t\t\tctx.drawImage({img}, {x}, {y})\n"
             hview += f"\t\t\tctx.drawImage(bev, {x}, {y})\n"
-            if unit_id == i[6]:
+            if unit_id == i[3]:
                 hview += get_facing(conn, scenario_id, unit_id, x, y)
     return hview
 
