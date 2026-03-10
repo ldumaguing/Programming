@@ -3,12 +3,12 @@ import py_package.SQL as SQL
 
 
 def get_facing(CONN, scenario_id, unit_id, x, y):
-    hview = ""
     stmt = "SELECT status FROM instance WHERE "
     stmt += f"id = {unit_id} AND "
     stmt += f"scenario_id = {scenario_id}"
-    print(stmt)
-    X = SQL.get_field_value(CONN, stmt)
+    facing = int(SQL.get_field_value(CONN, stmt)) >> 13
+    # hview = f"\t\t<img src=\"TLR/LAR_facing_{facing + 1}.png\" id=\"face{facing}\">"
+    hview = f"\t\t\tctx.drawImage(face{facing}, {x - 48}, {y - 46})\n"
     return hview
 
 def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
