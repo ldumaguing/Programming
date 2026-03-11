@@ -23,6 +23,47 @@ y = combatants[2]
 status = combatants[5]
 facing = status >> 13
 print(facing)
+direction = facing + 1
+print(direction)
+if x%2: # x is odd
+    print("odd")
+    if direction == 1:
+        y -= 1
+    elif direction == 2:
+        x += 1
+        y -= 1
+    elif direction == 3:
+        x += 1
+    elif direction == 4:
+        y += 1
+    elif direction == 5:
+        x -= 1
+    else:
+        x -= 1
+        y -= 1
+else:
+    print("even")
+    if direction == 1:
+        y -= 1
+    elif direction == 2:
+        x += 1
+    elif direction == 3:
+        x += 1
+        y += 1
+    elif direction == 4:
+        y += 1
+    elif direction == 5:
+        x -= 1
+        y += 1
+    else:
+        x -= 1
+
+stmt = "UPDATE instance SET "
+stmt += f"loc_x = {x}, "
+stmt += f"loc_y = {y} WHERE "
+stmt += f"id = {unit_id} AND "
+stmt += f"scenario_id = {scenario_id}"
+SQL.execute_sql(CONN, stmt)
 
 CONN.close()
 
