@@ -2,6 +2,76 @@ import sys
 import py_package.SQL as SQL
 
 
+def about_face(CONN):
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'unitFocus'"
+    unit_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'currScenario'"
+    scenario_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT status FROM instance WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    X = int(SQL.get_field_value(CONN, stmt))
+    status = X & 8191  # 1FFF
+    facing = X >> 13
+    facing += 3
+    facing %= 6
+    facing = facing << 13
+    status = facing | status
+    stmt = f"UPDATE instance SET status = {status} WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    SQL.execute_sql(CONN, stmt)
+
+
+def turn_right(CONN):
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'unitFocus'"
+    unit_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'currScenario'"
+    scenario_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT status FROM instance WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    X = int(SQL.get_field_value(CONN, stmt))
+    status = X & 8191  # 1FFF
+    facing = X >> 13
+    facing += 1
+    facing %= 6
+    facing = facing << 13
+    status = facing | status
+    stmt = f"UPDATE instance SET status = {status} WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    SQL.execute_sql(CONN, stmt)
+
+
+def turn_left(CONN):
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'unitFocus'"
+    unit_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'currScenario'"
+    scenario_id = SQL.get_field_value(CONN, stmt)
+
+    stmt = "SELECT status FROM instance WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    X = int(SQL.get_field_value(CONN, stmt))
+    status = X & 8191  # 1FFF
+    facing = X >> 13
+    facing -= 1
+    if facing < 0:
+        facing = 5
+    facing = facing << 13
+    status = facing | status
+    stmt = f"UPDATE instance SET status = {status} WHERE "
+    stmt += f"id = {unit_id} AND scenario_id = {scenario_id}"
+    SQL.execute_sql(CONN, stmt)
+
+
 def move_forward(CONN):
     stmt = "SELECT num1 FROM scenario WHERE "
     stmt += "key = 'unitFocus'"
@@ -23,7 +93,7 @@ def move_forward(CONN):
     print(facing)
     direction = facing + 1
     print(direction)
-    if x%2: # x is odd
+    if x % 2:  # x is odd
         print("odd")
         if direction == 1:
             y -= 1
