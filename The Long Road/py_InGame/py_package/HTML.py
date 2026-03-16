@@ -29,8 +29,8 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
             y -= (i[4] * 10)
             if i[1] % 2 == 0:
                 y += half
-            hview += f"\t\t\tctx.drawImage({img}, {x}, {y})\n"
-            hview += f"\t\t\tctx.drawImage(bev, {x}, {y})\n"
+            hview += f"\t\t\tctx.drawImage({img}, {x}, {y});\n"
+            hview += f"\t\t\tctx.drawImage(bev, {x}, {y});\n"
             if unit_id == i[3]:
                 hview += get_facing(conn, scenario_id, unit_id, x, y)
     return hview
