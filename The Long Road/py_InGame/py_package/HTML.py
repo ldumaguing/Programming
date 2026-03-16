@@ -8,7 +8,7 @@ def get_facing(CONN, scenario_id, unit_id, x, y):
     stmt += f"scenario_id = {scenario_id}"
     facing = int(SQL.get_field_value(CONN, stmt)) >> 13
     # hview = f"\t\t<img src=\"TLR/LAR_facing_{facing + 1}.png\" id=\"face{facing}\">"
-    hview = f"\t\t\tctx.drawImage(face{facing}, {x - 48}, {y - 46})\n"
+    hview = f"\t\t\tctx.drawImage(face{facing}, {x - 48}, {y - 46});\n"
     return hview
 
 def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
@@ -43,7 +43,7 @@ def get_print_map(plate, x, y, plateMap_dim, rowNum, colNum):
         return hview
 
     hview = f"\t\t\tctx.drawImage(map{plate}, {x * plateMap_dim[0]}, "
-    hview += f"{y * plateMap_dim[1]})"
+    hview += f"{y * plateMap_dim[1]});"
     return hview
 
 
