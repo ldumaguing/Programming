@@ -1,0 +1,9 @@
+**************************************************************************** TABLE - path
+DROP TABLE IF EXISTS path;
+CREATE TABLE path (
+    scenario_id INTEGER DEFAULT 0,
+    instance_id INTEGER DEFAULT 0,
+    seq_num     INTEGER DEFAULT 0,
+    loc_x       INTEGER DEFAULT 0,
+    loc_y       INTEGER DEFAULT 0
+);
