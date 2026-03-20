@@ -1,11 +1,14 @@
 from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Log
 from textual.events import Key
+import sqlite3
+import py_package.SQL as SQL
 
 class FocusUnitApp(App):
     CSS = "DataTable {height: 2fr}"
     BINDINGS = [("a", "set_focus", ""),]
     foo = ""
+    CONN = sqlite3.connect("db/TLR.db")
 
     def compose(self) -> ComposeResult:
         yield Log()
@@ -24,12 +27,11 @@ class FocusUnitApp(App):
         log = self.query_one(Log)
         log.write_line(f"{self.foo}")
 
+    # id, scenario_id, unit_name, faction, loc_x, loc_y
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
         table.focus()
-        table.add_columns("A", "B", "C")
-        for number in range(1, 100):
-            table.add_row(str(number), str(number * 2), str(number * 3))
+        SQL.generate_instance_table(self.CONN, table)
         table.cursor_type = "row"
 
 

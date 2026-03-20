@@ -1,5 +1,14 @@
 import re
 
+# id, scenario_id, unit_name, faction, loc_x, loc_y
+def generate_instance_table(CONN, table):
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'unitFocus'"
+    unit_id = get_field_value(CONN, stmt)
+
+    table.add_columns("A", "B", "C", "D")
+    for number in range(1, 100):
+        table.add_row(str(number), str(number * 2), str(number * 3), unit_id)
 
 def get_field_value(CONN, stmt):
     cursor = CONN.cursor()
