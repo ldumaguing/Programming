@@ -1,8 +1,8 @@
 from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Log
-from textual.events import Key
 import sqlite3
 import py_package.SQL as SQL
+
 
 class FocusUnitApp(App):
     CSS = "DataTable {height: 2fr}"

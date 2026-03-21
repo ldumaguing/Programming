@@ -1,4 +1,3 @@
-import sys
 import py_package.SQL as SQL
 
 

@@ -1,6 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Log
 
+
 class TUIApp(App):
     CSS_PATH = None
     BINDINGS = [
@@ -18,7 +19,7 @@ class TUIApp(App):
         log.write_line("foo2")
         self.sub_title = "foo2"
 
-    def compose(self):
+    def compose(self) -> ComposeResult:
         yield Header()
         yield Log()
 
