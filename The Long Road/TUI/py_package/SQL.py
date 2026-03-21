@@ -7,9 +7,27 @@ def generate_instance_table(CONN, table):
     stmt += "key = 'unitFocus'"
     unit_id = get_field_value(CONN, stmt)
 
-    table.add_columns("A", "B", "C", "D")
-    for number in range(1, 100):
-        table.add_row(str(number), str(number * 2), str(number * 3), unit_id)
+    stmt = "SELECT num1 FROM scenario WHERE "
+    stmt += "key = 'currScenario'"
+    scenario_id = get_field_value(CONN, stmt)
+
+    stmt = "SELECT id, scenario_id, unit_name, faction, loc_x, loc_y "
+    stmt += "FROM instance WHERE "
+    stmt += f"scenario_id = {scenario_id} "
+    stmt += "ORDER BY faction, unit_name"
+    table.add_columns("ID", "Name", "Faction", "X", "Y", "")
+    cursor = CONN.cursor()
+    cursor.execute(stmt)
+    rows = cursor.fetchall()
+    is_focused = ""
+    for row in rows:
+        if row[0] == unit_id:
+            is_focused = "*"
+        else:
+            is_focused = ""
+        table.add_row(row[0], row[2], row[3], row[4], row[5], is_focused)
+    # for number in range(1, 100):
+    #     table.add_row(str(number), str(number * 2), scenario_id, unit_id)
 
 
 def get_field_value(CONN, stmt):
