@@ -12,10 +12,21 @@ class ActivatorApp(App):
         yield Log()
         yield DataTable()
 
-    # id, scenario_id, unit_name, faction, loc_x, loc_y
+    def on_data_table_row_selected(self, event: DataTable.RowSelected) -> None:
+        table = self.query_one(DataTable)
+        row_data = table.get_row(event.row_key)
+        unit_id = row_data[0]
+        SQL.activate_unit(self.CONN, unit_id)
+        table = self.query_one(DataTable)
+        table.clear()
+        # table.focus()
+        SQL.generate_instance_table(self.CONN, table)
+        table.cursor_type = "row"
+
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
-        table.focus()
+        # table.focus()
+        table.add_columns("ID", "Name", "Faction", "X", "Y", "")
         SQL.generate_instance_table(self.CONN, table)
         table.cursor_type = "row"
 

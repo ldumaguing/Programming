@@ -1,7 +1,15 @@
 import re
 
 
-# id, scenario_id, unit_name, faction, loc_x, loc_y
+def activate_unit(CONN, unit_id):
+    stmt = f"UPDATE scenario SET num1 = {unit_id} "
+    stmt += "WHERE key = 'unitFocus'"
+    cursor = CONN.cursor()
+    cursor.execute(stmt)
+    CONN.commit()
+    cursor.close()
+
+
 def generate_instance_table(CONN, table):
     stmt = "SELECT num1 FROM scenario WHERE "
     stmt += "key = 'unitFocus'"
@@ -15,7 +23,6 @@ def generate_instance_table(CONN, table):
     stmt += "FROM instance WHERE "
     stmt += f"scenario_id = {scenario_id} "
     stmt += "ORDER BY faction, unit_name"
-    table.add_columns("ID", "Name", "Faction", "X", "Y", "")
     cursor = CONN.cursor()
     cursor.execute(stmt)
     rows = cursor.fetchall()
@@ -26,8 +33,7 @@ def generate_instance_table(CONN, table):
         else:
             is_focused = ""
         table.add_row(row[0], row[2], row[3], row[4], row[5], is_focused)
-    # for number in range(1, 100):
-    #     table.add_row(str(number), str(number * 2), scenario_id, unit_id)
+    cursor.close()
 
 
 def get_field_value(CONN, stmt):
@@ -75,6 +81,7 @@ def get_3columns(conn, stmt):
     rows = cursor.fetchall()
     for row in rows:
         stuffs.append((row[0], row[1], row[2]))
+    cursor.close()
     return stuffs
 
 
@@ -85,6 +92,7 @@ def get_2columns(conn, stmt):
     rows = cursor.fetchall()
     for row in rows:
         stuffs.append((row[0], row[1]))
+    cursor.close()
     return stuffs
 
 
@@ -95,6 +103,7 @@ def get_combatants(conn, stmt):
     rows = cursor.fetchall()
     for row in rows:
         stuffs.append((row[0], row[1], row[2], row[3], row[4], row[5]))
+    cursor.close()
     return stuffs
 
 
