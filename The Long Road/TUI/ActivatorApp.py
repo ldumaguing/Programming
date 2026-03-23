@@ -7,6 +7,18 @@ import py_package.SQL as SQL
 class ActivatorApp(App):
     CSS = "DataTable {height: 2fr}"
     CONN = sqlite3.connect("db/TLR.db")
+    BINDINGS = [
+        ("H", "help", ""),
+    ]
+
+    def action_help(self):
+        log = self.query_one(Log)
+        log.write_line("*********************")
+        log.write_line("w - move forward")
+        log.write_line("a - turn left")
+        log.write_line("d - turn right")
+        log.write_line("s - undo")
+        log.write_line(" ")
 
     def compose(self) -> ComposeResult:
         yield Log()
