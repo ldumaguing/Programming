@@ -22,6 +22,9 @@ class ActivatorApp(App):
         # table.focus()
         SQL.generate_instance_table(self.CONN, table)
         table.cursor_type = "row"
+        # log = self.query_one(Log)
+        # log.write_line(f"{event.cursor_row}")
+        table.cursor_coordinate = (event.cursor_row, 0)
 
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
