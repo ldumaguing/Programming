@@ -101,6 +101,12 @@ bit 14,13:  circle
 bit 15:     Leg units may fire (white rifle)
 
 
+update img set file = 'LAR_Devastator.png' where file like '%dev%';
+update img set file = 'LAR_Punisher.png' where file like '%pun%';
+update img set file = 'LAR_Timberhawk.png' where file like '%timber%';
+update img set file = 'LAR_Wreck_Mecha.png' where id = 1179;
+
+
 
 
 
