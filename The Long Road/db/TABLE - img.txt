@@ -49,9 +49,9 @@ bit  8:     Blood Thirsty            (Rifle on red)
 
 flag3
 =====
-bit  0:     Commander
-bit  1:     Hero
-bit  2:     Champion
+bit  0:     Commander (tank)
+bit  1:     Hero      (rifle)
+bit  2:     Champion  (star)
 bit  3:     Track
 bit  4:     Wheel
 bit  5:     Mecha
