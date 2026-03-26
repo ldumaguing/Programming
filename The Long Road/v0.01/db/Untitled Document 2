@@ -1,0 +1,16 @@
+
+    id,
+    file,
+    flag1,
+    apf_val,
+    apf_rng,
+    hef_val,
+    hef_rng,
+    mf_val,
+    caf_val,
+    flag2,
+    armor_val,
+    flag3,
+    ability1,
+    ability2
+
