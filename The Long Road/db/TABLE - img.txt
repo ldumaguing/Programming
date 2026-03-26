@@ -54,6 +54,7 @@ bit  1:     Hero
 bit  2:     Champion
 bit  3:     Track
 bit  4:     Wheel
+bit  5:     Mecha (198x198 pixels)
 
 flag2
 =====
