@@ -54,7 +54,8 @@ bit  1:     Hero
 bit  2:     Champion
 bit  3:     Track
 bit  4:     Wheel
-bit  5:     Mecha (198x198 pixels)
+bit  5:     Mecha
+bit  6:     image is a chit (198x198 pixels)
 
 flag2
 =====
@@ -105,12 +106,6 @@ update img set file = 'LAR_Devastator.png' where file like '%dev%';
 update img set file = 'LAR_Punisher.png' where file like '%pun%';
 update img set file = 'LAR_Timberhawk.png' where file like '%timber%';
 update img set file = 'LAR_Wreck_Mecha.png' where id = 1179;
-
-
-
-
-
-
 
 
 
