@@ -12,7 +12,9 @@ CREATE TABLE img (
     armor_val INTEGER DEFAULT -100,
     flag3     INTEGER DEFAULT 0,
     ability1  INTEGER DEFAULT 0,
-    ability2  INTEGER DEFAULT 0
+    ability2  INTEGER DEFAULT 0,
+    apf2_val  INTEGER DEFAULT -100,
+    apf2_rng  TEXT
 );
 
 ability1

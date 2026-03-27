@@ -13,7 +13,8 @@ print ("""<!DOCTYPE html>
 
 CONN = sqlite3.connect("db/TLR.db")
 
-stmt = "SELECT * FROM img WHERE (flag1 & 1) or (flag3 & (1<<6)) " # img
+# stmt = "SELECT * FROM img WHERE (flag1 & 1) or (flag3 & (1<<6)) " # img
+stmt = "SELECT * FROM img WHERE apf_rng != '' and ((flag1 & 1) or (flag3 & (1<<6)))"
 # stmt = "SELECT * FROM img WHERE apf_rng = '' and ((flag1 & 1) or (flag3 & (1<<6)))" # no apf range
 # stmt = "SELECT * FROM img WHERE (flag1 & (1<<2))"  # guided missle
 stmt += "ORDER BY id"
