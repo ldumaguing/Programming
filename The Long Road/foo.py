@@ -13,7 +13,22 @@ print ("""<!DOCTYPE html>
 
 CONN = sqlite3.connect("db/TLR.db")
 
-stmt = "SELECT * FROM img WHERE (flag1 & 1) or (flag3 & (1<<6)) " # img
+# stmt = "select * from img where flag1 & (1 << 6)" # HEF -1
+# stmt = "select * from img where flag1 & (1 << 7)" # HEF +1
+stmt = """
+select * from img
+where
+flag1 & (1 << 6)
+or
+flag1 & (1 << 7)
+or
+flag1 & (1 << 8)
+or
+flag1 & (1 << 9)
+or
+flag1 & (1 << 10)
+"""
+# stmt = "SELECT * FROM img WHERE (flag1 & 1) or (flag3 & (1<<6)) " # img
 # stmt = "SELECT * FROM img WHERE apf_rng != '' and ((flag1 & 1) or (flag3 & (1<<6)))"
 # stmt = "SELECT * FROM img WHERE apf_rng = '' and ((flag1 & 1) or (flag3 & (1<<6)))" # no apf range
 # stmt = "SELECT * FROM img WHERE (flag1 & (1<<2))"  # guided missle
@@ -42,8 +57,11 @@ for row in rows:
     #     html_row += f"<td>HEF +1</td>"
     # if row[2] & (1 << 8):
     #     html_row += f"<td>HEF yellow frame</td>"
-    if row[2] & (1 << 9):
-        html_row += f"<td>HEF white frame</td>"
+    # if row[2] & (1 << 9):
+    #     html_row += f"<td>HEF white frame</td>"
+    # if row[2] & (1 << 10):
+    #     html_row += f"<td>HEF white font</td>"
+    html_row += f"<td>HEF range ({row[6]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
     # html_row += f"<td>{hex(row[11])}</td>"
