@@ -23,11 +23,22 @@ for row in rows:
     html_row = f"\t\t\t<tr><td>{row[0]}</td>"
     # html_row += f"<td>{row[1]}</td>" # file
     html_row += f"<td><img src=\"TLR/{row[1]}\"></td>"
-    html_row += f"<td>{hex(row[2])}</td>"
-    html_row += f"<td>{hex(row[9])}</td>"
-    html_row += f"<td>{hex(row[11])}</td>"
-    html_row += f"<td>{hex(row[12])}</td>"
-    html_row += f"<td>{hex(row[13])}</td>"
+    # if row[2] & (1 << 0):
+    #     html_row += f"<td>158x158</td>"
+    # if row[2] & (1 << 2):
+    #     html_row += f"<td>wired guided missile</td>"
+    # if row[2] & (1 << 3):
+    #     html_row += f"<td>APF -1</td>"
+    # if row[2] & (1 << 4):
+    #     html_row += f"<td>APF +1</td>"
+    # if row[2] & (1 << 5):
+    #     html_row += f"<td>APF white font</td>"
+    html_row += f"<td>APF range ({row[4]})</td>"
+    # html_row += f"<td>{hex(row[2])}</td>"
+    # html_row += f"<td>{hex(row[9])}</td>"
+    # html_row += f"<td>{hex(row[11])}</td>"
+    # html_row += f"<td>{hex(row[12])}</td>"
+    # html_row += f"<td>{hex(row[13])}</td>"
     html_row += "</tr>"
     print(html_row)
 
