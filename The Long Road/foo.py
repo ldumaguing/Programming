@@ -61,7 +61,8 @@ for row in rows:
     #     html_row += f"<td>HEF white frame</td>"
     # if row[2] & (1 << 10):
     #     html_row += f"<td>HEF white font</td>"
-    html_row += f"<td>HEF range ({row[6]})</td>"
+    # html_row += f"<td>HEF range ({row[6]})</td>"
+    html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
     # html_row += f"<td>{hex(row[11])}</td>"
