@@ -1,3 +1,61 @@
+    apf_val   INTEGER DEFAULT -100,
+    apf_rng   TEXT,
+select id from img where hef_val = -100 and hef_rng = 'green' order by id;
+
+update img set hef_val = 4     where id = 1029;
+update img set hef_val = 6     where id = 1030;
+update img set hef_val = 4     where id = 1031;
+update img set hef_val = 6     where id = 1032;
+update img set hef_val = 4     where id = 1033;
+update img set hef_val = 8     where id = 1034;
+update img set hef_val = 2     where id = 1040;
+update img set hef_val = 2     where id = 1041;
+update img set hef_val = 2     where id = 1042;
+update img set hef_val = 0     where id = 1045;
+update img set hef_val = 2     where id = 1046;
+update img set hef_val = 4     where id = 1047;
+update img set hef_val = 6     where id = 1048;
+update img set hef_val = 2     where id = 1050;
+update img set hef_val = 2     where id = 1051;
+update img set hef_val = 2     where id = 1056;
+update img set hef_val = 2     where id = 1057;
+update img set hef_val = 4     where id = 1058;
+update img set hef_val = 6     where id = 1059;
+update img set hef_val = 4     where id = 1060;
+update img set hef_val = 6     where id = 1061;
+update img set hef_val = 2     where id = 1062;
+update img set hef_val = 2     where id = 1063;
+update img set hef_val = 8     where id = 1065;
+update img set hef_val = 0     where id = 1066;
+update img set hef_val = 0     where id = 1067;
+update img set hef_val = 2     where id = 1070;
+update img set hef_val = 6     where id = 1099;
+update img set hef_val = 2     where id = 1103;
+update img set hef_val = 2     where id = 1104;
+update img set hef_val = 4     where id = 1118;
+update img set hef_val = 4     where id = 1120;
+update img set hef_val = 2     where id = 1121;
+update img set hef_val = 3     where id = 1122;
+update img set hef_val = 4     where id = 1123;
+update img set hef_val = 6     where id = 1124;
+update img set hef_val = 8     where id = 1125;
+update img set hef_val = 10     where id = 1127;
+update img set hef_val = 12     where id = 1129;
+update img set hef_val = 2     where id = 1142;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # HEF range (green)
