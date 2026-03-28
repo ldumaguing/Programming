@@ -100,6 +100,12 @@ for row in rows:
     if int(row[2]) & (1 << 9):
         bit_9 = "<br>cannot fire into adjacent hex"
     html_row += f"<td>{bit_2}{bit_5}{apf}{apf2}{hef}{bit_8}{bit_9}{bit_10}{hef2}</td>"
+    # *****
+    if int(row[7]) >= 0:
+        mov = f"MF: {row[7]}"
+        html_row += f"<td>{mov}</td>"
+    else:
+        html_row += "<td></td>"
     # html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
