@@ -1,3 +1,5 @@
+
+
 # HEF range (green)
 update img set hef_rng = 'green' where id in (
 1064,1069,1098,1300,1301,1328,1329,1392,1393,1415,1416,1419,1420,1421,
