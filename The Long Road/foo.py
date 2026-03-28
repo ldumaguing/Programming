@@ -62,7 +62,17 @@ for row in rows:
     # if row[2] & (1 << 10):
     #     html_row += f"<td>HEF white font</td>"
     # html_row += f"<td>HEF range ({row[6]})</td>"
-    html_row += f"<td>{row[4]}:{row[3]}<br>{row[6]}:{row[5]}</td>"
+    bit34 = ""
+    if int(row[2]) & (1 << 3):
+        bit34 = "-1"
+    if int(row[2]) & (1 << 4):
+        bit34 = "+1"
+    bit67 = ""
+    if int(row[2]) & (1 << 6):
+        bit67 = "-1"
+    if int(row[2]) & (1 << 7):
+        bit67 = "+1"
+    html_row += f"<td>{row[4]}:{row[3]}{bit34}<br>{row[6]}:{row[5]}{bit67}</td>"
     # html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
