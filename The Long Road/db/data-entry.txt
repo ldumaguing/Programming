@@ -52,7 +52,7 @@ update img set hef_rng = 'black' where id in (
 # HEF range (blue)
 update img set hef_rng = 'blue' where id in (
 1025,1026,1054,1055,1308,1309,1334,1335,1442,1443,1536,1537,1540,1541,
-1115,1116,
+1115,1116
 );
 
 

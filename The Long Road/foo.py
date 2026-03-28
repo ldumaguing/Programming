@@ -72,7 +72,25 @@ for row in rows:
         bit67 = "-1"
     if int(row[2]) & (1 << 7):
         bit67 = "+1"
-    html_row += f"<td>{row[4]}:{row[3]}{bit34}<br>{row[6]}:{row[5]}{bit67}</td>"
+    bit2 = ""
+    if int(row[2]) & (1 << 2):
+        bit2 = "wire guided missile<br>"
+    bit5 = ""
+    if int(row[2]) & (1 << 5):
+        bit5 = "range effects doesn't apply<br>"
+    apf = ""
+    if int(row[3]) >= 0:
+        apf = f"APF: {row[4]} {row[3]}<sup>{bit34}</sup><br>";
+    hef = ""
+    if int(row[5]) >= 0:
+        hef = f"HEF: {row[6]} {row[5]}<sup>{bit67}</sup>"
+    bit8 = ""
+    if int(row[2]) & (1 << 8):
+        bit8 = "<br>may attack Armor 4 or less"
+    bit9 = ""
+    if int(row[2]) & (1 << 9):
+        bit9 = "<br>cannot fire into adjacent hex"
+    html_row += f"<td>{bit2}{bit5}{apf}{hef}{bit8}{bit9}</td>"
     # html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
