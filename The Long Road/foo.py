@@ -62,35 +62,38 @@ for row in rows:
     # if row[2] & (1 << 10):
     #     html_row += f"<td>HEF white font</td>"
     # html_row += f"<td>HEF range ({row[6]})</td>"
-    bit34 = ""
+    bit_3n4 = ""
     if int(row[2]) & (1 << 3):
-        bit34 = "-1"
+        bit_3n4 = "-1"
     if int(row[2]) & (1 << 4):
-        bit34 = "+1"
-    bit67 = ""
+        bit_3n4 = "+1"
+    bit_6n7 = ""
     if int(row[2]) & (1 << 6):
-        bit67 = "-1"
+        bit_6n7 = "-1"
     if int(row[2]) & (1 << 7):
-        bit67 = "+1"
-    bit2 = ""
+        bit_6n7 = "+1"
+    bit_2 = ""
     if int(row[2]) & (1 << 2):
-        bit2 = "wire guided missile<br>"
-    bit5 = ""
+        bit_2 = "wire guided missile<br>"
+    bit_5 = ""
     if int(row[2]) & (1 << 5):
-        bit5 = "range effects doesn't apply<br>"
+        bit_5 = "range effects doesn't apply<br>"
+    bit_10 = ""
+    if int(row[2]) & (1 << 10):
+        bit_10 = "<br>range effects doesn't apply"
     apf = ""
     if int(row[3]) >= 0:
-        apf = f"APF: {row[4]} {row[3]}<sup>{bit34}</sup><br>";
+        apf = f"APF: {row[4]} {row[3]}<sup>{bit_3n4}</sup><br>";
     hef = ""
     if int(row[5]) >= 0:
-        hef = f"HEF: {row[6]} {row[5]}<sup>{bit67}</sup>"
-    bit8 = ""
+        hef = f"HEF: {row[6]} {row[5]}<sup>{bit_6n7}</sup>"
+    bit_8 = ""
     if int(row[2]) & (1 << 8):
-        bit8 = "<br>may attack Armor 4 or less"
-    bit9 = ""
+        bit_8 = "<br>may attack Armor 4 or less"
+    bit_9 = ""
     if int(row[2]) & (1 << 9):
-        bit9 = "<br>cannot fire into adjacent hex"
-    html_row += f"<td>{bit2}{bit5}{apf}{hef}{bit8}{bit9}</td>"
+        bit_9 = "<br>cannot fire into adjacent hex"
+    html_row += f"<td>{bit_2}{bit_5}{apf}{hef}{bit_8}{bit_9}{bit_10}</td>"
     # html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
