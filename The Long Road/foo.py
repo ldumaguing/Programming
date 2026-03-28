@@ -84,16 +84,22 @@ for row in rows:
     apf = ""
     if int(row[3]) >= 0:
         apf = f"APF: {row[4]} {row[3]}<sup>{bit_3n4}</sup><br>";
+    apf2 = ""
+    if int(row[14]) >= 0:
+        apf2 = f"APF<sub>2</sub>: {row[15]} {row[14]}<br>";
     hef = ""
     if int(row[5]) >= 0:
         hef = f"HEF: {row[6]} {row[5]}<sup>{bit_6n7}</sup>"
+    hef2 = ""
+    if int(row[16]) >= 0:
+        hef2 = f"<br>HEF<sub>2</sub>: {row[17]} {row[16]}"
     bit_8 = ""
     if int(row[2]) & (1 << 8):
         bit_8 = "<br>may attack Armor 4 or less"
     bit_9 = ""
     if int(row[2]) & (1 << 9):
         bit_9 = "<br>cannot fire into adjacent hex"
-    html_row += f"<td>{bit_2}{bit_5}{apf}{hef}{bit_8}{bit_9}{bit_10}</td>"
+    html_row += f"<td>{bit_2}{bit_5}{apf}{apf2}{hef}{bit_8}{bit_9}{bit_10}{hef2}</td>"
     # html_row += f"<td>HEF val ({row[5]})</td>"
     # html_row += f"<td>{hex(row[2])}</td>"
     # html_row += f"<td>{hex(row[9])}</td>"
