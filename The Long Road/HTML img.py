@@ -1,4 +1,5 @@
 import sqlite3
+import re
 
 
 def col_1(row):
@@ -42,7 +43,14 @@ def col_1(row):
     bit_9 = ""
     if int(row[2]) & (1 << 9):
         bit_9 = "<br>cannot fire into adjacent hex"
-    html_row += f"<td>{bit_2}{bit_5}{apf}{apf2}{hef}{bit_8}{bit_9}{bit_10}{hef2}</td>"
+    foo1 = ""
+    if re.search('[0-9]+', row[18]) and re.search('[0-9]+', row[19]):
+        apf = row[4] + " " + row[18]
+        hef = row[6] + " " + row[19]
+        foo1 = f"<td>APF: {apf}<br>HEF: {hef}</td>"
+    else:
+        foo1 = f"<td>{bit_2}{bit_5}{apf}{apf2}{hef}{bit_8}{bit_9}{bit_10}{hef2}</td>"
+    html_row += foo1
 
     return html_row
 
@@ -68,6 +76,26 @@ def mov_mods(row):
 
 
 # ******************************************************************************
+def col_3(row):
+    html_row = "<td>"
+    if int(row[11]) & (1<<0):
+        html_row += "Commander<br>"
+    if int(row[11]) & (1<<1):
+        html_row += "Hero<br>"
+    if int(row[11]) & (1<<2):
+        html_row += "Champion<br>"
+    if row[10] > -100:
+        html_row += "AF: " + str(row[10])
+    if row[9] & (1<<5):
+        html_row += "<sup>+1</sup>"
+    if row[9] & (1<<4):
+        html_row += "<sup>-1</sup>"
+
+    html_row += "</td>"
+
+    return html_row
+
+# ******************************************************************************
 print ("""<!DOCTYPE html>
 <html>
 \t<head>
@@ -91,6 +119,7 @@ for row in rows:
         html_row += mov_mods(row)
     else:
         html_row += "<td></td>"
+    html_row += col_3(row)
     html_row += "</tr>"
     print(html_row)
 
