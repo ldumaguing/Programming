@@ -48,6 +48,26 @@ def col_1(row):
 
 
 # ******************************************************************************
+def mov_mods(row):
+    mov = f"MF: {row[7]}"
+    html_row = f"<td>{mov}"
+    if int(row[2]) & (1 << 11):
+        html_row += "<br>1-column shift"
+    if int(row[2]) & (1 << 12):
+        html_row += "<br>2-column shift"
+    if int(row[2]) & (3 << 13):
+        if int(row[2]) & (1 << 14):
+            html_row += "<br>transporter (recon only)"
+        else:
+            html_row += "<br>transporter"
+    if int(row[2]) & (1 << 15):
+        html_row += "<br>&emsp;unit inside may fire"
+    html_row += "</td>"
+
+    return html_row
+
+
+# ******************************************************************************
 print ("""<!DOCTYPE html>
 <html>
 \t<head>
@@ -68,13 +88,7 @@ rows = cursor.fetchall()
 for row in rows:
     html_row = col_1(row)
     if int(row[7]) >= 0:
-        mov = f"MF: {row[7]}"
-        html_row += f"<td>{mov}"
-        if int(row[2]) & (1 << 11):
-            html_row += "<br>1-column shift"
-        if int(row[2]) & (1 << 12):
-            html_row += "<br>2-column shift"
-        html_row += "</td>"
+        html_row += mov_mods(row)
     else:
         html_row += "<td></td>"
     html_row += "</tr>"
