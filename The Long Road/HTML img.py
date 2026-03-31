@@ -90,6 +90,10 @@ def col_3(row):
         html_row += "<sup>+1</sup>"
     if row[9] & (1<<4):
         html_row += "<sup>-1</sup>"
+    if row[9] & (1<<8):
+        html_row += "<br>recon"
+    if row[9] & (1<<9):
+        html_row += "<br>Advanced Targeting"
 
     html_row += "</td>"
 
