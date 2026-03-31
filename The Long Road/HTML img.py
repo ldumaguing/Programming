@@ -18,13 +18,13 @@ def col_1(row):
         bit_6n7 = "+1"
     bit_2 = ""
     if int(row[2]) & (1 << 2):
-        bit_2 = "wire guided missile<br>"
+        bit_2 = "Wire guided missile<br>"
     bit_5 = ""
     if int(row[2]) & (1 << 5):
-        bit_5 = "range effects doesn't apply<br>"
+        bit_5 = "Range effects doesn't apply<br>"
     bit_10 = ""
     if int(row[2]) & (1 << 10):
-        bit_10 = "<br>range effects doesn't apply"
+        bit_10 = "<br>Range effects doesn't apply"
     apf = ""
     if int(row[3]) >= 0:
         apf = f"APF: {row[4]} {row[3]}<sup>{bit_3n4}</sup><br>";
@@ -39,10 +39,10 @@ def col_1(row):
         hef2 = f"<br>HEF<sub>2</sub>: {row[17]} {row[16]}"
     bit_8 = ""
     if int(row[2]) & (1 << 8):
-        bit_8 = "<br>may attack Armor 4 or less"
+        bit_8 = "<br>May attack Armor 4 or less"
     bit_9 = ""
     if int(row[2]) & (1 << 9):
-        bit_9 = "<br>cannot fire into adjacent hex"
+        bit_9 = "<br>Cannot fire into adjacent hex"
     foo1 = ""
     if re.search('[0-9]+', row[18]) and re.search('[0-9]+', row[19]):
         apf = row[4] + " " + row[18]
@@ -65,11 +65,11 @@ def mov_mods(row):
         html_row += "<br>2-column shift"
     if int(row[2]) & (3 << 13):
         if int(row[2]) & (1 << 14):
-            html_row += "<br>transporter (recon only)"
+            html_row += "<br>Transport leg recons only"
         else:
-            html_row += "<br>transporter"
+            html_row += "<br>Transport leg units"
     if int(row[2]) & (1 << 15):
-        html_row += "<br>&emsp;unit inside may fire"
+        html_row += " which may fire while embarked"
     html_row += "</td>"
 
     return html_row
@@ -78,22 +78,26 @@ def mov_mods(row):
 # ******************************************************************************
 def col_3(row):
     html_row = "<td>"
-    if int(row[11]) & (1<<0):
-        html_row += "Commander<br>"
-    if int(row[11]) & (1<<1):
-        html_row += "Hero<br>"
-    if int(row[11]) & (1<<2):
-        html_row += "Champion<br>"
+    if row[11] & (1<<0):
+        html_row += "Commander"
+    if row[11] & (1<<1):
+        html_row += "Hero"
+    if row[11] & (1<<2):
+        html_row += "Champion"
     if row[10] > -100:
+        if row[11] & 7:
+            html_row += "<br>"
         html_row += "AF: " + str(row[10])
     if row[9] & (1<<5):
         html_row += "<sup>+1</sup>"
     if row[9] & (1<<4):
         html_row += "<sup>-1</sup>"
     if row[9] & (1<<8):
-        html_row += "<br>recon"
+        html_row += "<br>Recon"
     if row[9] & (1<<9):
         html_row += "<br>Advanced Targeting"
+    if row[8] > -100:
+        html_row += f"<br>CAF: {row[8]}"
 
     html_row += "</td>"
 
