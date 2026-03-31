@@ -98,6 +98,10 @@ def col_3(row):
         html_row += "<br>Advanced Targeting"
     if row[8] > -100:
         html_row += f"<br>CAF: {row[8]}"
+    if row[9] & (1<<3):
+        html_row += "<br>May not initiate Close Assault"
+    if row[9] & (1<<2):
+        html_row += "<br>Same hex assault"
 
     html_row += "</td>"
 

@@ -61,13 +61,14 @@ bit  3:     Track
 bit  4:     Wheel
 bit  5:     Mecha
 bit  6:     image is a chit (198x198 pixels)
+bit  7:     (*CAF) ?
 
 flag2
 =====
 bit  0:     +HEF
 bit  1:     +CAF
-bit  2:     same hex combat (white font)
-bit  3:     (CAF*)
+bit  2:     same hex assault (white font)
+bit  3:     (CAF*) may not initiate Close Assault
 bit  5,4:   armor superscript
    01: -1
    10: +1
