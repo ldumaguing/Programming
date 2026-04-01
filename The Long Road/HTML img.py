@@ -21,10 +21,10 @@ def col_1(row):
         bit_2 = "Wire guided missile<br>"
     bit_5 = ""
     if int(row[2]) & (1 << 5):
-        bit_5 = "Range effects doesn't apply<br>"
+        bit_5 = "Range effects don't apply<br>"
     bit_10 = ""
     if int(row[2]) & (1 << 10):
-        bit_10 = "<br>Range effects doesn't apply"
+        bit_10 = "<br>Range effects don't apply"
     apf = ""
     if int(row[3]) >= 0:
         apf = f"APF: {row[4]} {row[3]}<sup>{bit_3n4}</sup><br>";
@@ -92,6 +92,10 @@ def col_3(row):
         html_row += "<sup>+1</sup>"
     if row[9] & (1<<4):
         html_row += "<sup>-1</sup>"
+    if row[9] & (1<<10):
+        html_row += "<br>Lycan"
+    if row[9] & (1<<11):
+        html_row += "<br>Vampire"
     if row[9] & (1<<8):
         html_row += "<br>Recon"
     if row[9] & (1<<9):
@@ -102,10 +106,92 @@ def col_3(row):
         html_row += "<br>May not initiate Close Assault"
     if row[9] & (1<<2):
         html_row += "<br>Same hex assault"
-
+    if row[9] & (1<<6):
+        html_row += "<br>Unarmored Vehicle"
     html_row += "</td>"
 
     return html_row
+
+
+# ******************************************************************************
+def ability1(row):
+    html_row = "<td>"
+    if row[12] & (1<<0):
+        html_row += "Activate Twice; "
+    if row[12] & (1<<1):
+        html_row += "Aggressive; "
+    if row[12] & (1<<2):
+        html_row += "Brutal; "
+    if row[12] & (1<<3):
+        html_row += "Concealed; "
+    if row[12] & (1<<4):
+        html_row += "Courageous; "
+    if row[12] & (1<<5):
+        html_row += "Fearsome Howl; "
+    if row[12] & (1<<6):
+        html_row += "Fireball; "
+    if row[12] & (1<<7):
+        html_row += "Frenzied; "
+    if row[12] & (1<<8):
+        html_row += "Leap; "
+    if row[12] & (1<<9):
+        html_row += "Lightning Strike; "
+    if row[12] & (1<<10):
+        html_row += "Reanimate; "
+    if row[12] & (1<<11):
+        html_row += "Recon; "
+    if row[12] & (1<<12):
+        html_row += "Silver Bullet; "
+    if row[12] & (1<<13):
+        html_row += "Sniper; "
+    if row[12] & (1<<14):
+        html_row += "Steady; "
+    if row[12] & (1<<15):
+        html_row += "Tough; "
+    html_row += "</td>"
+
+    return html_row
+
+
+# ******************************************************************************
+def ability2(row):
+    html_row = "<td>"
+    if row[13] & (1<<0):
+        html_row += "Veteran; "
+    if row[13] & (1<<1):
+        html_row += "Wolf Speed; "
+    if row[13] & (1<<2):
+        html_row += "Lucky; "
+    if row[13] & (1<<3):
+        html_row += "Rally; "
+    if row[13] & (1<<4):
+        html_row += "Regenerate; "
+    if row[13] & (1<<5):
+        html_row += "Fly; "
+    if row[13] & (1<<6):
+        html_row += "Explosive Decomposition; "
+    if row[13] & (1<<7):
+        html_row += "Acid Bile; "
+    if row[13] & (1<<8):
+        html_row += "Blood Thirsty; "
+    if row[13] & (1<<9):
+        html_row += "AAA; "
+    if row[13] & (1<<10):
+        html_row += "Boom Risk; "
+    if row[13] & (1<<11):
+        html_row += "Deathless; "
+    if row[13] & (1<<12):
+        html_row += "Ethereal Being; "
+    if row[13] & (1<<13):
+        html_row += "Eye of Chaos; "
+    if row[13] & (1<<14):
+        html_row += "Gateway to the Abyss; "
+    if row[13] & (1<<15):
+        html_row += "Ghost Buster; "
+    html_row += "</td>"
+
+    return html_row
+
 
 # ******************************************************************************
 print ("""<!DOCTYPE html>
@@ -132,6 +218,8 @@ for row in rows:
     else:
         html_row += "<td></td>"
     html_row += col_3(row)
+    html_row += ability1(row)
+    html_row += ability2(row)
     html_row += "</tr>"
     print(html_row)
 

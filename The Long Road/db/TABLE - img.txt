@@ -18,7 +18,8 @@ CREATE TABLE img (
     hef2_val   INTEGER DEFAULT -100,
     hef2_rng   TEXT,
     URPapf_val TEXT, -- Userper's two values
-    URPhef_val TEXT  -- Userper's two values
+    URPhef_val TEXT, -- Userper's two values
+    ability3   INTEGER DEFAULT 0
 );
 
 ability1
@@ -51,6 +52,25 @@ bit  5:     Fly                      (White wings)
 bit  6:     Explosive Decomposition  (Black skull on green)
 bit  7:     Acid Bile                (Biohazard)
 bit  8:     Blood Thirsty            (Rifle on red)
+bit  9:     AAA
+bit 10:     Boom Risk
+bit 11:     Deathless
+bit 12:     Ethereal Being
+bit 13:     Eye of Chaos
+bit 14:     Gateway to the Abyss
+bit 15:     Ghost Buster
+
+ability2
+========
+bit  0:     Healer
+bit  1:     Iron Resolve
+bit  2:     Necrotic Plague
+bit  3:     Psychic
+bit  4:     Ripplefire
+bit  5:     Spirit Control
+bit  6:     Suicidal
+bit  7:     Tornadic Impact
+bit  8:     Wooden Missiles
 
 flag3
 =====
@@ -72,7 +92,7 @@ bit  3:     (CAF*) may not initiate Close Assault
 bit  5,4:   armor superscript
    01: -1
    10: +1
-bit  6:     armor value in white font
+bit  6:     Unarmored Vehicle (white font)
 bit  7:     armor value with a "+" sign
 bit  8:     recon              ("R" icon)
 bit  9:     Advanced Targeting ("A" icon)
