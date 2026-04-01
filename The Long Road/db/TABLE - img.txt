@@ -60,7 +60,7 @@ bit 13:     Eye of Chaos
 bit 14:     Gateway to the Abyss
 bit 15:     Ghost Buster
 
-ability2
+ability3
 ========
 bit  0:     Healer
 bit  1:     Iron Resolve

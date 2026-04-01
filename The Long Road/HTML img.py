@@ -148,14 +148,13 @@ def ability1(row):
         html_row += "Steady; "
     if row[12] & (1<<15):
         html_row += "Tough; "
-    html_row += "</td>"
 
     return html_row
 
 
 # ******************************************************************************
 def ability2(row):
-    html_row = "<td>"
+    html_row = ""
     if row[13] & (1<<0):
         html_row += "Veteran; "
     if row[13] & (1<<1):
@@ -188,6 +187,13 @@ def ability2(row):
         html_row += "Gateway to the Abyss; "
     if row[13] & (1<<15):
         html_row += "Ghost Buster; "
+
+    return html_row
+
+
+# ******************************************************************************
+def ability3(row):
+    html_row = ""
     html_row += "</td>"
 
     return html_row
@@ -220,6 +226,7 @@ for row in rows:
     html_row += col_3(row)
     html_row += ability1(row)
     html_row += ability2(row)
+    html_row += ability3(row)
     html_row += "</tr>"
     print(html_row)
 
