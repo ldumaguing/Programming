@@ -194,6 +194,24 @@ def ability2(row):
 # ******************************************************************************
 def ability3(row):
     html_row = ""
+    if row[20] & (1<<0):
+        html_row += "Healer; "
+    if row[20] & (1<<1):
+        html_row += "Iron Resolve; "
+    if row[20] & (1<<2):
+        html_row += "Necrotic Plague; "
+    if row[20] & (1<<3):
+        html_row += "Psychic; "
+    if row[20] & (1<<4):
+        html_row += "Ripplefire; "
+    if row[20] & (1<<5):
+        html_row += "Spirit Control; "
+    if row[20] & (1<<6):
+        html_row += "Suicidal; "
+    if row[20] & (1<<7):
+        html_row += "Tornadic Impact; "
+    if row[20] & (1<<8):
+        html_row += "Wooden Missiles; "
     html_row += "</td>"
 
     return html_row
