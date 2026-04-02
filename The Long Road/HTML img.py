@@ -212,6 +212,8 @@ def ability3(row):
         html_row += "Tornadic Impact; "
     if row[20] & (1<<8):
         html_row += "Wooden Missiles; "
+    if row[20] & (1<<9):
+        html_row += "Ghost Buster (adjacent); "
     html_row += "</td>"
 
     return html_row

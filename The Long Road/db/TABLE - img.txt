@@ -71,6 +71,7 @@ bit  5:     Spirit Control
 bit  6:     Suicidal
 bit  7:     Tornadic Impact
 bit  8:     Wooden Missiles
+bit  9:     Ghost Buster (adjacent range)
 
 flag3
 =====
