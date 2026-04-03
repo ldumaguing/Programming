@@ -6,19 +6,20 @@ CREATE TABLE chit (
     faction TEXT
 );
 
-select * from (
+
+
+
 select
-   chit.id,
-   img.file,
-   chit.back
+   chit.id      id,
+   chit.descrip descrip,
+   chit.faction faction,
+   img.file     front,
+   chit.back    back
 from
-   img, chit
+   chit, img
 where
-   img.id = chit.front
-)
-
+   chit.front = img.id
 ;
-
 
 
 
