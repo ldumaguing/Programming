@@ -117,37 +117,37 @@ def col_3(row):
 def ability1(row):
     html_row = "<td>"
     if row[12] & (1<<0):
-        html_row += "Activate Twice; "
+        html_row += "Activate Twice<br>"
     if row[12] & (1<<1):
-        html_row += "Aggressive; "
+        html_row += "Aggressive<br>"
     if row[12] & (1<<2):
-        html_row += "Brutal; "
+        html_row += "Brutal<br>"
     if row[12] & (1<<3):
-        html_row += "Concealed; "
+        html_row += "Concealed<br>"
     if row[12] & (1<<4):
-        html_row += "Courageous; "
+        html_row += "Courageous<br>"
     if row[12] & (1<<5):
-        html_row += "Fearsome Howl; "
+        html_row += "Fearsome Howl<br>"
     if row[12] & (1<<6):
-        html_row += "Fireball; "
+        html_row += "Fireball<br>"
     if row[12] & (1<<7):
-        html_row += "Frenzied; "
+        html_row += "Frenzied<br>"
     if row[12] & (1<<8):
-        html_row += "Leap; "
+        html_row += "Leap<br>"
     if row[12] & (1<<9):
-        html_row += "Lightning Strike; "
+        html_row += "Lightning Strike<br>"
     if row[12] & (1<<10):
-        html_row += "Reanimate; "
+        html_row += "Reanimate<br>"
     if row[12] & (1<<11):
-        html_row += "Recon; "
+        html_row += "Recon<br>"
     if row[12] & (1<<12):
-        html_row += "Silver Bullet; "
+        html_row += "Silver Bullet<br>"
     if row[12] & (1<<13):
-        html_row += "Sniper; "
+        html_row += "Sniper<br>"
     if row[12] & (1<<14):
-        html_row += "Steady; "
+        html_row += "Steady<br>"
     if row[12] & (1<<15):
-        html_row += "Tough; "
+        html_row += "Tough<br>"
 
     return html_row
 
@@ -155,38 +155,38 @@ def ability1(row):
 # ******************************************************************************
 def ability2(row):
     html_row = ""
-    if row[13] & (1<<0):
-        html_row += "Veteran; "
-    if row[13] & (1<<1):
-        html_row += "Wolf Speed; "
-    if row[13] & (1<<2):
-        html_row += "Lucky; "
-    if row[13] & (1<<3):
-        html_row += "Rally; "
-    if row[13] & (1<<4):
-        html_row += "Regenerate; "
-    if row[13] & (1<<5):
-        html_row += "Fly; "
-    if row[13] & (1<<6):
-        html_row += "Explosive Decomposition; "
-    if row[13] & (1<<7):
-        html_row += "Acid Bile; "
-    if row[13] & (1<<8):
-        html_row += "Blood Thirsty; "
     if row[13] & (1<<9):
-        html_row += "AAA; "
+        html_row += "AAA<br>"
+    if row[13] & (1<<7):
+        html_row += "Acid Bile<br>"
+    if row[13] & (1<<8):
+        html_row += "Blood Thirsty<br>"
     if row[13] & (1<<10):
-        html_row += "Boom Risk; "
+        html_row += "Boom Risk<br>"
     if row[13] & (1<<11):
-        html_row += "Deathless; "
+        html_row += "Deathless<br>"
     if row[13] & (1<<12):
-        html_row += "Ethereal Being; "
+        html_row += "Ethereal Being<br>"
+    if row[13] & (1<<6):
+        html_row += "Explosive Decomposition<br>"
     if row[13] & (1<<13):
-        html_row += "Eye of Chaos; "
+        html_row += "Eye of Chaos<br>"
+    if row[13] & (1<<5):
+        html_row += "Fly<br>"
     if row[13] & (1<<14):
-        html_row += "Gateway to the Abyss; "
+        html_row += "Gateway to the Abyss<br>"
     if row[13] & (1<<15):
-        html_row += "Ghost Buster; "
+        html_row += "Ghost Buster<br>"
+    if row[13] & (1<<2):
+        html_row += "Lucky<br>"
+    if row[13] & (1<<3):
+        html_row += "Rally<br>"
+    if row[13] & (1<<4):
+        html_row += "Regenerate<br>"
+    if row[13] & (1<<0):
+        html_row += "Veteran<br>"
+    if row[13] & (1<<1):
+        html_row += "Wolf Speed<br>"
 
     return html_row
 
@@ -195,25 +195,25 @@ def ability2(row):
 def ability3(row):
     html_row = ""
     if row[20] & (1<<0):
-        html_row += "Healer; "
+        html_row += "Healer<br>"
     if row[20] & (1<<1):
-        html_row += "Iron Resolve; "
+        html_row += "Iron Resolve<br>"
     if row[20] & (1<<2):
-        html_row += "Necrotic Plague; "
+        html_row += "Necrotic Plague<br>"
     if row[20] & (1<<3):
-        html_row += "Psychic; "
+        html_row += "Psychic<br>"
     if row[20] & (1<<4):
-        html_row += "Ripplefire; "
+        html_row += "Ripplefire<br>"
     if row[20] & (1<<5):
-        html_row += "Spirit Control; "
+        html_row += "Spirit Control<br>"
     if row[20] & (1<<6):
-        html_row += "Suicidal; "
+        html_row += "Suicidal<br>"
     if row[20] & (1<<7):
-        html_row += "Tornadic Impact; "
+        html_row += "Tornadic Impact<br>"
     if row[20] & (1<<8):
-        html_row += "Wooden Missiles; "
+        html_row += "Wooden Missiles<br>"
     if row[20] & (1<<9):
-        html_row += "Ghost Buster (adjacent); "
+        html_row += "Ghost Buster (adjacent)<br>"
     html_row += "</td>"
 
     return html_row
