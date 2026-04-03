@@ -29,6 +29,35 @@ where
 
 
 
+
+select * from
+(
+select
+   chit.id      id,
+   chit.descrip descrip,
+   chit.faction faction,
+   img.file     front,
+   chit.back    back
+from
+   chit, img
+where
+   chit.front = img.id
+) AAA,
+img
+where
+AAA.back = img.id;
+
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE img (
     id         INTEGER PRIMARY KEY,
     file       TEXT NOT NULL,
