@@ -26,6 +26,7 @@ for row in rows:
     html_row += f"<td><img src=\"TLR/{row[3]}\"</td>"
     html_row += f"<td><img src=\"TLR/{row[4]}\"</td>"
     html_row += f"<td>{row[1]}</td>"
+    html_row += f"<td>{row[2]}</td>"
     html_row += "</tr>"
     print(html_row)
 
