@@ -5,7 +5,7 @@ import re
 def col_1(row):
     html_row = f"\t\t\t<tr><td>{row[0]}</td>"
     # html_row += f"<td>{row[1]}</td>" # file
-    html_row += f"<td><img src=\"TLR/{row[1]}\"></td>"
+    html_row += f"<td><img src=\"../TLR/{row[1]}\"></td>"
     bit_3n4 = ""
     if int(row[2]) & (1 << 3):
         bit_3n4 = "-1"

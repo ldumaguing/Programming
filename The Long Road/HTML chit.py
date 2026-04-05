@@ -16,15 +16,15 @@ print ("""<!DOCTYPE html>
 CONN = sqlite3.connect("db/TLR.db")
 
 stmt = "SELECT * FROM v_chit "
-stmt += "ORDER BY id"
+stmt += "ORDER BY descrip"
 cursor = CONN.cursor()
 cursor.execute(stmt)
 rows = cursor.fetchall()
 for row in rows:
     html_row = "<tr>"
     html_row += f"<td>{row[0]}</td>"
-    html_row += f"<td><img src=\"TLR/{row[3]}\"</td>"
-    html_row += f"<td><img src=\"TLR/{row[4]}\"</td>"
+    html_row += f"<td><img src=\"../TLR/{row[3]}\"</td>"
+    html_row += f"<td><img src=\"../TLR/{row[4]}\"</td>"
     html_row += f"<td>{row[1]}</td>"
     html_row += f"<td>{row[2]}</td>"
     html_row += "</tr>"

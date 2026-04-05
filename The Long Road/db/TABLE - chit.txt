@@ -1,0 +1,8 @@
+CREATE TABLE chit (
+    id      INTEGER,
+    descrip TEXT,
+    front   INTEGER,
+    back    INTEGER,
+    faction TEXT
+);
+

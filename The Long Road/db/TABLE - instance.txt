@@ -1,0 +1,50 @@
+CREATE TABLE instance (
+    id          INTEGER,
+    scenario_id INTEGER NOT NULL,     -- "foreign key" from _scenario_ table
+    descrip     TEXT,
+    chit_id1    INTEGER DEFAULT 0,
+    chit_id2    INTEGER DEFAULT -100,
+    curr_img_id INTEGER DEFAULT -100, -- use to get stats
+    element     TEXT,                 -- sub faction/group
+    loc_x       INTEGER DEFAULT 0,
+    loc_y       INTEGER DEFAULT 0,
+    loc_z       INTEGER DEFAULT 0,
+    stack_lvl   INTEGER DEFAULT 0,
+    status1     INTEGER DEFAULT 0,
+    status2     INTEGER DEFAULT 0,
+    curr_MF     INTEGER DEFAULT 0,
+    PRIMARY KEY (id, scenario_id)
+);
+
+status2
+=======
+reduced 0-2:
+bit  0:
+   001: 1st reduction
+   010: 2nd reduction
+   011: 3rd reduction
+   100: 4th reduction (maybe)
+
+status1
+=======
+bit  0: visible
+bit  1: -
+bit  2: hovering
+bit  3: werewolf
+bit  4: AFV using wired missile
+bit  5: with Songster (T-64B) or use a unit stat/img with a missile icon
+bit  6: missile used up
+bit  7: fired
+bit  8: moved
+bit  9: disrupted
+bit 10: has infintry/recon
+bit 11: has hero 1
+bit 12: has hero 2
+facing 15-13:
+   000: N
+   001: NE
+   010: SE
+   011: S
+   100: SW
+   101: NW
+
