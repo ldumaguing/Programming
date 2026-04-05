@@ -224,7 +224,7 @@ print ("""<!DOCTYPE html>
 <html>
 \t<head>
 \t\t<meta charset="UTF-8">
-\t\t<title>The Long Road</title>
+\t\t<title>Img</title>
 \t</head>
 \t<body>
 \t\t<table>"""
