@@ -1,0 +1,34 @@
+CREATE TABLE img (
+    id         INTEGER PRIMARY KEY,
+    file       TEXT NOT NULL,
+    flag1      INTEGER DEFAULT 0,
+    apf_val    INTEGER DEFAULT -100,
+    apf_rng    TEXT,
+    hef_val    INTEGER DEFAULT -100,
+    hef_rng    TEXT,
+    mf_val     INTEGER DEFAULT -100,
+    caf_val    INTEGER DEFAULT -100,
+    flag2      INTEGER DEFAULT 0,
+    armor_val  INTEGER DEFAULT -100,
+    flag3      INTEGER DEFAULT 0,
+    ability1   INTEGER DEFAULT 0,
+    ability2   INTEGER DEFAULT 0,
+    apf2_val   INTEGER DEFAULT -100,
+    apf2_rng   TEXT,
+    hef2_val   INTEGER DEFAULT -100,
+    hef2_rng   TEXT,
+    URPapf_val TEXT, -- Userper's two values
+    URPhef_val TEXT, -- Userper's two values
+    ability3   INTEGER DEFAULT 0
+);
+
+CREATE TABLE chit (
+    id      INTEGER,
+    descrip TEXT,
+    front   INTEGER,
+    back    INTEGER,
+    faction TEXT,
+    version INTEGER
+);
+
+

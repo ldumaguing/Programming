@@ -1,0 +1,31 @@
+CREATE TABLE unit (
+    id       INTEGER PRIMARY KEY,
+    descrip1 TEXT,
+    descrip2 TEXT,
+    chit_id1 INTEGER DEFAULT 0,
+    chit_id2 INTEGER DEFAULT -100,
+    flag1    INTEGER DEFAULT 0
+);
+
+flag1
+=====
+number of img states - bit 1,0:
+   00: two-sided
+   01: one-sided
+   10: three-sided
+   11: four-sided
+
+
+.mode csv
+.headers on
+.output xxx.csv
+select * from instance;
+.output stdout
+.quit
+
+
+
+
+
+
+
