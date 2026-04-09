@@ -20,6 +20,7 @@ flag2
 bit 0:   City
 bit 1:   Cultivated
 bit 2:   Lake
+bit 3:   Hill 1
 
 
 flag1

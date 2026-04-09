@@ -1,9 +1,10 @@
 CREATE TABLE unit (
     id       INTEGER PRIMARY KEY,
-    descrip1 TEXT,
-    descrip2 TEXT,
+    descrip  TEXT,
     chit_id1 INTEGER DEFAULT 0,
-    chit_id2 INTEGER DEFAULT -100,
+    chit_id2 INTEGER DEFAULT 0,
+    faction  TEXT,
+    version  INTEGER DEFAULT 0,
     flag1    INTEGER DEFAULT 0
 );
 
