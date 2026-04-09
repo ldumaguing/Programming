@@ -231,8 +231,10 @@ def save_info(line, terrain_type, conn, filename):
         X = ord(alpha[0]) - A_ref
         Y = re.search("[0-9]+", hexagon)
 
-        if terrain_type == "HILL":
+        if terrain_type == "HILL1":
             stmt += "flag1 = (flag1 | (1 << 0)) "
+        if terrain_type == "HILL2":
+            stmt += "flag2 = (flag2 | (1 << 3)) "
         if terrain_type == "ROLLING":
             stmt += "flag1 = (flag1 | (1 << 13)) "
         if terrain_type == "FOREST":
@@ -303,8 +305,10 @@ with open(sys.argv[1], "r") as file:
         if re.search("^$", line):
             pass
         else:
-            if re.search("^HILL", line):
-                terrain_type = "HILL"
+            if re.search("^HILL1", line):
+                terrain_type = "HILL1"
+            if re.search("^HILL2", line):
+                terrain_type = "HILL2"
             if re.search("^ROLLING", line):
                 terrain_type = "ROLLING"
             if re.search("^FOREST", line):

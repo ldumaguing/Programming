@@ -20,12 +20,12 @@ flag2
 bit 0:   City
 bit 1:   Cultivated
 bit 2:   Lake
-bit 3:   Hill 1
+bit 3:   Hill 2
 
 
 flag1
 =====
-bit 0:   Hill
+bit 0:   Hill 1
 bit 1-6: Road exits
     1: A (N)
     2: B (NE)
