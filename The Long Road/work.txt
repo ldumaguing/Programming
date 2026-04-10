@@ -1,0 +1,109 @@
+
+
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   unit.chit_id2 chit_id2,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from
+unit, chit
+where
+unit.chit_id1 = chit.id
+;
+
+
+
+
+
+
+
+
+
+
+create view v_unit as
+select
+   aaa.id      id,
+   aaa.descrip descrip,
+   aaa.A_front A_front,
+   aaa.A_back  A_back,
+   chit.front  B_front,
+   chit.back   B_back,
+   aaa.faction faction,
+   aaa.version version,
+   aaa.flag1   flag1
+from
+(
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   unit.chit_id2 chit_id2,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from
+unit, chit
+where
+unit.chit_id1 = chit.id
+) aaa
+left join chit
+on
+aaa.chit_id2 = chit.id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE unit (
+    id       INTEGER PRIMARY KEY,
+    descrip  TEXT,
+    chit_id1 INTEGER DEFAULT 0,
+    chit_id2 INTEGER DEFAULT 0,
+    faction  TEXT,
+    version  INTEGER DEFAULT 0,
+    flag1    INTEGER DEFAULT 0
+);
+
+
+CREATE TABLE chit (
+    id      INTEGER,
+    descrip TEXT,
+    front   INTEGER,
+    back    INTEGER,
+    faction TEXT,
+    version INTEGER
+);
+
+
+
