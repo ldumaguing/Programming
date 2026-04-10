@@ -15,6 +15,60 @@ number of img states - bit 1,0:
    01: one-sided
    10: three-sided
    11: four-sided
+4-img units - bit 2-4:
+   000: default 2-img units
+   001: VTOL
+   010: Transformer
+   011: Reborn
+   100: 4-HP units
+
+
+***************************************************************************** 4-img units
+VTOL
+====
+   A_front: all good / moving
+   A_back:  all good / hovering
+   B_front: reduced / moving
+   B_back:  reduced / hovering
+
+Transformer
+===========
+   A_front: all good / human
+   A_back:  reduced / human
+   B_front: all good / other form
+   B_back:  reduced / other form
+
+Reborn
+======
+   A_front: IV
+   A_back:  II
+   B_front: III
+   B_back:  Raging Spirits
+
+4-HP units
+==========
+   A_front: IV
+   A_back:  III
+   B_front: II
+   B_back:  I
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .mode csv
@@ -23,6 +77,12 @@ number of img states - bit 1,0:
 select * from instance;
 .output stdout
 .quit
+
+
+
+
+
+
 
 
 
