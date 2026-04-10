@@ -1,6 +1,7 @@
 <verb>_CHIT.py : god mode
 <verb>_UNIT.py : action is based on UNIT/COMBATANT contraints
 
+mv_ : materialized view
 
 ***************************************************************************************************
      img

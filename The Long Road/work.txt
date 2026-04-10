@@ -1,3 +1,155 @@
+select
+   bbb.id,
+   bbb.descrip,
+   bbb.A_front,
+   bbb.A_back,
+   img.file,
+   bbb.B_back
+from (
+select
+   aaa.id      id,
+   aaa.descrip descrip,
+   aaa.A_front A_front,
+   img.file    A_back,
+   aaa.B_front B_front,
+   aaa.B_back  B_back
+from (
+select
+   mv_unit.id       id,
+   mv_unit.descrip  descrip,
+   img.file         A_front,
+   mv_unit.A_back   A_back,
+   mv_unit.B_front  B_front,
+   mv_unit.B_back   B_back
+from mv_unit
+left join img
+on
+mv_unit.A_front = img.id) aaa
+left join img
+on
+aaa.A_back = img.id) bbb
+left join img
+on
+bbb.B_front = img.id
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************************************************************************
+select
+   bbb.id,
+   bbb.descrip,
+   bbb.A_front,
+   bbb.A_back,
+   img.file,
+   bbb.B_back
+from (
+select
+   aaa.id      id,
+   aaa.descrip descrip,
+   aaa.A_front A_front,
+   img.file    A_back,
+   aaa.B_front B_front,
+   aaa.B_back  B_back
+from (
+select
+   mv_unit.id       id,
+   mv_unit.descrip  descrip,
+   img.file         A_front,
+   mv_unit.A_back   A_back,
+   mv_unit.B_front  B_front,
+   mv_unit.B_back   B_back
+from mv_unit
+left join img
+on
+mv_unit.A_front = img.id) aaa
+left join img
+on
+aaa.A_back = img.id) bbb
+left join img
+on
+bbb.B_front = img.id
+;
+
+
+************************************************************************************************
+select
+   aaa.id,
+   aaa.descrip,
+   aaa.A_front,
+   img.file,
+   aaa.B_front,
+   aaa.B_back
+from (
+select
+   mv_unit.id       id,
+   mv_unit.descrip  descrip,
+   img.file         A_front,
+   mv_unit.A_back   A_back,
+   mv_unit.B_front  B_front,
+   mv_unit.B_back   B_back
+from mv_unit
+left join img
+on
+mv_unit.A_front = img.id) aaa
+left join img
+on
+aaa.A_back = img.id
+;
+
+
+
+
+
+
+
+CREATE TABLE mv_unit(
+  id INT,
+  descrip TEXT,
+  A_front INT,
+  A_back INT,
+  B_front INT,
+  B_back INT,
+  faction TEXT,
+  version INT,
+  flag1 INT
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 select
