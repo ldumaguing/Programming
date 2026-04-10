@@ -1,10 +1,19 @@
+create view v_mv_unit as   -- converting IDs to filenames
 select
-   bbb.id,
-   bbb.descrip,
-   bbb.A_front,
-   bbb.A_back,
-   img.file,
-   bbb.B_back
+   ccc.id      id,
+   ccc.descrip descrip,
+   ccc.A_front A_front,
+   ccc.A_back  A_back,
+   ccc.B_front B_front,
+   img.file    B_back
+from (
+select
+   bbb.id      id,
+   bbb.descrip descrip,
+   bbb.A_front A_front,
+   bbb.A_back  A_back,
+   img.file    B_front,
+   bbb.B_back  B_back
 from (
 select
    aaa.id      id,
@@ -30,8 +39,10 @@ on
 aaa.A_back = img.id) bbb
 left join img
 on
-bbb.B_front = img.id
-;
+bbb.B_front = img.id) ccc
+left join img
+on
+ccc.B_back = img.id;
 
 
 
