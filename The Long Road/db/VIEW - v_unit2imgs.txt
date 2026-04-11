@@ -1,0 +1,28 @@
+create view v_unit2imgs as
+select
+   aaa.id                  id,
+   aaa.descrip             descrip,
+   aaa.A_front             A_front,
+   aaa.A_back              A_back,
+   COALESCE(chit.front, 0) B_front,
+   IFNULL(chit.back, 0)    B_back,
+   aaa.faction             faction,
+   aaa.version             version,
+   aaa.flag1               flag1
+from (
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.chit_id2 chit_id2,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from unit
+left join chit
+on
+   unit.chit_id1 = chit.id) aaa
+left join chit
+on
+   aaa.chit_id2 = chit.id;
