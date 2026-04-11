@@ -1,3 +1,252 @@
+*********************************************************** v_unit
+create view v_unit as
+select
+   eee.id      id,
+   eee.descrip descrip,
+   eee.A_front A_front,
+   eee.A_back  A_back,
+   eee.B_front B_front,
+   img.file    B_back,
+   eee.faction faction,
+   eee.version version,
+   eee.flag1   flag1
+from (
+select
+   ddd.id      id,
+   ddd.descrip descrip,
+   ddd.A_front A_front,
+   ddd.A_back  A_back,
+   img.file    B_front,
+   ddd.B_back  B_back,
+   ddd.faction faction,
+   ddd.version version,
+   ddd.flag1   flag1
+from (
+select
+   ccc.id      id,
+   ccc.descrip descrip,
+   ccc.A_front A_front,
+   img.file    A_back,
+   ccc.B_front B_front,
+   ccc.B_back  B_back,
+   ccc.faction faction,
+   ccc.version version,
+   ccc.flag1   flag1
+from (
+select
+   bbb.id      id,
+   bbb.descrip descrip,
+   img.file    A_front,
+   bbb.A_back  A_back,
+   bbb.B_front B_front,
+   bbb.B_back  B_back,
+   bbb.faction faction,
+   bbb.version version,
+   bbb.flag1   flag1
+from (
+select
+   aaa.id                  id,
+   aaa.descrip             descrip,
+   aaa.A_front             A_front,
+   aaa.A_back              A_back,
+   COALESCE(chit.front, 0) B_front,
+   IFNULL(chit.back, 0)    B_back,
+   aaa.faction             faction,
+   aaa.version             version,
+   aaa.flag1               flag1
+from (
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.chit_id2 chit_id2,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from unit
+left join chit
+on
+   unit.chit_id1 = chit.id) aaa
+left join chit
+on
+   aaa.chit_id2 = chit.id) bbb
+left join img
+on
+   bbb.A_front = img.id) ccc
+left join img
+on
+   ccc.A_back = img.id) ddd
+left join img
+on
+   ddd.B_front = img.id) eee
+left join img
+on
+   eee.B_back = img.id
+;
+
+
+
+*********************************************************** B_back to file
+select
+   eee.id      id,
+   eee.descrip descrip,
+   eee.A_front A_front,
+   eee.A_back  A_back,
+   eee.B_front B_front,
+   img.file    B_back,
+   eee.faction faction,
+   eee.version version,
+   eee.flag1   flag1
+from (
+select
+   ddd.id      id,
+   ddd.descrip descrip,
+   ddd.A_front A_front,
+   ddd.A_back  A_back,
+   img.file    B_front,
+   ddd.B_back  B_back,
+   ddd.faction faction,
+   ddd.version version,
+   ddd.flag1   flag1
+from (
+select
+   ccc.id      id,
+   ccc.descrip descrip,
+   ccc.A_front A_front,
+   img.file    A_back,
+   ccc.B_front B_front,
+   ccc.B_back  B_back,
+   ccc.faction faction,
+   ccc.version version,
+   ccc.flag1   flag1
+from (
+select
+   bbb.id      id,
+   bbb.descrip descrip,
+   img.file    A_front,
+   bbb.A_back  A_back,
+   bbb.B_front B_front,
+   bbb.B_back  B_back,
+   bbb.faction faction,
+   bbb.version version,
+   bbb.flag1   flag1
+from (
+select
+   aaa.id                  id,
+   aaa.descrip             descrip,
+   aaa.A_front             A_front,
+   aaa.A_back              A_back,
+   COALESCE(chit.front, 0) B_front,
+   IFNULL(chit.back, 0)    B_back,
+   aaa.faction             faction,
+   aaa.version             version,
+   aaa.flag1               flag1
+from (
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.chit_id2 chit_id2,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from unit
+left join chit
+on
+   unit.chit_id1 = chit.id) aaa
+left join chit
+on
+   aaa.chit_id2 = chit.id) bbb
+left join img
+on
+   bbb.A_front = img.id) ccc
+left join img
+on
+   ccc.A_back = img.id) ddd
+left join img
+on
+   ddd.B_front = img.id) eee
+left join img
+on
+   eee.B_back = img.id
+;
+
+
+*********************************************************** B_front to file
+select
+   ddd.id      id,
+   ddd.descrip descrip,
+   ddd.A_front A_front,
+   ddd.A_back  A_back,
+   img.file    B_front,
+   ddd.B_back  B_back,
+   ddd.faction faction,
+   ddd.version version,
+   ddd.flag1   flag1
+from (
+select
+   ccc.id      id,
+   ccc.descrip descrip,
+   ccc.A_front A_front,
+   img.file    A_back,
+   ccc.B_front B_front,
+   ccc.B_back  B_back,
+   ccc.faction faction,
+   ccc.version version,
+   ccc.flag1   flag1
+from (
+select
+   bbb.id      id,
+   bbb.descrip descrip,
+   img.file    A_front,
+   bbb.A_back  A_back,
+   bbb.B_front B_front,
+   bbb.B_back  B_back,
+   bbb.faction faction,
+   bbb.version version,
+   bbb.flag1   flag1
+from (
+select
+   aaa.id                  id,
+   aaa.descrip             descrip,
+   aaa.A_front             A_front,
+   aaa.A_back              A_back,
+   COALESCE(chit.front, 0) B_front,
+   IFNULL(chit.back, 0)    B_back,
+   aaa.faction             faction,
+   aaa.version             version,
+   aaa.flag1               flag1
+from (
+select
+   unit.id       id,
+   unit.descrip  descrip,
+   chit.front    A_front,
+   chit.back     A_back,
+   unit.chit_id2 chit_id2,
+   unit.faction  faction,
+   unit.version  version,
+   unit.flag1    flag1
+from unit
+left join chit
+on
+   unit.chit_id1 = chit.id) aaa
+left join chit
+on
+   aaa.chit_id2 = chit.id) bbb
+left join img
+on
+   bbb.A_front = img.id) ccc
+left join img
+on
+   ccc.A_back = img.id) ddd
+left join img
+on
+   ddd.B_front = img.id
+;
+
+
 *********************************************************** A_back to file
 select
    ccc.id      id,

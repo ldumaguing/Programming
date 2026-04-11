@@ -15,7 +15,7 @@ print ("""<!DOCTYPE html>
 
 CONN = sqlite3.connect("db/TLR.db")
 
-stmt = "SELECT * FROM v_mv_unit "
+stmt = "SELECT * FROM v_unit "
 stmt += "ORDER BY descrip"
 cursor = CONN.cursor()
 cursor.execute(stmt)
