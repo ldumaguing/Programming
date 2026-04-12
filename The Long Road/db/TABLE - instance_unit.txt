@@ -1,8 +1,7 @@
 CREATE TABLE instance_unit (
     id          INTEGER,
     scenario_id INTEGER NOT NULL,     -- "foreign key" from _scenario_ table
-    unit_id     INTEGER DEFAULT 0,    -- from the _unit_ table
-    curr_img_id INTEGER DEFAULT -100, -- use to get stats
+    unit_id     INTEGER NOT NULL,
     element     TEXT,                 -- sub faction/group
     loc_x       INTEGER DEFAULT 0,
     loc_y       INTEGER DEFAULT 0,
@@ -14,9 +13,23 @@ CREATE TABLE instance_unit (
     PRIMARY KEY (id, scenario_id)
 );
 
+flag1
+=====
+number of img states - bit 1,0:
+   00: two-sided
+   01: one-sided
+   10: three-sided
+   11: four-sided
+4-img units - bit 2-4:
+   000: default 2-img units
+   001: VTOL
+   010: Transformer
+   011: Reborn
+   100: 4-HP units
+
 status2
 =======
-chit side - 0,1:
+current chit side - 0,1:
    00: 1st chit, front
    01: 1st chit, back
    10: 2nd chit, front
