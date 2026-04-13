@@ -1,0 +1,11 @@
+Counter Lycan.png
+TLR_Lycan_Deck_01_incite_ferocity.png
+TLR_Lycan_Deck_02_incite_ferocity.png
+TLR_Lycan_Deck_03_incite_ferocity.png
+TLR_Lycan_Deck_04_forcethechange_panic.png
+TLR_Lycan_Deck_05_forcethechange_panic.png
+TLR_Lycan_Deck_06_cover_burstofspeed.png
+TLR_Lycan_Deck_07_nai_burstofspeed.png
+TLR_Lycan_Deck_08_sniper_regenerate.png
+TLR_Lycan_Deck_09_rally_regenerate.png
+TLR_Lycan_Deck_card_back.png

@@ -16,20 +16,20 @@ print ("""<!DOCTYPE html>
 CONN = sqlite3.connect("db/TLR.db")
 
 stmt = "SELECT * FROM v_unit "
-stmt += "ORDER BY faction, descrip, version"
+stmt += "ORDER BY descrip, version"
 cursor = CONN.cursor()
 cursor.execute(stmt)
 rows = cursor.fetchall()
 for row in rows:
-    html_row = "<tr>"
+    html_row = "\t\t\t<tr>"
     html_row += f"<td>{row[0]}</td>"
-    html_row += f"<td>v{row[7]}</td>"
     html_row += f"<td><img src=\"../TLR/{row[2]}\"</td>"
     html_row += f"<td><img src=\"../TLR/{row[3]}\"</td>"
     html_row += f"<td><img src=\"../TLR/{row[4]}\"</td>"
     html_row += f"<td><img src=\"../TLR/{row[5]}\"</td>"
     html_row += f"<td>{row[6]}</td>"
     html_row += f"<td>{row[1]}</td>"
+    html_row += f"<td>v{row[7]}</td>"
     html_row += "</tr>"
     print(html_row)
 
