@@ -7,18 +7,19 @@ CREATE TABLE card (
 flag1
 =====
 bit 0: character
-bit 1: blue deck (vampire)
-bit 2: cyan deck (lycan)
-bit 3: fuchsia deck (witch)
-bit 4: green deck (zombie)
+bit 1: blue deck (Vampire)
+bit 2: cyan deck (Lycan)
+bit 3: fuchsia deck (Witch)
+bit 4: green deck (Zombie)
 bit 5: purple deck
-bit 6: white deck
+bit 6: white deck (basic)
+bit 7: rear deck image
 
 
-update card set flag1 = (flag1 | (1<<6))
-where id >= 1092;
-
-
+update card set flag1 = (flag1 | (1<<7))
+where id in (
+1030,1041,1043,1053,1064
+);
 
 
 
