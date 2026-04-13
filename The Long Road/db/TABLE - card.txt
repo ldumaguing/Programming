@@ -1,0 +1,43 @@
+CREATE TABLE card (
+    id    INTEGER PRIMARY KEY,
+    file  TEXT,
+    flag1 INTEGER DEFAULT 0
+);
+
+flag1
+=====
+bit 0: character
+bit 1: blue deck (vampire)
+bit 2: cyan deck (lycan)
+bit 3: fuchsia deck (witch)
+bit 4: green deck (zombie)
+bit 5: purple deck
+bit 6: white deck
+
+
+update card set flag1 = (flag1 | (1<<6))
+where id >= 1092;
+
+
+
+
+
+alter table card add column id integer;
+
+
+
+
+
+.headers on
+.mode csv
+.output card.csv
+select id, file, 0 from card order by id;
+.output stdout
+.quit
+
+.mode csv
+.import card.csv card
+
+
+
+
