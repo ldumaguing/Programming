@@ -94,21 +94,69 @@ Raise the morale of all Warsaw Pacts units by 1 for the current turn.
 
 
 GLACIO!
+The witch slows time. Discard to take two action.
+
+
 HELL NO!
+Negates the last card played by the opposing player. Must be played immediately after the opposing card is played.
+
+
 HORROR
+Reduce British morale by 1 this turn.
+
+
 I CAN'T TAKE IT ANYMORE
+All non-hero combatants in or adjacent to a hex containing zombies must take a MC. Failing disrupts. If already disrupted no effect.
+
+
 INCITE!
+The clan foments resentment against Germany's occupiers, place an armed mob in a hex adjacent to a clan combatant.
+
+
 KGB
+Rally up to 2 units in the same hex. Reduce one of them.
+
+
 LUCKY DAY
+Reroll up to 4 defensive dice. Must accept results.
+
+
 MANPAD
+Attack helicopter or counter airstrike on 6 FP column.
+
+
 MIND CONTROL
+Target combatant within 3 hexes a MC. Fail = vampire controls for 1 turn.
+
+
 MOVE OUT!
+Instead of Firing, move 2 units.
+
+
 NAI
+Disregard the last enemy card played.
+
+
 NECRORUSH
+Remove any markers from 3 adjacent hexes of reborn and/or disciples and conduct a necrorush.
+
+
 NECROTIC SHELLS
+Target 3-hex pattern like artillery. Does no hits but places a plague marker on each unit targeted. Places blast markers like normal artillery.
+
+
 NEM
+Negates the last card played by the opposing player. Must be played immediately after the opposing card is played.
+
+
 NYET
+Negates the last card played by the opposing player. Must be played immediately after the opposing card is played.
+
+
 OH MY GOD! IT'S TURNED.
+
+
+
 OP FIRE
 PANIC
 PRE-PLANNED ATTACK
