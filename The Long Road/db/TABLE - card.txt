@@ -1,7 +1,8 @@
 CREATE TABLE card (
-    id    INTEGER PRIMARY KEY,
-    file  TEXT,
-    flag1 INTEGER DEFAULT 0
+    id      INTEGER PRIMARY KEY,
+    file    TEXT,
+    flag1   INTEGER DEFAULT 0,
+    descrip TEXT
 );
 
 flag1
@@ -32,7 +33,7 @@ alter table card add column id integer;
 .headers on
 .mode csv
 .output card.csv
-select id, file, 0 from card order by id;
+select * from card order by id;
 .output stdout
 .quit
 
