@@ -25,6 +25,8 @@ for row in rows:
     html_row = "\t\t\t<tr>"
     html_row += f"<td>{row[0]}</td>"
     html_row += f"<td><img src=\"../TLR/{row[1]}\"</td>"
+    html_row += f"<td>{row[3]}</td>"
+    html_row += f"<td>{row[4]}</td>"
     html_row += "</tr>"
     print(html_row)
 

@@ -1,0 +1,122 @@
+2ND CHANCE
+Remove the Fired Marker from one unit.
+
+
+AGILITY
+After Movement Phase is complete and before Close Assault Phase, all "V" combatants in a hex may move 1 hex (may depart jointly-occupied hex).
+
+
+AIRSTRIKE
+
+
+ARTILLERY BARRAGE
+8 Firepower attack.
+
+
+BLOODSUCKER
+After winning Close Assault eache participating "V" gains 1 Luck marker.
+
+
+BOLTS OF LIGHTNING
+Lightning strikes any unit within 5 hexes and LOS. 12 AF or 6 HEF.
+
+
+BURST OF SPEED
+Fueled by rage, the lycan put on an inhumage burst of speed. Hex of lycan moves at twice their normal speed.
+
+
+CHAIN IT!
+Lightning strikes any unit within 5 hexes and LOS. 12 AF or 6 HEF. The arc of light then jumps to the next closest unit (randomly resolve ties), attacking with 8 AF or 4 HE.
+
+
+CONFUSION
+One targeted adjacent non-champion enemy unit must take a morale check. Failure: mark Fired.
+
+
+COUNTER BATTERY
+The NATO player must remove all artillery cards from his hand.
+
+
+COUNTERFIRE!
+Target EU may fire on its attacker. Shift FRT column 1 left. Resolve combat simultaneously.
+
+
+COVER
+The clan knows the city and land like no other. They are able to find cover where others find none. Ignore the first two non-negated hits for this attack.
+
+
+DAMN, THEY'RE FASTER THAN WE THINK!
+Double all zombie MF for this turn.
+
+
+DOUBLE TIME
+Increase movement of all units in 1 hex. Double Leg MV, add half MF FRD to AFV. If targetted by OpFire, shift 2 columns right.
+
+
+EAGER
+Subtract 1 from a rally attempt DR. Play after die is rolled.
+
+
+ECKTOPLASMIC SHEILD
+Cast on Udvoske or any ally within LOS and 3 hexes. Blocks current attack.
+
+
+ECM
+Place ECM marker on hex or in Initiative box with NATO Focus marker. Negate Focus marker's effect.
+
+
+ELECTRIC ARMOR
+Negates missile attack.
+
+
+EMP BLAST
+All enemy AFV within 3 hexes must make a MC (Morale Check). (Can only be played by Matuya units)
+
+
+FEAR
+When a vampire enters an enemy hex for Close Assault, target 1 enemy non-champion combatant to take a morale check.
+
+
+FEROCITY
+FIREBALL!
+FORCE THE CHANGE
+FOR THE MOTHERLAND
+GLACIO!
+HELL NO!
+HORROR
+I CAN'T TAKE IT ANYMORE
+INCITE!
+KGB
+LUCKY DAY
+MANPAD
+MIND CONTROL
+MOVE OUT!
+NAI
+NECRORUSH
+NECROTIC SHELLS
+NEM
+NYET
+OH MY GOD! IT'S TURNED.
+OP FIRE
+PANIC
+PRE-PLANNED ATTACK
+RALLY
+REGENERATE
+REPULSOR FIELD
+REVIVIFY
+SEEKER SHELLS
+SHARP JUST BIT THE SARGE!
+SNIPER
+SPETSNAZ
+SUPERIOR TARGETING
+SUPERIOR TRAINING
+TIME REVERSAL
+TRANSMOGRIFY
+UNEARTHLY ENERGY
+VEIL OF DECEIT
+VOLUMINOUS FIRE
+WHAT. IS. THAT?!
+"WHAT THE HELL?"
+WHERE DID THEY COME FROM?
+WORMHOLES
+
