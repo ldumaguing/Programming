@@ -78,9 +78,21 @@ When a vampire enters an enemy hex for Close Assault, target 1 enemy non-champio
 
 
 FEROCITY
+The lycans immense strength and animal speed catch the AFV platoon unaware, ripping men from the hatches, sowing fear. Close Assault hits are applied as per 7.0, reducing/eliminating AFVs.
+
+
 FIREBALL!
+Attack any hex withing 5 hexes and LOS. 8 HEF resolve like singer-hex artillery strike.
+
+
 FORCE THE CHANGE
+Fueled by stress and violence, the young clan members turn despite the lack of a moon.
+
+
 FOR THE MOTHERLAND
+Raise the morale of all Warsaw Pacts units by 1 for the current turn.
+
+
 GLACIO!
 HELL NO!
 HORROR
