@@ -3,10 +3,63 @@
 
 mv_ : materialized view
 
+
 ***************************************************************************************************
      img
       |
      chit
       |
      unit
+
+
+***************************************************************************************************
+hex = 150 meters
+
+
+
+CREATE TABLE chit (
+    id      INTEGER,
+    descrip TEXT,
+    front   INTEGER,
+    back    INTEGER,
+    faction TEXT,
+    version INTEGER
+);
+
+
+1119|T-80|1459|1460|Soviet|6
+
+img
+1441|TLR_SOV_morozov_0321.png|3|-100||-100||-100|4|387|2|1|2048|0|-100||-100||||0
+
+
+insert into chit (id, descrip, front, back, faction, version) values
+(1145, 'Morozov', 1441, 0, 'Soviet', 0);
+
+TLR_SOV_morozov_0321.png
+TLR_SOV_morozov_0321.png
+
+
+CREATE TABLE unit (
+    id       INTEGER PRIMARY KEY,
+    descrip  TEXT,
+    chit_id1 INTEGER DEFAULT 0,
+    chit_id2 INTEGER DEFAULT 0,
+    faction  TEXT,
+    version  INTEGER DEFAULT 0,
+    flag1    INTEGER DEFAULT 0
+);
+
+insert into unit (id, descrip, chit_id1, faction, version, flag1) values
+(
+1137, 'Morozov', 1145, 'Soviet', 0, 1
+);
+
+1145:chit
+
+
+
+
+
+
 
