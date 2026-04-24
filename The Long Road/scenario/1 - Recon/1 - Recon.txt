@@ -1,0 +1,163 @@
+name:Recon
+id:1
+maps:C
+turns:8
+
+##### Soviet
+# 4 x Infantry
+1049
+1049
+1049
+1049
+# 4 x BMP-1P
+1009
+1009
+1009
+1009
+# 2 x T-64B
+1109
+1109
+# BRDM-2
+1016
+# Morozov
+
+
+##### American
+# Abrams
+# M901
+# 2 x M-3 Bradley
+# 3 x Recon
+# Hood
+
+
+
+
+
+
+
+
+/ sdfasdf
+# asdfasdf
+; asdfasdf
+- sdfasdf
+* sdfasdf
+= sdfasdfs
+
+*********************************** Setup Commands
+******* instance_id     x     y
+[place] 1000            3     0
+[place] 1001            3     1
+[place] 1002            3     2
+[place] 1003            3     3
+[place] 1004            3     4
+[place] 1005            3     5
+[place] 1006            4     0
+[place] 1007            4     1
+[place] 1008            4     2
+[place] 1009            4     3
+[place] 1010            4     4
+[place] 1011            4     5
+
+[place] 1012            17    0
+[place] 1013            17    1
+[place] 1014            17    2
+[place] 1015            17    3
+[place] 1016            16    0
+[place] 1017            16    1
+[place] 1018            16    2
+[place] 1019            16    3
+
+[embark] 1000 1006
+
+[visible] 1000
+[visible] 1001
+[visible] 1002
+[visible] 1003
+[visible] 1004
+[visible] 1005
+[visible] 1006
+[visible] 1007
+[visible] 1008
+[visible] 1009
+[visible] 1010
+[visible] 1011
+
+[visible] 1012
+[visible] 1013
+[visible] 1014
+[visible] 1015
+[visible] 1016
+[visible] 1017
+[visible] 1018
+[visible] 1019
+
+[invisible] 1018
+
+[reset_MF] 1000
+[reset_MF] 1001
+[reset_MF] 1002
+[reset_MF] 1003
+[reset_MF] 1004
+[reset_MF] 1005
+[reset_MF] 1006
+[reset_MF] 1007
+[reset_MF] 1008
+[reset_MF] 1009
+[reset_MF] 1010
+[reset_MF] 1011
+
+[reset_MF] 1012
+[reset_MF] 1013
+[reset_MF] 1014
+[reset_MF] 1015
+[reset_MF] 1016
+[reset_MF] 1017
+[reset_MF] 1018
+[reset_MF] 1019
+
+END *************************************************************************************
+maps:A,B,C,D      # maps are appended based on the sequence
+
+maps:A,B_C,D    # underscore indicates that the maps are stacked
+
+maps:A,B_c,D   # lowercase indicates that the map is rotated 180 degress
+
+maps:A,B_.,C    # '.' indicates an empty map data
+maps:.,A_B,C
+
+
+
+ABCD
+
+AB
+CD
+
+AB
+cD
+
+AB
+.C
+
+.A
+BC
+
+
+
+
+
+
+x = 6984 - 121: 6863
+y = 2606 - 39:  2567
+
+len_X = 6863 / 34: 201.852941177
+len_Y = 2567 / 11: 233.363636364
+
+
+
+(201.852941177 * 11) + 121 = 2341
+(233.363636364 * 11) + 39 + (233.363636364 / 2) = 2722
+
+
+
+
+
