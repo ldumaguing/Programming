@@ -33,7 +33,7 @@ with open(sys.argv[1], "r") as file:
         if re.search("^id", line):
             scenario_id = get_scenario_id(line)
             print(scenario_id)
-            stmt = f"DELETE FROM instance_unit WHERE scenario_id = {scenario_id}"
+            stmt = f"DELETE FROM instance WHERE scenario_id = {scenario_id}"
             cmbat.sql_exec_stmt(conn, stmt)
             continue
 
@@ -41,5 +41,12 @@ with open(sys.argv[1], "r") as file:
             faction = ""
             continue
         else:
-            print(line)
-            # cmbat.place(conn, faction, line, scenario_id)
+            if re.search("^American", line):
+                if re.search(faction, line) != 0:
+                    faction = "American"
+                    continue
+            if re.search("^Soviet", line):
+                if re.search(faction, line) != 0:
+                    faction = "Soviet"
+                    continue
+            cmbat.place(conn, faction, line, scenario_id)

@@ -17,7 +17,7 @@ def place(conn, faction, line, scenario_id):
 
     infos = get_unit_infos(conn, X[1], faction)
 
-    stmt = "INSERT INTO instance (id, scenario_id, unit_id, unit_name, "
+    stmt = "INSERT INTO instance_unit (id, scenario_id, unit_id, unit_name, "
     stmt += "img_id, faction) VALUES ("
     stmt += f"{X[0]}, {scenario_id}, {infos[0]}, '{X[1]}', {infos[1]}, "
     stmt += f"'{faction}')"
