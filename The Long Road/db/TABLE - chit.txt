@@ -1,10 +1,12 @@
 CREATE TABLE chit (
-    id      INTEGER,
+    id      INTEGER PRIMARY KEY,
     descrip TEXT,
     front   INTEGER,
     back    INTEGER,
     faction TEXT,
-    version INTEGER
+    version INTEGER,
+    health  INTEGER,  -- info for champions
+    flip    INTEGER   -- info for champions
 );
 
 create view v_chit as

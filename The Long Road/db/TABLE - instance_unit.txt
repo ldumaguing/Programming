@@ -9,8 +9,19 @@ CREATE TABLE instance_unit (
     stack_lvl   INTEGER DEFAULT 0,
     status1     INTEGER DEFAULT 0,
     status2     INTEGER DEFAULT 0,
-    -- data from img
-    -- flipping the chit will change data
+    -- ****************************** data from unit
+    descrip   TEXT,
+    chit_id1  INTEGER DEFAULT 0,
+    chit_id2  INTEGER DEFAULT 0,
+    faction   TEXT,
+    "flag1:u" INTEGER DEFAULT 0,
+    -- ****************************** data from chit
+    chit_id INTEGER,
+    front   INTEGER,
+    back    INTEGER,
+    health  INTEGER,  -- info for champions
+    flip    INTEGER   -- info for champions
+    -- ****************************** data from img
     img_id     INTEGER DEFAULT 0,
     file       TEXT,
     flag1      INTEGER DEFAULT 0,
@@ -32,6 +43,7 @@ CREATE TABLE instance_unit (
     URPapf_val TEXT, -- Userper's two values
     URPhef_val TEXT, -- Userper's two values
     ability3   INTEGER DEFAULT 0,
+    --
     PRIMARY KEY (id, scenario_id)
 );
 
