@@ -1,7 +1,6 @@
 CREATE TABLE instance_unit (
     id          INTEGER,
     scenario_id INTEGER NOT NULL,     -- "foreign key" from _scenario_ table
-    unit_id     INTEGER NOT NULL,
     element     TEXT,                 -- sub faction/group
     loc_x       INTEGER DEFAULT 0,
     loc_y       INTEGER DEFAULT 0,
@@ -9,7 +8,29 @@ CREATE TABLE instance_unit (
     stack_lvl   INTEGER DEFAULT 0,
     status1     INTEGER DEFAULT 0,
     status2     INTEGER DEFAULT 0,
-    curr_MF     INTEGER DEFAULT 0,
+    -- data from img
+    -- flipping the chit will change data
+    unit_id    INTEGER NOT NULL,
+    file       TEXT NOT NULL,
+    flag1      INTEGER DEFAULT 0,
+    apf_val    INTEGER DEFAULT -100,
+    apf_rng    TEXT,
+    hef_val    INTEGER DEFAULT -100,
+    hef_rng    TEXT,
+    mf_val     INTEGER DEFAULT -100,
+    caf_val    INTEGER DEFAULT -100,
+    flag2      INTEGER DEFAULT 0,
+    armor_val  INTEGER DEFAULT -100,
+    flag3      INTEGER DEFAULT 0,
+    ability1   INTEGER DEFAULT 0,
+    ability2   INTEGER DEFAULT 0,
+    apf2_val   INTEGER DEFAULT -100,
+    apf2_rng   TEXT,
+    hef2_val   INTEGER DEFAULT -100,
+    hef2_rng   TEXT,
+    URPapf_val TEXT, -- Userper's two values
+    URPhef_val TEXT, -- Userper's two values
+    ability3   INTEGER DEFAULT 0,
     PRIMARY KEY (id, scenario_id)
 );
 
