@@ -1,6 +1,14 @@
 import re
 
 
+def new_unit(conn, line, scenario_id):
+    args = line.split(",")
+    stmt = "INSERT INTO instance_unit (id, scenario_id, unit_id) VALUES ("
+    stmt += f"{args[1]}, {scenario_id}, {args[0]})"
+    # print(stmt)
+    sql_exec_stmt(conn, stmt)
+
+
 def place(conn, line, scenario_id):
     X = re.sub("\\ +", ";", line)
     X = X.split(";")

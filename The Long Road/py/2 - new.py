@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import py_package.combatants as cmbat
+import py_package.commands as cmd
 import sys
 import re
 import sqlite3
@@ -19,6 +19,7 @@ if len(sys.argv) < 2:
     exit()
 
 faction = ""
+scenario_id = 0
 
 conn = sqlite3.connect("db/TLR.db")
 
@@ -32,14 +33,39 @@ with open(sys.argv[1], "r") as file:
 
         if re.search("^id", line):
             scenario_id = get_scenario_id(line)
-            print(scenario_id)
             stmt = f"DELETE FROM instance_unit WHERE scenario_id = {scenario_id}"
-            cmbat.sql_exec_stmt(conn, stmt)
+            cmd.sql_exec_stmt(conn, stmt)
             continue
 
         if re.search("^$", line) or re.search("^[\\*/#;\\-=]+", line):
             faction = ""
             continue
         else:
-            print(line)
+            if re.match("\\[new\\] ", line):
+                cmd.new_unit(conn, line.replace("[new] ", ""), scenario_id)
             # cmbat.place(conn, faction, line, scenario_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
