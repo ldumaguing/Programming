@@ -14,6 +14,18 @@ def get_infos(conn, some_id, tbl_name):
     return infos
 
 
+# ***************************************************************************************
+def place_unit(conn, line, scenario_id):
+    X = re.sub("\\ +", ";", line)
+    X = X.split(";")
+    stmt = "UPDATE instance_unit SET "
+    stmt += f"loc_x = {X[1]}, "
+    stmt += f"loc_y = {X[2]} WHERE "
+    stmt += f"scenario_id = {scenario_id} AND "
+    stmt += f"id = {X[0]}"
+    sql_exec_stmt(conn, stmt)
+
+# ***************************************************************************************
 def new_unit(conn, line, scenario_id):
     args = line.split(",")
     stmt = "INSERT INTO instance_unit (id, scenario_id, unit_id) VALUES ("
