@@ -1,12 +1,45 @@
 import re
 
 
+def get_infos(conn, some_id, tbl_name):
+    infos = ()
+    stmt = f"SELECT * FROM {tbl_name} WHERE id = {some_id}"
+    cursor = conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+    row = cursor.fetchone()
+    infos = row
+    cursor.close()
+
+    return infos
+
+
 def new_unit(conn, line, scenario_id):
     args = line.split(",")
     stmt = "INSERT INTO instance_unit (id, scenario_id, unit_id) VALUES ("
     stmt += f"{args[1]}, {scenario_id}, {args[0]})"
-    # print(stmt)
     sql_exec_stmt(conn, stmt)
+
+    unit_infos = get_infos(conn, args[0], "unit")
+    stmt = "UPDATE instance_unit SET "
+    stmt += f"descrip = '{unit_infos[1]}', "
+    stmt += f"chit_id1 = {unit_infos[2]}, "
+    stmt += f"chit_id2 = {unit_infos[3]}, "
+    stmt += f"faction = '{unit_infos[4]}', "
+    stmt += f"\"flag1:u\" = {unit_infos[6]} "
+    stmt += f"WHERE id = {args[1]}"
+    sql_exec_stmt(conn, stmt)
+
+    chit_infos = get_infos(conn, unit_infos[2], "chit")
+    stmt = "UPDATE instance_unit SET "
+    stmt += f"chit_id = {unit_infos[2]}, "
+    stmt += f"front = {chit_infos[2]}, "
+    stmt += f"back = {chit_infos[3]} "
+    stmt += f"WHERE id = {args[1]}"
+    sql_exec_stmt(conn, stmt)
+
+    img_infos = get_infos(conn, chit_infos[2], "img")
+    print(img_infos)
 
 
 def place(conn, line, scenario_id):
