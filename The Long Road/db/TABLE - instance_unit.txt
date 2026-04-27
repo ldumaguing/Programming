@@ -20,7 +20,7 @@ CREATE TABLE instance_unit (
     front   INTEGER,
     back    INTEGER,
     health  INTEGER,  -- info for champions
-    flip    INTEGER   -- info for champions
+    flip    INTEGER,  -- info for champions
     -- ****************************** data from img
     img_id     INTEGER DEFAULT 0,
     file       TEXT,

@@ -39,7 +39,30 @@ def new_unit(conn, line, scenario_id):
     sql_exec_stmt(conn, stmt)
 
     img_infos = get_infos(conn, chit_infos[2], "img")
-    print(img_infos)
+    stmt = "UPDATE instance_unit SET "
+    stmt += f"img_id = {img_infos[0]}, "
+    stmt += f"file = '{img_infos[1]}', "
+    stmt += f"flag1 = {img_infos[2]}, "
+    stmt += f"apf_val = {img_infos[3]}, "
+    stmt += f"apf_rng = '{img_infos[4]}', "
+    stmt += f"hef_val = {img_infos[5]}, "
+    stmt += f"hef_rng = '{img_infos[6]}', "
+    stmt += f"mf_val = {img_infos[7]}, "
+    stmt += f"caf_val = {img_infos[8]}, "
+    stmt += f"flag2 = {img_infos[9]}, "
+    stmt += f"armor_val = {img_infos[10]}, "
+    stmt += f"flag3 = {img_infos[11]}, "
+    stmt += f"ability1 = {img_infos[12]}, "
+    stmt += f"ability2 = {img_infos[13]}, "
+    stmt += f"apf2_val = {img_infos[14]}, "
+    stmt += f"apf2_rng = '{img_infos[15]}', "
+    stmt += f"hef2_val = {img_infos[16]}, "
+    stmt += f"hef2_rng = '{img_infos[17]}', "
+    stmt += f"URPapf_val = '{img_infos[18]}', "
+    stmt += f"URPhef_val = '{img_infos[19]}', "
+    stmt += f"ability3 = {img_infos[20]} "
+    stmt += f"WHERE id = {args[1]}"
+    sql_exec_stmt(conn, stmt)
 
 
 def place(conn, line, scenario_id):
