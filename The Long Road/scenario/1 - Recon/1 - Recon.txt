@@ -75,53 +75,10 @@ turns:8
 [place] 1018            16    2
 [place] 1019            16    3
 
-[embark] 1000 1006
 
-[visible] 1000
-[visible] 1001
-[visible] 1002
-[visible] 1003
-[visible] 1004
-[visible] 1005
-[visible] 1006
-[visible] 1007
-[visible] 1008
-[visible] 1009
-[visible] 1010
-[visible] 1011
 
-[visible] 1012
-[visible] 1013
-[visible] 1014
-[visible] 1015
-[visible] 1016
-[visible] 1017
-[visible] 1018
-[visible] 1019
 
-[invisible] 1018
 
-[reset_MF] 1000
-[reset_MF] 1001
-[reset_MF] 1002
-[reset_MF] 1003
-[reset_MF] 1004
-[reset_MF] 1005
-[reset_MF] 1006
-[reset_MF] 1007
-[reset_MF] 1008
-[reset_MF] 1009
-[reset_MF] 1010
-[reset_MF] 1011
-
-[reset_MF] 1012
-[reset_MF] 1013
-[reset_MF] 1014
-[reset_MF] 1015
-[reset_MF] 1016
-[reset_MF] 1017
-[reset_MF] 1018
-[reset_MF] 1019
 
 END *************************************************************************************
 maps:A,B,C,D      # maps are appended based on the sequence
