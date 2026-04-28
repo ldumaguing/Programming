@@ -86,7 +86,7 @@ def populate_terrain_temp(map_plate, conn):
 
 def plate_0x0(map_plate, row, col, conn, r):
     print("0x0")
-    stmt = "INSERT INTO terrain_instance "
+    stmt = "INSERT INTO instance_terrain "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
@@ -97,7 +97,7 @@ def plate_0x0(map_plate, row, col, conn, r):
         stmt += "FROM terrain_temp"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT OR IGNORE INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
         stmt += "FROM spine_temp"
@@ -108,7 +108,7 @@ def plate_0x0(map_plate, row, col, conn, r):
         stmt += "WHERE mapFile = '" + map_plate + "'"
         sql_exec_stmt(conn, stmt)
         # ***** spine
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y, spine, flag1 "
         stmt += "FROM spine WHERE "
@@ -121,7 +121,7 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
     for y in range(12):
         if r:
             stmt = f"""
-                UPDATE terrain_instance AS aaa
+                UPDATE instance_terrain AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain_temp
                 WHERE
@@ -137,7 +137,7 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
             # ***** spine rotated
             stmt = f"""
-                UPDATE spine_instance AS aaa
+                UPDATE instance_spine AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM spine_temp
                 WHERE
@@ -153,7 +153,7 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
         else:
             stmt = f"""
-                UPDATE terrain_instance AS aaa
+                UPDATE instance_terrain AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain
                 WHERE
@@ -171,7 +171,7 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
             # ***** spine
             stmt = f"""
-                UPDATE spine_instance AS aaa
+                UPDATE instance_spine AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM spine
                 WHERE
@@ -192,7 +192,7 @@ def seam_0x1(map_plate, row_shift, col_shift, conn, r):
 def plate_0x1(map_plate, row, col, conn, r):
     print("0x1")
     col_shift = 18 * col
-    stmt = "INSERT INTO terrain_instance "
+    stmt = "INSERT INTO instance_terrain "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
@@ -205,7 +205,7 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "WHERE loc_x > 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT OR IGNORE INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x + {col_shift}, "
         stmt += "loc_y, spine, flag1 FROM spine_temp"
@@ -218,7 +218,7 @@ def plate_0x1(map_plate, row, col, conn, r):
         stmt += "AND loc_x > 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x + {col_shift}, "
         stmt += "loc_y, spine, flag1 FROM spine WHERE "
@@ -232,7 +232,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
     for x in range(0, 20, 2):
         if r:
             stmt = f"""
-                UPDATE terrain_instance AS aaa
+                UPDATE instance_terrain AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain_temp
                 WHERE
@@ -248,7 +248,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
             # ***** spine rotated
             stmt = f"""
-                UPDATE spine_instance AS aaa
+                UPDATE instance_spine AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM spine_temp
                 WHERE
@@ -264,7 +264,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
         else:
             stmt = f"""
-                UPDATE terrain_instance AS aaa
+                UPDATE instance_terrain AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM terrain
                 WHERE
@@ -282,7 +282,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
             sql_exec_stmt(conn, stmt)
             # ***** spine
             stmt = f"""
-                UPDATE spine_instance AS aaa
+                UPDATE instance_spine AS aaa
                 SET flag1 = (
                 select aaa.flag1 | flag1 FROM spine
                 WHERE
@@ -303,7 +303,7 @@ def seam_1x0(map_plate, row_shift, col_shift, conn, r):
 def plate_1x0(map_plate, row, col, conn, r):
     print("1x0")
     row_shift = 12 * row
-    stmt = "INSERT INTO terrain_instance "
+    stmt = "INSERT INTO instance_terrain "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     stmt += "SELECT '" + missionName + "', "
     if r:
@@ -317,7 +317,7 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "WHERE loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT OR IGNORE INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, "
         stmt += "spine, flag1 FROM spine_temp"
@@ -331,7 +331,7 @@ def plate_1x0(map_plate, row, col, conn, r):
         stmt += "AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine
-        stmt = "INSERT INTO spine_instance "
+        stmt = "INSERT INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', loc_x, loc_y + {row_shift}, "
         stmt += "spine, flag1 FROM spine WHERE "
@@ -349,7 +349,7 @@ def plate_1x1(map_plate, row, col, conn, r):
     print("1x1")
     col_shift = 18 * col
     row_shift = 12 * row
-    stmt = "INSERT INTO terrain_instance "
+    stmt = "INSERT INTO instance_terrain "
     stmt += "(gameName, loc_x, loc_y, flag1, flag2) "
     if r:
         sql_exec_stmt(conn, "DELETE FROM spine_temp")
@@ -362,7 +362,7 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "WHERE loc_x > 0 AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine rotated
-        stmt = "INSERT OR IGNORE INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', "
         stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
@@ -377,7 +377,7 @@ def plate_1x1(map_plate, row, col, conn, r):
         stmt += "AND loc_x > 0 AND loc_y >= 0"
         sql_exec_stmt(conn, stmt)
         # ***** spine
-        stmt = "INSERT OR IGNORE INTO spine_instance "
+        stmt = "INSERT OR IGNORE INTO instance_spine "
         stmt += "(gameName, loc_x, loc_y, spine, flag1) "
         stmt += f"SELECT '{missionName}', "
         stmt += f"loc_x + {col_shift}, loc_y + {row_shift}, "
@@ -449,12 +449,12 @@ with open(sys.argv[1], "r") as file:
             if re.search("^name", line):
                 missionName = define_mission_name(line)
                 stmt = (
-                    "DELETE FROM terrain_instance WHERE gameName = '"
+                    "DELETE FROM instance_terrain WHERE gameName = '"
                     + missionName
                     + "'"
                 )
                 sql_exec_stmt(conn, stmt)
-                stmt = "DELETE FROM spine_instance WHERE gameName = "
+                stmt = "DELETE FROM instance_spine WHERE gameName = "
                 stmt += f"'{missionName}'"
                 sql_exec_stmt(conn, stmt)
             elif re.search("^maps", line):
