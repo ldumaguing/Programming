@@ -471,6 +471,9 @@ with open(sys.argv[1], "r") as file:
                 stmt = "INSERT INTO scenario (id, key, txt_val) VALUES ("
                 stmt += f"{scenario_id}, 'scenarioName', '{missionName}')"
                 sql_exec_stmt(conn, stmt)
+                stmt = f"UPDATE scenario SET num1 = {scenario_id} WHERE "
+                stmt += "key = 'currScenario'"
+                sql_exec_stmt(conn, stmt)
             elif re.search("^turns", line):
                 print("****************")
                 X = line.split(":")

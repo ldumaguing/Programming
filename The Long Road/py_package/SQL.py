@@ -71,6 +71,7 @@ def get_combatants(conn, stmt):
 
 def get_row(conn, scenario_id, fields, table, where):
     stmt = f"SELECT {fields} FROM {table} WHERE scenario_id = {scenario_id}"
+    print(stmt)
     if scenario_id <= 0:
         stmt = f"SELECT {fields} FROM {table} WHERE {where}"
     elif re.search(".", where):
@@ -100,6 +101,7 @@ def get_imgs(conn, scenario_id):
     for row in rows:
         stmt2 = "SELECT front, back, front1, back1 FROM unit WHERE "
         stmt2 += f"id = {row[0]}"
+        print(stmt2)
         cursor1 = conn.cursor()
         cursor1.execute(stmt2)
         conn.commit()
