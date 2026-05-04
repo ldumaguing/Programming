@@ -3,7 +3,7 @@ import py_package.SQL as SQL
 
 
 def get_facing(CONN, scenario_id, unit_id, x, y):
-    stmt = "SELECT status FROM instance WHERE "
+    stmt = "SELECT status1 FROM instance WHERE "
     stmt += f"id = {unit_id} AND "
     stmt += f"scenario_id = {scenario_id}"
     facing = int(SQL.get_field_value(CONN, stmt)) >> 13
@@ -13,8 +13,8 @@ def get_facing(CONN, scenario_id, unit_id, x, y):
 
 def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
     hview = ""
-    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status "
-    stmt += "FROM instance WHERE scenario_id = "
+    stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status1 "
+    stmt += "FROM instance_unit WHERE scenario_id = "
     stmt += f"{scenario_id}"
     combatants = SQL.get_combatants(conn, stmt)
     half = hexH / 2.0

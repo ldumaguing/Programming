@@ -25,17 +25,17 @@ html_0 = """<!DOCTYPE html>
 
 <body onload="pageLoad();">
 \t<div style="display:none;">\n"""
-html_maps = """\t\t<img src="TLR/TRL_Map_A_Final.jpg" id="mapA">
-\t\t<img src="TLR/TRL_Map_B_Final.jpg" id="mapB">
-\t\t<img src="TLR/TRL_Map_C_Final.jpg" id="mapC">
-\t\t<img src="TLR/TLR_Map_D_Final.jpg" id="mapD">
-\t\t<img src="TLR/LAR_facing_1.png" id="face0">
-\t\t<img src="TLR/LAR_facing_2.png" id="face1">
-\t\t<img src="TLR/LAR_facing_3.png" id="face2">
-\t\t<img src="TLR/LAR_facing_4.png" id="face3">
-\t\t<img src="TLR/LAR_facing_5.png" id="face4">
-\t\t<img src="TLR/LAR_facing_6.png" id="face5">
-\t\t<img src="TLR/LAR_Bevel.png" id="bev">\n"""
+html_maps = """\t\t<img src="../TLR/TRL_Map_A_Final.jpg" id="mapA">
+\t\t<img src="../TLR/TRL_Map_B_Final.jpg" id="mapB">
+\t\t<img src="../TLR/TRL_Map_C_Final.jpg" id="mapC">
+\t\t<img src="../TLR/TLR_Map_D_Final.jpg" id="mapD">
+\t\t<img src="../TLR/LAR_facing_1.png" id="face0">
+\t\t<img src="../TLR/LAR_facing_2.png" id="face1">
+\t\t<img src="../TLR/LAR_facing_3.png" id="face2">
+\t\t<img src="../TLR/LAR_facing_4.png" id="face3">
+\t\t<img src="../TLR/LAR_facing_5.png" id="face4">
+\t\t<img src="../TLR/LAR_facing_6.png" id="face5">
+\t\t<img src="../TLR/LAR_Bevel.png" id="bev">\n"""
 html_script = """
 \t<script type="text/javascript">
 \t\tfunction pageLoad() {
@@ -61,7 +61,7 @@ while 1:
     imgs = SQL.get_imgs(CONN, SCENARIO_ID)
     for img in imgs:
         X = img.split(":")
-        line = f'\t\t<img src="TLR/{X[0]}" id="img{X[1]}">\n'
+        line = f'\t\t<img src="../TLR/{X[0]}" id="img{X[1]}">\n'
         hview += line
     hview += "\t</div>"
     hview += html_script
@@ -107,6 +107,7 @@ while 1:
 
     print(hview)
 
+    exit()
     #with open("VIEW.html", "w") as f:
     #    f.write(hview)
 
