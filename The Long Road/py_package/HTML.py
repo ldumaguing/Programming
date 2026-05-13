@@ -11,7 +11,7 @@ def get_facing(CONN, scenario_id, unit_id, x, y):
     hview = f"\t\t\tctx.drawImage(face{facing}, {x - 48}, {y - 46});\n"
     return hview
 
-def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id):
+def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id, scale):
     hview = ""
     stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status1 "
     stmt += "FROM instance_unit WHERE scenario_id = "
@@ -36,14 +36,14 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
     return hview
 
 
-def get_print_map(plate, x, y, plateMap_dim, rowNum, colNum, scale):
+def get_print_map(plate, x, y, plateMap_dim, rowNum, colNum, scale, shifts):
     hview = ""
     if re.search("[a-z]", plate):
         hview = get_upsidedown_plate(plate, x, y, plateMap_dim, rowNum, colNum)
         return hview
 
-    hview = f"\t\t\tctx.drawImage(map{plate}, {x * plateMap_dim[0]}, "
-    hview += f"{y * plateMap_dim[1]}, {plateMap_dim[0] * scale}, {plateMap_dim[1] * scale});"
+    hview = f"\t\t\tctx.drawImage(map{plate}, {x * plateMap_dim[0]} + {shifts[0]}, "
+    hview += f"{y * plateMap_dim[1]} + {shifts[1]}, {plateMap_dim[0] * scale}, {plateMap_dim[1] * scale});"
     return hview
 
 
@@ -58,23 +58,12 @@ def get_upsidedown_plate(plate, x, y, plateMap_dim, rowNum, colNum):
     return hview
 
 
-def get_print_html_end2():
+def get_print_html_end():
     hview = "\t\t}\n"
     hview += "\t</script>\n\n"
     hview += "\t<canvas id=\"myCanvas\" width=800 "
     hview += "style=\"border:10px solid #507050;\" "
     hview += "height=800>\n"
-    hview += "\t\tSorry, your browser does not support canvas.\n"
-    hview += "\t</canvas>\n\n"
-    hview += "</body>\n</html>\n"
-    return hview
-
-
-def get_print_html_end(rowNum, colNum, plateMap_dim):
-    hview = "\t\t}\n"
-    hview += "\t</script>\n\n"
-    hview += f"\t<canvas id=\"myCanvas\" width={colNum * plateMap_dim[0]} "
-    hview += f"height={rowNum * plateMap_dim[1]}>\n"
     hview += "\t\tSorry, your browser does not support canvas.\n"
     hview += "\t</canvas>\n\n"
     hview += "</body>\n</html>\n"
