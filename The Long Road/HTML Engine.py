@@ -6,8 +6,8 @@ import re
 import sqlite3
 import time
 
-scale = .22
-shifts = [0, 0]
+scale = 1
+shifts = [10, 10]
 SCENARIO_ID = 0
 html_0 = """<!DOCTYPE html>
 <html>
@@ -101,7 +101,7 @@ while 1:
             hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum, scale, shifts)
             hview += "\n"
 
-    hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH, unit_id, scale)
+    hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH, unit_id, scale, shifts)
 
     # hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
     hview += HTML.get_print_html_end()

@@ -11,7 +11,7 @@ def get_facing(CONN, scenario_id, unit_id, x, y):
     hview = f"\t\t\tctx.drawImage(face{facing}, {x - 48}, {y - 46});\n"
     return hview
 
-def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id, scale):
+def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, unit_id, scale, shifts):
     hview = ""
     stmt = "SELECT img_id, loc_x, loc_y, id, stack_lvl, status1 "
     stmt += "FROM instance_unit WHERE scenario_id = "
@@ -29,8 +29,8 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
             y -= (i[4] * 10)
             if i[1] % 2 == 0:
                 y += half
-            hview += f"\t\t\tctx.drawImage({img}, {x}, {y});\n"
-            hview += f"\t\t\tctx.drawImage(bev, {x}, {y});\n"
+            hview += f"\t\t\tctx.drawImage({img}, {x * scale} + {shifts[0]}, {y * scale} + {shifts[1]}, 150 * {scale}, 150 * {scale});\n"
+            hview += f"\t\t\tctx.drawImage(bev, {x * scale} + {shifts[0]}, {y * scale} + {shifts[1]}, 150 * {scale}, 150 * {scale});\n"
             if unit_id == i[3]:
                 hview += get_facing(conn, scenario_id, unit_id, x, y)
     return hview
