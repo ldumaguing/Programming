@@ -6,7 +6,7 @@ import re
 import sqlite3
 import time
 
-
+scale = 1.5
 SCENARIO_ID = 0
 html_0 = """<!DOCTYPE html>
 <html>
@@ -19,6 +19,7 @@ html_0 = """<!DOCTYPE html>
 \t<style type="text/css">
 \t\tbody {
 \t\t\tmargin: 0;
+\t\t\tscale: 1;
 \t\t}
 \t</style>
 </head>
@@ -96,12 +97,13 @@ while 1:
             colNum = len(cols)
         for x in range(colNum):
             letter = cols[x]
-            hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum)
+            hview += HTML.get_print_map(f"{letter}", x, y, plateMap_dim, rowNum, colNum, scale)
             hview += "\n"
 
     hview += HTML.get_place_combatants(CONN, SCENARIO_ID, upperLeft, lowerRight, hexW, hexH, unit_id)
 
-    hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
+    # hview += HTML.get_print_html_end(rowNum, colNum, plateMap_dim)
+    hview += HTML.get_print_html_end2()
 
     CONN.close()
 
