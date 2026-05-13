@@ -6,7 +6,7 @@ import re
 import sqlite3
 import time
 
-scale = 1
+scale = 0.2
 shifts = [10, 10]
 SCENARIO_ID = 0
 html_0 = """<!DOCTYPE html>

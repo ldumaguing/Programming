@@ -29,8 +29,10 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
             y -= (i[4] * 10)
             if i[1] % 2 == 0:
                 y += half
-            hview += f"\t\t\tctx.drawImage({img}, {x * scale} + {shifts[0]}, {y * scale} + {shifts[1]}, 150 * {scale}, 150 * {scale});\n"
-            hview += f"\t\t\tctx.drawImage(bev, {x * scale} + {shifts[0]}, {y * scale} + {shifts[1]}, 150 * {scale}, 150 * {scale});\n"
+            scale_shift_x = (x * scale) + shifts[0]
+            scale_shift_y = (y * scale) + shifts[1]
+            hview += f"\t\t\tctx.drawImage({img}, {scale_shift_x}, {scale_shift_y}, 150 * {scale}, 150 * {scale});\n"
+            hview += f"\t\t\tctx.drawImage(bev, {scale_shift_x}, {scale_shift_y}, 150 * {scale}, 150 * {scale});\n"
             if unit_id == i[3]:
                 hview += get_facing(conn, scenario_id, unit_id, x, y)
     return hview
