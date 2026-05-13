@@ -36,14 +36,14 @@ def get_place_combatants(conn, scenario_id, upperLeft, lowerRight, hexW, hexH, u
     return hview
 
 
-def get_print_map(plate, x, y, plateMap_dim, rowNum, colNum):
+def get_print_map(plate, x, y, plateMap_dim, rowNum, colNum, scale):
     hview = ""
     if re.search("[a-z]", plate):
         hview = get_upsidedown_plate(plate, x, y, plateMap_dim, rowNum, colNum)
         return hview
 
     hview = f"\t\t\tctx.drawImage(map{plate}, {x * plateMap_dim[0]}, "
-    hview += f"{y * plateMap_dim[1]});"
+    hview += f"{y * plateMap_dim[1]}, {plateMap_dim[0] * scale}, {plateMap_dim[1] * scale});"
     return hview
 
 
@@ -55,6 +55,18 @@ def get_upsidedown_plate(plate, x, y, plateMap_dim, rowNum, colNum):
     hview += "\t\t\tctx.rotate(180*Math.PI/180);\n"
     hview += f"\t\t\tctx.drawImage({map_img}, 0, 0);\n"
     hview += "\t\t\tctx.restore();"
+    return hview
+
+
+def get_print_html_end2():
+    hview = "\t\t}\n"
+    hview += "\t</script>\n\n"
+    hview += "\t<canvas id=\"myCanvas\" width=800 "
+    hview += "style=\"border:10px solid #507050;\" "
+    hview += "height=800>\n"
+    hview += "\t\tSorry, your browser does not support canvas.\n"
+    hview += "\t</canvas>\n\n"
+    hview += "</body>\n</html>\n"
     return hview
 
 
