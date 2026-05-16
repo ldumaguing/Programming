@@ -6,8 +6,8 @@ import re
 import sqlite3
 import time
 
-scale = 0.2
-shifts = [10, 10]
+scale = 0.186
+shifts = [0, 0]
 SCENARIO_ID = 0
 html_0 = """<!DOCTYPE html>
 <html>
@@ -108,10 +108,10 @@ while 1:
 
     CONN.close()
 
-    print(hview)
+    # print(hview)
 
+
+    with open("view/crap.html", "w") as f:
+        f.write(hview)
     exit()
-    #with open("VIEW.html", "w") as f:
-    #    f.write(hview)
-
     #time.sleep(2)

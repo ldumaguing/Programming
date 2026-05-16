@@ -63,9 +63,9 @@ def get_upsidedown_plate(plate, x, y, plateMap_dim, rowNum, colNum):
 def get_print_html_end():
     hview = "\t\t}\n"
     hview += "\t</script>\n\n"
-    hview += "\t<canvas id=\"myCanvas\" width=800 "
-    hview += "style=\"border:10px solid #507050;\" "
-    hview += "height=800>\n"
+    hview += "\t<canvas id=\"myCanvas\" width=673 "
+    hview += "style=\"border:5px solid #507050;\" "
+    hview += "height=632>\n"
     hview += "\t\tSorry, your browser does not support canvas.\n"
     hview += "\t</canvas>\n\n"
     hview += "</body>\n</html>\n"
