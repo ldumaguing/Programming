@@ -6,10 +6,10 @@ pub fn main(init: std.process.Init) !void {
     const args = try init.minimal.args.toSlice(arena);
 
     for (args) |arg| {
-        std.log.info("arg: {s}", .{arg});
         print("---> {s}\n", .{arg});
     }
     print("*** {s} ***\n", .{args[0]});
+    print("{d}\n", .{args.len});
 }
 
 
