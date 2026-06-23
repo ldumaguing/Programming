@@ -1,0 +1,9 @@
+const std =  @import("std");
+const print_stderr = std.debug.print;
+
+pub fn main() !void {
+    print_stderr("stderr: Yo, {s}!\n", .{"World"});
+    std.log.info("log.info: Achtung, {s}!\n", .{"World"});
+}
+
+
