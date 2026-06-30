@@ -37,6 +37,7 @@ pub fn main() !void {
         rl.DrawRectangle(screenWidth / 2 - 40, @as(i32, @intFromFloat(boxPositionY)), 80, 80, rl.MAROON);
 
         rl.DrawText("Use mouse wheel to move the cube up and down!", 10, 10, 20, rl.GRAY);
+
         const foo = try std.fmt.bufPrint(&buffer, "Box position Y: {d}.", .{boxPositionY});
         foo.ptr[foo.len] = 0;
         rl.DrawText(
