@@ -1,4 +1,4 @@
-zig fetch --save git+https://github.com/raylib-zig/raylib-zig#devel
+zig fetch --save git+https://github.com/raylib-zig/raylib-zig#devel // creates a directory; zig-pkg
 
 
 ***************************************************************************************************
