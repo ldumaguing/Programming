@@ -1,7 +1,7 @@
 //!*******************************************************************************************
 //!
 //!   raylib-zig port of the [textures] example - Retrieve image data from texture: LoadImageFromTexture()
-//!   https://github.com/raysan5/raylib/blob/master/examples/textures/textures_to_image.c
+//!   https://github.com/raysan5/raylib/blob/master/textures_to_image.c
 //!
 //!   Example complexity rating: [★☆☆☆] 1/4
 //!
@@ -26,15 +26,16 @@ const rl = @import("raylib");
 pub fn main() anyerror!void {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const screen_width = 800;
-    const screen_height = 450;
+    const screen_width = 600;
+    const screen_height = 600;
 
     rl.initWindow(screen_width, screen_height, "raylib [textures] example - texture to image");
     defer rl.closeWindow(); // Close window and OpenGL context
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-
-    var image = try rl.loadImage("examples/textures/resources/raylib_logo.png"); // Load image data into CPU memory (RAM)
+    
+    rl.toggleFullscreen();
+    var image = try rl.loadImage("resources/textures/raylib_logo.png"); // Load image data into CPU memory (RAM)
     var texture = try rl.loadTextureFromImage(image); // Image converted to texture, GPU memory (RAM -> VRAM)
     image.unload(); // Unload image data from CPU memory (RAM)
 
