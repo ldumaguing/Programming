@@ -1,33 +1,62 @@
-const std = @import("std");
-const print = std.debug.print;
-
 const rl = @import("raylib");
-
-const fooEX = @import("fooEX.zig");
 
 pub fn main() anyerror!void {
     const screenWidth = 800;
     const screenHeight = 450;
-    var counter: i32 = 0;
 
-    print("----> {d}\n", .{fooEX.add(5, 10)});
+    rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - 2d camera mouse zoom");
+    defer rl.closeWindow(); // Close window and OpenGL context
 
-    rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - basic window");
-    defer rl.closeWindow();
+    var camera = rl.Camera2D{
+        .target = .{ .x = 0, .y = 0 },
+        .offset = .{ .x = 0, .y = 0 },
+        .zoom = 1.0,
+        .rotation = 0,
+    };
 
-    rl.setTargetFPS(60);
+    const image = try rl.loadImage("TLR/foo.png"); // Loaded in CPU memory (RAM)
+    const texture = try rl.loadTextureFromImage(image); // Image converted to texture, GPU memory (VRAM)
+    rl.unloadImage(image);
 
-    while (!rl.windowShouldClose()) {
-        counter += 1;
-        if (@mod(counter, 60 * 3) == 0) {
-            print("---------\n", .{});
-            counter = 0;
+    defer rl.unloadTexture(texture);
+
+    rl.setTargetFPS(60); // Set our game to run at 60 frames-per-second
+
+    while (!rl.windowShouldClose()) { // Detect window close button or ESC key
+        if (rl.isMouseButtonDown(.right)) {
+            var delta = rl.getMouseDelta();
+            delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
+            camera.target = rl.math.vector2Add(camera.target, delta);
         }
+
+        const wheel = rl.getMouseWheelMove();
+        if (wheel != 0) {
+            const mouseScreenPos = rl.getMousePosition();
+            const mouseWorldPos = rl.getScreenToWorld2D(mouseScreenPos, camera);
+            camera.offset = mouseScreenPos;
+            camera.target = mouseWorldPos;
+
+            var scaleFactor = 1.0 + (0.25 * @abs(wheel));
+            if (wheel < 0) {
+                scaleFactor = 1.0 / scaleFactor;
+            }
+            camera.zoom = rl.math.clamp(camera.zoom * scaleFactor, 0.125, 64.0);
+        }
+
+        // Draw
+        //----------------------------------------------------------------------------------
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.white);
+        rl.clearBackground(.dark_green);
 
-        rl.drawText("Congrats! You created your first window!", 190, 200, 20, .light_gray);
+        {
+            camera.begin();
+            defer camera.end();
+
+            // rl.drawCircle(screenWidth / 2, screenHeight / 2, 50, .maroon);
+            // rl.drawCircle(0, 0, 50, .maroon);
+            rl.drawTexture(texture, 0, 0, .white);
+        }
     }
 }
