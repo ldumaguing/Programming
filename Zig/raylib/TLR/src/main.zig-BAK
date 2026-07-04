@@ -7,6 +7,8 @@ pub fn main() anyerror!void {
     rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - 2d camera mouse zoom");
     defer rl.closeWindow(); // Close window and OpenGL context
 
+    rl.toggleFullscreen();
+
     var camera = rl.Camera2D{
         .target = .{ .x = 0, .y = 0 },
         .offset = .{ .x = 0, .y = 0 },
@@ -17,12 +19,8 @@ pub fn main() anyerror!void {
     const image = try rl.loadImage("TLR/Map A.png"); // Loaded in CPU memory (RAM)
     const texture = try rl.loadTextureFromImage(image); // Image converted to texture, GPU memory (VRAM)
     rl.unloadImage(image);
-    defer rl.unloadTexture(texture);
 
-    const image1 = try rl.loadImage("TLR/Map B.png"); // Loaded in CPU memory (RAM)
-    const texture1 = try rl.loadTextureFromImage(image1); // Image converted to texture, GPU memory (VRAM)
-    rl.unloadImage(image1);
-    defer rl.unloadTexture(texture1);
+    defer rl.unloadTexture(texture);
 
     rl.setTargetFPS(60); // Set our game to run at 60 frames-per-second
 
@@ -61,7 +59,6 @@ pub fn main() anyerror!void {
             // rl.drawCircle(screenWidth / 2, screenHeight / 2, 50, .maroon);
             // rl.drawCircle(0, 0, 50, .maroon);
             rl.drawTexture(texture, 0, 0, .white);
-            rl.drawTexture(texture1, 3637, 0, .white);
         }
     }
 }
