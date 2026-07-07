@@ -1,0 +1,49 @@
+zig build && mv zig-out/bin/defineMap ../bin/
+
+
+
+
+
+
+
+pub fn startsWith(
+   comptime T: type,
+   haystack: []const T,
+   needle: []const T) bool
+Returns true if haystack starts with needle. Time complexity: O(needle.len)
+
+
+
+
+pub fn findLast(
+   comptime T: type,
+   haystack: []const T,
+   needle: []const T) ?usize
+Find the index in a slice of a sub-slice, searching from the end backwards. To start looking at a different index, slice the haystack first. Uses the Reverse Boyer-Moore-Horspool algorithm on large inputs; lastIndexOfLinear on small inputs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
