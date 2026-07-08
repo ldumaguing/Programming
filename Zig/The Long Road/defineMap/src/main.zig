@@ -6,7 +6,7 @@ const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "H
 //    1: whole hexagon
 //    2: spine location
 //    3: road, path, etc.  The spines are exits from starting hexagon
-const terrainTypes = []const i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3 };
+const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3 };
 
 pub fn main(init: std.process.Init) !void {
     const arena: std.mem.Allocator = init.arena.allocator();
@@ -82,7 +82,7 @@ pub fn main(init: std.process.Init) !void {
             continue;
         }
 
-        if (terrainType > 0) saveTerrain(terrainType);
+        if (terrainType > 0) saveTerrain(terrainType, args[1]);
         // if (terrainType == 1) {
         //     try terrainType_1(args[1]);
         // } else if ((terrainType == 2) | (terrainType == 3)) {
@@ -92,8 +92,10 @@ pub fn main(init: std.process.Init) !void {
 }
 
 // ************************************************************************************************
-fn saveTerrain(terrainType: usize) void {
-    print("{s}\n", .{terrains[terrainType]});
+fn saveTerrain(terrainType: usize, filename: []const u8) void {
+    print("{s}, {s}, {d}\n", .{ terrains[terrainType], filename, terrainType });
+    print("{d}\n", .{terrainTypes[terrainType]});
+    //if (terrainTypes[terrainType] == 1) terrainType_1();
 }
 
 // fn terrainType_1(filename: []const u8) !void {
