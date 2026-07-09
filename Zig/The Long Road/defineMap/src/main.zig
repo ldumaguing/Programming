@@ -7,6 +7,7 @@ const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "H
 //    2: spine location
 //    3: road, path, etc.  The spines are exits from starting hexagon
 const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3 };
+const ref_a = 'a';
 
 pub fn main(init: std.process.Init) !void {
     const arena: std.mem.Allocator = init.arena.allocator();
@@ -82,20 +83,48 @@ pub fn main(init: std.process.Init) !void {
             continue;
         }
 
-        if (terrainType > 0) saveTerrain(terrainType, args[1]);
-        // if (terrainType == 1) {
-        //     try terrainType_1(args[1]);
-        // } else if ((terrainType == 2) | (terrainType == 3)) {
-        //     terrainType_23();
-        // }
+        if (terrainType > 0) try saveTerrain(terrainType, args[1], line);
     }
 }
 
 // ************************************************************************************************
-fn saveTerrain(terrainType: usize, filename: []const u8) void {
+fn saveTerrain(terrainType: usize, filename: []const u8, line: []u8) !void {
     print("{s}, {s}, {d}\n", .{ terrains[terrainType], filename, terrainType });
-    print("{d}\n", .{terrainTypes[terrainType]});
-    //if (terrainTypes[terrainType] == 1) terrainType_1();
+    print("{d}, >{s}<\n", .{ terrainTypes[terrainType], line });
+    if (terrainTypes[terrainType] == 1) try terrain_1(filename, line) else terrain_2n3();
+}
+
+fn terrain_1(filename: []const u8, line: []u8) !void {
+    var buffer: [512]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&buffer);
+    const allocator = fba.allocator();
+
+    // ********** define fname
+    var fname: []u8 = undefined;
+    if (std.mem.findLast(u8, filename, "/")) |index| {
+        fname = try std.fmt.allocPrint(
+            allocator,
+            "{s}",
+            .{filename[index + 1 ..]},
+        );
+    }
+    print("{s}\n", .{fname});
+
+    // ********** slice string
+    var it = std.mem.splitScalar(u8, line, ',');
+    while (it.next()) |hexID| {
+        const hexLoc = convert_to_hexLoc(hexID);
+        print("--> {d},{d}\n", .{ hexLoc[0], hexLoc[1] });
+    }
+}
+
+fn terrain_2n3() void {
+    print("brah\n", .{});
+}
+
+fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
+    const number = std.fmt.parseInt(i32, hexID[1..], 10) catch 0;
+    return .{ hexID[0] - ref_a, number };
 }
 
 // fn terrainType_1(filename: []const u8) !void {
