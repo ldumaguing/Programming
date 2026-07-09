@@ -89,12 +89,18 @@ pub fn main(init: std.process.Init) !void {
 
 // ************************************************************************************************
 fn saveTerrain(terrainType: usize, filename: []const u8, line: []u8) !void {
-    print("{s}, {s}, {d}\n", .{ terrains[terrainType], filename, terrainType });
-    print("{d}, >{s}<\n", .{ terrainTypes[terrainType], line });
-    if (terrainTypes[terrainType] == 1) try terrain_1(filename, line) else terrain_2n3();
+    // print("{s}, {s}, {d}\n", .{ terrains[terrainType], filename, terrainType });
+    // print("{d}, >{s}<\n", .{ terrainTypes[terrainType], line });
+    if (terrainTypes[terrainType] == 1)
+        try terrain_1(filename, line, terrainType)
+    else
+        terrain_2n3();
 }
 
-fn terrain_1(filename: []const u8, line: []u8) !void {
+fn terrain_1(filename: []const u8, line: []u8, terrainNum: usize) !void {
+    print("{s}, {s}, {d}\n", .{ terrains[terrainNum], filename, terrainNum });
+    print("{d}, >{s}<\n", .{ terrainTypes[terrainNum], line });
+
     var buffer: [512]u8 = undefined;
     var fba = std.heap.FixedBufferAllocator.init(&buffer);
     const allocator = fba.allocator();
@@ -114,8 +120,24 @@ fn terrain_1(filename: []const u8, line: []u8) !void {
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
         const hexLoc = convert_to_hexLoc(hexID);
-        print("--> {d},{d}\n", .{ hexLoc[0], hexLoc[1] });
+        process_sql_statement(hexLoc, fname, hexID, terrainNum);
     }
+}
+
+fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize) void {
+    print("--> {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], fname });
+    var buffer: [2048]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&buffer);
+    const allocator = fba.allocator();
+
+    var statement: []u8 = undefined;
+    statement = std.fmt.allocPrint(
+        allocator,
+        "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType) "
+        ++ "VALUES ('{s}', '{s}', {d}, {d}, {d}, '{s}', {d})",
+        .{ fname, hexID, hexLoc[0], hexLoc[1], @as(i32, @intCast(terrainNum)), terrains[terrainNum], terrainTypes[terrainNum] },
+    ) catch undefined;
+    print(":::::::::: {s}\n", .{statement});
 }
 
 fn terrain_2n3() void {
