@@ -40,6 +40,21 @@ pub fn main(init: std.process.Init) !void {
     defer file.close(io);
 
     // *********************************************
+    var buffer: [512]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&buffer);
+    const allocator = fba.allocator();
+
+    // ********** define fname
+    var fname: []u8 = undefined;
+    if (std.mem.findLast(u8, args[1], "/")) |index| {
+        fname = try std.fmt.allocPrint(
+            allocator,
+            "{s}",
+            .{args[1][index + 1 ..]},
+        );
+    }
+
+    // *********************************************
     var file_buffer: [200]u8 = undefined;
     var reader = file.reader(io, &file_buffer);
     var terrainType: usize = 0;
@@ -95,33 +110,19 @@ pub fn main(init: std.process.Init) !void {
             continue;
         }
 
-        if (terrainType > 0) try saveTerrain(terrainType, args[1], line, db);
+        if (terrainType > 0) try saveTerrain(terrainType, fname, line, db);
     }
 }
 
 // ************************************************************************************************
-fn saveTerrain(terrainType: usize, filename: []const u8, line: []u8, db: ?*c.sqlite3) !void {
+fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) !void {
     if (terrainTypes[terrainType] == 1)
-        try terrain_1(filename, line, terrainType, db)
+        try terrain_1(fname, line, terrainType, db)
     else
         terrain_2n3();
 }
 
-fn terrain_1(filename: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) !void {
-    var buffer: [512]u8 = undefined;
-    var fba = std.heap.FixedBufferAllocator.init(&buffer);
-    const allocator = fba.allocator();
-
-    // ********** define fname
-    var fname: []u8 = undefined;
-    if (std.mem.findLast(u8, filename, "/")) |index| {
-        fname = try std.fmt.allocPrint(
-            allocator,
-            "{s}",
-            .{filename[index + 1 ..]},
-        );
-    }
-
+fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) !void {
     // ********** slice string
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {

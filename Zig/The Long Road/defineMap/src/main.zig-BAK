@@ -1,6 +1,10 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const c = @cImport({
+    @cInclude("sqlite3.h");
+});
+
 const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "HILL", "HILL2", "LAKE", "RIVER", "ROAD", "ROLLING", "TOWN", "TUNNEL ROAD" };
 // terrainType
 //    1: whole hexagon
@@ -10,6 +14,14 @@ const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3 };
 const ref_a = 'a';
 
 pub fn main(init: std.process.Init) !void {
+    var db: ?*c.sqlite3 = undefined;
+
+    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
+        std.debug.print("Can't open database\n", .{});
+        return;
+    }
+    defer _ = c.sqlite3_close(db);
+
     const arena: std.mem.Allocator = init.arena.allocator();
     const args = try init.minimal.args.toSlice(arena);
 
@@ -26,6 +38,21 @@ pub fn main(init: std.process.Init) !void {
     // Open a file relative to the current working directory
     var file = try std.Io.Dir.cwd().openFile(io, args[1], .{});
     defer file.close(io);
+
+    // *********************************************
+    var buffer: [512]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&buffer);
+    const allocator = fba.allocator();
+
+    // ********** define fname
+    var fname: []u8 = undefined;
+    if (std.mem.findLast(u8, args[1], "/")) |index| {
+        fname = try std.fmt.allocPrint(
+            allocator,
+            "{s}",
+            .{args[1][index + 1 ..]},
+        );
+    }
 
     // *********************************************
     var file_buffer: [200]u8 = undefined;
@@ -83,61 +110,53 @@ pub fn main(init: std.process.Init) !void {
             continue;
         }
 
-        if (terrainType > 0) try saveTerrain(terrainType, args[1], line);
+        if (terrainType > 0) try saveTerrain(terrainType, fname, line, db);
     }
 }
 
 // ************************************************************************************************
-fn saveTerrain(terrainType: usize, filename: []const u8, line: []u8) !void {
-    // print("{s}, {s}, {d}\n", .{ terrains[terrainType], filename, terrainType });
-    // print("{d}, >{s}<\n", .{ terrainTypes[terrainType], line });
+fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) !void {
     if (terrainTypes[terrainType] == 1)
-        try terrain_1(filename, line, terrainType)
+        try terrain_1(fname, line, terrainType, db)
     else
         terrain_2n3();
 }
 
-fn terrain_1(filename: []const u8, line: []u8, terrainNum: usize) !void {
-    print("{s}, {s}, {d}\n", .{ terrains[terrainNum], filename, terrainNum });
-    print("{d}, >{s}<\n", .{ terrainTypes[terrainNum], line });
-
-    var buffer: [512]u8 = undefined;
-    var fba = std.heap.FixedBufferAllocator.init(&buffer);
-    const allocator = fba.allocator();
-
-    // ********** define fname
-    var fname: []u8 = undefined;
-    if (std.mem.findLast(u8, filename, "/")) |index| {
-        fname = try std.fmt.allocPrint(
-            allocator,
-            "{s}",
-            .{filename[index + 1 ..]},
-        );
-    }
-    print("{s}\n", .{fname});
-
+fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) !void {
     // ********** slice string
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
         const hexLoc = convert_to_hexLoc(hexID);
-        process_sql_statement(hexLoc, fname, hexID, terrainNum);
+        process_sql_statement(hexLoc, fname, hexID, terrainNum, db);
     }
 }
 
-fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize) void {
-    print("--> {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], fname });
-    var buffer: [2048]u8 = undefined;
-    var fba = std.heap.FixedBufferAllocator.init(&buffer);
-    const allocator = fba.allocator();
+fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize, db: ?*c.sqlite3) void {
+    // Prepare statement
+    const query = "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)";
+    var stmt: ?*c.sqlite3_stmt = null;
 
-    var statement: []u8 = undefined;
-    statement = std.fmt.allocPrint(
-        allocator,
-        "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType) "
-        ++ "VALUES ('{s}', '{s}', {d}, {d}, {d}, '{s}', {d})",
-        .{ fname, hexID, hexLoc[0], hexLoc[1], @as(i32, @intCast(terrainNum)), terrains[terrainNum], terrainTypes[terrainNum] },
-    ) catch undefined;
-    print(":::::::::: {s}\n", .{statement});
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_text(stmt, 2, hexID.ptr, @intCast(hexID.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 3, hexLoc[0]);
+    _ = c.sqlite3_bind_int(stmt, 4, hexLoc[1]);
+    _ = c.sqlite3_bind_int(stmt, 5, @as(i32, @intCast(terrainNum)));
+    _ = c.sqlite3_bind_text(stmt, 6, terrains[terrainNum].ptr, @intCast(terrains[terrainNum].len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
+
+    // Execute the insertion step
+    const rc = c.sqlite3_step(stmt);
+    if (rc != c.SQLITE_DONE) {
+        std.debug.print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
 }
 
 fn terrain_2n3() void {
