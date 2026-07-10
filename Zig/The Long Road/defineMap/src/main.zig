@@ -117,7 +117,7 @@ pub fn main(init: std.process.Init) !void {
 // ************************************************************************************************
 fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) void {
     if (terrainTypes[terrainType] == 1) {
-        // terrain_1(fname, line, terrainType, db);
+        // terrain_1(fname, line, terrainType, db); -- ************************** undo this later
     } else terrain_2n3(fname, line, terrainType, db);
 }
 
@@ -161,8 +161,14 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
 fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
     print("{s}, {s}, {d}----{?}\n", .{ fname, line, terrainNum, db });
     var it = std.mem.splitScalar(u8, line, ':');
+    var index: i32 = 0;
+    var hexLoc: struct { i32, i32 } = undefined;
     while (it.next()) |foo| {
-        print("{s}\n", .{foo});
+        if (index == 0) {
+            hexLoc = convert_to_hexLoc(foo);
+            print("{s}: {d},{d}\n", .{foo, hexLoc[0], hexLoc[1]});
+        }
+        index += 1;
     }
 }
 
