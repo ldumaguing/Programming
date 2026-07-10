@@ -110,19 +110,18 @@ pub fn main(init: std.process.Init) !void {
             continue;
         }
 
-        if (terrainType > 0) try saveTerrain(terrainType, fname, line, db);
+        if (terrainType > 0) saveTerrain(terrainType, fname, line, db);
     }
 }
 
 // ************************************************************************************************
-fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) !void {
-    if (terrainTypes[terrainType] == 1)
-        try terrain_1(fname, line, terrainType, db)
-    else
-        terrain_2n3();
+fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) void {
+    if (terrainTypes[terrainType] == 1) {
+        // terrain_1(fname, line, terrainType, db);
+    } else terrain_2n3(fname, line, terrainType, db);
 }
 
-fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) !void {
+fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
     // ********** slice string
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
@@ -159,8 +158,12 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     }
 }
 
-fn terrain_2n3() void {
-    print("brah\n", .{});
+fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
+    print("{s}, {s}, {d}----{?}\n", .{ fname, line, terrainNum, db });
+    var it = std.mem.splitScalar(u8, line, ':');
+    while (it.next()) |foo| {
+        print("{s}\n", .{foo});
+    }
 }
 
 fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
