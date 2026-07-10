@@ -166,9 +166,11 @@ fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3
     while (it.next()) |foo| {
         if (index == 0) {
             hexLoc = convert_to_hexLoc(foo);
-            print("{s}: {d},{d}\n", .{foo, hexLoc[0], hexLoc[1]});
+        } else {
+            _ = convert_to_spineLoc(foo);
         }
         index += 1;
+        print("{s}: {d},{d}\n", .{ foo, hexLoc[0], hexLoc[1] });
     }
 }
 
@@ -177,6 +179,10 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
     return .{ hexID[0] - ref_a, number };
 }
 
+fn convert_to_spineLoc(spines: []const u8) u32 {
+    print("spines: {s} - {d}\n", .{spines, spines.len});
+    return 3;
+}
 // fn terrainType_1(filename: []const u8) !void {
 //     var buffer: [512]u8 = undefined;
 //     var fba = std.heap.FixedBufferAllocator.init(&buffer);
