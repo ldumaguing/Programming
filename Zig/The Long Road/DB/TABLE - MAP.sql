@@ -9,7 +9,7 @@ CREATE TABLE map (
     terrainName  TEXT,
     terrainType  INTEGER DEFAULT 0,
     spineLoc     INTEGER DEFAULT 0,
-    PRIMARY KEY (terrainNum, hex_x, hex_y, spineLoc)
+    PRIMARY KEY (terrainNum, hex_x, hex_y, spineLoc, filename)
 );
 
 -- terrainType
