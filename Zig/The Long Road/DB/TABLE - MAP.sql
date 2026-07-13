@@ -8,8 +8,8 @@ CREATE TABLE map (
     hexID        TEXT, -- j10
     terrainName  TEXT,
     terrainType  INTEGER DEFAULT 0,
-    spineLoc     INTEGER DEFAULT 0, -- fedcba (111111)
-    PRIMARY KEY (terrainNum, hex_x, hex_y, hex_z)
+    spineLoc     INTEGER DEFAULT 0,
+    PRIMARY KEY (terrainNum, hex_x, hex_y, spineLoc)
 );
 
 -- terrainType
@@ -30,4 +30,12 @@ CREATE TABLE map (
 --     ROLLING:     10
 --     TOWN:        11
 --     TUNNEL ROAD: 12
+
+-- spineLoc
+--     A:  1
+--     B:  2
+--     C:  4
+--     D:  8
+--     E: 16
+--     F: 32
 
