@@ -5,7 +5,7 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
-const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "HILL", "HILL2", "LAKE", "RIVER", "ROAD", "ROLLING", "TOWN", "TUNNEL ROAD" };
+const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "HILL", "HILL 2", "LAKE", "RIVER", "ROAD", "ROLLING", "TOWN", "TUNNEL ROAD" };
 // terrainType
 //    1: whole hexagon
 //    2: spine location
