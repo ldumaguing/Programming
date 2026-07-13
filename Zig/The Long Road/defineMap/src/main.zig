@@ -168,7 +168,10 @@ fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3
         if (index == 0) {
             hexLoc = convert_to_hexLoc(cut);
         } else {
-            process_spines(cut, hexLoc, fname, terrainNum, db);
+            it.reset();
+            if (it.next()) |hexID|
+                process_spines(cut, hexLoc, fname, terrainNum, db, hexID);
+            return;
         }
         index += 1;
         // print("{s}: {d},{d}\n", .{ cut, hexLoc[0], hexLoc[1] });
@@ -180,9 +183,9 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
     return .{ hexID[0] - ref_a, number };
 }
 
-fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3) void {
+fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
     print("-----------------------> spines: {s} - {d}\n", .{ spines, spines.len });
-    print("-----------------------> hexLoc: {d},{d}\n", .{ hexLoc[0], hexLoc[1] });
+    print("-----------------------> hexLoc: {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], hexID });
     print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
     for (spines) |spine| {
         print("{c}\n", .{spine});
