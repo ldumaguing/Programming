@@ -117,7 +117,7 @@ pub fn main(init: std.process.Init) !void {
 // ************************************************************************************************
 fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite3) void {
     if (terrainTypes[terrainType] == 1) {
-        // terrain_1(fname, line, terrainType, db); -- ************************** undo this later
+        terrain_1(fname, line, terrainType, db);
     } else terrain_2n3(fname, line, terrainType, db);
 }
 
