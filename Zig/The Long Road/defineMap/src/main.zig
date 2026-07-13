@@ -122,6 +122,7 @@ fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite
 }
 
 fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
+    print("(1)\n", .{});
     // ********** slice string
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
@@ -160,6 +161,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
 }
 
 fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
+    print("(2n3): {s}\n", .{line});
     // print("{s}, {s}, {d}----{?}\n", .{ fname, line, terrainNum, db });
     var it = std.mem.splitScalar(u8, line, ':');
     var index: i32 = 0;
@@ -187,9 +189,9 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
 fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
     var spineAddr: struct { i32, i32, i32 } = undefined; // x, y, spine
     const hexMODtwo = @mod(hexLoc[0], 2);
-    print("-----------------------> spines: {s} - {d}\n", .{ spines, spines.len });
-    print("-----------------------> hexLoc: {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], hexID });
-    print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
+    //print("-----------------------> spines: {s} - {d}\n", .{ spines, spines.len });
+    //print("-----------------------> hexLoc: {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], hexID });
+    //print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
     for (spines) |spine| {
         // const foo = (spine - ref_a);
         const spn = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
@@ -198,12 +200,14 @@ fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []cons
             // print("yo\n", .{});
             spineAddr = get_uniq_hexAddr(hexLoc, spn);
             // print("{d}\n", .{spineAddr[0]});
+            print("bar: {d},{d},{d}\n", .{ spineAddr[0], spineAddr[1], spineAddr[2] });
+            process_sql_statement(.{ spineAddr[0], spineAddr[1] }, fname, hexID, terrainNum, db, spineAddr[2]);
         } else process_sql_statement(hexLoc, fname, hexID, terrainNum, db, spn);
     }
 }
 
 fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
-    print("foo: {d},{d},{d}\n", .{ hexLoc[0], hexLoc[1], spn });
+    // print("foo: {d},{d},{d}\n", .{ hexLoc[0], hexLoc[1], spn });
     var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
     if (spn == 1) {
         sAddr[2] = 8;
@@ -231,7 +235,7 @@ fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i3
         sAddr[0] -= 1;
         sAddr[1] -= 1;
     }
-    print("bar: {d},{d},{d}\n", .{ sAddr[0], sAddr[1], sAddr[2] });
+    // print("bar: {d},{d},{d}\n", .{ sAddr[0], sAddr[1], sAddr[2] });
     return sAddr;
 }
 
