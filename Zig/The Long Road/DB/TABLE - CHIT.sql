@@ -1,0 +1,50 @@
+DROP TABLE IF EXISTS chit;
+CREATE TABLE chit (
+    id      INTEGER PRIMARY KEY,
+    descrip TEXT,
+    front   INTEGER,  -- img ID
+    back    INTEGER,  -- img ID
+    faction TEXT,
+    version INTEGER,
+    health  INTEGER,  -- info for champions
+    flip    INTEGER   -- info for champions
+);
+
+-- create view v_chit as
+-- select AAA.id, AAA.descrip, AAA.faction, AAA.front, img.file back from
+-- (
+-- select
+--    chit.id      id,
+--    chit.descrip descrip,
+--    chit.faction faction,
+--    img.file     front,
+--    chit.back    back
+-- from
+--    chit, img
+-- where
+--    chit.front = img.id
+-- )  AAA,
+--    img
+-- where
+--    AAA.back = img.id;
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- .mode csv
+-- .import chit.csv chit
+-- 
+-- 
+-- 
+-- .mode csv
+-- .headers on
+-- .output chit.csv
+-- select * from chit;
+-- .output stdout
+-- .quit
+
+
+
+

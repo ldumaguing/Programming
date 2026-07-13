@@ -1,0 +1,199 @@
+DROP TABLE IF EXISTS img;
+CREATE TABLE img (
+    id         INTEGER PRIMARY KEY,
+    file       TEXT NOT NULL,
+    flag1      INTEGER DEFAULT 0,
+    apf_val    INTEGER DEFAULT -100,
+    apf_rng    TEXT,
+    hef_val    INTEGER DEFAULT -100,
+    hef_rng    TEXT,
+    mf_val     INTEGER DEFAULT -100,
+    caf_val    INTEGER DEFAULT -100,
+    flag2      INTEGER DEFAULT 0,
+    armor_val  INTEGER DEFAULT -100,
+    flag3      INTEGER DEFAULT 0,
+    ability1   INTEGER DEFAULT 0,
+    ability2   INTEGER DEFAULT 0,
+    apf2_val   INTEGER DEFAULT -100,
+    apf2_rng   TEXT,
+    hef2_val   INTEGER DEFAULT -100,
+    hef2_rng   TEXT,
+    URPapf_val TEXT, -- Userper's two values
+    URPhef_val TEXT, -- Userper's two values
+    ability3   INTEGER DEFAULT 0
+);
+
+-- ability1
+-- ========
+-- bit  0:     Activate Twice           (Green arrow)
+-- bit  1:     Aggressive               (KA-BAR)
+-- bit  2:     Brutal                   (d6)
+-- bit  3:     Concealed                (Eye slashed)
+-- bit  4:     Courageous               (Red heart)
+-- bit  5:     Fearsome Howl            (Wolf howling at the moon)
+-- bit  6:     Fireball
+-- bit  7:     Frenzied                 (Wolf Howling)
+-- bit  8:     Leap
+-- bit  9:     Lightning Strike
+-- bit 10:     Reanimate                (White arm)
+-- bit 11:     Recon                    (Binocular)
+-- bit 12:     Silver Bullet            (Silver Bullet)
+-- bit 13:     Sniper                   (Red crosshair)
+-- bit 14:     Steady                   (Black crosshair)
+-- bit 15:     Tough                    (Shield)
+-- 
+-- ability2
+-- ========
+-- bit  0:     Veteran                  (Chevron)
+-- bit  1:     Wolf Speed               (Running red wolf)
+-- bit  2:     Lucky                    (2d10)
+-- bit  3:     Rally                    (Trumpet)
+-- bit  4:     Regenerate               (Red Cross)
+-- bit  5:     Fly                      (White wings)
+-- bit  6:     Explosive Decomposition  (Black skull on green)
+-- bit  7:     Acid Bile                (Biohazard)
+-- bit  8:     Blood Thirsty            (Rifle on red)
+-- bit  9:     AAA
+-- bit 10:     Boom Risk
+-- bit 11:     Deathless
+-- bit 12:     Ethereal Being
+-- bit 13:     Eye of Chaos
+-- bit 14:     Gateway to the Abyss
+-- bit 15:     Ghost Buster
+-- 
+-- ability3
+-- ========
+-- bit  0:     Healer
+-- bit  1:     Iron Resolve
+-- bit  2:     Necrotic Plague
+-- bit  3:     Psychic
+-- bit  4:     Ripplefire
+-- bit  5:     Spirit Control
+-- bit  6:     Suicidal
+-- bit  7:     Tornadic Impact
+-- bit  8:     Wooden Missiles
+-- bit  9:     Ghost Buster (adjacent range)
+-- 
+-- flag3
+-- =====
+-- bit  0:     Commander (tank)
+-- bit  1:     Hero      (rifle)
+-- bit  2:     Champion  (star)
+-- bit  3:     Track
+-- bit  4:     Wheel
+-- bit  5:     Mecha
+-- bit  6:     image is a chit (198x198 pixels)
+-- bit  7:     (*CAF) ?
+-- 
+-- flag2
+-- =====
+-- bit  0:     +HEF
+-- bit  1:     +CAF
+-- bit  2:     same hex assault (white font)
+-- bit  3:     (CAF*) may not initiate Close Assault
+-- bit  5,4:   armor superscript
+--    01: -1
+--    10: +1
+-- bit  6:     Unarmored Vehicle (white font)
+-- bit  7:     armor value with a "+" sign
+-- bit  8:     recon              ("R" icon)
+-- bit  9:     Advanced Targeting ("A" icon)
+-- bit 10:     Lycan              ("L" icon)
+-- bit 11:     Vampire            ("V" icon)
+-- bit 12:     Zombie combatant
+-- bit 13:     VTOL (Helicopter/Drone)
+-- bit 14:     Airplane
+-- bit 15:     Leg
+-- 
+-- 
+-- flag1
+-- =====
+-- bit  0:     image is a chit (158x158 pixels)
+-- bit  1:     combatant
+-- bit  2:     APF may fire wire guided missiles
+-- bit  4,3:   APF superscript
+--    01: -1
+--    10: +1
+-- bit  5:     APF range effects DO NOT apply.  Normal Range = Max Range.  (white font)
+-- bit  7,6:   HEF superscript
+--    01: -1
+--    10: +1
+-- bit  8:     use HEF to attack Armor of 4 or less. (yellow frame)
+-- bit  9:     HEF cannot fire into adjacent hex (white frame)
+-- bit 10:     infer: HEF range effects DO NOT apply.  Normal Range = Max Range.  (white font)
+-- bit 12,11:  can move & fire
+--    01: 1-column shift (orange)
+--    10: 2-column shift (blue)
+-- bit 14,13:  circle
+--    01: may transport Leg units (solid circle)
+--    11: may only transport Leg Recon (broken circle)
+-- bit 15:     Leg units may fire (white rifle)
+-- 
+-- 
+-- update img set file = 'LAR_Devastator.png' where file like '%dev%';
+-- update img set file = 'LAR_Punisher.png' where file like '%pun%';
+-- update img set file = 'LAR_Timberhawk.png' where file like '%timber%';
+-- update img set file = 'LAR_Wreck_Mecha.png' where id = 1179;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- create view v_foo as
+-- select img.*, foo.*
+-- from img
+-- left join foo
+-- on img.file = foo.name;
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- CREATE TABLE img (
+--     id   INTEGER PRIMARY KEY,
+--     file TEXT
+-- );
+-- 
+-- .mode csv
+-- .import img.csv img
+-- 
+-- alter table img add column id integer;
+-- 
+-- .mode csv
+-- .headers on
+-- .output img.csv
+-- select id, file from img;
+-- .output stdout
+-- .quit
+-- 
+-- 
+-- .mode csv
+-- .headers on
+-- .output img.csv
+-- select * from img order by id;
+-- .output stdout
+-- .quit
+
+
+
+
