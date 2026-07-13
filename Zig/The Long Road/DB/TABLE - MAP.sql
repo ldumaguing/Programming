@@ -23,7 +23,7 @@ CREATE TABLE map (
 --     CULTIVATED:   3
 --     FOREST:       4
 --     HILL:         5
---     HILL2:        6
+--     HILL 2:       6
 --     LAKE:         7
 --     RIVER:        8
 --     ROAD:         9

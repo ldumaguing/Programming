@@ -61,51 +61,51 @@ pub fn main(init: std.process.Init) !void {
     while (try reader.interface.takeDelimiter('\n')) |line| {
         if (isEND(line)) break;
         if (line.len == 0) terrainType = 0;
-        if (std.mem.startsWith(u8, line, "BRIDGE ")) {
+        if (std.mem.startsWith(u8, line, "BRIDGE *")) {
             terrainType = 1;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "CITY ")) {
+        if (std.mem.startsWith(u8, line, "CITY *")) {
             terrainType = 2;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "CULTIVATED ")) {
+        if (std.mem.startsWith(u8, line, "CULTIVATED *")) {
             terrainType = 3;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "FOREST ")) {
+        if (std.mem.startsWith(u8, line, "FOREST *")) {
             terrainType = 4;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "HILL ")) {
+        if (std.mem.startsWith(u8, line, "HILL *")) {
             terrainType = 5;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "HILL2 ")) {
+        if (std.mem.startsWith(u8, line, "HILL 2 *")) {
             terrainType = 6;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "LAKE ")) {
+        if (std.mem.startsWith(u8, line, "LAKE *")) {
             terrainType = 7;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "RIVER ")) {
+        if (std.mem.startsWith(u8, line, "RIVER *")) {
             terrainType = 8;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "ROAD ")) {
+        if (std.mem.startsWith(u8, line, "ROAD *")) {
             terrainType = 9;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "ROLLING ")) {
+        if (std.mem.startsWith(u8, line, "ROLLING *")) {
             terrainType = 10;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "TOWN ")) {
+        if (std.mem.startsWith(u8, line, "TOWN *")) {
             terrainType = 11;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "TUNNEL ROAD ")) {
+        if (std.mem.startsWith(u8, line, "TUNNEL ROAD *")) {
             terrainType = 12;
             continue;
         }
@@ -126,13 +126,13 @@ fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) 
     var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
         const hexLoc = convert_to_hexLoc(hexID);
-        process_sql_statement(hexLoc, fname, hexID, terrainNum, db);
+        process_sql_statement(hexLoc, fname, hexID, terrainNum, db, 0);
     }
 }
 
-fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize, db: ?*c.sqlite3) void {
+fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize, db: ?*c.sqlite3, spineLoc: i32) void {
     // Prepare statement
-    const query = "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)";
+    const query = "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)";
     var stmt: ?*c.sqlite3_stmt = null;
 
     if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
@@ -149,6 +149,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     _ = c.sqlite3_bind_int(stmt, 5, @as(i32, @intCast(terrainNum)));
     _ = c.sqlite3_bind_text(stmt, 6, terrains[terrainNum].ptr, @intCast(terrains[terrainNum].len), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
+    _ = c.sqlite3_bind_int(stmt, 8, spineLoc);
 
     // Execute the insertion step
     const rc = c.sqlite3_step(stmt);
@@ -159,18 +160,18 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
 }
 
 fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
-    print("{s}, {s}, {d}----{?}\n", .{ fname, line, terrainNum, db });
+    // print("{s}, {s}, {d}----{?}\n", .{ fname, line, terrainNum, db });
     var it = std.mem.splitScalar(u8, line, ':');
     var index: i32 = 0;
     var hexLoc: struct { i32, i32 } = undefined;
-    while (it.next()) |foo| {
+    while (it.next()) |cut| {
         if (index == 0) {
-            hexLoc = convert_to_hexLoc(foo);
+            hexLoc = convert_to_hexLoc(cut);
         } else {
-            _ = convert_to_spineLoc(foo);
+            process_spines(cut, hexLoc, fname, terrainNum, db);
         }
         index += 1;
-        print("{s}: {d},{d}\n", .{ foo, hexLoc[0], hexLoc[1] });
+        // print("{s}: {d},{d}\n", .{ cut, hexLoc[0], hexLoc[1] });
     }
 }
 
@@ -179,9 +180,13 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
     return .{ hexID[0] - ref_a, number };
 }
 
-fn convert_to_spineLoc(spines: []const u8) u32 {
-    print("spines: {s} - {d}\n", .{spines, spines.len});
-    return 3;
+fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3) void {
+    print("-----------------------> spines: {s} - {d}\n", .{ spines, spines.len });
+    print("-----------------------> hexLoc: {d},{d}\n", .{ hexLoc[0], hexLoc[1] });
+    print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
+    for (spines) |spine| {
+        print("{c}\n", .{spine});
+    }
 }
 // fn terrainType_1(filename: []const u8) !void {
 //     var buffer: [512]u8 = undefined;

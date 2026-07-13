@@ -1,8 +1,0 @@
-Screen {
-    layout: grid;
-    grid-size: 1 10;
-}
-
-Log {
-    row-span: 9;
-}
