@@ -164,6 +164,7 @@ fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3
     var it = std.mem.splitScalar(u8, line, ':');
     var index: i32 = 0;
     var hexLoc: struct { i32, i32 } = undefined;
+
     while (it.next()) |cut| {
         if (index == 0) {
             hexLoc = convert_to_hexLoc(cut);
@@ -184,16 +185,56 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
 }
 
 fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
+    var spineAddr: struct { i32, i32, i32 } = undefined; // x, y, spine
+    const hexMODtwo = @mod(hexLoc[0], 2);
     print("-----------------------> spines: {s} - {d}\n", .{ spines, spines.len });
     print("-----------------------> hexLoc: {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], hexID });
     print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
     for (spines) |spine| {
         // const foo = (spine - ref_a);
-        const foo = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
-        print("{c}: {d}\n", .{ spine, foo });
-        process_sql_statement(hexLoc, fname, hexID, terrainNum, db, foo);
+        const spn = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
+        print("{c}: {d}\n", .{ spine, spn });
+        if (hexMODtwo >= 1) {
+            // print("yo\n", .{});
+            spineAddr = get_uniq_hexAddr(hexLoc, spn);
+            // print("{d}\n", .{spineAddr[0]});
+        } else process_sql_statement(hexLoc, fname, hexID, terrainNum, db, spn);
     }
 }
+
+fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
+    print("foo: {d},{d},{d}\n", .{ hexLoc[0], hexLoc[1], spn });
+    var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
+    if (spn == 1) {
+        sAddr[2] = 8;
+        sAddr[0] -= 1;
+        sAddr[1] -= 1;
+    }
+    if (spn == 2) {
+        sAddr[2] = 16;
+        sAddr[0] += 1;
+        sAddr[1] -= 1;
+    }
+    if (spn == 4) {
+        sAddr[2] = 32;
+        sAddr[0] += 1;
+    }
+    if (spn == 8) {
+        sAddr[0] -= 1;
+    }
+    if (spn == 16) {
+        sAddr[2] = 2;
+        sAddr[0] -= 1;
+    }
+    if (spn == 32) {
+        sAddr[2] = 4;
+        sAddr[0] -= 1;
+        sAddr[1] -= 1;
+    }
+    print("bar: {d},{d},{d}\n", .{ sAddr[0], sAddr[1], sAddr[2] });
+    return sAddr;
+}
+
 // fn terrainType_1(filename: []const u8) !void {
 //     var buffer: [512]u8 = undefined;
 //     var fba = std.heap.FixedBufferAllocator.init(&buffer);
