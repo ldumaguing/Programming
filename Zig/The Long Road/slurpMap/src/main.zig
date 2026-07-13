@@ -256,9 +256,22 @@ fn isEND(line: []u8) bool {
 }
 
 fn usageA() void {
-    print("defineMap filename\n", .{});
+    print("slurpMap filename\n", .{});
 }
 
 fn usageB() void {
-    print("defineMap 'file name'\n", .{});
+    print("slurpMap 'file name'\n", .{});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
