@@ -188,7 +188,10 @@ fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []cons
     print("-----------------------> hexLoc: {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], hexID });
     print("-----------------------> {s}, {d}, {?}\n", .{ fname, terrainNum, db });
     for (spines) |spine| {
-        print("{c}\n", .{spine});
+        // const foo = (spine - ref_a);
+        const foo = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
+        print("{c}: {d}\n", .{ spine, foo });
+        process_sql_statement(hexLoc, fname, hexID, terrainNum, db, foo);
     }
 }
 // fn terrainType_1(filename: []const u8) !void {
