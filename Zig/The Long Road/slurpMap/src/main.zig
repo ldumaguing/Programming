@@ -250,7 +250,7 @@ fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i3
 // }
 
 fn isEND(line: []u8) bool {
-    if (std.mem.startsWith(u8, line, "END "))
+    if (std.mem.startsWith(u8, line, "END *"))
         return true;
     return false;
 }
