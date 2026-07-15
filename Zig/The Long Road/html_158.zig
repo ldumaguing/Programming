@@ -34,7 +34,7 @@ pub fn main() !void {
         \\
     ;
 
-    print(html_1, .{"Move Factor"});
+    print(html_1, .{"158x158"});
     show_imgs(db);
     print(html_2, .{});
 }
@@ -42,8 +42,9 @@ pub fn main() !void {
 fn show_imgs(db: ?*c.sqlite3) void {
     // ********** 2: prepare statement
     const query =
-        \\SELECT id, file, flag1
-        \\FROM img WHERE mf_val >= 0
+        \\SELECT id, file
+        \\FROM img
+        \\WHERE flag1 & 1
     ;
 
     var stmt: ?*c.sqlite3_stmt = undefined;
@@ -57,10 +58,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
     while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
         const id = c.sqlite3_column_int64(stmt, 0);
         const fname = c.sqlite3_column_text(stmt, 1);
-        const flag1 = c.sqlite3_column_int64(stmt, 2);
-        print("   <tr>", .{});
-        print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
-        process_flag1(flag1);
+        print("   <tr><td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
         print("</tr>\n", .{});
         // const string_p = c.sqlite3_column_text(stmt, 1);
         // if (string_p == null) {
@@ -70,12 +68,4 @@ fn show_imgs(db: ?*c.sqlite3) void {
         //     std.debug.print("{s}\n", .{fname});
         // }
     }
-}
-
-fn process_flag1(flag1: i64) void {
-    print("<td>", .{});
-    if ((flag1 & (1 << 2)) > 0)
-        print("Wired Guided Missiles<br>", .{});
-    print("asdf", .{});
-    print("</td>", .{});
 }
