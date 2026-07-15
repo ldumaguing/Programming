@@ -42,10 +42,9 @@ pub fn main() !void {
 fn show_imgs(db: ?*c.sqlite3) void {
     // ********** 2: prepare statement
     const query =
-        \\SELECT id, file, flag1, apf_val, apf_rng,
-        \\apf2_val, apf2_rng,
-        \\hef_val, hef_rng,
-        \\hef2_val, hef2_rng,
+        \\SELECT id, file, flag1,
+        \\apf_val, apf_rng, apf2_val, apf2_rng,
+        \\hef_val, hef_rng, hef2_val, hef2_rng,
         \\mf_val
         \\FROM img WHERE mf_val >= 0
     ;
@@ -94,6 +93,11 @@ fn show_imgs(db: ?*c.sqlite3) void {
         if (mf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
             process_MF(mf_val);
+            if ((flag1 & (3 << 13)) > 0)
+                if ((flag1 & (3 << 13)) == (1 << 13) )
+                    print("May carry leg units.<br>", .{})
+                else
+                    print("May only carry Recon leg unit.<br>", .{});
             print("</td>", .{});
         } else print("<td></td>\n", .{});
 
