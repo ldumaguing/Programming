@@ -45,7 +45,8 @@ fn show_imgs(db: ?*c.sqlite3) void {
         \\SELECT id, file, flag1, apf_val, apf_rng,
         \\apf2_val, apf2_rng,
         \\hef_val, hef_rng,
-        \\hef2_val, hef2_rng
+        \\hef2_val, hef2_rng,
+        \\mf_val
         \\FROM img WHERE mf_val >= 0
     ;
 
@@ -69,6 +70,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const hef_rng = c.sqlite3_column_text(stmt, 8);
         const hef2_val = c.sqlite3_column_int64(stmt, 9);
         const hef2_rng = c.sqlite3_column_text(stmt, 10);
+        const mf_val = c.sqlite3_column_int64(stmt, 11);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
@@ -79,7 +81,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
             if (apf2_val >= 0)
                 process_APF2(apf2_val, apf2_rng);
             print("</td>", .{});
-        }
+        } else print("<td></td>\n", .{});
 
         if (hef_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
@@ -87,10 +89,20 @@ fn show_imgs(db: ?*c.sqlite3) void {
             if (hef2_val >= 0)
                 process_HEF2(hef2_val, hef2_rng);
             print("</td>", .{});
-        }
+        } else print("<td></td>\n", .{});
+
+        if (mf_val >= 0) {
+            print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+            process_MF(mf_val);
+            print("</td>", .{});
+        } else print("<td></td>\n", .{});
 
         print("</tr>\n", .{});
     }
+}
+
+fn process_MF(mf_val: i64) void {
+    print("<b>MF:</b> {d}<br>", .{mf_val});
 }
 
 fn process_HEF2(hef2_val: i64, hef2_rng: [*c]const u8) void {
