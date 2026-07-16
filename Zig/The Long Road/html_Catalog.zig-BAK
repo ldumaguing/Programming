@@ -46,8 +46,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
         \\apf_val, apf_rng, apf2_val, apf2_rng,
         \\hef_val, hef_rng, hef2_val, hef2_rng,
         \\mf_val,
-        \\caf_val, flag2, armor_val,
-        \\flag3, ability1, ability2, ability3
+        \\caf_val, flag2, armor_val
         \\FROM img WHERE (flag1 & 2)
     ;
 
@@ -75,10 +74,6 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const caf_val = c.sqlite3_column_int64(stmt, 12);
         const flag2 = c.sqlite3_column_int64(stmt, 13);
         const armor_val = c.sqlite3_column_int64(stmt, 14);
-        const flag3 = c.sqlite3_column_int64(stmt, 15);
-        //const ability1 = c.sqlite3_column_int64(stmt, 16);
-        //const ability2 = c.sqlite3_column_int64(stmt, 17);
-        //const ability3 = c.sqlite3_column_int64(stmt, 18);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
@@ -101,7 +96,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (mf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            process_MF(mf_val, flag2, flag3);
+            process_MF(mf_val);
             if ((flag1 & (3 << 13)) > 0)
                 if ((flag1 & (3 << 13)) == (1 << 13))
                     print("May carry leg units.<br>", .{})
@@ -132,38 +127,20 @@ fn show_imgs(db: ?*c.sqlite3) void {
             if (armor_val >= 0) {
                 if ((flag2 & (3 << 4)) > 0)
                     if ((flag2 & (1 << 4)) > 0)
-                        print("<sup>-1</sup><br>", .{})
+                        print("<sup>-1</sup>", .{})
                     else
-                        print("<sup>+1</sup><br>", .{});
+                        print("<sup>+1</sup>", .{});
+                print("<br>", .{});
             }
             if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
-        } else print("<td></td>\n", .{});
-
-        // ***********************************************************************************
-        if (flag3 > 0) {
-            print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            if ((flag3 & (1 << 0)) > 0) {
-                print("Commander<br>", .{});
-            }
-            if ((flag3 & (1 << 1)) > 0) {
-                print("Hero<br>", .{});
-            }
-            if ((flag3 & (1 << 2)) > 0) {
-                print("Champion<br>", .{});
-            }
         } else print("<td></td>\n", .{});
 
         print("</tr>\n", .{});
     }
 }
 
-fn process_MF(mf_val: i64, flag2: i64, flag3: i64) void {
-    print("<b>MF:</b> {d} (", .{mf_val});
-    if ((flag2 & (1 << 15)) > 0) print("Leg)<br>", .{});
-    if ((flag3 & (1 << 3)) > 0) print("Track)<br>", .{});
-    if ((flag3 & (1 << 4)) > 0) print("Wheel)<br>", .{});
-    if ((flag3 & (1 << 5)) > 0) print("Mecha)<br>", .{});
-    if ((flag2 & (1 << 13)) > 0) print("VTOL)<br>", .{});
+fn process_MF(mf_val: i64) void {
+    print("<b>MF:</b> {d}<br>", .{mf_val});
 }
 
 fn process_HEF2(hef2_val: i64, hef2_rng: [*c]const u8) void {
