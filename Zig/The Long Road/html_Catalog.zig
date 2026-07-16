@@ -78,7 +78,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const flag3 = c.sqlite3_column_int64(stmt, 15);
         const ability1 = c.sqlite3_column_int64(stmt, 16);
         const ability2 = c.sqlite3_column_int64(stmt, 17);
-        //const ability3 = c.sqlite3_column_int64(stmt, 18);
+        const ability3 = c.sqlite3_column_int64(stmt, 18);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
@@ -174,14 +174,21 @@ fn show_imgs(db: ?*c.sqlite3) void {
         if ((ability1 & (1 << 3)) > 0) print("Concealed; ", .{});
         if ((ability1 & (1 << 4)) > 0) print("Courageous; ", .{});
         if ((ability2 & (1 << 11)) > 0) print("Deathless; ", .{});
+        if ((ability2 & (1 << 12)) > 0) print("Ethereal Being; ", .{});
+        if ((ability2 & (1 << 13)) > 0) print("Eye of Chaos; ", .{});
         if ((ability2 & (1 << 6)) > 0) print("Explosive Decomposition; ", .{});
         if ((ability1 & (1 << 5)) > 0) print("Fearsome Howl; ", .{});
         if ((ability1 & (1 << 6)) > 0) print("Fireball; ", .{});
         if ((ability2 & (1 << 5)) > 0) print("Fly; ", .{});
         if ((ability1 & (1 << 7)) > 0) print("Frenzied; ", .{});
+        if ((ability2 & (1 << 14)) > 0) print("Gateway to the Abyss; ", .{});
+        if ((ability2 & (1 << 15)) > 0) print("Ghost Buster; ", .{});
+        if ((ability3 & (1 << 0)) > 0) print("Healer; ", .{});
+        if ((ability3 & (1 << 1)) > 0) print("Iron Resolve; ", .{});
         if ((ability1 & (1 << 8)) > 0) print("Leap; ", .{});
         if ((ability1 & (1 << 9)) > 0) print("Lightning Strike; ", .{});
         if ((ability2 & (1 << 2)) > 0) print("Lucky; ", .{});
+        if ((ability3 & (1 << 2)) > 0) print("Necrotic Plague; ", .{});
         if ((ability1 & (1 << 10)) > 0) print("Reanimate; ", .{});
         if ((flag2 & (1 << 8)) > 0) print("Recon; ", .{});
         if ((ability1 & (1 << 11)) > 0) print("ReconB; ", .{});
