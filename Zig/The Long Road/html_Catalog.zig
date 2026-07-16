@@ -76,8 +76,8 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const flag2 = c.sqlite3_column_int64(stmt, 13);
         const armor_val = c.sqlite3_column_int64(stmt, 14);
         const flag3 = c.sqlite3_column_int64(stmt, 15);
-        //const ability1 = c.sqlite3_column_int64(stmt, 16);
-        //const ability2 = c.sqlite3_column_int64(stmt, 17);
+        const ability1 = c.sqlite3_column_int64(stmt, 16);
+        const ability2 = c.sqlite3_column_int64(stmt, 17);
         //const ability3 = c.sqlite3_column_int64(stmt, 18);
 
         print("   <tr>", .{});
@@ -124,6 +124,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
                 print("May only assault within it's own hex.<br>", .{});
             if ((flag2 & (1 << 3)) > 0)
                 print("May not initiate a close assault.<br>", .{});
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         if (armor_val > -100) {
@@ -137,6 +138,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
                         print("<sup>+1</sup><br>", .{});
             }
             if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         // ***********************************************************************************
@@ -151,7 +153,47 @@ fn show_imgs(db: ?*c.sqlite3) void {
             if ((flag3 & (1 << 2)) > 0) {
                 print("Champion<br>", .{});
             }
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
+
+        print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+
+        if ((flag2 & (1 << 10)) > 0) print("<b>Lycan</b><br>", .{});
+        if ((flag2 & (1 << 11)) > 0) print("<b>Vampire</b><br>", .{});
+        if ((flag2 & (1 << 12)) > 0) print("<b>Zombie</b><br>", .{});
+        if ((flag2 & (1 << 14)) > 0) print("<b>Aircraft</b><br>", .{});
+
+        if ((ability2 & (1 << 7)) > 0) print("Acid Bile; ", .{});
+        if ((ability1 & (1 << 0)) > 0) print("Activate Twice; ", .{});
+        if ((flag2 & (1 << 9)) > 0) print("Advance Targeting; ", .{});
+        if ((ability1 & (1 << 1)) > 0) print("Aggressive; ", .{});
+        if ((ability2 & (1 << 9)) > 0) print("Anti-Aircraft; ", .{});
+        if ((ability2 & (1 << 8)) > 0) print("Blood Thirsty; ", .{});
+        if ((ability2 & (1 << 10)) > 0) print("Boom Risk; ", .{});
+        if ((ability1 & (1 << 2)) > 0) print("Brutal; ", .{});
+        if ((ability1 & (1 << 3)) > 0) print("Concealed; ", .{});
+        if ((ability1 & (1 << 4)) > 0) print("Courageous; ", .{});
+        if ((ability2 & (1 << 11)) > 0) print("Deathless; ", .{});
+        if ((ability2 & (1 << 6)) > 0) print("Explosive Decomposition; ", .{});
+        if ((ability1 & (1 << 5)) > 0) print("Fearsome Howl; ", .{});
+        if ((ability1 & (1 << 6)) > 0) print("Fireball; ", .{});
+        if ((ability2 & (1 << 5)) > 0) print("Fly; ", .{});
+        if ((ability1 & (1 << 7)) > 0) print("Frenzied; ", .{});
+        if ((ability1 & (1 << 8)) > 0) print("Leap; ", .{});
+        if ((ability1 & (1 << 9)) > 0) print("Lightning Strike; ", .{});
+        if ((ability2 & (1 << 2)) > 0) print("Lucky; ", .{});
+        if ((ability1 & (1 << 10)) > 0) print("Reanimate; ", .{});
+        if ((flag2 & (1 << 8)) > 0) print("Recon; ", .{});
+        if ((ability1 & (1 << 11)) > 0) print("ReconB; ", .{});
+        if ((ability2 & (1 << 4)) > 0) print("Regenerate; ", .{});
+        if ((ability1 & (1 << 12)) > 0) print("Silver Bullet; ", .{});
+        if ((ability1 & (1 << 13)) > 0) print("Sniper; ", .{});
+        if ((ability1 & (1 << 14)) > 0) print("Steady; ", .{});
+        if ((ability1 & (1 << 15)) > 0) print("Tough; ", .{});
+        if ((ability2 & (1 << 0)) > 0) print("Veteran; ", .{});
+        if ((ability2 & (1 << 1)) > 0) print("Wolf Speed; ", .{});
+
+        print("</td>", .{});
 
         print("</tr>\n", .{});
     }
@@ -197,10 +239,6 @@ fn process_APF2(apf2_val: i64, apf2_rng: [*c]const u8) void {
 }
 
 fn process_APF(flag1: i64, apf_val: i64, apf_rng: [*c]const u8) void {
-    if ((flag1 & (1 << 2)) > 0)
-        print("Wired guided missiles.<br>", .{});
-    if ((flag1 & (1 << 5)) > 0)
-        print("Range effects do not apply.<br>", .{});
     print("<b>APF:</b> {d}", .{apf_val});
     if ((flag1 & (3 << 3)) > 0) {
         if ((flag1 & (1 << 3)) > 0)
@@ -209,4 +247,9 @@ fn process_APF(flag1: i64, apf_val: i64, apf_rng: [*c]const u8) void {
             print("<sup>+1</sup>", .{});
     }
     print(" ({s})<br>", .{apf_rng});
+    // *********************************
+    if ((flag1 & (1 << 2)) > 0)
+        print("Wired guided missiles.<br>", .{});
+    if ((flag1 & (1 << 5)) > 0)
+        print("Range effects do not apply.<br>", .{});
 }
