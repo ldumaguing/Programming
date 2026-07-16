@@ -45,7 +45,8 @@ fn show_imgs(db: ?*c.sqlite3) void {
         \\SELECT id, file, flag1,
         \\apf_val, apf_rng, apf2_val, apf2_rng,
         \\hef_val, hef_rng, hef2_val, hef2_rng,
-        \\mf_val
+        \\mf_val,
+        \\caf_val, flag2
         \\FROM img WHERE mf_val >= 0
     ;
 
@@ -70,6 +71,8 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const hef2_val = c.sqlite3_column_int64(stmt, 9);
         const hef2_rng = c.sqlite3_column_text(stmt, 10);
         const mf_val = c.sqlite3_column_int64(stmt, 11);
+        const caf_val = c.sqlite3_column_int64(stmt, 12);
+        const flag2 = c.sqlite3_column_int64(stmt, 13);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
@@ -94,11 +97,27 @@ fn show_imgs(db: ?*c.sqlite3) void {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
             process_MF(mf_val);
             if ((flag1 & (3 << 13)) > 0)
-                if ((flag1 & (3 << 13)) == (1 << 13) )
+                if ((flag1 & (3 << 13)) == (1 << 13))
                     print("May carry leg units.<br>", .{})
                 else
                     print("May only carry Recon leg unit.<br>", .{});
+            if ((flag1 & (1 << 15)) > 0)
+                print("Passengers may fire.<br>", .{});
+            if ((flag1 & (3 << 11)) > 0)
+                if ((flag1 & (3 << 11)) == (1 << 11))
+                    print("May move & fire. 1-column shift.<br>", .{})
+                else
+                    print("May move & fire. 2-column shift.<br>", .{});
             print("</td>", .{});
+        } else print("<td></td>\n", .{});
+
+        if (caf_val >= 0) {
+            print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+            print("<b>CAF:</b> {d}<br>", .{caf_val});
+            if ((flag2 & (1 << 2)) > 0)
+                print("May only assault within it's own hex.<br>", .{});
+            if ((flag2 & (1 << 3)) > 0)
+                print("May not initiate a close assault.<br>", .{});
         } else print("<td></td>\n", .{});
 
         print("</tr>\n", .{});
@@ -110,12 +129,12 @@ fn process_MF(mf_val: i64) void {
 }
 
 fn process_HEF2(hef2_val: i64, hef2_rng: [*c]const u8) void {
-    print("<b>HE2:</b> {d}", .{hef2_val});
+    print("<b>HEF2:</b> {d}", .{hef2_val});
     print(" ({s})<br>", .{hef2_rng});
 }
 
 fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8) void {
-    print("<b>HE:</b> {d}", .{hef_val});
+    print("<b>HEF:</b> {d}", .{hef_val});
     if ((flag1 & (3 << 6)) > 0) {
         if ((flag1 & (1 << 6)) > 0)
             print("<sup>-1</sup>", .{})
@@ -135,7 +154,7 @@ fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8) void {
 }
 
 fn process_APF2(apf2_val: i64, apf2_rng: [*c]const u8) void {
-    print("<b>AP2:</b> {d}", .{apf2_val});
+    print("<b>APF2:</b> {d}", .{apf2_val});
     print(" ({s})<br>", .{apf2_rng});
 }
 
@@ -144,7 +163,7 @@ fn process_APF(flag1: i64, apf_val: i64, apf_rng: [*c]const u8) void {
         print("Wired guided missiles.<br>", .{});
     if ((flag1 & (1 << 5)) > 0)
         print("Range effects do not apply.<br>", .{});
-    print("<b>AP:</b> {d}", .{apf_val});
+    print("<b>APF:</b> {d}", .{apf_val});
     if ((flag1 & (3 << 3)) > 0) {
         if ((flag1 & (1 << 3)) > 0)
             print("<sup>-1</sup>", .{})
