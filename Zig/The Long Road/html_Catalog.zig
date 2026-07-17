@@ -183,22 +183,29 @@ fn show_imgs(db: ?*c.sqlite3) void {
         if ((ability1 & (1 << 7)) > 0) print("Frenzied; ", .{});
         if ((ability2 & (1 << 14)) > 0) print("Gateway to the Abyss; ", .{});
         if ((ability2 & (1 << 15)) > 0) print("Ghost Buster; ", .{});
+        if ((ability3 & (1 << 9)) > 0) print("Ghost Buster (adjacent); ", .{});
         if ((ability3 & (1 << 0)) > 0) print("Healer; ", .{});
         if ((ability3 & (1 << 1)) > 0) print("Iron Resolve; ", .{});
         if ((ability1 & (1 << 8)) > 0) print("Leap; ", .{});
         if ((ability1 & (1 << 9)) > 0) print("Lightning Strike; ", .{});
         if ((ability2 & (1 << 2)) > 0) print("Lucky; ", .{});
         if ((ability3 & (1 << 2)) > 0) print("Necrotic Plague; ", .{});
+        if ((ability3 & (1 << 3)) > 0) print("Psychic; ", .{});
         if ((ability1 & (1 << 10)) > 0) print("Reanimate; ", .{});
         if ((flag2 & (1 << 8)) > 0) print("Recon; ", .{});
         if ((ability1 & (1 << 11)) > 0) print("ReconB; ", .{});
         if ((ability2 & (1 << 4)) > 0) print("Regenerate; ", .{});
+        if ((ability3 & (1 << 4)) > 0) print("Ripplefire; ", .{});
         if ((ability1 & (1 << 12)) > 0) print("Silver Bullet; ", .{});
         if ((ability1 & (1 << 13)) > 0) print("Sniper; ", .{});
+        if ((ability3 & (1 << 5)) > 0) print("Spirit Control; ", .{});
         if ((ability1 & (1 << 14)) > 0) print("Steady; ", .{});
+        if ((ability3 & (1 << 6)) > 0) print("Suicidal; ", .{});
+        if ((ability3 & (1 << 7)) > 0) print("Tornadic Impact; ", .{});
         if ((ability1 & (1 << 15)) > 0) print("Tough; ", .{});
         if ((ability2 & (1 << 0)) > 0) print("Veteran; ", .{});
         if ((ability2 & (1 << 1)) > 0) print("Wolf Speed; ", .{});
+        if ((ability3 & (1 << 8)) > 0) print("Wooden Missiles; ", .{});
 
         print("</td>", .{});
 
