@@ -76,9 +76,9 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const flag2 = c.sqlite3_column_int64(stmt, 13);
         const armor_val = c.sqlite3_column_int64(stmt, 14);
         const flag3 = c.sqlite3_column_int64(stmt, 15);
-        //const ability1 = c.sqlite3_column_int64(stmt, 16);
-        //const ability2 = c.sqlite3_column_int64(stmt, 17);
-        //const ability3 = c.sqlite3_column_int64(stmt, 18);
+        const ability1 = c.sqlite3_column_int64(stmt, 16);
+        const ability2 = c.sqlite3_column_int64(stmt, 17);
+        const ability3 = c.sqlite3_column_int64(stmt, 18);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
@@ -93,7 +93,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (hef_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            process_HEF(flag1, hef_val, hef_rng);
+            process_HEF(flag1, hef_val, hef_rng, flag2);
             if (hef2_val >= 0)
                 process_HEF2(hef2_val, hef2_rng);
             print("</td>", .{});
@@ -119,11 +119,18 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (caf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            print("<b>CAF:</b> {d}<br>", .{caf_val});
-            if ((flag2 & (1 << 2)) > 0)
-                print("May only assault within it's own hex.<br>", .{});
-            if ((flag2 & (1 << 3)) > 0)
-                print("May not initiate a close assault.<br>", .{});
+
+            if ((flag2 & (1 << 1)) > 0) {
+                print("<b>CAF:</b> +{d}<br>", .{caf_val});
+            } else {
+                print("<b>CAF:</b> {d}<br>", .{caf_val});
+                if ((flag2 & (1 << 2)) > 0)
+                    print("May only assault within it's own hex.<br>", .{});
+                if ((flag2 & (1 << 3)) > 0)
+                    print("May not initiate a close assault.<br>", .{});
+            }
+
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         if (armor_val > -100) {
@@ -137,21 +144,77 @@ fn show_imgs(db: ?*c.sqlite3) void {
                         print("<sup>+1</sup><br>", .{});
             }
             if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         // ***********************************************************************************
         if (flag3 > 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
             if ((flag3 & (1 << 0)) > 0) {
-                print("Commander<br>", .{});
+                print("<b>Commander</b><br>", .{});
             }
             if ((flag3 & (1 << 1)) > 0) {
-                print("Hero<br>", .{});
+                print("<b>Hero</b><br>", .{});
             }
             if ((flag3 & (1 << 2)) > 0) {
-                print("Champion<br>", .{});
+                print("<b>Champion</b><br>", .{});
             }
+            print("</td>", .{});
         } else print("<td></td>\n", .{});
+
+        print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+
+        if ((flag2 & (1 << 10)) > 0) print("<b>Lycan</b><br>", .{});
+        if ((flag2 & (1 << 11)) > 0) print("<b>Vampire</b><br>", .{});
+        if ((flag2 & (1 << 12)) > 0) print("<b>Zombie</b><br>", .{});
+        if ((flag2 & (1 << 14)) > 0) print("<b>Aircraft</b><br>", .{});
+
+        if ((ability2 & (1 << 7)) > 0) print("Acid Bile; ", .{});
+        if ((ability1 & (1 << 0)) > 0) print("Activate Twice; ", .{});
+        if ((flag2 & (1 << 9)) > 0) print("Advance Targeting; ", .{});
+        if ((ability1 & (1 << 1)) > 0) print("Aggressive; ", .{});
+        if ((ability2 & (1 << 9)) > 0) print("Anti-Aircraft; ", .{});
+        if ((ability2 & (1 << 8)) > 0) print("Blood Thirsty; ", .{});
+        if ((ability2 & (1 << 10)) > 0) print("Boom Risk; ", .{});
+        if ((ability1 & (1 << 2)) > 0) print("Brutal; ", .{});
+        if ((ability1 & (1 << 3)) > 0) print("Concealed; ", .{});
+        if ((ability1 & (1 << 4)) > 0) print("Courageous; ", .{});
+        if ((ability2 & (1 << 11)) > 0) print("Deathless; ", .{});
+        if ((ability2 & (1 << 12)) > 0) print("Ethereal Being; ", .{});
+        if ((ability2 & (1 << 13)) > 0) print("Eye of Chaos; ", .{});
+        if ((ability2 & (1 << 6)) > 0) print("Explosive Decomposition; ", .{});
+        if ((ability1 & (1 << 5)) > 0) print("Fearsome Howl; ", .{});
+        if ((ability1 & (1 << 6)) > 0) print("Fireball; ", .{});
+        if ((ability2 & (1 << 5)) > 0) print("Fly; ", .{});
+        if ((ability1 & (1 << 7)) > 0) print("Frenzied; ", .{});
+        if ((ability2 & (1 << 14)) > 0) print("Gateway to the Abyss; ", .{});
+        if ((ability2 & (1 << 15)) > 0) print("Ghost Buster; ", .{});
+        if ((ability3 & (1 << 9)) > 0) print("Ghost Buster (adjacent); ", .{});
+        if ((ability3 & (1 << 0)) > 0) print("Healer; ", .{});
+        if ((ability3 & (1 << 1)) > 0) print("Iron Resolve; ", .{});
+        if ((ability1 & (1 << 8)) > 0) print("Leap; ", .{});
+        if ((ability1 & (1 << 9)) > 0) print("Lightning Strike; ", .{});
+        if ((ability2 & (1 << 2)) > 0) print("Lucky; ", .{});
+        if ((ability3 & (1 << 2)) > 0) print("Necrotic Plague; ", .{});
+        if ((ability3 & (1 << 3)) > 0) print("Psychic; ", .{});
+        if ((ability2 & (1 << 3)) > 0) print("Rally; ", .{});
+        if ((ability1 & (1 << 10)) > 0) print("Reanimate; ", .{});
+        if ((flag2 & (1 << 8)) > 0) print("Recon; ", .{});
+        if ((ability1 & (1 << 11)) > 0) print("ReconB; ", .{});
+        if ((ability2 & (1 << 4)) > 0) print("Regenerate; ", .{});
+        if ((ability3 & (1 << 4)) > 0) print("Ripplefire; ", .{});
+        if ((ability1 & (1 << 12)) > 0) print("Silver Bullet; ", .{});
+        if ((ability1 & (1 << 13)) > 0) print("Sniper; ", .{});
+        if ((ability3 & (1 << 5)) > 0) print("Spirit Control; ", .{});
+        if ((ability1 & (1 << 14)) > 0) print("Steady; ", .{});
+        if ((ability3 & (1 << 6)) > 0) print("Suicidal; ", .{});
+        if ((ability3 & (1 << 7)) > 0) print("Tornadic Impact; ", .{});
+        if ((ability1 & (1 << 15)) > 0) print("Tough; ", .{});
+        if ((ability2 & (1 << 0)) > 0) print("Veteran; ", .{});
+        if ((ability2 & (1 << 1)) > 0) print("Wolf Speed; ", .{});
+        if ((ability3 & (1 << 8)) > 0) print("Wooden Missiles; ", .{});
+
+        print("</td>", .{});
 
         print("</tr>\n", .{});
     }
@@ -171,23 +234,27 @@ fn process_HEF2(hef2_val: i64, hef2_rng: [*c]const u8) void {
     print(" ({s})<br>", .{hef2_rng});
 }
 
-fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8) void {
-    print("<b>HEF:</b> {d}", .{hef_val});
-    if ((flag1 & (3 << 6)) > 0) {
-        if ((flag1 & (1 << 6)) > 0)
-            print("<sup>-1</sup>", .{})
-        else
-            print("<sup>+1</sup>", .{});
-    }
-    print(" ({s})<br>", .{hef_rng});
-    if ((flag1 & (1 << 8)) > 0) {
-        print("May damage Armor <= 4.<br>", .{});
-    }
-    if ((flag1 & (1 << 9)) > 0) {
-        print("Minimum range of 2.<br>", .{});
-    }
-    if ((flag1 & (1 << 10)) > 0) {
-        print("Range effects do not apply.<br>", .{});
+fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8, flag2: i64) void {
+    if ((flag2 & (1 << 0)) > 0) {
+        print("<b>HEF:</b> +{d}", .{hef_val});
+    } else {
+        print("<b>HEF:</b> {d}", .{hef_val});
+        if ((flag1 & (3 << 6)) > 0) {
+            if ((flag1 & (1 << 6)) > 0)
+                print("<sup>-1</sup>", .{})
+            else
+                print("<sup>+1</sup>", .{});
+        }
+        print(" ({s})<br>", .{hef_rng});
+        if ((flag1 & (1 << 8)) > 0) {
+            print("May damage Armor <= 4.<br>", .{});
+        }
+        if ((flag1 & (1 << 9)) > 0) {
+            print("Minimum range of 2.<br>", .{});
+        }
+        if ((flag1 & (1 << 10)) > 0) {
+            print("Range effects do not apply.<br>", .{});
+        }
     }
 }
 

@@ -93,7 +93,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (hef_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            process_HEF(flag1, hef_val, hef_rng);
+            process_HEF(flag1, hef_val, hef_rng, flag2);
             if (hef2_val >= 0)
                 process_HEF2(hef2_val, hef2_rng);
             print("</td>", .{});
@@ -119,25 +119,37 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (caf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            print("<b>CAF:</b> {d}<br>", .{caf_val});
-            if ((flag2 & (1 << 2)) > 0)
-                print("May only assault within it's own hex.<br>", .{});
-            if ((flag2 & (1 << 3)) > 0)
-                print("May not initiate a close assault.<br>", .{});
+
+            if ((flag2 & (1 << 1)) > 0) {
+                print("<b>CAF:</b> +{d}<br>", .{caf_val});
+            } else {
+                print("<b>CAF:</b> {d}<br>", .{caf_val});
+                if ((flag2 & (1 << 2)) > 0)
+                    print("May only assault within it's own hex.<br>", .{});
+                if ((flag2 & (1 << 3)) > 0)
+                    print("May not initiate a close assault.<br>", .{});
+            }
+
             print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         if (armor_val > -100) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            print("<b>Armor:</b> {d}", .{armor_val});
-            if (armor_val >= 0) {
-                if ((flag2 & (3 << 4)) > 0)
-                    if ((flag2 & (1 << 4)) > 0)
-                        print("<sup>-1</sup><br>", .{})
-                    else
-                        print("<sup>+1</sup><br>", .{});
+
+            if ((flag3 & (1 << 8)) > 0) {
+                print("<b>Armor:</b> +{d}", .{armor_val});
+            } else {
+                print("<b>Armor:</b> {d}", .{armor_val});
+                if (armor_val >= 0) {
+                    if ((flag2 & (3 << 4)) > 0)
+                        if ((flag2 & (1 << 4)) > 0)
+                            print("<sup>-1</sup><br>", .{})
+                        else
+                            print("<sup>+1</sup><br>", .{});
+                }
+                if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
             }
-            if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
+
             print("</td>", .{});
         } else print("<td></td>\n", .{});
 
@@ -145,13 +157,13 @@ fn show_imgs(db: ?*c.sqlite3) void {
         if (flag3 > 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
             if ((flag3 & (1 << 0)) > 0) {
-                print("Commander<br>", .{});
+                print("<b>Commander</b><br>", .{});
             }
             if ((flag3 & (1 << 1)) > 0) {
-                print("Hero<br>", .{});
+                print("<b>Hero</b><br>", .{});
             }
             if ((flag3 & (1 << 2)) > 0) {
-                print("Champion<br>", .{});
+                print("<b>Champion</b><br>", .{});
             }
             print("</td>", .{});
         } else print("<td></td>\n", .{});
@@ -191,6 +203,7 @@ fn show_imgs(db: ?*c.sqlite3) void {
         if ((ability2 & (1 << 2)) > 0) print("Lucky; ", .{});
         if ((ability3 & (1 << 2)) > 0) print("Necrotic Plague; ", .{});
         if ((ability3 & (1 << 3)) > 0) print("Psychic; ", .{});
+        if ((ability2 & (1 << 3)) > 0) print("Rally; ", .{});
         if ((ability1 & (1 << 10)) > 0) print("Reanimate; ", .{});
         if ((flag2 & (1 << 8)) > 0) print("Recon; ", .{});
         if ((ability1 & (1 << 11)) > 0) print("ReconB; ", .{});
@@ -227,23 +240,27 @@ fn process_HEF2(hef2_val: i64, hef2_rng: [*c]const u8) void {
     print(" ({s})<br>", .{hef2_rng});
 }
 
-fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8) void {
-    print("<b>HEF:</b> {d}", .{hef_val});
-    if ((flag1 & (3 << 6)) > 0) {
-        if ((flag1 & (1 << 6)) > 0)
-            print("<sup>-1</sup>", .{})
-        else
-            print("<sup>+1</sup>", .{});
-    }
-    print(" ({s})<br>", .{hef_rng});
-    if ((flag1 & (1 << 8)) > 0) {
-        print("May damage Armor <= 4.<br>", .{});
-    }
-    if ((flag1 & (1 << 9)) > 0) {
-        print("Minimum range of 2.<br>", .{});
-    }
-    if ((flag1 & (1 << 10)) > 0) {
-        print("Range effects do not apply.<br>", .{});
+fn process_HEF(flag1: i64, hef_val: i64, hef_rng: [*c]const u8, flag2: i64) void {
+    if ((flag2 & (1 << 0)) > 0) {
+        print("<b>HEF:</b> +{d}", .{hef_val});
+    } else {
+        print("<b>HEF:</b> {d}", .{hef_val});
+        if ((flag1 & (3 << 6)) > 0) {
+            if ((flag1 & (1 << 6)) > 0)
+                print("<sup>-1</sup>", .{})
+            else
+                print("<sup>+1</sup>", .{});
+        }
+        print(" ({s})<br>", .{hef_rng});
+        if ((flag1 & (1 << 8)) > 0) {
+            print("May damage Armor <= 4.<br>", .{});
+        }
+        if ((flag1 & (1 << 9)) > 0) {
+            print("Minimum range of 2.<br>", .{});
+        }
+        if ((flag1 & (1 << 10)) > 0) {
+            print("Range effects do not apply.<br>", .{});
+        }
     }
 }
 
