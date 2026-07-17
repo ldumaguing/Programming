@@ -119,7 +119,6 @@ fn show_imgs(db: ?*c.sqlite3) void {
 
         if (caf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-
             if ((flag2 & (1 << 1)) > 0) {
                 print("<b>CAF:</b> +{d}<br>", .{caf_val});
             } else {
@@ -129,13 +128,11 @@ fn show_imgs(db: ?*c.sqlite3) void {
                 if ((flag2 & (1 << 3)) > 0)
                     print("May not initiate a close assault.<br>", .{});
             }
-
             print("</td>", .{});
         } else print("<td></td>\n", .{});
 
         if (armor_val > -100) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-
             if ((flag3 & (1 << 8)) > 0) {
                 print("<b>Armor:</b> +{d}", .{armor_val});
             } else {
@@ -149,7 +146,6 @@ fn show_imgs(db: ?*c.sqlite3) void {
                 }
                 if ((flag2 & (1 << 6)) > 0) print("<br>Unarmored vehicle.<br>", .{});
             }
-
             print("</td>", .{});
         } else print("<td></td>\n", .{});
 
