@@ -47,7 +47,8 @@ fn show_imgs(db: ?*c.sqlite3) void {
         \\hef_val, hef_rng, hef2_val, hef2_rng,
         \\mf_val,
         \\caf_val, flag2, armor_val,
-        \\flag3, ability1, ability2, ability3
+        \\flag3, ability1, ability2, ability3,
+        \\URPapf_val, URPhef_val
         \\FROM img WHERE (flag1 & 2)
     ;
 
@@ -79,25 +80,39 @@ fn show_imgs(db: ?*c.sqlite3) void {
         const ability1 = c.sqlite3_column_int64(stmt, 16);
         const ability2 = c.sqlite3_column_int64(stmt, 17);
         const ability3 = c.sqlite3_column_int64(stmt, 18);
+        const URPapf_val = c.sqlite3_column_text(stmt, 19);
+        const URPhef_val = c.sqlite3_column_text(stmt, 20);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td>", .{ id, fname });
 
-        if (apf_val >= 0) {
+        if ((flag3 & (1 << 9)) > 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            process_APF(flag1, apf_val, apf_rng);
-            if (apf2_val >= 0)
-                process_APF2(apf2_val, apf2_rng);
+            print("<b>APF:</b> {s} ({s})", .{ URPapf_val, apf_rng });
             print("</td>", .{});
-        } else print("<td></td>\n", .{});
+        } else {
+            if (apf_val >= 0) {
+                print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+                process_APF(flag1, apf_val, apf_rng);
+                if (apf2_val >= 0)
+                    process_APF2(apf2_val, apf2_rng);
+                print("</td>", .{});
+            } else print("<td></td>\n", .{});
+        }
 
-        if (hef_val >= 0) {
+        if ((flag3 & (1 << 9)) > 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
-            process_HEF(flag1, hef_val, hef_rng, flag2);
-            if (hef2_val >= 0)
-                process_HEF2(hef2_val, hef2_rng);
+            print("<b>HEF:</b> {s} ({s})", .{ URPhef_val, hef_rng });
             print("</td>", .{});
-        } else print("<td></td>\n", .{});
+        } else {
+            if (hef_val >= 0) {
+                print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});
+                process_HEF(flag1, hef_val, hef_rng, flag2);
+                if (hef2_val >= 0)
+                    process_HEF2(hef2_val, hef2_rng);
+                print("</td>", .{});
+            } else print("<td></td>\n", .{});
+        }
 
         if (mf_val >= 0) {
             print("<td valign=\"top\" style=\"border: 1px solid #ccc\">", .{});

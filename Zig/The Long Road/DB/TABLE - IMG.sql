@@ -85,6 +85,7 @@ CREATE TABLE img (
 -- bit  6:     image is a chit (198x198 pixels)
 -- bit  7:     (*CAF) ?
 -- bit  8:     +Armor
+-- bit  9:     Usurper (special AP & HE factors)
 -- 
 -- flag2
 -- =====
