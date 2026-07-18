@@ -1,11 +1,23 @@
+
+***********************************************
 create view v_combatant as
+select
+   DDD.id,
+   DDD.descrip,
+   DDD.file0,
+   DDD.file1,
+   DDD.file2,
+   DDD.file3,
+   img.file       wreck
+from (
 select
    CCC.id,
    CCC.descrip,
    CCC.file0,
    CCC.file1,
    CCC.file2,
-   img.file       file3
+   img.file       file3,
+   CCC.wreck
 from (
 select
    BBB.id,
@@ -13,7 +25,8 @@ select
    BBB.file0,
    BBB.file1,
    img.file       file2,
-   BBB.state3
+   BBB.state3,
+   BBB.wreck
 from (
 select 
    AAA.id,
@@ -21,19 +34,21 @@ select
    AAA.file0,
    img.file       file1,
    AAA.state2,
-   AAA.state3
+   AAA.state3,
+   AAA.wreck
 from (
 select
-   chit.id,
-   chit.descrip,
+   combatant.id,
+   combatant.descrip,
    img.file       file0,
-   chit.state1,
-   chit.state2,
-   chit.state3
+   combatant.state1,
+   combatant.state2,
+   combatant.state3,
+   combatant.wreck
 from
-   chit, img
+   combatant, img
 where
-   chit.state0 = img.id
+   combatant.state0 = img.id
 ) AAA, img
 where
    AAA.state1 = img.id
@@ -43,6 +58,9 @@ where
 ) CCC, img
 where
    CCC.state3 = img.id
+) DDD, img
+where
+   DDD.wreck = img.id
 ;
 
 
@@ -64,16 +82,16 @@ select
    AAA.state3
 from (
 select
-   chit.id,
-   chit.descrip,
+   combatant.id,
+   combatant.descrip,
    img.file       file0,
-   chit.state1,
-   chit.state2,
-   chit.state3
+   combatant.state1,
+   combatant.state2,
+   combatant.state3
 from
-   chit, img
+   combatant, img
 where
-   chit.state0 = img.id
+   combatant.state0 = img.id
 ) AAA, img
 where
    AAA.state1 = img.id
@@ -97,16 +115,16 @@ select
    AAA.state3
 from (
 select
-   chit.id,
-   chit.descrip,
+   combatant.id,
+   combatant.descrip,
    img.file       file0,
-   chit.state1,
-   chit.state2,
-   chit.state3
+   combatant.state1,
+   combatant.state2,
+   combatant.state3
 from
-   chit, img
+   combatant, img
 where
-   chit.state0 = img.id
+   combatant.state0 = img.id
 ) AAA, img
 where
    AAA.state1 = img.id
@@ -115,13 +133,13 @@ where
 
 ***********************************************
 select
-   chit.id,
-   chit.descrip,
+   combatant.id,
+   combatant.descrip,
    img.file,
-   chit.state1,
-   chit.state2,
-   chit.state3
+   combatant.state1,
+   combatant.state2,
+   combatant.state3
 from
-   chit, img
+   combatant, img
 where
    chit.state0 = img.id;

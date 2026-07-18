@@ -10,7 +10,7 @@ CREATE TABLE chit (
     version INTEGER
 );
 
--- create view v_combatant as
+-- create view v_chit as
 -- select
 --    CCC.id,
 --    CCC.descrip,
