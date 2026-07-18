@@ -59,12 +59,13 @@ fn show_chits(db: ?*c.sqlite3) void {
         const file0 = c.sqlite3_column_text(stmt, 2);
         const file1 = c.sqlite3_column_text(stmt, 3);
         const file2 = c.sqlite3_column_text(stmt, 4);
-        const file3 = c.sqlite3_column_text(stmt, 4);
+        const file3 = c.sqlite3_column_text(stmt, 5);
+        const wreck = c.sqlite3_column_text(stmt, 6);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td><td><img src=\"TLR/{s}\"></td>", .{ id, file0, file1 });
         print("<td><img src=\"TLR/{s}\"></td><td><img src=\"TLR/{s}\"></td>", .{ file2, file3 });
-        print("<td>{s}</td>", .{descrip});
+        print("<td><img src=\"TLR/{s}\"></td><td>{s}</td>", .{ wreck, descrip });
         print("</tr>\n", .{});
     }
 }

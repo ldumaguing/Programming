@@ -1,49 +1,84 @@
-zig build && mv zig-out/bin/defineMap ../bin/
+mech wreck: 1179
 
+1505
+1506
+1507
+1508
 
+update combatant set wreck = 1505 where id = 1000;
+update combatant set wreck = 1506 where id = 1004;
+update combatant set wreck = 1507 where id = 1005;
+update combatant set wreck = 1508 where id = 1006;
+update combatant set wreck = 1505 where id = 1014;
+update combatant set wreck = 1506 where id = 1015;
+update combatant set wreck = 1507 where id = 1017;
+update combatant set wreck = 1508 where id = 1019;
+update combatant set wreck = 1505 where id = 1022;
+update combatant set wreck = 1506 where id = 1033;
+update combatant set wreck = 1507 where id = 1034;
+update combatant set wreck = 1508 where id = 1035;
+update combatant set wreck = 1505 where id = 1036;
+update combatant set wreck = 1506 where id = 1037;
+update combatant set wreck = 1507 where id = 1039;
+update combatant set wreck = 1508 where id = 1042;
+update combatant set wreck = 1505 where id = 1043;
+update combatant set wreck = 1506 where id = 1045;
+update combatant set wreck = 1507 where id = 1046;
+update combatant set wreck = 1508 where id = 1047;
+update combatant set wreck = 1505 where id = 1048;
+update combatant set wreck = 1506 where id = 1049;
 
+update combatant set wreck = 1179 where id = 1050;
+update combatant set wreck = 1179 where id = 1051;
+update combatant set wreck = 1179 where id = 1055;
 
+update combatant set wreck = 1507 where id = 1052;
+update combatant set wreck = 1508 where id = 1053;
+update combatant set wreck = 1505 where id = 1054;
+update combatant set wreck = 1506 where id = 1056;
+update combatant set wreck = 1507 where id = 1057;
+update combatant set wreck = 1508 where id = 1061;
+update combatant set wreck = 1505 where id = 1063;
+update combatant set wreck = 1506 where id = 1064;
+update combatant set wreck = 1507 where id = 1065;
+update combatant set wreck = 1508 where id = 1066;
+update combatant set wreck = 1505 where id = 1067;
+update combatant set wreck = 1506 where id = 1068;
+update combatant set wreck = 1507 where id = 1069;
+update combatant set wreck = 1508 where id = 1070;
+update combatant set wreck = 1505 where id = 1072;
+update combatant set wreck = 1506 where id = 1073;
+update combatant set wreck = 1507 where id = 1074;
+update combatant set wreck = 1508 where id = 1075;
+update combatant set wreck = 1505 where id = 1091;
+update combatant set wreck = 1506 where id = 1093;
+update combatant set wreck = 1507 where id = 1094;
+update combatant set wreck = 1508 where id = 1096;
+update combatant set wreck = 1505 where id = 1099;
 
-
-
-pub fn startsWith(
-   comptime T: type,
-   haystack: []const T,
-   needle: []const T) bool
-Returns true if haystack starts with needle. Time complexity: O(needle.len)
-
-
-
-
-pub fn findLast(
-   comptime T: type,
-   haystack: []const T,
-   needle: []const T) ?usize
-Find the index in a slice of a sub-slice, searching from the end backwards. To start looking at a different index, slice the haystack first. Uses the Reverse Boyer-Moore-Horspool algorithm on large inputs; lastIndexOfLinear on small inputs.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+update combatant set wreck = 1506 where id = 1100;
+update combatant set wreck = 1507 where id = 1101;
+update combatant set wreck = 1508 where id = 1102;
+update combatant set wreck = 1505 where id = 1107;
+update combatant set wreck = 1506 where id = 1108;
+update combatant set wreck = 1507 where id = 1109;
+update combatant set wreck = 1508 where id = 1111;
+update combatant set wreck = 1505 where id = 1114;
+update combatant set wreck = 1506 where id = 1116;
+update combatant set wreck = 1507 where id = 1117;
+update combatant set wreck = 1508 where id = 1118;
+update combatant set wreck = 1505 where id = 1119;
+update combatant set wreck = 1506 where id = 1120;
+update combatant set wreck = 1507 where id = 1124;
+update combatant set wreck = 1508 where id = 1125;
+update combatant set wreck = 1505 where id = 1126;
+update combatant set wreck = 1506 where id = 1127;
+update combatant set wreck = 1507 where id = 1130;
+update combatant set wreck = 1508 where id = 1131;
+update combatant set wreck = 1505 where id = 1135;
+update combatant set wreck = 1506 where id = 1136;
+update combatant set wreck = 1507 where id = 1138;
+update combatant set wreck = 1508 where id = 1139;
+update combatant set wreck = 1505 where id = 1140;
+update combatant set wreck = 1506 where id = 1141;
+update combatant set wreck = 1507 where id = 1142;
