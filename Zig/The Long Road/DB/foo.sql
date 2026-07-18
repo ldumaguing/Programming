@@ -1,3 +1,4 @@
+create view v_combatant as
 select
    CCC.id,
    CCC.descrip,
