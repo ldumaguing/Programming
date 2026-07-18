@@ -1,0 +1,23 @@
+create view v_chit as
+select AAA.id, AAA.descrip, AAA.faction, AAA.front, img.file back from
+(
+select
+   chit.id      id,
+   chit.descrip descrip,
+   chit.faction faction,
+   img.file     front,
+   chit.back    back
+from
+   chit, img
+where
+   chit.front = img.id
+)  AAA,
+   img
+where
+   AAA.back = img.id;
+
+
+
+
+
+
