@@ -12,6 +12,7 @@ CREATE TABLE combatant (
     stateType TEXT
 );
 
+-- drop view if exists v_combatant;
 -- create view v_combatant as
 -- select
 --    DDD.id,
@@ -20,7 +21,8 @@ CREATE TABLE combatant (
 --    DDD.file1,
 --    DDD.file2,
 --    DDD.file3,
---    img.file       wreck
+--    img.file       wreck,
+--    DDD.faction
 -- from (
 -- select
 --    CCC.id,
@@ -29,7 +31,8 @@ CREATE TABLE combatant (
 --    CCC.file1,
 --    CCC.file2,
 --    img.file       file3,
---    CCC.wreck
+--    CCC.wreck,
+--    CCC.faction
 -- from (
 -- select
 --    BBB.id,
@@ -38,7 +41,8 @@ CREATE TABLE combatant (
 --    BBB.file1,
 --    img.file       file2,
 --    BBB.state3,
---    BBB.wreck
+--    BBB.wreck,
+--    BBB.faction
 -- from (
 -- select 
 --    AAA.id,
@@ -47,7 +51,8 @@ CREATE TABLE combatant (
 --    img.file       file1,
 --    AAA.state2,
 --    AAA.state3,
---    AAA.wreck
+--    AAA.wreck,
+--    AAA.faction
 -- from (
 -- select
 --    combatant.id,
@@ -56,7 +61,8 @@ CREATE TABLE combatant (
 --    combatant.state1,
 --    combatant.state2,
 --    combatant.state3,
---    combatant.wreck
+--    combatant.wreck,
+--    combatant.faction
 -- from
 --    combatant, img
 -- where
