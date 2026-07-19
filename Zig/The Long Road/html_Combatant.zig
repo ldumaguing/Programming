@@ -42,7 +42,7 @@ pub fn main() !void {
 fn show_chits(db: ?*c.sqlite3) void {
     // ********** 2: prepare statement
     const query =
-        \\SELECT * FROM v_combatant ORDER BY descrip
+        \\SELECT * FROM v_combatant ORDER BY faction, descrip
     ;
 
     var stmt: ?*c.sqlite3_stmt = undefined;
@@ -61,11 +61,12 @@ fn show_chits(db: ?*c.sqlite3) void {
         const file2 = c.sqlite3_column_text(stmt, 4);
         const file3 = c.sqlite3_column_text(stmt, 5);
         const wreck = c.sqlite3_column_text(stmt, 6);
+        const faction = c.sqlite3_column_text(stmt, 7);
 
         print("   <tr>", .{});
         print("<td>{d}</td><td><img src=\"TLR/{s}\"></td><td><img src=\"TLR/{s}\"></td>", .{ id, file0, file1 });
         print("<td><img src=\"TLR/{s}\"></td><td><img src=\"TLR/{s}\"></td>", .{ file2, file3 });
-        print("<td><img src=\"TLR/{s}\"></td><td>{s}</td>", .{ wreck, descrip });
+        print("<td><img src=\"TLR/{s}\"></td><td>{s}</td><td><b>{s}</b></td>", .{ wreck, descrip, faction });
         print("</tr>\n", .{});
     }
 }
