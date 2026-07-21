@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS GameSave;
-CREATE TABLE GameSave (
+DROP TABLE IF EXISTS GameMeta;
+CREATE TABLE GameMeta (
     id        TEXT NOT NULL,
     attrib    TEXT NOT NULL,
     val_int0  INTEGER DEFAULT 0,
@@ -11,13 +11,12 @@ CREATE TABLE GameSave (
     val_text  TEXT DEFAULT ''
 )
 ;
-DELETE FROM GameSave WHERE id = 0;
-INSERT INTO GameSave (id, attrib, val_int0, val_int1) VALUES
+INSERT INTO GameMeta (id, attrib, val_int0, val_int1) VALUES
 (0, 'pixelCount', 3637, 2803),
 (0, 'hexCount', 19, 13),
 (0, 'hexCenter', 0, 0)
 ;
-INSERT INTO GameSave (id, attrib, val_text) VALUES
+INSERT INTO GameMeta (id, attrib, val_text) VALUES
 (0, 'A', 'Map A.png'),
 (0, 'B', 'Map B.png'),
 (0, 'C', 'Map C.png'),
@@ -25,4 +24,9 @@ INSERT INTO GameSave (id, attrib, val_text) VALUES
 (0, 'E', 'Map E.png'),
 (0, 'oddXshift', 'up') --- relative to (0,0), (1,0) is shifted up
 ;
+
+
+
+
+
 

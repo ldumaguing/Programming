@@ -1,10 +1,15 @@
 DROP TABLE IF EXISTS GameMap;
 CREATE TABLE GameMap (
-    save_id      TEXT NOT NULL,     -- refering to GameSave table
+    playerID     TEXT,
+    sessionID    TEXT,
+    --
     terrainNum   INTEGER DEFAULT 0,
     hex_x        INTEGER DEFAULT 0,
     hex_y        INTEGER DEFAULT 0,
     hex_z        INTEGER DEFAULT 0,
+    -- filename     TEXT,
+    -- hexID        TEXT, -- j10
+    terrainName  TEXT,
     terrainType  INTEGER DEFAULT 0,
     spineLoc     INTEGER DEFAULT 0
 );
