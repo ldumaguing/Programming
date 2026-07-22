@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS GameMap;
 CREATE TABLE GameMap (
-    playerID     TEXT,
     sessionID    TEXT,
     --
     terrainNum   INTEGER DEFAULT 0,
