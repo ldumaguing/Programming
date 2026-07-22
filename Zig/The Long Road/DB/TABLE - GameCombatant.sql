@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS GameCombatant;
 CREATE TABLE GameCombatant (
-    playerID  TEXT,
     sessionID TEXT,
     --
     id        INTEGER,
