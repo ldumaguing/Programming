@@ -9,7 +9,7 @@ CREATE TABLE COMBATANT (
     wreck     INTEGER,  -- img ID
     faction   TEXT,
     version   INTEGER,
-    stateType TEXT
+    stateType TEXT      -- how the unit is damaged
 );
 
 -- drop view if exists v_combatant;

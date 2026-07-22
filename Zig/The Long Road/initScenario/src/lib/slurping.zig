@@ -35,9 +35,17 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
     // *********************************************
     var file_buffer: [4096]u8 = undefined;
     var reader = file.reader(io, &file_buffer);
-
+    var parseMode: i32 = 0;
     while (try reader.interface.takeDelimiter('\n')) |line| {
+        if (line.len == 0) continue;
         if (isEND(line)) break;
+        if (std.mem.startsWith(u8, line, "combatants *")) {
+            parseMode = 1;
+            continue;
+        }
+
+        if (parseMode == 1) includeCombatant(line[0..11], id); // 1049 x 4   ; Soviet Infantry
+
         if (std.mem.startsWith(u8, line, "name:")) {
             save_text(db, line[0..4], line[5..], id);
             continue;
@@ -50,8 +58,12 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             save_int(db, line[0..5], line[6..], id);
             continue;
         }
-        print("-\n", .{});
     }
+}
+
+// ************************************************************************************************
+fn includeCombatant(line: []const u8, id: i32) void {
+    print("{s} - {s} - {d}\n", .{line[0..4], line[7..], id});
 }
 
 // ************************************************************************************************

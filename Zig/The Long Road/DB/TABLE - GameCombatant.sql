@@ -1,17 +1,11 @@
 DROP TABLE IF EXISTS GameCombatant;
 CREATE TABLE GameCombatant (
-    sessionID INTEGER,
+    sessionID  INTEGER,
+    instanceID INTEGER,
     --
-    id        INTEGER,
-    descrip   TEXT,
-    state0    INTEGER,  -- img ID
-    state1    INTEGER,  -- img ID
-    state2    INTEGER,  -- img ID
-    state3    INTEGER,  -- img ID
-    wreck     INTEGER,  -- img ID
-    faction   TEXT,
-    version   INTEGER,
-    stateType TEXT
+    id         INTEGER,  -- combatant ID
+    currState  INTEGER,  -- img ID
+    PRIMARY KEY (sessionID, instanceID)
 );
 
 -- .mode csv
