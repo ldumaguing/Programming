@@ -36,6 +36,8 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
     var file_buffer: [4096]u8 = undefined;
     var reader = file.reader(io, &file_buffer);
     var parseMode: i32 = 0;
+    var instant_index: i32 = 1000;
+
     while (try reader.interface.takeDelimiter('\n')) |line| {
         if (line.len == 0) continue;
         if (isEND(line)) break;
@@ -44,7 +46,7 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
 
-        if (parseMode == 1) includeCombatant(line[0..11], id); // 1049 x 4   ; Soviet Infantry
+        if (parseMode == 1) includeCombatant(line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
 
         if (std.mem.startsWith(u8, line, "name:")) {
             save_text(db, line[0..4], line[5..], id);
@@ -62,8 +64,15 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
 }
 
 // ************************************************************************************************
-fn includeCombatant(line: []const u8, id: i32) void {
-    print("{s} - {s} - {d}\n", .{line[0..4], line[7..], id});
+fn includeCombatant(line: []const u8, sessionID: i32, index: *i32) void {
+    const trimmed = std.mem.trim(u8, line[7..], " ");
+    var number = std.fmt.parseInt(i32, trimmed, 10) catch 1;
+
+    while (number > 0) {
+        number -= 1;
+        print("------------------ {s} - {d} - {d} - {d}\n", .{ line[0..4], number, sessionID, index.* });
+        index.* += 1;
+    }
 }
 
 // ************************************************************************************************
