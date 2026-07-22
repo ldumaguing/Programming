@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS combatant;
-CREATE TABLE combatant (
+DROP TABLE IF EXISTS COMBATANT;
+CREATE TABLE COMBATANT (
     id        INTEGER PRIMARY KEY,
     descrip   TEXT,
     state0    INTEGER,  -- img ID
