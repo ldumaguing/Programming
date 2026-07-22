@@ -33,7 +33,7 @@ pub fn main(init: std.process.Init) !void {
 
     // ************************************************************
     clearScenario(db, args[2]);
-    try slrp.slrp(number, args[1], init);
+    try slrp.slurp(number, args[1], init);
 }
 
 // ************************************************************************************************
@@ -49,13 +49,13 @@ fn usageB() void {
 // **********
 fn clearScenario(db: ?*c.sqlite3, id: []const u8) void {
     // Prepare statement
-    const query1 = "DELETE FROM GameSave where id = ?1";
-    const query2 = "DELETE FROM GameMap where save_id = ?1";
+    const query1 = "DELETE FROM GameCombatant where sessionID = ?1";
+    const query2 = "DELETE FROM GameMap       where sessionID = ?1";
 
     var stmt: ?*c.sqlite3_stmt = null;
 
     if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
-        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
     defer _ = c.sqlite3_finalize(stmt);
@@ -72,7 +72,7 @@ fn clearScenario(db: ?*c.sqlite3, id: []const u8) void {
 
     // **********
     if (c.sqlite3_prepare_v2(db, query2, -1, &stmt, null) != c.SQLITE_OK) {
-        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+        std.debug.print("Failed to prepare statement(2): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
 

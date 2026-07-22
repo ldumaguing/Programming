@@ -9,7 +9,9 @@ pub fn add(a: i32, b: i32) i32 {
     return a + b;
 }
 
-pub fn slrp(id: i32, scenario: []const u8, init: std.process.Init) !void {
+pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
+    print("ID: {d}\n", .{id});
+
     // ********** 1: open database
     var db: ?*c.sqlite3 = undefined;
     if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
@@ -19,7 +21,6 @@ pub fn slrp(id: i32, scenario: []const u8, init: std.process.Init) !void {
     defer _ = c.sqlite3_close(db);
 
     // *********************************************
-    print("{d}{s}\n", .{ id, scenario });
 
     const io = init.io;
 
@@ -40,13 +41,11 @@ pub fn slrp(id: i32, scenario: []const u8, init: std.process.Init) !void {
     while (try reader.interface.takeDelimiter('\n')) |line| {
         if (isEND(line)) break;
         if (std.mem.startsWith(u8, line, "name:")) {
-            // print("{d}--{s}, {s}\n", .{ line_no, line[0..4], line[5..] });
             save_text(db, line[0..4], line[5..]);
             continue;
         }
 
         line_no += 1;
-        print("{d}--{s}\n", .{ line_no, line });
     }
 }
 
