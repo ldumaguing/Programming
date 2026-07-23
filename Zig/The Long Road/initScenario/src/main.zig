@@ -5,7 +5,7 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
-const slrp = @import("lib/slurping.zig");
+const slurp = @import("lib/slurping.zig");
 
 pub fn main(init: std.process.Init) !void {
     const arena: std.mem.Allocator = init.arena.allocator();
@@ -33,7 +33,7 @@ pub fn main(init: std.process.Init) !void {
 
     // ************************************************************
     clearScenario(db, args[2]);
-    try slrp.slurp(number, args[1], init);
+    try slurp.combatant(number, args[1], init);
 }
 
 // ************************************************************************************************

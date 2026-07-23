@@ -9,7 +9,7 @@ pub fn add(a: i32, b: i32) i32 {
     return a + b;
 }
 
-pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
+pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
     // ********** 1: open database
     var db: ?*c.sqlite3 = undefined;
     if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
@@ -54,6 +54,7 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
         }
         if (std.mem.startsWith(u8, line, "maps:")) {
             save_text(db, line[0..4], line[5..], id);
+            place_maps(line[5..]);
             continue;
         }
         if (std.mem.startsWith(u8, line, "turns:")) {
@@ -62,6 +63,23 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
         }
     }
 }
+
+// ************************************************************************************************ todo
+fn place_maps(maps: []const u8) void {
+    print("---> {s}\n", .{maps});
+    var iter1 = std.mem.splitAny(u8, maps, "_");
+    var rowNum: i32 = 0;
+    while (iter1.next()) |curr_row| {
+        var iter2 = std.mem.splitAny(u8, curr_row, ",");
+        while (iter2.next()) |curr_plate| {
+            print("{d}: {s}\n", .{rowNum, curr_plate});
+        }
+        rowNum += 1;
+    }
+}
+
+// ***********************************************************************
+
 
 // ************************************************************************************************
 fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_id: *i32) void {
