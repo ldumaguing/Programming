@@ -92,6 +92,27 @@ fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_
             return;
         }
 
+        // ***************************************************************
+        const query1 =
+            \\UPDATE GameCombatant SET currState = (
+            \\SELECT state0 FROM COMBATANT WHERE id = ?1 )
+            \\WHERE instanceID = ?2
+        ;
+        if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+            return;
+        }
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, combatant_id);
+        _ = c.sqlite3_bind_int(stmt, 2, instance_id.*);
+
+        // Execute the insertion step
+        if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+            print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+            return;
+        }
+
         instance_id.* += 1;
     }
 }
