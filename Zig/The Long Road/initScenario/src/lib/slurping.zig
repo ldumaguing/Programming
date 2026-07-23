@@ -70,16 +70,20 @@ fn place_maps(maps: []const u8) void {
     var iter1 = std.mem.splitAny(u8, maps, "_");
     var rowNum: i32 = 0;
     while (iter1.next()) |curr_row| {
+        var colNum: i32 = 0;
         var iter2 = std.mem.splitAny(u8, curr_row, ",");
         while (iter2.next()) |curr_plate| {
-            print("{d}: {s}\n", .{rowNum, curr_plate});
+            place_plate(rowNum, colNum, curr_plate);
+            colNum += 1;
         }
         rowNum += 1;
     }
 }
 
 // ***********************************************************************
-
+fn place_plate(rowNum: i32, colNum: i32, curr_plate: []const u8) void {
+    print("{d},{d}: {s}\n", .{rowNum, colNum, curr_plate});
+}
 
 // ************************************************************************************************
 fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_id: *i32) void {
