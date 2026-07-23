@@ -46,7 +46,7 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
 
-        if (parseMode == 1) includeCombatant(line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
+        if (parseMode == 1) includeCombatant(db, line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
 
         if (std.mem.startsWith(u8, line, "name:")) {
             save_text(db, line[0..4], line[5..], id);
@@ -64,14 +64,35 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
 }
 
 // ************************************************************************************************
-fn includeCombatant(line: []const u8, sessionID: i32, index: *i32) void {
+fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_id: *i32) void {
     const trimmed = std.mem.trim(u8, line[7..], " ");
     var number = std.fmt.parseInt(i32, trimmed, 10) catch 1;
 
     while (number > 0) {
         number -= 1;
-        print("------------------ {s} - {d} - {d} - {d}\n", .{ line[0..4], number, sessionID, index.* });
-        index.* += 1;
+        // Prepare statement
+        const query = "INSERT INTO GameCombatant (sessionID, instanceID, id) VALUES (?1, ?2, ?3)";
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+            std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+            return;
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const combatant_id = std.fmt.parseInt(i32, line[0..4], 10) catch 0;
+        _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+        _ = c.sqlite3_bind_int(stmt, 2, instance_id.*);
+        _ = c.sqlite3_bind_int(stmt, 3, combatant_id);
+
+        // Execute the insertion step
+        if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+            print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+            return;
+        }
+
+        instance_id.* += 1;
     }
 }
 
