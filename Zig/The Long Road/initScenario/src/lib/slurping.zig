@@ -1,6 +1,8 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const stf = @import("stuff.zig");
+
 const c = @cImport({
     @cInclude("sqlite3.h");
 });
@@ -80,11 +82,25 @@ fn place_maps(maps: []const u8) void {
     }
 }
 
-// ***********************************************************************
+// *********************************************************************** todo
 fn place_plate(rowNum: i32, colNum: i32, curr_plate: []const u8) void {
-    const ref_A2Z = .{'A', 'Z'};
-    print("{d},{d}: {s}\n", .{rowNum, colNum, curr_plate});
-    print("{d}, {d}\n", .{ref_A2Z[0], ref_A2Z[1]});
+    const ref_A2Z = .{ 'A', 'Z' };
+    print("{d},{d}: {s}\n", .{ rowNum, colNum, curr_plate });
+    print("{d}, {d}\n", .{ ref_A2Z[0], ref_A2Z[1] });
+    print("{s}\n", .{stf.maps[3]});
+    if ((rowNum == 0) and (colNum == 0)) {
+        print("(0, 0)\n", .{});
+        return;
+    }
+    if ((rowNum == 0) and (colNum > 0)) {
+        print("(0, >0)\n", .{});
+        return;
+    }
+    if ((rowNum > 0) and (colNum == 0)) {
+        print("(>0, 0)\n", .{});
+        return;
+    }
+    print("(>0, >0)\n", .{});
 }
 
 // ************************************************************************************************
