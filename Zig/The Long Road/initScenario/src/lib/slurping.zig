@@ -82,7 +82,9 @@ fn place_maps(maps: []const u8) void {
 
 // ***********************************************************************
 fn place_plate(rowNum: i32, colNum: i32, curr_plate: []const u8) void {
+    const ref_A2Z = .{'A', 'Z'};
     print("{d},{d}: {s}\n", .{rowNum, colNum, curr_plate});
+    print("{d}, {d}\n", .{ref_A2Z[0], ref_A2Z[1]});
 }
 
 // ************************************************************************************************
@@ -192,4 +194,16 @@ fn isEND(line: []u8) bool {
     if (std.mem.startsWith(u8, line, "END *"))
         return true;
     return false;
+}
+
+// ************************************************************************************************
+fn hex_rot180(hl: []i32) void {
+    print("{d},{d}\n", .{ hl.ptr[0], hl.ptr[1] });
+    if (@mod(hl.ptr[0], 2) == 0) {
+        hl.ptr[0] = 18 - hl.ptr[0];
+        hl.ptr[1] = 12 - hl.ptr[1];
+        return;
+    }
+    hl.ptr[0] = 18 - hl.ptr[0];
+    hl.ptr[1] = 13 - hl.ptr[1];
 }
