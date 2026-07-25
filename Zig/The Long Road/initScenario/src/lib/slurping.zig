@@ -1,7 +1,7 @@
 const std = @import("std");
 const print = std.debug.print;
 
-const stf = @import("stuff.zig");
+const tm = @import("TileMap.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -74,8 +74,8 @@ fn place_maps(maps: []const u8) void {
     while (iter1.next()) |curr_row| {
         var colNum: i32 = 0;
         var iter2 = std.mem.splitAny(u8, curr_row, ",");
-        while (iter2.next()) |curr_plate| {
-            place_plate(rowNum, colNum, curr_plate);
+        while (iter2.next()) |curr_tile| {
+            place_tile(rowNum, colNum, curr_tile);
             colNum += 1;
         }
         rowNum += 1;
@@ -83,13 +83,9 @@ fn place_maps(maps: []const u8) void {
 }
 
 // *********************************************************************** todo
-fn place_plate(rowNum: i32, colNum: i32, curr_plate: []const u8) void {
-    const ref_A2Z = .{ 'A', 'Z' };
-    print("{d},{d}: {s}\n", .{ rowNum, colNum, curr_plate });
-    print("{d}, {d}\n", .{ ref_A2Z[0], ref_A2Z[1] });
-    print("{s}\n", .{stf.maps[3]});
+fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8) void {
     if ((rowNum == 0) and (colNum == 0)) {
-        print("(0, 0)\n", .{});
+        tm.tile00(rowNum, colNum, curr_tile);
         return;
     }
     if ((rowNum == 0) and (colNum > 0)) {
