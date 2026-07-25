@@ -13,6 +13,7 @@ pub fn add(a: i32, b: i32) i32 {
 
 pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
     // ********** 1: open database
+    // [I can't get main's db connection, so I'm connecting the the database again.]
     var db: ?*c.sqlite3 = undefined;
     if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
         std.debug.print("Can't open database\n", .{});
@@ -21,7 +22,6 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
     defer _ = c.sqlite3_close(db);
 
     // *********************************************
-
     const io = init.io;
 
     // Open a file relative to the current working directory
@@ -48,7 +48,8 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
 
-        if (parseMode == 1) includeCombatant(db, line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
+        if (parseMode == 1)
+            includeCombatant(db, line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
 
         if (std.mem.startsWith(u8, line, "name:")) {
             save_text(db, line[0..4], line[5..], id);
@@ -56,7 +57,7 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
         }
         if (std.mem.startsWith(u8, line, "maps:")) {
             save_text(db, line[0..4], line[5..], id);
-            place_maps(line[5..]);
+            place_map(line[5..], id);
             continue;
         }
         if (std.mem.startsWith(u8, line, "turns:")) {
@@ -67,7 +68,7 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
 }
 
 // ************************************************************************************************ todo
-fn place_maps(maps: []const u8) void {
+fn place_map(maps: []const u8, sessionID: i32) void {
     print("---> {s}\n", .{maps});
     var iter1 = std.mem.splitAny(u8, maps, "_");
     var rowNum: i32 = 0;
@@ -75,7 +76,7 @@ fn place_maps(maps: []const u8) void {
         var colNum: i32 = 0;
         var iter2 = std.mem.splitAny(u8, curr_row, ",");
         while (iter2.next()) |curr_tile| {
-            place_tile(rowNum, colNum, curr_tile);
+            place_tile(rowNum, colNum, curr_tile, sessionID);
             colNum += 1;
         }
         rowNum += 1;
@@ -83,9 +84,9 @@ fn place_maps(maps: []const u8) void {
 }
 
 // *********************************************************************** todo
-fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8) void {
+fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
     if ((rowNum == 0) and (colNum == 0)) {
-        tm.tile00(rowNum, colNum, curr_tile);
+        tm.tile00(rowNum, colNum, curr_tile, sessionID);
         return;
     }
     if ((rowNum == 0) and (colNum > 0)) {
