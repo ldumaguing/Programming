@@ -86,7 +86,7 @@ fn place_map(maps: []const u8, sessionID: i32) void {
 // *********************************************************************** todo
 fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
     if ((rowNum == 0) and (colNum == 0)) {
-        tm.tile00(rowNum, colNum, curr_tile, sessionID);
+        tm.tile00(curr_tile, sessionID);
         return;
     }
     if ((rowNum == 0) and (colNum > 0)) {

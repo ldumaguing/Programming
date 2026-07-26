@@ -7,7 +7,7 @@ const c = @cImport({
 
 const s = @import("stuff.zig");
 
-pub fn tile00(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
+pub fn tile00(curr_tile: []const u8, sessionID: i32) void {
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
     var db: ?*c.sqlite3 = undefined;
@@ -21,41 +21,87 @@ pub fn tile00(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) v
     const ref_A2Z = [_]i32{ 'A', 'Z' };
 
     if ((ref_A2Z[0] <= curr_tile[0]) and (ref_A2Z[1] >= curr_tile[0])) {
-        tile00_rot0(db, rowNum, colNum, curr_tile[0], sessionID);
+        tile00_rot0(db, curr_tile[0], sessionID);
         return;
     }
 
     // lower case
-    tile00_rot180(rowNum, colNum, curr_tile[0]);
+    tile00_rot180(curr_tile[0]);
 }
 
 // ************************************************************************************************
-fn tile00_rot0(db: ?*c.sqlite3, rowNum: i32, colNum: i32, tile_num: i32, sessionID: i32) void {
-    print("...rot0{d}..{d}..{d}\n", .{ rowNum, colNum, tile_num });
+fn tile00_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
+    clear_temp_map(db);
+
     const tnum = tile_num - 'A';
-    print("....{d}: {s}\n", .{ tnum, s.maps[@intCast(tnum)] });
-    print("{d},{d}\n", .{ rowNum, colNum });
-    for (0..19) |col| {
-        if (@mod(col, 2) != 0) {
-            for (1..13) |row| {
-                place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
-            }
-        } else {
-            for (0..13) |row| {
-                place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
-            }
-        }
-    }
+    place_tile00_rot0(db, s.maps[@intCast(tnum)], sessionID);
+    //for (0..19) |col| {
+    //    if (@mod(col, 2) != 0) {
+    //        for (1..13) |row| {
+    //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
+    //        }
+    //    } else {
+    //        for (0..13) |row| {
+    //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
+    //        }
+    //    }
+    //}
 }
 
 // =======================================================================
-fn place_tile00_rot0(db: ?*c.sqlite3, row: i32, col: i32, tname: []const u8, sessionID: i32) void {
-    print("{?}: {d},{d}: {s},{d}\n", .{ db, row, col, tname, sessionID });
+fn place_tile00_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
+    // Prepare statement
+    const query =
+        \\INSERT INTO gamemaptemp
+        \\(sessionID, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc)
+        \\select ?1, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc
+        \\from MAP
+        \\where filename = ?2
+    ;
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+    _ = c.sqlite3_bind_text(stmt, 2, tname.ptr, @intCast(tname.len), c.SQLITE_TRANSIENT);
+
+    // Execute the insertion step
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
 }
 
 // ***********************************************************************
-fn tile00_rot180(rowNum: i32, colNum: i32, tile_num: i32) void {
+fn tile00_rot180(tile_num: i32) void {
     const tnum = tile_num - 'a';
     if ((tnum > 25) or (tnum < 0)) return;
-    print("------------------{d},{d},{d}\n", .{ rowNum, colNum, tile_num });
+    print("------------------{d}\n", .{tile_num});
+}
+
+// ************************************************************************************************
+fn clear_temp_map(db: ?*c.sqlite3) void {
+    print("********************* CLEAR GAME MAP temp\n", .{});
+    // Prepare statement
+    const query = "DELETE FROM gamemaptemp";
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Execute the insertion step
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
 }
