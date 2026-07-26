@@ -35,17 +35,6 @@ fn tile00_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
 
     const tnum = tile_num - 'A';
     place_tile00_rot0(db, s.maps[@intCast(tnum)], sessionID);
-    //for (0..19) |col| {
-    //    if (@mod(col, 2) != 0) {
-    //        for (1..13) |row| {
-    //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
-    //        }
-    //    } else {
-    //        for (0..13) |row| {
-    //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
-    //        }
-    //    }
-    //}
 }
 
 // =======================================================================
@@ -83,6 +72,20 @@ fn tile00_rot180(tile_num: i32) void {
     const tnum = tile_num - 'a';
     if ((tnum > 25) or (tnum < 0)) return;
     print("------------------{d}\n", .{tile_num});
+
+    for (0..19) |col| {
+        if (@mod(col, 2) != 0) {
+            for (1..13) |row| {
+                //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
+                print("{d},{d}\n", .{ col, row });
+            }
+        } else {
+            for (0..13) |row| {
+                //            place_tile00_rot0(db, @intCast(row), @intCast(col), s.maps[@intCast(tnum)], sessionID);
+                print("{d},{d}\n", .{ col, row });
+            }
+        }
+    }
 }
 
 // ************************************************************************************************
