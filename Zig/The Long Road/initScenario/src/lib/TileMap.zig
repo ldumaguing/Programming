@@ -70,6 +70,7 @@ fn place_tile00_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
 
 // ***********************************************************************
 fn tile00_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
+    clear_game(db, sessionID);
     const tnum = tile_num - 'a';
     if ((tnum > 25) or (tnum < 0)) return;
     print("------------------{d}\n", .{tile_num});
@@ -93,11 +94,11 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
     var row_r = 12 - row;
     if (@mod(col_r, 2) != 0) row_r += 1;
 
-    print("{d},{d}: {d} :{d},{d} -- {s}\n", .{ col, row, tnum, col_r, row_r, s.maps[@intCast(tnum)] });
+    print("{d},{d}: {d} :{d},{d} -- {s}\n", .{ col_r, row_r, tnum, col, row, s.maps[@intCast(tnum)] });
 
     // Prepare statement
     const query1 =
-        \\INSERT INTO GameMap
+        \\INSERT INTO gamemaptemp
         \\(sessionid, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc)
         \\SELECT
         \\?1,
@@ -111,8 +112,6 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
         \\hex_x = ?4 AND hex_y = ?5
         \\AND
         \\filename = ?6
-        \\AND
-        \\terrainType = 1
     ;
 
     var stmt: ?*c.sqlite3_stmt = null;
@@ -140,7 +139,7 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
 
 // ************************************************************************************************
 fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
-    print("********************* CLEAR GAME MAP temp\n", .{});
+    print("********************* CLEAR GAME MAP\n", .{});
     // Prepare statement
     const query = "DELETE FROM GameMap WHERE sessionID = ?1";
 
@@ -162,7 +161,7 @@ fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
     }
 
     // **********
-    print("********************* CLEAR GAME MAP\n", .{});
+    print("********************* CLEAR GAME MAP temp\n", .{});
     // Prepare statement
     const query1 = "DELETE FROM gamemaptemp";
 
