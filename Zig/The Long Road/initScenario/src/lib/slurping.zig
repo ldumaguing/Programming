@@ -90,7 +90,7 @@ fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) v
         return;
     }
     if ((rowNum == 0) and (colNum > 0)) {
-        print("(0, >0)\n", .{});
+        tm.tile01(curr_tile, sessionID);
         return;
     }
     if ((rowNum > 0) and (colNum == 0)) {
