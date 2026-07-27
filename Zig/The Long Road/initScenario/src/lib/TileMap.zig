@@ -72,7 +72,6 @@ fn tile00_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
     clear_game(db, sessionID);
     const tnum = tile_num - 'a';
     if ((tnum > 25) or (tnum < 0)) return;
-    // print("------------------{d}\n", .{tile_num});
 
     for (0..19) |col| {
         if (@mod(col, 2) != 0) {
@@ -91,7 +90,6 @@ fn tile00_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
 
 // =======================================================================
 fn hex_180(db: ?*c.sqlite3) void {
-    //print("{?}\n", .{db});
     // Prepare statement
     const query1 =
         \\SELECT
@@ -129,7 +127,6 @@ fn hex_180(db: ?*c.sqlite3) void {
 }
 // ==============================================
 fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32) void {
-    //print("{d}: {d},{d},{d}\n", .{ rowid, hex_x, hex_y, spineLoc });
     // Prepare statement
     const query1 =
         \\UPDATE gamemaptemp SET
@@ -193,8 +190,6 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
     const col_r = 18 - col;
     var row_r = 12 - row;
     if (@mod(col_r, 2) != 0) row_r += 1;
-
-    //print("{d},{d}: {d} :{d},{d} -- {s}\n", .{ col_r, row_r, tnum, col, row, s.maps[@intCast(tnum)] });
 
     // Prepare statement
     const query1 =
