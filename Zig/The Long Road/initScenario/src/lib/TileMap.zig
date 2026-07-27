@@ -91,7 +91,7 @@ fn tile00_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
 
 // =======================================================================
 fn hex_180(db: ?*c.sqlite3) void {
-    print("{?}\n", .{db});
+    //print("{?}\n", .{db});
     // Prepare statement
     const query1 =
         \\SELECT
@@ -117,17 +117,19 @@ fn hex_180(db: ?*c.sqlite3) void {
         const hex_y: i32 = @intCast(c.sqlite3_column_int64(stmt, 2));
         const spineLoc: i32 = @intCast(c.sqlite3_column_int64(stmt, 3));
 
-        if (spineLoc == 1) spine_180(db, rowid, hex_x, hex_y + 1, 1);
+        if (spineLoc == 1) spine_180(db, rowid, hex_x, (hex_y + 1), 1);
         if (spineLoc == 2) spine_180(db, rowid, hex_x, hex_y, 16);
         if (spineLoc == 4) spine_180(db, rowid, hex_x, hex_y, 32);
-        if (spineLoc == 8) spine_180(db, rowid, hex_x - 2, hex_y, 8);
+        if (spineLoc == 8) spine_180(db, rowid, (hex_x - 2), hex_y, 8);
         if (spineLoc == 16) spine_180(db, rowid, hex_x, hex_y, 2);
         if (spineLoc == 32) spine_180(db, rowid, hex_x, hex_y, 4);
     }
+
+    tile_moveTemp2GameMap(db);
 }
 // ==============================================
 fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32) void {
-    print("{d}: {d},{d},{d}\n", .{ rowid, hex_x, hex_y, spineLoc });
+    //print("{d}: {d},{d},{d}\n", .{ rowid, hex_x, hex_y, spineLoc });
     // Prepare statement
     const query1 =
         \\UPDATE gamemaptemp SET
@@ -159,6 +161,34 @@ fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32)
 }
 
 // =======================================================================
+fn tile_moveTemp2GameMap(db: ?*c.sqlite3) void {
+    // Prepare statement
+    const query1 =
+        \\INSERT INTO GameMap
+        \\   (sessionID, terrainNum, hex_x, hex_y,
+        \\   terrainName, terrainType, spineLoc)
+        \\SELECT
+        \\   sessionID, terrainNum, hex_x, hex_y,
+        \\   terrainName, terrainType, spineLoc
+        \\FROM gamemaptemp
+    ;
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Execute the insertion step
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// =======================================================================
 fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void {
     const col_r = 18 - col;
     var row_r = 12 - row;
@@ -169,19 +199,19 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
     // Prepare statement
     const query1 =
         \\INSERT INTO gamemaptemp
-        \\(sessionid, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc)
+        \\   (sessionid, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc)
         \\SELECT
-        \\?1,
-        \\terrainNum,
-        \\?2,
-        \\?3,
-        \\terrainName,
-        \\terrainType,
-        \\spineLoc
+        \\   ?1,
+        \\   terrainNum,
+        \\   ?2,
+        \\   ?3,
+        \\   terrainName,
+        \\   terrainType,
+        \\   spineLoc
         \\FROM MAP WHERE
-        \\hex_x = ?4 AND hex_y = ?5
-        \\AND
-        \\filename = ?6
+        \\   hex_x = ?4 AND hex_y = ?5
+        \\   AND
+        \\   filename = ?6
     ;
 
     var stmt: ?*c.sqlite3_stmt = null;
