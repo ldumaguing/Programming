@@ -176,7 +176,6 @@ fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32)
 
 // =======================================================================
 fn tile_moveTemp2GameMap(db: ?*c.sqlite3) void {
-    print("moving...\n", .{});
     // Prepare statement
     const query1 =
         \\INSERT INTO GameMap
@@ -252,7 +251,6 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
 
 // ************************************************************************************************
 fn adjust_gamemaptemp(db: ?*c.sqlite3) void {
-    print("adjusting... x:{d} y:{d}\n", .{ X_shift, Y_shift });
     // Prepare statement
     const query1 =
         \\UPDATE gamemaptemp SET
@@ -281,7 +279,6 @@ fn adjust_gamemaptemp(db: ?*c.sqlite3) void {
 
 // ************************************************************************************************
 fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
-    print("********************* CLEAR GAME MAP\n", .{});
     // Prepare statement
     const query = "DELETE FROM GameMap WHERE sessionID = ?1";
 
@@ -303,7 +300,6 @@ fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
     }
 
     // **********
-    print("********************* CLEAR GAME MAP temp\n", .{});
     // Prepare statement
     const query1 = "DELETE FROM gamemaptemp";
 
