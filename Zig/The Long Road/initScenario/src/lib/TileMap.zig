@@ -7,8 +7,16 @@ const c = @cImport({
 
 const s = @import("stuff.zig");
 
-pub fn tile01(curr_tile: []const u8, sessionID: i32) void {
-    print("{s}: {d}", .{curr_tile, sessionID});
+var X_shift: i32 = 0;
+var Y_shift: i32 = 0;
+
+// ************************************************************************************************
+pub fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
+    if (curr_tile.len < 1) return;
+
+    X_shift = colNum * 18;
+    Y_shift = rowNum * 12;
+
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
     var db: ?*c.sqlite3 = undefined;
@@ -22,38 +30,7 @@ pub fn tile01(curr_tile: []const u8, sessionID: i32) void {
     const ref_A2Z = [_]i32{ 'A', 'Z' };
 
     if ((ref_A2Z[0] <= curr_tile[0]) and (ref_A2Z[1] >= curr_tile[0])) {
-        tile01_rot0(db, curr_tile[0], sessionID);
-        return;
-    }
-
-    // lower case
-}
-
-// ************************************************************************************************
-fn tile01_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
-    clear_game(db, sessionID);
-
-    const tnum = tile_num - 'A';
-    place_tile00_rot0(db, s.maps[@intCast(tnum)], sessionID);
-}
-
-// ************************************************************************************************
-// ************************************************************************************************
-pub fn tile00(curr_tile: []const u8, sessionID: i32) void {
-    // ********** 1: open database
-    // [I can't get main's db connection, so I'm connecting the the database again.]
-    var db: ?*c.sqlite3 = undefined;
-    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
-        std.debug.print("Can't open database\n", .{});
-        return;
-    }
-    defer _ = c.sqlite3_close(db);
-
-    // *********************************************
-    const ref_A2Z = [_]i32{ 'A', 'Z' };
-
-    if ((ref_A2Z[0] <= curr_tile[0]) and (ref_A2Z[1] >= curr_tile[0])) {
-        tile00_rot0(db, curr_tile[0], sessionID);
+        tile_rot0(db, curr_tile[0], sessionID);
         return;
     }
 
@@ -62,18 +39,18 @@ pub fn tile00(curr_tile: []const u8, sessionID: i32) void {
 }
 
 // ************************************************************************************************
-fn tile00_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
+fn tile_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
     clear_game(db, sessionID);
 
     const tnum = tile_num - 'A';
-    place_tile00_rot0(db, s.maps[@intCast(tnum)], sessionID);
+    place_tile_rot0(db, s.maps[@intCast(tnum)], sessionID);
 }
 
 // =======================================================================
-fn place_tile00_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
+fn place_tile_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
     // Prepare statement
     const query =
-        \\INSERT INTO GameMap
+        \\INSERT INTO gamemaptemp
         \\(sessionID, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc)
         \\select ?1, terrainNum, hex_x, hex_y, terrainName, terrainType, spineLoc
         \\from MAP

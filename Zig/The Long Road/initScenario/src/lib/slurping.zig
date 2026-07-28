@@ -76,28 +76,11 @@ fn place_map(maps: []const u8, sessionID: i32) void {
         var colNum: i32 = 0;
         var iter2 = std.mem.splitAny(u8, curr_row, ",");
         while (iter2.next()) |curr_tile| {
-            place_tile(rowNum, colNum, curr_tile, sessionID);
+            tm.place_tile(rowNum, colNum, curr_tile, sessionID);
             colNum += 1;
         }
         rowNum += 1;
     }
-}
-
-// *********************************************************************** todo
-fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
-    if ((rowNum == 0) and (colNum == 0)) {
-        tm.tile00(curr_tile, sessionID);
-        return;
-    }
-    if ((rowNum == 0) and (colNum > 0)) {
-        tm.tile01(curr_tile, sessionID);
-        return;
-    }
-    if ((rowNum > 0) and (colNum == 0)) {
-        print("(>0, 0)\n", .{});
-        return;
-    }
-    print("(>0, >0)\n", .{});
 }
 
 // ************************************************************************************************
