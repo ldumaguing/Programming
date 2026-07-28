@@ -12,10 +12,13 @@ var Y_shift: i32 = 0;
 
 // ************************************************************************************************
 pub fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i32) void {
-    if (curr_tile.len < 1) return;
-
     X_shift = colNum * 18;
     Y_shift = rowNum * 12;
+
+    if (curr_tile.len < 1) {
+        print(".x:{d} y:{d}\n", .{ X_shift, Y_shift });
+        return;
+    }
 
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
@@ -35,15 +38,19 @@ pub fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i3
     }
 
     // lower case
-    tile00_rot180(db, curr_tile[0], sessionID);
+    tile_rot180(db, curr_tile[0], sessionID);
 }
 
 // ************************************************************************************************
 fn tile_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
-    clear_game(db, sessionID);
+    if ((X_shift == 0) and (Y_shift == 0))
+        clear_game(db, sessionID);
 
     const tnum = tile_num - 'A';
     place_tile_rot0(db, s.maps[@intCast(tnum)], sessionID);
+
+    adjust_gamemaptemp(db);
+    tile_moveTemp2GameMap(db);
 }
 
 // =======================================================================
@@ -77,7 +84,7 @@ fn place_tile_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
 }
 
 // ***********************************************************************
-fn tile00_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
+fn tile_rot180(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
     clear_game(db, sessionID);
     const tnum = tile_num - 'a';
     if ((tnum > 25) or (tnum < 0)) return;
@@ -132,6 +139,7 @@ fn hex_180(db: ?*c.sqlite3) void {
         if (spineLoc == 32) spine_180(db, rowid, hex_x, hex_y, 4);
     }
 
+    adjust_gamemaptemp(db);
     tile_moveTemp2GameMap(db);
 }
 // ==============================================
@@ -168,6 +176,7 @@ fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32)
 
 // =======================================================================
 fn tile_moveTemp2GameMap(db: ?*c.sqlite3) void {
+    print("moving...\n", .{});
     // Prepare statement
     const query1 =
         \\INSERT INTO GameMap
@@ -237,6 +246,35 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
     // Execute the insertion step
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// ************************************************************************************************
+fn adjust_gamemaptemp(db: ?*c.sqlite3) void {
+    print("adjusting... x:{d} y:{d}\n", .{ X_shift, Y_shift });
+    // Prepare statement
+    const query1 =
+        \\UPDATE gamemaptemp SET
+        \\   hex_x = hex_x + ?1,
+        \\   hex_y = hex_y + ?2
+    ;
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, X_shift);
+    _ = c.sqlite3_bind_int(stmt, 2, Y_shift);
+
+    // Execute the insertion step
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
 }
