@@ -47,6 +47,10 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
             parseMode = 1;
             continue;
         }
+        if (std.mem.startsWith(u8, line, "placement =")) {
+            parseMode = 2;
+            continue;
+        }
 
         if (parseMode == 1)
             includeCombatant(db, line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry

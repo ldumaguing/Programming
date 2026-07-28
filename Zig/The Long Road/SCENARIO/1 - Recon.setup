@@ -3,17 +3,24 @@ maps:C,b_,E
 turns:8
 
 combatants ****************************************************************************************
-1049 x 4   ; Soviet Infantry
-1009 x 4   ; Soviet BMP-1P
-1110 x 2   ; Soviet T-64B
-1016       ; Soviet BRDM-2
-1083       ; Morozov
+1049 x 4   ; Soviet Infantry  ; 1000, 1001, 1002, 1003
+1009 x 4   ; Soviet BMP-1P    ; 1004, 1005, 1006, 1007
+1110 x 2   ; Soviet T-64B     ; 1008, 1009
+1016       ; Soviet BRDM-2    ; 1010
+1083       ; Morozov          ; 1011
 
-1005       ; American Abrams
-1074       ; American M901
-1066 x 2   ; American M-3 Bradley
-1098 x 3   ; American Recon
-1043       ; Hood
+1005       ; American Abrams       ; 1012
+1074       ; American M901         ; 1013
+1066 x 2   ; American M-3 Bradley  ; 1014, 1015
+1098 x 3   ; American Recon        ; 1016, 1017, 1018
+1043       ; Hood                  ; 1019
+
+placement =========================================================================================
+1012 ; 1,1
+
+
+
+
 
 END ***********************************************************************************************
 sadf a
