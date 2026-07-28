@@ -15,10 +15,7 @@ pub fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i3
     X_shift = colNum * 18;
     Y_shift = rowNum * 12;
 
-    if (curr_tile.len < 1) {
-        print(".x:{d} y:{d}\n", .{ X_shift, Y_shift });
-        return;
-    }
+    if (curr_tile.len < 1) return;
 
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
@@ -253,7 +250,6 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
 
 // ************************************************************************************************
 fn adjust_gamemaptemp(db: ?*c.sqlite3) void {
-    print(">>> {d},{d}\n", .{ X_shift, Y_shift });
     // Prepare statement
     const query1 =
         \\UPDATE gamemaptemp SET
