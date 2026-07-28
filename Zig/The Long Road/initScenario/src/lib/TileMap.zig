@@ -78,7 +78,7 @@ fn place_tile_rot0(db: ?*c.sqlite3, tname: []const u8, sessionID: i32) void {
     _ = c.sqlite3_bind_int(stmt, 1, sessionID);
     _ = c.sqlite3_bind_text(stmt, 2, tname.ptr, @intCast(tname.len), c.SQLITE_TRANSIENT);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -169,7 +169,7 @@ fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32)
     _ = c.sqlite3_bind_int(stmt, 3, spineLoc);
     _ = c.sqlite3_bind_int(stmt, 4, rowid);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -197,7 +197,7 @@ fn tile_moveTemp2GameMap(db: ?*c.sqlite3) void {
     }
     defer _ = c.sqlite3_finalize(stmt);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -244,7 +244,7 @@ fn hex_move(db: ?*c.sqlite3, col: i32, row: i32, tnum: i32, sessionID: i32) void
     _ = c.sqlite3_bind_int(stmt, 5, row);
     _ = c.sqlite3_bind_text(stmt, 6, s.maps[@intCast(tnum)].ptr, @intCast(s.maps[@intCast(tnum)].len), c.SQLITE_TRANSIENT);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -273,7 +273,7 @@ fn adjust_gamemaptemp(db: ?*c.sqlite3) void {
     _ = c.sqlite3_bind_int(stmt, 1, X_shift);
     _ = c.sqlite3_bind_int(stmt, 2, Y_shift);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -293,7 +293,7 @@ fn clear_gamemaptemp(db: ?*c.sqlite3) void {
     }
     defer _ = c.sqlite3_finalize(stmt);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -316,7 +316,7 @@ fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
     // Binding
     _ = c.sqlite3_bind_int(stmt, 1, sessionID);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
