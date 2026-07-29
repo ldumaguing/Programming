@@ -53,11 +53,11 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
     const query2 = "DELETE FROM GameMap       where sessionID = ?1";
     const query3 = "DELETE FROM gamemaptemp";
     const query4 =
-    \\UPDATE GameMeta SET val_int0 = ?1
-    \\WHERE
-    \\   attrib = 'currSession'
-    \\   AND
-    \\   sessionID = 0
+        \\UPDATE GameMeta SET val_int0 = ?1
+        \\WHERE
+        \\   attrib = 'currSession'
+        \\   AND
+        \\   sessionID = 0
     ;
 
     var stmt: ?*c.sqlite3_stmt = null;
@@ -108,12 +108,7 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
         return;
     }
 
-
-
-
-
-
-        // **********
+    // **********
     if (c.sqlite3_prepare_v2(db, query4, -1, &stmt, null) != c.SQLITE_OK) {
         std.debug.print("Failed to prepare statement(2): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
@@ -129,23 +124,4 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
