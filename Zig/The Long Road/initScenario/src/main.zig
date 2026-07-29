@@ -33,7 +33,7 @@ pub fn main(init: std.process.Init) !void {
 
     // ************************************************************
     clearGame(db, args[2]);
-    try slurp.combatant(number, args[1], init);
+    try slurp.slurp(number, args[1], init);
 }
 
 // ************************************************************************************************
@@ -52,6 +52,13 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
     const query1 = "DELETE FROM GameCombatant where sessionID = ?1";
     const query2 = "DELETE FROM GameMap       where sessionID = ?1";
     const query3 = "DELETE FROM gamemaptemp";
+    const query4 =
+    \\UPDATE GameMeta SET val_int0 = ?1
+    \\WHERE
+    \\   attrib = 'currSession'
+    \\   AND
+    \\   sessionID = 0
+    ;
 
     var stmt: ?*c.sqlite3_stmt = null;
 
@@ -100,4 +107,45 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
         print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
+
+
+
+
+
+
+        // **********
+    if (c.sqlite3_prepare_v2(db, query4, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(2): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Binding
+    _ = c.sqlite3_bind_text(stmt, 1, id.ptr, @intCast(id.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_text(stmt, 2, id.ptr, @intCast(id.len), c.SQLITE_TRANSIENT);
+
+    // Execute the insertion step
+    rc = c.sqlite3_step(stmt);
+    if (rc != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

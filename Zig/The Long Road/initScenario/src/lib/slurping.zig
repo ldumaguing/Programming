@@ -8,7 +8,7 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
-pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
+pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
     var db: ?*c.sqlite3 = undefined;
