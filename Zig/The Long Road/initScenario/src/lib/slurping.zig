@@ -2,6 +2,7 @@ const std = @import("std");
 const print = std.debug.print;
 
 const tm = @import("TileMap.zig");
+const cht = @import("Chit.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -52,9 +53,17 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
 
-        if (parseMode == 1)
+        // *****
+        if (parseMode == 1) {
             includeCombatant(db, line[0..11], id, &instant_index); // 1049 x 4   ; Soviet Infantry
+            continue;
+        }
+        if (parseMode == 2) {
+            cht.place(line[0..4], line[7..]);
+            continue;
+        }
 
+        // *****
         if (std.mem.startsWith(u8, line, "name:")) {
             save_text(db, line[0..4], line[5..], id);
             continue;
