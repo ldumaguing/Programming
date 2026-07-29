@@ -8,6 +8,10 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
+pub fn add(a: i32, b: i32) i32 {
+    return a + b;
+}
+
 pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
@@ -55,7 +59,7 @@ pub fn combatant(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
         if (parseMode == 2) {
-            cht.place(line[0..4], line[7..], id);
+            cht.place(line[0..4], line[7..]);
             continue;
         }
 

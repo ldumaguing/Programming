@@ -42,6 +42,9 @@ pub fn place_tile(rowNum: i32, colNum: i32, curr_tile: []const u8, sessionID: i3
 
 // ************************************************************************************************
 fn tile_rot0(db: ?*c.sqlite3, tile_num: i32, sessionID: i32) void {
+    if ((X_shift == 0) and (Y_shift == 0))
+        clear_game(db, sessionID);
+
     const tnum = tile_num - 'A';
     place_tile_rot0(db, s.maps[@intCast(tnum)], sessionID);
 
@@ -287,6 +290,46 @@ fn clear_gamemaptemp(db: ?*c.sqlite3) void {
     defer _ = c.sqlite3_finalize(stmt);
 
     // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// ************************************************************************************************
+fn clear_game(db: ?*c.sqlite3, sessionID: i32) void {
+    // Prepare statement
+    const query = "DELETE FROM GameMap WHERE sessionID = ?1";
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // **********
+    // Prepare statement
+    const query1 = "DELETE FROM gamemaptemp";
+
+    stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Execute the insertion step
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
         return;
