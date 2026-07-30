@@ -73,6 +73,10 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             save_int(db, line[0..5], line[6..], id);
             continue;
         }
+        if (std.mem.startsWith(u8, line, "camera:")) {
+            save_int(db, line[0..6], line[7..], id);
+            continue;
+        }
     }
 }
 
