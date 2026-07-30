@@ -8,9 +8,26 @@ const c = @cImport({
 const slurp = @import("lib/slurping.zig");
 
 pub fn main(init: std.process.Init) !void {
+    // ********** 1: open database
+    var db: ?*c.sqlite3 = undefined;
+
+    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
+        std.debug.print("Can't open database\n", .{});
+        return;
+    }
+    defer _ = c.sqlite3_close(db);
+
+    // **********
     const arena: std.mem.Allocator = init.arena.allocator();
     const args = try init.minimal.args.toSlice(arena);
 
+    if (std.mem.startsWith(u8, args[1], "clear")) {
+        print("start over\n", .{});
+        cleanGame(db);
+        return;
+    }
+
+    // **********
     if (args.len < 3) {
         usageA();
         return;
@@ -22,23 +39,63 @@ pub fn main(init: std.process.Init) !void {
         return;
     }
 
-    // ********** 1: open database
-    var db: ?*c.sqlite3 = undefined;
+    // **********
+    clearSession(db, args[2]);
+    try slurp.slurp(number, args[1], init);
+}
 
-    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
-        std.debug.print("Can't open database\n", .{});
+// ************************************************************************************************
+fn cleanGame(db: ?*c.sqlite3) void {
+    // Prepare statement
+    const query1 = "DELETE FROM GameCombatant";
+    const query2 = "DELETE FROM GameMap";
+    const query3 = "DELETE FROM GameMeta WHERE sessionID > 0";
+
+    var stmt: ?*c.sqlite3_stmt = null;
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // ******************************
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
-    defer _ = c.sqlite3_close(db);
 
-    // ************************************************************
-    clearGame(db, args[2]);
-    try slurp.slurp(number, args[1], init);
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ******************************
+    if (c.sqlite3_prepare_v2(db, query2, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ******************************
+    if (c.sqlite3_prepare_v2(db, query3, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
 }
 
 // ************************************************************************************************
 fn usageA() void {
     print("initScenario 'setup file' sessionID\n", .{});
+    print("or\n", .{});
+    print("initScenario clear\n", .{});
 }
 
 // **********
@@ -46,8 +103,8 @@ fn usageB() void {
     print("sessionID must be greater than 0.\n", .{});
 }
 
-// **********
-fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
+// ************************************************************************************************
+fn clearSession(db: ?*c.sqlite3, id: []const u8) void {
     // Prepare statement
     const query1 = "DELETE FROM GameCombatant where sessionID = ?1";
     const query2 = "DELETE FROM GameMap       where sessionID = ?1";
