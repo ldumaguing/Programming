@@ -116,7 +116,6 @@ fn clearGame(db: ?*c.sqlite3, id: []const u8) void {
 
     // Binding
     _ = c.sqlite3_bind_text(stmt, 1, id.ptr, @intCast(id.len), c.SQLITE_TRANSIENT);
-    _ = c.sqlite3_bind_text(stmt, 2, id.ptr, @intCast(id.len), c.SQLITE_TRANSIENT);
 
     // Execute the insertion step
     rc = c.sqlite3_step(stmt);
