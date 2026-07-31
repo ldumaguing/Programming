@@ -1,4 +1,8 @@
 const rl = @import("raylib");
+const std = @import("std");
+const print = std.debug.print;
+
+const sqlite = @import("lib/SQLite.zig");
 
 const c64_colors = [_]rl.Color{
     rl.Color.init(0x00, 0x00, 0x00, 0xFF), // Black
@@ -20,6 +24,12 @@ const c64_colors = [_]rl.Color{
 };
 
 pub fn main() anyerror!void {
+    const sql = sqlite.SQLite.init();
+    defer sql.close();
+
+    print("{d}\n", .{sql.currSession});
+
+
     // Initialization
     //--------------------------------------------------------------------------------------
     const screenWidth = 800;
