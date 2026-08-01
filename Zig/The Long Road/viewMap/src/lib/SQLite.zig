@@ -45,6 +45,39 @@ pub const SQLite = struct {
         };
     }
 
+    // ********************************************************************************************
+    pub fn is_hill(self: SQLite, x: usize, y: usize) bool {
+        const X: i32 = @intCast(x);
+        const Y: i32 = @intCast(y);
+
+        // Prepare statement
+        const query1 =
+            \\SELECT 1 FROM GameMap
+            \\WHERE hex_x = ?1
+            \\AND hex_y = ?2
+            \\AND sessionID = ?3
+            \\AND terrainNum = 5
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, X);
+        _ = c.sqlite3_bind_int(stmt, 2, Y);
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 3, curS);
+
+        // Execute
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) return true;
+        return false;
+    }
+
+    // ********************************************************************************************
     pub fn close(self: SQLite) void {
         _ = c.sqlite3_close(self.db);
     }
