@@ -34,9 +34,11 @@ pub fn main() anyerror!void {
             const fooX: i32 = @intCast(x * hex_width);
             for (0..13) |y| {
                 var fooY: i32 = @intCast(y * hex_height);
-                if (@mod(x, 2) == 0) fooY += halfY;
+                if (@mod(x, 2) != 0) fooY -= halfY;
+                rl.drawCircle(fooX, fooY, 10, c64.colors[14]);
                 if (sql.is_hill(x, y)) {
-                    rl.drawCircle(fooX, fooY, 10, c64.colors[0]);
+                    // rl.drawCircle(fooX, fooY, halfY + 5, c64.colors[9]);
+                    rl.drawEllipse(fooX, fooY, halfY + 20, halfY + 5, c64.colors[9]);
                 }
             }
         }

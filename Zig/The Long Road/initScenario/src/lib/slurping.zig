@@ -77,10 +77,14 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             save_int(db, line[0..6], line[7..], id);
             continue;
         }
+        if (std.mem.startsWith(u8, line, "tileCR:")) {
+            save_2ints(db, line[0..6], line[7..17], id);
+            continue;
+        }
     }
 }
 
-// ************************************************************************************************ todo
+// ************************************************************************************************
 fn place_map(maps: []const u8, sessionID: i32) void {
     print("---> {s}\n", .{maps});
     var iter1 = std.mem.splitAny(u8, maps, "_");
@@ -119,7 +123,7 @@ fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_
         _ = c.sqlite3_bind_int(stmt, 2, instance_id.*);
         _ = c.sqlite3_bind_int(stmt, 3, combatant_id);
 
-        // Execute the insertion step
+        // Execute
         if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
             print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
             return;
@@ -140,13 +144,51 @@ fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_
         _ = c.sqlite3_bind_int(stmt, 1, combatant_id);
         _ = c.sqlite3_bind_int(stmt, 2, instance_id.*);
 
-        // Execute the insertion step
+        // Execute
         if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
             print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
             return;
         }
 
         instance_id.* += 1;
+    }
+}
+
+// ************************************************************************************************
+fn save_2ints(db: ?*c.sqlite3, attrib: []const u8, intVals: []const u8, id: i32) void {
+    _ = id;
+    const trimmed = std.mem.trim(u8, intVals, " ");
+    var iter = std.mem.splitAny(u8, trimmed, ",");
+    var rowCount: i32 = 0;
+    var colCount: i32 = 0;
+    if (iter.next()) |aString| rowCount = std.fmt.parseInt(i32, aString, 10) catch 0;
+    if (iter.next()) |aString| colCount = std.fmt.parseInt(i32, aString, 10) catch 0;
+
+    // Prepare statement
+    const query =
+        \\UPDATE GameMeta SET
+        \\val_int0 = ?1,
+        \\val_int1 = ?2
+        \\WHERE sessionID = 0
+        \\AND
+        \\attrib = ?3
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, colCount);
+    _ = c.sqlite3_bind_int(stmt, 2, rowCount);
+    _ = c.sqlite3_bind_text(stmt, 3, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
     }
 }
 
@@ -167,10 +209,9 @@ fn save_int(db: ?*c.sqlite3, attrib: []const u8, intVal: []const u8, id: i32) vo
     _ = c.sqlite3_bind_text(stmt, 2, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_text(stmt, 3, intVal.ptr, @intCast(intVal.len), c.SQLITE_TRANSIENT);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
-        return;
     }
 }
 
@@ -191,10 +232,9 @@ fn save_text(db: ?*c.sqlite3, attrib: []const u8, text: []const u8, id: i32) voi
     _ = c.sqlite3_bind_text(stmt, 2, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_text(stmt, 3, text.ptr, @intCast(text.len), c.SQLITE_TRANSIENT);
 
-    // Execute the insertion step
+    // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
-        return;
     }
 }
 
