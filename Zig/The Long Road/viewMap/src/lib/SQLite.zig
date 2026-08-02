@@ -78,8 +78,37 @@ pub const SQLite = struct {
     }
 
     // ********************************************************************************************
-    pub fn get_float_val() f32 {
-        return 0.0;
+    pub fn get_float_vals(self: SQLite, attrib: []const u8) struct { f32, f32, f32 } {
+        // Prepare statement
+        const query1 =
+            \\SELECT val_real0, val_real1, val_real2 FROM GameMeta
+            \\WHERE
+            \\   attrib = ?1
+            \\   AND
+            \\   sessionID = 0
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_text(stmt, 1, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 2, curS);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const x: f32 = @floatCast(c.sqlite3_column_double(stmt, 0));
+            const y: f32 = @floatCast(c.sqlite3_column_double(stmt, 1));
+            const z: f32 = @floatCast(c.sqlite3_column_double(stmt, 2));
+            return .{ x, y, z };
+        }
+
+        return .{ 0.0, 0.0, 0.0 };
     }
 
     // ********************************************************************************************
@@ -107,7 +136,6 @@ pub const SQLite = struct {
 
         // Evaluate the statement
         if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
-            print("---in---\n", .{});
             const x: i32 = @intCast(c.sqlite3_column_int64(stmt, 0));
             const y: i32 = @intCast(c.sqlite3_column_int64(stmt, 1));
             return .{ x, y };

@@ -14,11 +14,15 @@ pub fn main() anyerror!void {
 
     const screenWidth = 1227;
     const screenHeight = 690;
-    const hex_width = screenWidth / 18;
-    const hex_height = screenHeight / 12;
-    const halfY: i32 = hex_height / 2;
 
-    print("{d},{d},{d}\n", .{ hex_width, hex_height, halfY });
+    // const hex_width = screenWidth / 18;
+    const pxX = sql.get_float_vals("pxX");
+    const pxY = sql.get_float_vals("pxY");
+    const hex_width = pxX[0];
+    const hex_height = pxY[0];
+    const halfY: f32 = hex_height / 2;
+
+    print("{},{},{}\n", .{ hex_width, hex_height, halfY });
 
     rl.initWindow(screenWidth, screenHeight, "View Map");
     defer rl.closeWindow(); // Close window and OpenGL context
@@ -32,7 +36,7 @@ pub fn main() anyerror!void {
         .rotation = 0,
     };
 
-    rl.setTargetFPS(6); // Set our game to run at 60 frames-per-second
+    rl.setTargetFPS(12); // Set our game to run at 60 frames-per-second
 
     // Main game loop
     while (!rl.windowShouldClose()) { // Detect window close button or ESC key
@@ -72,13 +76,13 @@ pub fn main() anyerror!void {
             defer camera.end();
 
             for (0..19) |x| {
-                const fooX: i32 = @intCast(x * hex_width);
+                const hex_w: f32 = @round(@as(f32, @floatFromInt(x)) * hex_width);
                 for (0..13) |y| {
-                    var fooY: i32 = @intCast(y * hex_height);
-                    if (@mod(x, 2) != 0) fooY -= halfY;
-                    rl.drawCircle(fooX, fooY, 10, c64.colors[14]);
+                    var hex_y: f32 = @round(@as(f32, @floatFromInt(y)) * hex_height);
+                    if (@mod(x, 2) != 0) hex_y -= halfY;
+                    rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[14]);
                     if (sql.is_hill(x, y)) {
-                        rl.drawCircle(fooX, fooY, halfY + 5, c64.colors[9]);
+                        rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), halfY + 5, c64.colors[9]);
                     }
                 }
             }
