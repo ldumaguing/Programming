@@ -78,6 +78,40 @@ pub const SQLite = struct {
     }
 
     // ********************************************************************************************
+    pub fn get_2int_vals(self: SQLite, attrib: []const u8) struct { i32, i32 } {
+        // Prepare statement
+        const query1 =
+            \\SELECT val_int0, val_int1 FROM GameMeta
+            \\WHERE
+            \\   attrib = ?1
+            \\   AND
+            \\   sessionID = ?2
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_text(stmt, 1, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 2, curS);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            print("---in---\n", .{});
+            const x: i32 = @intCast(c.sqlite3_column_int64(stmt, 0));
+            const y: i32 = @intCast(c.sqlite3_column_int64(stmt, 1));
+            return .{ x, y };
+        }
+
+        return .{ 0, 0 };
+    }
+
+    // ********************************************************************************************
     pub fn close(self: SQLite) void {
         _ = c.sqlite3_close(self.db);
     }

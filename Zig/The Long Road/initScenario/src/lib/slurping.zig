@@ -156,7 +156,6 @@ fn includeCombatant(db: ?*c.sqlite3, line: []const u8, sessionID: i32, instance_
 
 // ************************************************************************************************
 fn save_2ints(db: ?*c.sqlite3, attrib: []const u8, intVals: []const u8, id: i32) void {
-    _ = id;
     const trimmed = std.mem.trim(u8, intVals, " ");
     var iter = std.mem.splitAny(u8, trimmed, ",");
     var rowCount: i32 = 0;
@@ -166,12 +165,9 @@ fn save_2ints(db: ?*c.sqlite3, attrib: []const u8, intVals: []const u8, id: i32)
 
     // Prepare statement
     const query =
-        \\UPDATE GameMeta SET
-        \\val_int0 = ?1,
-        \\val_int1 = ?2
-        \\WHERE sessionID = 0
-        \\AND
-        \\attrib = ?3
+        \\INSERT INTO GameMeta
+        \\   (sessionID, attrib, val_int0, val_int1)
+        \\   VALUES (?1, ?2, ?3, ?4)
     ;
     var stmt: ?*c.sqlite3_stmt = null;
 
@@ -182,9 +178,10 @@ fn save_2ints(db: ?*c.sqlite3, attrib: []const u8, intVals: []const u8, id: i32)
     defer _ = c.sqlite3_finalize(stmt);
 
     // Binding
-    _ = c.sqlite3_bind_int(stmt, 1, colCount);
-    _ = c.sqlite3_bind_int(stmt, 2, rowCount);
-    _ = c.sqlite3_bind_text(stmt, 3, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 1, id);
+    _ = c.sqlite3_bind_text(stmt, 2, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 3, colCount);
+    _ = c.sqlite3_bind_int(stmt, 4, rowCount);
 
     // Execute
     if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {

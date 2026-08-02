@@ -9,7 +9,8 @@ pub fn main() anyerror!void {
     const sql = sqlite.SQLite.init();
     defer sql.close();
 
-    print("{d}\n", .{sql.currSession});
+    const tileCR = sql.get_2int_vals("tileCR");
+    print("...{d},{d}\n", .{ tileCR[0], tileCR[1] });
 
     const screenWidth = 1227;
     const screenHeight = 690;

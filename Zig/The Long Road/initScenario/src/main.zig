@@ -21,6 +21,11 @@ pub fn main(init: std.process.Init) !void {
     const arena: std.mem.Allocator = init.arena.allocator();
     const args = try init.minimal.args.toSlice(arena);
 
+    if (args.len == 1) {
+        usageA();
+        return;
+    }
+
     if (std.mem.startsWith(u8, args[1], "clear")) {
         print("start over\n", .{});
         cleanGame(db);
