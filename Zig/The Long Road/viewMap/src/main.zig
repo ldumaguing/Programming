@@ -10,7 +10,6 @@ pub fn main() anyerror!void {
     defer sql.close();
 
     const tileCR = sql.get_2int_vals("tileCR");
-    print("...{d},{d}\n", .{ tileCR[0], tileCR[1] });
 
     const screenWidth = 1227;
     const screenHeight = 690;
@@ -21,8 +20,6 @@ pub fn main() anyerror!void {
     const hex_width = pxX[0];
     const hex_height = pxY[0];
     const halfY: f32 = hex_height / 2;
-
-    print("{},{},{}\n", .{ hex_width, hex_height, halfY });
 
     rl.initWindow(screenWidth, screenHeight, "View Map");
     defer rl.closeWindow(); // Close window and OpenGL context
@@ -75,9 +72,11 @@ pub fn main() anyerror!void {
             camera.begin();
             defer camera.end();
 
-            for (0..19) |x| {
+            const count_col: usize = @intCast((18 * tileCR[0]) + 1);
+            for (0..count_col) |x| {
                 const hex_w: f32 = @round(@as(f32, @floatFromInt(x)) * hex_width);
-                for (0..13) |y| {
+                const count_row: usize = @intCast((13 * tileCR[0]) + 1);
+                for (0..count_row) |y| {
                     var hex_y: f32 = @round(@as(f32, @floatFromInt(y)) * hex_height);
                     if (@mod(x, 2) != 0) hex_y -= halfY;
                     rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[14]);
