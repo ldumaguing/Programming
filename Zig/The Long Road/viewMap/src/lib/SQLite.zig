@@ -78,6 +78,11 @@ pub const SQLite = struct {
     }
 
     // ********************************************************************************************
+    pub fn get_float_val() f32 {
+        return 0.0;
+    }
+
+    // ********************************************************************************************
     pub fn get_2int_vals(self: SQLite, attrib: []const u8) struct { i32, i32 } {
         // Prepare statement
         const query1 =

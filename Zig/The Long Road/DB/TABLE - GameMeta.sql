@@ -26,8 +26,10 @@ INSERT INTO GameMeta (sessionID, attrib, val_text) VALUES
 (0, 'oddXshift', 'up') --- relative to (0,0), (1,0) is shifted up
 ;
 INSERT INTO GameMeta (sessionID, attrib, val_int0) VALUES
-(0, 'currSession', 0),
-(0, 'pxX', 202),
+(0, 'currSession', 0)
+;
+INSERT INTO GameMeta (sessionID, attrib, val_real0) VALUES
+(0, 'pxX', 202.0),
 (0, 'pxY', 233.5),
 (0, 'pxHalfY', 116.75)
 ;
