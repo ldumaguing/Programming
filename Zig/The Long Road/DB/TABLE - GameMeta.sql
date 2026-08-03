@@ -14,15 +14,15 @@ CREATE TABLE GameMeta (
 ;
 INSERT INTO GameMeta (sessionID, attrib, val_int0, val_int1) VALUES
 (0, 'pixelCount', 3637, 2803),
-(0, 'hexCount', 19, 13),
-(0, 'hexCenter', 0, 0),
-(0, 'hexPtA', -66, -115),
-(0, 'hexPtB', 66, -115),
-(0, 'hexPtC', 132, 0),
-(0, 'hexPtD', 66, 115),
-(0, 'hexPtE', 264, 0),
-(0, 'hexPtF', -66, 115),
-(0, 'hexPtG', -132, 0)
+(0, 'hexCount',  19,   13),
+(0, 'hexCenter',  0,    0),
+(0, 'hexPtA',   -66, -115),
+(0, 'hexPtB',    66, -115),
+(0, 'hexPtC',   132,    0),
+(0, 'hexPtD',    66,  115),
+(0, 'hexPtE',   264,    0),
+(0, 'hexPtF',   -66,  115),
+(0, 'hexPtG',  -132,    0)
 ;
 INSERT INTO GameMeta (sessionID, attrib, val_text) VALUES
 (0, 'A', 'Map A.png'),
