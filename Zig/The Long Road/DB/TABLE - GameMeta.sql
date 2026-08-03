@@ -17,7 +17,7 @@ INSERT INTO GameMeta (sessionID, attrib, val_int0, val_int1) VALUES
 (0, 'hexCount', 19, 13),
 (0, 'hexCenter', 0, 0),
 (0, 'hexPtA', -66, -115),
-(0, 'hexPtB', 66, -115,),
+(0, 'hexPtB', 66, -115),
 (0, 'hexPtC', 132, 0),
 (0, 'hexPtD', 66, 115),
 (0, 'hexPtE', 264, 0),

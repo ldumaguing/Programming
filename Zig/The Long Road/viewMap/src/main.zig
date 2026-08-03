@@ -20,7 +20,20 @@ pub fn main() anyerror!void {
     const hex_width = pxX[0];
     const hex_height = pxY[0];
     const halfY: f32 = hex_height / 2;
-
+    const hexPt_A = sql.get_2int_vals("hexPtA");
+    const hexPt_B = sql.get_2int_vals("hexPtB");
+    const hexPt_C = sql.get_2int_vals("hexPtC");
+    const hexPt_D = sql.get_2int_vals("hexPtD");
+    const hexPt_E = sql.get_2int_vals("hexPtE");
+    const hexPt_F = sql.get_2int_vals("hexPtF");
+    const hexPt_G = sql.get_2int_vals("hexPtG");
+    print("A({d},{d})\n", .{ hexPt_A[0], hexPt_A[1] });
+    print("B({d},{d})\n", .{ hexPt_B[0], hexPt_B[1] });
+    print("C({d},{d})\n", .{ hexPt_C[0], hexPt_C[1] });
+    print("D({d},{d})\n", .{ hexPt_D[0], hexPt_D[1] });
+    print("E({d},{d})\n", .{ hexPt_E[0], hexPt_E[1] });
+    print("F({d},{d})\n", .{ hexPt_F[0], hexPt_F[1] });
+    print("G({d},{d})\n", .{ hexPt_G[0], hexPt_G[1] });
     rl.initWindow(screenWidth, screenHeight, "View Map");
     defer rl.closeWindow(); // Close window and OpenGL context
 
