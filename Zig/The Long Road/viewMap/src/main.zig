@@ -20,13 +20,13 @@ pub fn main() anyerror!void {
     const hex_width = pxX[0];
     const hex_height = pxY[0];
     const halfY: f32 = hex_height / 2;
-    const hexPt_A = sql.get_2int_vals("hexPtA");
-    const hexPt_B = sql.get_2int_vals("hexPtB");
-    const hexPt_C = sql.get_2int_vals("hexPtC");
-    const hexPt_D = sql.get_2int_vals("hexPtD");
-    const hexPt_E = sql.get_2int_vals("hexPtE");
-    const hexPt_F = sql.get_2int_vals("hexPtF");
-    const hexPt_G = sql.get_2int_vals("hexPtG");
+    const hexPt_A = sql.get_Point("hexPtA");
+    const hexPt_B = sql.get_Point("hexPtB");
+    const hexPt_C = sql.get_Point("hexPtC");
+    const hexPt_D = sql.get_Point("hexPtD");
+    const hexPt_E = sql.get_Point("hexPtE");
+    const hexPt_F = sql.get_Point("hexPtF");
+    const hexPt_G = sql.get_Point("hexPtG");
     print("A({d},{d})\n", .{ hexPt_A[0], hexPt_A[1] });
     print("B({d},{d})\n", .{ hexPt_B[0], hexPt_B[1] });
     print("C({d},{d})\n", .{ hexPt_C[0], hexPt_C[1] });
@@ -93,11 +93,25 @@ pub fn main() anyerror!void {
                     var hex_y: f32 = @round(@as(f32, @floatFromInt(y)) * hex_height);
                     if (@mod(x, 2) != 0) hex_y -= halfY;
                     rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[14]);
+
                     if (sql.is_hill(x, y)) {
                         rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), halfY + 5, c64.colors[9]);
+                    }
+
+                    const spine_loc = sql.get_river_spine(x, y);
+                    if (spine_loc > 0) {
+                        const linePts = get_line_pts(x, y, hex_width, hex_height, spine_loc);
+                        print("{d},{d} - {d},{d}\n", .{ linePts[0], linePts[1], linePts[2], linePts[3] });
                     }
                 }
             }
         }
     }
+}
+
+// ************************************************************************************************
+fn get_line_pts(x: usize, y: usize, hex_w: f32, hex_y: f32, spine_loc: i32) struct { i32, i32, i32, i32 } {
+    print("{d},{d} - {},{} - {d}\n", .{ x, y, hex_w, hex_y, spine_loc });
+
+    return .{ 0, 0, 0, 0 };
 }
