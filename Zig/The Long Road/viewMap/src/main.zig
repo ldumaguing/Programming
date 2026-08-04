@@ -134,7 +134,7 @@ fn get_line_pts(x: usize, y: usize, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, 
     //print("{d},{d}\n", .{P0x, P0y});
     const P1x: i32 = @as(i32, @round(float_x)) + p1x;
     const P1y: i32 = @as(i32, @round(float_y)) + p1y;
-    //X *= hex_w;
-    // print("{d}\n", .{P0x});
+
+    //print("{d},{d} ... {d},{d}\n", .{P0x, P0y, P1x, P1y});
     return .{ P0x, P0y, P1x, P1y };
 }

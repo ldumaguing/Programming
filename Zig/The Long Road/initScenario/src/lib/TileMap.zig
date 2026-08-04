@@ -109,7 +109,7 @@ fn hex_180(db: ?*c.sqlite3) void {
         \\FROM
         \\   gamemaptemp
         \\WHERE
-        \\   spineLoc > 1
+        \\   spineLoc > 0
     ;
 
     var stmt: ?*c.sqlite3_stmt = null;
@@ -127,10 +127,12 @@ fn hex_180(db: ?*c.sqlite3) void {
         const hex_y: i32 = @intCast(c.sqlite3_column_int64(stmt, 2));
         const spineLoc: i32 = @intCast(c.sqlite3_column_int64(stmt, 3));
 
-        if (spineLoc == 1) spine_180(db, rowid, hex_x, (hex_y + 1), 1);
+        // if (spineLoc == 1) spine_180(db, rowid, hex_x, (hex_y + 1), 1);
+        if (spineLoc == 1) spine_180y(db, rowid, hex_x, hex_y, 1);
         if (spineLoc == 2) spine_180(db, rowid, hex_x, hex_y, 16);
         if (spineLoc == 4) spine_180(db, rowid, hex_x, hex_y, 32);
-        if (spineLoc == 8) spine_180(db, rowid, (hex_x - 2), hex_y, 8);
+        // if (spineLoc == 8) spine_180(db, rowid, (hex_x - 2), hex_y, 8);
+        if (spineLoc == 8) spine_180x(db, rowid, hex_x, hex_y, 8);
         if (spineLoc == 16) spine_180(db, rowid, hex_x, hex_y, 2);
         if (spineLoc == 32) spine_180(db, rowid, hex_x, hex_y, 4);
     }
@@ -138,6 +140,71 @@ fn hex_180(db: ?*c.sqlite3) void {
     adjust_gamemaptemp(db);
     tile_moveTemp2GameMap(db);
 }
+
+// ==============================================
+fn spine_180x(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32) void {
+    // Prepare statement
+    const query1 =
+        \\UPDATE gamemaptemp SET
+        \\   hex_x =    ?1 - 2,
+        \\   hex_y =    ?2,
+        \\   spineLoc = ?3
+        \\WHERE rowid = ?4
+    ;
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, hex_x);
+    _ = c.sqlite3_bind_int(stmt, 2, hex_y);
+    _ = c.sqlite3_bind_int(stmt, 3, spineLoc);
+    _ = c.sqlite3_bind_int(stmt, 4, rowid);
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// ==============================================
+fn spine_180y(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32) void {
+    // Prepare statement
+    const query1 =
+        \\UPDATE gamemaptemp SET
+        \\   hex_x =    ?1,
+        \\   hex_y =    ?2 + 1,
+        \\   spineLoc = ?3
+        \\WHERE rowid = ?4
+    ;
+
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, hex_x);
+    _ = c.sqlite3_bind_int(stmt, 2, hex_y);
+    _ = c.sqlite3_bind_int(stmt, 3, spineLoc);
+    _ = c.sqlite3_bind_int(stmt, 4, rowid);
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
 // ==============================================
 fn spine_180(db: ?*c.sqlite3, rowid: i32, hex_x: i32, hex_y: i32, spineLoc: i32) void {
     // Prepare statement
