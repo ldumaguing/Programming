@@ -22,7 +22,13 @@ INSERT INTO GameMeta (sessionID, attrib, val_int0, val_int1) VALUES
 (0, 'hexPtD',    66,  115),
 (0, 'hexPtE',   264,    0),
 (0, 'hexPtF',   -66,  115),
-(0, 'hexPtG',  -132,    0)
+(0, 'hexPtG',  -132,    0),
+(0, 'spinePtA',    0, -115),
+(0, 'spinePtB',  100,  -57),
+(0, 'spinePtC',  100,   57),
+(0, 'spinePtD',    0,  115),
+(0, 'spinePtE', -100,   57),
+(0, 'spinePtF', -100,  -57)
 ;
 INSERT INTO GameMeta (sessionID, attrib, val_text) VALUES
 (0, 'A', 'Map A.png'),
