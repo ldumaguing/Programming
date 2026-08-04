@@ -87,7 +87,7 @@ pub const SQLite = struct {
             \\WHERE hex_x = ?1
             \\AND hex_y = ?2
             \\AND sessionID = ?3
-            \\AND terrainNum = 3
+            \\AND terrainNum = 9
             \\AND spineLoc = ?4
         ;
 
@@ -209,6 +209,7 @@ pub const SQLite = struct {
 
         return .{ 0, 0 };
     }
+
     // ********************************************************************************************
     pub fn get_2int_vals(self: SQLite, attrib: []const u8) struct { i32, i32 } {
         // Prepare statement
