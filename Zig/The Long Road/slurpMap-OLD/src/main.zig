@@ -123,7 +123,7 @@ fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite
 
 fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
     // ********** slice string
-    var it = std.mem.splitAny(u8, line, ",");
+    var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
         const hexLoc = convert_to_hexLoc(hexID);
         process_sql_statement(hexLoc, fname, hexID, terrainNum, db, 0);
@@ -160,7 +160,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
 }
 
 fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
-    var it = std.mem.splitAny(u8, line, ":");
+    var it = std.mem.splitScalar(u8, line, ':');
     var index: i32 = 0;
     var hexLoc: struct { i32, i32 } = undefined;
 
@@ -183,25 +183,16 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
 }
 
 fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
-    print("{d}:{s}\n", .{terrainNum, spines});
-    if (terrainNum == 9) {
-        process_road(hexLoc, spines);
-        return;
-    }
     var spineAddr: struct { i32, i32, i32 } = undefined; // x, y, spine
     const hexMODtwo = @mod(hexLoc[0], 2);
 
     for (spines) |spine| {
         const spn = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
-        if (hexMODtwo != 0) {
+        if (hexMODtwo >= 1) {
             spineAddr = get_uniq_hexAddr(hexLoc, spn);
             process_sql_statement(.{ spineAddr[0], spineAddr[1] }, fname, hexID, terrainNum, db, spineAddr[2]);
         } else process_sql_statement(hexLoc, fname, hexID, terrainNum, db, spn);
     }
-}
-
-fn process_road(hexLoc: struct { i32, i32 }, spines: []const u8) void {
-    print("> {d},{d}: {s}\n", .{hexLoc[0], hexLoc[1], spines});
 }
 
 fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
