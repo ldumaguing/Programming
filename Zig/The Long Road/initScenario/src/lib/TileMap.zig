@@ -128,11 +128,9 @@ fn hex_180(db: ?*c.sqlite3) void {
         const spineLoc: i32 = @intCast(c.sqlite3_column_int64(stmt, 3));
 
         if (spineLoc == 1) spine_180(db, rowid, hex_x, (hex_y + 1), 1);
-        //if (spineLoc == 1) spine_180y(db, rowid, hex_x, hex_y, 1);
         if (spineLoc == 2) spine_180(db, rowid, hex_x, hex_y, 16);
         if (spineLoc == 4) spine_180(db, rowid, hex_x, hex_y, 32);
         if (spineLoc == 8) spine_180(db, rowid, (hex_x - 2), hex_y, 8);
-        //if (spineLoc == 8) spine_180x(db, rowid, hex_x, hex_y, 8);
         if (spineLoc == 16) spine_180(db, rowid, hex_x, hex_y, 2);
         if (spineLoc == 32) spine_180(db, rowid, hex_x, hex_y, 4);
     }
