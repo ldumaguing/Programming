@@ -11,8 +11,8 @@ pub fn main() anyerror!void {
 
     const tileCR = sql.get_2int_vals("tileCR");
 
-    const screenWidth = 854;
-    const screenHeight = 480;
+    const screenWidth = 1366;
+    const screenHeight = 768;
 
     const spines = [_]i32{ 1, 2, 4, 8, 16, 32 };
 
@@ -20,7 +20,7 @@ pub fn main() anyerror!void {
     const pxY = sql.get_float_vals("pxY");
     const hex_width = pxX[0];
     const hex_height = pxY[0];
-    const halfY: f32 = hex_height / 2;
+    const halfY: f32 = hex_height / 2.0;
     const hexPt_A = sql.get_Point("hexPtA");
     const hexPt_B = sql.get_Point("hexPtB");
     const hexPt_C = sql.get_Point("hexPtC");
@@ -95,16 +95,16 @@ pub fn main() anyerror!void {
                     if (@mod(x, 2) != 0) hex_y -= halfY;
                     rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[15]);
 
+                    // HILL
                     if (sql.is_hill(x, y)) {
-                        rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), halfY + 5, c64.colors[9]);
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[9]);
                     }
 
+                    // RIVER
                     var linePts: struct { i32, i32, i32, i32 } = .{ 0, 0, 0, 0 };
                     for (spines) |spine| {
                         if (sql.is_river_spine(x, y, spine)) {
-                            print("{d},{d}: {d}\n", .{ x, y, spine });
                             linePts = switch (spine) {
-                                //else => get_line_pts(x, y, hex_width, hex_height, hexPt_A[0], hexPt_A[1], hexPt_B[0], hexPt_B[1]),
                                 1 => get_line_pts(x, y, hex_width, hex_height, hexPt_A[0], hexPt_A[1], hexPt_B[0], hexPt_B[1]),
                                 2 => get_line_pts(x, y, hex_width, hex_height, hexPt_B[0], hexPt_B[1], hexPt_C[0], hexPt_C[1]),
                                 4 => get_line_pts(x, y, hex_width, hex_height, hexPt_C[0], hexPt_C[1], hexPt_D[0], hexPt_D[1]),
@@ -112,29 +112,31 @@ pub fn main() anyerror!void {
                                 16 => get_line_pts(x, y, hex_width, hex_height, hexPt_F[0], hexPt_F[1], hexPt_G[0], hexPt_G[1]),
                                 else => get_line_pts(x, y, hex_width, hex_height, hexPt_G[0], hexPt_G[1], hexPt_A[0], hexPt_A[1]),
                             };
-                            rl.drawLine(linePts[0], linePts[1], linePts[2], linePts[3], c64.colors[0]);
+                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[14]);
+                        }
+                    }
+
+                    // ROAD
+                    for (spines) |spine| {
+                        if (sql.is_road_exit(x, y, spine)) {
+
                         }
                     }
                 }
             }
         }
-        print("\n", .{});
     }
 }
 
 // ************************************************************************************************
 fn get_line_pts(x: usize, y: usize, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x: i32, p1y: i32) struct { i32, i32, i32, i32 } {
-    //print("{d},{d} - {},{} - {d},{d}...{d},{d}\n", .{ x, y, hex_w, hex_y, p0x, p0y, p1x, p1y });
     const float_x: f32 = @as(f32, (@floatFromInt(x))) * hex_w;
     const float_y: f32 = @as(f32, (@floatFromInt(y))) * hex_y;
 
-    //print("{},{}\n", .{@as(f32, (@floatFromInt(x))), @as(f32, (@floatFromInt(y)))});
     const P0x: i32 = @as(i32, @round(float_x)) + p0x;
     const P0y: i32 = @as(i32, @round(float_y)) + p0y;
-    //print("{d},{d}\n", .{P0x, P0y});
     const P1x: i32 = @as(i32, @round(float_x)) + p1x;
     const P1y: i32 = @as(i32, @round(float_y)) + p1y;
 
-    //print("{d},{d} ... {d},{d}\n", .{P0x, P0y, P1x, P1y});
     return .{ P0x, P0y, P1x, P1y };
 }
