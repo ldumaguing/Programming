@@ -131,10 +131,13 @@ pub fn main() anyerror!void {
                             linePts = switch (spine) {
                                 1 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_A[0], spinePt_A[1]),
                                 2 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_B[0], spinePt_B[1]),
+                                4 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_C[0], spinePt_C[1]),
+                                8 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_D[0], spinePt_D[1]),
+                                16 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_E[0], spinePt_E[1]),
                                 else => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_F[0], spinePt_F[1]),
                             };
                             // print("{d},{d} .. {d},{d}\n", .{ linePts[0], linePts[1], linePts[2], linePts[3] });
-                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[14]);
+                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[0]);
                         }
                     }
                 }
