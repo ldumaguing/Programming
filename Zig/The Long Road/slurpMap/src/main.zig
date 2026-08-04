@@ -132,7 +132,10 @@ fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) 
 
 fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize, db: ?*c.sqlite3, spineLoc: i32) void {
     // Prepare statement
-    const query = "INSERT INTO map (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)";
+    const query =
+        \\INSERT INTO MAP (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc)
+        \\VALUES (?1 || '.png', ?2, ?3, ?4, ?5, ?6, ?7, ?8)
+    ;
     var stmt: ?*c.sqlite3_stmt = null;
 
     if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
@@ -142,7 +145,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     defer _ = c.sqlite3_finalize(stmt);
 
     // Binding
-    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len - 4), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_text(stmt, 2, hexID.ptr, @intCast(hexID.len), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_int(stmt, 3, hexLoc[0]);
     _ = c.sqlite3_bind_int(stmt, 4, hexLoc[1]);
@@ -151,7 +154,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
     _ = c.sqlite3_bind_int(stmt, 8, spineLoc);
 
-    // Execute the insertion step
+    // Execute
     const rc = c.sqlite3_step(stmt);
     if (rc != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
@@ -183,9 +186,9 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
 }
 
 fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
-    print("{d}:{s}\n", .{terrainNum, spines});
+    print("{d}:{s}\n", .{ terrainNum, spines });
     if (terrainNum == 9) {
-        process_road(hexLoc, spines);
+        process_road(spines, hexLoc, fname, terrainNum, db, hexID);
         return;
     }
     var spineAddr: struct { i32, i32, i32 } = undefined; // x, y, spine
@@ -200,8 +203,41 @@ fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []cons
     }
 }
 
-fn process_road(hexLoc: struct { i32, i32 }, spines: []const u8) void {
-    print("> {d},{d}: {s}\n", .{hexLoc[0], hexLoc[1], spines});
+fn process_road(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
+    print("> {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], spines });
+    if (std.mem.indexOfScalar(u8, spines, 'a') != null) {
+        print(">> a\n", .{});
+        save_road(1, hexLoc, fname, terrainNum, db, hexID);
+    }
+}
+
+fn save_road(spine: i32, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
+    const query =
+        \\INSERT INTO MAP (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc) VALUES
+        \\   (?1 || '.png', ?2, ?3, ?4, ?5, ?6, ?7, ?8)
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Binding
+    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len - 4), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_text(stmt, 2, hexID.ptr, @intCast(hexID.len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 3, hexLoc[0]);
+    _ = c.sqlite3_bind_int(stmt, 4, hexLoc[1]);
+    _ = c.sqlite3_bind_int(stmt, 5, @as(i32, @intCast(terrainNum)));
+    _ = c.sqlite3_bind_text(stmt, 6, terrains[terrainNum].ptr, @intCast(terrains[terrainNum].len), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
+    _ = c.sqlite3_bind_int(stmt, 8, spine);
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+    }
 }
 
 fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
