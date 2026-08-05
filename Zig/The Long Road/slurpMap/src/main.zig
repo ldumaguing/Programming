@@ -123,7 +123,7 @@ fn saveTerrain(terrainType: usize, fname: []const u8, line: []u8, db: ?*c.sqlite
 
 fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
     // ********** slice string
-    var it = std.mem.splitAny(u8, line, ",");
+    var it = std.mem.splitScalar(u8, line, ',');
     while (it.next()) |hexID| {
         const hexLoc = convert_to_hexLoc(hexID);
         process_sql_statement(hexLoc, fname, hexID, terrainNum, db, 0);
@@ -133,8 +133,9 @@ fn terrain_1(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) 
 fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: []const u8, terrainNum: usize, db: ?*c.sqlite3, spineLoc: i32) void {
     // Prepare statement
     const query =
-        \\INSERT INTO MAP (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc)
-        \\VALUES (?1 || '.png', ?2, ?3, ?4, ?5, ?6, ?7, ?8)
+        \\INSERT INTO MAP
+        \\(filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc)
+        \\VALUES (?1 || 'png', ?2, ?3, ?4, ?5, ?6, ?7, ?8)
     ;
     var stmt: ?*c.sqlite3_stmt = null;
 
@@ -145,7 +146,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     defer _ = c.sqlite3_finalize(stmt);
 
     // Binding
-    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len - 4), c.SQLITE_TRANSIENT);
+    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len - 3), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_text(stmt, 2, hexID.ptr, @intCast(hexID.len), c.SQLITE_TRANSIENT);
     _ = c.sqlite3_bind_int(stmt, 3, hexLoc[0]);
     _ = c.sqlite3_bind_int(stmt, 4, hexLoc[1]);
@@ -154,7 +155,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
     _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
     _ = c.sqlite3_bind_int(stmt, 8, spineLoc);
 
-    // Execute
+    // Execute the insertion step
     const rc = c.sqlite3_step(stmt);
     if (rc != c.SQLITE_DONE) {
         print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
@@ -163,7 +164,7 @@ fn process_sql_statement(hexLoc: struct { i32, i32 }, fname: []const u8, hexID: 
 }
 
 fn terrain_2n3(fname: []const u8, line: []u8, terrainNum: usize, db: ?*c.sqlite3) void {
-    var it = std.mem.splitAny(u8, line, ":");
+    var it = std.mem.splitScalar(u8, line, ':');
     var index: i32 = 0;
     var hexLoc: struct { i32, i32 } = undefined;
 
@@ -186,11 +187,6 @@ fn convert_to_hexLoc(hexID: []const u8) struct { i32, i32 } {
 }
 
 fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
-    print("{d}:{s}\n", .{ terrainNum, spines });
-    if (terrainNum == 9) {
-        process_road(spines, hexLoc, fname, terrainNum, db, hexID);
-        return;
-    }
     var spineAddr: struct { i32, i32, i32 } = undefined; // x, y, spine
     const hexMODtwo = @mod(hexLoc[0], 2);
 
@@ -200,43 +196,6 @@ fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []cons
             spineAddr = get_uniq_hexAddr(hexLoc, spn);
             process_sql_statement(.{ spineAddr[0], spineAddr[1] }, fname, hexID, terrainNum, db, spineAddr[2]);
         } else process_sql_statement(hexLoc, fname, hexID, terrainNum, db, spn);
-    }
-}
-
-fn process_road(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
-    print("> {d},{d}: {s}\n", .{ hexLoc[0], hexLoc[1], spines });
-    if (std.mem.indexOfScalar(u8, spines, 'a') != null) {
-        print(">> a\n", .{});
-        save_road(1, hexLoc, fname, terrainNum, db, hexID);
-    }
-}
-
-fn save_road(spine: i32, hexLoc: struct { i32, i32 }, fname: []const u8, terrainNum: usize, db: ?*c.sqlite3, hexID: []const u8) void {
-    const query =
-        \\INSERT INTO MAP (filename, hexID, hex_x, hex_y, terrainNum, terrainName, terrainType, spineLoc) VALUES
-        \\   (?1 || '.png', ?2, ?3, ?4, ?5, ?6, ?7, ?8)
-    ;
-    var stmt: ?*c.sqlite3_stmt = null;
-
-    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
-        std.debug.print("Failed to prepare statement: {s}\n", .{c.sqlite3_errmsg(db)});
-        return;
-    }
-    defer _ = c.sqlite3_finalize(stmt);
-
-    // Binding
-    _ = c.sqlite3_bind_text(stmt, 1, fname.ptr, @intCast(fname.len - 4), c.SQLITE_TRANSIENT);
-    _ = c.sqlite3_bind_text(stmt, 2, hexID.ptr, @intCast(hexID.len), c.SQLITE_TRANSIENT);
-    _ = c.sqlite3_bind_int(stmt, 3, hexLoc[0]);
-    _ = c.sqlite3_bind_int(stmt, 4, hexLoc[1]);
-    _ = c.sqlite3_bind_int(stmt, 5, @as(i32, @intCast(terrainNum)));
-    _ = c.sqlite3_bind_text(stmt, 6, terrains[terrainNum].ptr, @intCast(terrains[terrainNum].len), c.SQLITE_TRANSIENT);
-    _ = c.sqlite3_bind_int(stmt, 7, terrainTypes[terrainNum]);
-    _ = c.sqlite3_bind_int(stmt, 8, spine);
-
-    // Execute
-    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
-        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
     }
 }
 
