@@ -129,12 +129,12 @@ pub fn main() anyerror!void {
                     for (spines) |spine| {
                         if (sql.is_road_exit(x, y, spine)) {
                             linePts = switch (spine) {
-                                1 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_A[0], spinePt_A[1]),
-                                2 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_B[0], spinePt_B[1]),
-                                4 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_C[0], spinePt_C[1]),
-                                8 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_D[0], spinePt_D[1]),
-                                16 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_E[0], spinePt_E[1]),
-                                else => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_F[0], spinePt_F[1]),
+                                1 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_A[0], spinePt_A[1]),
+                                2 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_B[0], spinePt_B[1]),
+                                4 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_C[0], spinePt_C[1]),
+                                8 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_D[0], spinePt_D[1]),
+                                16 => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_E[0], spinePt_E[1]),
+                                else => get_line_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_F[0], spinePt_F[1]),
                             };
                             // print("{d},{d} .. {d},{d}\n", .{ linePts[0], linePts[1], linePts[2], linePts[3] });
                             rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[0]);
@@ -144,19 +144,6 @@ pub fn main() anyerror!void {
             }
         }
     }
-}
-
-// ************************************************************************************************
-fn get_road_pts(x: usize, y: usize, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x: i32, p1y: i32) struct { i32, i32, i32, i32 } {
-    const float_x: f32 = @as(f32, (@floatFromInt(x))) * hex_w;
-    const float_y: f32 = @as(f32, (@floatFromInt(y))) * hex_y;
-
-    const P0x: i32 = @as(i32, @round(float_x)) + p0x;
-    const P0y: i32 = @as(i32, @round(float_y)) + (p0y * 2);
-    const P1x: i32 = @as(i32, @round(float_x)) + p1x;
-    const P1y: i32 = @as(i32, @round(float_y)) + (p1y * 2);
-
-    return .{ P0x, P0y, P1x, P1y };
 }
 
 // ************************************************************************************************

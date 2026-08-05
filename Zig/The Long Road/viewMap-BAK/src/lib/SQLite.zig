@@ -79,16 +79,20 @@ pub const SQLite = struct {
 
     // ********************************************************************************************
     pub fn is_road_exit(self: SQLite, x: usize, y: usize, spine: i32) bool {
-        var X: i32 = @intCast(x);
-        var Y: i32 = @intCast(y);
-        var spn: i32 = spine;
+        const X: i32 = @intCast(x);
+        const Y: i32 = @intCast(y);
+        const spn: i32 = spine;
 
-        if (@mod(X, 2) != 0) {
-            const addr = get_uniq_hexAddr(.{ X, Y }, spine);
-            X = addr[0];
-            Y = addr[1];
-            spn = addr[2];
-        }
+        //var X: i32 = @intCast(x);
+        //var Y: i32 = @intCast(y);
+        //var spn: i32 = spine;
+
+        //if (@mod(X, 2) != 0) {
+        //    const addr = get_uniq_hexAddr(.{ X, Y }, spine);
+        //    X = addr[0];
+        //    Y = addr[1];
+        //    spn = addr[2];
+        //}
 
         // Prepare statement
         const query1 =

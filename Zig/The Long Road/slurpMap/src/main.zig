@@ -194,6 +194,8 @@ fn process_spines(spines: []const u8, hexLoc: struct { i32, i32 }, fname: []cons
         const spn = std.math.powi(i32, 2, (spine - ref_a)) catch 0;
         if (hexMODtwo != 0) {
             spineAddr = get_uniq_hexAddr(hexLoc, spn);
+            print("{d}:({d},{d}),{d} <-- {s}({d},{d}),{d}\n", .{ terrainNum, spineAddr[0], spineAddr[1], spineAddr[2], hexID, hexLoc[0], hexLoc[1], spn });
+            // print("{s}({d},{d}),{d} --> ({d},{d}),{d}\n", .{ hexID, hexLoc[0], hexLoc[1], spn, spineAddr[0], spineAddr[1], spineAddr[2] });
             process_sql_statement(.{ spineAddr[0], spineAddr[1] }, fname, hexID, terrainNum, db, spineAddr[2]);
         } else process_sql_statement(hexLoc, fname, hexID, terrainNum, db, spn);
     }
