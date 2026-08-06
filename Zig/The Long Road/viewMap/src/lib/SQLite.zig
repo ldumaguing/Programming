@@ -84,11 +84,13 @@ pub const SQLite = struct {
         var spn: i32 = spine;
 
         if (@mod(X, 2) != 0) {
+            //print("{d},{d},{d} --> ", .{ X, Y, spn });
             const addr = get_uniq_hexAddr(.{ X, Y }, spine);
             X = addr[0];
             Y = addr[1];
             spn = addr[2];
         }
+        //print("{d},{d},{d}\n", .{ X, Y, spn });
 
         // Prepare statement
         const query1 =
