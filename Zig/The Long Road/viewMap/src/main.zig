@@ -88,7 +88,7 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(c64.colors[7]);
+        rl.clearBackground(c64.colors[11]);
 
         {
             camera.begin();
@@ -136,7 +136,15 @@ pub fn main() anyerror!void {
                                 16 => get_road_pts(hex_w, hex_y, spinePt_E),
                                 else => get_road_pts(hex_w, hex_y, spinePt_F),
                             };
-                            rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[0]), 10, c64.colors[0]);
+
+                            if (spine == 8) {
+                                //rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 20, c64.colors[5]);
+                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, .red);
+                            } else {
+                            rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[0]);
+                            rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 30, c64.colors[0]);
+                            rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, c64.colors[1]);
+                        }
                         }
                     }
                 }
@@ -147,11 +155,18 @@ pub fn main() anyerror!void {
 
 // ************************************************************************************************
 fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
-    print("{d},{d}\n", .{ spine[0], spine[1] });
+    //print("{d},{d}\n", .{ spine[0], spine[1] });
     const p0x: f32 = hex_w;
     const p0y: f32 = hex_y;
+    const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
+    const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
+    //if (spine[0] > 190) {
+        // print("{d},{d}\n", .{ spine[0], spine[1] });
+        // p0x = p0x + @as(f32, @floatFromInt(spine[0]));
+       // p1x = p1x + @as(f32, @floatFromInt(spine[0]));
+    //}
 
-    return .{ p0x, p0y, 0, 0 };
+    return .{ p0x, p0y, p1x, p1y };
 }
 
 // ************************************************************************************************
