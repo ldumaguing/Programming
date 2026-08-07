@@ -79,19 +79,6 @@ pub const SQLite = struct {
 
     // ********************************************************************************************
     pub fn is_road_exit(self: SQLite, x: usize, y: usize, spine: i32) bool {
-        var X: i32 = @intCast(x);
-        var Y: i32 = @intCast(y);
-        var spn: i32 = spine;
-
-        if (@mod(X, 2) != 0) {
-            //print("{d},{d},{d} --> ", .{ X, Y, spn });
-            const addr = get_uniq_hexAddr(.{ X, Y }, spine);
-            X = addr[0];
-            Y = addr[1];
-            spn = addr[2];
-        }
-        //print("{d},{d},{d}\n", .{ X, Y, spn });
-
         // Prepare statement
         const query1 =
             \\SELECT spineLoc FROM GameMap
@@ -110,49 +97,16 @@ pub const SQLite = struct {
         defer _ = c.sqlite3_finalize(stmt);
 
         // Binding
-        _ = c.sqlite3_bind_int(stmt, 1, X);
-        _ = c.sqlite3_bind_int(stmt, 2, Y);
+        _ = c.sqlite3_bind_int(stmt, 1, @intCast(x));
+        _ = c.sqlite3_bind_int(stmt, 2, @intCast(y));
         const curS: i32 = @intCast(self.currSession);
         _ = c.sqlite3_bind_int(stmt, 3, curS);
-        _ = c.sqlite3_bind_int(stmt, 4, spn);
+        _ = c.sqlite3_bind_int(stmt, 4, spine);
 
         // Execute
         if (c.sqlite3_step(stmt) == c.SQLITE_ROW) return true;
 
         return false;
-    }
-
-    // ============================================================================================
-    fn get_uniq_hexAddr(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
-        var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
-        if (spn == 1) {
-            sAddr[2] = 8;
-            sAddr[0] -= 1;
-            sAddr[1] -= 1;
-        }
-        if (spn == 2) {
-            sAddr[2] = 16;
-            sAddr[0] += 1;
-            sAddr[1] -= 1;
-        }
-        if (spn == 4) {
-            sAddr[2] = 32;
-            sAddr[0] += 1;
-        }
-        if (spn == 8) {
-            sAddr[0] -= 1;
-        }
-        if (spn == 16) {
-            sAddr[2] = 2;
-            sAddr[0] -= 1;
-        }
-        if (spn == 32) {
-            sAddr[2] = 4;
-            sAddr[0] -= 1;
-            sAddr[1] -= 1;
-        }
-
-        return sAddr;
     }
 
     // ********************************************************************************************

@@ -141,10 +141,10 @@ pub fn main() anyerror!void {
                                 //rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 20, c64.colors[5]);
                                 rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, .red);
                             } else {
-                            rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[0]);
-                            rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 30, c64.colors[0]);
-                            rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, c64.colors[1]);
-                        }
+                                rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[0]);
+                                rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 30, c64.colors[0]);
+                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, c64.colors[1]);
+                            }
                         }
                     }
                 }
@@ -161,9 +161,9 @@ fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32
     const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
     const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
     //if (spine[0] > 190) {
-        // print("{d},{d}\n", .{ spine[0], spine[1] });
-        // p0x = p0x + @as(f32, @floatFromInt(spine[0]));
-       // p1x = p1x + @as(f32, @floatFromInt(spine[0]));
+    // print("{d},{d}\n", .{ spine[0], spine[1] });
+    // p0x = p0x + @as(f32, @floatFromInt(spine[0]));
+    // p1x = p1x + @as(f32, @floatFromInt(spine[0]));
     //}
 
     return .{ p0x, p0y, p1x, p1y };
