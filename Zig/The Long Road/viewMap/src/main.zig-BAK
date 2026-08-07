@@ -88,7 +88,7 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(c64.colors[7]);
+        rl.clearBackground(c64.colors[11]);
 
         {
             camera.begin();
@@ -108,9 +108,8 @@ pub fn main() anyerror!void {
                         rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[9]);
                     }
 
-                    var linePts: struct { i32, i32, i32, i32 } = .{ 0, 0, 0, 0 };
-
                     // RIVER
+                    var linePts: struct { i32, i32, i32, i32 } = .{ 0, 0, 0, 0 };
                     for (spines) |spine| {
                         if (sql.is_river_spine(x, y, spine)) {
                             linePts = switch (spine) {
@@ -126,18 +125,26 @@ pub fn main() anyerror!void {
                     }
 
                     // ROAD
+                    var roadPts: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
                     for (spines) |spine| {
                         if (sql.is_road_exit(x, y, spine)) {
-                            linePts = switch (spine) {
-                                1 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_A[0], spinePt_A[1]),
-                                2 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_B[0], spinePt_B[1]),
-                                4 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_C[0], spinePt_C[1]),
-                                8 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_D[0], spinePt_D[1]),
-                                16 => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_E[0], spinePt_E[1]),
-                                else => get_road_pts(x, y, hex_width, hex_height, @intCast(x), @intCast(y), spinePt_F[0], spinePt_F[1]),
+                            roadPts = switch (spine) {
+                                1 => get_road_pts(hex_w, hex_y, spinePt_A),
+                                2 => get_road_pts(hex_w, hex_y, spinePt_B),
+                                4 => get_road_pts(hex_w, hex_y, spinePt_C),
+                                8 => get_road_pts(hex_w, hex_y, spinePt_D),
+                                16 => get_road_pts(hex_w, hex_y, spinePt_E),
+                                else => get_road_pts(hex_w, hex_y, spinePt_F),
                             };
-                            // print("{d},{d} .. {d},{d}\n", .{ linePts[0], linePts[1], linePts[2], linePts[3] });
-                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[0]);
+
+                            if (spine == 8) {
+                                rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 25, c64.colors[5]);
+                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 35, .red);
+                            } else {
+                                rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[0]);
+                                rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 30, c64.colors[0]);
+                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, c64.colors[1]);
+                            }
                         }
                     }
                 }
@@ -147,16 +154,19 @@ pub fn main() anyerror!void {
 }
 
 // ************************************************************************************************
-fn get_road_pts(x: usize, y: usize, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x: i32, p1y: i32) struct { i32, i32, i32, i32 } {
-    const float_x: f32 = @as(f32, (@floatFromInt(x))) * hex_w;
-    const float_y: f32 = @as(f32, (@floatFromInt(y))) * hex_y;
+fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
+    //print("{d},{d}\n", .{ spine[0], spine[1] });
+    const p0x: f32 = hex_w;
+    const p0y: f32 = hex_y;
+    const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
+    const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
+    //if (spine[0] > 190) {
+    // print("{d},{d}\n", .{ spine[0], spine[1] });
+    // p0x = p0x + @as(f32, @floatFromInt(spine[0]));
+    // p1x = p1x + @as(f32, @floatFromInt(spine[0]));
+    //}
 
-    const P0x: i32 = @as(i32, @round(float_x)) + p0x;
-    const P0y: i32 = @as(i32, @round(float_y)) + (p0y * 2);
-    const P1x: i32 = @as(i32, @round(float_x)) + p1x;
-    const P1y: i32 = @as(i32, @round(float_y)) + (p1y * 2);
-
-    return .{ P0x, P0y, P1x, P1y };
+    return .{ p0x, p0y, p1x, p1y };
 }
 
 // ************************************************************************************************

@@ -104,9 +104,9 @@ pub fn main() anyerror!void {
                     rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[15]);
 
                     // HILL
-                    if (sql.is_hill(x, y)) {
-                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[9]);
-                    }
+                    //if (sql.is_hill(x, y)) {
+                    //    rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[9]);
+                    //}
 
                     // RIVER
                     var linePts: struct { i32, i32, i32, i32 } = .{ 0, 0, 0, 0 };
@@ -138,8 +138,8 @@ pub fn main() anyerror!void {
                             };
 
                             if (spine == 8) {
-                                //rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 20, c64.colors[5]);
-                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, .red);
+                                rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 35, .green);
+                                rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 35, .red);
                             } else {
                                 rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[0]);
                                 rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 30, c64.colors[0]);
