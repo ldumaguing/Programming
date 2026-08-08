@@ -160,12 +160,6 @@ fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32
     const p0y: f32 = hex_y;
     const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
     const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
-    //if (spine[0] > 190) {
-    // print("{d},{d}\n", .{ spine[0], spine[1] });
-    // p0x = p0x + @as(f32, @floatFromInt(spine[0]));
-    // p1x = p1x + @as(f32, @floatFromInt(spine[0]));
-    //}
-
     return .{ p0x, p0y, p1x, p1y };
 }
 
