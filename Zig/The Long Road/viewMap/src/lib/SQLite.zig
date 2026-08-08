@@ -84,9 +84,9 @@ pub const SQLite = struct {
 
         var spn: struct { i32, i32, i32 } = .{ X, Y, 0 };
         if (@mod(X, 2) != 0) {
-            spn = get_uniq_hexAddr_EVEN(.{ spn[0], spn[1] }, spine);
-        } else {
             spn = get_uniq_hexAddr_ODD(.{ spn[0], spn[1] }, spine);
+        } else {
+            spn = get_uniq_hexAddr_EVEN(.{ spn[0], spn[1] }, spine);
         }
 
         // Prepare statement
@@ -257,7 +257,7 @@ pub const SQLite = struct {
         _ = c.sqlite3_close(self.db);
     }
 
-    fn get_uniq_hexAddr_ODD(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
+    fn get_uniq_hexAddr_EVEN(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
         var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
         if (spn == 8) {
             sAddr[1] += 1;
@@ -269,7 +269,7 @@ pub const SQLite = struct {
         return sAddr;
     }
 
-    fn get_uniq_hexAddr_EVEN(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
+    fn get_uniq_hexAddr_ODD(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
         var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
         if (spn == 1) {
             sAddr[2] = 8;
