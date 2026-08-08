@@ -79,6 +79,16 @@ pub const SQLite = struct {
 
     // ********************************************************************************************
     pub fn is_road_exit(self: SQLite, x: usize, y: usize, spine: i32) bool {
+        const X: i32 = @intCast(x);
+        const Y: i32 = @intCast(y);
+
+        var spn: struct { i32, i32, i32 } = .{ X, Y, 0 };
+        if (@mod(X, 2) != 0) {
+            spn = get_uniq_hexAddr_EVEN(.{ spn[0], spn[1] }, spine);
+        } else {
+            spn = get_uniq_hexAddr_ODD(.{ spn[0], spn[1] }, spine);
+        }
+
         // Prepare statement
         const query1 =
             \\SELECT spineLoc FROM GameMap
@@ -97,11 +107,11 @@ pub const SQLite = struct {
         defer _ = c.sqlite3_finalize(stmt);
 
         // Binding
-        _ = c.sqlite3_bind_int(stmt, 1, @intCast(x));
-        _ = c.sqlite3_bind_int(stmt, 2, @intCast(y));
+        _ = c.sqlite3_bind_int(stmt, 1, spn[0]);
+        _ = c.sqlite3_bind_int(stmt, 2, spn[1]);
         const curS: i32 = @intCast(self.currSession);
         _ = c.sqlite3_bind_int(stmt, 3, curS);
-        _ = c.sqlite3_bind_int(stmt, 4, spine);
+        _ = c.sqlite3_bind_int(stmt, 4, spn[2]);
 
         // Execute
         if (c.sqlite3_step(stmt) == c.SQLITE_ROW) return true;
@@ -113,6 +123,7 @@ pub const SQLite = struct {
     pub fn is_river_spine(self: SQLite, x: usize, y: usize, spine: i32) bool {
         const X: i32 = @intCast(x);
         const Y: i32 = @intCast(y);
+
         // Prepare statement
         const query1 =
             \\SELECT spineLoc FROM GameMap
@@ -244,5 +255,49 @@ pub const SQLite = struct {
     // ********************************************************************************************
     pub fn close(self: SQLite) void {
         _ = c.sqlite3_close(self.db);
+    }
+
+    fn get_uniq_hexAddr_ODD(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
+        var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
+        if (spn == 8) {
+            sAddr[1] += 1;
+            sAddr[2] = 1;
+        }
+
+        print(" *{d},{d},{d}*\n", .{ sAddr[0], sAddr[1], sAddr[2] });
+
+        return sAddr;
+    }
+
+    fn get_uniq_hexAddr_EVEN(hexLoc: struct { i32, i32 }, spn: i32) struct { i32, i32, i32 } {
+        var sAddr: struct { i32, i32, i32 } = .{ hexLoc[0], hexLoc[1], spn };
+        if (spn == 1) {
+            sAddr[2] = 8;
+            sAddr[0] -= 1;
+            sAddr[1] -= 1;
+        }
+        if (spn == 2) {
+            sAddr[2] = 16;
+            sAddr[0] += 1;
+            sAddr[1] -= 1;
+        }
+        if (spn == 4) {
+            sAddr[2] = 32;
+            sAddr[0] += 1;
+        }
+        if (spn == 8) {
+            sAddr[0] -= 1;
+        }
+        if (spn == 16) {
+            sAddr[2] = 2;
+            sAddr[0] -= 1;
+        }
+        if (spn == 32) {
+            sAddr[2] = 4;
+            sAddr[0] -= 1;
+            sAddr[1] -= 1;
+        }
+
+        return sAddr;
     }
 };
