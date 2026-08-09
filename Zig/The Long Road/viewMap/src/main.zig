@@ -104,8 +104,38 @@ pub fn main() anyerror!void {
                     rl.drawCircle(@intFromFloat(hex_w), @intFromFloat(hex_y), 10, c64.colors[15]);
 
                     // HILL
-                    if (sql.is_hill(x, y)) {
+                    if (sql.is_hex_area(x, y, 5)) {
                         rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[9]);
+                    }
+
+                    // LAKE
+                    if (sql.is_hex_area(x, y, 7)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 6, halfY + 18.5, 0.0, c64.colors[6]);
+                    }
+
+                    // CITY
+                    if (sql.is_hex_area(x, y, 2)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 4, halfY, 45.0, c64.colors[0]);
+                    }
+
+                    // TOWN
+                    if (sql.is_hex_area(x, y, 11)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 4, halfY * 0.6, 45.0, c64.colors[0]);
+                    }
+
+                    // CULTIVATED
+                    if (sql.is_hex_area(x, y, 3)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 4, halfY * 1.5, 45.0, c64.colors[5]);
+                    }
+
+                    // ROLLING
+                    if (sql.is_hex_area(x, y, 10)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 4, halfY, 0.0, c64.colors[5]);
+                    }
+
+                    // FOREST
+                    if (sql.is_hex_area(x, y, 4)) {
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 3, halfY, 30.0, c64.colors[5]);
                     }
 
                     // RIVER
@@ -120,7 +150,7 @@ pub fn main() anyerror!void {
                                 16 => get_line_pts(x, y, hex_width, hex_height, hexPt_F[0], hexPt_F[1], hexPt_G[0], hexPt_G[1]),
                                 else => get_line_pts(x, y, hex_width, hex_height, hexPt_G[0], hexPt_G[1], hexPt_A[0], hexPt_A[1]),
                             };
-                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[14]);
+                            rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, c64.colors[6]);
                         }
                     }
 

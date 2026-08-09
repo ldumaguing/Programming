@@ -46,7 +46,7 @@ pub const SQLite = struct {
     }
 
     // ********************************************************************************************
-    pub fn is_hill(self: SQLite, x: usize, y: usize) bool {
+    pub fn is_hex_area(self: SQLite, x: usize, y: usize, tNum: i32) bool {
         const X: i32 = @intCast(x);
         const Y: i32 = @intCast(y);
 
@@ -56,7 +56,7 @@ pub const SQLite = struct {
             \\WHERE hex_x = ?1
             \\AND hex_y = ?2
             \\AND sessionID = ?3
-            \\AND terrainNum = 5
+            \\AND terrainNum = ?4
         ;
 
         var stmt: ?*c.sqlite3_stmt = null;
@@ -71,6 +71,7 @@ pub const SQLite = struct {
         _ = c.sqlite3_bind_int(stmt, 2, Y);
         const curS: i32 = @intCast(self.currSession);
         _ = c.sqlite3_bind_int(stmt, 3, curS);
+        _ = c.sqlite3_bind_int(stmt, 4, tNum);
 
         // Execute
         if (c.sqlite3_step(stmt) == c.SQLITE_ROW) return true;
@@ -264,7 +265,7 @@ pub const SQLite = struct {
             sAddr[2] = 1;
         }
 
-        print(" *{d},{d},{d}*\n", .{ sAddr[0], sAddr[1], sAddr[2] });
+        // print(" *{d},{d},{d}*\n", .{ sAddr[0], sAddr[1], sAddr[2] });
 
         return sAddr;
     }
