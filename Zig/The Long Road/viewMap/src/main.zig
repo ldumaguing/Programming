@@ -135,7 +135,7 @@ pub fn main() anyerror!void {
 
                     // FOREST
                     if (sql.is_hex_area(x, y, 4)) {
-                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 3, halfY, 30.0, c64.colors[5]);
+                        rl.drawPoly(rl.Vector2.init(hex_w, hex_y), 3, halfY, 30.0, .dark_green);
                     }
 
                     // RIVER
@@ -167,11 +167,7 @@ pub fn main() anyerror!void {
                                 else => get_road_pts(hex_w, hex_y, spinePt_F),
                             };
 
-                            if (spine == 8) {
-                                rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[11]);
-                            } else {
-                                rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[11]);
-                            }
+                            rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, c64.colors[11]);
                         }
                     }
                 }
