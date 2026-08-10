@@ -265,8 +265,6 @@ pub const SQLite = struct {
             sAddr[2] = 1;
         }
 
-        // print(" *{d},{d},{d}*\n", .{ sAddr[0], sAddr[1], sAddr[2] });
-
         return sAddr;
     }
 
