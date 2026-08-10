@@ -123,6 +123,48 @@ pub const SQLite = struct {
     }
 
     // ********************************************************************************************
+    pub fn is_bridge(self: SQLite, x: usize, y: usize, spine: i32) bool {
+        const X: i32 = @intCast(x);
+        const Y: i32 = @intCast(y);
+
+        var spn: struct { i32, i32, i32 } = .{ X, Y, 0 };
+        if (@mod(X, 2) != 0) {
+            spn = get_uniq_hexAddr_ODD(.{ spn[0], spn[1] }, spine);
+        } else {
+            spn = get_uniq_hexAddr_EVEN(.{ spn[0], spn[1] }, spine);
+        }
+
+        // Prepare statement
+        const query1 =
+            \\SELECT spineLoc FROM GameMap
+            \\WHERE hex_x = ?1
+            \\AND hex_y = ?2
+            \\AND sessionID = ?3
+            \\AND terrainNum = 1
+            \\AND spineLoc = ?4
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, spn[0]);
+        _ = c.sqlite3_bind_int(stmt, 2, spn[1]);
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 3, curS);
+        _ = c.sqlite3_bind_int(stmt, 4, spn[2]);
+
+        // Execute
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) return true;
+
+        return false;
+    }
+
+    // ********************************************************************************************
     pub fn is_river_spine(self: SQLite, x: usize, y: usize, spine: i32) bool {
         const X: i32 = @intCast(x);
         const Y: i32 = @intCast(y);
