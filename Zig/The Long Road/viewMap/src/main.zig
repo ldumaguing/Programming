@@ -188,6 +188,24 @@ pub fn main() anyerror!void {
                             rl.drawPoly(rl.Vector2.init(bridgePts[2], bridgePts[3]), 4, halfY * 0.4, 45.0, c64.colors[0]);
                         }
                     }
+
+                    // TUNNEL ROAD
+                    var tRoadPts: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
+                    for (spines) |spine| {
+                        if (sql.is_tunnel(x, y, spine)) {
+                            tRoadPts = switch (spine) {
+                                1 => get_road_pts(hex_w, hex_y, spinePt_A),
+                                2 => get_road_pts(hex_w, hex_y, spinePt_B),
+                                4 => get_road_pts(hex_w, hex_y, spinePt_C),
+                                8 => get_road_pts(hex_w, hex_y, spinePt_D),
+                                16 => get_road_pts(hex_w, hex_y, spinePt_E),
+                                else => get_road_pts(hex_w, hex_y, spinePt_F),
+                            };
+
+                            rl.drawPoly(rl.Vector2.init(tRoadPts[2], tRoadPts[3]), 4, halfY * 0.6, 45.0, c64.colors[15]);
+                            rl.drawPoly(rl.Vector2.init(tRoadPts[2], tRoadPts[3]), 4, halfY * 0.4, 45.0, c64.colors[0]);
+                        }
+                    }
                 }
             }
         }
