@@ -80,6 +80,8 @@ pub const SQLite = struct {
 
     // ********************************************************************************************
     pub fn is_road_exit(self: SQLite, x: usize, y: usize, spine: i32) bool {
+        if (is_hex_area(self, x, y, 13)) return false; // don't draw road if from tunneled hex
+
         const X: i32 = @intCast(x);
         const Y: i32 = @intCast(y);
 

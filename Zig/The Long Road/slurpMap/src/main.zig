@@ -5,12 +5,12 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
-const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "HILL", "HILL 2", "LAKE", "RIVER", "ROAD", "ROLLING", "TOWN", "TUNNEL ROAD" };
+const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "HILL", "HILL 2", "LAKE", "RIVER", "ROAD", "ROLLING", "TOWN", "TUNNEL ROAD", "TUNNELED HEX" };
 // terrainType
 //    1: whole hexagon
 //    2: spine location
 //    3: road, path, etc.  The spines are exits from starting hexagon
-const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3 };
+const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3, 1 };
 const ref_a = 'a';
 
 pub fn main(init: std.process.Init) !void {
@@ -107,6 +107,10 @@ pub fn main(init: std.process.Init) !void {
         }
         if (std.mem.startsWith(u8, line, "TUNNEL ROAD *")) {
             terrainType = 12;
+            continue;
+        }
+        if (std.mem.startsWith(u8, line, "TUNNELED HEX *")) {
+            terrainType = 13;
             continue;
         }
 
