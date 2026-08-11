@@ -51,7 +51,7 @@ pub fn main() anyerror!void {
     var camera = rl.Camera2D{
         .target = .{ .x = 0, .y = 0 },
         .offset = .{ .x = 0, .y = 0 },
-        .zoom = 1.0,
+        .zoom = 0.5,
         .rotation = 0,
     };
 
