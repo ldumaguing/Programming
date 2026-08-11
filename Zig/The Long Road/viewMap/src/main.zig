@@ -11,8 +11,8 @@ pub fn main() anyerror!void {
 
     const tileCR = sql.get_2int_vals("tileCR");
 
-    const screenWidth = 1366;
-    const screenHeight = 768;
+    const screenWidth = 1280;
+    const screenHeight = 720;
 
     const spines = [_]i32{ 1, 2, 4, 8, 16, 32 };
 
