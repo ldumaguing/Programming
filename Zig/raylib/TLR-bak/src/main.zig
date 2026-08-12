@@ -1,0 +1,87 @@
+const std = @import("std");
+const print = std.debug.print;
+
+const rl = @import("raylib");
+
+pub fn main() anyerror!void {
+    const screenWidth = 800;
+    const screenHeight = 450;
+
+    rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - 2d camera mouse zoom");
+    defer rl.closeWindow(); // Close window and OpenGL context
+
+    var camera = rl.Camera2D{
+        .target = .{ .x = 0, .y = 0 },
+        .offset = .{ .x = 0, .y = 0 },
+        .zoom = 1.0,
+        .rotation = 0,
+    };
+
+    const image = try rl.loadImage("TLR/Map A.png"); // Loaded in CPU memory (RAM)
+    const texture = try rl.loadTextureFromImage(image); // Image converted to texture, GPU memory (VRAM)
+    rl.unloadImage(image);
+    defer rl.unloadTexture(texture);
+
+    const image1 = try rl.loadImage("TLR/Map B.png");
+    const texture1 = try rl.loadTextureFromImage(image1);
+    rl.unloadImage(image1);
+    defer rl.unloadTexture(texture1);
+
+    const chit = try rl.loadImage("TLR/7th-Challenger-F.png");
+    var texture_chit = try rl.loadTextureFromImage(chit);
+    defer rl.unloadImage(chit);
+    defer rl.unloadTexture(texture_chit);
+
+    const chit1 = try rl.loadImage("TLR/7th-Challenger-B.png");
+    defer rl.unloadImage(chit1);
+
+    rl.setTargetFPS(60); // Set our game to run at 60 frames-per-second
+
+    while (!rl.windowShouldClose()) { // Detect window close button or ESC key
+        if (rl.isKeyPressed(.up)) {
+            rl.unloadTexture(texture_chit);
+            texture_chit = try rl.loadTextureFromImage(chit1);
+        }
+        if (rl.isKeyPressed(.down)) {
+            rl.unloadTexture(texture_chit);
+            texture_chit = try rl.loadTextureFromImage(chit);
+        }
+
+        if (rl.isMouseButtonDown(.right)) {
+            var delta = rl.getMouseDelta();
+            delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
+            camera.target = rl.math.vector2Add(camera.target, delta);
+        }
+
+        const wheel = rl.getMouseWheelMove();
+        if (wheel != 0) {
+            const mouseScreenPos = rl.getMousePosition();
+            const mouseWorldPos = rl.getScreenToWorld2D(mouseScreenPos, camera);
+            camera.offset = mouseScreenPos;
+            camera.target = mouseWorldPos;
+
+            var scaleFactor = 1.0 + (0.25 * @abs(wheel));
+            if (wheel < 0) {
+                scaleFactor = 1.0 / scaleFactor;
+            }
+            camera.zoom = rl.math.clamp(camera.zoom * scaleFactor, 0.125, 64.0);
+        }
+
+        // Draw
+        //----------------------------------------------------------------------------------
+        rl.beginDrawing();
+        defer rl.endDrawing();
+
+        rl.clearBackground(.dark_green);
+
+        {
+            camera.begin();
+            defer camera.end();
+
+            rl.drawTexture(texture, 0, 0, .white);
+            rl.drawTexture(texture1, 3637, 0, .white);
+            rl.drawTexture(texture_chit, 100, 100, .white);
+            rl.drawTexture(texture_chit, 200, 200, .white);
+        }
+    }
+}
