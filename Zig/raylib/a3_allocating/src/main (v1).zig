@@ -18,7 +18,7 @@ pub fn main(init: std.process.Init) !void {
     const file_data = try Io.Dir.readFileAlloc(
         std.Io.Dir.cwd(),
         io,
-        "TLR/DB-Raging Spirits.png",
+        "TLR/cup.png",
         allocator,
         .unlimited,
     );
