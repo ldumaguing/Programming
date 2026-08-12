@@ -26,7 +26,7 @@ pub fn main(init: std.process.Init) !void {
 
     print("1: {d}\n", .{file_data.len});
 
-    var image = try rl.loadImageFromMemory(".png", file_data);
+    const image = try rl.loadImageFromMemory(".png", file_data);
     defer rl.unloadImage(image);
 
     const texture = try rl.loadTextureFromImage(image);
@@ -41,10 +41,10 @@ pub fn main(init: std.process.Init) !void {
         .unlimited,
     );
 
-    image = try rl.loadImageFromMemory(".png", file_data);
-    defer rl.unloadImage(image);
+    const image1 = try rl.loadImageFromMemory(".png", file_data);
+    defer rl.unloadImage(image1);
 
-    const texture1 = try rl.loadTextureFromImage(image);
+    const texture1 = try rl.loadTextureFromImage(image1);
     defer rl.unloadTexture(texture1);
 
     print("2: {d}\n", .{file_data.len});
