@@ -18,7 +18,7 @@ pub const Database = struct {
         if (c.sqlite3_open("DB/TLR.db", &dsk_db) != c.SQLITE_OK) {
             std.debug.print("Error opening database\n", .{});
         }
-        defer _ = c.sqlite3_close(dsk_db);
+        defer _ = c.sqlite3_close(dsk_db); // close disk connection after init.
 
         if (c.sqlite3_open(":memory:", &db) != c.SQLITE_OK) {
             std.debug.print("Error opening database\n", .{});
@@ -52,6 +52,8 @@ pub const Database = struct {
             .currSession = currSession,
         };
     }
+
+    // ********************************************************************************************
 
     // ********************************************************************************************
     pub fn foo(self: Database) void {

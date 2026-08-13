@@ -64,9 +64,9 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             save_text(db, line[0..4], line[5..], id);
             continue;
         }
-        if (std.mem.startsWith(u8, line, "maps:")) {
-            save_text(db, line[0..4], line[5..], id);
-            place_map(line[5..], id);
+        if (std.mem.startsWith(u8, line, "tiles:")) {
+            save_text(db, line[0..5], line[6..], id);
+            place_map(line[6..], id);
             continue;
         }
         if (std.mem.startsWith(u8, line, "turns:")) {
