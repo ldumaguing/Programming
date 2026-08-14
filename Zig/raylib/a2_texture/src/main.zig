@@ -13,12 +13,15 @@ pub fn main() anyerror!void {
     defer rl.CloseWindow(); // Close window and OpenGL context
 
     // const texture: rl.Texture2D = rl.LoadTexture("raylib_logo.png");
-    const texture = rl.LoadTexture("raylib_logo.png");
+    // const texture = rl.LoadTexture("raylib_logo.png");
+    var textures: [2]rl.Texture = undefined;
+    textures[0] = rl.LoadTexture("raylib_logo.png");
+    textures[1] = rl.LoadTexture("raylib_logo2.png");
 
     rl.SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
-    const W = (screenWidth / 2) - @divTrunc(texture.width, 2);
-    const H = (screenHeight / 2) - @divTrunc(texture.height, 2);
+    const W = (screenWidth / 2) - @divTrunc(textures[0].width, 2);
+    const H = (screenHeight / 2) - @divTrunc(textures[1].height, 2);
     print("--------------------> {d}\n", .{W});
     // Main game loop
     while (!rl.WindowShouldClose()) { // Detect window close button or ESC key
@@ -26,6 +29,7 @@ pub fn main() anyerror!void {
         defer rl.EndDrawing();
 
         rl.ClearBackground(rl.RAYWHITE);
-        rl.DrawTexture(texture, W, H, rl.WHITE);
+        rl.DrawTexture(textures[0], W, H, rl.WHITE);
+        rl.DrawTexture(textures[1], 0, 0, rl.WHITE);
     }
 }
