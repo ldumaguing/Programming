@@ -10,19 +10,37 @@ pub fn main() anyerror!void {
     db.foo();
 
     // ********************************************************************************************
-    const screenWidth = 800;
-    const screenHeight = 450;
+    const screenWidth = 1024;
+    const screenHeight = 720;
 
     rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - basic window");
     defer rl.closeWindow();
 
-    rl.setTargetFPS(60);
+    // ==========================================================
+    var images: [2]rl.Image = undefined;
+    images[0] = try rl.loadImage("TLR/Map A.png");
+    defer rl.unloadImage(images[0]);
+    images[1] = try rl.loadImage("TLR/Map B.png");
+    defer rl.unloadImage(images[1]);
+
+    var texture1: rl.Texture = try rl.loadTextureFromImage(images[1]);
+
+    // ==========================================================
+    rl.setTargetFPS(12);
 
     while (!rl.windowShouldClose()) {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.white);
+        // rl.clearBackground(.white);
+        rl.drawTexture(texture1, 0, 0, .white);
+
+        // Control frames speed
+        if (rl.isKeyPressed(.right)) {
+            texture1 = try rl.loadTextureFromImage(images[0]);
+        } else if (rl.isKeyPressed(.left)) {
+            texture1 = try rl.loadTextureFromImage(images[1]);
+        }
 
         rl.drawText("Congrats! You created your first window!", 190, 200, 20, .light_gray);
     }
