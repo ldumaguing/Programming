@@ -27,9 +27,19 @@ pub fn main() anyerror!void {
 
     try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
     try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
-    var texture1: rl.Texture = undefined;
 
+    var texture1: rl.Texture = undefined;
     texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
+
+    // ==========================================================
+    var combatants = std.ArrayList(rl.Image).empty;
+    defer combatants.deinit(allocator);
+
+    try combatants.append(allocator, try rl.loadImage("TLR/7th-Hamilton-F.png"));
+    try combatants.append(allocator, try rl.loadImage("TLR/7th-Hamilton-B.png"));
+
+    var unit: rl.Texture = undefined;
+    unit = try rl.loadTextureFromImage(combatants.items.ptr[0]);
 
     // ==========================================================
     asset.foo(db);
@@ -43,12 +53,15 @@ pub fn main() anyerror!void {
 
         // rl.clearBackground(.white);
         rl.drawTexture(texture1, 0, 0, .white);
+        rl.drawTexture(unit, 50, 50, .white);
 
         // Control frames speed
         if (rl.isKeyPressed(.right)) {
             texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
+            unit = try rl.loadTextureFromImage(combatants.items.ptr[0]);
         } else if (rl.isKeyPressed(.left)) {
             texture1 = try rl.loadTextureFromImage(images.items.ptr[1]);
+            unit = try rl.loadTextureFromImage(combatants.items.ptr[1]);
         }
 
         rl.drawText("Congrats! You created your first window!", 190, 200, 20, .light_gray);
