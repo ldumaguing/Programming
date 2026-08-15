@@ -25,8 +25,11 @@ pub fn main() anyerror!void {
     var images = std.ArrayList(rl.Image).empty;
     defer images.deinit(allocator);
 
-    try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
-    try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
+    // try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
+    // try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
+    // try add_tile(allocator, &images, "TLR/Map B.png");
+    try db.add_tile(allocator, &images, "TLR/Map A.png");
+    try db.add_tile(allocator, &images, "TLR/Map B.png");
 
     var texture1: rl.Texture = undefined;
     texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
@@ -64,6 +67,10 @@ pub fn main() anyerror!void {
             unit = try rl.loadTextureFromImage(combatants.items.ptr[1]);
         }
 
-        rl.drawText("Congrats! You created your first window!", 190, 200, 20, .light_gray);
+        rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
     }
 }
+
+// fn add_tile(allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), tname: [:0]const u8) !void {
+//     try images.append(allocator, try rl.loadImage(tname));
+// }

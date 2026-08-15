@@ -1,3 +1,4 @@
+const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
@@ -54,6 +55,10 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
+    pub fn add_tile(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), tname: [:0]const u8) !void {
+        _ = self;
+        try images.append(allocator, try rl.loadImage(tname));
+    }
 
     // ********************************************************************************************
     pub fn foo(self: Database) void {
