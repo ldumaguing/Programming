@@ -3,7 +3,7 @@ const std = @import("std");
 const print = std.debug.print;
 
 const sqlite3 = @import("lib/Database.zig");
-const asset = @import("lib/Asset.zig");
+const tile = @import("lib/Tile.zig");
 
 pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
@@ -22,17 +22,24 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     // ==========================================================
-    var images = std.ArrayList(rl.Image).empty;
-    defer images.deinit(allocator);
+    //var images = std.ArrayList(rl.Image).empty;
+    //defer images.deinit(allocator);
 
-    // try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
-    // try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
-    // try add_tile(allocator, &images, "TLR/Map B.png");
-    try db.add_tile(allocator, &images, "TLR/Map A.png");
-    try db.add_tile(allocator, &images, "TLR/Map B.png");
+    //try db.add_tile(allocator, &images, "TLR/Map A.png");
+    //try db.add_tile(allocator, &images, "TLR/Map B.png");
+
+    //var texture1: rl.Texture = undefined;
+    //texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
+
+    // ==========================================================
+    var GameMap = std.ArrayList(rl.Image).empty; // an array of tiles(images)
+    defer GameMap.deinit(allocator);
+
+    _ = tile.Tile.init(allocator, &GameMap, "TLR/Map A.png", 0);
+    _ = tile.Tile.init(allocator, &GameMap, "TLR/Map B.png", 1);
 
     var texture1: rl.Texture = undefined;
-    texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
+    texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[0]);
 
     // ==========================================================
     var combatants = std.ArrayList(rl.Image).empty;
@@ -43,9 +50,6 @@ pub fn main() anyerror!void {
 
     var unit: rl.Texture = undefined;
     unit = try rl.loadTextureFromImage(combatants.items.ptr[0]);
-
-    // ==========================================================
-    asset.foo(db);
 
     // ==========================================================
     rl.setTargetFPS(12);
@@ -60,17 +64,13 @@ pub fn main() anyerror!void {
 
         // Control frames speed
         if (rl.isKeyPressed(.right)) {
-            texture1 = try rl.loadTextureFromImage(images.items.ptr[0]);
+            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[0]);
             unit = try rl.loadTextureFromImage(combatants.items.ptr[0]);
         } else if (rl.isKeyPressed(.left)) {
-            texture1 = try rl.loadTextureFromImage(images.items.ptr[1]);
+            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[1]);
             unit = try rl.loadTextureFromImage(combatants.items.ptr[1]);
         }
 
         rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
     }
 }
-
-// fn add_tile(allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), tname: [:0]const u8) !void {
-//     try images.append(allocator, try rl.loadImage(tname));
-// }
