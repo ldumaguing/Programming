@@ -35,11 +35,11 @@ pub fn main() anyerror!void {
     var GameMap = std.ArrayList(rl.Image).empty; // an array of tiles(images)
     defer GameMap.deinit(allocator);
 
-    _ = tile.Tile.init(allocator, &GameMap, "TLR/Map A.png", 0);
-    _ = tile.Tile.init(allocator, &GameMap, "TLR/Map B.png", 1);
+    const MapA = tile.Tile.init(allocator, &GameMap, "TLR/Map A.png", 10);
+    const MapB = tile.Tile.init(allocator, &GameMap, "TLR/Map B.png", 11);
 
     var texture1: rl.Texture = undefined;
-    texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[0]);
+    texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[MapA.index]);
 
     // ==========================================================
     var combatants = std.ArrayList(rl.Image).empty;
@@ -64,10 +64,10 @@ pub fn main() anyerror!void {
 
         // Control frames speed
         if (rl.isKeyPressed(.right)) {
-            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[0]);
+            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[MapA.index]);
             unit = try rl.loadTextureFromImage(combatants.items.ptr[0]);
         } else if (rl.isKeyPressed(.left)) {
-            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[1]);
+            texture1 = try rl.loadTextureFromImage(GameMap.items.ptr[MapB.index]);
             unit = try rl.loadTextureFromImage(combatants.items.ptr[1]);
         }
 
