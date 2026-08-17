@@ -18,11 +18,14 @@ pub fn main() anyerror!void {
     defer Assets.deinit(allocator);
 
     // ********************************************************************************************
-    const screenWidth = 1024;
+    const screenWidth = 1280;
     const screenHeight = 720;
 
-    rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - basic window");
+    rl.initWindow(screenWidth, screenHeight, "The Long Road");
     defer rl.closeWindow();
+
+    // ==========================================================
+    try db.add_map_tiles(allocator, &Assets);
 
     // ==========================================================
     const MapA = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map A.png", 10);

@@ -55,6 +55,40 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
+    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) != c.SQLITE_ROW) return;
+
+        const raw_str = c.sqlite3_column_text(stmt, 0);
+        const name: []const u8 = std.mem.span(raw_str);
+        print("Fetched string: {s}\n", .{name});
+
+        // ======================================
+        if (std.mem.containsAtLeast(u8, name, 1, "A") or std.mem.containsAtLeast(u8, name, 1, "a")) {
+            print("***** found A\n", .{});
+            try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
+        }
+        if (std.mem.containsAtLeast(u8, name, 1, "B") or std.mem.containsAtLeast(u8, name, 1, "b")) {
+            print("***** found B\n", .{});
+        }
+        if (std.mem.containsAtLeast(u8, name, 1, "C") or std.mem.containsAtLeast(u8, name, 1, "c")) {
+            print("***** found C\n", .{});
+        }
+        if (std.mem.containsAtLeast(u8, name, 1, "D") or std.mem.containsAtLeast(u8, name, 1, "d")) {
+            print("***** found D\n", .{});
+        }
+        if (std.mem.containsAtLeast(u8, name, 1, "E") or std.mem.containsAtLeast(u8, name, 1, "e")) {
+            print("***** found E\n", .{});
+        }
+    }
+
+    // ********************************************************************************************
     pub fn add_tile(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), tname: [:0]const u8) !void {
         _ = self;
         try images.append(allocator, try rl.loadImage(tname));
