@@ -4,6 +4,7 @@ const print = std.debug.print;
 
 const sqlite3 = @import("lib/Database.zig");
 const cardboard = @import("lib/Cardboard.zig");
+const gamemap = @import("lib/GameMap.zig");
 
 pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
@@ -25,7 +26,9 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     // ==========================================================
-    try db.add_map_tiles(allocator, &Assets);
+    const gmap = gamemap.GameMap.init();
+    gmap.bar();
+    try db.add_map_tiles(allocator, &Assets, gmap);
 
     // ==========================================================
     //const MapA = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map A.png", 10);

@@ -2,6 +2,8 @@ const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
+const gamemap = @import("GameMap.zig");
+
 const c = @cImport({
     @cInclude("sqlite3.h");
 });
@@ -55,7 +57,8 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image)) !void {
+    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), gmap: gamemap.GameMap) !void {
+        gmap.foo();
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
