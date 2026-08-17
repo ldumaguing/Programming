@@ -28,13 +28,13 @@ pub fn main() anyerror!void {
     try db.add_map_tiles(allocator, &Assets);
 
     // ==========================================================
-    const MapA = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map A.png", 10);
-    const MapB = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map B.png", 11);
+    //const MapA = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map A.png", 10);
+    //const MapB = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map B.png", 11);
     const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);
     const Unit_1b = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-B.png", 13);
 
     var mapTile: rl.Texture = undefined;
-    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[MapA.index]);
+    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[0]);
     var unit_1: rl.Texture = undefined;
     unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
 
@@ -51,10 +51,10 @@ pub fn main() anyerror!void {
 
         // Control frames speed
         if (rl.isKeyPressed(.right)) {
-            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[MapA.index]);
+            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[0]);
             unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
         } else if (rl.isKeyPressed(.left)) {
-            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[MapB.index]);
+            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[1]);
             unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1b.index]);
         }
 

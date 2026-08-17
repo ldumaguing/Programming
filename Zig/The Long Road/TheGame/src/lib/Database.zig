@@ -66,32 +66,36 @@ pub const Database = struct {
         if (c.sqlite3_step(stmt) != c.SQLITE_ROW) return;
 
         const raw_str = c.sqlite3_column_text(stmt, 0);
-        const name: []const u8 = std.mem.span(raw_str);
-        print("Fetched string: {s}\n", .{name});
+        const tileLetters: []const u8 = std.mem.span(raw_str);
+        print("Fetched string: {s}\n", .{tileLetters});
 
         // ======================================
-        if (std.mem.containsAtLeast(u8, name, 1, "A") or std.mem.containsAtLeast(u8, name, 1, "a")) {
+        if (std.mem.containsAtLeast(u8, tileLetters, 1, "A") or std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
             print("***** found A\n", .{});
             try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
         }
-        if (std.mem.containsAtLeast(u8, name, 1, "B") or std.mem.containsAtLeast(u8, name, 1, "b")) {
+        if (std.mem.containsAtLeast(u8, tileLetters, 1, "B") or std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
             print("***** found B\n", .{});
+            try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
         }
-        if (std.mem.containsAtLeast(u8, name, 1, "C") or std.mem.containsAtLeast(u8, name, 1, "c")) {
+        if (std.mem.containsAtLeast(u8, tileLetters, 1, "C") or std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
             print("***** found C\n", .{});
+            try images.append(allocator, try rl.loadImage("TLR/Map C.png"));
         }
-        if (std.mem.containsAtLeast(u8, name, 1, "D") or std.mem.containsAtLeast(u8, name, 1, "d")) {
+        if (std.mem.containsAtLeast(u8, tileLetters, 1, "D") or std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
             print("***** found D\n", .{});
+            try images.append(allocator, try rl.loadImage("TLR/Map D.png"));
         }
-        if (std.mem.containsAtLeast(u8, name, 1, "E") or std.mem.containsAtLeast(u8, name, 1, "e")) {
+        if (std.mem.containsAtLeast(u8, tileLetters, 1, "E") or std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
             print("***** found E\n", .{});
+            try images.append(allocator, try rl.loadImage("TLR/Map E.png"));
         }
     }
 
     // ********************************************************************************************
-    pub fn add_tile(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), tname: [:0]const u8) !void {
+    pub fn add_tile(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), ttileLetters: [:0]const u8) !void {
         _ = self;
-        try images.append(allocator, try rl.loadImage(tname));
+        try images.append(allocator, try rl.loadImage(ttileLetters));
     }
 
     // ********************************************************************************************
