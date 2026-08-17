@@ -93,12 +93,6 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_tile(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), ttileLetters: [:0]const u8) !void {
-        _ = self;
-        try images.append(allocator, try rl.loadImage(ttileLetters));
-    }
-
-    // ********************************************************************************************
     pub fn foo(self: Database) void {
         print("{d}\n", .{self.currSession});
     }
