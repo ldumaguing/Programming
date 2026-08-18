@@ -4,7 +4,8 @@ const print = std.debug.print;
 
 const sqlite3 = @import("lib/Database.zig");
 const cardboard = @import("lib/Cardboard.zig");
-const gamemap = @import("lib/GameMap.zig");
+//const gamemap = @import("lib/GameMap.zig");
+const slate = @import("lib/Slate.zig");
 
 pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
@@ -18,6 +19,9 @@ pub fn main() anyerror!void {
     var Assets = std.ArrayList(rl.Image).empty;
     defer Assets.deinit(allocator);
 
+    var Slates = std.ArrayList(slate.Slate).empty;
+    defer Slates.deinit(allocator);
+
     // ********************************************************************************************
     const screenWidth = 1280;
     const screenHeight = 720;
@@ -26,18 +30,16 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     // ==========================================================
-    const gmap = gamemap.GameMap.init();
-    gmap.bar();
-    try db.add_map_tiles(allocator, &Assets, gmap);
+    try db.add_map_tiles(allocator, &Assets, &Slates);
+    print("slate count: {d}\n", .{Slates.items.len});
+
 
     // ==========================================================
-    //const MapA = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map A.png", 10);
-    //const MapB = cardboard.Cardboard.init(allocator, &Assets, "TLR/Map B.png", 11);
     const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);
     const Unit_1b = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-B.png", 13);
 
     var mapTile: rl.Texture = undefined;
-    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[0]);
+    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Slates.items.ptr[0].index]);
     var unit_1: rl.Texture = undefined;
     unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
 
@@ -54,10 +56,10 @@ pub fn main() anyerror!void {
 
         // Control frames speed
         if (rl.isKeyPressed(.right)) {
-            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[0]);
+            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Slates.items.ptr[0].index]);
             unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
         } else if (rl.isKeyPressed(.left)) {
-            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[1]);
+            mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Slates.items.ptr[1].index]);
             unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1b.index]);
         }
 

@@ -2,7 +2,7 @@ const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
-const gamemap = @import("GameMap.zig");
+const slate = @import("Slate.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -57,8 +57,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, images: *std.ArrayList(rl.Image), gmap: gamemap.GameMap) !void {
-        gmap.foo();
+    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, assets: *std.ArrayList(rl.Image), slates: *std.ArrayList(slate.Slate)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
@@ -75,23 +74,88 @@ pub const Database = struct {
         // ======================================
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "A") or std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
             print("***** found A\n", .{});
-            try images.append(allocator, try rl.loadImage("TLR/Map A.png"));
+            // add image to asset collection
+            const index = assets.items.len;
+            try assets.append(allocator, try rl.loadImage("TLR/Map A.png"));
+
+            // add slates
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "A")) {
+                const slt = slate.Slate.init(index, 0, 0.0);
+                _ = try slates.append(allocator, slt);
+            }
+
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
+                const slt = slate.Slate.init(index, 0, 180.0);
+                _ = try slates.append(allocator, slt);
+            }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "B") or std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
             print("***** found B\n", .{});
-            try images.append(allocator, try rl.loadImage("TLR/Map B.png"));
+            // add image to asset collection
+            const index = assets.items.len;
+            try assets.append(allocator, try rl.loadImage("TLR/Map B.png"));
+
+            // add slates
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "B")) {
+                const slt = slate.Slate.init(index, 1, 0.0);
+                _ = try slates.append(allocator, slt);
+            }
+
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
+                const slt = slate.Slate.init(index, 1, 180.0);
+                _ = try slates.append(allocator, slt);
+            }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "C") or std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
             print("***** found C\n", .{});
-            try images.append(allocator, try rl.loadImage("TLR/Map C.png"));
+            // add image to asset collection
+            const index = assets.items.len;
+            try assets.append(allocator, try rl.loadImage("TLR/Map C.png"));
+
+            // add slates
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "C")) {
+                const slt = slate.Slate.init(index, 2, 0.0);
+                _ = try slates.append(allocator, slt);
+            }
+
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
+                const slt = slate.Slate.init(index, 2, 180.0);
+                _ = try slates.append(allocator, slt);
+            }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "D") or std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
             print("***** found D\n", .{});
-            try images.append(allocator, try rl.loadImage("TLR/Map D.png"));
+            // add image to asset collection
+            const index = assets.items.len;
+            try assets.append(allocator, try rl.loadImage("TLR/Map D.png"));
+
+            // add slates
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "D")) {
+                const slt = slate.Slate.init(index, 3, 0.0);
+                _ = try slates.append(allocator, slt);
+            }
+
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
+                const slt = slate.Slate.init(index, 3, 180.0);
+                _ = try slates.append(allocator, slt);
+            }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "E") or std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
             print("***** found E\n", .{});
-            try images.append(allocator, try rl.loadImage("TLR/Map E.png"));
+            // add image to asset collection
+            const index = assets.items.len;
+            try assets.append(allocator, try rl.loadImage("TLR/Map E.png"));
+
+            // add slates
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "E")) {
+                const slt = slate.Slate.init(index, 4, 0.0);
+                _ = try slates.append(allocator, slt);
+            }
+
+            if (std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
+                const slt = slate.Slate.init(index, 4, 180.0);
+                _ = try slates.append(allocator, slt);
+            }
         }
     }
 
