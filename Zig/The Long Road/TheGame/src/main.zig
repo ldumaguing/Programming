@@ -26,6 +26,7 @@ pub fn main() anyerror!void {
     const screenWidth = 1280;
     const screenHeight = 720;
 
+    rl.setConfigFlags(.{ .window_undecorated = true });
     rl.initWindow(screenWidth, screenHeight, "The Long Road");
     defer rl.closeWindow();
 
@@ -33,6 +34,9 @@ pub fn main() anyerror!void {
     try db.add_map_tiles(allocator, &Assets, &Slates);
     print("slate count: {d}\n", .{Slates.items.len});
 
+    const message = try db.get_slateLetters(allocator);
+    defer allocator.free(message);
+    print("{s}\n", .{message});
 
     // ==========================================================
     const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);

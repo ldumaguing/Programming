@@ -69,7 +69,7 @@ pub const Database = struct {
 
         const raw_str = c.sqlite3_column_text(stmt, 0);
         const tileLetters: []const u8 = std.mem.span(raw_str);
-        print("Fetched string: {s}\n", .{tileLetters});
+        print("Fetched string: {s}...{s}\n", .{ tileLetters, raw_str });
 
         // ======================================
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "A") or std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
@@ -157,6 +157,22 @@ pub const Database = struct {
                 _ = try slates.append(allocator, slt);
             }
         }
+    }
+
+    // ********************************************************************************************
+    pub fn get_slateLetters(self: Database, allocator: std.mem.Allocator) ![]u8 {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) != c.SQLITE_ROW) return undefined;
+
+        const raw_str = c.sqlite3_column_text(stmt, 0);
+
+        return try std.fmt.allocPrint(allocator, "Hello, {s}!", .{raw_str});
     }
 
     // ********************************************************************************************
