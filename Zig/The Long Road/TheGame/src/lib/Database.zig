@@ -172,7 +172,7 @@ pub const Database = struct {
 
         const raw_str = c.sqlite3_column_text(stmt, 0);
 
-        return try std.fmt.allocPrint(allocator, "Hello, {s}!", .{raw_str});
+        return try std.fmt.allocPrint(allocator, "{s}", .{raw_str});
     }
 
     // ********************************************************************************************
