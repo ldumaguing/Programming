@@ -10,4 +10,13 @@ pub fn main() !void {
     print("{d}\n", .{gMap.GMap[0][0]});
     print("{d}\n", .{gMap.GMap[1][1]});
     print("{d}\n", .{gMap.GMap[2][2]});
+
+    print("**************************\n", .{});
+    for (0..4) |row| {
+        for (0..4) |col| {
+            print("({d},{d})", .{ col, row });
+            print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
+        }
+        print("\n", .{});
+    }
 }
