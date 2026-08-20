@@ -2,15 +2,33 @@ const std = @import("std");
 const print = std.debug.print;
 
 pub const GameMap = struct {
-    index: usize,
-    row: i32,
-    col: i32,
+    GMap: [4][4]u32,
 
-    pub fn init() GameMap {
+    pub fn init(tileLetters: []const u8) GameMap {
+        print("{s}\n", .{tileLetters});
+        var GMap: [4][4]u32 = [4][4]u32{
+            [4]u32{ 0, 0, 0, 0 },
+            [4]u32{ 0, 0, 0, 0 },
+            [4]u32{ 0, 0, 0, 0 },
+            [4]u32{ 0, 0, 0, 0 },
+        };
+
+        var it_Row = std.mem.splitScalar(u8, tileLetters, '_');
+        var locCR: [2]i32 = .{ 0, 0 };
+        while (it_Row.next()) |Row| {
+            var it_Col = std.mem.splitScalar(u8, Row, ',');
+            while (it_Col.next()) |Col| {
+                print(" {d},{d}: {s}\n", .{ locCR[0], locCR[1], Col });
+                if (Col.len < 1) continue;
+                GMap[@intCast(locCR[0])][@intCast(locCR[1])] = @as(u32, @intCast(Col[0]));
+                locCR[0] += 1;
+            }
+            locCR[0] = 0;
+            locCR[1] += 1;
+        }
+
         return GameMap{
-            .index = 0,
-            .row = 0,
-            .col = 0,
+            .GMap = GMap,
         };
     }
 
