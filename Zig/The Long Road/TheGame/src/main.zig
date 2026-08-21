@@ -36,7 +36,7 @@ pub fn main() anyerror!void {
 
     const tileLetters = try db.get_tileLetters(allocator);
     defer allocator.free(tileLetters);
-    print(">>>>>>>>>>>>>>>>>>>>>>>> {s}:{d}\n", .{ tileLetters, db.currSession });
+
     var gMap = gamemap.GameMap.init(tileLetters);
 
     for (0..4) |row| {
@@ -95,9 +95,7 @@ pub fn main() anyerror!void {
         const wheel = rl.getMouseWheelMove();
         if (wheel != 0) {
             const mouseWorldPos = rl.getScreenToWorld2D(rl.getMousePosition(), camera);
-
             camera.offset = rl.getMousePosition();
-
             camera.target = mouseWorldPos;
 
             // Zoom increment
