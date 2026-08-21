@@ -1,6 +1,8 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const tile = @import("Tile.zig");
+
 pub const GameMap = struct {
     GMap: [4][4]i32,
 
@@ -36,6 +38,24 @@ pub const GameMap = struct {
     }
 
     // ********************************************************************************************
+    pub fn modify_GMap(self: GameMap, tiles: *std.ArrayList(tile.Tile)) void {
+        print("modifying....................\n", .{});
+
+        print("{d}\n", .{tiles.items.len});
+        for (0..tiles.items.len) |x| {
+            print("{d}:{d}, ", .{ tiles.items[x].id, tiles.items[x].rotation });
+        }
+        print("\n", .{});
+
+        for (0..4) |row| {
+            for (0..4) |col| {
+                print("({d},{d})", .{ col, row });
+                print("{d},", .{self.GMap[@intCast(col)][@intCast(row)]});
+            }
+            print("\n", .{});
+        }
+    }
+
     pub fn foo(self: GameMap) void {
         _ = self;
         print("************** yo ************\n", .{});

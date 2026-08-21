@@ -60,9 +60,18 @@ pub const Database = struct {
     pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, assets: *std.ArrayList(rl.Image), tiles: *std.ArrayList(tile.Tile)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
-        const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
+        const sql =
+            \\SELECT val_text FROM GameMeta
+            \\WHERE
+            \\attrib = 'tiles' AND
+            \\sessionID = ?1
+        ;
         _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
         defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Evaluate the statement
         if (c.sqlite3_step(stmt) != c.SQLITE_ROW) return;
@@ -163,9 +172,18 @@ pub const Database = struct {
     pub fn get_tileLetters(self: Database, allocator: std.mem.Allocator) ![]u8 {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
-        const sql = "SELECT val_text FROM GameMeta WHERE attrib = 'tiles'";
+        const sql =
+            \\SELECT val_text FROM GameMeta
+            \\WHERE
+            \\attrib = 'tiles' AND
+            \\sessionID = ?1
+        ;
         _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
         defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Evaluate the statement
         if (c.sqlite3_step(stmt) != c.SQLITE_ROW) return undefined;
