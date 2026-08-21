@@ -37,7 +37,7 @@ pub fn main() anyerror!void {
     const tileLetters = try db.get_tileLetters(allocator);
     defer allocator.free(tileLetters);
     print(">>>>>>>>>>>>>>>>>>>>>>>> {s}:{d}\n", .{ tileLetters, db.currSession });
-    const gMap = gamemap.GameMap.init(tileLetters);
+    var gMap = gamemap.GameMap.init(tileLetters);
 
     for (0..4) |row| {
         for (0..4) |col| {
@@ -54,6 +54,15 @@ pub fn main() anyerror!void {
     print("\n", .{});
 
     gMap.modify_GMap(&Tiles);
+
+    for (0..4) |row| {
+        for (0..4) |col| {
+            print("({d},{d})", .{ col, row });
+            print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
+        }
+        print("\n", .{});
+    }
+    print("\n", .{});
 
     // ==========================================================
     const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);

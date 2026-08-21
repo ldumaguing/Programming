@@ -38,24 +38,56 @@ pub const GameMap = struct {
     }
 
     // ********************************************************************************************
-    pub fn modify_GMap(self: GameMap, tiles: *std.ArrayList(tile.Tile)) void {
+    pub fn modify_GMap(self: *GameMap, tiles: *std.ArrayList(tile.Tile)) void {
         print("modifying....................\n", .{});
 
-        print("{d}\n", .{tiles.items.len});
-        for (0..tiles.items.len) |x| {
-            print("{d}:{d}, ", .{ tiles.items[x].id, tiles.items[x].rotation });
-        }
-        print("\n", .{});
+        //self.GMap[0][0] = get_tile_id(tiles);
+
+        //print("{d}\n", .{tiles.items.len});
+        //for (0..tiles.items.len) |x| {
+        //    print("{d}:{d}, ", .{ tiles.items[x].id, tiles.items[x].rotation });
+        //}
+        //print("\n", .{});
 
         for (0..4) |row| {
             for (0..4) |col| {
-                print("({d},{d})", .{ col, row });
-                print("{d},", .{self.GMap[@intCast(col)][@intCast(row)]});
+                //        print("({d},{d})", .{ col, row });
+                //        print("{d},", .{self.GMap[@intCast(col)][@intCast(row)]});
+                const X = get_tile_id(tiles, self.GMap[@intCast(col)][@intCast(row)]);
+                //print("> {d}\n", .{X});
+                self.GMap[@intCast(col)][@intCast(row)] = X;
             }
-            print("\n", .{});
+            //    print("\n", .{});
         }
     }
 
+    // ==========================================
+    fn get_tile_id(tiles: *std.ArrayList(tile.Tile), letter: i32) i32 {
+        const ref_A: i32 = 'A';
+        const ref_a: i32 = 'a';
+        //print("{d}:{d}\n", .{ ref_A, ref_a });
+
+        var rotation: f32 = 0.0;
+        var ref = letter - ref_A;
+        if (ref > 26) {
+            ref = letter - ref_a;
+            rotation = 180;
+        }
+
+        var tile_id: i32 = -1;
+        for (0..tiles.items.len) |x| {
+            // print("{d}:{d}, ", .{ tiles.items[x].id, tiles.items[x].rotation });
+            if (ref >= 0) {
+                //print("{d}...{d}:{d} --- {d}:{d}\n", .{ x, ref, rotation, tiles.items[x].id, tiles.items[x].rotation });
+                if ((ref == tiles.items[x].id) and (rotation == tiles.items[x].rotation))
+                    tile_id = @intCast(x);
+            }
+        }
+        //print("{d}\n", .{letter});
+        return tile_id;
+    }
+
+    // ********************************************************************************************
     pub fn foo(self: GameMap) void {
         _ = self;
         print("************** yo ************\n", .{});
