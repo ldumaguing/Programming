@@ -10,14 +10,16 @@ const tile = @import("lib/Tile.zig");
 pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
     defer db.close();
-    db.foo();
 
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
 
-    var Assets = std.ArrayList(rl.Image).empty;
-    defer Assets.deinit(allocator);
+    // var Assets = std.ArrayList(rl.Image).empty;
+    // defer Assets.deinit(allocator);
+
+    var Textures = std.ArrayList(rl.Texture).empty;
+    defer Textures.deinit(allocator);
 
     var Tiles = std.ArrayList(tile.Tile).empty;
     defer Tiles.deinit(allocator);
@@ -31,7 +33,7 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     // ==========================================================
-    try db.add_map_tiles(allocator, &Assets, &Tiles);
+    try db.add_map_tiles(allocator, &Textures, &Tiles);
     print("tile count: {d}\n", .{Tiles.items.len});
 
     const tileLetters = try db.get_tileLetters(allocator);
@@ -64,14 +66,12 @@ pub fn main() anyerror!void {
     }
     print("\n", .{});
 
-    // ==========================================================
-    const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);
-    const Unit_1b = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-B.png", 13);
+    db.foo();
 
-    var mapTile: rl.Texture = undefined;
-    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
-    var unit_1: rl.Texture = undefined;
-    unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
+    // ==========================================================
+    //var mapTile: rl.Texture = undefined;
+    //const mapTile1 = Textures.items.ptr[0];
+    //const mapTile2 = Textures.items.ptr[1];
 
     // ==========================================================
     rl.setTargetFPS(12);
@@ -110,26 +110,42 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.black);
+        rl.clearBackground(.blue);
 
         {
             camera.begin();
             defer camera.end();
 
             // rl.clearBackground(.white);
-            rl.drawTexture(mapTile, 0, 0, .white);
-            rl.drawTexture(unit_1, 50, 50, .white);
+            //rl.drawTexture(mapTile1, 0, 0, .white);
+            //rl.drawTexture(mapTile2, 1000, 0, .white);
 
-            // Control frames speed
-            if (rl.isKeyPressed(.right)) {
-                mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
-                unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
-            } else if (rl.isKeyPressed(.left)) {
-                mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[1].index]);
-                unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1b.index]);
+            for (0..4) |row| {
+                for (0..4) |col| {
+                    if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
+                        print("({d},{d})", .{ col, row });
+                        print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
+
+                        //  const tile_num = gMap.GMap[@intCast(col)][@intCast(row)];
+                        const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
+                        print("---{d}", .{Tiles.items.ptr[@intCast(tile_num)].index});
+                        const X: f32 = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
+                        const Y: f32 = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
+                        const rotation: f32 = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+                        //print("{d}\n", .{db.pixelCount[0]});
+                        print("---> {d}", .{rotation});
+                        if (rotation > 0) {
+                            const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
+                            const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
+                        } else {
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = 0 }, rotation, 1.0, .white);
+                        }
+                        // void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint);
+                    }
+                }
+                print("\n", .{});
             }
-
-            rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
         }
     }
 }

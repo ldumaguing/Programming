@@ -130,10 +130,17 @@ pub fn main() anyerror!void {
                         const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
                         print("---{d}", .{Tiles.items.ptr[@intCast(tile_num)].index});
                         const X: f32 = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
+                        const Y: f32 = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
                         const rotation: f32 = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
                         //print("{d}\n", .{db.pixelCount[0]});
                         print("---> {d}", .{rotation});
-                        rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = 0 }, rotation, 1.0, .white);
+                        if (rotation > 0) {
+                            const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
+                            const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
+                        } else {
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = 0 }, rotation, 1.0, .white);
+                        }
                         // void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint);
                     }
                 }
