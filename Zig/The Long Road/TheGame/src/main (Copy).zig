@@ -10,16 +10,14 @@ const tile = @import("lib/Tile.zig");
 pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
     defer db.close();
+    db.foo();
 
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
 
-    // var Assets = std.ArrayList(rl.Image).empty;
-    // defer Assets.deinit(allocator);
-
-    var Textures = std.ArrayList(rl.Texture).empty;
-    defer Textures.deinit(allocator);
+    var Assets = std.ArrayList(rl.Image).empty;
+    defer Assets.deinit(allocator);
 
     var Tiles = std.ArrayList(tile.Tile).empty;
     defer Tiles.deinit(allocator);
@@ -33,7 +31,7 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     // ==========================================================
-    try db.add_map_tiles(allocator, &Textures, &Tiles);
+    try db.add_map_tiles(allocator, &Assets, &Tiles);
     print("tile count: {d}\n", .{Tiles.items.len});
 
     const tileLetters = try db.get_tileLetters(allocator);
@@ -66,12 +64,14 @@ pub fn main() anyerror!void {
     }
     print("\n", .{});
 
-    db.foo();
-
     // ==========================================================
-    //var mapTile: rl.Texture = undefined;
-    //const mapTile1 = Textures.items.ptr[0];
-    //const mapTile2 = Textures.items.ptr[1];
+    const Unit_1f = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-F.png", 12);
+    const Unit_1b = cardboard.Cardboard.init(allocator, &Assets, "TLR/7th-Hamilton-B.png", 13);
+
+    var mapTile: rl.Texture = undefined;
+    mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
+    var unit_1: rl.Texture = undefined;
+    unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
 
     // ==========================================================
     rl.setTargetFPS(12);
@@ -110,27 +110,26 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.blue);
+        rl.clearBackground(.black);
 
         {
             camera.begin();
             defer camera.end();
 
             // rl.clearBackground(.white);
-            //rl.drawTexture(mapTile1, 0, 0, .white);
-            //rl.drawTexture(mapTile2, 1000, 0, .white);
+            rl.drawTexture(mapTile, 0, 0, .white);
+            rl.drawTexture(unit_1, 50, 50, .white);
 
-            for (0..4) |row| {
-                for (0..4) |col| {
-                    // print("({d},{d})", .{ col, row });
-                    // print("{d},", .{   gMap.GMap[@intCast(col)][@intCast(row)]    });
-                    const X = @as(i32, @intCast(col)) * db.pixelCount[0];
-                    if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
-                        print("{d}\n", .{db.pixelCount[0]});
-                        rl.drawTexture(Textures.items.ptr[0], X, 0, .white);
-                    }
-                }
+            // Control frames speed
+            if (rl.isKeyPressed(.right)) {
+                mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
+                unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1f.index]);
+            } else if (rl.isKeyPressed(.left)) {
+                mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[1].index]);
+                unit_1 = try rl.loadTextureFromImage(Assets.items.ptr[Unit_1b.index]);
             }
+
+            rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
         }
     }
 }

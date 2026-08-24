@@ -11,6 +11,7 @@ const c = @cImport({
 pub const Database = struct {
     db: ?*c.sqlite3, // in-memory Database
     currSession: i64,
+    pixelCount: [2]i32,
 
     // ********************************************************************************************
     pub fn init() Database {
@@ -49,15 +50,28 @@ pub const Database = struct {
             currSession = c.sqlite3_column_int64(stmt, 0);
         }
 
+        // Prepare the SQL statement
+        const sql_1 = "SELECT val_int0, val_int1 FROM GameMeta WHERE attrib = 'pixelCount'";
+        _ = c.sqlite3_prepare_v2(dsk_db, sql_1, -1, &stmt, null);
+
+        // Evaluate the statement
+        var i64_X: i64 = 0;
+        var i64_Y: i64 = 0;
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            i64_X = c.sqlite3_column_int64(stmt, 0);
+            i64_Y = c.sqlite3_column_int64(stmt, 1);
+        }
+
         // ======================================================
         return Database{
             .db = db,
             .currSession = currSession,
+            .pixelCount = .{ @intCast(i64_X), @intCast(i64_Y) },
         };
     }
 
     // ********************************************************************************************
-    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, assets: *std.ArrayList(rl.Image), tiles: *std.ArrayList(tile.Tile)) !void {
+    pub fn add_map_tiles(self: Database, allocator: std.mem.Allocator, textures: *std.ArrayList(rl.Texture), tiles: *std.ArrayList(tile.Tile)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -81,89 +95,91 @@ pub const Database = struct {
         print("Fetched string: {s}...{s}\n", .{ tileLetters, raw_str });
 
         // ======================================
+        // var mapTile: rl.Texture = undefined;
+        // mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "A") or std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
             print("***** found A\n", .{});
             // add image to asset collection
-            const index = assets.items.len;
-            try assets.append(allocator, try rl.loadImage("TLR/Map A.png"));
+            const index = textures.items.len;
+            try textures.append(allocator, try rl.loadTexture("TLR/Map A.png"));
 
             // add tiles
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "A")) {
-                const slt = tile.Tile.init(index, 0, 0.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 0, 0.0);
+                _ = try tiles.append(allocator, tl);
             }
 
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
-                const slt = tile.Tile.init(index, 0, 180.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 0, 180.0);
+                _ = try tiles.append(allocator, tl);
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "B") or std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
             print("***** found B\n", .{});
             // add image to asset collection
-            const index = assets.items.len;
-            try assets.append(allocator, try rl.loadImage("TLR/Map B.png"));
+            const index = textures.items.len;
+            try textures.append(allocator, try rl.loadTexture("TLR/Map B.png"));
 
             // add tiles
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "B")) {
-                const slt = tile.Tile.init(index, 1, 0.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 1, 0.0);
+                _ = try tiles.append(allocator, tl);
             }
 
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
-                const slt = tile.Tile.init(index, 1, 180.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 1, 180.0);
+                _ = try tiles.append(allocator, tl);
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "C") or std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
             print("***** found C\n", .{});
             // add image to asset collection
-            const index = assets.items.len;
-            try assets.append(allocator, try rl.loadImage("TLR/Map C.png"));
+            const index = textures.items.len;
+            try textures.append(allocator, try rl.loadTexture("TLR/Map C.png"));
 
             // add tiles
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "C")) {
-                const slt = tile.Tile.init(index, 2, 0.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 2, 0.0);
+                _ = try tiles.append(allocator, tl);
             }
 
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
-                const slt = tile.Tile.init(index, 2, 180.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 2, 180.0);
+                _ = try tiles.append(allocator, tl);
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "D") or std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
             print("***** found D\n", .{});
             // add image to asset collection
-            const index = assets.items.len;
-            try assets.append(allocator, try rl.loadImage("TLR/Map D.png"));
+            const index = textures.items.len;
+            try textures.append(allocator, try rl.loadTexture("TLR/Map D.png"));
 
             // add tiles
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "D")) {
-                const slt = tile.Tile.init(index, 3, 0.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 3, 0.0);
+                _ = try tiles.append(allocator, tl);
             }
 
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
-                const slt = tile.Tile.init(index, 3, 180.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 3, 180.0);
+                _ = try tiles.append(allocator, tl);
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "E") or std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
             print("***** found E\n", .{});
             // add image to asset collection
-            const index = assets.items.len;
-            try assets.append(allocator, try rl.loadImage("TLR/Map E.png"));
+            const index = textures.items.len;
+            try textures.append(allocator, try rl.loadTexture("TLR/Map E.png"));
 
             // add tiles
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "E")) {
-                const slt = tile.Tile.init(index, 4, 0.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 4, 0.0);
+                _ = try tiles.append(allocator, tl);
             }
 
             if (std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
-                const slt = tile.Tile.init(index, 4, 180.0);
-                _ = try tiles.append(allocator, slt);
+                const tl = tile.Tile.init(index, 4, 180.0);
+                _ = try tiles.append(allocator, tl);
             }
         }
     }
@@ -196,6 +212,7 @@ pub const Database = struct {
     // ********************************************************************************************
     pub fn foo(self: Database) void {
         print("{d}\n", .{self.currSession});
+        print("{d},{d}\n", .{ self.pixelCount[0], self.pixelCount[1] });
     }
 
     // ********************************************************************************************
