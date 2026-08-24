@@ -15,9 +15,6 @@ pub fn main() anyerror!void {
     defer arena.deinit();
     const allocator = arena.allocator();
 
-    // var Assets = std.ArrayList(rl.Image).empty;
-    // defer Assets.deinit(allocator);
-
     var Textures = std.ArrayList(rl.Texture).empty;
     defer Textures.deinit(allocator);
 
@@ -34,44 +31,13 @@ pub fn main() anyerror!void {
 
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
-    print("tile count: {d}\n", .{Tiles.items.len});
 
     const tileLetters = try db.get_tileLetters(allocator);
     defer allocator.free(tileLetters);
 
     var gMap = gamemap.GameMap.init(tileLetters);
 
-    for (0..4) |row| {
-        for (0..4) |col| {
-            print("({d},{d})", .{ col, row });
-            print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
-        }
-        print("\n", .{});
-    }
-
-    print("{d}\n", .{Tiles.items.len});
-    for (0..Tiles.items.len) |x| {
-        print("{d}:{d}, ", .{ Tiles.items[x].id, Tiles.items[x].rotation });
-    }
-    print("\n", .{});
-
     gMap.modify_GMap(&Tiles);
-
-    for (0..4) |row| {
-        for (0..4) |col| {
-            print("({d},{d})", .{ col, row });
-            print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
-        }
-        print("\n", .{});
-    }
-    print("\n", .{});
-
-    db.foo();
-
-    // ==========================================================
-    //var mapTile: rl.Texture = undefined;
-    //const mapTile1 = Textures.items.ptr[0];
-    //const mapTile2 = Textures.items.ptr[1];
 
     // ==========================================================
     rl.setTargetFPS(12);
@@ -110,41 +76,28 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.blue);
+        rl.clearBackground(.black);
 
         {
             camera.begin();
             defer camera.end();
 
-            // rl.clearBackground(.white);
-            //rl.drawTexture(mapTile1, 0, 0, .white);
-            //rl.drawTexture(mapTile2, 1000, 0, .white);
-
             for (0..4) |row| {
                 for (0..4) |col| {
                     if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
-                        print("({d},{d})", .{ col, row });
-                        print("{d},", .{gMap.GMap[@intCast(col)][@intCast(row)]});
-
-                        //  const tile_num = gMap.GMap[@intCast(col)][@intCast(row)];
                         const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
-                        print("---{d}", .{Tiles.items.ptr[@intCast(tile_num)].index});
                         const X: f32 = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
                         const Y: f32 = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
                         const rotation: f32 = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
-                        //print("{d}\n", .{db.pixelCount[0]});
-                        print("---> {d}", .{rotation});
                         if (rotation > 0) {
                             const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
                             const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
                             rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
                         } else {
-                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = 0 }, rotation, 1.0, .white);
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = Y }, rotation, 1.0, .white);
                         }
-                        // void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint);
                     }
                 }
-                print("\n", .{});
             }
         }
     }

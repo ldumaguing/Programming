@@ -9,7 +9,6 @@ pub const Tile = struct {
 
     // ********************************************************************************************
     pub fn init(index: usize, id: usize, rotation: f32) Tile {
-        print(".......{d}:{d}\n", .{ index, id });
         // ======================================================
         return Tile{
             .index = index,

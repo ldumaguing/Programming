@@ -20,12 +20,12 @@ pub const Database = struct {
 
         // Open the databases
         if (c.sqlite3_open("DB/TLR.db", &dsk_db) != c.SQLITE_OK) {
-            std.debug.print("Error opening database\n", .{});
+            print("Error opening database\n", .{});
         }
         defer _ = c.sqlite3_close(dsk_db); // close disk connection after init.
 
         if (c.sqlite3_open(":memory:", &db) != c.SQLITE_OK) {
-            std.debug.print("Error opening database\n", .{});
+            print("Error opening database\n", .{});
         }
 
         // Initialize
@@ -92,13 +92,9 @@ pub const Database = struct {
 
         const raw_str = c.sqlite3_column_text(stmt, 0);
         const tileLetters: []const u8 = std.mem.span(raw_str);
-        print("Fetched string: {s}...{s}\n", .{ tileLetters, raw_str });
 
         // ======================================
-        // var mapTile: rl.Texture = undefined;
-        // mapTile = try rl.loadTextureFromImage(Assets.items.ptr[Tiles.items.ptr[0].index]);
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "A") or std.mem.containsAtLeast(u8, tileLetters, 1, "a")) {
-            print("***** found A\n", .{});
             // add image to asset collection
             const index = textures.items.len;
             try textures.append(allocator, try rl.loadTexture("TLR/Map A.png"));
@@ -115,7 +111,6 @@ pub const Database = struct {
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "B") or std.mem.containsAtLeast(u8, tileLetters, 1, "b")) {
-            print("***** found B\n", .{});
             // add image to asset collection
             const index = textures.items.len;
             try textures.append(allocator, try rl.loadTexture("TLR/Map B.png"));
@@ -132,7 +127,6 @@ pub const Database = struct {
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "C") or std.mem.containsAtLeast(u8, tileLetters, 1, "c")) {
-            print("***** found C\n", .{});
             // add image to asset collection
             const index = textures.items.len;
             try textures.append(allocator, try rl.loadTexture("TLR/Map C.png"));
@@ -149,7 +143,6 @@ pub const Database = struct {
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "D") or std.mem.containsAtLeast(u8, tileLetters, 1, "d")) {
-            print("***** found D\n", .{});
             // add image to asset collection
             const index = textures.items.len;
             try textures.append(allocator, try rl.loadTexture("TLR/Map D.png"));
@@ -166,7 +159,6 @@ pub const Database = struct {
             }
         }
         if (std.mem.containsAtLeast(u8, tileLetters, 1, "E") or std.mem.containsAtLeast(u8, tileLetters, 1, "e")) {
-            print("***** found E\n", .{});
             // add image to asset collection
             const index = textures.items.len;
             try textures.append(allocator, try rl.loadTexture("TLR/Map E.png"));
