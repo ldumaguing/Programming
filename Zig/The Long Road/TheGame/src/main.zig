@@ -36,8 +36,10 @@ pub fn main() anyerror!void {
     defer allocator.free(tileLetters);
 
     var gMap = gamemap.GameMap.init(tileLetters);
+    gMap.status(&Tiles);
 
     gMap.modify_GMap(&Tiles);
+    gMap.status(&Tiles);
 
     // ==========================================================
     rl.setTargetFPS(12);

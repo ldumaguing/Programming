@@ -69,9 +69,18 @@ pub const GameMap = struct {
     }
 
     // ********************************************************************************************
-    pub fn foo(self: GameMap) void {
-        _ = self;
-        print("************** yo ************\n", .{});
+    pub fn status(self: GameMap, tiles: *std.ArrayList(tile.Tile)) void {
+        print("************** yo ************ {d}\n", .{tiles.items.len});
+        for (0..tiles.items.len) |i| {
+            print("id:{d} --- index:{d}\n", .{ i, tiles.items.ptr[i].index });
+        }
+        for (0..4) |row| {
+            for (0..4) |col| {
+                const tl = self.GMap[col][row];
+                print("({d},{d}),{d} ", .{ col, row, tl });
+            }
+            print("\n", .{});
+        }
     }
 
     pub fn bar(self: GameMap) void {
