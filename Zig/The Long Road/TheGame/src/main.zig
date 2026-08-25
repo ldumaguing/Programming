@@ -86,9 +86,11 @@ pub fn main() anyerror!void {
                 for (0..4) |col| {
                     if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
                         const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
-                        const X: f32 = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
-                        const Y: f32 = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
-                        const rotation: f32 = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+                        const rotation = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+
+                        const X = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
+                        const Y = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
+
                         if (rotation > 0) {
                             const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
                             const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
