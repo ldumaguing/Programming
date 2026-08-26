@@ -27,6 +27,13 @@ pub fn main() anyerror!void {
     defer Hills.deinit(allocator);
 
     // ********************************************************************************************
+    const pxX = db.get_float_vals("pxX");
+    const pxY = db.get_float_vals("pxY");
+    const hex_width = pxX[0];
+    const hex_height = pxY[0];
+    const halfY: f32 = hex_height / 2.0;
+
+    // ********************************************************************************************
     const screenWidth = 1280;
     const screenHeight = 720;
 
@@ -45,6 +52,7 @@ pub fn main() anyerror!void {
 
     // ==========================================================
     try db.add_map_hills(allocator, &Hills);
+    print("hill count: {d}\n", .{Hills.items.len});
 
     // ********************************************************************************************
     rl.setTargetFPS(12);
@@ -56,7 +64,14 @@ pub fn main() anyerror!void {
         .rotation = 0,
     };
 
+    var toggle: i32 = 0;
     while (!rl.windowShouldClose()) {
+        if (rl.isKeyPressed(.space)) {
+            if (toggle == 0)
+                toggle = 1
+            else
+                toggle = 0;
+        }
         // Translate based on mouse right click
         if (rl.isMouseButtonDown(.right)) {
             var delta = rl.getMouseDelta();
@@ -106,6 +121,18 @@ pub fn main() anyerror!void {
                             rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = Y }, rotation, 1.0, .white);
                         }
                     }
+                }
+            }
+
+            if (toggle == 0) {
+                for (0..Hills.items.len) |x| {
+                    //print("{d}:({d},{d})\n", .{ x, Hills.items.ptr[x].x, Hills.items.ptr[x].y });
+                    var X: f32 = @floatFromInt(Hills.items.ptr[x].x);
+                    var Y: f32 = @floatFromInt(Hills.items.ptr[x].y);
+                    X = X * hex_width;
+                    Y = Y * hex_height;
+                    if (@mod(Hills.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .brown);
                 }
             }
         }

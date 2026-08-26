@@ -73,12 +73,10 @@ pub const Database = struct {
 
     // ********************************************************************************************
     pub fn add_map_hills(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(terrain.Hill)) !void {
-        _ = allocator;
-        _ = hills;
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
-            \\SELECT hex_x, hex_y FROM GameMap
+            \\SELECT hex_x, hex_y, hex_z FROM GameMap
             \\WHERE
             \\terrainNum = 5 AND
             \\sessionID = ?1
@@ -94,8 +92,10 @@ pub const Database = struct {
         while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
             const hex_x = c.sqlite3_column_int(stmt, 0);
             const hex_y = c.sqlite3_column_int(stmt, 1);
+            const hex_z = c.sqlite3_column_int(stmt, 2);
 
-            print("Hill:{d},{d}\n", .{ hex_x, hex_y });
+            const aHill = terrain.Hill.init(hex_x, hex_y, hex_z);
+            _ = try hills.append(allocator, aHill);
         }
     }
 
@@ -228,6 +228,40 @@ pub const Database = struct {
         const raw_str = c.sqlite3_column_text(stmt, 0);
 
         return try std.fmt.allocPrint(allocator, "{s}", .{raw_str});
+    }
+
+    // ********************************************************************************************
+    pub fn get_float_vals(self: Database, attrib: []const u8) struct { f32, f32, f32 } {
+        // Prepare statement
+        const query1 =
+            \\SELECT val_real0, val_real1, val_real2 FROM GameMeta
+            \\WHERE
+            \\   attrib = ?1
+            \\   AND
+            \\   sessionID = 0
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_text(stmt, 1, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 2, curS);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const x: f32 = @floatCast(c.sqlite3_column_double(stmt, 0));
+            const y: f32 = @floatCast(c.sqlite3_column_double(stmt, 1));
+            const z: f32 = @floatCast(c.sqlite3_column_double(stmt, 2));
+            return .{ x, y, z };
+        }
+
+        return .{ 0.0, 0.0, 0.0 };
     }
 
     // ********************************************************************************************
