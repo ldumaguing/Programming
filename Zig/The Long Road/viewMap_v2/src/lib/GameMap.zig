@@ -6,7 +6,7 @@ const tile = @import("Tile.zig");
 pub const GameMap = struct {
     GMap: [4][4]i32,
 
-    pub fn init(tileLetters: []const u8, tiles: *std.ArrayList(tile.Tile)) GameMap {
+    pub fn init(tileLetters: []const u8) GameMap {
         var GMap: [4][4]i32 = [4][4]i32{
             [4]i32{ -1, -1, -1, -1 },
             [4]i32{ -1, -1, -1, -1 },
@@ -30,19 +30,22 @@ pub const GameMap = struct {
             locCR[1] += 1;
         }
 
-        for (0..4) |row| {
-            for (0..4) |col| {
-                const X = get_tile_id(tiles, GMap[@intCast(col)][@intCast(row)]);
-                GMap[@intCast(col)][@intCast(row)] = X;
-            }
-        }
-
         return GameMap{
             .GMap = GMap,
         };
     }
 
     // ********************************************************************************************
+    pub fn modify_GMap(self: *GameMap, tiles: *std.ArrayList(tile.Tile)) void {
+        for (0..4) |row| {
+            for (0..4) |col| {
+                const X = get_tile_id(tiles, self.GMap[@intCast(col)][@intCast(row)]);
+                self.GMap[@intCast(col)][@intCast(row)] = X;
+            }
+        }
+    }
+
+    // ==========================================
     fn get_tile_id(tiles: *std.ArrayList(tile.Tile), letter: i32) i32 {
         const ref_A: i32 = 'A';
         const ref_a: i32 = 'a';

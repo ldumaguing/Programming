@@ -35,10 +35,7 @@ pub fn main() anyerror!void {
     const tileLetters = try db.get_tileLetters(allocator);
     defer allocator.free(tileLetters);
 
-    var gMap = gamemap.GameMap.init(tileLetters);
-    gMap.status(&Tiles);
-
-    gMap.modify_GMap(&Tiles);
+    var gMap = gamemap.GameMap.init(tileLetters, &Tiles);
     gMap.status(&Tiles);
 
     // ==========================================================
