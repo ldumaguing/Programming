@@ -4,7 +4,26 @@ const sqlite3 = @import("lib/Database.zig");
 const std = @import("std");
 const print = std.debug.print;
 
+// ************************************************************************************************
 pub fn main() !void {
+    const db = sqlite3.Database.init();
+    defer db.close();
+
+    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+
+    var Hills = std.ArrayList(sqlite3.Hill).empty;
+    defer Hills.deinit(allocator);
+
+    // ********************************************************************************************
+    try db.add_hill(allocator, &Hills, 11, 11, 11);
+    try db.add_hill(allocator, &Hills, 12, 12, 12);
+
+    print(">>> {d}\n", .{Hills.items.len});
+    print(">>> {d}\n", .{Hills.items.ptr[0].x});
+    print(">>> {d}\n", .{Hills.items.ptr[1].x});
+
     // ********************************************************************************************
     const screenWidth = 1280;
     const screenHeight = 720;
@@ -26,8 +45,6 @@ pub fn main() !void {
     const image_1 = rl.genImageColor(32, 32, .white);
     const texture_1 = try rl.loadTextureFromImage(image_1);
 
-    var tag_A: i32 = 1;
-    var tag_B: i32 = 0;
     while (!rl.windowShouldClose()) {
 
         // Translate based on mouse right click
@@ -53,11 +70,8 @@ pub fn main() !void {
         }
 
         if (rl.isKeyPressed(.space)) {
-            const tog = tag_A;
-            tag_A = tag_B;
-            tag_B = tog;
+            print("refresh...\n", .{});
         }
-        print("{d}:{d}\n", .{ tag_B, tag_A });
 
         // ==============================
         rl.beginDrawing();
@@ -65,7 +79,7 @@ pub fn main() !void {
 
         rl.clearBackground(.blue);
 
-        if (tag_B < tag_A) {
+        {
             camera.begin();
             defer camera.end();
 

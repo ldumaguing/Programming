@@ -8,6 +8,21 @@ const c = @cImport({
     @cInclude("sqlite3.h");
 });
 
+pub const Hill = struct {
+    x: i32,
+    y: i32,
+    h: i32, // height
+
+    pub fn init(x: i32, y: i32, h: i32) Hill {
+        // ======================================================
+        return Hill{
+            .x = x,
+            .y = y,
+            .h = h,
+        };
+    }
+};
+
 pub const Database = struct {
     db: ?*c.sqlite3, // in-memory Database
     currSession: i64,
@@ -68,6 +83,12 @@ pub const Database = struct {
             .currSession = currSession,
             .pixelCount = .{ @intCast(i64_X), @intCast(i64_Y) },
         };
+    }
+
+    // ********************************************************************************************
+    pub fn add_hill(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(Hill), x: i32, y: i32, h: i32) !void {
+        _ = self;
+        try hills.append(allocator, Hill.init(x, y, h));
     }
 
     // ********************************************************************************************
