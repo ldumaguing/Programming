@@ -72,9 +72,31 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_hill(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(terrain.Hill), x: i32, y: i32, h: i32) !void {
-        _ = self;
-        try hills.append(allocator, terrain.Hill.init(x, y, h));
+    pub fn add_map_hills(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(terrain.Hill)) !void {
+        _ = allocator;
+        _ = hills;
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 5 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            print("Hill:{d},{d}\n", .{ hex_x, hex_y });
+        }
     }
 
     // ********************************************************************************************

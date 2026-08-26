@@ -1,12 +1,14 @@
 const rl = @import("raylib");
-const sqlite3 = @import("lib/Database.zig");
-const terrain = @import("lib/Terrain.zig");
-
 const std = @import("std");
 const print = std.debug.print;
 
-// ************************************************************************************************
-pub fn main() !void {
+const sqlite3 = @import("lib/Database.zig");
+const cardboard = @import("lib/Cardboard.zig");
+const gamemap = @import("lib/GameMap.zig");
+const tile = @import("lib/Tile.zig");
+const terrain = @import("lib/Terrain.zig");
+
+pub fn main() anyerror!void {
     const db = sqlite3.Database.init();
     defer db.close();
 
@@ -14,16 +16,15 @@ pub fn main() !void {
     defer arena.deinit();
     const allocator = arena.allocator();
 
+    var Textures = std.ArrayList(rl.Texture).empty;
+    defer Textures.deinit(allocator);
+
+    var Tiles = std.ArrayList(tile.Tile).empty;
+    defer Tiles.deinit(allocator);
+
+    // ***** Terrains
     var Hills = std.ArrayList(terrain.Hill).empty;
     defer Hills.deinit(allocator);
-
-    // ********************************************************************************************
-    try db.add_hill(allocator, &Hills, 11, 11, 11);
-    try db.add_hill(allocator, &Hills, 12, 12, 12);
-
-    print(">>> {d}\n", .{Hills.items.len});
-    print(">>> {d}\n", .{Hills.items.ptr[0].x});
-    print(">>> {d}\n", .{Hills.items.ptr[1].x});
 
     // ********************************************************************************************
     const screenWidth = 1280;
@@ -34,6 +35,18 @@ pub fn main() !void {
     defer rl.closeWindow();
 
     // ==========================================================
+    try db.add_map_tiles(allocator, &Textures, &Tiles);
+
+    const tileLetters = try db.get_tileLetters(allocator);
+    defer allocator.free(tileLetters);
+
+    var gMap = gamemap.GameMap.init(tileLetters, &Tiles);
+    gMap.status(&Tiles);
+
+    // ==========================================================
+    try db.add_map_hills(allocator, &Hills);
+
+    // ********************************************************************************************
     rl.setTargetFPS(12);
 
     var camera = rl.Camera2D{
@@ -43,11 +56,7 @@ pub fn main() !void {
         .rotation = 0,
     };
 
-    const image_1 = rl.genImageColor(32, 32, .white);
-    const texture_1 = try rl.loadTextureFromImage(image_1);
-
     while (!rl.windowShouldClose()) {
-
         // Translate based on mouse right click
         if (rl.isMouseButtonDown(.right)) {
             var delta = rl.getMouseDelta();
@@ -70,21 +79,35 @@ pub fn main() !void {
             camera.zoom = rl.math.clamp(camera.zoom * scaleFactor, 0.125, 64.0);
         }
 
-        if (rl.isKeyPressed(.space)) {
-            print("refresh...\n", .{});
-        }
-
         // ==============================
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.blue);
+        rl.clearBackground(.black);
 
         {
             camera.begin();
             defer camera.end();
 
-            rl.drawTexture(texture_1, 100, 100, .white);
+            for (0..4) |row| {
+                for (0..4) |col| {
+                    if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
+                        const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
+                        const rotation = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+
+                        const X = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
+                        const Y = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
+
+                        if (rotation > 0) {
+                            const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
+                            const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
+                        } else {
+                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = Y }, rotation, 1.0, .white);
+                        }
+                    }
+                }
+            }
         }
     }
 }
