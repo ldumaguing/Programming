@@ -3,25 +3,11 @@ const std = @import("std");
 const print = std.debug.print;
 
 const tile = @import("Tile.zig");
+const terrain = @import("Terrain.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
 });
-
-pub const Hill = struct {
-    x: i32,
-    y: i32,
-    h: i32, // height
-
-    pub fn init(x: i32, y: i32, h: i32) Hill {
-        // ======================================================
-        return Hill{
-            .x = x,
-            .y = y,
-            .h = h,
-        };
-    }
-};
 
 pub const Database = struct {
     db: ?*c.sqlite3, // in-memory Database
@@ -86,9 +72,9 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_hill(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(Hill), x: i32, y: i32, h: i32) !void {
+    pub fn add_hill(self: Database, allocator: std.mem.Allocator, hills: *std.ArrayList(terrain.Hill), x: i32, y: i32, h: i32) !void {
         _ = self;
-        try hills.append(allocator, Hill.init(x, y, h));
+        try hills.append(allocator, terrain.Hill.init(x, y, h));
     }
 
     // ********************************************************************************************

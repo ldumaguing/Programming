@@ -1,5 +1,6 @@
 const rl = @import("raylib");
 const sqlite3 = @import("lib/Database.zig");
+const terrain = @import("lib/Terrain.zig");
 
 const std = @import("std");
 const print = std.debug.print;
@@ -13,7 +14,7 @@ pub fn main() !void {
     defer arena.deinit();
     const allocator = arena.allocator();
 
-    var Hills = std.ArrayList(sqlite3.Hill).empty;
+    var Hills = std.ArrayList(terrain.Hill).empty;
     defer Hills.deinit(allocator);
 
     // ********************************************************************************************
