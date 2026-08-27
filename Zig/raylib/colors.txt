@@ -1,0 +1,35 @@
+beige       = Color.init(211, 176, 131, 255);
+black       = Color.init(0, 0, 0, 255);
+blank       = Color.init(0, 0, 0, 0);
+blue        = Color.init(0, 121, 241, 255);
+brown       = Color.init(127, 106, 79, 255);
+dark_blue   = Color.init(0, 82, 172, 255);
+dark_brown  = Color.init(76, 63, 47, 255);
+dark_gray   = Color.init(80, 80, 80, 255);
+dark_green  = Color.init(0, 117, 44, 255);
+dark_purple = Color.init(112, 31, 126, 255);
+gold        = Color.init(255, 203, 0, 255);
+gray        = Color.init(130, 130, 130, 255);
+green       = Color.init(0, 228, 48, 255);
+light_gray  = Color.init(200, 200, 200, 255);
+lime        = Color.init(0, 158, 47, 255);
+magenta     = Color.init(255, 0, 255, 255);
+maroon      = Color.init(190, 33, 55, 255);
+orange      = Color.init(255, 161, 0, 255);
+pink        = Color.init(255, 109, 194, 255);
+purple      = Color.init(200, 122, 255, 255);
+ray_white   = Color.init(245, 245, 245, 255);
+red         = Color.init(230, 41, 55, 255);
+sky_blue    = Color.init(102, 191, 255, 255);
+violet      = Color.init(135, 60, 190, 255);
+white       = Color.init(255, 255, 255, 255);
+yellow      = Color.init(253, 249, 0, 255);
+
+
+    rl.Color.init(0x84, 0xc5, 0xcc, 0xFF), // Cyan
+
+    rl.Color.init(0xc1, 0x81, 0x78, 0xFF), // Light Red
+
+    rl.Color.init(0xb3, 0xec, 0x91, 0xFF), // Light Green
+
+    rl.Color.init(0x86, 0x7a, 0xde, 0xFF), // Light Blue
