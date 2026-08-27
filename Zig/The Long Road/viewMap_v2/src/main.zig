@@ -8,7 +8,7 @@ const gamemap = @import("lib/GameMap.zig");
 const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
 
-pub fn main() anyerror!void {
+pub fn main() !void {
     const db = sqlite3.Database.init();
     defer db.close();
 
@@ -26,6 +26,9 @@ pub fn main() anyerror!void {
     var Hills = std.ArrayList(terrain.Hill).empty;
     defer Hills.deinit(allocator);
 
+    var WholeHex = std.ArrayList(terrain.WholeHex).empty;
+    defer WholeHex.deinit(allocator);
+
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
     const pxY = db.get_float_vals("pxY");
@@ -41,6 +44,10 @@ pub fn main() anyerror!void {
     rl.initWindow(screenWidth, screenHeight, "The Long Road");
     defer rl.closeWindow();
 
+    // ********************************************************************************************
+    const png_rolling = try rl.loadTexture("TLR/LAR_rolling.png");
+    defer rl.unloadTexture(png_rolling);
+
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
 
@@ -52,7 +59,8 @@ pub fn main() anyerror!void {
 
     // ==========================================================
     try db.add_map_hills(allocator, &Hills);
-    print("hill count: {d}\n", .{Hills.items.len});
+    try db.add_map_rollings(allocator, &WholeHex);
+    print("count: {d}\n", .{WholeHex.items.len});
 
     // ********************************************************************************************
     rl.setTargetFPS(12);
@@ -98,41 +106,50 @@ pub fn main() anyerror!void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(.black);
+        rl.clearBackground(rl.Color.init(0xCE, 0xCC, 0xBF, 0xFF));
 
         {
             camera.begin();
             defer camera.end();
 
-            for (0..4) |row| {
-                for (0..4) |col| {
-                    if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
-                        const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
-                        const rotation = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+            for (0..Hills.items.len) |x| {
+                //print("{d}:({d},{d})\n", .{ x, Hills.items.ptr[x].x, Hills.items.ptr[x].y });
+                var X: f32 = @floatFromInt(Hills.items.ptr[x].x);
+                var Y: f32 = @floatFromInt(Hills.items.ptr[x].y);
+                X = X * hex_width;
+                Y = Y * hex_height;
+                if (@mod(Hills.items.ptr[x].x, 2) != 0) Y -= halfY;
+                rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .brown);
+            }
 
-                        const X = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
-                        const Y = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
-
-                        if (rotation > 0) {
-                            const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
-                            const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
-                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
-                        } else {
-                            rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = Y }, rotation, 1.0, .white);
-                        }
-                    }
-                }
+            for (0..WholeHex.items.len) |x| {
+                var X: f32 = @floatFromInt(WholeHex.items.ptr[x].x);
+                var Y: f32 = @floatFromInt(WholeHex.items.ptr[x].y);
+                X = (X * hex_width) - 130.0;
+                Y = (Y * hex_height) - 113.0;
+                if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                rl.drawTexture(png_rolling, @intFromFloat(X), @intFromFloat(Y), .white);
             }
 
             if (toggle == 0) {
-                for (0..Hills.items.len) |x| {
-                    //print("{d}:({d},{d})\n", .{ x, Hills.items.ptr[x].x, Hills.items.ptr[x].y });
-                    var X: f32 = @floatFromInt(Hills.items.ptr[x].x);
-                    var Y: f32 = @floatFromInt(Hills.items.ptr[x].y);
-                    X = X * hex_width;
-                    Y = Y * hex_height;
-                    if (@mod(Hills.items.ptr[x].x, 2) != 0) Y -= halfY;
-                    rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .brown);
+                for (0..4) |row| {
+                    for (0..4) |col| {
+                        if (gMap.GMap[@intCast(col)][@intCast(row)] >= 0) {
+                            const tile_num = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].index;
+                            const rotation = Tiles.items.ptr[@intCast(gMap.GMap[@intCast(col)][@intCast(row)])].rotation;
+
+                            const X = @as(f32, @floatFromInt(col)) * @as(f32, @floatFromInt(db.pixelCount[0]));
+                            const Y = @as(f32, @floatFromInt(row)) * @as(f32, @floatFromInt(db.pixelCount[1]));
+
+                            if (rotation > 0) {
+                                const mod_x = X + @as(f32, @floatFromInt(db.pixelCount[0]));
+                                const mod_y = Y + @as(f32, @floatFromInt(db.pixelCount[1]));
+                                rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = mod_x, .y = mod_y }, rotation, 1.0, .white);
+                            } else {
+                                rl.drawTextureEx(Textures.items.ptr[@intCast(tile_num)], .{ .x = X, .y = Y }, rotation, 1.0, .white);
+                            }
+                        }
+                    }
                 }
             }
         }

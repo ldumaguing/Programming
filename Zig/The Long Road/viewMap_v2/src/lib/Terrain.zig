@@ -17,12 +17,17 @@ pub const Hill = struct {
 pub const WholeHex = struct {
     x: i32,
     y: i32,
-    c: rl.Color,
+    id: i32,
 
-    pub fn init(x: i32, y: i32) WholeHex {
+    pub fn init(x: i32, y: i32, id: i32) WholeHex {
         return WholeHex{
             .x = x,
             .y = y,
+            .id = id,
         };
     }
 };
+
+// id (terrainNum)
+// ***************
+// 10: Rolling
