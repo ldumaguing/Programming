@@ -14,6 +14,18 @@ pub const Hill = struct {
     }
 };
 
+pub const Lake = struct {
+    x: i32,
+    y: i32,
+
+    pub fn init(x: i32, y: i32) Lake {
+        return Lake{
+            .x = x,
+            .y = y,
+        };
+    }
+};
+
 pub const WholeHex = struct {
     x: i32,
     y: i32,

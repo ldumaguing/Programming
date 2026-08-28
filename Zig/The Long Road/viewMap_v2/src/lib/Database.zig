@@ -72,6 +72,33 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
+    pub fn add_map_town(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 11 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            const aTown = terrain.WholeHex.init(hex_x, hex_y, 11);
+            _ = try wh.append(allocator, aTown);
+        }
+    }
+
+    // ********************************************************************************************
     pub fn add_map_city(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
@@ -204,6 +231,33 @@ pub const Database = struct {
 
             const aHill = terrain.Hill.init(hex_x, hex_y, hex_z);
             _ = try hills.append(allocator, aHill);
+        }
+    }
+
+    // ********************************************************************************************
+    pub fn add_map_lakes(self: Database, allocator: std.mem.Allocator, lakes: *std.ArrayList(terrain.Lake)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 7 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            const aLake = terrain.Lake.init(hex_x, hex_y);
+            _ = try lakes.append(allocator, aLake);
         }
     }
 

@@ -26,6 +26,9 @@ pub fn main() !void {
     var Hills = std.ArrayList(terrain.Hill).empty;
     defer Hills.deinit(allocator);
 
+    var Lakes = std.ArrayList(terrain.Lake).empty;
+    defer Lakes.deinit(allocator);
+
     var WholeHex = std.ArrayList(terrain.WholeHex).empty;
     defer WholeHex.deinit(allocator);
 
@@ -46,13 +49,10 @@ pub fn main() !void {
 
     // ********************************************************************************************
     const png_rolling = try rl.loadTexture("TLR/LAR_rolling.png");
-    defer rl.unloadTexture(png_rolling);
     const png_cultivated = try rl.loadTexture("TLR/LAR_cultivated.png");
-    defer rl.unloadTexture(png_cultivated);
     const png_forest = try rl.loadTexture("TLR/LAR_forest.png");
-    defer rl.unloadTexture(png_forest);
     const png_city = try rl.loadTexture("TLR/LAR_city.png");
-    defer rl.unloadTexture(png_city);
+    const png_town = try rl.loadTexture("TLR/LAR_town.png");
 
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -65,10 +65,13 @@ pub fn main() !void {
 
     // ==========================================================
     try db.add_map_hills(allocator, &Hills);
+    try db.add_map_lakes(allocator, &Lakes);
+
     try db.add_map_rollings(allocator, &WholeHex);
     try db.add_map_cultivated(allocator, &WholeHex);
     try db.add_map_forest(allocator, &WholeHex);
     try db.add_map_city(allocator, &WholeHex);
+    try db.add_map_town(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
     // ********************************************************************************************
@@ -130,6 +133,15 @@ pub fn main() !void {
                 rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .brown);
             }
 
+            for (0..Lakes.items.len) |x| {
+                var X: f32 = @floatFromInt(Lakes.items.ptr[x].x);
+                var Y: f32 = @floatFromInt(Lakes.items.ptr[x].y);
+                X = X * hex_width;
+                Y = Y * hex_height;
+                if (@mod(Lakes.items.ptr[x].x, 2) != 0) Y -= halfY;
+                rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .blue);
+            }
+
             for (0..WholeHex.items.len) |x| {
                 var X: f32 = @floatFromInt(WholeHex.items.ptr[x].x);
                 var Y: f32 = @floatFromInt(WholeHex.items.ptr[x].y);
@@ -156,6 +168,12 @@ pub fn main() !void {
                     Y = (Y * hex_height) - 113.0;
                     if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
                     rl.drawTexture(png_city, @intFromFloat(X), @intFromFloat(Y), .white);
+                }
+                if (WholeHex.items.ptr[x].id == 11) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_town, @intFromFloat(X), @intFromFloat(Y), .white);
                 }
             }
 
