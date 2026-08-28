@@ -44,3 +44,17 @@ pub const WholeHex = struct {
 // ***************
 // 10: Rolling
 //  3: Cultivated
+
+pub const River = struct {
+    x: i32,
+    y: i32,
+    s: i32, // spineLoc
+
+    pub fn init(x: i32, y: i32, s: i32) River {
+        return River{
+            .x = x,
+            .y = y,
+            .s = s,
+        };
+    }
+};

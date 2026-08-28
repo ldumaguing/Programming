@@ -29,6 +29,9 @@ pub fn main() !void {
     var Lakes = std.ArrayList(terrain.Lake).empty;
     defer Lakes.deinit(allocator);
 
+    var Rivers = std.ArrayList(terrain.River).empty;
+    defer Rivers.deinit(allocator);
+
     var WholeHex = std.ArrayList(terrain.WholeHex).empty;
     defer WholeHex.deinit(allocator);
 
@@ -38,6 +41,30 @@ pub fn main() !void {
     const hex_width = pxX[0];
     const hex_height = pxY[0];
     const halfY: f32 = hex_height / 2.0;
+
+    // ********************************************************************************************
+    const spines = [_]i32{ 1, 2, 4, 8, 16, 32 };
+
+    const hexPt_A = db.get_Point("hexPtA");
+    const hexPt_B = db.get_Point("hexPtB");
+    const hexPt_C = db.get_Point("hexPtC");
+    const hexPt_D = db.get_Point("hexPtD");
+    const hexPt_E = db.get_Point("hexPtE");
+    const hexPt_F = db.get_Point("hexPtF");
+    const hexPt_G = db.get_Point("hexPtG");
+
+    const spinePt_A = db.get_Point("spinePtA");
+    const spinePt_B = db.get_Point("spinePtB");
+    const spinePt_C = db.get_Point("spinePtC");
+    const spinePt_D = db.get_Point("spinePtD");
+    const spinePt_E = db.get_Point("spinePtE");
+    const spinePt_F = db.get_Point("spinePtF");
+    print("{d},{d}\n", .{ spinePt_A[0], spinePt_A[1] });
+    print("{d},{d}\n", .{ spinePt_B[0], spinePt_B[1] });
+    print("{d},{d}\n", .{ spinePt_C[0], spinePt_C[1] });
+    print("{d},{d}\n", .{ spinePt_D[0], spinePt_D[1] });
+    print("{d},{d}\n", .{ spinePt_E[0], spinePt_E[1] });
+    print("{d},{d}\n", .{ spinePt_F[0], spinePt_F[1] });
 
     // ********************************************************************************************
     const screenWidth = 1280;
@@ -66,6 +93,7 @@ pub fn main() !void {
     // ==========================================================
     try db.add_map_hills(allocator, &Hills);
     try db.add_map_lakes(allocator, &Lakes);
+    try db.add_map_rivers(allocator, &Rivers);
 
     try db.add_map_rollings(allocator, &WholeHex);
     try db.add_map_cultivated(allocator, &WholeHex);
@@ -177,6 +205,28 @@ pub fn main() !void {
                 }
             }
 
+            for (0..Rivers.items.len) |x| {
+                const X: f32 = @floatFromInt(Rivers.items.ptr[x].x);
+                const Y: f32 = @floatFromInt(Rivers.items.ptr[x].y);
+
+                var linePts: struct { i32, i32, i32, i32 } = .{ 0, 0, 0, 0 };
+                for (spines) |spine| {
+                    const xx: i32 = @intFromFloat(X);
+                    const yy: i32 = @intFromFloat(Y);
+                    linePts = switch (spine) {
+                        1 => get_line_pts(xx, yy, hex_width, hex_height, hexPt_A[0], hexPt_A[1], hexPt_B[0], hexPt_B[1]),
+                        2 => get_line_pts(xx, yy, hex_width, hex_height, hexPt_B[0], hexPt_B[1], hexPt_C[0], hexPt_C[1]),
+                        4 => get_line_pts(xx, yy, hex_width, hex_height, hexPt_C[0], hexPt_C[1], hexPt_D[0], hexPt_D[1]),
+                        8 => get_line_pts(xx, yy, hex_width, hex_height, hexPt_C[0], hexPt_C[1], hexPt_E[0], hexPt_E[1]),
+                        16 => get_line_pts(xx, yy, hex_width, hex_height, hexPt_F[0], hexPt_F[1], hexPt_G[0], hexPt_G[1]),
+                        else => get_line_pts(xx, yy, hex_width, hex_height, hexPt_G[0], hexPt_G[1], hexPt_A[0], hexPt_A[1]),
+                    };
+                    if (spine != Rivers.items.ptr[x].s) continue;
+                    rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, .blue);
+                }
+            }
+
+            // ***** map tiles
             if (toggle == 0) {
                 for (0..4) |row| {
                     for (0..4) |col| {
@@ -200,4 +250,17 @@ pub fn main() !void {
             }
         }
     }
+}
+
+// ************************************************************************************************
+fn get_line_pts(x: i32, y: i32, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x: i32, p1y: i32) struct { i32, i32, i32, i32 } {
+    const float_x: f32 = @as(f32, (@floatFromInt(x))) * hex_w;
+    const float_y: f32 = @as(f32, (@floatFromInt(y))) * hex_y;
+
+    const P0x: i32 = @as(i32, @round(float_x)) + p0x;
+    const P0y: i32 = @as(i32, @round(float_y)) + p0y;
+    const P1x: i32 = @as(i32, @round(float_x)) + p1x;
+    const P1y: i32 = @as(i32, @round(float_y)) + p1y;
+
+    return .{ P0x, P0y, P1x, P1y };
 }

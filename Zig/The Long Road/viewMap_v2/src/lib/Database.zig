@@ -235,6 +235,34 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
+    pub fn add_map_rivers(self: Database, allocator: std.mem.Allocator, rivers: *std.ArrayList(terrain.River)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y, spineLoc FROM GameMap
+            \\WHERE
+            \\terrainNum = 8 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+            const spineLoc = c.sqlite3_column_int(stmt, 2);
+
+            const aRiver = terrain.River.init(hex_x, hex_y, spineLoc);
+            _ = try rivers.append(allocator, aRiver);
+        }
+    }
+
+    // ********************************************************************************************
     pub fn add_map_lakes(self: Database, allocator: std.mem.Allocator, lakes: *std.ArrayList(terrain.Lake)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
@@ -435,5 +463,36 @@ pub const Database = struct {
     // ********************************************************************************************
     pub fn close(self: Database) void {
         _ = c.sqlite3_close(self.db);
+    }
+
+    // ********************************************************************************************
+    pub fn get_Point(self: Database, attrib: []const u8) struct { i32, i32 } {
+        // Prepare statement
+        const query1 =
+            \\SELECT val_int0, val_int1 FROM GameMeta
+            \\WHERE
+            \\   attrib = ?1
+            \\   AND
+            \\   sessionID = 0
+        ;
+
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(self.db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(self.db)});
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_text(stmt, 1, attrib.ptr, @intCast(attrib.len), c.SQLITE_TRANSIENT);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const x: i32 = @intCast(c.sqlite3_column_int64(stmt, 0));
+            const y: i32 = @intCast(c.sqlite3_column_int64(stmt, 1));
+            return .{ x, y };
+        }
+
+        return .{ 0, 0 };
     }
 };
