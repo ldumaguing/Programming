@@ -72,6 +72,87 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
+    pub fn add_map_city(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 2 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            const aCity = terrain.WholeHex.init(hex_x, hex_y, 2);
+            _ = try wh.append(allocator, aCity);
+        }
+    }
+
+    // ********************************************************************************************
+    pub fn add_map_forest(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 4 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            const aForest = terrain.WholeHex.init(hex_x, hex_y, 4);
+            _ = try wh.append(allocator, aForest);
+        }
+    }
+
+    // ********************************************************************************************
+    pub fn add_map_cultivated(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 3 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+
+            const aCultivated = terrain.WholeHex.init(hex_x, hex_y, 3);
+            _ = try wh.append(allocator, aCultivated);
+        }
+    }
+
+    // ********************************************************************************************
     pub fn add_map_rollings(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;

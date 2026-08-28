@@ -31,3 +31,4 @@ pub const WholeHex = struct {
 // id (terrainNum)
 // ***************
 // 10: Rolling
+//  3: Cultivated

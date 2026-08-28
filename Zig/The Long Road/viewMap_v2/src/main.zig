@@ -47,6 +47,12 @@ pub fn main() !void {
     // ********************************************************************************************
     const png_rolling = try rl.loadTexture("TLR/LAR_rolling.png");
     defer rl.unloadTexture(png_rolling);
+    const png_cultivated = try rl.loadTexture("TLR/LAR_cultivated.png");
+    defer rl.unloadTexture(png_cultivated);
+    const png_forest = try rl.loadTexture("TLR/LAR_forest.png");
+    defer rl.unloadTexture(png_forest);
+    const png_city = try rl.loadTexture("TLR/LAR_city.png");
+    defer rl.unloadTexture(png_city);
 
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -60,6 +66,9 @@ pub fn main() !void {
     // ==========================================================
     try db.add_map_hills(allocator, &Hills);
     try db.add_map_rollings(allocator, &WholeHex);
+    try db.add_map_cultivated(allocator, &WholeHex);
+    try db.add_map_forest(allocator, &WholeHex);
+    try db.add_map_city(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
     // ********************************************************************************************
@@ -113,7 +122,6 @@ pub fn main() !void {
             defer camera.end();
 
             for (0..Hills.items.len) |x| {
-                //print("{d}:({d},{d})\n", .{ x, Hills.items.ptr[x].x, Hills.items.ptr[x].y });
                 var X: f32 = @floatFromInt(Hills.items.ptr[x].x);
                 var Y: f32 = @floatFromInt(Hills.items.ptr[x].y);
                 X = X * hex_width;
@@ -125,10 +133,30 @@ pub fn main() !void {
             for (0..WholeHex.items.len) |x| {
                 var X: f32 = @floatFromInt(WholeHex.items.ptr[x].x);
                 var Y: f32 = @floatFromInt(WholeHex.items.ptr[x].y);
-                X = (X * hex_width) - 130.0;
-                Y = (Y * hex_height) - 113.0;
-                if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
-                rl.drawTexture(png_rolling, @intFromFloat(X), @intFromFloat(Y), .white);
+                if (WholeHex.items.ptr[x].id == 10) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_rolling, @intFromFloat(X), @intFromFloat(Y), .white);
+                }
+                if (WholeHex.items.ptr[x].id == 3) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_cultivated, @intFromFloat(X), @intFromFloat(Y), .white);
+                }
+                if (WholeHex.items.ptr[x].id == 4) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_forest, @intFromFloat(X), @intFromFloat(Y), .white);
+                }
+                if (WholeHex.items.ptr[x].id == 2) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_city, @intFromFloat(X), @intFromFloat(Y), .white);
+                }
             }
 
             if (toggle == 0) {
