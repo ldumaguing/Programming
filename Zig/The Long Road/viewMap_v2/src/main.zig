@@ -185,12 +185,6 @@ pub fn main() !void {
                     if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
                     rl.drawTexture(png_cultivated, @intFromFloat(X), @intFromFloat(Y), .white);
                 }
-                if (WholeHex.items.ptr[x].id == 4) {
-                    X = (X * hex_width) - 130.0;
-                    Y = (Y * hex_height) - 113.0;
-                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
-                    rl.drawTexture(png_forest, @intFromFloat(X), @intFromFloat(Y), .white);
-                }
                 if (WholeHex.items.ptr[x].id == 2) {
                     X = (X * hex_width) - 130.0;
                     Y = (Y * hex_height) - 113.0;
@@ -223,6 +217,17 @@ pub fn main() !void {
                     };
                     if (spine != Rivers.items.ptr[x].s) continue;
                     rl.drawLineEx(rl.Vector2.init(@floatFromInt(linePts[0]), @floatFromInt(linePts[1])), rl.Vector2.init(@floatFromInt(linePts[2]), @floatFromInt(linePts[3])), 30.0, .blue);
+                }
+            }
+
+            for (0..WholeHex.items.len) |x| {
+                var X: f32 = @floatFromInt(WholeHex.items.ptr[x].x);
+                var Y: f32 = @floatFromInt(WholeHex.items.ptr[x].y);
+                if (WholeHex.items.ptr[x].id == 4) {
+                    X = (X * hex_width) - 130.0;
+                    Y = (Y * hex_height) - 113.0;
+                    if (@mod(WholeHex.items.ptr[x].x, 2) != 0) Y -= halfY;
+                    rl.drawTexture(png_forest, @intFromFloat(X), @intFromFloat(Y), .white);
                 }
             }
 
