@@ -62,12 +62,6 @@ pub fn main() !void {
     const spinePt_D = db.get_Point("spinePtD");
     const spinePt_E = db.get_Point("spinePtE");
     const spinePt_F = db.get_Point("spinePtF");
-    print("{d},{d}\n", .{ spinePt_A[0], spinePt_A[1] });
-    print("{d},{d}\n", .{ spinePt_B[0], spinePt_B[1] });
-    print("{d},{d}\n", .{ spinePt_C[0], spinePt_C[1] });
-    print("{d},{d}\n", .{ spinePt_D[0], spinePt_D[1] });
-    print("{d},{d}\n", .{ spinePt_E[0], spinePt_E[1] });
-    print("{d},{d}\n", .{ spinePt_F[0], spinePt_F[1] });
 
     // ********************************************************************************************
     const screenWidth = 1280;
