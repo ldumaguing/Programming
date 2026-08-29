@@ -224,10 +224,6 @@ pub fn main() !void {
                 }
             }
 
-            for (0..Roads.items.len) |i| {
-                _ = i;
-            }
-
             for (0..WholeHex.items.len) |i| {
                 var X: f32 = @floatFromInt(WholeHex.items.ptr[i].x);
                 var Y: f32 = @floatFromInt(WholeHex.items.ptr[i].y);
@@ -259,6 +255,28 @@ pub fn main() !void {
                             }
                         }
                     }
+                }
+            }
+
+            for (0..Roads.items.len) |i| {
+                var X: f32 = @floatFromInt(Roads.items.ptr[i].x);
+                var Y: f32 = @floatFromInt(Roads.items.ptr[i].y);
+                X = (X * hex_width);
+                Y = (Y * hex_height);
+                var roadPts: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
+                for (spines) |spine| {
+                    //print("{}\n", .{spine});
+                    roadPts = switch (spine) {
+                        1 => get_road_pts(X, Y, spinePt_A),
+                        2 => get_road_pts(X, Y, spinePt_B),
+                        4 => get_road_pts(X, Y, spinePt_C),
+                        8 => get_road_pts(X, Y, spinePt_D),
+                        16 => get_road_pts(X, Y, spinePt_E),
+                        else => get_road_pts(X, Y, spinePt_F),
+                    };
+                    if (spine != Roads.items.ptr[i].s) continue;
+                    rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 15, .black);
+                    rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 10, .white);
                 }
             }
         }
