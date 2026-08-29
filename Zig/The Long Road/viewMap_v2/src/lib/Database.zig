@@ -233,6 +233,33 @@ pub const Database = struct {
             _ = try hills.append(allocator, aHill);
         }
     }
+    // ********************************************************************************************
+    pub fn add_map_roads(self: Database, allocator: std.mem.Allocator, roads: *std.ArrayList(terrain.Road)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y, spineLoc FROM GameMap
+            \\WHERE
+            \\terrainNum = 9 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+            const spineLoc = c.sqlite3_column_int(stmt, 2);
+
+            const aRoad = terrain.Road.init(hex_x, hex_y, spineLoc);
+            _ = try roads.append(allocator, aRoad);
+        }
+    }
 
     // ********************************************************************************************
     pub fn add_map_rivers(self: Database, allocator: std.mem.Allocator, rivers: *std.ArrayList(terrain.River)) !void {

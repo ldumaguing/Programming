@@ -58,3 +58,17 @@ pub const River = struct {
         };
     }
 };
+
+pub const Road = struct {
+    x: i32,
+    y: i32,
+    s: i32, // spineLoc
+
+    pub fn init(x: i32, y: i32, s: i32) Road {
+        return Road{
+            .x = x,
+            .y = y,
+            .s = s,
+        };
+    }
+};
