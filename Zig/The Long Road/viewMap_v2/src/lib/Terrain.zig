@@ -1,4 +1,6 @@
 const rl = @import("raylib");
+const std = @import("std");
+const print = std.debug.print;
 
 pub const Hill = struct {
     x: i32,
@@ -72,3 +74,8 @@ pub const Road = struct {
         };
     }
 };
+
+// ************************************************************************************************
+pub fn get_3rd_pt(pt1: struct { i32, i32 }, pt2: struct { i32, i32 }) struct { i32, i32 } {
+    return .{ pt1[0] + pt2[0], pt1[1] + pt2[1] };
+}

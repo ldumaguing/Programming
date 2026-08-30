@@ -3,7 +3,6 @@ const std = @import("std");
 const print = std.debug.print;
 
 const sqlite3 = @import("lib/Database.zig");
-const cardboard = @import("lib/Cardboard.zig");
 const gamemap = @import("lib/GameMap.zig");
 const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
@@ -218,6 +217,61 @@ pub fn main() !void {
                 }
             }
 
+            for (0..Roads.items.len) |i| {
+                var X: f32 = @floatFromInt(Roads.items.ptr[i].x);
+                var Y: f32 = @floatFromInt(Roads.items.ptr[i].y);
+                X = (X * hex_width);
+                Y = (Y * hex_height);
+                var roadPts: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
+                for (spines) |spine| {
+                    //print("{}\n", .{spine});
+                    roadPts = switch (spine) {
+                        1 => get_road_pts(X, Y, spinePt_A),
+                        2 => get_road_pts(X, Y, spinePt_B),
+                        4 => get_road_pts(X, Y, spinePt_C),
+                        8 => get_road_pts(X, Y, spinePt_D),
+                        16 => get_road_pts(X, Y, spinePt_E),
+                        else => get_road_pts(X, Y, spinePt_F),
+                    };
+                    if (spine != Roads.items.ptr[i].s) continue;
+                    if (spine == 1) {
+                        rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
+                        const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_A);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                    }
+                    if (spine == 2) {
+                        rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
+                        const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_B);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                    }
+                    if (spine == 4) {
+                        rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
+                        const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_C);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                    }
+                    if (spine == 8) {
+                        // rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, .yellow);
+                        var p: i32 = @as(i32, @intFromFloat(roadPts[3])) - spinePt_A[1];
+                        //rl.drawCircle(@intFromFloat(roadPts[2]), p, 20, .green);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(roadPts[2], @floatFromInt(p)), 30.0, .black);
+                        p = @as(i32, @intFromFloat(roadPts[3])) + spinePt_A[1];
+                        // rl.drawCircle(@intFromFloat(roadPts[2]), p, 10, .red);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(roadPts[2], @floatFromInt(p)), 30.0, .black);
+                    }
+                    if (spine == 16) {
+                        rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
+                        const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_E);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                    }
+                    if (spine == 32) {
+                        rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
+                        const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_F);
+                        //rl.drawCircle(pt3[0], pt3[1], 10, .yellow);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                    }
+                }
+            }
+
             for (0..WholeHex.items.len) |i| {
                 var X: f32 = @floatFromInt(WholeHex.items.ptr[i].x);
                 var Y: f32 = @floatFromInt(WholeHex.items.ptr[i].y);
@@ -249,28 +303,6 @@ pub fn main() !void {
                             }
                         }
                     }
-                }
-            }
-
-            for (0..Roads.items.len) |i| {
-                var X: f32 = @floatFromInt(Roads.items.ptr[i].x);
-                var Y: f32 = @floatFromInt(Roads.items.ptr[i].y);
-                X = (X * hex_width);
-                Y = (Y * hex_height);
-                var roadPts: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
-                for (spines) |spine| {
-                    //print("{}\n", .{spine});
-                    roadPts = switch (spine) {
-                        1 => get_road_pts(X, Y, spinePt_A),
-                        2 => get_road_pts(X, Y, spinePt_B),
-                        4 => get_road_pts(X, Y, spinePt_C),
-                        8 => get_road_pts(X, Y, spinePt_D),
-                        16 => get_road_pts(X, Y, spinePt_E),
-                        else => get_road_pts(X, Y, spinePt_F),
-                    };
-                    if (spine != Roads.items.ptr[i].s) continue;
-                    rl.drawCircle(@intFromFloat(roadPts[0]), @intFromFloat(roadPts[1]), 15, .black);
-                    rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 10, .white);
                 }
             }
         }
