@@ -242,12 +242,12 @@ pub fn main() !void {
                     if (spine == 2) {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_B);
-                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0] + 3), @floatFromInt(pt3[1] - 3)), 30.0, .black);
                     }
                     if (spine == 4) {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_C);
-                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0] + 3), @floatFromInt(pt3[1] + 3)), 30.0, .black);
                     }
                     if (spine == 8) {
                         var p: i32 = @as(i32, @intFromFloat(roadPts[3])) - spinePt_A[1];
@@ -258,12 +258,12 @@ pub fn main() !void {
                     if (spine == 16) {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_E);
-                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0] - 3), @floatFromInt(pt3[1] + 3)), 30.0, .black);
                     }
                     if (spine == 32) {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_F);
-                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
+                        rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0] - 3), @floatFromInt(pt3[1] - 3)), 30.0, .black);
                     }
                 }
             }
