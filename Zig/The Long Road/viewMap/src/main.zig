@@ -250,12 +250,9 @@ pub fn main() !void {
                         rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
                     }
                     if (spine == 8) {
-                        // rl.drawCircle(@intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]), 30, .yellow);
                         var p: i32 = @as(i32, @intFromFloat(roadPts[3])) - spinePt_A[1];
-                        //rl.drawCircle(@intFromFloat(roadPts[2]), p, 20, .green);
                         rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(roadPts[2], @floatFromInt(p)), 30.0, .black);
                         p = @as(i32, @intFromFloat(roadPts[3])) + spinePt_A[1];
-                        // rl.drawCircle(@intFromFloat(roadPts[2]), p, 10, .red);
                         rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(roadPts[2], @floatFromInt(p)), 30.0, .black);
                     }
                     if (spine == 16) {
@@ -266,7 +263,6 @@ pub fn main() !void {
                     if (spine == 32) {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .black);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_F);
-                        //rl.drawCircle(pt3[0], pt3[1], 10, .yellow);
                         rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0]), @floatFromInt(pt3[1])), 30.0, .black);
                     }
                 }
