@@ -1,5 +1,5 @@
 name:Recon
-tiles:A,,B,_C,,D_E
+tiles:A,B,a_E
 tileCR:4,4        ; Column/Row tile matrix
 turns:8
 camera:0
