@@ -37,6 +37,9 @@ pub fn main() !void {
     var WholeHex = std.ArrayList(terrain.WholeHex).empty;
     defer WholeHex.deinit(allocator);
 
+    var Bridges = std.ArrayList(terrain.Bridge).empty;
+    defer Bridges.deinit(allocator);
+
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
     const pxY = db.get_float_vals("pxY");
@@ -76,6 +79,7 @@ pub fn main() !void {
     const png_forest = try rl.loadTexture("TLR/LAR_forest.png");
     const png_city = try rl.loadTexture("TLR/LAR_city.png");
     const png_town = try rl.loadTexture("TLR/LAR_town.png");
+    const png_bridge = try rl.loadTexture("TLR/LAR_bridge.png");
 
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -91,6 +95,7 @@ pub fn main() !void {
     try db.add_map_lakes(allocator, &Lakes);
     try db.add_map_rivers(allocator, &Rivers);
     try db.add_map_roads(allocator, &Roads);
+    try db.add_map_bridges(allocator, &Bridges);
 
     try db.add_map_rollings(allocator, &WholeHex);
     try db.add_map_cultivated(allocator, &WholeHex);
@@ -143,7 +148,7 @@ pub fn main() !void {
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(rl.Color.init(0xCE, 0xCC, 0xBF, 0xFF));
+        rl.clearBackground(terrain.pale_yellow);
 
         {
             camera.begin();
@@ -155,7 +160,10 @@ pub fn main() !void {
                 X = X * hex_width;
                 Y = Y * hex_height;
                 if (@mod(Hills.items.ptr[i].x, 2) != 0) Y -= halfY;
-                rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, rl.Color.init(0x7D, 0x72, 0x66, 0xFF));
+                if (Hills.items.ptr[i].h > 0)
+                    rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, .brown)
+                else
+                    rl.drawPoly(rl.Vector2.init(X, Y), 6, 135.0, 0.0, terrain.light_brown);
             }
 
             for (0..Lakes.items.len) |i| {
@@ -268,6 +276,45 @@ pub fn main() !void {
                 }
             }
 
+            for (0..Bridges.items.len) |i| {
+                var X: f32 = @floatFromInt(Bridges.items.ptr[i].x);
+                var Y: f32 = @floatFromInt(Bridges.items.ptr[i].y);
+                X = (X * hex_width);
+                Y = (Y * hex_height);
+                var bridgeLoc: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
+                for (spines) |spine| {
+                    //print("{}\n", .{spine});
+                    bridgeLoc = switch (spine) {
+                        1 => get_bridge_loc(X, Y, spinePt_A),
+                        2 => get_bridge_loc(X, Y, spinePt_B),
+                        4 => get_bridge_loc(X, Y, spinePt_C),
+                        8 => get_bridge_loc(X, Y, spinePt_D),
+                        16 => get_bridge_loc(X, Y, spinePt_E),
+                        else => get_bridge_loc(X, Y, spinePt_F),
+                    };
+                    if (spine != Bridges.items.ptr[i].s) continue;
+                    if (spine == 1) {
+                        rl.drawPoly(rl.Vector2.init(X, Y), 4, 35.0, 0.0, .white);
+                    }
+                    if (spine == 2) {
+                        rl.drawPoly(rl.Vector2.init(X, Y), 4, 35.0, 0.0, .white);
+                    }
+                    if (spine == 4) {
+                        rl.drawPoly(rl.Vector2.init(X, Y), 4, 35.0, 0.0, .white);
+                    }
+                    if (spine == 8) {
+                        // rl.drawPoly(rl.Vector2.init(X, Y), 4, 50.0, 0.0, .red);
+                        rl.drawTextureEx(png_bridge, rl.Vector2.init(bridgeLoc[2] - 22.5, bridgeLoc[3] - 32.0), 0.0, 1.0, .white);
+                    }
+                    if (spine == 16) {
+                        rl.drawPoly(rl.Vector2.init(X, Y), 4, 35.0, 0.0, .white);
+                    }
+                    if (spine == 32) {
+                        rl.drawTextureEx(png_bridge, rl.Vector2.init(bridgeLoc[2] - 38.0, bridgeLoc[3] + 3.0), -60.0, 1.0, .white);
+                    }
+                }
+            }
+
             for (0..WholeHex.items.len) |i| {
                 var X: f32 = @floatFromInt(WholeHex.items.ptr[i].x);
                 var Y: f32 = @floatFromInt(WholeHex.items.ptr[i].y);
@@ -303,6 +350,17 @@ pub fn main() !void {
             }
         }
     }
+}
+
+// ************************************************************************************************
+fn get_bridge_loc(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
+    //print("{d},{d}\n", .{ spine[0], spine[1] });
+    const p0x: f32 = hex_w;
+    const p0y: f32 = hex_y;
+    const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
+    const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
+
+    return .{ p0x, p0y, p1x, p1y };
 }
 
 // ************************************************************************************************

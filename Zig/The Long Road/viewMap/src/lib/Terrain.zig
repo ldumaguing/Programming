@@ -2,6 +2,9 @@ const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
+pub const light_brown = rl.Color.init(0xA6, 0x9A, 0x8E, 0xFF);
+pub const pale_yellow = rl.Color.init(0xCE, 0xCC, 0xBF, 0xFF);
+
 pub const Hill = struct {
     x: i32,
     y: i32,
@@ -68,6 +71,20 @@ pub const Road = struct {
 
     pub fn init(x: i32, y: i32, s: i32) Road {
         return Road{
+            .x = x,
+            .y = y,
+            .s = s,
+        };
+    }
+};
+
+pub const Bridge = struct {
+    x: i32,
+    y: i32,
+    s: i32, // spineLoc
+
+    pub fn init(x: i32, y: i32, s: i32) Bridge {
+        return Bridge{
             .x = x,
             .y = y,
             .s = s,
