@@ -6,27 +6,28 @@ const cos30: f64 = 0.86602540378; // degree base
 pub const Hexagon = struct {
     x: i32,
     y: i32,
+    cartX: f64,
+    cartY: f64,
 
     pub fn init(x: i32, y: i32) Hexagon {
+        const X: f64 = x * cos30;
+        var Y: f64 = 0.0;
+        if (@mod(x, 2) > 0)
+            Y = @as(f64, @floatFromInt(y)) - 0.5
+        else
+            Y = @as(f64, @floatFromInt(y));
+
         return Hexagon{
             .x = x,
             .y = y,
+            .cartX = X,
+            .cartY = Y,
         };
     }
 
     pub fn cartesian_dist(self: Hexagon, other: Hexagon) f64 {
-        const deltaX: f64 = @abs(self.x - other.x) * cos30;
-        const deltaY: f64 = @abs(self.y - other.y);
-
-        if (@mod(@abs(self.x - other.x), 2) > 0) {
-            var adjY = deltaY;
-            if (self.y > other.y)
-                adjY += 0.5
-            else
-                adjY -= 0.5;
-            return std.math.sqrt((deltaX * deltaX) + (adjY * adjY));
-        } else {
-            return std.math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
-        }
+        const deltaX: f64 = @abs(self.cartX - other.cartX);
+        const deltaY: f64 = @abs(self.cartY - other.cartY);
+        return std.math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
     }
 };
