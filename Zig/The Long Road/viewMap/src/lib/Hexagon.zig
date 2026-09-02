@@ -25,6 +25,15 @@ pub const Hexagon = struct {
         };
     }
 
+    pub fn degrees(self: Hexagon, other: Hexagon) f64 {
+        const deltaX: f64 = other.cartX - self.cartX;
+        const deltaY: f64 = other.cartY - self.cartY;
+        const angle_rad = std.math.atan2(deltaY, deltaX);
+        var deg = 360.0 - std.math.radiansToDegrees(angle_rad);
+        if (deg >= 360.0) deg -= 360.0;
+        return deg;
+    }
+
     pub fn cartesian_dist(self: Hexagon, other: Hexagon) f64 {
         const deltaX: f64 = @abs(self.cartX - other.cartX);
         const deltaY: f64 = @abs(self.cartY - other.cartY);
