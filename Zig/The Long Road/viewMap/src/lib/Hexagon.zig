@@ -26,6 +26,47 @@ pub const Hexagon = struct {
     }
 
     // ********************************************************************************************
+    pub fn print_path(self: Hexagon, target: Hexagon) void {
+        if (self.x == target.x) {
+            if (self.y == target.y) {
+                print("same\n", .{});
+                return;
+            }
+        }
+
+        const refAngle: f64 = self.degrees(target);
+        print(".............{d}\n", .{refAngle});
+
+        const hexDir = get_hexDir(self, degrees(self, target));
+        var adjDirs = [_]i32{ 0, 0, 0 };
+        adjDirs[1] = hexDir;
+        adjDirs[0] = hexDir - 1;
+        if (adjDirs[0] < 0) adjDirs[0] = 5;
+        adjDirs[2] = hexDir + 1;
+        if (adjDirs[2] > 5) adjDirs[2] = 0;
+        print("...{d},{d},{d}\n", .{ adjDirs[0], adjDirs[1], adjDirs[2] });
+        the_path(self, target, adjDirs, refAngle);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    pub fn the_path(wlk: Hexagon, target: Hexagon, adjDirs: [3]i32, refAngle: f64) void {
+        if (wlk.x == target.x) {
+            if (wlk.y == target.y) {
+                print("same\n", .{});
+                return;
+            }
+        }
+        for (0..3) |i| {
+            print("> {d}\n", .{adjDirs[i]});
+            const hex = get_adj_hexLoc(wlk, adjDirs[i]);
+            print(">> {d},{d}\n", .{ hex[0], hex[1] });
+            const aHex = Hexagon.init(hex[0], hex[1]);
+            const angle = @abs(aHex.degrees(target) - refAngle);
+            print(">>> {d}\n", .{angle});
+        }
+    }
+
+    // ********************************************************************************************
     pub fn get_hexDir(self: Hexagon, dir: f64) i32 {
         _ = self;
         const d: i32 = @as(i32, @intFromFloat(dir));
@@ -41,12 +82,12 @@ pub const Hexagon = struct {
     }
 
     // ********************************************************************************************
-    pub fn get_adj_hexLoc(self: Hexagon, dir: i32) struct { i32, i32 } {
+    pub fn get_adj_hexLoc(self: Hexagon, hexDir: i32) struct { i32, i32 } {
         var x = self.x;
         var y = self.y;
 
         if (@mod(self.x, 2) == 0) {
-            switch (dir) {
+            switch (hexDir) {
                 0 => y -= 1,
                 1 => x += 1,
                 2 => {
@@ -63,7 +104,7 @@ pub const Hexagon = struct {
             return .{ x, y };
         }
 
-        switch (dir) {
+        switch (hexDir) {
             0 => y -= 1,
             1 => {
                 x += 1;

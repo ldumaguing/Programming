@@ -9,6 +9,7 @@ pub fn main() !void {
     //const allocator = arena.allocator();
 
     const A = hexagon.Hexagon.init(0, 0);
-    //const B = hexagon.Hexagon.init(1, 1);
-    print("{d}\n", .{A.get_hexDir(181.0)});
+    const B = hexagon.Hexagon.init(2, -1);
+    A.print_path(A);
+    A.print_path(B);
 }
