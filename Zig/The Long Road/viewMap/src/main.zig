@@ -9,7 +9,6 @@ pub fn main() !void {
     //const allocator = arena.allocator();
 
     const A = hexagon.Hexagon.init(0, 0);
-    const B = hexagon.Hexagon.init(-1, 0);
-    print("{d}\n", .{A.cartesian_dist(B)});
-    print("{d}\n", .{A.degrees(B)});
+    //const B = hexagon.Hexagon.init(1, 1);
+    print("{d}\n", .{A.get_hexDir(181.0)});
 }
