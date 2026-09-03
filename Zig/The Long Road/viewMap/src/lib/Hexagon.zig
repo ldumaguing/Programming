@@ -1,6 +1,8 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const terrain = @import("Terrain.zig");
+
 const cos30: f64 = 0.86602540378; // degree base
 
 pub const Hexagon = struct {
@@ -26,7 +28,7 @@ pub const Hexagon = struct {
     }
 
     // ********************************************************************************************
-    pub fn print_path(self: Hexagon, target: Hexagon) void {
+    pub fn print_path(self: Hexagon, allocator: std.mem.Allocator, target: Hexagon, ph: *std.ArrayList(terrain.Path)) !void {
         if (self.x == target.x) {
             if (self.y == target.y) {
                 print("same\n", .{});
@@ -45,11 +47,11 @@ pub const Hexagon = struct {
         adjDirs[2] = hexDir + 1;
         if (adjDirs[2] > 5) adjDirs[2] = 0;
         print("...{d},{d},{d}\n", .{ adjDirs[0], adjDirs[1], adjDirs[2] });
-        the_path(self, target, adjDirs, refAngle);
+        try the_path(allocator, self, target, adjDirs, refAngle, ph);
     }
 
     // --------------------------------------------------------------------------------------------
-    pub fn the_path(wlk: Hexagon, target: Hexagon, adjDirs: [3]i32, refAngle: f64) void {
+    pub fn the_path(allocator: std.mem.Allocator, wlk: Hexagon, target: Hexagon, adjDirs: [3]i32, refAngle: f64, ph: *std.ArrayList(terrain.Path)) !void {
         if (wlk.x == target.x) {
             if (wlk.y == target.y) {
                 print("same\n", .{});
@@ -71,6 +73,8 @@ pub const Hexagon = struct {
             if (hexLoc1[0] == target.x) {
                 if (hexLoc1[1] == target.y) {
                     print("{d},{d}\n", .{ target.x, target.y });
+                    const aPath = terrain.Path.init(target.x, target.y);
+                    _ = try ph.append(allocator, aPath);
                     return;
                 }
             }
@@ -83,7 +87,9 @@ pub const Hexagon = struct {
         }
 
         print("> {d},{d}\n", .{ aHexagon.x, aHexagon.y });
-        the_path(aHexagon, target, adjDirs, refAngle);
+        const aPath = terrain.Path.init(aHexagon.x, aHexagon.y);
+        _ = try ph.append(allocator, aPath);
+        try the_path(allocator, aHexagon, target, adjDirs, refAngle, ph); // recursing
     }
 
     // ********************************************************************************************

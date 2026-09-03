@@ -5,6 +5,22 @@ const print = std.debug.print;
 pub const light_brown = rl.Color.init(0xA6, 0x9A, 0x8E, 0xFF);
 pub const pale_yellow = rl.Color.init(0xCE, 0xCC, 0xBF, 0xFF);
 
+pub const Path = struct {
+    x: i32,
+    y: i32,
+    f: u32, // flags
+
+    pub fn init(x: i32, y: i32) Path {
+        return Path{
+            .x = x,
+            .y = y,
+            .f = 0,
+        };
+    }
+    // bit 0: blocks LOS
+    // bit 1:
+};
+
 pub const Hill = struct {
     x: i32,
     y: i32,
