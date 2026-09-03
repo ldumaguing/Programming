@@ -56,14 +56,34 @@ pub const Hexagon = struct {
                 return;
             }
         }
-        for (0..3) |i| {
-            print("> {d}\n", .{adjDirs[i]});
-            const hex = get_adj_hexLoc(wlk, adjDirs[i]);
-            print(">> {d},{d}\n", .{ hex[0], hex[1] });
-            const aHex = Hexagon.init(hex[0], hex[1]);
-            const angle = @abs(aHex.degrees(target) - refAngle);
-            print(">>> {d}\n", .{angle});
+
+        const hexLoc = get_adj_hexLoc(wlk, adjDirs[0]);
+        if (hexLoc[0] == target.x) {
+            if (hexLoc[1] == target.y) {
+                print("same\n", .{});
+                return;
+            }
         }
+        var aHexagon = Hexagon.init(hexLoc[0], hexLoc[1]);
+        var angle = @abs(aHexagon.degrees(target) - refAngle);
+        for (1..3) |i| {
+            const hexLoc1 = get_adj_hexLoc(wlk, adjDirs[i]);
+            if (hexLoc1[0] == target.x) {
+                if (hexLoc1[1] == target.y) {
+                    print("{d},{d}\n", .{ target.x, target.y });
+                    return;
+                }
+            }
+            const aHexagon1 = Hexagon.init(hexLoc1[0], hexLoc1[1]);
+            const angle1 = @abs(aHexagon1.degrees(target) - refAngle);
+            if (angle > angle1) {
+                aHexagon = aHexagon1;
+                angle = angle1;
+            }
+        }
+
+        print("> {d},{d}\n", .{ aHexagon.x, aHexagon.y });
+        the_path(aHexagon, target, adjDirs, refAngle);
     }
 
     // ********************************************************************************************
