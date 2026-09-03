@@ -46,7 +46,7 @@ pub fn main() !void {
     defer Paths.deinit(allocator);
 
     const A = hexagon.Hexagon.init(0, 0);
-    const B = hexagon.Hexagon.init(12, 6);
+    const B = hexagon.Hexagon.init(1, 15);
     try A.get_path(allocator, B, &Paths);
 
     // ********************************************************************************************

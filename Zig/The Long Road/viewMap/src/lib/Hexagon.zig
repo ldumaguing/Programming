@@ -36,6 +36,9 @@ pub const Hexagon = struct {
             }
         }
 
+        const aPath = terrain.Path.init(self.x, self.y);
+        _ = try ph.append(allocator, aPath);
+
         const refAngle: f64 = self.degrees(target);
 
         const hexDir = get_hexDir(self, degrees(self, target));
