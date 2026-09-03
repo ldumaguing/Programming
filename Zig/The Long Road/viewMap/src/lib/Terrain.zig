@@ -109,6 +109,18 @@ pub const Bridge = struct {
 };
 
 // ************************************************************************************************
+pub fn is_hill_blocks_LOS(h: *std.ArrayList(Hill), p: *std.ArrayList(Path)) bool {
+    for (0..h.items.len) |i| {
+        for (0..p.items.len) |j| {
+            if (h.items.ptr[i].x == p.items.ptr[j].x) {
+                if (h.items.ptr[i].y == p.items.ptr[j].y) return true;
+            }
+        }
+    }
+    return false;
+}
+
+// ************************************************************************************************
 pub fn get_3rd_pt(pt1: struct { i32, i32 }, pt2: struct { i32, i32 }) struct { i32, i32 } {
     return .{ pt1[0] + pt2[0], pt1[1] + pt2[1] };
 }

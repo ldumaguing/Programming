@@ -46,7 +46,7 @@ pub fn main() !void {
     defer Paths.deinit(allocator);
 
     const A = hexagon.Hexagon.init(0, 0);
-    const B = hexagon.Hexagon.init(1, 15);
+    const B = hexagon.Hexagon.init(5, 8);
     try A.get_path(allocator, B, &Paths);
 
     // ********************************************************************************************
@@ -113,6 +113,10 @@ pub fn main() !void {
     try db.add_map_town(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
+    // ********************************************************************************************
+    if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
+        print("*********** block *************\n", .{});
+    }
     // ********************************************************************************************
     rl.setTargetFPS(12);
 
