@@ -28,7 +28,7 @@ pub const Hexagon = struct {
     }
 
     // ********************************************************************************************
-    pub fn print_path(self: Hexagon, allocator: std.mem.Allocator, target: Hexagon, ph: *std.ArrayList(terrain.Path)) !void {
+    pub fn get_path(self: Hexagon, allocator: std.mem.Allocator, target: Hexagon, ph: *std.ArrayList(terrain.Path)) !void {
         if (self.x == target.x) {
             if (self.y == target.y) {
                 print("same\n", .{});
@@ -37,7 +37,6 @@ pub const Hexagon = struct {
         }
 
         const refAngle: f64 = self.degrees(target);
-        print(".............{d}\n", .{refAngle});
 
         const hexDir = get_hexDir(self, degrees(self, target));
         var adjDirs = [_]i32{ 0, 0, 0 };
