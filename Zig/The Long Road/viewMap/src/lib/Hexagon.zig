@@ -48,7 +48,6 @@ pub const Hexagon = struct {
         if (adjDirs[0] < 0) adjDirs[0] = 5;
         adjDirs[2] = hexDir + 1;
         if (adjDirs[2] > 5) adjDirs[2] = 0;
-        print("...{d},{d},{d}\n", .{ adjDirs[0], adjDirs[1], adjDirs[2] });
         try the_path(allocator, self, target, adjDirs, refAngle, ph);
     }
 
@@ -74,7 +73,6 @@ pub const Hexagon = struct {
             const hexLoc1 = get_adj_hexLoc(wlk, adjDirs[i]);
             if (hexLoc1[0] == target.x) {
                 if (hexLoc1[1] == target.y) {
-                    print("{d},{d}\n", .{ target.x, target.y });
                     const aPath = terrain.Path.init(target.x, target.y);
                     _ = try ph.append(allocator, aPath);
                     return;
@@ -88,7 +86,6 @@ pub const Hexagon = struct {
             }
         }
 
-        print("> {d},{d}\n", .{ aHexagon.x, aHexagon.y });
         const aPath = terrain.Path.init(aHexagon.x, aHexagon.y);
         _ = try ph.append(allocator, aPath);
         try the_path(allocator, aHexagon, target, adjDirs, refAngle, ph); // recursing
