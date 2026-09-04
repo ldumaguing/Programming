@@ -94,7 +94,7 @@ pub const Hexagon = struct {
     // ********************************************************************************************
     pub fn get_hexDir(self: Hexagon, dir: f64) i32 {
         _ = self;
-        const d: i32 = @round(dir);
+        const d: i32 = @as(i32, @intFromFloat(dir));
         const direction: i32 = switch (d) {
             0...59 => 1,
             60...119 => 0,
