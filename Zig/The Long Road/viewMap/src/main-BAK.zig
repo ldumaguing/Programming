@@ -6,6 +6,7 @@ const sqlite3 = @import("lib/Database.zig");
 const gamemap = @import("lib/GameMap.zig");
 const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
+const hexagon = @import("lib/Hexagon.zig");
 
 pub fn main() !void {
     const db = sqlite3.Database.init();
@@ -39,6 +40,14 @@ pub fn main() !void {
 
     var Bridges = std.ArrayList(terrain.Bridge).empty;
     defer Bridges.deinit(allocator);
+
+    // ***** Path
+    var Paths = std.ArrayList(terrain.Path).empty;
+    defer Paths.deinit(allocator);
+
+    const A = hexagon.Hexagon.init(0, 0);
+    const B = hexagon.Hexagon.init(5, 8);
+    try A.get_path(allocator, B, &Paths);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -104,6 +113,10 @@ pub fn main() !void {
     try db.add_map_town(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
+    // ********************************************************************************************
+    if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
+        print("*********** block *************\n", .{});
+    }
     // ********************************************************************************************
     rl.setTargetFPS(12);
 
@@ -323,6 +336,14 @@ pub fn main() !void {
                     if (@mod(WholeHex.items.ptr[i].x, 2) != 0) Y -= halfY;
                     rl.drawTexture(png_forest, @intFromFloat(X), @intFromFloat(Y), .white);
                 }
+            }
+
+            for (0..Paths.items.len) |i| {
+                // print("{d},{d}\n", .{ Paths.items.ptr[i].x, Paths.items.ptr[i].y });
+                const X: f32 = @as(f32, @floatFromInt(Paths.items.ptr[i].x)) * hex_width;
+                var Y: f32 = @as(f32, @floatFromInt(Paths.items.ptr[i].y)) * hex_height;
+                if (@mod(Paths.items.ptr[i].x, 2) != 0) Y -= halfY;
+                rl.drawPoly(rl.Vector2.init(X, Y), 4, 66.0, 0.0, .black);
             }
 
             // ***** map tiles

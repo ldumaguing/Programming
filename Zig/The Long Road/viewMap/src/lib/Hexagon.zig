@@ -25,10 +25,18 @@ pub const Hexagon = struct {
             .cartX = X,
             .cartY = Y,
         };
+    } // ********************************************************************************************
+    pub fn get_hex_distance(self: Hexagon, allocator: std.mem.Allocator, target: Hexagon, ph: *std.ArrayList(terrain.Path)) !i32 {
+        try get_path(self, allocator, target, ph);
+        var dist: i32 = @intCast(ph.items.len);
+        dist -= 1;
+        return dist;
     }
 
     // ********************************************************************************************
     pub fn get_path(self: Hexagon, allocator: std.mem.Allocator, target: Hexagon, ph: *std.ArrayList(terrain.Path)) !void {
+        ph.clearAndFree(allocator);
+
         if (self.x == target.x) {
             if (self.y == target.y) {
                 print("same\n", .{});
