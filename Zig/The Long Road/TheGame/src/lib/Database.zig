@@ -4,6 +4,7 @@ const print = std.debug.print;
 
 const tile = @import("Tile.zig");
 const terrain = @import("Terrain.zig");
+const combatant = @import("Combatant.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -69,6 +70,13 @@ pub const Database = struct {
             .currSession = currSession,
             .pixelCount = .{ @intCast(i64_X), @intCast(i64_Y) },
         };
+    }
+
+    // ********************************************************************************************
+    pub fn add_combatant(self: Database, allocator: std.mem.Allocator, cbt: *std.ArrayList(combatant.Combatant)) !void {
+        _ = self;
+        _ = allocator;
+        _ = cbt;
     }
 
     // ********************************************************************************************
