@@ -12,6 +12,7 @@ pub const Combatant = struct {
             .instanceID = instanceID,
             .hex_x = hex_x,
             .hex_y = hex_y,
+            .hex_z = 0,
             .flag1 = 0,
             .id = id,
             .currState = currState,

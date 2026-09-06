@@ -50,6 +50,7 @@ pub fn main() !void {
     defer Combatants.deinit(allocator);
 
     try db.add_combatants(allocator, &Combatants);
+    print("combatant count: {d}\n", .{Combatants.items.len});
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");

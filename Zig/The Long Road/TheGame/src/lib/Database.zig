@@ -73,10 +73,33 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_combatant(self: Database, allocator: std.mem.Allocator, cbt: *std.ArrayList(combatant.Combatant)) !void {
-        _ = self;
-        _ = allocator;
-        _ = cbt;
+    pub fn add_combatants(self: Database, allocator: std.mem.Allocator, cbt: *std.ArrayList(combatant.Combatant)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT instanceID, hex_x, hex_y, id, currState
+            \\FROM GameCombatant
+            \\WHERE
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const instanceID = c.sqlite3_column_int(stmt, 0);
+            const hex_x = c.sqlite3_column_int(stmt, 1);
+            const hex_y = c.sqlite3_column_int(stmt, 2);
+            const id = c.sqlite3_column_int(stmt, 3);
+            const currState = c.sqlite3_column_int(stmt, 4);
+
+            const aCombatant = combatant.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            _ = try cbt.append(allocator, aCombatant);
+        }
     }
 
     // ********************************************************************************************
