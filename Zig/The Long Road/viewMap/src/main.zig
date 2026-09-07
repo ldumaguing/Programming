@@ -7,6 +7,7 @@ const gamemap = @import("lib/GameMap.zig");
 const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
 const hexagon = @import("lib/Hexagon.zig");
+const combatant = @import("lib/Combatant.zig");
 
 pub fn main() !void {
     const db = sqlite3.Database.init();
@@ -16,6 +17,7 @@ pub fn main() !void {
     defer arena.deinit();
     const allocator = arena.allocator();
 
+    // ********************************************************************************************
     var Textures = std.ArrayList(rl.Texture).empty;
     defer Textures.deinit(allocator);
 
@@ -48,6 +50,13 @@ pub fn main() !void {
     const A = hexagon.Hexagon.init(0, 0);
     const B = hexagon.Hexagon.init(5, 8);
     try A.get_path(allocator, B, &Paths);
+
+    // ***** Combatant/Units
+    var Units = std.ArrayList(rl.Texture).empty;
+    defer Units.deinit(allocator);
+
+    var Combatants = std.ArrayList(combatant.Combatant).empty;
+    defer Combatants.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -108,10 +117,12 @@ pub fn main() !void {
 
     try db.add_map_rollings(allocator, &WholeHex);
     try db.add_map_cultivated(allocator, &WholeHex);
-    try db.add_map_forest(allocator, &WholeHex);
-    try db.add_map_city(allocator, &WholeHex);
-    try db.add_map_town(allocator, &WholeHex);
+    try db.add_map_forests(allocator, &WholeHex);
+    try db.add_map_cities(allocator, &WholeHex);
+    try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
+
+    try db.add_map_combatants(allocator, &Combatants, &Units);
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {

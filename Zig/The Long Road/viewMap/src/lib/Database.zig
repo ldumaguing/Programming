@@ -4,6 +4,7 @@ const print = std.debug.print;
 
 const tile = @import("Tile.zig");
 const terrain = @import("Terrain.zig");
+const combatant = @import("Combatant.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -72,7 +73,24 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_town(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, cbts: *std.ArrayList(combatant.Combatant), units: *std.ArrayList(rl.Texture)) !void {
+        _ = allocator;
+        _ = cbts;
+        _ = units;
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y FROM GameMap
+            \\WHERE
+            \\terrainNum = 11 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+    }
+
+    // ********************************************************************************************
+    pub fn add_map_towns(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -99,7 +117,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_city(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_cities(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -126,7 +144,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_forest(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_forests(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
