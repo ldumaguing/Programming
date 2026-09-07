@@ -102,6 +102,8 @@ pub const Database = struct {
         }
     }
 
+    // --------------------------------------------------------------------------------------------
+
     // ********************************************************************************************
     pub fn add_map_town(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement

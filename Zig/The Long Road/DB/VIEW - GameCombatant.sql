@@ -1,5 +1,5 @@
-DROP VIEW IF EXISTS v_GameCombatant;
-CREATE VIEW v_GameCombatant AS
+DROP VIEW IF EXISTS v_gamecombatant;
+CREATE VIEW v_gamecombatant AS
 SELECT
    GameCombatant.sessionID,
    GameCombatant.instanceID,
