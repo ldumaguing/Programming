@@ -77,8 +77,8 @@ pub const Database = struct {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
-            \\SELECT instanceID, hex_x, hex_y, id, currState
-            \\FROM GameCombatant
+            \\SELECT instanceID, hex_x, hex_y, id, filename
+            \\FROM v_gamecombatant
             \\WHERE
             \\sessionID = ?1
         ;
@@ -95,9 +95,12 @@ pub const Database = struct {
             const hex_x = c.sqlite3_column_int(stmt, 1);
             const hex_y = c.sqlite3_column_int(stmt, 2);
             const id = c.sqlite3_column_int(stmt, 3);
-            const currState = c.sqlite3_column_int(stmt, 4);
+            const filename = c.sqlite3_column_text(stmt, 4);
 
-            const aCombatant = combatant.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            const fname = std.mem.span(filename);
+            var aCombatant = combatant.Combatant.init(instanceID, hex_x, hex_y, id);
+            @memcpy(aCombatant.imagefile[0..fname.len], fname);
+            aCombatant.imagefile_len = @intCast(fname.len);
             _ = try cbt.append(allocator, aCombatant);
         }
     }

@@ -51,10 +51,9 @@ pub fn main() !void {
 
     try db.add_combatants(allocator, &Combatants);
     print("combatant count: {d}\n", .{Combatants.items.len});
-    //for (0..Combatants.items.len) |i| {
-    //    @memcpy(Combatants.items.ptr[i].imagefile[0..14], "Larry was here");
-    //    print("{d}: {s}\n", .{Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].imagefile[0..14]});
-    //}
+    for (0..Combatants.items.len) |i| {
+        print("...{d}: {s}\n", .{ Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].imagefile[0..@intCast(Combatants.items.ptr[i].imagefile_len)] });
+    }
 
     // ********************************************************************************************
     const screenWidth = 320;
