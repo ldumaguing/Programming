@@ -124,6 +124,8 @@ pub fn main() !void {
 
     try db.add_map_combatants(allocator, &CombatantImgs, &CombatantMetas);
 
+    print(">>>>>>>>>>>>> {d}\n", .{CombatantImgs.items.len});
+
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
         print("*********** block *************\n", .{});
@@ -379,6 +381,7 @@ pub fn main() !void {
                     }
                 }
             }
+            rl.drawTextureEx(CombatantImgs.items.ptr[0], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
         }
     }
 }

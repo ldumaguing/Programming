@@ -51,6 +51,36 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
+        const sql_4 =
+            \\DELETE FROM GameAsset
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
+
+        // Binding
+        const curS: i32 = @intCast(currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_5 =
+            \\INSERT INTO GameAsset (imgID, filename, sessionID)
+            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
         const sql_3 =
             \\DELETE FROM GameImg
             \\WHERE sessionID = ?1
@@ -58,7 +88,6 @@ pub const Database = struct {
         _ = c.sqlite3_prepare_v2(db, sql_3, -1, &stmt, null);
 
         // Binding
-        const curS: i32 = @intCast(currSession);
         _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Execute statement
@@ -117,10 +146,41 @@ pub const Database = struct {
 
     // ********************************************************************************************
     pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), unit_meta: *std.ArrayList(combatant.Combatant)) !void {
-        _ = self;
-        _ = allocator;
         _ = unit_meta;
-        _ = img;
+        //_ = img;
+
+        const curS: i32 = @intCast(self.currSession);
+
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT imgID, filename FROM GameAsset
+            \\WHERE
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const imgID = c.sqlite3_column_int(stmt, 0);
+            const filename = std.mem.span(c.sqlite3_column_text(stmt, 1));
+            //const filename = c.sqlite3_column_text(stmt, 1) ++ "asdf";
+            print("{d}:{s},{d}\n", .{ imgID, filename, filename.len });
+            const result = try allocator.alloc(u8, filename.len + 4);
+            defer allocator.free(result);
+            @memcpy(result[0..4], "TLR/");
+            @memcpy(result[4..], filename);
+            print("{s}\n", .{result});
+
+            const c_str = try allocator.dupeZ(u8, result);
+            defer allocator.free(c_str);
+
+            _ = try img.append(allocator, try rl.loadTexture(c_str));
+        }
     }
 
     // ********************************************************************************************
