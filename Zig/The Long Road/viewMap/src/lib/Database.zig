@@ -4,7 +4,7 @@ const print = std.debug.print;
 
 const tile = @import("Tile.zig");
 const terrain = @import("Terrain.zig");
-const combatant = @import("Combatant.zig");
+const asset = @import("Asset.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -145,10 +145,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), unit_meta: *std.ArrayList(combatant.Combatant)) !void {
-        _ = unit_meta;
-        //_ = img;
-
+    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), meta: *std.ArrayList(asset.Meta)) !void {
         const curS: i32 = @intCast(self.currSession);
 
         // Prepare the SQL statement
@@ -168,15 +165,17 @@ pub const Database = struct {
         while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
             const imgID = c.sqlite3_column_int(stmt, 0);
             const filename = std.mem.span(c.sqlite3_column_text(stmt, 1));
-            const result = try allocator.alloc(u8, filename.len + 4);
-            defer allocator.free(result);
-            @memcpy(result[0..4], "TLR/");
-            @memcpy(result[4..], filename);
+            const fname = try allocator.alloc(u8, filename.len + 4);
+            defer allocator.free(fname);
+            @memcpy(fname[0..4], "TLR/");
+            @memcpy(fname[4..], filename);
 
-            const c_str = try allocator.dupeZ(u8, result);
+            const c_str = try allocator.dupeZ(u8, fname);
             defer allocator.free(c_str);
-
             _ = try img.append(allocator, try rl.loadTexture(c_str));
+
+            const aMeta = asset.Meta.init(imgID);
+            _ = try meta.append(allocator, aMeta);
         }
     }
 

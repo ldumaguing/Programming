@@ -7,7 +7,7 @@ const gamemap = @import("lib/GameMap.zig");
 const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
 const hexagon = @import("lib/Hexagon.zig");
-const combatant = @import("lib/Combatant.zig");
+const asset = @import("lib/Asset.zig");
 
 pub fn main() !void {
     const db = sqlite3.Database.init();
@@ -51,12 +51,12 @@ pub fn main() !void {
     const B = hexagon.Hexagon.init(5, 8);
     try A.get_path(allocator, B, &Paths);
 
-    // ***** Combatant/Units
-    var CombatantImgs = std.ArrayList(rl.Texture).empty;
-    defer CombatantImgs.deinit(allocator);
+    // ***** images
+    var Imgs = std.ArrayList(rl.Texture).empty;
+    defer Imgs.deinit(allocator);
 
-    var CombatantMetas = std.ArrayList(combatant.Combatant).empty;
-    defer CombatantMetas.deinit(allocator);
+    var Metas = std.ArrayList(asset.Meta).empty;
+    defer Metas.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -122,9 +122,13 @@ pub fn main() !void {
     try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
-    try db.add_map_combatants(allocator, &CombatantImgs, &CombatantMetas);
+    try db.add_map_combatants(allocator, &Imgs, &Metas);
 
-    print(">>>>>>>>>>>>> {d}\n", .{CombatantImgs.items.len});
+    print(">>>>>>>>>>>>> {d}\n", .{Imgs.items.len});
+    print(">>>>>>>>>>>>> {d}\n", .{Metas.items.len});
+    for (0..Metas.items.len) |i| {
+        print("[{d}]\n", .{Metas.items.ptr[i].imgID});
+    }
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -381,7 +385,7 @@ pub fn main() !void {
                     }
                 }
             }
-            rl.drawTextureEx(CombatantImgs.items.ptr[0], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
+            rl.drawTextureEx(Imgs.items.ptr[0], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
         }
     }
 }
