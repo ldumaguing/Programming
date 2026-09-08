@@ -168,13 +168,10 @@ pub const Database = struct {
         while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
             const imgID = c.sqlite3_column_int(stmt, 0);
             const filename = std.mem.span(c.sqlite3_column_text(stmt, 1));
-            //const filename = c.sqlite3_column_text(stmt, 1) ++ "asdf";
-            print("{d}:{s},{d}\n", .{ imgID, filename, filename.len });
             const result = try allocator.alloc(u8, filename.len + 4);
             defer allocator.free(result);
             @memcpy(result[0..4], "TLR/");
             @memcpy(result[4..], filename);
-            print("{s}\n", .{result});
 
             const c_str = try allocator.dupeZ(u8, result);
             defer allocator.free(c_str);
