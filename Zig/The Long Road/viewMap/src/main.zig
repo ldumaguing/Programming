@@ -52,11 +52,11 @@ pub fn main() !void {
     try A.get_path(allocator, B, &Paths);
 
     // ***** Combatant/Units
-    var Units = std.ArrayList(rl.Texture).empty;
-    defer Units.deinit(allocator);
+    var CombatantImgs = std.ArrayList(rl.Texture).empty;
+    defer CombatantImgs.deinit(allocator);
 
-    var Combatants = std.ArrayList(combatant.Combatant).empty;
-    defer Combatants.deinit(allocator);
+    var CombatantMetas = std.ArrayList(combatant.Combatant).empty;
+    defer CombatantMetas.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -122,7 +122,7 @@ pub fn main() !void {
     try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
-    try db.add_map_combatants(allocator, &Combatants, &Units);
+    try db.add_map_combatants(allocator, &CombatantImgs, &CombatantMetas);
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {

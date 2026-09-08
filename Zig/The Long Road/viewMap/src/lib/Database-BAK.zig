@@ -51,6 +51,7 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
+        stmt = null;
         const sql_3 =
             \\DELETE FROM GameImg
             \\WHERE sessionID = ?1

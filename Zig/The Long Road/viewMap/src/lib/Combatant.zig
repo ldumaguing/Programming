@@ -8,7 +8,7 @@ pub const Combatant = struct {
     hex_z: i32,
     flag1: i32,
     id: i32, // Combatant ID
-    imagefile: [40]u8,
+    imagefile: [64]u8,
     imagefile_len: i32,
 
     pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32) Combatant {
