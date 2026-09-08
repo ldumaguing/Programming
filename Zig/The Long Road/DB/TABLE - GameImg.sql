@@ -3,8 +3,7 @@ CREATE TABLE GameImg (
     sessionID INTEGER,
     id        INTEGER,
     state_num INTEGER,
-    imgID     INTEGER,
-    filename  TEXT
+    imgID     INTEGER
 );
 
 

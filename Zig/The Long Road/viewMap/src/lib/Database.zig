@@ -51,6 +51,22 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
+        stmt = null;
+        const sql_3 =
+            \\DELETE FROM GameImg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_3, -1, &stmt, null);
+
+        // Binding
+        const curS: i32 = @intCast(currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
         const sql_2 =
             \\INSERT INTO GameImg (id, state_num, imgID, sessionID)
             \\SELECT id, 0, state0, ?1 FROM COMBATANT WHERE id in
@@ -86,7 +102,7 @@ pub const Database = struct {
         _ = c.sqlite3_prepare_v2(db, sql_2, -1, &stmt, null);
 
         // Binding
-        const curS: i32 = @intCast(currSession);
+        //const curS: i32 = @intCast(currSession);
         _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Execute statement
