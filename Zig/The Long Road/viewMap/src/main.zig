@@ -127,15 +127,6 @@ pub fn main() !void {
 
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
-    print(">>>>>>>>>>>>> {d}\n", .{Imgs.items.len});
-    print(">>>>>>>>>>>>> {d}\n", .{ImgIDs.items.len});
-    for (0..ImgIDs.items.len) |i| {
-        print("[{d}]\n", .{ImgIDs.items.ptr[i].imgID});
-    }
-    //for (0..Combatants.items.len) |i| {
-    //    print("{d}:{d}:{d}\n", .{ Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].id, Combatants.items.ptr[i].currState });
-    //}
-
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
         print("*********** block *************\n", .{});
