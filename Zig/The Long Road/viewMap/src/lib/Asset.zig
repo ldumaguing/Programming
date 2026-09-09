@@ -19,6 +19,7 @@ pub const Combatant = struct {
     flag1: i32,
     id: i32, // Combatant ID
     currState: i32, // img ID
+    imgIndex: i32,
     // imagefile: [64]u8,
     // imagefile_len: i32,
 
@@ -31,6 +32,7 @@ pub const Combatant = struct {
             .flag1 = 0,
             .id = id,
             .currState = currState,
+            .imgIndex = 0,
             // .imagefile = undefined,
             // .imagefile_len = 0,
         };

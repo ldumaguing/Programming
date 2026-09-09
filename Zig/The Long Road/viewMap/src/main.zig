@@ -132,9 +132,9 @@ pub fn main() !void {
     for (0..ImgIDs.items.len) |i| {
         print("[{d}]\n", .{ImgIDs.items.ptr[i].imgID});
     }
-    for (0..Combatants.items.len) |i| {
-        print("{d}:{d}:{d} -- {d},{d}\n", .{ Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].id, Combatants.items.ptr[i].currState, Combatants.items.ptr[i].hex_x, Combatants.items.ptr[i].hex_y });
-    }
+    //for (0..Combatants.items.len) |i| {
+    //    print("{d}:{d}:{d}\n", .{ Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].id, Combatants.items.ptr[i].currState });
+    //}
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -391,7 +391,8 @@ pub fn main() !void {
                     }
                 }
             }
-            rl.drawTextureEx(Imgs.items.ptr[0], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
+            rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[0].imgIndex)], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
+            rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[7].imgIndex)], rl.Vector2.init(90.0, 90.0), 0.0, 1.0, .white);
         }
     }
 }

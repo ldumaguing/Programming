@@ -200,6 +200,19 @@ pub const Database = struct {
             const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
             _ = try cmb.append(allocator, cbt);
         }
+
+        // ----------------------------------------------------------------------------------------
+        // defining imgIndex
+        for (0..cmb.items.len) |i| {
+            var count: i32 = 0;
+            for (0..imgid.items.len) |j| {
+                if (cmb.items.ptr[i].currState == imgid.items.ptr[j].imgID) {
+                    cmb.items.ptr[i].imgIndex = count;
+                    break;
+                }
+                count += 1;
+            }
+        }
     }
 
     // ********************************************************************************************
