@@ -145,7 +145,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), meta: *std.ArrayList(asset.Meta)) !void {
+    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), imgid: *std.ArrayList(asset.ImgID2index), cmb: *std.ArrayList(asset.Combatant)) !void {
         const curS: i32 = @intCast(self.currSession);
 
         // Prepare the SQL statement
@@ -174,8 +174,32 @@ pub const Database = struct {
             defer allocator.free(c_str);
             _ = try img.append(allocator, try rl.loadTexture(c_str));
 
-            const aMeta = asset.Meta.init(imgID);
-            _ = try meta.append(allocator, aMeta);
+            const aImgID2index = asset.ImgID2index.init(imgID);
+            _ = try imgid.append(allocator, aImgID2index);
+        }
+
+        // ----------------------------------------------------------------------------------------
+        const sql_1 =
+            \\SELECT instanceID, hex_x, hex_y, id, currState
+            \\FROM GameCombatant
+            \\WHERE
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql_1, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const instanceID = c.sqlite3_column_int(stmt, 0);
+            const hex_x = c.sqlite3_column_int(stmt, 1);
+            const hex_y = c.sqlite3_column_int(stmt, 2);
+            const id = c.sqlite3_column_int(stmt, 3);
+            const currState = c.sqlite3_column_int(stmt, 4);
+
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            _ = try cmb.append(allocator, cbt);
         }
     }
 

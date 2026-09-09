@@ -51,12 +51,15 @@ pub fn main() !void {
     const B = hexagon.Hexagon.init(5, 8);
     try A.get_path(allocator, B, &Paths);
 
-    // ***** images
+    // ***** Asset
     var Imgs = std.ArrayList(rl.Texture).empty;
     defer Imgs.deinit(allocator);
 
-    var Metas = std.ArrayList(asset.Meta).empty;
-    defer Metas.deinit(allocator);
+    var ImgIDs = std.ArrayList(asset.ImgID2index).empty;
+    defer ImgIDs.deinit(allocator);
+
+    var Combatants = std.ArrayList(asset.Combatant).empty;
+    defer Combatants.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -122,12 +125,15 @@ pub fn main() !void {
     try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
-    try db.add_map_combatants(allocator, &Imgs, &Metas);
+    try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     print(">>>>>>>>>>>>> {d}\n", .{Imgs.items.len});
-    print(">>>>>>>>>>>>> {d}\n", .{Metas.items.len});
-    for (0..Metas.items.len) |i| {
-        print("[{d}]\n", .{Metas.items.ptr[i].imgID});
+    print(">>>>>>>>>>>>> {d}\n", .{ImgIDs.items.len});
+    for (0..ImgIDs.items.len) |i| {
+        print("[{d}]\n", .{ImgIDs.items.ptr[i].imgID});
+    }
+    for (0..Combatants.items.len) |i| {
+        print("{d}:{d}:{d} -- {d},{d}\n", .{ Combatants.items.ptr[i].instanceID, Combatants.items.ptr[i].id, Combatants.items.ptr[i].currState, Combatants.items.ptr[i].hex_x, Combatants.items.ptr[i].hex_y });
     }
 
     // ********************************************************************************************
