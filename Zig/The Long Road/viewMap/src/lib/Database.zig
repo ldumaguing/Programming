@@ -130,7 +130,6 @@ pub const Database = struct {
         _ = c.sqlite3_prepare_v2(db, sql_2, -1, &stmt, null);
 
         // Binding
-        //const curS: i32 = @intCast(currSession);
         _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Execute statement
