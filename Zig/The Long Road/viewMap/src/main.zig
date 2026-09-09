@@ -391,8 +391,23 @@ pub fn main() !void {
                     }
                 }
             }
-            rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[0].imgIndex)], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
-            rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[7].imgIndex)], rl.Vector2.init(90.0, 90.0), 0.0, 1.0, .white);
+            const adjX: f32 = 79.0;
+            const adjY: f32 = hex_height * 0.84;
+            const adjYa: f32 = hex_height * 0.35;
+            // rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[0].imgIndex)], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
+            // rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[7].imgIndex)], rl.Vector2.init(90.0, 90.0), 0.0, 1.0, .white);
+            for (0..Combatants.items.len) |i| {
+                var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
+                X = (X * hex_width) - adjX;
+                var Y: f32 = @floatFromInt(Combatants.items.ptr[i].hex_y);
+                if (@mod(Combatants.items.ptr[i].hex_x, 2) == 0) {
+                    Y = (Y * hex_height) - adjYa;
+                } else {
+                    Y = (Y * hex_height) - adjY;
+                }
+
+                rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
+            }
         }
     }
 }
