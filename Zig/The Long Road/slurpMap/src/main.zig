@@ -10,7 +10,7 @@ const terrains = [_][]const u8{ "", "BRIDGE", "CITY", "CULTIVATED", "FOREST", "H
 //    1: whole hexagon
 //    2: spine location
 //    3: road, path, etc.  The spines are exits from starting hexagon
-const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3, 1 };
+const terrainTypes = [_]i32{ 0, 2, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 3, 1, 2 };
 const ref_a = 'a';
 
 pub fn main(init: std.process.Init) !void {
@@ -111,6 +111,10 @@ pub fn main(init: std.process.Init) !void {
         }
         if (std.mem.startsWith(u8, line, "TUNNELED HEX *")) {
             terrainType = 13;
+            continue;
+        }
+        if (std.mem.startsWith(u8, line, "TUNNEL ENTRANCE *")) {
+            terrainType = 14;
             continue;
         }
 
