@@ -116,6 +116,18 @@ pub fn main(init: std.process.Init) !void {
 
         if (terrainType > 0) saveTerrain(terrainType, fname, line, db);
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Prepare the SQL statement
+    var stmt: ?*c.sqlite3_stmt = null;
+    const sql =
+        \\UPDATE MAP SET hex_z = 1 WHERE terrainName = 'HILL 2'
+    ;
+    _ = c.sqlite3_prepare_v2(db, sql, -1, &stmt, null);
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Execute statement
+    _ = c.sqlite3_step(stmt);
 }
 
 // ************************************************************************************************
