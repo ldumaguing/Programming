@@ -357,8 +357,8 @@ pub const Database = struct {
         const sql =
             \\SELECT hex_x, hex_y, hex_z FROM GameMap
             \\WHERE
-            \\terrainNum = 5 AND
-            \\sessionID = ?1
+            \\(terrainNum = 5 or terrainNum = 6)
+            \\AND sessionID = ?1
         ;
         _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
         defer _ = c.sqlite3_finalize(stmt);
