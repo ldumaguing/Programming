@@ -317,31 +317,31 @@ pub fn main() !void {
                 for (spines) |spine| {
                     //print("{}\n", .{spine});
                     te_Loc = switch (spine) {
-                        1 => get_bridge_loc(X, Y, spinePt_A),
-                        2 => get_bridge_loc(X, Y, spinePt_B),
-                        4 => get_bridge_loc(X, Y, spinePt_C),
-                        8 => get_bridge_loc(X, Y, spinePt_D),
-                        16 => get_bridge_loc(X, Y, spinePt_E),
-                        else => get_bridge_loc(X, Y, spinePt_F),
+                        1 => get_spine_location(X, Y, spinePt_A),
+                        2 => get_spine_location(X, Y, spinePt_B),
+                        4 => get_spine_location(X, Y, spinePt_C),
+                        8 => get_spine_location(X, Y, spinePt_D),
+                        16 => get_spine_location(X, Y, spinePt_E),
+                        else => get_spine_location(X, Y, spinePt_F),
                     };
                     if (spine != Tunnel_Entrances.items.ptr[i].s) continue;
                     if (spine == 1) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 22.5, te_Loc[3] - 32.0), 0.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] - 0.0), 0.0, 1.0, .white);
                     }
                     if (spine == 2) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 12.0, te_Loc[3] + 36.0), -120.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 24.0, te_Loc[3] + 52.0), -120.0, 1.0, .white);
                     }
                     if (spine == 4) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 38.0, te_Loc[3] + 3.0), -60.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] + 0.0), -60.0, 1.0, .white);
                     }
                     if (spine == 8) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 22.5, te_Loc[3] - 32.0), 0.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] - 0.0), 0.0, 1.0, .white);
                     }
                     if (spine == 16) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 20.0, te_Loc[3] - 32.0), 60.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 20.0, te_Loc[3] - 52.0), 60.0, 1.0, .white);
                     }
                     if (spine == 32) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 38.0, te_Loc[3] + 3.0), -60.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] + 0.0), -60.0, 1.0, .white);
                     }
                 }
             }
@@ -355,12 +355,12 @@ pub fn main() !void {
                 for (spines) |spine| {
                     //print("{}\n", .{spine});
                     bridgeLoc = switch (spine) {
-                        1 => get_bridge_loc(X, Y, spinePt_A),
-                        2 => get_bridge_loc(X, Y, spinePt_B),
-                        4 => get_bridge_loc(X, Y, spinePt_C),
-                        8 => get_bridge_loc(X, Y, spinePt_D),
-                        16 => get_bridge_loc(X, Y, spinePt_E),
-                        else => get_bridge_loc(X, Y, spinePt_F),
+                        1 => get_spine_location(X, Y, spinePt_A),
+                        2 => get_spine_location(X, Y, spinePt_B),
+                        4 => get_spine_location(X, Y, spinePt_C),
+                        8 => get_spine_location(X, Y, spinePt_D),
+                        16 => get_spine_location(X, Y, spinePt_E),
+                        else => get_spine_location(X, Y, spinePt_F),
                     };
                     if (spine != Bridges.items.ptr[i].s) continue;
                     if (spine == 1) {
@@ -447,7 +447,7 @@ pub fn main() !void {
 }
 
 // ************************************************************************************************
-fn get_bridge_loc(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
+fn get_spine_location(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
     //print("{d},{d}\n", .{ spine[0], spine[1] });
     const p0x: f32 = hex_w;
     const p0y: f32 = hex_y;
