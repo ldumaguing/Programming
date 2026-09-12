@@ -326,22 +326,22 @@ pub fn main() !void {
                     };
                     if (spine != Tunnel_Entrances.items.ptr[i].s) continue;
                     if (spine == 1) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] - 0.0), 0.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 62.0, te_Loc[3] + 8.0), 180.0, 1.0, .white);
                     }
                     if (spine == 2) {
                         rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 24.0, te_Loc[3] + 52.0), -120.0, 1.0, .white);
                     }
                     if (spine == 4) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] + 0.0), -60.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 31.0, te_Loc[3] + 51.0), -60.0, 1.0, .white);
                     }
                     if (spine == 8) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] - 0.0), 0.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 58.0, te_Loc[3] - 7.0), 0.0, 1.0, .white);
                     }
                     if (spine == 16) {
                         rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 20.0, te_Loc[3] - 52.0), 60.0, 1.0, .white);
                     }
                     if (spine == 32) {
-                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 0.0, te_Loc[3] + 0.0), -60.0, 1.0, .white);
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 39.0, te_Loc[3] - 43.0), 120.0, 1.0, .white);
                     }
                 }
             }
