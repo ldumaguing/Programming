@@ -1,3 +1,0 @@
-UPDATE MAP SET hex_z = 1 WHERE terrainName = 'HILL 2'
-
-

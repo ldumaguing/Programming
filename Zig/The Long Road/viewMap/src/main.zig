@@ -43,6 +43,9 @@ pub fn main() !void {
     var Bridges = std.ArrayList(terrain.Bridge).empty;
     defer Bridges.deinit(allocator);
 
+    var Tunnel_Entrances = std.ArrayList(terrain.Tunnel_Entrance).empty;
+    defer Tunnel_Entrances.deinit(allocator);
+
     // ***** Path
     var Paths = std.ArrayList(terrain.Path).empty;
     defer Paths.deinit(allocator);
@@ -101,6 +104,7 @@ pub fn main() !void {
     const png_city = try rl.loadTexture("TLR/LAR_city.png");
     const png_town = try rl.loadTexture("TLR/LAR_town.png");
     const png_bridge = try rl.loadTexture("TLR/LAR_bridge.png");
+    const png_tunnel_entrance = try rl.loadTexture("TLR/LAR_tunnel_entrance.png");
 
     // ==========================================================
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -117,6 +121,7 @@ pub fn main() !void {
     try db.add_map_rivers(allocator, &Rivers);
     try db.add_map_roads(allocator, &Roads);
     try db.add_map_bridges(allocator, &Bridges);
+    try db.add_map_tunnel_entrances(allocator, &Tunnel_Entrances);
 
     try db.add_map_rollings(allocator, &WholeHex);
     try db.add_map_cultivated(allocator, &WholeHex);
@@ -299,6 +304,44 @@ pub fn main() !void {
                         rl.drawLineEx(rl.Vector2.init(roadPts[0], roadPts[1]), rl.Vector2.init(roadPts[2], roadPts[3]), 30.0, .gray);
                         const pt3 = terrain.get_3rd_pt(.{ @intFromFloat(roadPts[2]), @intFromFloat(roadPts[3]) }, spinePt_F);
                         rl.drawLineEx(rl.Vector2.init(roadPts[2], roadPts[3]), rl.Vector2.init(@floatFromInt(pt3[0] - 3), @floatFromInt(pt3[1] - 3)), 30.0, .gray);
+                    }
+                }
+            }
+
+            for (0..Tunnel_Entrances.items.len) |i| {
+                var X: f32 = @floatFromInt(Tunnel_Entrances.items.ptr[i].x);
+                var Y: f32 = @floatFromInt(Tunnel_Entrances.items.ptr[i].y);
+                X = (X * hex_width);
+                Y = (Y * hex_height);
+                var te_Loc: struct { f32, f32, f32, f32 } = .{ 0.0, 0.0, 0.0, 0.0 };
+                for (spines) |spine| {
+                    //print("{}\n", .{spine});
+                    te_Loc = switch (spine) {
+                        1 => get_bridge_loc(X, Y, spinePt_A),
+                        2 => get_bridge_loc(X, Y, spinePt_B),
+                        4 => get_bridge_loc(X, Y, spinePt_C),
+                        8 => get_bridge_loc(X, Y, spinePt_D),
+                        16 => get_bridge_loc(X, Y, spinePt_E),
+                        else => get_bridge_loc(X, Y, spinePt_F),
+                    };
+                    if (spine != Tunnel_Entrances.items.ptr[i].s) continue;
+                    if (spine == 1) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 22.5, te_Loc[3] - 32.0), 0.0, 1.0, .white);
+                    }
+                    if (spine == 2) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 12.0, te_Loc[3] + 36.0), -120.0, 1.0, .white);
+                    }
+                    if (spine == 4) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 38.0, te_Loc[3] + 3.0), -60.0, 1.0, .white);
+                    }
+                    if (spine == 8) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 22.5, te_Loc[3] - 32.0), 0.0, 1.0, .white);
+                    }
+                    if (spine == 16) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] + 20.0, te_Loc[3] - 32.0), 60.0, 1.0, .white);
+                    }
+                    if (spine == 32) {
+                        rl.drawTextureEx(png_tunnel_entrance, rl.Vector2.init(te_Loc[2] - 38.0, te_Loc[3] + 3.0), -60.0, 1.0, .white);
                     }
                 }
             }
