@@ -4,7 +4,7 @@ const print = std.debug.print;
 
 const tile = @import("Tile.zig");
 const terrain = @import("Terrain.zig");
-const combatant = @import("Combatant.zig");
+const asset = @import("Asset.zig");
 
 const c = @cImport({
     @cInclude("sqlite3.h");
@@ -17,33 +17,18 @@ pub const Database = struct {
 
     // ********************************************************************************************
     pub fn init() Database {
-        var dsk_db: ?*c.sqlite3 = null;
         var db: ?*c.sqlite3 = null;
 
         // Open the databases
-        if (c.sqlite3_open("DB/TLR.db", &dsk_db) != c.SQLITE_OK) {
+        if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
             print("Error opening database\n", .{});
         }
-        defer _ = c.sqlite3_close(dsk_db); // close disk connection after init.
-
-        if (c.sqlite3_open(":memory:", &db) != c.SQLITE_OK) {
-            print("Error opening database\n", .{});
-        }
-
-        // Initialize
-        const p_backup = c.sqlite3_backup_init(db, "main", dsk_db, "main");
-        defer _ = c.sqlite3_backup_finish(p_backup);
-
-        // Copy database pages iteratively
-        var rc: c_int = c.SQLITE_OK;
-        while (rc == c.SQLITE_OK or rc == c.SQLITE_BUSY or rc == c.SQLITE_LOCKED) {
-            rc = c.sqlite3_backup_step(p_backup, -1); // -1 copies all remaining pages at once
-        }
+        defer _ = c.sqlite3_close(db); // close disk connection after init.
 
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql = "SELECT val_int0 FROM GameMeta WHERE attrib = 'currSession'";
-        _ = c.sqlite3_prepare_v2(dsk_db, sql, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(db, sql, -1, &stmt, null);
         defer _ = c.sqlite3_finalize(stmt);
 
         // Evaluate the statement
@@ -54,7 +39,7 @@ pub const Database = struct {
 
         // Prepare the SQL statement
         const sql_1 = "SELECT val_int0, val_int1 FROM GameMeta WHERE attrib = 'pixelCount'";
-        _ = c.sqlite3_prepare_v2(dsk_db, sql_1, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(db, sql_1, -1, &stmt, null);
 
         // Evaluate the statement
         var i64_X: i64 = 0;
@@ -63,6 +48,92 @@ pub const Database = struct {
             i64_X = c.sqlite3_column_int64(stmt, 0);
             i64_Y = c.sqlite3_column_int64(stmt, 1);
         }
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_4 =
+            \\DELETE FROM GameAsset
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
+
+        // Binding
+        const curS: i32 = @intCast(currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_5 =
+            \\INSERT INTO GameAsset (imgID, filename, sessionID)
+            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_3 =
+            \\DELETE FROM GameImg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_3, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_2 =
+            \\INSERT INTO GameImg (id, state_num, imgID, sessionID)
+            \\SELECT id, 0, state0, ?1 FROM COMBATANT WHERE id in
+            \\(
+            \\SELECT distinct(id) FROM GameCombatant
+            \\WHERE sessionID = ?1
+            \\)
+            \\UNION
+            \\SELECT id, 1, state1, ?1 FROM COMBATANT WHERE id in
+            \\(
+            \\SELECT distinct(id) FROM GameCombatant
+            \\WHERE sessionID = ?1
+            \\)
+            \\UNION
+            \\SELECT id, 2, state2, ?1 FROM COMBATANT WHERE id in
+            \\(
+            \\SELECT distinct(id) FROM GameCombatant
+            \\WHERE sessionID = ?1
+            \\)
+            \\UNION
+            \\SELECT id, 3, state3, ?1 FROM COMBATANT WHERE id in
+            \\(
+            \\SELECT distinct(id) FROM GameCombatant
+            \\WHERE sessionID = ?1
+            \\)
+            \\UNION
+            \\SELECT id, 4, wreck, ?1 FROM COMBATANT WHERE id in
+            \\(
+            \\SELECT distinct(id) FROM GameCombatant
+            \\WHERE sessionID = ?1
+            \\)
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_2, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
 
         // ======================================================
         return Database{
@@ -73,12 +144,13 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_combatants(self: Database, allocator: std.mem.Allocator, cbt: *std.ArrayList(combatant.Combatant)) !void {
+    pub fn add_map_combatants(self: Database, allocator: std.mem.Allocator, img: *std.ArrayList(rl.Texture), imgid: *std.ArrayList(asset.ImgID2index), cmb: *std.ArrayList(asset.Combatant)) !void {
+        const curS: i32 = @intCast(self.currSession);
+
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
-            \\SELECT instanceID, hex_x, hex_y, id, filename
-            \\FROM v_gamecombatant
+            \\SELECT imgID, filename FROM GameAsset
             \\WHERE
             \\sessionID = ?1
         ;
@@ -86,7 +158,35 @@ pub const Database = struct {
         defer _ = c.sqlite3_finalize(stmt);
 
         // Binding
-        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const imgID = c.sqlite3_column_int(stmt, 0);
+            const filename = std.mem.span(c.sqlite3_column_text(stmt, 1));
+            const fname = try allocator.alloc(u8, filename.len + 4);
+            defer allocator.free(fname);
+            @memcpy(fname[0..4], "TLR/");
+            @memcpy(fname[4..], filename);
+
+            const c_str = try allocator.dupeZ(u8, fname);
+            defer allocator.free(c_str);
+            _ = try img.append(allocator, try rl.loadTexture(c_str));
+
+            const aImgID2index = asset.ImgID2index.init(imgID);
+            _ = try imgid.append(allocator, aImgID2index);
+        }
+
+        // ----------------------------------------------------------------------------------------
+        const sql_1 =
+            \\SELECT instanceID, hex_x, hex_y, id, currState
+            \\FROM GameCombatant
+            \\WHERE
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql_1, -1, &stmt, null);
+
+        // Binding
         _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Evaluate the statement
@@ -95,20 +195,28 @@ pub const Database = struct {
             const hex_x = c.sqlite3_column_int(stmt, 1);
             const hex_y = c.sqlite3_column_int(stmt, 2);
             const id = c.sqlite3_column_int(stmt, 3);
-            const filename = c.sqlite3_column_text(stmt, 4);
+            const currState = c.sqlite3_column_int(stmt, 4);
 
-            const fname = std.mem.span(filename);
-            var aCombatant = combatant.Combatant.init(instanceID, hex_x, hex_y, id);
-            @memcpy(aCombatant.imagefile[0..fname.len], fname);
-            aCombatant.imagefile_len = @intCast(fname.len);
-            _ = try cbt.append(allocator, aCombatant);
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            _ = try cmb.append(allocator, cbt);
+        }
+
+        // ----------------------------------------------------------------------------------------
+        // defining imgIndex
+        for (0..cmb.items.len) |i| {
+            var count: i32 = 0;
+            for (0..imgid.items.len) |j| {
+                if (cmb.items.ptr[i].currState == imgid.items.ptr[j].imgID) {
+                    cmb.items.ptr[i].imgIndex = count;
+                    break;
+                }
+                count += 1;
+            }
         }
     }
 
-    // --------------------------------------------------------------------------------------------
-
     // ********************************************************************************************
-    pub fn add_map_town(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_towns(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -135,7 +243,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_city(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_cities(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -162,7 +270,7 @@ pub const Database = struct {
     }
 
     // ********************************************************************************************
-    pub fn add_map_forest(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
+    pub fn add_map_forests(self: Database, allocator: std.mem.Allocator, wh: *std.ArrayList(terrain.WholeHex)) !void {
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql =
@@ -249,8 +357,8 @@ pub const Database = struct {
         const sql =
             \\SELECT hex_x, hex_y, hex_z FROM GameMap
             \\WHERE
-            \\terrainNum = 5 AND
-            \\sessionID = ?1
+            \\(terrainNum = 5 or terrainNum = 6)
+            \\AND sessionID = ?1
         ;
         _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
         defer _ = c.sqlite3_finalize(stmt);
@@ -295,6 +403,34 @@ pub const Database = struct {
 
             const aBridge = terrain.Bridge.init(hex_x, hex_y, spineLoc);
             _ = try bridges.append(allocator, aBridge);
+        }
+    }
+
+    // ********************************************************************************************
+    pub fn add_map_tunnel_entrances(self: Database, allocator: std.mem.Allocator, tunnel_entrances: *std.ArrayList(terrain.Tunnel_Entrance)) !void {
+        // Prepare the SQL statement
+        var stmt: ?*c.sqlite3_stmt = null;
+        const sql =
+            \\SELECT hex_x, hex_y, spineLoc FROM GameMap
+            \\WHERE
+            \\terrainNum = 14 AND
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null);
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Binding
+        const curS: i32 = @intCast(self.currSession);
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const hex_x = c.sqlite3_column_int(stmt, 0);
+            const hex_y = c.sqlite3_column_int(stmt, 1);
+            const spineLoc = c.sqlite3_column_int(stmt, 2);
+
+            const aTE = terrain.Tunnel_Entrance.init(hex_x, hex_y, spineLoc);
+            _ = try tunnel_entrances.append(allocator, aTE);
         }
     }
 

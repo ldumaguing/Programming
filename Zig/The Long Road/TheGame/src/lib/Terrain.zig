@@ -108,6 +108,20 @@ pub const Bridge = struct {
     }
 };
 
+pub const Tunnel_Entrance = struct {
+    x: i32,
+    y: i32,
+    s: i32, // spineLoc
+
+    pub fn init(x: i32, y: i32, s: i32) Tunnel_Entrance {
+        return Tunnel_Entrance{
+            .x = x,
+            .y = y,
+            .s = s,
+        };
+    }
+};
+
 // ************************************************************************************************
 pub fn is_hill_blocks_LOS(h: *std.ArrayList(Hill), p: *std.ArrayList(Path)) bool {
     for (0..h.items.len) |i| {
