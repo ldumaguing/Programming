@@ -106,7 +106,9 @@ pub fn main() !void {
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ==========================================================
-    const png_trt: rl.Texture = try rl.loadTexture("TLR/TLR_PAC_Turn_Deck.png");
+    const png_trt: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
+    const png_pdw: rl.Texture = try rl.loadTexture("TLR/TLR_Para_Deck_Window.png");
+    const png_compass: rl.Texture = try rl.loadTexture("TLR/TLR_Compass_Rose.png");
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -118,7 +120,7 @@ pub fn main() !void {
     var camera = rl.Camera2D{
         .target = .{ .x = 0, .y = 0 },
         .offset = .{ .x = 0, .y = 0 },
-        .zoom = 0.5,
+        .zoom = 1.0,
         .rotation = 0,
     };
 
@@ -193,7 +195,9 @@ pub fn main() !void {
 
                 rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
             }
-            rl.drawTexture(png_trt, -1449, 0, .white);
+            rl.drawTexture(png_trt, -1509, 0, .white);
+            rl.drawTexture(png_pdw, 0, -1417, .white);
+            rl.drawTexture(png_compass, -163, -163, .white);
         }
     }
 }
