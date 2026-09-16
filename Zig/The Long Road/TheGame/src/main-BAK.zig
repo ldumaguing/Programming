@@ -107,15 +107,9 @@ pub fn main() !void {
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ==========================================================
-    const png_pac: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
-    //print("............................................................{d}\n", .{png_pac.width});
-    const card_pac = card.Card.init("pac", -1509, 0, png_pac.width, png_pac.height);
-
+    const png_trt: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
     const png_pdw: rl.Texture = try rl.loadTexture("TLR/TLR_Para_Deck_Window.png");
-    const card_pdw = card.Card.init("pdw", 0, -1417, png_pdw.width, png_pdw.height);
-
     const png_compass: rl.Texture = try rl.loadTexture("TLR/TLR_Compass_Rose.png");
-    const card_compass = card.Card.init("compass", -163, -163, png_compass.width, png_compass.height);
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -188,6 +182,8 @@ pub fn main() !void {
             const adjX: f32 = 79.0;
             const adjY: f32 = hex_height * 0.84;
             const adjYa: f32 = hex_height * 0.35;
+            // rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[0].imgIndex)], rl.Vector2.init(0.0, 0.0), 0.0, 1.0, .white);
+            // rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[7].imgIndex)], rl.Vector2.init(90.0, 90.0), 0.0, 1.0, .white);
             for (0..Combatants.items.len) |i| {
                 var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
                 X = (X * hex_width) - adjX;
@@ -200,15 +196,16 @@ pub fn main() !void {
 
                 rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
             }
-            rl.drawTexture(png_pac, card_pac.pxX, card_pac.pxY, .white);
-            rl.drawTexture(png_pdw, card_pdw.pxX, card_pdw.pxY, .white);
-            rl.drawTexture(png_compass, card_compass.pxX, card_compass.pxY, .white);
+            rl.drawTexture(png_trt, -1509, 0, .white);
+            rl.drawTexture(png_pdw, 0, -1417, .white);
+            rl.drawTexture(png_compass, -163, -163, .white);
         }
     }
 }
 
 // ************************************************************************************************
 fn get_spine_location(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
+    //print("{d},{d}\n", .{ spine[0], spine[1] });
     const p0x: f32 = hex_w;
     const p0y: f32 = hex_y;
     const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
@@ -232,6 +229,7 @@ fn get_line_pts(x: i32, y: i32, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x:
 
 // ************************************************************************************************
 fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
+    //print("{d},{d}\n", .{ spine[0], spine[1] });
     const p0x: f32 = hex_w;
     const p0y: f32 = hex_y;
     const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
