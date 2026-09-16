@@ -42,8 +42,8 @@ INSERT INTO GameMeta (sessionID, attrib, val_int0) VALUES
 (0, 'currSession', 0)
 ;
 INSERT INTO GameMeta (sessionID, attrib, val_real0) VALUES
-(0, 'pxX', 202.0),
-(0, 'pxY', 233.5),
+(0, 'pxX', 202.055555),
+(0, 'pxY', 233.583333),
 (0, 'pxHalfY', 116.75)
 ;
 
