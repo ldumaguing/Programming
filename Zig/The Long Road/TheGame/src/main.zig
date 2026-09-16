@@ -107,15 +107,15 @@ pub fn main() !void {
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ==========================================================
-    const png_pac: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
+    //const png_pac: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
     //print("............................................................{d}\n", .{png_pac.width});
-    const card_pac = card.Card.init("pac", -1509, 0, png_pac.width, png_pac.height);
+    const card_pac = try card.Card.init(-1509, 0, "TLR/Player Aid Card.png");
 
-    const png_pdw: rl.Texture = try rl.loadTexture("TLR/TLR_Para_Deck_Window.png");
-    const card_pdw = card.Card.init("pdw", 0, -1417, png_pdw.width, png_pdw.height);
+    //const png_pdw: rl.Texture = try rl.loadTexture("TLR/TLR_Para_Deck_Window.png");
+    const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
 
-    const png_compass: rl.Texture = try rl.loadTexture("TLR/TLR_Compass_Rose.png");
-    const card_compass = card.Card.init("compass", -163, -163, png_compass.width, png_compass.height);
+    //const png_compass: rl.Texture = try rl.loadTexture("TLR/TLR_Compass_Rose.png");
+    const card_compass = try card.Card.init(-163, -163, "TLR/TLR_Compass_Rose.png");
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -200,9 +200,9 @@ pub fn main() !void {
 
                 rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
             }
-            rl.drawTexture(png_pac, card_pac.pxX, card_pac.pxY, .white);
-            rl.drawTexture(png_pdw, card_pdw.pxX, card_pdw.pxY, .white);
-            rl.drawTexture(png_compass, card_compass.pxX, card_compass.pxY, .white);
+            rl.drawTexture(card_pac.texture, card_pac.pxX, card_pac.pxY, .white);
+            rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
+            rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
         }
     }
 }
