@@ -113,6 +113,7 @@ pub fn main() !void {
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
         print("*********** block *************\n", .{});
     }
+
     // ********************************************************************************************
     rl.setTargetFPS(12);
 
@@ -175,6 +176,15 @@ pub fn main() !void {
             camera.begin();
             defer camera.end();
 
+            if (rl.isMouseButtonDown(.left)) {
+                const screenMousePos = rl.getMousePosition();
+                const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
+                print("{d},{d}\n", .{ worldMousePos.x, worldMousePos.y });
+                var mouseX = worldMousePos.x - 101.0;
+                mouseX /= hex_width;
+                print("{d}\n\n", .{@ceil(mouseX)});
+            }
+
             // ***** map tiles
             for (0..4) |row| {
                 for (0..4) |col| {
@@ -205,37 +215,4 @@ pub fn main() !void {
             rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
         }
     }
-}
-
-// ************************************************************************************************
-fn get_spine_location(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
-    const p0x: f32 = hex_w;
-    const p0y: f32 = hex_y;
-    const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
-    const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
-
-    return .{ p0x, p0y, p1x, p1y };
-}
-
-// ************************************************************************************************
-fn get_line_pts(x: i32, y: i32, hex_w: f32, hex_y: f32, p0x: i32, p0y: i32, p1x: i32, p1y: i32) struct { i32, i32, i32, i32 } {
-    const float_x: f32 = @as(f32, (@floatFromInt(x))) * hex_w;
-    const float_y: f32 = @as(f32, (@floatFromInt(y))) * hex_y;
-
-    const P0x: i32 = @as(i32, @round(float_x)) + p0x;
-    const P0y: i32 = @as(i32, @round(float_y)) + p0y;
-    const P1x: i32 = @as(i32, @round(float_x)) + p1x;
-    const P1y: i32 = @as(i32, @round(float_y)) + p1y;
-
-    return .{ P0x, P0y, P1x, P1y };
-}
-
-// ************************************************************************************************
-fn get_road_pts(hex_w: f32, hex_y: f32, spine: struct { i32, i32 }) struct { f32, f32, f32, f32 } {
-    const p0x: f32 = hex_w;
-    const p0y: f32 = hex_y;
-    const p1x: f32 = hex_w + @as(f32, @floatFromInt(spine[0]));
-    const p1y: f32 = hex_y + @as(f32, @floatFromInt(spine[1]));
-
-    return .{ p0x, p0y, p1x, p1y };
 }
