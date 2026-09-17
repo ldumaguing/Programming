@@ -70,8 +70,6 @@ pub fn main() !void {
     const pxY = db.get_float_vals("pxY");
     const hex_width = pxX[0];
     const hex_height = pxY[0];
-    //print("{d},{d}\n", .{ hex_width, hex_height });
-    //const halfY: f32 = hex_height / 2.0;
 
     // ********************************************************************************************
     const screenWidth = 1280;
@@ -198,21 +196,6 @@ pub fn main() !void {
                 }
             }
 
-            //const adjX: f32 = 79.0;
-            //const adjY: f32 = hex_height * 0.84;
-            //const adjYa: f32 = hex_height * 0.35;
-            //for (0..Combatants.items.len) |i| {
-            //    var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
-            //    X = (X * hex_width) - adjX;
-            //    var Y: f32 = @floatFromInt(Combatants.items.ptr[i].hex_y);
-            //    if (@mod(Combatants.items.ptr[i].hex_x, 2) == 0) {
-            //        Y = (Y * hex_height) - adjYa;
-            //    } else {
-            //        Y = (Y * hex_height) - adjY;
-            //    }
-
-            //    rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
-            //}
             for (0..Combatants.items.len) |i| {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
