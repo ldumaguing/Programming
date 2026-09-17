@@ -206,10 +206,12 @@ pub fn main() !void {
                 }
             }
 
+            // units
             for (0..Combatants.items.len) |i| {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
 
+            // player aid cards
             rl.drawTexture(card_pac.texture, card_pac.pxX, card_pac.pxY, .white);
             rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
             rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
