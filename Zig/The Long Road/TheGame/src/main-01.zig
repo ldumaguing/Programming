@@ -70,7 +70,6 @@ pub fn main() !void {
     const pxY = db.get_float_vals("pxY");
     const hex_width = pxX[0];
     const hex_height = pxY[0];
-    //print("{d},{d}\n", .{ hex_width, hex_height });
     //const halfY: f32 = hex_height / 2.0;
 
     // ********************************************************************************************
@@ -103,12 +102,19 @@ pub fn main() !void {
     try db.add_map_forests(allocator, &WholeHex);
     try db.add_map_cities(allocator, &WholeHex);
     try db.add_map_towns(allocator, &WholeHex);
+    print("count: {d}\n", .{WholeHex.items.len});
 
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ==========================================================
+    //const png_pac: rl.Texture = try rl.loadTexture("TLR/Player Aid Card.png");
+    //print("............................................................{d}\n", .{png_pac.width});
     const card_pac = try card.Card.init(-1509, 0, "TLR/Player Aid Card.png");
+
+    //const png_pdw: rl.Texture = try rl.loadTexture("TLR/TLR_Para_Deck_Window.png");
     const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
+
+    //const png_compass: rl.Texture = try rl.loadTexture("TLR/TLR_Compass_Rose.png");
     const card_compass = try card.Card.init(-163, -163, "TLR/TLR_Compass_Rose.png");
 
     // ********************************************************************************************
@@ -125,26 +131,7 @@ pub fn main() !void {
         .rotation = 0,
     };
 
-    var toggle: i32 = 1;
     while (!rl.windowShouldClose()) {
-        if (rl.isKeyPressed(.space)) {
-            if (toggle == 0) {
-                for (0..Combatants.items.len) |i| {
-                    if (Combatants.items.ptr[i].instanceID == 1001) {
-                        Combatants.items.ptr[i].is_visible = true;
-                    }
-                }
-                toggle = 1;
-            } else {
-                for (0..Combatants.items.len) |i| {
-                    if (Combatants.items.ptr[i].instanceID == 1001) {
-                        Combatants.items.ptr[i].is_visible = false;
-                    }
-                }
-                toggle = 0;
-            }
-        }
-
         // Translate based on mouse right click
         if (rl.isMouseButtonDown(.right)) {
             var delta = rl.getMouseDelta();
@@ -198,25 +185,21 @@ pub fn main() !void {
                 }
             }
 
-            //const adjX: f32 = 79.0;
-            //const adjY: f32 = hex_height * 0.84;
-            //const adjYa: f32 = hex_height * 0.35;
-            //for (0..Combatants.items.len) |i| {
-            //    var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
-            //    X = (X * hex_width) - adjX;
-            //    var Y: f32 = @floatFromInt(Combatants.items.ptr[i].hex_y);
-            //    if (@mod(Combatants.items.ptr[i].hex_x, 2) == 0) {
-            //        Y = (Y * hex_height) - adjYa;
-            //    } else {
-            //        Y = (Y * hex_height) - adjY;
-            //    }
-
-            //    rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
-            //}
+            const adjX: f32 = 79.0;
+            const adjY: f32 = hex_height * 0.84;
+            const adjYa: f32 = hex_height * 0.35;
             for (0..Combatants.items.len) |i| {
-                Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
-            }
+                var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
+                X = (X * hex_width) - adjX;
+                var Y: f32 = @floatFromInt(Combatants.items.ptr[i].hex_y);
+                if (@mod(Combatants.items.ptr[i].hex_x, 2) == 0) {
+                    Y = (Y * hex_height) - adjYa;
+                } else {
+                    Y = (Y * hex_height) - adjY;
+                }
 
+                rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
+            }
             rl.drawTexture(card_pac.texture, card_pac.pxX, card_pac.pxY, .white);
             rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
             rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);

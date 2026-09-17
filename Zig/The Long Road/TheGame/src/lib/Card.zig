@@ -21,16 +21,4 @@ pub const Card = struct {
     }
 };
 
-
-
-
-
-
-
 // const new_slice = try std.fmt.allocPrintZ(allocator, "{s}", .{old_slice});
-
-
-
-
-
-
