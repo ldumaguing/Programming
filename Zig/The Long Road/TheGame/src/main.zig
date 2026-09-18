@@ -179,10 +179,24 @@ pub fn main() !void {
             if (rl.isMouseButtonDown(.left)) {
                 const screenMousePos = rl.getMousePosition();
                 const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
-                print("{d},{d}\n", .{ worldMousePos.x, worldMousePos.y });
+
                 var mouseX = worldMousePos.x - 101.0;
                 mouseX /= hex_width;
-                print("{d}\n\n", .{@ceil(mouseX)});
+
+                const X: i32 = @ceil(mouseX);
+                var Y: i32 = 0;
+
+                if (@mod(X, 2) == 0) {
+                    var mouseY = worldMousePos.y - 116.79166;
+                    mouseY /= hex_height;
+                    Y = @ceil(mouseY);
+                } else {
+                    var mouseY = worldMousePos.y;
+                    mouseY /= hex_height;
+                    Y = @ceil(mouseY);
+                }
+
+                print("{d},{d}\n\n", .{ X, Y });
             }
 
             // ***** map tiles
