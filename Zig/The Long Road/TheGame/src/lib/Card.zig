@@ -44,7 +44,7 @@ pub const PlayerAid = struct {
 
         var turns: i32 = db.get_int_vals_session("turns").@"0";
         turns -= 1;
-        
+
         const upper_left: [2]i32 = [_]i32{ 17, 333 };
         const grid_dim: [2]i32 = [_]i32{ 978, 781 };
         const rect_dim: [2]i32 = [_]i32{ @divTrunc(grid_dim[0], 5), @divTrunc(grid_dim[1], 4) };
