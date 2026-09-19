@@ -58,7 +58,11 @@ pub const PlayerAid = struct {
         const loc_X: i32 = grid_X + upper_left[0];
         const loc_Y: i32 = grid_Y + upper_left[1];
         print("4 >>>>>>>>>>>>>>>>>>>>>>> {d},{d}\n", .{ loc_X, loc_Y });
-        //const card_dim: [2]i32 = [_]i32{ 1504, 1131 };
+        const card_dim: [2]i32 = [_]i32{ 1504, 1131 };
+        const adj_X: i32 = loc_X - card_dim[0] + 15;
+        const adj_Y: i32 = pxY + grid_Y + upper_left[1] + 20;
+
+        //
         //
         //const lower_right: [2]i32 = [_]i32{ 973, 780 };
         //const l_r: [2]i32 = [_]i32{ lower_right[0] - upper_left[0], lower_right[1] - upper_left[1] };
@@ -79,8 +83,8 @@ pub const PlayerAid = struct {
             .pxY = pxY,
             .plate = plate,
             .marker = marker,
-            .mrk_X = 0,
-            .mrk_Y = 0,
+            .mrk_X = adj_X,
+            .mrk_Y = adj_Y,
             .curr_turn = 1,
         };
     }
