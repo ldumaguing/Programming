@@ -105,8 +105,8 @@ pub fn main() !void {
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ==========================================================
-    const card_pac = try card.PlayerAid.init(-1509, 0, "TLR/Player Aid Card.png", "TLR/Last Turn.png", db);
-    const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
+    //const card_pac = try card.PlayerAid.init(-1509, 0, "TLR/Player Aid Card.png", "TLR/Last Turn.png", db);
+    //const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
     const card_compass = try card.Card.init(-163, -163, "TLR/TLR_Compass_Rose.png");
 
     // ********************************************************************************************
@@ -226,9 +226,9 @@ pub fn main() !void {
             }
 
             // player aid cards
-            rl.drawTexture(card_pac.plate, card_pac.pxX, card_pac.pxY, .white);
-            rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
-            rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
+            //rl.drawTexture(card_pac.plate, card_pac.pxX, card_pac.pxY, .white);
+            //rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
+            //rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
             rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
         }
     }
