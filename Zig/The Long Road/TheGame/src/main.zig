@@ -212,7 +212,7 @@ pub fn main() !void {
                 // prevent redundent signals
                 if (GameFlags != GameFlags_prev) {
                     print("mode {d}\n", .{GameFlags});
-                    GameFlags_prev ^= (1 << 0);
+                    GameFlags_prev = GameFlags;
                 }
 
                 print("yo\n", .{});
