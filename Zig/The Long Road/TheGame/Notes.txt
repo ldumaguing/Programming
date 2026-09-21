@@ -1,3 +1,23 @@
+GameFlags
+=========
+bit 0: query hex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***************************************************************************************************
 zig fetch --save git+https://github.com/raylib-zig/raylib-zig#devel
 
 

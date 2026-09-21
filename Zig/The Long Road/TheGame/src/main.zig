@@ -10,6 +10,11 @@ const hexagon = @import("lib/Hexagon.zig");
 const asset = @import("lib/Asset.zig");
 const card = @import("lib/Card.zig");
 
+var GameFlags: u64 = 0;
+var GameFlags_prev: u64 = 0;
+var hexLoc = [3]i32{ 0, 0, 0 };
+var mousePos: rl.Vector2 = undefined;
+
 pub fn main() !void {
     const db = sqlite3.Database.init();
     defer db.close();
@@ -72,12 +77,14 @@ pub fn main() !void {
     const hex_height = pxY[0];
 
     // ********************************************************************************************
-    const screenWidth = 1280;
-    const screenHeight = 720;
+    const windowWidth = 1280;
+    const windowHeight = 720;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
-    rl.initWindow(screenWidth, screenHeight, "The Long Road");
+    rl.initWindow(windowWidth, windowHeight, "The Long Road");
     defer rl.closeWindow();
+
+    //rl.toggleFullscreen();
 
     // ********************************************************************************************
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -107,7 +114,7 @@ pub fn main() !void {
     // ==========================================================
     //const card_pac = try card.PlayerAid.init(-1509, 0, "TLR/Player Aid Card.png", "TLR/Last Turn.png", db);
     //const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
-    const card_compass = try card.Card.init(-163, -163, "TLR/TLR_Compass_Rose.png");
+    //const card_compass = try card.Card.init(-163, -163, "TLR/LAR_Compass.png");
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -179,6 +186,7 @@ pub fn main() !void {
             if (rl.isMouseButtonDown(.left)) {
                 const screenMousePos = rl.getMousePosition();
                 const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
+                mousePos = screenMousePos;
 
                 var mouseX = worldMousePos.x - 101.0;
                 mouseX /= hex_width;
@@ -196,7 +204,18 @@ pub fn main() !void {
                     Y = @ceil(mouseY);
                 }
 
-                print("{d},{d}\n\n", .{ X, Y });
+                //print("{d},{d}\n\n", .{ X, Y });
+                hexLoc[0] = X;
+                hexLoc[1] = Y;
+                GameFlags |= (1 << 0);
+
+                // prevent redundent signals
+                if (GameFlags != GameFlags_prev) {
+                    print("mode {d}\n", .{GameFlags});
+                    GameFlags_prev ^= (1 << 0);
+                }
+
+                print("yo\n", .{});
             }
 
             // ***** map tiles
@@ -229,7 +248,12 @@ pub fn main() !void {
             //rl.drawTexture(card_pac.plate, card_pac.pxX, card_pac.pxY, .white);
             //rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
             //rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
-            rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
+            //rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
         }
+        //const X = rl.getScreenWidth() - 163;
+        //const X = windowWidth - 163;
+        //rl.drawTexture(card_compass.texture, X, 0, .white);
+        //print("{d},{d}\n", .{ mousePos.x, mousePos.y });
+        //print("{d},{d}\n", .{ hexLoc[0], hexLoc[1] });
     }
 }
