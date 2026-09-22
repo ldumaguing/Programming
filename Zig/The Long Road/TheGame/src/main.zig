@@ -9,6 +9,7 @@ const terrain = @import("lib/Terrain.zig");
 const hexagon = @import("lib/Hexagon.zig");
 const asset = @import("lib/Asset.zig");
 const card = @import("lib/Card.zig");
+const ui = @import("lib/UI.zig");
 
 var GameFlags: u64 = 0;
 var GameFlags_prev: u64 = 0;
@@ -158,31 +159,21 @@ pub fn main() !void {
             var delta = rl.getMouseDelta();
             delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
             camera.target = rl.math.vector2Add(camera.target, delta);
-        }
-
-        for (0..1) |_| {
-            if (rl.isMouseButtonDown(.left)) {
-                if (rl.getMouseY() >= 200) {
-                    if ((GameFlags & (1 << 0)) == 1) {
-                        print("off\n", .{});
-                        GameFlags_prev = GameFlags;
-                        GameFlags ^= (1 << 0);
-                        break;
-                    }
-                }
-                if ((GameFlags ^ (1 << 0)) != 0) { // set selected mode
-                    print("set selected mode\n", .{});
-                    GameFlags_prev = GameFlags;
-                    GameFlags |= (1 << 0);
-                }
-
-                //if (((GameFlags & (1 << 0)) == 1) and (rl.getMouseY() >= 200) and ((GameFlags_prev & (1 << 0)) == 0)) {
-                //    print("off\n", .{});
-                //    GameFlags_prev = GameFlags;
-                //    GameFlags ^= (1 << 0);
-                //}
+            if (GameFlags != GameFlags_prev) {
+                print("reset\n", .{});
+                GameFlags = 0;
+                GameFlags_prev = 0;
             }
         }
+
+        if (rl.isMouseButtonDown(.left)) {
+            if ((GameFlags ^ (1 << 0)) != 0) { // set selected mode
+                print("set selected mode\n", .{});
+                GameFlags_prev = GameFlags;
+                GameFlags |= (1 << 0);
+            }
+        }
+
         // Zoom based on mouse wheel
         const wheel = rl.getMouseWheelMove();
         if (wheel != 0) {
@@ -208,7 +199,6 @@ pub fn main() !void {
             camera.begin();
             defer camera.end();
 
-            print("mode {d}\n", .{GameFlags});
             // if (rl.isMouseButtonDown(.left)) {
             //     const screenMousePos = rl.getMousePosition();
             //     const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
@@ -275,11 +265,13 @@ pub fn main() !void {
             //rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
             //rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
             //rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
-        }
+            if ((GameFlags & (1 << 0)) == 1) ui.mode_1(&GameFlags, &GameFlags_prev, camera, hex_width, hex_height);
+        } // camera block
+
         //const X = rl.getScreenWidth() - 163;
         //const X = windowWidth - 163;
         //rl.drawTexture(card_compass.texture, X, 0, .white);
         //print("{d},{d}\n", .{ mousePos.x, mousePos.y });
         //print("{d},{d}\n", .{ hexLoc[0], hexLoc[1] });
-    }
+    } // Game loop
 }

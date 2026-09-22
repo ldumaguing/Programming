@@ -1,0 +1,33 @@
+const rl = @import("raylib");
+const std = @import("std");
+const print = std.debug.print;
+
+var mousePos: rl.Vector2 = undefined;
+
+pub fn mode_1(GameFlags: *u64, GameFlags_prev: *u64, camera: rl.Camera2D, hex_width: f32, hex_height: f32) void {
+    print("yo: {d},{d}\n", .{GameFlags, GameFlags_prev});
+
+    const screenMousePos = rl.getMousePosition();
+    const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
+    mousePos = screenMousePos;
+
+    var mouseX = worldMousePos.x - 101.0;
+    mouseX /= hex_width;
+
+    const X: i32 = @ceil(mouseX);
+    var Y: i32 = 0;
+
+    if (@mod(X, 2) == 0) {
+        var mouseY = worldMousePos.y - 116.79166;
+        mouseY /= hex_height;
+        Y = @ceil(mouseY);
+    } else {
+        var mouseY = worldMousePos.y;
+        mouseY /= hex_height;
+        Y = @ceil(mouseY);
+    }
+
+    print("{d},{d}\n\n", .{ X, Y });
+    GameFlags_prev.* = GameFlags.*;
+    //GameFlags.* ^= (1 << 0);
+}
