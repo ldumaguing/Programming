@@ -265,7 +265,7 @@ pub fn main() !void {
             //rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
             //rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
             //rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
-            if ((GameFlags & (1 << 0)) == 1) ui.mode_1(&GameFlags, &GameFlags_prev, camera, hex_width, hex_height);
+            if ((GameFlags & (1 << 0)) == 1) ui.mode_1(&GameFlags, &GameFlags_prev, camera, hex_width, hex_height, &Combatants);
         } // camera block
 
         //const X = rl.getScreenWidth() - 163;
