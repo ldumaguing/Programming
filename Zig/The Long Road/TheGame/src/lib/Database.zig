@@ -199,11 +199,12 @@ pub const Database = struct {
 
             const raw_str = std.mem.span(c.sqlite3_column_text(stmt, 5));
             const descrip = try allocator.alloc(u8, raw_str.len);
-            defer allocator.free(descrip);
+            //defer allocator.free(descrip);
             @memcpy(descrip[0..], raw_str);
 
-            const c_str = try allocator.dupeZ(u8, descrip);
-            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, c_str);
+            //const c_str = try allocator.dupeZ(u8, descrip);
+            //const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, c_str);
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, descrip);
 
             _ = try cmb.append(allocator, cbt);
         }
