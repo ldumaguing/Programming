@@ -198,13 +198,18 @@ pub const Database = struct {
             const currState = c.sqlite3_column_int(stmt, 4);
 
             const raw_str = std.mem.span(c.sqlite3_column_text(stmt, 5));
-            const descrip = try allocator.alloc(u8, raw_str.len);
-            defer allocator.free(descrip);
-            @memcpy(descrip[0..], raw_str);
+            const fname = try allocator.alloc(u8, raw_str.len);
+            defer allocator.free(fname);
+            //@memcpy(fname[0..4], "TLR/");
+            @memcpy(fname[0..], raw_str);
 
-            const c_str = try allocator.dupeZ(u8, descrip);
-            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, c_str);
+            const c_str = try allocator.dupeZ(u8, fname);
+            //defer allocator.free(c_str);
 
+            // const descrip: []const u8 = std.mem.span(raw_str);
+
+            var cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            cbt.descrip = c_str;
             _ = try cmb.append(allocator, cbt);
         }
 

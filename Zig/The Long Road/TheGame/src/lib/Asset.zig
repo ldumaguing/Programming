@@ -22,10 +22,11 @@ pub const Combatant = struct {
     currState: i32, // img ID
     imgIndex: i32,
     is_visible: bool,
+    descrip: []const u8,
     // imagefile: [64]u8,
     // imagefile_len: i32,
 
-    pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32, currState: i32) Combatant {
+    pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32, currState: i32, c_str: []const u8) Combatant {
         return Combatant{
             .instanceID = instanceID,
             .hex_x = hex_x,
@@ -36,6 +37,7 @@ pub const Combatant = struct {
             .currState = currState,
             .imgIndex = 0,
             .is_visible = true,
+            .descrip = c_str,
             // .imagefile = undefined,
             // .imagefile_len = 0,
         };

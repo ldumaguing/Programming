@@ -6,7 +6,7 @@ const asset = @import("Asset.zig");
 var mousePos: rl.Vector2 = undefined;
 
 pub fn mode_1(GameFlags: *u64, GameFlags_prev: *u64, camera: rl.Camera2D, hex_width: f32, hex_height: f32, cmb: *std.ArrayList(asset.Combatant)) void {
-    print("yo: {d},{d}\n", .{GameFlags.*, GameFlags_prev.*});
+    print("yo: {d},{d}\n", .{ GameFlags.*, GameFlags_prev.* });
 
     const screenMousePos = rl.getMousePosition();
     const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
@@ -33,6 +33,6 @@ pub fn mode_1(GameFlags: *u64, GameFlags_prev: *u64, camera: rl.Camera2D, hex_wi
     GameFlags.* ^= (1 << 0);
 
     for (0..cmb.items.len) |i| {
-        print("{d},{d}\n", .{cmb.items.ptr[i].hex_x, cmb.items.ptr[i].hex_y});
+        print("{d},{d}....{s}\n", .{ cmb.items.ptr[i].hex_x, cmb.items.ptr[i].hex_y, cmb.items.ptr[i].descrip });
     }
 }
