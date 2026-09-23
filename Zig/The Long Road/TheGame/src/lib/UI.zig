@@ -28,11 +28,19 @@ pub fn mode_1(GameFlags: *u64, GameFlags_prev: *u64, camera: rl.Camera2D, hex_wi
         Y = @ceil(mouseY);
     }
 
-    print("{d},{d}\n\n", .{ X, Y });
+    //print("{d},{d}\n\n", .{ X, Y });
     GameFlags_prev.* = GameFlags.*;
     GameFlags.* ^= (1 << 0);
 
     for (0..cmb.items.len) |i| {
-        print("{d},{d}....{s}\n", .{ cmb.items.ptr[i].hex_x, cmb.items.ptr[i].hex_y, cmb.items.ptr[i].descrip });
+        if (cmb.items.ptr[i].hex_x == X) {
+            if (cmb.items.ptr[i].hex_y == Y) {
+                if ((GameFlags.* & (1 << 1)) == 0) { // choose a unit
+                    print("{d},{d}: {s}\n", .{ cmb.items.ptr[i].hex_x, cmb.items.ptr[i].hex_y, cmb.items.ptr[i].descrip });
+                    GameFlags.* ^= (1 << 1);
+                    break;
+                }
+            }
+        }
     }
 }
