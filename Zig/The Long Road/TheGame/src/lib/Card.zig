@@ -8,9 +8,10 @@ pub const Card = struct {
     pxX: i32,
     pxY: i32,
     texture: rl.Texture,
+    rotation: f32,
 
     // ********************************************************************************************
-    pub fn init(pxX: i32, pxY: i32, fname: []const u8) !Card {
+    pub fn init(pxX: i32, pxY: i32, rotation: f32, fname: []const u8) !Card {
         var buff: [60]u8 = undefined;
         const filename = try std.fmt.bufPrintZ(&buff, "{s}", .{fname});
         const texture = try rl.loadTexture(filename);
@@ -19,6 +20,7 @@ pub const Card = struct {
             .pxX = pxX,
             .pxY = pxY,
             .texture = texture,
+            .rotation = rotation,
         };
     }
 };

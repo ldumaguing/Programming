@@ -119,6 +119,7 @@ pub fn main() !void {
     //const card_pac = try card.PlayerAid.init(-1509, 0, "TLR/Player Aid Card.png", "TLR/Last Turn.png", db);
     //const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
     //const card_compass = try card.Card.init(-163, -163, "TLR/LAR_Compass.png");
+    //const card_phb = try card.Card.init(438, 0, 90.0, "TLR/TLR_Player_Hand _Background.png");
 
     // ********************************************************************************************
     if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
@@ -237,6 +238,7 @@ pub fn main() !void {
         print(">>>>>>>>>>>>>>>>> {d}\n", .{Chosen_Units_in_Hex.items.len});
         if (Chosen_Units_in_Hex.items.len > 0) {
             print(">>> {d}\n", .{Chosen_Units_in_Hex.items.ptr[0].imgIndex});
+            //rl.drawTextureEx(card_phb.texture, .{ .x = @as(f32, @floatFromInt(card_phb.pxX)), .y = @as(f32, @floatFromInt(card_phb.pxY)) }, card_phb.rotation, 1.0, .white);
             rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[0].imgIndex)], 0, 0, .white);
         }
     } // Game loop
