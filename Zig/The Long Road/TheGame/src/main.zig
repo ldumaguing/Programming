@@ -162,6 +162,9 @@ pub fn main() !void {
             var delta = rl.getMouseDelta();
             delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
             camera.target = rl.math.vector2Add(camera.target, delta);
+        }
+
+        if (rl.isMouseButtonDown(.middle)) {
             //if (GameFlags != GameFlags_prev) {
             print("reset\n", .{});
             GameFlags = 0;
