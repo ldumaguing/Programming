@@ -12,7 +12,7 @@ const card = @import("lib/Card.zig");
 const ui = @import("lib/UI.zig");
 
 var GameFlags: u64 = 0;
-var GameFlags_prev: u64 = 0;
+//var GameFlags_prev: u64 = 0;
 var hexLoc = [3]i32{ 0, 0, 0 };
 var mousePos: rl.Vector2 = undefined;
 
@@ -70,6 +70,9 @@ pub fn main() !void {
 
     var Combatants = std.ArrayList(asset.Combatant).empty;
     defer Combatants.deinit(allocator);
+
+    var Chosen_Units_in_Hex = std.ArrayList(asset.Combatant).empty;
+    defer Chosen_Units_in_Hex.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -159,17 +162,18 @@ pub fn main() !void {
             var delta = rl.getMouseDelta();
             delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
             camera.target = rl.math.vector2Add(camera.target, delta);
-            if (GameFlags != GameFlags_prev) {
-                print("reset\n", .{});
-                GameFlags = 0;
-                GameFlags_prev = 0;
-            }
+            //if (GameFlags != GameFlags_prev) {
+            print("reset\n", .{});
+            GameFlags = 0;
+            Chosen_Units_in_Hex.clearAndFree(allocator);
+            //    GameFlags_prev = 0;
+            //}
         }
 
         if (rl.isMouseButtonDown(.left)) {
-            if ((GameFlags ^ (1 << 0)) != 0) { // set selected mode
+            if ((GameFlags & (1 << 0)) == 0) { // set selected mode
                 print("set selected mode\n", .{});
-                GameFlags_prev = GameFlags;
+                //GameFlags_prev = GameFlags;
                 GameFlags |= (1 << 0);
             }
         }
@@ -199,41 +203,6 @@ pub fn main() !void {
             camera.begin();
             defer camera.end();
 
-            // if (rl.isMouseButtonDown(.left)) {
-            //     const screenMousePos = rl.getMousePosition();
-            //     const worldMousePos = rl.getScreenToWorld2D(screenMousePos, camera);
-            //     mousePos = screenMousePos;
-            //
-            //     var mouseX = worldMousePos.x - 101.0;
-            //     mouseX /= hex_width;
-            //
-            //     const X: i32 = @ceil(mouseX);
-            //     var Y: i32 = 0;
-            //
-            //     if (@mod(X, 2) == 0) {
-            //         var mouseY = worldMousePos.y - 116.79166;
-            //         mouseY /= hex_height;
-            //         Y = @ceil(mouseY);
-            //     } else {
-            //         var mouseY = worldMousePos.y;
-            //         mouseY /= hex_height;
-            //         Y = @ceil(mouseY);
-            //     }
-            //
-            //     //print("{d},{d}\n\n", .{ X, Y });
-            //     hexLoc[0] = X;
-            //     hexLoc[1] = Y;
-            //     GameFlags |= (1 << 0);
-            //
-            //     // prevent redundent signals
-            //     if (GameFlags != GameFlags_prev) {
-            //         print("mode {d}\n", .{GameFlags});
-            //         GameFlags_prev = GameFlags;
-            //     }
-            //
-            //     print("yo\n", .{});
-            // }
-
             // ***** map tiles
             for (0..4) |row| {
                 for (0..4) |col| {
@@ -260,18 +229,12 @@ pub fn main() !void {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
 
-            // player aid cards
-            //rl.drawTexture(card_pac.plate, card_pac.pxX, card_pac.pxY, .white);
-            //rl.drawTexture(card_pac.marker, card_pac.mrk_X, card_pac.mrk_Y, .white);
-            //rl.drawTexture(card_pdw.texture, card_pdw.pxX, card_pdw.pxY, .white);
-            //rl.drawTexture(card_compass.texture, card_compass.pxX, card_compass.pxY, .white);
-            if ((GameFlags & (1 << 0)) == 1) ui.mode_1(&GameFlags, &GameFlags_prev, camera, hex_width, hex_height, &Combatants);
+            if ((GameFlags & (1 << 0)) == 1) try ui.mode_1(&GameFlags, camera, hex_width, hex_height, &Combatants, &Chosen_Units_in_Hex, allocator);
         } // camera block
-
-        //const X = rl.getScreenWidth() - 163;
-        //const X = windowWidth - 163;
-        //rl.drawTexture(card_compass.texture, X, 0, .white);
-        //print("{d},{d}\n", .{ mousePos.x, mousePos.y });
-        //print("{d},{d}\n", .{ hexLoc[0], hexLoc[1] });
+        print(">>>>>>>>>>>>>>>>> {d}\n", .{Chosen_Units_in_Hex.items.len});
+        if (Chosen_Units_in_Hex.items.len > 0) {
+            print(">>> {d}\n", .{Chosen_Units_in_Hex.items.ptr[0].imgIndex});
+            rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[0].imgIndex)], 0, 0, .white);
+        }
     } // Game loop
 }
