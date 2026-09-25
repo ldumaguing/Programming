@@ -52,7 +52,7 @@ pub fn main(init: std.process.Init) !void {
     // Prepare the SQL statement
     var stmt: ?*c.sqlite3_stmt = null;
     const sql =
-    \\UPDATE GameMap SET hex_z = 1 WHERE terrainName = 'HILL 2'
+        \\UPDATE GameMap SET hex_z = 1 WHERE terrainName = 'HILL 2'
     ;
     _ = c.sqlite3_prepare_v2(db, sql, -1, &stmt, null);
     defer _ = c.sqlite3_finalize(stmt);
@@ -123,8 +123,9 @@ fn usageB() void {
 // ************************************************************************************************
 fn clearSession(db: ?*c.sqlite3, id: []const u8) void {
     // Prepare statement
-    const query1 = "DELETE FROM GameCombatant where sessionID = ?1";
-    const query2 = "DELETE FROM GameMap       where sessionID = ?1";
+    const query1 = "DELETE FROM GameCombatant    where sessionID = ?1";
+    const query5 = "DELETE FROM GameRelationship where sessionID = ?1";
+    const query2 = "DELETE FROM GameMap          where sessionID = ?1";
     const query3 = "DELETE FROM gamemaptemp";
     const query4 =
         \\UPDATE GameMeta SET val_int0 = ?1
@@ -184,6 +185,22 @@ fn clearSession(db: ?*c.sqlite3, id: []const u8) void {
 
     // **********
     if (c.sqlite3_prepare_v2(db, query4, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(2): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Binding
+    _ = c.sqlite3_bind_text(stmt, 1, id.ptr, @intCast(id.len), c.SQLITE_TRANSIENT);
+
+    // Execute the insertion step
+    rc = c.sqlite3_step(stmt);
+    if (rc != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // **********
+    if (c.sqlite3_prepare_v2(db, query5, -1, &stmt, null) != c.SQLITE_OK) {
         std.debug.print("Failed to prepare statement(2): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
