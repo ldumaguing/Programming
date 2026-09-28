@@ -48,7 +48,7 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             parseMode = 2;
             continue;
         }
-        if (std.mem.startsWith(u8, line, "relationship =")) {
+        if (std.mem.startsWith(u8, line, "relationship *")) {
             parseMode = 3;
             continue;
         }
@@ -60,6 +60,9 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
         }
         if (parseMode == 2) {
             cht.place(line[0..4], line[7..], id);
+            continue;
+        }
+        if (parseMode == 3) {
             continue;
         }
 
