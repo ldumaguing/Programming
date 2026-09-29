@@ -49,35 +49,7 @@ pub const Database = struct {
             i64_Y = c.sqlite3_column_int64(stmt, 1);
         }
 
-        // ----------------------------------------------------------------------------------------
-        // Prepare the SQL statement
-        const sql_4 =
-            \\DELETE FROM GameAsset
-            \\WHERE sessionID = ?1
-        ;
-        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
-
-        // Binding
         const curS: i32 = @intCast(currSession);
-        _ = c.sqlite3_bind_int(stmt, 1, curS);
-
-        // Execute statement
-        _ = c.sqlite3_step(stmt);
-
-        // ----------------------------------------------------------------------------------------
-        // Prepare the SQL statement
-        const sql_5 =
-            \\INSERT INTO GameAsset (imgID, filename, sessionID)
-            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
-            \\WHERE sessionID = ?1
-        ;
-        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
-
-        // Binding
-        _ = c.sqlite3_bind_int(stmt, 1, curS);
-
-        // Execute statement
-        _ = c.sqlite3_step(stmt);
 
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
@@ -128,6 +100,35 @@ pub const Database = struct {
             \\)
         ;
         _ = c.sqlite3_prepare_v2(db, sql_2, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_4 =
+            \\DELETE FROM GameAsset
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_5 =
+            \\INSERT INTO GameAsset (imgID, filename, sessionID)
+            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
 
         // Binding
         _ = c.sqlite3_bind_int(stmt, 1, curS);
