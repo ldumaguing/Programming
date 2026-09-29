@@ -25,6 +25,7 @@ pub const Database = struct {
         }
         defer _ = c.sqlite3_close(db); // close disk connection after init.
 
+        // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
         var stmt: ?*c.sqlite3_stmt = null;
         const sql = "SELECT val_int0 FROM GameMeta WHERE attrib = 'currSession'";
@@ -37,6 +38,7 @@ pub const Database = struct {
             currSession = c.sqlite3_column_int64(stmt, 0);
         }
 
+        // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
         const sql_1 = "SELECT val_int0, val_int1 FROM GameMeta WHERE attrib = 'pixelCount'";
         _ = c.sqlite3_prepare_v2(db, sql_1, -1, &stmt, null);
@@ -49,16 +51,30 @@ pub const Database = struct {
             i64_Y = c.sqlite3_column_int64(stmt, 1);
         }
 
+        // ======================================================
+        return Database{
+            .db = db,
+            .currSession = currSession,
+            .pixelCount = .{ @intCast(i64_X), @intCast(i64_Y) },
+        };
+    }
+
+    pub fn add_Asset(self: Database) void {
+        print(".................................yo\n", .{});
+
+        var stmt: ?*c.sqlite3_stmt = null;
+        defer _ = c.sqlite3_finalize(stmt);
+
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
         const sql_4 =
             \\DELETE FROM GameAsset
             \\WHERE sessionID = ?1
         ;
-        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(self.db, sql_4, -1, &stmt, null);
 
         // Binding
-        const curS: i32 = @intCast(currSession);
+        const curS: i32 = @intCast(self.currSession);
         _ = c.sqlite3_bind_int(stmt, 1, curS);
 
         // Execute statement
@@ -71,7 +87,7 @@ pub const Database = struct {
             \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
             \\WHERE sessionID = ?1
         ;
-        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(self.db, sql_5, -1, &stmt, null);
 
         // Binding
         _ = c.sqlite3_bind_int(stmt, 1, curS);
@@ -79,13 +95,24 @@ pub const Database = struct {
         // Execute statement
         _ = c.sqlite3_step(stmt);
 
+        _ = c.sqlite3_exec(self.db, "COMMIT", null, null, null);
+    }
+
+    // ********************************************************************************************
+    pub fn add_Img(self: Database) void {
+        print(".................................yo\n", .{});
+        const curS: i32 = @intCast(self.currSession);
+
+        var stmt: ?*c.sqlite3_stmt = null;
+        defer _ = c.sqlite3_finalize(stmt);
+
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
         const sql_3 =
             \\DELETE FROM GameImg
             \\WHERE sessionID = ?1
         ;
-        _ = c.sqlite3_prepare_v2(db, sql_3, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(self.db, sql_3, -1, &stmt, null);
 
         // Binding
         _ = c.sqlite3_bind_int(stmt, 1, curS);
@@ -127,7 +154,7 @@ pub const Database = struct {
             \\WHERE sessionID = ?1
             \\)
         ;
-        _ = c.sqlite3_prepare_v2(db, sql_2, -1, &stmt, null);
+        _ = c.sqlite3_prepare_v2(self.db, sql_2, -1, &stmt, null);
 
         // Binding
         _ = c.sqlite3_bind_int(stmt, 1, curS);
@@ -135,12 +162,7 @@ pub const Database = struct {
         // Execute statement
         _ = c.sqlite3_step(stmt);
 
-        // ======================================================
-        return Database{
-            .db = db,
-            .currSession = currSession,
-            .pixelCount = .{ @intCast(i64_X), @intCast(i64_Y) },
-        };
+        _ = c.sqlite3_exec(self.db, "COMMIT", null, null, null);
     }
 
     // ********************************************************************************************
@@ -686,8 +708,50 @@ pub const Database = struct {
     pub fn foo(self: Database) void {
         print("{d}\n", .{self.currSession});
         print("{d},{d}\n", .{ self.pixelCount[0], self.pixelCount[1] });
+        _ = c.sqlite3_exec(self.db, "commit", null, null, null);
     }
 
+    pub fn bar1(self: Database) i32 {
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        const sql = "SELECT count(*) FROM GameAsset";
+        if (c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null) != c.SQLITE_OK) {
+            std.debug.print("SQL error: {s}\n", .{c.sqlite3_errmsg(self.db)});
+            return 0;
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            // Fetch the first column (index 0) directly as a 64-bit integer
+            const count: i32 = @intCast(c.sqlite3_column_int64(stmt, 0));
+            //std.debug.print("Row count is: {d}\n", .{count});
+            return count;
+        }
+
+        return 0;
+    }
+
+    pub fn bar(self: Database) i32 {
+        var stmt: ?*c.sqlite3_stmt = null;
+
+        const sql = "SELECT count(*) FROM GameImg";
+        if (c.sqlite3_prepare_v2(self.db, sql, -1, &stmt, null) != c.SQLITE_OK) {
+            std.debug.print("SQL error: {s}\n", .{c.sqlite3_errmsg(self.db)});
+            return 0;
+        }
+        defer _ = c.sqlite3_finalize(stmt);
+
+        // Evaluate the statement
+        if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            // Fetch the first column (index 0) directly as a 64-bit integer
+            const count: i32 = @intCast(c.sqlite3_column_int64(stmt, 0));
+            //std.debug.print("Row count is: {d}\n", .{count});
+            return count;
+        }
+
+        return 0;
+    }
     // ********************************************************************************************
     pub fn close(self: Database) void {
         _ = c.sqlite3_close(self.db);

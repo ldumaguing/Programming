@@ -130,6 +130,21 @@ pub fn main() !void {
     try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
+
+    db.add_Img(); // This must be first because Asset uses a VIEW
+    db.add_Asset();
+    var fish: i32 = 0;
+
+    while (fish <= 0) {
+        fish = db.bar1();
+        print("waiting1...{d}\n", .{fish});
+    }
+    fish = 0;
+    while (fish <= 0) {
+        fish = db.bar();
+        print("waiting...{d}\n", .{fish});
+    }
+    //db.foo();
     try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
     // ********************************************************************************************
