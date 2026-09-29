@@ -28,7 +28,7 @@ pub fn place(unitID: []const u8, location: []const u8, sessionID: i32) void {
 
 // ************************************************************************************************
 fn set_location(db: ?*c.sqlite3, X: i32, Y: i32, instanceID: i32, sessionID: i32) void {
-    print("{d}: {d},{d}\n", .{instanceID, X, Y});
+    print("{d}: {d},{d}\n", .{ instanceID, X, Y });
     // Prepare statement
     const query =
         \\UPDATE GameCombatant SET
