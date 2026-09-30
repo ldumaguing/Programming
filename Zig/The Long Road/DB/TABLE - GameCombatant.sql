@@ -9,6 +9,7 @@ CREATE TABLE GameCombatant (
     --
     id         INTEGER,  -- combatant ID
     currState  INTEGER,  -- img ID
+    stack      INTEGER DEFAULT 0,
     PRIMARY KEY (sessionID, instanceID)
 );
 

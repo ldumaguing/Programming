@@ -9,6 +9,7 @@ SELECT
    GameCombatant.flag1,
    GameCombatant.id,
    GameCombatant.currState,
+   GameCombatant.stack,
    IMG.file AS filename,
    COMBATANT.descrip,
    COMBATANT.faction
