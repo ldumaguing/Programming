@@ -43,6 +43,7 @@ pub fn adjust_stack(sessionID: i32) void {
         \\SELECT rowid, hex_x, hex_y, stack
         \\FROM GameCombatant
         \\WHERE sessionID = ?1
+        \\ORDER BY hex_x, hex_y, rowid DESC
     ;
     var stmt: ?*c.sqlite3_stmt = null;
 
@@ -56,9 +57,18 @@ pub fn adjust_stack(sessionID: i32) void {
     _ = c.sqlite3_bind_int(stmt, 1, sessionID);
 
     // ********** Execute
+    var curr_vals = [_]i32{ 0, 0 };
+    var prev_vals = [_]i32{ 0, 0 };
     while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
         const rowid = c.sqlite3_column_int(stmt, 0);
         print("{d}\n", .{rowid});
+
+        curr_vals[0] = c.sqlite3_column_int(stmt, 1);
+        curr_vals[1] = c.sqlite3_column_int(stmt, 2);
+        if (std.mem.eql(i32, &curr_vals, &prev_vals)) {
+            print("!!!\n", .{});
+        }
+        prev_vals = curr_vals;
     }
 }
 
