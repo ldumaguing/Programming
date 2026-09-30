@@ -1,6 +1,8 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const cht = @import("lib/Chit.zig");
+
 const c = @cImport({
     @cInclude("sqlite3.h");
 });
@@ -59,6 +61,9 @@ pub fn main(init: std.process.Init) !void {
 
     // Execute statement
     _ = c.sqlite3_step(stmt);
+
+    // ============================================================================================
+    cht.adjust_stack(number);
 }
 
 // ************************************************************************************************

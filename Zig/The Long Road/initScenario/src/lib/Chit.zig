@@ -27,8 +27,44 @@ pub fn place(unitID: []const u8, location: []const u8, sessionID: i32) void {
 }
 
 // ************************************************************************************************
+pub fn adjust_stack(sessionID: i32) void {
+    print("yo{d}\n", .{sessionID});
+    // ********** 1: open database
+    var db: ?*c.sqlite3 = undefined;
+    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
+        std.debug.print("Can't open database\n", .{});
+        return;
+    }
+    defer _ = c.sqlite3_close(db);
+
+    // ********** statement
+    // const query = "select rowid, * from GameCombatant order by hex_x, hex_y, rowid desc";
+    const query =
+        \\SELECT rowid, hex_x, hex_y, stack
+        \\FROM GameCombatant
+        \\WHERE sessionID = ?1
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // ********** Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+
+    // ********** Execute
+    while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+        const rowid = c.sqlite3_column_int(stmt, 0);
+        print("{d}\n", .{rowid});
+    }
+}
+
+// ************************************************************************************************
 fn set_location(db: ?*c.sqlite3, X: i32, Y: i32, instanceID: i32, sessionID: i32) void {
-    print("{d}: {d},{d}\n", .{ instanceID, X, Y });
+    //print("{d}: {d},{d}\n", .{ instanceID, X, Y });
     // Prepare statement
     const query =
         \\UPDATE GameCombatant SET
