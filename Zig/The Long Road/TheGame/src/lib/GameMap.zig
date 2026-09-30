@@ -67,7 +67,6 @@ pub const GameMap = struct {
 
     // ********************************************************************************************
     pub fn status(self: GameMap, tiles: *std.ArrayList(tile.Tile)) void {
-        print("************** yo ************ {d}\n", .{tiles.items.len});
         for (0..tiles.items.len) |i| {
             print("id:{d} --- index:{d}\n", .{ i, tiles.items.ptr[i].index });
         }

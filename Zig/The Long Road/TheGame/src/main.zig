@@ -235,10 +235,8 @@ pub fn main() !void {
 
             if ((GameFlags & (1 << 0)) == 1) try ui.mode_1(&GameFlags, camera, hex_width, hex_height, &Combatants, &Chosen_Units_in_Hex, allocator);
         } // camera block
-        print(">>>>>>>>>>>>>>>>> {d}\n", .{Chosen_Units_in_Hex.items.len});
+
         if (Chosen_Units_in_Hex.items.len > 0) {
-            print(">>> {d}\n", .{Chosen_Units_in_Hex.items.ptr[0].imgIndex});
-            //rl.drawTextureEx(card_phb.texture, .{ .x = @as(f32, @floatFromInt(card_phb.pxX)), .y = @as(f32, @floatFromInt(card_phb.pxY)) }, card_phb.rotation, 1.0, .white);
             rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[0].imgIndex)], 0, 0, .white);
         }
     } // Game loop
