@@ -130,7 +130,6 @@ pub fn main() !void {
     try db.add_map_towns(allocator, &WholeHex);
     print("count: {d}\n", .{WholeHex.items.len});
 
-
     db.add_Img(); // This must be first because Asset uses a VIEW
     db.add_Asset();
     var fish: i32 = 0;
