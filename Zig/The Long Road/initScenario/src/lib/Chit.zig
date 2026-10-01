@@ -40,7 +40,7 @@ pub fn adjust_stack(sessionID: i32) void {
     // ********** statement
     // const query = "select rowid, * from GameCombatant order by hex_x, hex_y, rowid desc";
     const query =
-        \\SELECT rowid, hex_x, hex_y, stack
+        \\SELECT rowid, hex_x, hex_y, stack, instanceID
         \\FROM GameCombatant
         \\WHERE sessionID = ?1
         \\ORDER BY hex_x, hex_y, rowid DESC
@@ -59,15 +59,23 @@ pub fn adjust_stack(sessionID: i32) void {
     // ********** Execute
     var curr_vals = [_]i32{ 0, 0 };
     var prev_vals = [_]i32{ 0, 0 };
+    var lvl: i32 = 0;
     while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
-        const rowid = c.sqlite3_column_int(stmt, 0);
-        print("{d}\n", .{rowid});
-
+        //const rowid = c.sqlite3_column_int(stmt, 0);
         curr_vals[0] = c.sqlite3_column_int(stmt, 1);
         curr_vals[1] = c.sqlite3_column_int(stmt, 2);
+
+        const instanceID = c.sqlite3_column_int(stmt, 4);
+
         if (std.mem.eql(i32, &curr_vals, &prev_vals)) {
-            print("!!!\n", .{});
+            lvl += 1;
+        } else {
+            lvl = 0;
         }
+
+        print("{d}:{d},{d}---", .{ instanceID, curr_vals[0], curr_vals[1] });
+        print("{d}\n", .{lvl});
+
         prev_vals = curr_vals;
     }
 }
