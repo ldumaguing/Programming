@@ -201,10 +201,11 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         const sql_1 =
-            \\SELECT instanceID, hex_x, hex_y, id, currState
+            \\SELECT instanceID, hex_x, hex_y, id, currState, stack
             \\FROM GameCombatant
             \\WHERE
             \\sessionID = ?1
+            \\ORDER BY hex_x, hex_y, stack
         ;
         _ = c.sqlite3_prepare_v2(self.db, sql_1, -1, &stmt, null);
 
@@ -218,8 +219,9 @@ pub const Database = struct {
             const hex_y = c.sqlite3_column_int(stmt, 2);
             const id = c.sqlite3_column_int(stmt, 3);
             const currState = c.sqlite3_column_int(stmt, 4);
+            const stack_lvl = c.sqlite3_column_int(stmt, 5);
 
-            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, stack_lvl);
             _ = try cmb.append(allocator, cbt);
         }
 

@@ -453,6 +453,9 @@ pub fn main() !void {
                 } else {
                     Y = (Y * hex_height) - adjY;
                 }
+                const aF32: f32 = @floatFromInt(Combatants.items.ptr[i].stack_lvl);
+                X += (aF32 * 8.0);
+                Y -= (aF32 * 8.0);
 
                 rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
             }
