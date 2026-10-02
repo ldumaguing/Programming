@@ -45,6 +45,7 @@ pub fn adjust_stack(sessionID: i32) void {
         \\WHERE sessionID = ?1
         \\ORDER BY hex_x, hex_y, rowid DESC
     ;
+
     var stmt: ?*c.sqlite3_stmt = null;
 
     if (c.sqlite3_prepare_v2(db, query, -1, &stmt, null) != c.SQLITE_OK) {
@@ -76,6 +77,32 @@ pub fn adjust_stack(sessionID: i32) void {
         print("{d}:{d},{d}---", .{ instanceID, curr_vals[0], curr_vals[1] });
         print("{d}\n", .{lvl});
 
+        // ========================================================================================
+        const query1 =
+            \\UPDATE GameCombatant
+            \\SET stack = ?1
+            \\WHERE sessionID = ?2
+            \\AND
+            \\instanceID = ?3
+        ;
+
+        var stmt1: ?*c.sqlite3_stmt = null;
+
+        if (c.sqlite3_prepare_v2(db, query1, -1, &stmt1, null) != c.SQLITE_OK) {
+            print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+            return;
+        }
+        defer _ = c.sqlite3_finalize(stmt1);
+
+        // ********** Binding
+        _ = c.sqlite3_bind_int(stmt1, 1, lvl);
+        _ = c.sqlite3_bind_int(stmt1, 2, sessionID);
+        _ = c.sqlite3_bind_int(stmt1, 3, instanceID);
+
+        // ********** Execute
+        _ = c.sqlite3_step(stmt1);
+
+        // ========================================================================================
         prev_vals = curr_vals;
     }
 }
