@@ -24,8 +24,6 @@ pub const Combatant = struct {
     is_visible: bool,
     descrip: []const u8,
     stack_lvl: i32,
-    // imagefile: [64]u8,
-    // imagefile_len: i32,
 
     pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32, currState: i32, descrip: []const u8, stack_lvl: i32) Combatant {
         return Combatant{
@@ -40,8 +38,6 @@ pub const Combatant = struct {
             .is_visible = true,
             .descrip = descrip,
             .stack_lvl = stack_lvl,
-            // .imagefile = undefined,
-            // .imagefile_len = 0,
         };
     }
 

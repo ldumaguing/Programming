@@ -140,6 +140,7 @@ pub fn main() !void {
 
     var toggle: i32 = 1;
     while (!rl.windowShouldClose()) {
+        print("mode:{d}\n", .{GameFlags});
         if (rl.isKeyPressed(.space)) {
             if (toggle == 0) {
                 for (0..Combatants.items.len) |i| {
@@ -176,9 +177,8 @@ pub fn main() !void {
 
         if (rl.isMouseButtonDown(.left)) {
             if ((GameFlags & (1 << 0)) == 0) { // set selected mode
-                print("set selected mode\n", .{});
-                //GameFlags_prev = GameFlags;
                 GameFlags |= (1 << 0);
+                print("set selected mode:{d}\n", .{GameFlags});
             }
         }
 
@@ -233,11 +233,14 @@ pub fn main() !void {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
 
-            if ((GameFlags & (1 << 0)) == 1) try ui.mode_1(&GameFlags, camera, hex_width, hex_height, &Combatants, &Chosen_Units_in_Hex, allocator);
+            try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Chosen_Units_in_Hex, allocator);
         } // camera block
 
-        if (Chosen_Units_in_Hex.items.len > 0) {
-            rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[0].imgIndex)], 0, 0, .white);
+        print("count1: {d}\n", .{Chosen_Units_in_Hex.items.len});
+        for (0..Chosen_Units_in_Hex.items.len) |i| {
+            var Y: i32 = @intCast(i);
+            Y *= 160;
+            rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[i].imgIndex)], 5, Y + 5, .white);
         }
     } // Game loop
 }
