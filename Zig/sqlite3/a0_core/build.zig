@@ -83,9 +83,17 @@ pub fn build(b: *std.Build) void {
         }),
     });
 
-    // Larry was here
-    exe.root_module.linkSystemLibrary("sqlite3", .{});
-    exe.root_module.linkSystemLibrary("c", .{});
+    // ********************************************************** larry was here
+    const translate_c = b.addTranslateC(.{
+        .root_source_file = b.path("lib/sqlite3.h"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const c_mod = translate_c.createModule();
+    exe.root_module.addImport("c", c_mod);
+    exe.root_module.addCSourceFiles(.{ .files = &.{"lib/sqlite3.c"}, .flags = &.{} });
+    // **********************************************************
 
     // This declares intent for the executable to be installed into the
     // install prefix when running `zig build` (i.e. when executing the default
@@ -115,9 +123,7 @@ pub fn build(b: *std.Build) void {
 
     // This allows the user to pass arguments to the application in the build
     // command itself, like this: `zig build run -- arg1 arg2 etc`
-    if (b.args) |args| {
-        run_cmd.addArgs(args);
-    }
+    run_cmd.addPassthruArgs();
 
     // Creates an executable that will run `test` blocks from the provided module.
     // Here `mod` needs to define a target, which is why earlier we made sure to

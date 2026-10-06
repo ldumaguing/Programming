@@ -1,9 +1,7 @@
 // https://medium.com/@swindlers-inc/using-sqlite-with-zig-6810a6d015fc
 const std = @import("std");
 
-const c = @cImport({
-    @cInclude("sqlite3.h");
-});
+const c = @import("c");
 
 fn callback(
     _: ?*anyopaque,
