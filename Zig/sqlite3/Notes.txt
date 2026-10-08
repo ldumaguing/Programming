@@ -1,0 +1,14 @@
+// ********************************************************** main.zig
+const c = @import("c");
+
+
+// ********************************************************** larry was here
+const translate_c = b.addTranslateC(.{
+    .root_source_file = b.path("lib/sqlite3.h"),
+    .target = target,
+    .optimize = optimize,
+});
+
+const c_mod = translate_c.createModule();
+exe.root_module.addImport("c", c_mod);
+exe.root_module.addCSourceFiles(.{ .files = &.{"lib/sqlite3.c"}, .flags = &.{} });
