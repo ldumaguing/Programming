@@ -1,0 +1,16 @@
+zig build-exe <foo.zig> -lc -lraylib
+
+
+
+***************************************************************************************************
+const rl = @cImport({
+    @cInclude("raylib.h");
+});
+
+const std = @import("std");
+const print = std.debug.print;
+
+
+
+
+
