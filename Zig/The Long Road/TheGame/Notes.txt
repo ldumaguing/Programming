@@ -1,0 +1,20 @@
+GameFlags
+=========
+bit 0: selecting
+bit 1: selected a hex with a unit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
