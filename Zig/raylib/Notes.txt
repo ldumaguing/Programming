@@ -19,6 +19,13 @@ exe.root_module.addImport("raygui", raygui);
 
 
 
+*******************************************************************
+Notes *************************************************************
+*******************************************************************
+git clone https://github.com/raylib-zig/raylib-zig.git
+cd raylib-zig
+zig build
 
-
+// This is required (for now) to populate .cache/zig directory
+// so you can use raylib-zig stuffs.
 
