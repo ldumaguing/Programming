@@ -42,8 +42,4 @@ pub fn list_Units_in_Hex(GameFlags: *u64, camera: rl.Camera2D, hex_width: f32, h
     // --------------------------------
     GameFlags.* |= (1 << 1); // bit 1: prevend to add again
     print("num units:{d}\n", .{cuih.items.len});
-    if (cuih.items.len == 0) {
-        GameFlags.* ^= (1 << 0);
-        GameFlags.* ^= (1 << 1);
-    }
 }
