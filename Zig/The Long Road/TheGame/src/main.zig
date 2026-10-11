@@ -81,8 +81,8 @@ pub fn main() !void {
     const hex_height = pxY[0];
 
     // ********************************************************************************************
-    const windowWidth = 1280;
-    const windowHeight = 720;
+    const windowWidth = 1068; // Y * 1.78
+    const windowHeight = 600;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
     rl.initWindow(windowWidth, windowHeight, "The Long Road");
