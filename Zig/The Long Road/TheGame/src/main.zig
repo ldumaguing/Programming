@@ -71,8 +71,8 @@ pub fn main() !void {
     var Combatants = std.ArrayList(asset.Combatant).empty;
     defer Combatants.deinit(allocator);
 
-    var Chosen_Units_in_Hex = std.ArrayList(asset.Combatant).empty;
-    defer Chosen_Units_in_Hex.deinit(allocator);
+    var Units_in_Hex = std.ArrayList(asset.Combatant).empty;
+    defer Units_in_Hex.deinit(allocator);
 
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
@@ -140,7 +140,7 @@ pub fn main() !void {
 
     var toggle: i32 = 1;
     while (!rl.windowShouldClose()) {
-        print("mode:{d}\n", .{GameFlags});
+        //print("mode:{d}\n", .{GameFlags});
         if (rl.isKeyPressed(.space)) {
             if (toggle == 0) {
                 for (0..Combatants.items.len) |i| {
@@ -170,7 +170,7 @@ pub fn main() !void {
             //if (GameFlags != GameFlags_prev) {
             print("reset\n", .{});
             GameFlags = 0;
-            Chosen_Units_in_Hex.clearAndFree(allocator);
+            Units_in_Hex.clearAndFree(allocator);
             //    GameFlags_prev = 0;
             //}
         }
@@ -180,6 +180,7 @@ pub fn main() !void {
                 GameFlags |= (1 << 0);
                 print("set selected mode:{d}\n", .{GameFlags});
             }
+            mousePos = rl.getMousePosition();
         }
 
         // Zoom based on mouse wheel
@@ -233,14 +234,17 @@ pub fn main() !void {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
 
-            try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Chosen_Units_in_Hex, allocator);
+            try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
+            ui.choose_from_list(&GameFlags, mousePos, &Units_in_Hex);
         } // camera block
 
-        print("count1: {d}\n", .{Chosen_Units_in_Hex.items.len});
-        for (0..Chosen_Units_in_Hex.items.len) |i| {
+        if (Units_in_Hex.items.len == 0) GameFlags = 0;
+
+        for (0..Units_in_Hex.items.len) |i| {
             var Y: i32 = @intCast(i);
             Y *= 160;
-            rl.drawTexture(Imgs.items.ptr[@intCast(Chosen_Units_in_Hex.items.ptr[i].imgIndex)], 5, Y + 5, .white);
+            rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[i].imgIndex)], 5, Y + 5, .white);
         }
+        //print("{}\n", .{rl.getMousePosition()});
     } // Game loop
 }
