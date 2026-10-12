@@ -241,9 +241,10 @@ pub fn main() !void {
         if (Units_in_Hex.items.len == 0) GameFlags = 0;
 
         for (0..Units_in_Hex.items.len) |i| {
+            const reverse_i = Units_in_Hex.items.len - 1 - i;
             var Y: i32 = @intCast(i);
             Y *= 160;
-            rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[i].imgIndex)], 5, Y + 5, .white);
+            rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
         }
         //print("{}\n", .{rl.getMousePosition()});
     } // Game loop
