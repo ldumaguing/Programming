@@ -6,6 +6,8 @@ const asset = @import("Asset.zig");
 pub fn choose_from_list(GameFlags: *u64, mousePos: rl.Vector2, uih: *std.ArrayList(asset.Combatant)) void {
     if (GameFlags.* & (1 << 0) == 0) return; // bit 0: menu mode
     if (GameFlags.* & (1 << 1) == 0) return; // bit 1: is list empty
+    if (GameFlags.* & (1 << 2) != 0) return; // bit 2: clicked on a unit
+
     var Y: f32 = @floatFromInt(uih.*.items.len);
     Y *= 160.0;
     if ((mousePos.x > 160) or (mousePos.y > Y)) {
@@ -13,8 +15,20 @@ pub fn choose_from_list(GameFlags: *u64, mousePos: rl.Vector2, uih: *std.ArrayLi
         return;
     }
 
-    print("{d} - {d}\n", .{ mousePos.x, Y });
+    var stack_index: i32 = @intFromFloat(mousePos.y);
+    stack_index = @divFloor(stack_index, 160);
+    var len: i32 = @intCast(uih.*.items.len);
+    len -= 1;
+    stack_index -= len;
+    const ab = @abs(stack_index);
+    stack_index = @intCast(ab);
+
+    print("{d} - {d}\n", .{ mousePos.y, stack_index });
     print("yo: {d}\n", .{@as(i32, @intCast(GameFlags.*))});
+    print("{s}\n", .{uih.items.ptr[@intCast(stack_index)].descrip});
+
+    // --------------------------------
+    GameFlags.* |= (1 << 2); // bit 2: clicked on a unit
 }
 
 pub fn list_Units_in_Hex(GameFlags: *u64, camera: rl.Camera2D, hex_width: f32, hex_height: f32, cmb: *std.ArrayList(asset.Combatant), uih: *std.ArrayList(asset.Combatant), allocator: std.mem.Allocator) !void {
