@@ -83,7 +83,7 @@ pub fn main() !void {
     // ********************************************************************************************
     // const windowWidth = 1068; // height * 1.78
     // const windowHeight = 600;
-    const windowWidth = 800;
+    const windowWidth = 1068;
     const windowHeight = 600;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
