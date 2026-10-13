@@ -236,8 +236,15 @@ pub fn main() !void {
         // ********** choosing ritual
         try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
         stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
+
+        if (Units_in_Hex.items.len == 1) {
+            const mouse: rl.Vector2 = .{ .x = 80.0, .y = 80.0 };
+            stack_lvl = ui.choose_from_list_of_units(&GameFlags, mouse, &Units_in_Hex, stack_lvl);
+        }
+
         ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
 
+        // ***************************************************
         if (Units_in_Hex.items.len == 0) GameFlags = 0;
 
         for (0..Units_in_Hex.items.len) |i| {
