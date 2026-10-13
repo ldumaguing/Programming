@@ -9,7 +9,8 @@ pub fn choose_from_menu(GameFlags: *u64, mousePos: rl.Vector2, lvl: i32) void {
     if (GameFlags.* & (1 << 0) == 0) return; // bit 0: menu mode
     if (GameFlags.* & (1 << 1) == 0) return; // bit 1: is list empty
     if (GameFlags.* & (1 << 2) == 0) return; // bit 2: clicked on a unit
-    rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
+    // rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
+    rl.drawRectangle(160 + 5, (lvl * 160) + 5, 158, 158, .black);
     print("...yo: {d}\n", .{lvl});
 }
 
