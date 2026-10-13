@@ -191,6 +191,7 @@ pub fn main() !void {
         }
 
         if (rl.isMouseButtonDown(.middle)) {
+            print("reset\n", .{});
             GameFlags = 0;
             Units_in_Hex.clearAndFree(allocator);
         }
@@ -235,8 +236,9 @@ pub fn main() !void {
             try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
             stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
             ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
-
         } // camera block
+
+        if (Units_in_Hex.items.len == 0) GameFlags = 0;
 
         for (0..Units_in_Hex.items.len) |i| {
             const reverse_i = Units_in_Hex.items.len - 1 - i;
