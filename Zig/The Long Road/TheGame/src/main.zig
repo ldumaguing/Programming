@@ -231,12 +231,12 @@ pub fn main() !void {
             for (0..Combatants.items.len) |i| {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
-
-            // ********** choosing ritual
-            try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
-            stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
-            ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
         } // camera block
+
+        // ********** choosing ritual
+        try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
+        stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
+        ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
 
         if (Units_in_Hex.items.len == 0) GameFlags = 0;
 
