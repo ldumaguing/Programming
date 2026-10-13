@@ -12,7 +12,6 @@ const card = @import("lib/Card.zig");
 const ui = @import("lib/UI.zig");
 
 var GameFlags: u64 = 0;
-//var GameFlags_prev: u64 = 0;
 var hexLoc = [3]i32{ 0, 0, 0 };
 var mousePos: rl.Vector2 = undefined;
 var stack_lvl: i32 = -1000;
@@ -232,9 +231,11 @@ pub fn main() !void {
                 Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
 
+            // ********** choosing ritual
             try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
             stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
             ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
+
         } // camera block
 
         //if (Units_in_Hex.items.len == 0) GameFlags = 0;
