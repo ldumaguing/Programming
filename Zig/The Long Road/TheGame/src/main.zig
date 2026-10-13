@@ -15,6 +15,7 @@ var GameFlags: u64 = 0;
 //var GameFlags_prev: u64 = 0;
 var hexLoc = [3]i32{ 0, 0, 0 };
 var mousePos: rl.Vector2 = undefined;
+var stack_lvl: i32 = -1000;
 
 pub fn main() !void {
     const db = sqlite3.Database.init();
@@ -142,7 +143,6 @@ pub fn main() !void {
 
     var toggle: i32 = 1;
     while (!rl.windowShouldClose()) {
-        //print("mode:{d}\n", .{GameFlags});
         if (rl.isKeyPressed(.space)) {
             if (toggle == 0) {
                 for (0..Combatants.items.len) |i| {
@@ -168,15 +168,6 @@ pub fn main() !void {
             camera.target = rl.math.vector2Add(camera.target, delta);
         }
 
-        if (rl.isMouseButtonDown(.middle)) {
-            //if (GameFlags != GameFlags_prev) {
-            print("reset\n", .{});
-            GameFlags = 0;
-            Units_in_Hex.clearAndFree(allocator);
-            //    GameFlags_prev = 0;
-            //}
-        }
-
         if (rl.isMouseButtonDown(.left)) {
             if ((GameFlags & (1 << 0)) == 0) { // set selected mode
                 GameFlags |= (1 << 0);
@@ -198,6 +189,11 @@ pub fn main() !void {
                 scaleFactor = 1.0 / scaleFactor;
             }
             camera.zoom = rl.math.clamp(camera.zoom * scaleFactor, 0.125, 64.0);
+        }
+
+        if (rl.isMouseButtonDown(.middle)) {
+            GameFlags = 0;
+            Units_in_Hex.clearAndFree(allocator);
         }
 
         // ==============================
@@ -237,10 +233,11 @@ pub fn main() !void {
             }
 
             try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
-            ui.choose_from_list(&GameFlags, mousePos, &Units_in_Hex);
+            stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
+            ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
         } // camera block
 
-        if (Units_in_Hex.items.len == 0) GameFlags = 0;
+        //if (Units_in_Hex.items.len == 0) GameFlags = 0;
 
         for (0..Units_in_Hex.items.len) |i| {
             const reverse_i = Units_in_Hex.items.len - 1 - i;
