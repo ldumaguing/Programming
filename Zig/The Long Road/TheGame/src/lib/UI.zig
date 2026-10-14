@@ -12,6 +12,8 @@ pub fn choose_from_menu(GameFlags: *u64, mousePos: rl.Vector2, lvl: i32) void {
     // rl.drawText("Congrats! You created your first window!", 190, 200, 20, .black);
     rl.drawRectangle(160 + 5, (lvl * 160) + 5, 158, 158, .dark_brown);
     rl.drawText("Move", 160 + 10, (lvl * 160) + 10, 20, .brown);
+    const foo: f32 = @floatFromInt(lvl);
+    rl.drawRectangleLinesEx(.{ .x = 160.0 + 5, .y = (foo * 160.0) + 5, .width = 158.0, .height = 158.0 }, 5.0, .green);
     print("...yo: {d}\n", .{lvl});
 }
 
