@@ -20,7 +20,8 @@ CREATE TABLE IMG (
     hef2_rng   TEXT,
     URPapf_val TEXT, -- Userper's two values
     URPhef_val TEXT, -- Userper's two values
-    ability3   INTEGER DEFAULT 0
+    ability3   INTEGER DEFAULT 0,
+    valid_cmd0 INTEGER DEFAULT 0
 );
 
 -- ability1
