@@ -47,35 +47,7 @@ pub const Database = struct {
             i64_Y = c.sqlite3_column_int64(stmt, 1);
         }
 
-        // ----------------------------------------------------------------------------------------
-        // Prepare the SQL statement
-        const sql_4 =
-            \\DELETE FROM GameAsset
-            \\WHERE sessionID = ?1
-        ;
-        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
-
-        // Binding
         const curS: i32 = @intCast(currSession);
-        _ = c.sqlite3_bind_int(stmt, 1, curS);
-
-        // Execute statement
-        _ = c.sqlite3_step(stmt);
-
-        // ----------------------------------------------------------------------------------------
-        // Prepare the SQL statement
-        const sql_5 =
-            \\INSERT INTO GameAsset (imgID, filename, sessionID)
-            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
-            \\WHERE sessionID = ?1
-        ;
-        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
-
-        // Binding
-        _ = c.sqlite3_bind_int(stmt, 1, curS);
-
-        // Execute statement
-        _ = c.sqlite3_step(stmt);
 
         // ----------------------------------------------------------------------------------------
         // Prepare the SQL statement
@@ -133,6 +105,35 @@ pub const Database = struct {
         // Execute statement
         _ = c.sqlite3_step(stmt);
 
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_4 =
+            \\DELETE FROM GameAsset
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_4, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
+        // ----------------------------------------------------------------------------------------
+        // Prepare the SQL statement
+        const sql_5 =
+            \\INSERT INTO GameAsset (imgID, filename, sessionID)
+            \\SELECT DISTINCT(imgID), file, sessionID FROM v_gameimg
+            \\WHERE sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(db, sql_5, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Execute statement
+        _ = c.sqlite3_step(stmt);
+
         // ======================================================
         return Database{
             .db = db,
@@ -167,7 +168,7 @@ pub const Database = struct {
             @memcpy(fname[0..4], "TLR/");
             @memcpy(fname[4..], filename);
 
-            const c_str = try allocator.dupeZ(u8, fname);
+            const c_str = try allocator.dupeSentinel(u8, fname, 0);
             defer allocator.free(c_str);
             _ = try img.append(allocator, try rl.loadTexture(c_str));
 
@@ -177,10 +178,11 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         const sql_1 =
-            \\SELECT instanceID, hex_x, hex_y, id, currState, descrip
+            \\SELECT instanceID, hex_x, hex_y, id, currState, descrip, stack
             \\FROM v_gamecombatant
             \\WHERE
             \\sessionID = ?1
+            \\ORDER BY hex_x, hex_y, stack
         ;
         _ = c.sqlite3_prepare_v2(self.db, sql_1, -1, &stmt, null);
 
@@ -194,20 +196,17 @@ pub const Database = struct {
             const hex_y = c.sqlite3_column_int(stmt, 2);
             const id = c.sqlite3_column_int(stmt, 3);
             const currState = c.sqlite3_column_int(stmt, 4);
+            const stack_lvl = c.sqlite3_column_int(stmt, 6);
 
             const raw_str = std.mem.span(c.sqlite3_column_text(stmt, 5));
-            const fname = try allocator.alloc(u8, raw_str.len);
-            defer allocator.free(fname);
-            //@memcpy(fname[0..4], "TLR/");
-            @memcpy(fname[0..], raw_str);
+            const descrip = try allocator.alloc(u8, raw_str.len);
+            //defer allocator.free(descrip);
+            @memcpy(descrip[0..], raw_str);
 
-            const c_str = try allocator.dupeZ(u8, fname);
-            //defer allocator.free(c_str);
+            //const c_str = try allocator.dupeZ(u8, descrip);
+            //const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, c_str);
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, descrip, stack_lvl);
 
-            // const descrip: []const u8 = std.mem.span(raw_str);
-
-            var cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState);
-            cbt.descrip = c_str;
             _ = try cmb.append(allocator, cbt);
         }
 
