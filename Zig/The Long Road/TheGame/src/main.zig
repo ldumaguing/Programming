@@ -9,7 +9,7 @@ const terrain = @import("lib/Terrain.zig");
 const hexagon = @import("lib/Hexagon.zig");
 const asset = @import("lib/Asset.zig");
 const card = @import("lib/Card.zig");
-const ui = @import("lib/UI.zig");
+const menu0 = @import("lib/Menu0.zig");
 
 var GameFlags: u64 = 0;
 var hexLoc = [3]i32{ 0, 0, 0 };
@@ -83,8 +83,8 @@ pub fn main() !void {
     // ********************************************************************************************
     // const windowWidth = 1068; // height * 1.78
     // const windowHeight = 600;
-    const windowWidth = 1068;
-    const windowHeight = 600;
+    const windowWidth = 1366;
+    const windowHeight = 768;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
     rl.initWindow(windowWidth, windowHeight, "The Long Road");
@@ -168,9 +168,8 @@ pub fn main() !void {
         }
 
         if (rl.isMouseButtonDown(.left)) {
-            if ((GameFlags & (1 << 0)) == 0) { // set selected mode
+            if ((GameFlags & (1 << 0)) == 0) {
                 GameFlags |= (1 << 0);
-                print("set selected mode:{d}\n", .{GameFlags});
             }
             mousePos = rl.getMousePosition();
         }
@@ -191,7 +190,6 @@ pub fn main() !void {
         }
 
         if (rl.isMouseButtonDown(.middle)) {
-            print("reset\n", .{});
             GameFlags = 0;
             Units_in_Hex.clearAndFree(allocator);
         }
@@ -233,16 +231,16 @@ pub fn main() !void {
             }
         } // camera block
 
-        // ********** choosing ritual
-        try ui.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator);
-        stack_lvl = ui.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
+        // ********** menu0 ritual
+        try menu0.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator, mousePos);
+        stack_lvl = menu0.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
 
         if (Units_in_Hex.items.len == 1) {
             const mouse: rl.Vector2 = .{ .x = 80.0, .y = 80.0 };
-            stack_lvl = ui.choose_from_list_of_units(&GameFlags, mouse, &Units_in_Hex, stack_lvl);
+            stack_lvl = menu0.choose_from_list_of_units(&GameFlags, mouse, &Units_in_Hex, stack_lvl);
         }
 
-        ui.choose_from_menu(&GameFlags, mousePos, stack_lvl);
+        menu0.choose_from_menu(&GameFlags, mousePos, stack_lvl);
 
         // ***************************************************
         if (Units_in_Hex.items.len == 0) GameFlags = 0;
