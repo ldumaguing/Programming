@@ -8,6 +8,13 @@ const tile = @import("lib/Tile.zig");
 const terrain = @import("lib/Terrain.zig");
 const hexagon = @import("lib/Hexagon.zig");
 const asset = @import("lib/Asset.zig");
+const card = @import("lib/Card.zig");
+const menu0 = @import("lib/Menu0.zig");
+
+var GameFlags: u64 = 0;
+var hexLoc = [3]i32{ 0, 0, 0 };
+var mousePos: rl.Vector2 = undefined;
+var stack_lvl: i32 = -1000;
 
 pub fn main() !void {
     const db = sqlite3.Database.init();
@@ -46,6 +53,14 @@ pub fn main() !void {
     var Tunnel_Entrances = std.ArrayList(terrain.Tunnel_Entrance).empty;
     defer Tunnel_Entrances.deinit(allocator);
 
+    // ***** Path
+    var Paths = std.ArrayList(terrain.Path).empty;
+    defer Paths.deinit(allocator);
+
+    const A = hexagon.Hexagon.init(0, 0);
+    const B = hexagon.Hexagon.init(5, 8);
+    try A.get_path(allocator, B, &Paths);
+
     // ***** Asset
     var Imgs = std.ArrayList(rl.Texture).empty;
     defer Imgs.deinit(allocator);
@@ -56,6 +71,9 @@ pub fn main() !void {
     var Combatants = std.ArrayList(asset.Combatant).empty;
     defer Combatants.deinit(allocator);
 
+    var Units_in_Hex = std.ArrayList(asset.Combatant).empty;
+    defer Units_in_Hex.deinit(allocator);
+
     // ********************************************************************************************
     const pxX = db.get_float_vals("pxX");
     const pxY = db.get_float_vals("pxY");
@@ -63,12 +81,16 @@ pub fn main() !void {
     const hex_height = pxY[0];
 
     // ********************************************************************************************
-    const screenWidth = 1280;
-    const screenHeight = 720;
+    // const windowWidth = 1068; // height * 1.78
+    // const windowHeight = 600;
+    const windowWidth = 1246;
+    const windowHeight = 700;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
-    rl.initWindow(screenWidth, screenHeight, "The Long Road");
+    rl.initWindow(windowWidth, windowHeight, "The Long Road");
     defer rl.closeWindow();
+
+    //rl.toggleFullscreen();
 
     // ********************************************************************************************
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -93,29 +115,46 @@ pub fn main() !void {
     try db.add_map_cities(allocator, &WholeHex);
     try db.add_map_towns(allocator, &WholeHex);
 
-    // ***** asset
-    db.add_Img(); // This must be first because Asset uses a VIEW
-    db.add_Asset(); // meta data for the image
-    try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants); // units encapsulating Img & Asset
+    try db.add_map_combatants(allocator, &Imgs, &ImgIDs, &Combatants);
 
+    // ==========================================================
+    //const card_pac = try card.PlayerAid.init(-1509, 0, "TLR/Player Aid Card.png", "TLR/Last Turn.png", db);
+    //const card_pdw = try card.Card.init(0, -1417, "TLR/TLR_Para_Deck_Window.png");
+    //const card_compass = try card.Card.init(-163, -163, "TLR/LAR_Compass.png");
+    //const card_phb = try card.Card.init(438, 0, 90.0, "TLR/TLR_Player_Hand _Background.png");
+
+    // ********************************************************************************************
+    if (terrain.is_hill_blocks_LOS(&Hills, &Paths)) {
+        print("*********** block *************\n", .{});
+    }
+
+    // ********************************************************************************************
+    // ********************************************************************************************
     // ********************************************************************************************
     rl.setTargetFPS(12);
 
     var camera = rl.Camera2D{
         .target = .{ .x = 0, .y = 0 },
         .offset = .{ .x = 0, .y = 0 },
-        .zoom = 0.5,
+        .zoom = 1.0,
         .rotation = 0,
     };
 
     while (!rl.windowShouldClose()) {
-        //if (rl.isKeyPressed(.space)) {
-        //}
+        if (rl.isKeyPressed(.space)) {}
 
+        // Translate based on mouse right click
         if (rl.isMouseButtonDown(.right)) {
             var delta = rl.getMouseDelta();
             delta = rl.math.vector2Scale(delta, -1.0 / camera.zoom);
             camera.target = rl.math.vector2Add(camera.target, delta);
+        }
+
+        if (rl.isMouseButtonDown(.left)) {
+            if ((GameFlags & (1 << 0)) == 0) {
+                GameFlags |= (1 << 0);
+            }
+            mousePos = rl.getMousePosition();
         }
 
         // Zoom based on mouse wheel
@@ -133,11 +172,16 @@ pub fn main() !void {
             camera.zoom = rl.math.clamp(camera.zoom * scaleFactor, 0.125, 64.0);
         }
 
+        if (rl.isMouseButtonDown(.middle)) {
+            GameFlags = 0;
+            Units_in_Hex.clearAndFree(allocator);
+        }
+
         // ==============================
         rl.beginDrawing();
         defer rl.endDrawing();
 
-        rl.clearBackground(terrain.pale_yellow);
+        rl.clearBackground(.black);
 
         {
             camera.begin();
@@ -164,25 +208,31 @@ pub fn main() !void {
                 }
             }
 
-            // ***** units
-            const adjX: f32 = 79.0;
-            const adjY: f32 = hex_height * 0.84;
-            const adjYa: f32 = hex_height * 0.35;
+            // units
             for (0..Combatants.items.len) |i| {
-                var X: f32 = @floatFromInt(Combatants.items.ptr[i].hex_x);
-                X = (X * hex_width) - adjX;
-                var Y: f32 = @floatFromInt(Combatants.items.ptr[i].hex_y);
-                if (@mod(Combatants.items.ptr[i].hex_x, 2) == 0) {
-                    Y = (Y * hex_height) - adjYa;
-                } else {
-                    Y = (Y * hex_height) - adjY;
-                }
-                const aF32: f32 = @floatFromInt(Combatants.items.ptr[i].stack_lvl);
-                X += (aF32 * 8.0);
-                Y -= (aF32 * 8.0);
-
-                rl.drawTextureEx(Imgs.items.ptr[@intCast(Combatants.items.ptr[i].imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
+                Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
             }
+        } // camera block
+
+        // ********** menu0 ritual
+        try menu0.list_Units_in_Hex(&GameFlags, camera, hex_width, hex_height, &Combatants, &Units_in_Hex, allocator, mousePos);
+        stack_lvl = menu0.choose_from_list_of_units(&GameFlags, mousePos, &Units_in_Hex, stack_lvl);
+
+        if (Units_in_Hex.items.len == 1) {
+            const mouse: rl.Vector2 = .{ .x = 80.0, .y = 80.0 };
+            stack_lvl = menu0.choose_from_list_of_units(&GameFlags, mouse, &Units_in_Hex, stack_lvl);
         }
-    }
+
+        menu0.choose_from_menu(&GameFlags, mousePos, stack_lvl);
+
+        // ***************************************************
+        if (Units_in_Hex.items.len == 0) GameFlags = 0;
+
+        for (0..Units_in_Hex.items.len) |i| {
+            const reverse_i = Units_in_Hex.items.len - 1 - i;
+            var Y: i32 = @intCast(i);
+            Y *= 160;
+            rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
+        }
+    } // Game loop
 }

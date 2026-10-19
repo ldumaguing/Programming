@@ -1,3 +1,4 @@
+const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
@@ -20,9 +21,11 @@ pub const Combatant = struct {
     id: i32, // Combatant ID
     currState: i32, // img ID
     imgIndex: i32,
+    is_visible: bool,
+    descrip: []const u8,
     stack_lvl: i32,
 
-    pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32, currState: i32, stack_lvl: i32) Combatant {
+    pub fn init(instanceID: i32, hex_x: i32, hex_y: i32, id: i32, currState: i32, descrip: []const u8, stack_lvl: i32) Combatant {
         return Combatant{
             .instanceID = instanceID,
             .hex_x = hex_x,
@@ -32,7 +35,32 @@ pub const Combatant = struct {
             .id = id,
             .currState = currState,
             .imgIndex = 0,
+            .is_visible = true,
+            .descrip = descrip,
             .stack_lvl = stack_lvl,
         };
+    }
+
+    pub fn drawMe(self: Combatant, hex_width: f32, hex_height: f32, img: *std.ArrayList(rl.Texture)) void {
+        if (!self.is_visible) return;
+
+        const adjX: f32 = 79.0;
+        const adjY: f32 = hex_height * 0.84;
+        const adjYa: f32 = hex_height * 0.35;
+
+        var X: f32 = @floatFromInt(self.hex_x);
+        X = (X * hex_width) - adjX;
+        var Y: f32 = @floatFromInt(self.hex_y);
+        if (@mod(self.hex_x, 2) == 0) {
+            Y = (Y * hex_height) - adjYa;
+        } else {
+            Y = (Y * hex_height) - adjY;
+        }
+
+        const aF32: f32 = @floatFromInt(self.stack_lvl);
+        X += (aF32 * 8.0);
+        Y -= (aF32 * 8.0);
+
+        rl.drawTextureEx(img.items.ptr[@intCast(self.imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
     }
 };
