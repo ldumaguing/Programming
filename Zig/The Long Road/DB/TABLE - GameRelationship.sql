@@ -8,6 +8,5 @@ CREATE TABLE GameRelationship (
 
 -- relationship
 -- ============
--- bit 0: A is a passenger of B
+-- bit 0: A is inside B
 -- bit 1: A is a commander of B
-

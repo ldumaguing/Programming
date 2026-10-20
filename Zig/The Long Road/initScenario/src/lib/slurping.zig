@@ -61,6 +61,8 @@ pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
             continue;
         }
         if (parseMode == 3) {
+            print("{s}\n", .{line});
+            cht.shipping(id, line[0..4], line[5..9], line[10..], db);
             continue;
         }
 

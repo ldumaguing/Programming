@@ -3,6 +3,39 @@ const print = std.debug.print;
 
 const c = @import("c");
 
+// ************************************************************************************************
+pub fn shipping(sessionID: i32, subject: []const u8, target: []const u8, shippage: []const u8, db: ?*c.sqlite3) void {
+    const query1 =
+        \\INSERT INTO GameRelationship
+        \\(sessionID, A_id, B_id, relationship)
+        \\VALUES
+        \\(?1, ?2, ?3, (1 << ?4))
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+
+    // Prepare statement
+    if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Binding
+    const subj: i32 = std.fmt.parseInt(i32, subject, 10) catch 0;
+    const targ: i32 = std.fmt.parseInt(i32, target, 10) catch 0;
+    const ship: i32 = std.fmt.parseInt(i32, shippage, 10) catch 0;
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+    _ = c.sqlite3_bind_int(stmt, 2, subj);
+    _ = c.sqlite3_bind_int(stmt, 3, targ);
+    _ = c.sqlite3_bind_int(stmt, 4, ship);
+
+    // Execute the insertion step
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// ************************************************************************************************
 pub fn place(unitID: []const u8, location: []const u8, sessionID: i32) void {
     const instanceID = std.fmt.parseInt(i32, unitID[0..4], 10) catch 0;
 
@@ -26,7 +59,6 @@ pub fn place(unitID: []const u8, location: []const u8, sessionID: i32) void {
 
 // ************************************************************************************************
 pub fn adjust_stack(sessionID: i32) void {
-    print("yo{d}\n", .{sessionID});
     // ********** 1: open database
     var db: ?*c.sqlite3 = undefined;
     if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
@@ -36,7 +68,6 @@ pub fn adjust_stack(sessionID: i32) void {
     defer _ = c.sqlite3_close(db);
 
     // ********** statement
-    // const query = "select rowid, * from GameCombatant order by hex_x, hex_y, rowid desc";
     const query =
         \\SELECT rowid, hex_x, hex_y, stack, instanceID
         \\FROM GameCombatant
@@ -107,7 +138,6 @@ pub fn adjust_stack(sessionID: i32) void {
 
 // ************************************************************************************************
 fn set_location(db: ?*c.sqlite3, X: i32, Y: i32, instanceID: i32, sessionID: i32) void {
-    //print("{d}: {d},{d}\n", .{ instanceID, X, Y });
     // Prepare statement
     const query =
         \\UPDATE GameCombatant SET
