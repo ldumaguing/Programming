@@ -6,15 +6,15 @@ const cht = @import("Chit.zig");
 
 const c = @import("c");
 
-pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init) !void {
+pub fn slurp(id: i32, scenario: []const u8, init: std.process.Init, db: ?*c.sqlite3) !void {
     // ********** 1: open database
     // [I can't get main's db connection, so I'm connecting the the database again.]
-    var db: ?*c.sqlite3 = undefined;
-    if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
-        std.debug.print("Can't open database\n", .{});
-        return;
-    }
-    defer _ = c.sqlite3_close(db);
+    //var db: ?*c.sqlite3 = undefined;
+    //if (c.sqlite3_open("DB/TLR.db", &db) != c.SQLITE_OK) {
+    //    std.debug.print("Can't open database\n", .{});
+    //    return;
+    //}
+    //defer _ = c.sqlite3_close(db);
 
     // *********************************************
     const io = init.io;

@@ -46,7 +46,7 @@ pub fn main(init: std.process.Init) !void {
 
     // **********
     clearSession(db, args[2]);
-    try slurp.slurp(number, args[1], init);
+    try slurp.slurp(number, args[1], init, db);
 
     // --------------------------------------------------------------------------------------------
     // Prepare the SQL statement
