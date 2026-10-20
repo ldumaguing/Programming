@@ -73,6 +73,8 @@ fn cleanGame(db: ?*c.sqlite3) void {
     const query4 = "DELETE FROM GameAsset";
     const query5 = "DELETE FROM GameRelationship";
     const query6 = "DELETE FROM GameImg";
+    const query7 = "DELETE FROM gamemaptemp";
+    const query8 = "UPDATE GameMeta SET val_int0 = 0 where attrib = 'currSession'";
 
     var stmt: ?*c.sqlite3_stmt = null;
     defer _ = c.sqlite3_finalize(stmt);
@@ -139,6 +141,30 @@ fn cleanGame(db: ?*c.sqlite3) void {
 
     // ******************************
     if (c.sqlite3_prepare_v2(db, query6, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ******************************
+    if (c.sqlite3_prepare_v2(db, query7, -1, &stmt, null) != c.SQLITE_OK) {
+        std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Execution failed: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ******************************
+    if (c.sqlite3_prepare_v2(db, query8, -1, &stmt, null) != c.SQLITE_OK) {
         std.debug.print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
         return;
     }
