@@ -4,6 +4,16 @@ bit 0: selecting
 bit 1: selected a hex with a unit
 
 
+LAR_flags_0.png
+===============
+square/white:  inside a vehicle
+square/yellow: has a commander
+square/green:  has a passenger
+
+circle/red:       has fired
+circle/green:     has moved
+circle/yellow:    disrupted
+circle/red.green: landed
 
 
     // *********************************************************************************
