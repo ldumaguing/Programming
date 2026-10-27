@@ -233,6 +233,7 @@ pub fn main() !void {
             var Y: i32 = @intCast(i);
             Y *= 160;
             rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
+            rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = @as(f32, @floatFromInt(Y)) + 5.0 }, .white);
         }
     } // Game loop
 }
