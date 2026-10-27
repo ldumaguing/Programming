@@ -30,14 +30,14 @@ pub fn main() anyerror!void {
         rl.drawTexture(vehicle_txu, 10, 10, .white);
         rl.drawTexture(flags0_txu, 170, 10, .white);
 
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 1 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 2 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 1 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 2 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
 
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 3 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 4 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 5 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
-        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 6 * 10, .width = 158, .height = 10 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 3 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 4 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 5 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 6 * 13, .width = 158, .height = 13 }, .{ .x = 10, .y = 10 }, .white);
 
         rl.drawText("Congrats! You created your first window!", 190, 200, 20, .light_gray);
     }
