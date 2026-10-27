@@ -62,5 +62,7 @@ pub const Combatant = struct {
         Y -= (aF32 * 8.0);
 
         rl.drawTextureEx(img.items.ptr[@intCast(self.imgIndex)], rl.Vector2.init(X, Y), 0.0, 1.0, .white);
+        // DrawTextureRec(Texture2D texture, Rectangle rec, Vector2 position, Color tint);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = X, .y = Y }, .white);
     }
 };
