@@ -10,10 +10,10 @@ square/white:  inside a vehicle
 square/yellow: has a commander
 square/green:  has a passenger
 
-circle/red:       has fired
-circle/green:     has moved
-circle/yellow:    disrupted
-circle/red.green: landed
+circle/red:      has fired
+circle/green:    has moved
+circle/yellow:   disrupted
+circle/letter H: landed
 
 
     // *********************************************************************************
