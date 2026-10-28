@@ -6,15 +6,15 @@ bit 1: selected a hex with a unit
 
 LAR_flags_0.png
 ===============
-square/white:  inside a vehicle
-square/yellow: has a commander
-square/green:  has a passenger
+square/white:  inside a vehicle ; bit 0
+square/yellow: has a commander  ; bit 1
+square/green:  has a passenger  ; bit 2
 
-circle/red:        has fired
-circle/green:      has moved
-circle/yellow:     disrupted
-circle/letter H:   landed
-circle/half green: half move
+circle/red:        has fired    ; bit 3
+circle/green:      has moved    ; bit 4
+circle/yellow:     disrupted    ; bit 5
+circle/letter H:   landed       ; bit 6
+circle/half green: half move    ; bit 7
 
 
     // *********************************************************************************
