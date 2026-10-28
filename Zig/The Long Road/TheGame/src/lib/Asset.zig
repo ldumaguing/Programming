@@ -41,7 +41,7 @@ pub const Combatant = struct {
         };
     }
 
-    pub fn drawMe(self: Combatant, hex_width: f32, hex_height: f32, img: *std.ArrayList(rl.Texture)) void {
+    pub fn drawMe(self: Combatant, hex_width: f32, hex_height: f32, img: *std.ArrayList(rl.Texture), flags0_txu: rl.Texture2D) void {
         if (!self.is_visible) return;
 
         const adjX: f32 = 79.0;

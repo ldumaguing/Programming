@@ -83,14 +83,20 @@ pub fn main() !void {
     // ********************************************************************************************
     // const windowWidth = 1068; // height * 1.78
     // const windowHeight = 600;
-    const windowWidth = 1246;
-    const windowHeight = 700;
+    const windowWidth = 1280;
+    const windowHeight = 720;
 
     rl.setConfigFlags(.{ .window_undecorated = true });
     rl.initWindow(windowWidth, windowHeight, "The Long Road");
     defer rl.closeWindow();
 
     //rl.toggleFullscreen();
+
+    // ********************************************************************************************
+    const flags0_img = try rl.loadImage("TLR/LAR_flags_0.png");
+    defer rl.unloadImage(flags0_img);
+    const flags0_txu = try rl.loadTextureFromImage(flags0_img);
+    defer rl.unloadTexture(flags0_txu);
 
     // ********************************************************************************************
     try db.add_map_tiles(allocator, &Textures, &Tiles);
@@ -210,7 +216,7 @@ pub fn main() !void {
 
             // units
             for (0..Combatants.items.len) |i| {
-                Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs);
+                Combatants.items.ptr[i].drawMe(hex_width, hex_height, &Imgs, flags0_txu);
             }
         } // camera block
 
@@ -233,6 +239,8 @@ pub fn main() !void {
             var Y: i32 = @intCast(i);
             Y *= 160;
             rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
+            //var foo: f32 = @floatFromInt(Y);
+            //foo += 5.0;
             rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = @as(f32, @floatFromInt(Y)) + 5.0 }, .white);
         }
     } // Game loop
