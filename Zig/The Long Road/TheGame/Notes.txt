@@ -11,10 +11,11 @@ square/yellow: has a commander  ; bit 1
 square/green:  has a passenger  ; bit 2
 
 circle/red:        has fired    ; bit 3
-circle/green:      has moved    ; bit 4
+circle/green:      has moved    ; bit 4 *
 circle/yellow:     disrupted    ; bit 5
 circle/letter H:   landed       ; bit 6
-circle/half green: half move    ; bit 7
+circle/half green: half move    ; bit 7 *
+                                        * can't be both
 
 
     // *********************************************************************************
