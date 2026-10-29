@@ -12,6 +12,7 @@ pub fn draw_units_in_hex(len: usize, uih: *std.ArrayList(Combatant), img: *std.A
     }
 }
 
+// ********************************************************************************************************************
 pub const ImgID2index = struct {
     imgID: i32,
 
