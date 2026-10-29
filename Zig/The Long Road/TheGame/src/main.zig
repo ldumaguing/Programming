@@ -232,16 +232,9 @@ pub fn main() !void {
         menu0.choose_from_menu(&GameFlags, mousePos, stack_lvl);
 
         // ***************************************************
-        if (Units_in_Hex.items.len == 0) GameFlags = 0;
-
-        for (0..Units_in_Hex.items.len) |i| {
-            const reverse_i = Units_in_Hex.items.len - 1 - i;
-            var Y: i32 = @intCast(i);
-            Y *= 160;
-            rl.drawTexture(Imgs.items.ptr[@intCast(Units_in_Hex.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
-            //var foo: f32 = @floatFromInt(Y);
-            //foo += 5.0;
-            rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = @as(f32, @floatFromInt(Y)) + 5.0 }, .white);
-        }
+        if (Units_in_Hex.items.len == 0)
+            GameFlags = 0
+        else
+            asset.draw_units_in_hex(Units_in_Hex.items.len, &Units_in_Hex, &Imgs, flags0_txu);
     } // Game loop
 }

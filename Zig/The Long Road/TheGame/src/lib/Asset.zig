@@ -2,6 +2,16 @@ const rl = @import("raylib");
 const std = @import("std");
 const print = std.debug.print;
 
+pub fn draw_units_in_hex(len: usize, uih: *std.ArrayList(Combatant), img: *std.ArrayList(rl.Texture), flags0_txu: rl.Texture2D) void {
+    for (0..len) |i| {
+        const reverse_i = len - 1 - i;
+        var Y: i32 = @intCast(i);
+        Y *= 160;
+        rl.drawTexture(img.items.ptr[@intCast(uih.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
+        rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = @as(f32, @floatFromInt(Y)) + 5.0 }, .white);
+    }
+}
+
 pub const ImgID2index = struct {
     imgID: i32,
 
