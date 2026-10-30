@@ -203,14 +203,12 @@ pub const Database = struct {
             //defer allocator.free(descrip);
             @memcpy(descrip[0..], raw_str);
 
-            //const c_str = try allocator.dupeZ(u8, descrip);
-            //const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, c_str);
             const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, descrip, stack_lvl);
 
             _ = try cmb.append(allocator, cbt);
         }
 
-        // ----------------------------------------------------------------------------------------
+        // -----------------
         // defining imgIndex
         for (0..cmb.items.len) |i| {
             var count: i32 = 0;
@@ -221,6 +219,26 @@ pub const Database = struct {
                 }
                 count += 1;
             }
+        }
+
+        // ----------------------------------------------------------------------------------------
+        const sql_2 =
+            \\SELECT A_id, relationship, B_id
+            \\FROM GameRelationship
+            \\WHERE
+            \\sessionID = ?1
+        ;
+        _ = c.sqlite3_prepare_v2(self.db, sql_2, -1, &stmt, null);
+
+        // Binding
+        _ = c.sqlite3_bind_int(stmt, 1, curS);
+
+        // Evaluate the statement
+        while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+            const A_id = c.sqlite3_column_int(stmt, 0);
+            const relationship = c.sqlite3_column_int(stmt, 1);
+            const B_id = c.sqlite3_column_int(stmt, 2);
+            print("- - - {d},{d},{d}\n", .{ A_id, relationship, B_id });
         }
     }
 
