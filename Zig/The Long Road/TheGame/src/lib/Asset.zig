@@ -9,6 +9,7 @@ pub fn draw_units_in_hex(len: usize, uih: *std.ArrayList(Combatant), img: *std.A
         Y *= 160;
         rl.drawTexture(img.items.ptr[@intCast(uih.items.ptr[reverse_i].imgIndex)], 5, Y + 5, .white);
 
+        const y = @as(f32, @floatFromInt(Y)) + 5.0;
         if (uih.items.ptr[reverse_i].flag1 & (1 << 0) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 1) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 1 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 2) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 2 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
