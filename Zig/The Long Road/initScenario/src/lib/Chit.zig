@@ -4,6 +4,142 @@ const print = std.debug.print;
 const c = @import("c");
 
 // ************************************************************************************************
+pub fn adj_flag1(db: ?*c.sqlite3, sessionID: i32) void {
+    const q1 =
+        \\SELECT A_id, relationship, B_id
+        \\FROM GameRelationship
+        \\WHERE sessionID = ?1
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // Prepare statement
+    if (c.sqlite3_prepare_v2(db, q1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+
+    // Execute
+    while (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+        const A_id: i32 = c.sqlite3_column_int(stmt, 0);
+        const relationship: i32 = c.sqlite3_column_int(stmt, 1);
+        const B_id: i32 = c.sqlite3_column_int(stmt, 2);
+        print("{d},{d},{d}\n", .{ A_id, relationship, B_id });
+        flag1_A(db, sessionID, A_id, relationship);
+        flag1_B(db, sessionID, B_id, relationship);
+    }
+}
+
+// =============================
+fn flag1_B(db: ?*c.sqlite3, sessionID: i32, B_id: i32, relationship: i32) void {
+    const q1 =
+        \\SELECT flag1
+        \\FROM GameCombatant
+        \\WHERE sessionID = ?1 AND instanceID = ?2
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // ********** Prepare statement
+    if (c.sqlite3_prepare_v2(db, q1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ********** Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+    _ = c.sqlite3_bind_int(stmt, 2, B_id);
+
+    // ********** Execute
+    var flag1: i32 = 0;
+    if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+        flag1 = c.sqlite3_column_int(stmt, 0);
+    }
+
+    // ---------------------------
+    const new_flag1: i32 = (relationship << 1) | (flag1);
+    print("yo{d}\n", .{new_flag1});
+    const q2 =
+        \\UPDATE GameCombatant
+        \\SET flag1 = ?1
+        \\WHERE sessionID = ?2 AND instanceID = ?3
+    ;
+
+    // ********** Prepare statement
+    if (c.sqlite3_prepare_v2(db, q2, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ********** Binding
+    _ = c.sqlite3_bind_int(stmt, 1, new_flag1);
+    _ = c.sqlite3_bind_int(stmt, 2, sessionID);
+    _ = c.sqlite3_bind_int(stmt, 3, B_id);
+
+    // ********** Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// =============================
+fn flag1_A(db: ?*c.sqlite3, sessionID: i32, A_id: i32, relationship: i32) void {
+    const q1 =
+        \\SELECT flag1
+        \\FROM GameCombatant
+        \\WHERE sessionID = ?1 AND instanceID = ?2
+    ;
+    var stmt: ?*c.sqlite3_stmt = null;
+    defer _ = c.sqlite3_finalize(stmt);
+
+    // ********** Prepare statement
+    if (c.sqlite3_prepare_v2(db, q1, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ********** Binding
+    _ = c.sqlite3_bind_int(stmt, 1, sessionID);
+    _ = c.sqlite3_bind_int(stmt, 2, A_id);
+
+    // ********** Execute
+    var flag1: i32 = 0;
+    if (c.sqlite3_step(stmt) == c.SQLITE_ROW) {
+        flag1 = c.sqlite3_column_int(stmt, 0);
+    }
+
+    // ---------------------------
+    const new_flag1: i32 = (relationship << 1) | (flag1);
+    print("yo{d}\n", .{new_flag1});
+    const q2 =
+        \\UPDATE GameCombatant
+        \\SET flag1 = ?1
+        \\WHERE sessionID = ?2 AND instanceID = ?3
+    ;
+
+    // ********** Prepare statement
+    if (c.sqlite3_prepare_v2(db, q2, -1, &stmt, null) != c.SQLITE_OK) {
+        print("Failed to prepare statement(1): {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+
+    // ********** Binding
+    _ = c.sqlite3_bind_int(stmt, 1, new_flag1);
+    _ = c.sqlite3_bind_int(stmt, 2, sessionID);
+    _ = c.sqlite3_bind_int(stmt, 3, A_id);
+
+    // ********** Execute
+    if (c.sqlite3_step(stmt) != c.SQLITE_DONE) {
+        print("Failed to clear: {s}\n", .{c.sqlite3_errmsg(db)});
+        return;
+    }
+}
+
+// ************************************************************************************************
 pub fn shipping(sessionID: i32, subject: []const u8, target: []const u8, shippage: []const u8, db: ?*c.sqlite3) void {
     const query1 =
         \\INSERT INTO GameRelationship
@@ -12,6 +148,7 @@ pub fn shipping(sessionID: i32, subject: []const u8, target: []const u8, shippag
         \\(?1, ?2, ?3, (1 << ?4))
     ;
     var stmt: ?*c.sqlite3_stmt = null;
+    defer _ = c.sqlite3_finalize(stmt);
 
     // Prepare statement
     if (c.sqlite3_prepare_v2(db, query1, -1, &stmt, null) != c.SQLITE_OK) {
@@ -103,8 +240,8 @@ pub fn adjust_stack(sessionID: i32) void {
             lvl = 0;
         }
 
-        print("{d}:{d},{d}---", .{ instanceID, curr_vals[0], curr_vals[1] });
-        print("{d}\n", .{lvl});
+        //print("{d}:{d},{d}---", .{ instanceID, curr_vals[0], curr_vals[1] });
+        //print("{d}\n", .{lvl});
 
         // ========================================================================================
         const query1 =
