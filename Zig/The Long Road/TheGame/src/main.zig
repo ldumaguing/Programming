@@ -136,8 +136,8 @@ pub fn main() !void {
 
     // ********************************************************************************************
     print("---> {s}: {d}\n", .{ Combatants.items.ptr[3].descrip, Combatants.items.ptr[3].flag1 });
-    Combatants.items.ptr[3].flag1 = 170;
-    print("---> {s}: {d}\n", .{ Combatants.items.ptr[3].descrip, Combatants.items.ptr[3].flag1 });
+    //Combatants.items.ptr[3].flag1 = 170;
+    //print("---> {s}: {d}\n", .{ Combatants.items.ptr[3].descrip, Combatants.items.ptr[3].flag1 });
 
     // ********************************************************************************************
     // ********************************************************************************************

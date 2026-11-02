@@ -178,7 +178,7 @@ pub const Database = struct {
 
         // ----------------------------------------------------------------------------------------
         const sql_1 =
-            \\SELECT instanceID, hex_x, hex_y, id, currState, descrip, stack
+            \\SELECT instanceID, hex_x, hex_y, id, currState, descrip, stack, flag1
             \\FROM v_gamecombatant
             \\WHERE
             \\sessionID = ?1
@@ -197,13 +197,14 @@ pub const Database = struct {
             const id = c.sqlite3_column_int(stmt, 3);
             const currState = c.sqlite3_column_int(stmt, 4);
             const stack_lvl = c.sqlite3_column_int(stmt, 6);
+            const flag1 = c.sqlite3_column_int(stmt, 7);
 
             const raw_str = std.mem.span(c.sqlite3_column_text(stmt, 5));
             const descrip = try allocator.alloc(u8, raw_str.len);
             //defer allocator.free(descrip);
             @memcpy(descrip[0..], raw_str);
 
-            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, descrip, stack_lvl);
+            const cbt = asset.Combatant.init(instanceID, hex_x, hex_y, id, currState, descrip, stack_lvl, flag1);
 
             _ = try cmb.append(allocator, cbt);
         }
