@@ -12,21 +12,12 @@ pub fn draw_units_in_hex(len: usize, uih: *std.ArrayList(Combatant), img: *std.A
 
         const y = @as(f32, @floatFromInt(Y)) + 5.0;
         //if (uih.items.ptr[reverse_i].flag1 & (1 << 0) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-<<<<<<< HEAD
         if (uih.items.ptr[reverse_i].flag1 & (1 << 1) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 0 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 2) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 1 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 3) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 2 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 4) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 3 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 5) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 4 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
         if (uih.items.ptr[reverse_i].flag1 & (1 << 6) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 5 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-=======
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 1) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 1 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 2) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 2 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 3) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 3 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 4) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 4 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 5) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 5 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
-        if (uih.items.ptr[reverse_i].flag1 & (1 << 6) != 0) rl.drawTextureRec(flags0_txu, .{ .x = 0, .y = 6 * 13, .width = 158, .height = 13 }, .{ .x = 5, .y = y }, .white);
->>>>>>> 8dd404e7784a2e45f079e4776f5975feec8a4f17
     }
 }
 
