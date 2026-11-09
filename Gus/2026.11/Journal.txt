@@ -1,0 +1,142 @@
+DROP TABLE IF EXISTS AllDevices_2026;
+CREATE TABLE AllDevices_2026 (
+   Name                TEXT,
+   In_Service          TEXT,
+   Man_num             TEXT,
+   Serial_num          TEXT,
+   Aliases             TEXT,
+   HardwareVendor      TEXT,
+   model               TEXT,
+   OS                  TEXT,
+   Customers           TEXT,
+   Location            TEXT,
+   Last_Discovered     TEXT,
+   Last_Updated        TEXT,
+   User_Last_Logged_In TEXT
+);
+
+DROP TABLE IF EXISTS Oct_2026;
+CREATE TABLE Oct_2026 (
+   misc                   TEXT,
+   Unit                   TEXT,
+   "Asset ID"             TEXT,
+   "Asset Status"         TEXT,
+   Man_num                TEXT,
+   Descr                  TEXT,
+   "Acq Date"             TEXT,
+   Taggable               TEXT,
+   Offsite                TEXT,
+   Custodian              TEXT,
+   "Insite Building"      TEXT,
+   "Insite Floor"         TEXT,
+   "Insite Room"          TEXT,
+   "Custodian Dept"       TEXT,
+   "Custodian Dept Descr" TEXT,
+   "GL Cost Dept"         TEXT,
+   "GL Dept Descr"        TEXT,
+   PO                     TEXT,
+   "CF Current Location"  TEXT,
+   "CF Location Descr"    TEXT,
+   Manufacturer           TEXT,
+   Model                  TEXT,
+   Serial_num             TEXT,
+   "Sum Cost"             TEXT,
+   "Scan Location"        TEXT,
+   "File Name"            TEXT,
+   "scan date"            TEXT,
+   Condition              TEXT,
+   "Long Description"     TEXT,
+   "Profile ID"           TEXT,
+   "Fnd Src"              TEXT,
+   "Run Date"             TEXT
+);
+
+
+AllDevices_2026.csv (3412)
+Oct_2026.csv (610)
+
+
+UPDATE Oct_2026 SET Man_num = REPLACE (Man_num, 'MAN-', '');
+UPDATE AllDevices_2026 SET Man_num = '00' || Man_num;
+ALTER TABLE Oct_2026 ADD COLUMN Man_Ser TEXT;
+ALTER TABLE AllDevices_2026 ADD COLUMN Man_Ser TEXT;
+UPDATE Oct_2026 SET Man_Ser = Man_num || '-' || Serial_num;
+UPDATE AllDevices_2026 SET Man_Ser = Man_num || '-' || Serial_num;
+
+
+***************************************************************************************************
+.mode csv
+.header on
+.output found_2026.csv
+SELECT
+   a0.Name,
+   b0.Unit,
+   b0."Asset ID",
+   b0."Asset Status",
+   b0.Man_num,
+   b0.Descr,
+   b0."Acq Date",
+   b0.Taggable,
+   b0.Offsite,
+   b0.Custodian,
+   b0."Insite Building",
+   b0."Insite Floor",
+   b0."Insite Room",
+   b0."Custodian Dept",
+   b0."Custodian Dept Descr",
+   b0."GL Cost Dept",
+   b0."GL Dept Descr",
+   b0.PO,
+   b0."CF Current Location",
+   b0."CF Location Descr",
+   b0.Manufacturer,
+   b0.Model,
+   b0.Serial_num,
+   b0."Sum Cost",
+   b0."Scan Location",
+   b0."File Name",
+   b0."scan date",
+   b0.Condition,
+   b0."Long Description",
+   b0."Profile ID",
+   b0."Fnd Src",
+   b0."Run Date"
+FROM
+   AllDevices_2026 a0,
+   Oct_2026        b0
+WHERE
+   a0.Man_Ser = b0.Man_Ser;
+.output stdout
+.exit
+
+
+***************************************************************************************************
+CREATE TABLE AllDevices_Reduced AS SELECT * FROM AllDevices_2026;
+DELETE FROM AllDevices_Reduced WHERE Man_Ser IN (
+SELECT
+   a0.Man_Ser
+FROM
+   AllDevices_2026 a0,
+   Oct_2026        b0
+WHERE
+   a0.Man_Ser = b0.Man_Ser
+);
+
+
+***************************************************************************************************
+.mode csv
+.header on
+.output AllDevices_Reduced.csv
+SELECT * FROM AllDevices_Reduced;
+.output stdout
+.exit
+
+
+
+
+
+
+
+
+
+

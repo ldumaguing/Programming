@@ -1,0 +1,406 @@
+DROP TABLE IF EXISTS AllDevices_2026;
+CREATE TABLE AllDevices_2026 (
+   Name                TEXT,
+   In_Service          TEXT,
+   Man_num             TEXT,
+   Serial_num          TEXT,
+   Aliases             TEXT,
+   HardwareVendor      TEXT,
+   model               TEXT,
+   OS                  TEXT,
+   Customers           TEXT,
+   Location            TEXT,
+   Last_Discovered     TEXT,
+   Last_Updated        TEXT,
+   User_Last_Logged_In TEXT
+);
+
+DROP TABLE IF EXISTS Oct_2026;
+CREATE TABLE Oct_2026 (
+   misc                   TEXT,
+   Unit                   TEXT,
+   "Asset ID"             TEXT,
+   "Asset Status"         TEXT,
+   Man_num                TEXT,
+   Descr                  TEXT,
+   "Acq Date"             TEXT,
+   Taggable               TEXT,
+   Offsite                TEXT,
+   Custodian              TEXT,
+   "Insite Building"      TEXT,
+   "Insite Floor"         TEXT,
+   "Insite Room"          TEXT,
+   "Custodian Dept"       TEXT,
+   "Custodian Dept Descr" TEXT,
+   "GL Cost Dept"         TEXT,
+   "GL Dept Descr"        TEXT,
+   PO                     TEXT,
+   "CF Current Location"  TEXT,
+   "CF Location Descr"    TEXT,
+   Manufacturer           TEXT,
+   Model                  TEXT,
+   Serial_num             TEXT,
+   "Sum Cost"             TEXT,
+   "Scan Location"        TEXT,
+   "File Name"            TEXT,
+   "scan date"            TEXT,
+   Condition              TEXT,
+   "Long Description"     TEXT,
+   "Profile ID"           TEXT,
+   "Fnd Src"              TEXT,
+   "Run Date"             TEXT
+);
+
+
+
+ALTER TABLE AllDevices_2026 ADD COLUMN Man_Ser TEXT;
+UPDATE AllDevices_2026 SET Man_Ser = Man_num || '-' || Serial_num;
+
+SELECT Man_Ser, COUNT(*) as count
+FROM AllDevices_2026
+GROUP BY
+   Man_Ser
+HAVING
+   count > 1;
+
+
+
+************************************************************************************************************************************
+ALTER TABLE Oct_2026 ADD COLUMN Man_Ser TEXT;
+UPDATE Oct_2026 SET Man_Ser = Man_num || '-' || Serial_num;
+UPDATE Oct_2026 SET Man_Ser = REPLACE (Man_Ser, 'MAN-', '');
+
+SELECT Man_Ser, COUNT(*) as count
+FROM Oct_2026
+GROUP BY
+   Man_Ser
+HAVING
+   count > 1;
+
+ALTER TABLE Oct_2026 ADD COLUMN No_Man TEXT;
+UPDATE Oct_2026 SET No_Man = Man_num;
+UPDATE Oct_2026 SET No_Man = REPLACE(No_Man, 'MAN-', '');
+
+************************************************************************************************************************************
+SELECT *
+FROM
+   AllDevices_2026 aaa,
+   Oct_2026 bbb
+WHERE
+   aaa.Man_num = bbb.Man_num;
+
+
+
+************************************************************************************************************************************
+************************
+SELECT Man_num, COUNT(*) as count
+FROM AllDevices_2026
+GROUP BY
+   Man_num
+HAVING
+   count > 1;
+------------------------
+37058,2
+37062,2
+37074,2
+37082,2
+37092,2
+37095,2
+37101,2
+37114,2
+37872,2
+40048,2
+40183,2
+42637,2
+43056,2
+44516,2
+44551,2
+44633,2
+45501,2
+46003,2
+46465,2
+47210,2
+47413,2
+47605,2
+48143,2
+48832,2
+
+
+************************
+.mode csv
+.headers on
+.output AllDevices_2026_noMAN.csv
+SELECT * FROM AllDevices_2026 where Man_num = '';
+.output stdout
+.quit
+
+
+************************
+.mode csv
+.headers on
+.output AllDevices_2026_notUniq.csv
+SELECT * FROM AllDevices_2026 WHERE Man_num IN (
+"37058",
+"37062",
+"37074",
+"37082",
+"37092",
+"37095",
+"37101",
+"37114",
+"37872",
+"40048",
+"40183",
+"42637",
+"43056",
+"44516",
+"44551",
+"44633",
+"45501",
+"46003",
+"46465",
+"47210",
+"47413",
+"47605",
+"48143",
+"48832"
+);
+.output stdout
+.quit
+
+
+************************
+.mode csv
+.headers on
+.output found_2026.csv
+SELECT
+   b0.misc,
+   b0.Unit,
+   b0."Asset ID",
+   b0."Asset Status",
+   b0.Man_num,
+   b0.Descr,
+   b0."Acq Date",
+   b0.Taggable,
+   b0.Offsite,
+   b0.Custodian,
+   b0."Insite Building",
+   b0."Insite Floor",
+   b0."Insite Room",
+   b0."Custodian Dept",
+   b0."Custodian Dept Descr",
+   b0."GL Cost Dept",
+   b0."GL Dept Descr",
+   b0.PO,
+   b0."CF Current Location" "room#",
+   b0."CF Location Descr",
+   b0.Manufacturer,
+   b0.Model,
+   b0.Serial_num,
+   b0."Sum Cost",
+   b0."Scan Location",
+   b0."File Name",
+   b0."scan date",
+   b0.Condition,
+   b0."Long Description",
+   b0."Profile ID",
+   b0."Fnd Src",
+   b0."Run Date"
+FROM
+   AllDevices_2026 a0,
+   Oct_2026        b0
+WHERE
+   a0.Serial_num = b0.Serial_num;
+.output stdout
+.quit
+
+
+
+
+
+
+
+
+************************
+SELECT Serial_num, COUNT(*) as count
+FROM AllDevices_2026
+GROUP BY
+   Serial_num
+HAVING
+   count > 1;
+------------------------
+none
+
+
+
+************************
+SELECT Serial_num, COUNT(*) as count
+FROM Oct_2026
+GROUP BY
+   Serial_num
+HAVING
+   count > 1;
+------------------------
+none
+
+
+************************
+SELECT No_Man, COUNT(*) as count
+FROM Oct_2026
+GROUP BY
+   No_Man
+HAVING
+   count > 1;
+------------------------
+none
+
+
+
+
+
+************************
+SELECT Serial_num, COUNT(*) as count
+FROM AllDevices_2026
+GROUP BY
+   Serial_num
+HAVING
+   count > 1;
+------------------------
+select * from AllDevices_2026 where Serial_num = '';
+Name,In_Service,Man_num,Serial_num,Aliases,HardwareVendor,model,OS,Customers,Location,Last_Discovered,Last_Updated,User_Last_Logged_In,Man_Ser
+S136D-MO-43674.bmcc.cuny.edu,Yes,43674,"",S136D-MO-43674,Dell,"Latitude 5520",Windows,"","","2026-08-26 18:51:58","2026-10-05 13:44:29","",43674-
+S330-O-40183.bmcc.cuny.edu,Yes,40183,"",S330-O-40183,Dell,"OptiPlex 7450 AIO",Windows,"","","2026-11-04 15:16:06","2026-11-04 15:16:06","",40183-
+
+
+
+
+
+
+
+************************************************************************************************************************************
+SELECT No_Man, COUNT(*) as count
+FROM Oct_2026
+GROUP BY
+   No_Man
+HAVING
+   count > 1;
+
+
+
+
+
+************************************************************************************************************************************
+SELECT
+   b0.Serial_num
+FROM
+   AllDevices_2026 a0,
+   Oct_2026        b0
+WHERE
+   a0.Serial_num = b0.Serial_num;
+
+
+
+
+************************************************************************************************************************************
+CREATE TABLE Oct_2026_serial_removed AS SELECT * FROM Oct_2026;
+
+DELETE FROM Oct_2026_serial_removed WHERE Serial_num IN (
+   "G79N3W2",
+   "GLH5F33",
+   "H3DQTD3",
+   "H3DTKD3",
+   "GNZ61M3",
+   "H35NTD3",
+   "H35PKD3",
+   "H3CNTD3",
+   "H38QKD3",
+   "2PMVDB2",
+   "H36NTD3",
+   "H38QTD3",
+   "H3CMKD3",
+   "H37QTD3",
+   "H3BTKD3",
+   "H3FPTD3",
+   "3VL89N2",
+   "H3DNTD3",
+   "H3DQKD3",
+   "F0J1B03",
+   "H3DSKD3",
+   "H3GQTD3",
+   "GM65F33",
+   "H3DPTD3",
+   "H3GMKD3",
+   "H36TKD3",
+   "H37PTD3",
+   "5X2P7M2",
+   "GX9W9T2",
+   "5CNR233",
+   "H37NTD3",
+   "H3DNKD3",
+   "5CKV233",
+   "5CVS233",
+   "DLVS903",
+   "DLW1B03",
+   "DLXZ903",
+   "2Z03JV2",
+   "H35PTD3",
+   "GM8BF33",
+   "H36PKD3",
+   "F0D1B03",
+   "H39RKD3",
+   "GX71BT2",
+   "G7GJ3W2",
+   "40S6JV2",
+   "G74L3W2",
+   "GM59F33",
+   "H3GNKD3"
+);
+
+
+************************
+.mode csv
+.headers on
+.output Oct_2026_serial_removed.csv
+select * from Oct_2026_serial_removed;
+.output stdout
+.quit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************************************************************************************************************
+and
+length(serial_num) = 7
+order by man_num, serial_num
+limit 100;
+
+
+
+
+
+
+
+.mode csv
+.headers on
+.output v_master2student.csv
+select * from v_master2student order by man_num;
+.output stdout
+.quit
+
+
+
+
+
+

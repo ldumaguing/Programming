@@ -13,7 +13,7 @@ pub fn build(b: *std.Build) void {
     // for restricting supported target set are available.
     const target = b.standardTargetOptions(.{});
     // Standard optimization options allow the person running `zig build` to select
-    // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall. Here we do not
+    // between debug, safe, fast, and small. Here we do not
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
     // It's also possible to define more custom flags to toggle optional features
@@ -83,11 +83,6 @@ pub fn build(b: *std.Build) void {
         }),
     });
 
-
-
-
-
-
     // *********************************************************************************
     const raylib_dep = b.dependency("raylib_zig", .{
         .target = target,
@@ -111,20 +106,6 @@ pub fn build(b: *std.Build) void {
     const c_mod = translate_c.createModule();
     exe.root_module.addImport("c", c_mod);
     exe.root_module.addCSourceFiles(.{ .files = &.{"lib/sqlite3.c"}, .flags = &.{} });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // This declares intent for the executable to be installed into the
     // install prefix when running `zig build` (i.e. when executing the default
