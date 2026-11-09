@@ -70,10 +70,10 @@ UPDATE AllDevices_2026 SET Man_Ser = Man_num || '-' || Serial_num;
 .output found_2026.csv
 SELECT
    a0.Name,
+   b0.Man_num,
    b0.Unit,
    b0."Asset ID",
    b0."Asset Status",
-   b0.Man_num,
    b0.Descr,
    b0."Acq Date",
    b0.Taggable,
