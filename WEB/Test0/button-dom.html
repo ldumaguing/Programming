@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Button Example</title>
+  <style>
+    .highlight {
+      color: white;
+      background-color: #007bff;
+      padding: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <p id="message">Original text</p>
+  <div id="container"></div>
+  <button id="action-btn">Update Page</button>
+
+  <script>
+    // 1. Select the button and target elements
+    const button = document.getElementById('action-btn');
+    const message = document.getElementById('message');
+    const container = document.getElementById('container');
+
+    // 2. Listen for the click event
+    button.addEventListener('click', () => {
+      // Change text content
+      message.textContent = 'The DOM has been updated!';
+
+      // Toggle a CSS class
+      message.classList.toggle('highlight');
+
+      // Create and append a new element
+      const newItem = document.createElement('p');
+      newItem.textContent = 'Added a new element.';
+      container.appendChild(newItem);
+    });
+  </script>
+
+</body>
+</html>
+
