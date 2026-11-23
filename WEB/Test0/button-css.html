@@ -1,0 +1,26 @@
+<style>
+  .box {
+    width: 150px;
+    height: 150px;
+    background-color: lightgray;
+  }
+  .active {
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 12px;
+  }
+</style>
+
+<div id="myBox" class="box">Hello</div>
+<button id="toggleBtn">Toggle Style</button>
+
+<script>
+  const button = document.getElementById('toggleBtn');
+  const box = document.getElementById('myBox');
+
+  button.addEventListener('click', () => {
+    // Adds 'active' if missing, removes it if present
+    box.classList.toggle('active');
+  });
+</script>
+
