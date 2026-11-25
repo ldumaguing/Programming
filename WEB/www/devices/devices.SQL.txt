@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS Foo;
-CREATE TABLE Foo (
-   loginTime TEXT,
-   timeNum   INTEGER,
-   username  TEXT
-);
-
-
-

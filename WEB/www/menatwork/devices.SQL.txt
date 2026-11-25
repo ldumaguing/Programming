@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS LogIn;
-CREATE TABLE LogIn (
-   loginTime TEXT,
-   timeNum   INTEGER,
-   username  TEXT,
-   sessId    TEXT
-);
-
