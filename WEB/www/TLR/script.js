@@ -11,6 +11,13 @@ let isDragging = false;
 let startX = 0;
 let startY = 0;
 
+const img = new Image();
+img.src = 'Pictures/Vassal/TLR/Map A.png';
+img.onload = () => {
+   ctx.drawImage(img, 0, 0);
+   draw();
+}
+
 function draw() {
 	// 1. Reset transform to clear the entire visible canvas cleanly
 	ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -18,6 +25,10 @@ function draw() {
 
 	// 2. Apply camera zoom and pan transform
 	ctx.setTransform(scale, 0, 0, scale, offsetX, offsetY);
+
+
+   ctx.drawImage(img, 0, 0);
+
 
 	// 3. Draw your scene in world coordinates
 	ctx.fillStyle = '#3b82f6';
@@ -52,6 +63,7 @@ canvas.addEventListener('wheel', (e) => {
 
 // Click and drag to pan
 canvas.addEventListener('mousedown', (e) => {
+   console.log(e.button);
 	isDragging = true;
 	startX = e.clientX - offsetX;
 	startY = e.clientY - offsetY;
@@ -68,5 +80,5 @@ canvas.addEventListener('mouseup', () => isDragging = false);
 canvas.addEventListener('mouseleave', () => isDragging = false);
 
 // Initial render
-draw();
+// draw();
 
